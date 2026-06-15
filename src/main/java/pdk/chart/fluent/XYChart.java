@@ -195,6 +195,17 @@ public class XYChart extends Chart {
         return this;
     }
 
+
+    /**
+     * Sets the alpha-transparency for the plot.
+     *
+     * @param alpha the new alpha transparency.
+     */
+    public XYChart foregroundAlpha(float alpha) {
+        plot_.setForegroundAlpha(alpha);
+        return this;
+    }
+
     /**
      * Set the dataset to plot
      *
