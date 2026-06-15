@@ -14,6 +14,19 @@ public enum CategoryXYChartType {
     LINE,
     AREA,
     BAR,
+    /**
+     * Use the IntervalCategoryDataset.
+     * In this case, bars do not start from zero; instead, they are displayed within specified intervals.
+     */
+    BAR_INTERVAL,
+    /**
+     * Bars of different series under the same category are displayed overlapping.
+     */
+    BAR_LAYER,
+    /**
+     * A bar chart with a mean and a standard deviation line
+     */
+    BAR_STATISTICS,
     BoxWhisker;
 
     public CategoryItemRenderer getRenderer() {
@@ -27,6 +40,12 @@ public enum CategoryXYChartType {
             BarRenderer barRenderer = new BarRenderer();
             barRenderer.setShadowVisible(false);
             return barRenderer;
+        } else if (this == BAR_INTERVAL) {
+            return new IntervalBarRenderer();
+        } else if (this == BAR_LAYER) {
+            return new LayeredBarRenderer();
+        } else if (this == BAR_STATISTICS) {
+            return new StatisticalBarRenderer();
         } else if (this == LINE) {
             LineAndShapeRenderer renderer = new LineAndShapeRenderer();
             return renderer;

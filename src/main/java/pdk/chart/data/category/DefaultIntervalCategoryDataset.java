@@ -125,8 +125,7 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
 
                     this.seriesKeys = seriesKeys;
                 } else {
-                    String prefix = resources.getString(
-                            "series.default-prefix") + " ";
+                    String prefix = resources.getString("series.default-prefix") + " ";
                     this.seriesKeys = generateKeys(seriesCount, prefix);
                 }
 

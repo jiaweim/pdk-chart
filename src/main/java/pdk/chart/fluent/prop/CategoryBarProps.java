@@ -2,11 +2,13 @@ package pdk.chart.fluent.prop;
 
 import org.jspecify.annotations.Nullable;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.labels.*;
 import pdk.chart.renderer.category.BarPainter;
 import pdk.chart.renderer.category.BarRenderer;
+import pdk.chart.renderer.category.StatisticalBarRenderer;
 import pdk.chart.util.GradientPaintTransformer;
 
 import java.awt.*;
@@ -207,6 +209,44 @@ public class CategoryBarProps extends CategoryXYRendererProps {
      */
     public CategoryBarProps itemLabelInsets(RectangleInsets itemLabelInsets) {
         renderer_.setItemLabelInsets(itemLabelInsets);
+        return this;
+    }
+
+    /**
+     * Sets the default item label paint.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public CategoryBarProps defaultItemLabelPaint(Paint paint) {
+        renderer_.setDefaultItemLabelPaint(paint, false);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether the base value for the bars
+     * is included in the range calculated by
+     * {@link #findRangeBounds(CategoryDataset)}.  If the flag is changed,
+     * a {@link RendererChangeEvent} is sent to all registered listeners.
+     *
+     * @param include the new value for the flag.
+     */
+    public CategoryBarProps includeBaseInRange(boolean include) {
+        if (renderer_ instanceof StatisticalBarRenderer barRenderer) {
+            barRenderer.setIncludeBaseInRange(include);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the paint used for the error indicators (if {@code null},
+     * the item outline paint is used instead).
+     *
+     * @param paint the paint.
+     */
+    public CategoryBarProps errorIndicatorPaint(@Nullable Paint paint) {
+        if (renderer_ instanceof StatisticalBarRenderer barRenderer) {
+            barRenderer.setErrorIndicatorPaint(paint);
+        }
         return this;
     }
 }

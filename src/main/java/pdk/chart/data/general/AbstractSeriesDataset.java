@@ -1,39 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * --------------------------
- * AbstractSeriesDataset.java
- * --------------------------
- * (C) Copyright 2001-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.data.general;
 
 import java.io.Serializable;
@@ -44,11 +8,13 @@ import java.io.Serializable;
  *
  * @param <S> the key type.
  */
-public abstract class AbstractSeriesDataset<S extends Comparable<S>> 
-        extends AbstractDataset 
+public abstract class AbstractSeriesDataset<S extends Comparable<S>>
+        extends AbstractDataset
         implements SeriesDataset<S>, SeriesChangeListener, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -6074996219705033171L;
 
     /**
@@ -73,9 +39,8 @@ public abstract class AbstractSeriesDataset<S extends Comparable<S>>
      * implementing method should throw an {@link IndexOutOfBoundsException}
      * (preferred) or an {@link IllegalArgumentException}.
      *
-     * @param series  the series index (in the range {@code 0} to
-     *     {@code getSeriesCount() - 1}).
-     *
+     * @param series the series index (in the range {@code 0} to
+     *               {@code getSeriesCount() - 1}).
      * @return The series key.
      */
     @Override
@@ -84,17 +49,16 @@ public abstract class AbstractSeriesDataset<S extends Comparable<S>>
     /**
      * Returns the index of the named series, or -1.
      *
-     * @param seriesKey  the series key ({@code null} permitted).
-     *
+     * @param seriesKey the series key ({@code null} permitted).
      * @return The index.
      */
     @Override
     public int indexOf(S seriesKey) {
         int seriesCount = getSeriesCount();
         for (int s = 0; s < seriesCount; s++) {
-           if (getSeriesKey(s).equals(seriesKey)) {
-               return s;
-           }
+            if (getSeriesKey(s).equals(seriesKey)) {
+                return s;
+            }
         }
         return -1;
     }
@@ -102,7 +66,7 @@ public abstract class AbstractSeriesDataset<S extends Comparable<S>>
     /**
      * Called when a series belonging to the dataset changes.
      *
-     * @param event  information about the change.
+     * @param event information about the change.
      */
     @Override
     public void seriesChanged(SeriesChangeEvent event) {

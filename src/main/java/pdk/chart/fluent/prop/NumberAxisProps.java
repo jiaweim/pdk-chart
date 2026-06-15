@@ -9,6 +9,7 @@ import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.fluent.XYChart;
 
 import java.awt.*;
+import java.text.NumberFormat;
 
 /**
  * A class for configuring properties of NumberAxis, designed with a fluent style API.
@@ -202,6 +203,17 @@ public class NumberAxisProps {
      */
     public NumberAxisProps tickMarkPaint(Paint paint) {
         axis_.setTickMarkPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the number format override.  If this is non-null, then it will be
+     * used to format the numbers on the axis.
+     *
+     * @param formatter the number formatter.
+     */
+    public NumberAxisProps numberFormatOverride(@Nullable NumberFormat formatter) {
+        axis_.setNumberFormatOverride(formatter);
         return this;
     }
 }

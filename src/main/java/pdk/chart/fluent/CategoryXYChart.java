@@ -6,6 +6,7 @@ import pdk.chart.Chart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.api.SortOrder;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
@@ -380,6 +381,18 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
+     * Sets the flag that controls whether the zero baseline is
+     * displayed for the range axis, and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param visible the flag.
+     */
+    public CategoryXYChart rangeZeroBaselineVisible(boolean visible) {
+        plot_.setRangeZeroBaselineVisible(visible);
+        return this;
+    }
+
+    /**
      * Sets the flag indicating whether the range crosshair is visible.
      *
      * @param flag the new value of the flag.
@@ -436,8 +449,7 @@ public class CategoryXYChart extends Chart {
 
 
     /**
-     * Sets the flag that enables or disables panning of the plot along
-     * the range axes.
+     * Enables or disables panning of the plot along the range axes.
      *
      * @param pannable the new flag value.
      */
@@ -526,4 +538,17 @@ public class CategoryXYChart extends Chart {
         return this;
     }
 
+    /**
+     * Sets the row order in which the items in each dataset should be
+     * rendered.
+     * <p>
+     * Note that this affects the order in which items are drawn,
+     * NOT their position in the chart.
+     *
+     * @param order the order ({@code null} not permitted).
+     */
+    public CategoryXYChart rowRenderingOrder(SortOrder order) {
+        plot_.setRowRenderingOrder(order);
+        return this;
+    }
 }
