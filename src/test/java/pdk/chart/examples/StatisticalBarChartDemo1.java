@@ -42,7 +42,6 @@ public class StatisticalBarChartDemo1 {
 
         Chart.DEFAULT_THEME.apply(chart);
 
-
         chart.barRenderer(0)
                 .drawBarOutline(false)
                 .errorIndicatorPaint(Color.BLACK)

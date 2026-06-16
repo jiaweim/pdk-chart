@@ -2,7 +2,6 @@ package pdk.chart.axis;
 
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.text.TextBlock;
@@ -15,6 +14,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * An extended version of the {@link CategoryAxis} class that supports
@@ -72,7 +72,7 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * @see #getSubLabelFont()
      */
     public void setSubLabelFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.sublabelFont = font;
         notifyListeners(new AxisChangeEvent(this));
     }
@@ -95,7 +95,7 @@ public class ExtendedCategoryAxis extends CategoryAxis {
      * @see #getSubLabelPaint()
      */
     public void setSubLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.sublabelPaint = paint;
         notifyListeners(new AxisChangeEvent(this));
     }
@@ -153,10 +153,9 @@ public class ExtendedCategoryAxis extends CategoryAxis {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof ExtendedCategoryAxis)) {
+        if (!(obj instanceof ExtendedCategoryAxis that)) {
             return false;
         }
-        ExtendedCategoryAxis that = (ExtendedCategoryAxis) obj;
         if (!this.sublabelFont.equals(that.sublabelFont)) {
             return false;
         }
@@ -205,5 +204,4 @@ public class ExtendedCategoryAxis extends CategoryAxis {
         stream.defaultReadObject();
         this.sublabelPaint = SerialUtils.readPaint(stream);
     }
-
 }

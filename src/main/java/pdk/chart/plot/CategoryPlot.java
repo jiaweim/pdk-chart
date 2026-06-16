@@ -1594,7 +1594,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getDomainGridlinePosition()
      */
     public void setDomainGridlinePosition(CategoryAnchor position) {
-        Args.nullNotPermitted(position, "position");
+        Objects.requireNonNull(position, "position");
         this.domainGridlinePosition = position;
         fireChangeEvent();
     }
@@ -1617,7 +1617,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getDomainGridlineStroke()
      */
     public void setDomainGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.domainGridlineStroke = stroke;
         fireChangeEvent();
     }
@@ -1640,7 +1640,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getDomainGridlinePaint()
      */
     public void setDomainGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.domainGridlinePaint = paint;
         fireChangeEvent();
     }
@@ -1687,7 +1687,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getRangeZeroBaselineStroke()
      */
     public void setRangeZeroBaselineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.rangeZeroBaselineStroke = stroke;
         fireChangeEvent();
     }
@@ -1711,7 +1711,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getRangeZeroBaselinePaint()
      */
     public void setRangeZeroBaselinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeZeroBaselinePaint = paint;
         fireChangeEvent();
     }
@@ -1759,7 +1759,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getRangeGridlineStroke()
      */
     public void setRangeGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.rangeGridlineStroke = stroke;
         fireChangeEvent();
     }
@@ -1782,7 +1782,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getRangeGridlinePaint()
      */
     public void setRangeGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeGridlinePaint = paint;
         fireChangeEvent();
     }
@@ -1834,7 +1834,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getRangeMinorGridlineStroke()
      */
     public void setRangeMinorGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.rangeMinorGridlineStroke = stroke;
         fireChangeEvent();
     }
@@ -1858,7 +1858,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getRangeMinorGridlinePaint()
      */
     public void setRangeMinorGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeMinorGridlinePaint = paint;
         fireChangeEvent();
     }
@@ -1922,7 +1922,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      */
     @Override
     public void handleClick(int x, int y, PlotRenderingInfo info) {
-
         Rectangle2D dataArea = info.getDataArea();
         if (dataArea.contains(x, y)) {
             // set the anchor value for the range axis...
@@ -2000,7 +1999,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
             e.setType(ChartChangeEventType.DATASET_UPDATED);
             notifyListeners(e);
         }
-
     }
 
     /**
@@ -2087,8 +2085,9 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      */
     public void addDomainMarker(int index, CategoryMarker marker, Layer layer,
             boolean notify) {
-        Args.nullNotPermitted(marker, "marker");
-        Args.nullNotPermitted(layer, "layer");
+        Objects.requireNonNull(marker, "marker must not be null");
+        Objects.requireNonNull(layer, "layer must not be null");
+
         Collection<CategoryMarker> markers;
         if (layer == Layer.FOREGROUND) {
             markers = this.foregroundDomainMarkers.get(index);
@@ -2486,7 +2485,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      */
     public boolean removeRangeMarker(int index, Marker marker, Layer layer,
             boolean notify) {
-        Args.nullNotPermitted(marker, "marker");
+        Objects.requireNonNull(marker, "marker");
         Collection<Marker> markers;
         if (layer == Layer.FOREGROUND) {
             markers = this.foregroundRangeMarkers.get(index);
@@ -2647,7 +2646,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #getDomainCrosshairPaint()
      */
     public void setDomainCrosshairPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.domainCrosshairPaint = paint;
         fireChangeEvent();
     }

@@ -1,5 +1,6 @@
 package pdk.chart.fluent.prop;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.category.CategoryDataset;
@@ -86,6 +87,16 @@ public class CategoryBarProps extends CategoryXYRendererProps {
     }
 
     /**
+     * Sets the base value for the bars.
+     *
+     * @param base the new base value.
+     */
+    public CategoryBarProps base(double base) {
+        renderer_.setBase(base);
+        return this;
+    }
+
+    /**
      * Sets the legend item tool tip generator and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      * <p>
@@ -142,6 +153,16 @@ public class CategoryBarProps extends CategoryXYRendererProps {
         return this;
     }
 
+
+    /**
+     * Sets the default item label font.
+     *
+     * @param font the font.
+     */
+    public CategoryBarProps defaultItemLabelFont(@NonNull Font font) {
+        renderer_.setDefaultItemLabelFont(font);
+        return this;
+    }
 
     /**
      * Set whether the item labels of the specified series are visible.

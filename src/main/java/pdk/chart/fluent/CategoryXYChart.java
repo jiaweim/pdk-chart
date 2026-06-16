@@ -3,24 +3,19 @@ package pdk.chart.fluent;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
+import pdk.chart.annotations.CategoryAnnotation;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.SortOrder;
-import pdk.chart.axis.AxisLocation;
-import pdk.chart.axis.CategoryAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.ValueAxis;
+import pdk.chart.axis.*;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.fluent.prop.*;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.CategoryMarker;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.Marker;
-import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.*;
 import pdk.chart.renderer.category.AreaRenderer;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.CategoryItemRenderer;
@@ -51,7 +46,7 @@ public class CategoryXYChart extends Chart {
     }
 
     private final NumberAxis rangeAxis_ = new NumberAxis();
-    private final CategoryAxis domainAxis_ = new CategoryAxis();
+    private CategoryAxis domainAxis_ = new CategoryAxis();
     private final CategoryPlot plot_;
 
     public CategoryXYChart() {
@@ -139,6 +134,18 @@ public class CategoryXYChart extends Chart {
         return new NumberAxisProps(this, rangeAxis_);
     }
 
+    /**
+     * Set the domain axis.
+     *
+     * @param domainAxis {@link CategoryAxis} instance.
+     * @return this.
+     */
+    public CategoryXYChart domainAxis(CategoryAxis domainAxis) {
+        plot_.setDomainAxis(domainAxis);
+        this.domainAxis_ = domainAxis;
+        return this;
+    }
+
     public CategoryAxisProps domainAxis() {
         return new CategoryAxisProps(this, domainAxis_);
     }
@@ -208,6 +215,25 @@ public class CategoryXYChart extends Chart {
                         ItemLabelAnchor.OUTSIDE6, TextAnchor.TOP_CENTER);
                 renderer.setDefaultNegativeItemLabelPosition(position2);
             }
+        } else if (chartType == CategoryXYChartType.BAR_WATERFALL) {
+            PlotOrientation orientation = plot_.getOrientation();
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                ItemLabelPosition position = new ItemLabelPosition(
+                        ItemLabelAnchor.CENTER, TextAnchor.CENTER,
+                        TextAnchor.CENTER, Math.PI / 2.0);
+                renderer.setDefaultPositiveItemLabelPosition(position);
+                renderer.setDefaultNegativeItemLabelPosition(position);
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                ItemLabelPosition position = new ItemLabelPosition(
+                        ItemLabelAnchor.CENTER, TextAnchor.CENTER,
+                        TextAnchor.CENTER, 0.0);
+                renderer.setDefaultPositiveItemLabelPosition(position);
+                renderer.setDefaultNegativeItemLabelPosition(position);
+            }
+            plot_.clearRangeMarkers();
+            Marker baseline = new ValueMarker(0.0);
+            baseline.setPaint(Color.BLACK);
+            plot_.addRangeMarker(baseline, Layer.FOREGROUND);
         }
 
         plot_.setDataset(index, dataset);
@@ -370,6 +396,26 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
+     * Sets the position used for the domain gridlines.
+     *
+     * @param position the position.
+     */
+    public CategoryXYChart domainGridlinePosition(@NonNull CategoryAnchor position) {
+        plot_.setDomainGridlinePosition(position);
+        return this;
+    }
+
+    /**
+     * Sets the stroke used to draw grid-lines against the domain axis.
+     *
+     * @param stroke the stroke.
+     */
+    public CategoryXYChart domainGridlineStroke(@NonNull Stroke stroke) {
+        plot_.setDomainGridlineStroke(stroke);
+        return this;
+    }
+
+    /**
      * Whether grid-lines are drawn against the range axis.
      *
      * @param showGridlines true if show grid lines
@@ -428,7 +474,7 @@ public class CategoryXYChart extends Chart {
     /**
      * Sets the paint used to draw the outline of the plot area.
      * <p>
-     * If you set this attribute to {@code null}, no outline will be drawn.
+     * If set this attribute to {@code null}, no outline will be drawn.
      *
      * @param paint the paint.
      */
@@ -473,6 +519,14 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
+     * Clears all the range markers for the plot.
+     */
+    public CategoryXYChart clearRangeMarkers() {
+        plot_.clearRangeMarkers();
+        return this;
+    }
+
+    /**
      * Adds a marker for display against the domain axis and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      * <p>
@@ -484,6 +538,16 @@ public class CategoryXYChart extends Chart {
      */
     public CategoryXYChart addDomainMarker(@NonNull CategoryMarker marker, @NonNull Layer layer) {
         plot_.addDomainMarker(0, marker, layer);
+        return this;
+    }
+
+    /**
+     * Adds an annotation to the plot.
+     *
+     * @param annotation the annotation.
+     */
+    public CategoryXYChart addAnnotation(@NonNull CategoryAnnotation annotation) {
+        plot_.addAnnotation(annotation, false);
         return this;
     }
 

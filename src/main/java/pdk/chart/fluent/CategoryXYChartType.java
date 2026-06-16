@@ -27,6 +27,10 @@ public enum CategoryXYChartType {
      * A bar chart with a mean and a standard deviation line
      */
     BAR_STATISTICS,
+    /**
+     * waterfall bar charts
+     */
+    BAR_WATERFALL,
     BoxWhisker;
 
     public CategoryItemRenderer getRenderer() {
@@ -46,6 +50,8 @@ public enum CategoryXYChartType {
             return new LayeredBarRenderer();
         } else if (this == BAR_STATISTICS) {
             return new StatisticalBarRenderer();
+        } else if (this == BAR_WATERFALL) {
+            return new WaterfallBarRenderer();
         } else if (this == LINE) {
             LineAndShapeRenderer renderer = new LineAndShapeRenderer();
             return renderer;
