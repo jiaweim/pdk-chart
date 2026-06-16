@@ -197,6 +197,10 @@ public class XYChart extends Chart {
         return this;
     }
 
+    public LegendTitleProps legend() {
+        return new LegendTitleProps(this, (LegendTitle) getSubtitle(0));
+    }
+
     /**
      * Whether to create and display the legend.
      *
@@ -310,6 +314,32 @@ public class XYChart extends Chart {
      */
     public XYChart addRangeMarker(Marker marker, Layer layer) {
         plot_.addRangeMarker(marker, layer);
+        return this;
+    }
+
+    /**
+     * Adds a marker for the range axis in the specified layer.
+     * <p>
+     * Typically a marker will be drawn by the renderer as a line perpendicular
+     * to the range axis, however this is entirely up to the renderer.
+     *
+     * @param marker the marker ({@code null} not permitted).
+     */
+    public XYChart addRangeMarker(Marker marker) {
+        plot_.addRangeMarker(marker, Layer.FOREGROUND);
+        return this;
+    }
+
+    /**
+     * Adds a marker for the domain axis.
+     * <p>
+     * Typically a marker will be drawn by the renderer as a line perpendicular
+     * to the domain axis, however this is entirely up to the renderer.
+     *
+     * @param marker the marker ({@code null} not permitted).
+     */
+    public XYChart addDomainMarker(Marker marker) {
+        plot_.addDomainMarker(marker, Layer.FOREGROUND);
         return this;
     }
 

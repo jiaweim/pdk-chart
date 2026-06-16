@@ -4,6 +4,7 @@ import org.jspecify.annotations.Nullable;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.labels.StandardXYToolTipGenerator;
+import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 
 import java.awt.*;
@@ -219,6 +220,16 @@ public class XYLineAndShapeProps extends XYRendererProps {
      */
     public XYLineAndShapeProps drawSeriesLineAsPath(boolean flag) {
         renderer_.setDrawSeriesLineAsPath(flag);
+        return this;
+    }
+
+    /**
+     * Sets the default tool tip generator.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public XYLineAndShapeProps defaultToolTipGenerator(XYToolTipGenerator generator) {
+        renderer_.setDefaultToolTipGenerator(generator);
         return this;
     }
 }

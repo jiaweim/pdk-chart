@@ -2,6 +2,7 @@ package pdk.chart.fluent.prop;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
@@ -58,6 +59,33 @@ public class CategoryLineProps extends CategoryXYRendererProps {
     }
 
     /**
+     * Sets the 'shapes visible' flag for a series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series  the series index (zero-based).
+     * @param visible the flag.
+     */
+    public CategoryLineProps seriesShapesVisible(int series, boolean visible) {
+        renderer_.setSeriesShapesVisible(series, visible);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether outlines are drawn for
+     * shapes.
+     * <p>
+     * In some cases, shapes look better if they do NOT have an outline, but
+     * this flag allows you to set your own preference.
+     *
+     * @param flag the flag.
+     */
+    public CategoryLineProps drawOutlines(boolean flag) {
+        renderer_.setDrawOutlines(flag);
+        return this;
+    }
+
+
+    /**
      * Sets the outline stroke used for a series.
      * <p>
      * For example, it can be used to set the border width of each data point.
@@ -90,6 +118,28 @@ public class CategoryLineProps extends CategoryXYRendererProps {
      */
     public CategoryLineProps seriesLinesWidth(int series, float width) {
         renderer_.setSeriesStroke(series, new BasicStroke(width));
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether the fill paint is used to fill
+     * shapes.
+     *
+     * @param flag the flag.
+     */
+    public CategoryLineProps useFillPaint(boolean flag) {
+        renderer_.setUseFillPaint(flag);
+        return this;
+    }
+
+
+    /**
+     * Sets the default fill paint.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public CategoryLineProps defaultFillPaint(Paint paint) {
+        renderer_.setDefaultFillPaint(paint, false);
         return this;
     }
 }

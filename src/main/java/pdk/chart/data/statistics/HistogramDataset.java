@@ -92,12 +92,10 @@ public class HistogramDataset extends AbstractIntervalXYDataset
      */
     public void addSeries(Comparable key, double[] values, int bins,
             double minimum, double maximum) {
-
-        Args.nullNotPermitted(key, "key");
-        Args.nullNotPermitted(values, "values");
+        Objects.requireNonNull(key, "key");
+        Objects.requireNonNull(values, "values");
         if (bins < 1) {
-            throw new IllegalArgumentException(
-                    "The 'bins' value must be at least 1.");
+            throw new IllegalArgumentException("The 'bins' value must be at least 1.");
         }
         double binWidth = (maximum - minimum) / bins;
 
@@ -134,7 +132,7 @@ public class HistogramDataset extends AbstractIntervalXYDataset
                     binIndex = bins - 1;
                 }
             }
-            HistogramBin bin = (HistogramBin) binList.get(binIndex);
+            HistogramBin bin = binList.get(binIndex);
             bin.incrementCount();
         }
         // generic map for each series
@@ -160,9 +158,9 @@ public class HistogramDataset extends AbstractIntervalXYDataset
                     "Null or zero length 'values' argument.");
         }
         double min = Double.MAX_VALUE;
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] < min) {
-                min = values[i];
+        for (double value : values) {
+            if (value < min) {
+                min = value;
             }
         }
         return min;
@@ -181,9 +179,9 @@ public class HistogramDataset extends AbstractIntervalXYDataset
                     "Null or zero length 'values' argument.");
         }
         double max = -Double.MAX_VALUE;
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] > max) {
-                max = values[i];
+        for (double value : values) {
+            if (value > max) {
+                max = value;
             }
         }
         return max;

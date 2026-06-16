@@ -10,7 +10,6 @@ import pdk.chart.block.AbstractBlock;
 import pdk.chart.block.Block;
 import pdk.chart.event.TitleChangeEvent;
 import pdk.chart.event.TitleChangeListener;
-import pdk.chart.internal.Args;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;
@@ -131,10 +130,10 @@ public abstract class Title extends AbstractBlock
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment, RectangleInsets padding) {
 
-        Args.nullNotPermitted(position, "position");
-        Args.nullNotPermitted(horizontalAlignment, "horizontalAlignment");
-        Args.nullNotPermitted(verticalAlignment, "verticalAlignment");
-        Args.nullNotPermitted(padding, "padding");
+        Objects.requireNonNull(position, "position");
+        Objects.requireNonNull(horizontalAlignment, "horizontalAlignment");
+        Objects.requireNonNull(verticalAlignment, "verticalAlignment");
+        Objects.requireNonNull(padding, "padding");
 
         this.visible = true;
         this.position = position;
@@ -184,7 +183,7 @@ public abstract class Title extends AbstractBlock
      * @param position the position ({@code null} not permitted).
      */
     public void setPosition(RectangleEdge position) {
-        Args.nullNotPermitted(position, "position");
+        Objects.requireNonNull(position, "position");
         if (this.position != position) {
             this.position = position;
             notifyListeners(new TitleChangeEvent(this));
@@ -208,7 +207,7 @@ public abstract class Title extends AbstractBlock
      *                  permitted).
      */
     public void setHorizontalAlignment(HorizontalAlignment alignment) {
-        Args.nullNotPermitted(alignment, "alignment");
+        Objects.requireNonNull(alignment, "alignment");
         if (this.horizontalAlignment != alignment) {
             this.horizontalAlignment = alignment;
             notifyListeners(new TitleChangeEvent(this));
@@ -232,7 +231,7 @@ public abstract class Title extends AbstractBlock
      *                  {@code null} not permitted).
      */
     public void setVerticalAlignment(VerticalAlignment alignment) {
-        Args.nullNotPermitted(alignment, "alignment");
+        Objects.requireNonNull(alignment, "alignment");
         if (this.verticalAlignment != alignment) {
             this.verticalAlignment = alignment;
             notifyListeners(new TitleChangeEvent(this));
@@ -351,10 +350,9 @@ public abstract class Title extends AbstractBlock
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof Title)) {
+        if (!(obj instanceof Title that)) {
             return false;
         }
-        Title that = (Title) obj;
         if (this.visible != that.visible) {
             return false;
         }
@@ -382,8 +380,7 @@ public abstract class Title extends AbstractBlock
     public int hashCode() {
         int result = 193;
         result = 37 * result + Objects.hashCode(this.position);
-        result = 37 * result
-                + Objects.hashCode(this.horizontalAlignment);
+        result = 37 * result + Objects.hashCode(this.horizontalAlignment);
         result = 37 * result + Objects.hashCode(this.verticalAlignment);
         return result;
     }
