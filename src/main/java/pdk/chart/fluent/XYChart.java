@@ -8,7 +8,9 @@ import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.fluent.prop.*;
 import pdk.chart.legend.LegendTitle;
@@ -37,15 +39,27 @@ public class XYChart extends Chart {
         return new XYChart();
     }
 
-    private final NumberAxis domainAxis_;
+    public static XYChart create(boolean dateAxis) {
+        return new XYChart(dateAxis);
+    }
+
+    private final ValueAxis domainAxis_;
     private final NumberAxis rangeAxis_;
     private final XYPlot plot_;
 
     public XYChart() {
+        this(false);
+    }
+
+    public XYChart(boolean domainDate) {
         super(null, DEFAULT_TITLE_FONT, new XYPlot<>(), false);
         plot_ = (XYPlot) getPlot();
-        domainAxis_ = new NumberAxis();
-        domainAxis_.setAutoRangeIncludesZero(false);
+        if (domainDate) {
+            domainAxis_ = new DateAxis();
+        } else {
+            domainAxis_ = new NumberAxis();
+            ((NumberAxis) domainAxis_).setAutoRangeIncludesZero(false);
+        }
         rangeAxis_ = new NumberAxis();
 
         plot_.setDomainAxis(domainAxis_);
@@ -53,6 +67,7 @@ public class XYChart extends Chart {
 
         DEFAULT_THEME.apply(this);
     }
+
 
     /**
      * Return the configuration class for range axis properties.
@@ -69,7 +84,33 @@ public class XYChart extends Chart {
      * @return {@link CategoryNumberAxisProps}.
      */
     public NumberAxisProps domainAxis() {
-        return new NumberAxisProps(this, domainAxis_);
+        if (domainAxis_ instanceof NumberAxis nAxis) {
+            return new NumberAxisProps(this, nAxis);
+        } else {
+            throw new IllegalStateException("The domain axis is not NumberAxis");
+        }
+    }
+
+    /**
+     * Return the configuration class for domain axis properties.
+     *
+     * @return {@link DateAxisProps}.
+     */
+    public DateAxisProps dateDomainAxis() {
+        if (domainAxis_ instanceof DateAxis da) {
+            return new DateAxisProps(this, da);
+        } else {
+            throw new IllegalStateException("The domain axis is not DateAxis");
+        }
+    }
+
+    /**
+     * Return the domain axis.
+     *
+     * @return {@link ValueAxis}.
+     */
+    public ValueAxis getDomainAxis() {
+        return domainAxis_;
     }
 
     /**

@@ -1,5 +1,31 @@
 package pdk.chart.renderer.xy;
 
+import pdk.chart.api.PublicCloneable;
+import pdk.chart.api.RectangleEdge;
+import pdk.chart.api.RectangleInsets;
+import pdk.chart.axis.ValueAxis;
+import pdk.chart.data.Range;
+import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.data.xy.XYDataset;
+import pdk.chart.entity.EntityCollection;
+import pdk.chart.event.RendererChangeEvent;
+import pdk.chart.internal.Args;
+import pdk.chart.internal.CloneUtils;
+import pdk.chart.internal.SerialUtils;
+import pdk.chart.internal.ShapeUtils;
+import pdk.chart.labels.ItemLabelAnchor;
+import pdk.chart.labels.ItemLabelPosition;
+import pdk.chart.labels.XYItemLabelGenerator;
+import pdk.chart.labels.XYSeriesLabelGenerator;
+import pdk.chart.legend.LegendItem;
+import pdk.chart.plot.CrosshairState;
+import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.PlotRenderingInfo;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.text.TextUtils;
+import pdk.chart.util.GradientPaintTransformer;
+import pdk.chart.util.StandardGradientPaintTransformer;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
@@ -8,32 +34,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
-
-import pdk.chart.api.RectangleInsets;
-import pdk.chart.legend.LegendItem;
-import pdk.chart.axis.ValueAxis;
-import pdk.chart.entity.EntityCollection;
-import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.labels.ItemLabelAnchor;
-import pdk.chart.labels.ItemLabelPosition;
-import pdk.chart.labels.XYItemLabelGenerator;
-import pdk.chart.labels.XYSeriesLabelGenerator;
-import pdk.chart.plot.CrosshairState;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.PlotRenderingInfo;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.text.TextUtils;
-import pdk.chart.util.GradientPaintTransformer;
-import pdk.chart.api.RectangleEdge;
-import pdk.chart.util.StandardGradientPaintTransformer;
-import pdk.chart.internal.CloneUtils;
-import pdk.chart.internal.Args;
-import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.SerialUtils;
-import pdk.chart.internal.ShapeUtils;
-import pdk.chart.data.Range;
-import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.data.xy.XYDataset;
 
 /**
  * A renderer that draws bars on an {@link XYPlot} (requires an
@@ -454,7 +454,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
      * @param painter the painter ({@code null} not permitted).
      */
     public void setBarPainter(XYBarPainter painter) {
-        Args.nullNotPermitted(painter, "painter");
+        Objects.requireNonNull(painter, "painter");
         this.barPainter = painter;
         fireChangeEvent();
     }

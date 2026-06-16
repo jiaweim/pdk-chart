@@ -1,7 +1,12 @@
 package pdk.chart.fluent.prop;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import pdk.chart.axis.DateAxis;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.labels.StandardXYToolTipGenerator;
+import pdk.chart.labels.XYToolTipGenerator;
+import pdk.chart.renderer.xy.XYBarPainter;
 import pdk.chart.renderer.xy.XYBarRenderer;
 
 /**
@@ -28,7 +33,11 @@ public class XYBarProps extends XYRendererProps {
      */
     public XYBarProps addTooltips(boolean addTooltip) {
         if (addTooltip) {
-            renderer_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+            if (chart_.getDomainAxis() instanceof DateAxis) {
+                renderer_.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
+            } else {
+                renderer_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+            }
         }
         return this;
     }
@@ -40,6 +49,47 @@ public class XYBarProps extends XYRendererProps {
      */
     public XYBarProps drawBarOutline(boolean draw) {
         renderer_.setDrawBarOutline(draw);
+        return this;
+    }
+
+    /**
+     * Sets the default tool tip generator.
+     *
+     * @param generator the generator.
+     */
+    public XYBarProps defaultToolTipGenerator(@Nullable XYToolTipGenerator generator) {
+        renderer_.setDefaultToolTipGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the bar painter.
+     *
+     * @param painter the painter ({@code null} not permitted).
+     */
+    public XYBarProps barPainter(@NonNull XYBarPainter painter) {
+        renderer_.setBarPainter(painter);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether the renderer
+     * draws shadows for the bars.
+     *
+     * @param visible the new flag value.
+     */
+    public XYBarProps shadowVisible(boolean visible) {
+        renderer_.setShadowVisible(visible);
+        return this;
+    }
+
+    /**
+     * Sets the percentage amount by which the bars are trimmed.
+     *
+     * @param margin the new margin.
+     */
+    public XYBarProps margin(double margin) {
+        renderer_.setMargin(margin);
         return this;
     }
 }

@@ -556,7 +556,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * @param position the position ({@code null} not permitted).
      */
     public void setTickMarkPosition(DateTickMarkPosition position) {
-        Args.nullNotPermitted(position, "position");
+        Objects.requireNonNull(position, "position");
         this.tickMarkPosition = position;
         fireChangeEvent();
     }

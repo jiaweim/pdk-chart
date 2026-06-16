@@ -19,6 +19,14 @@ public enum XYChartType {
     SCATTER,
     HISTOGRAM,
     BAR,
+    /**
+     * displays bars for different series values at the same x next to each other.
+     */
+    BAR_CLUSTER,
+    /**
+     * box-and-whisker
+     */
+    BOX_WHISKER,
     PEAK;
 
     /**
@@ -45,6 +53,10 @@ public enum XYChartType {
             renderer.setSeriesShape(0, shape);
             renderer.setSeriesShape(1, shape);
             return renderer;
+        } else if (this == XYChartType.BAR_CLUSTER) {
+            return new ClusteredXYBarRenderer();
+        } else if (this == XYChartType.BOX_WHISKER) {
+            return new XYBoxAndWhiskerRenderer();
         } else {
             throw new IllegalStateException("Unexpected value: " + this);
         }
