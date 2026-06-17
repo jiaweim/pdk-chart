@@ -1,6 +1,7 @@
 package pdk.chart.fluent.prop;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -30,6 +31,16 @@ public class DateAxisProps {
      */
     public XYChart doneXY() {
         return (XYChart) chart_;
+    }
+
+    /**
+     * Sets the label for the axis.
+     *
+     * @param name the new axis name.
+     */
+    public DateAxisProps name(@Nullable String name) {
+        axis_.setLabel(name);
+        return this;
     }
 
     /**
@@ -65,6 +76,16 @@ public class DateAxisProps {
      */
     public DateAxisProps upperMargin(double margin) {
         axis_.setUpperMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets the direction of values on the axis.
+     *
+     * @param flag the flag.
+     */
+    public DateAxisProps inverted(boolean flag) {
+        axis_.setInverted(flag);
         return this;
     }
 }

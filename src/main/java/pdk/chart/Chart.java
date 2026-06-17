@@ -1414,11 +1414,26 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * Display this chart.
      */
     public void show() {
-        show(this);
+        ShowChart.show(this, "");
     }
 
     public void show(int width, int height) {
-        show(this, width, height);
+        show(width, height, "");
+    }
+
+    /**
+     * Display this chart.
+     *
+     * @param width      preferred width.
+     * @param height     preferred height.
+     * @param frameTitle frame title.
+     */
+    public void show(int width, int height, String frameTitle) {
+        ShowChart.show(this, frameTitle, width, height);
+    }
+
+    public void show(String frameTitle) {
+        ShowChart.show(this, frameTitle);
     }
 
     /**
@@ -1430,7 +1445,7 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * @param height chart height.
      */
     public void save(Path file, FileFormat format, int width, int height) {
-        save(this, file, format, width, height);
+        ShowChart.save(this, file, format, width, height);
     }
 
     /**

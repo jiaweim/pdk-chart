@@ -3,6 +3,7 @@ package pdk.chart.fluent.prop;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.axis.SymbolAxis;
 import pdk.chart.axis.TickUnitSource;
 import pdk.chart.event.AxisChangeEvent;
 import pdk.chart.fluent.CategoryXYChart;
@@ -214,6 +215,47 @@ public class NumberAxisProps {
      */
     public NumberAxisProps numberFormatOverride(@Nullable NumberFormat formatter) {
         axis_.setNumberFormatOverride(formatter);
+        return this;
+    }
+
+    /**
+     * Sets the direction of values on the axis.
+     *
+     * @param flag the flag.
+     */
+    public NumberAxisProps inverted(boolean flag) {
+        axis_.setInverted(flag);
+        return this;
+    }
+
+    /**
+     * Sets the list of symbols to display instead of the numeric values.
+     *
+     * @param symbols symbols List of symbols.
+     * @return this.
+     */
+    public NumberAxisProps symbols(String[] symbols) {
+        if (axis_ instanceof SymbolAxis symbolAxis) {
+            symbolAxis.setSymbols(symbols);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether grid bands are drawn for this
+     * axis and notifies registered listeners that the axis has been modified.
+     * <p>
+     * Each band is the area between two adjacent gridlines
+     * running perpendicular to the axis.  When the bands are drawn they are
+     * filled with the colors {@link #getGridBandPaint()} and
+     * {@link #getGridBandAlternatePaint()} in an alternating sequence.
+     *
+     * @param flag the new setting.
+     */
+    public NumberAxisProps gridBandsVisible(boolean flag) {
+        if (axis_ instanceof SymbolAxis symbolAxis) {
+            symbolAxis.setGridBandsVisible(flag);
+        }
         return this;
     }
 }

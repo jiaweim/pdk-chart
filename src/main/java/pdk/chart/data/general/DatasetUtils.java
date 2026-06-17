@@ -27,9 +27,7 @@ public final class DatasetUtils {
     /**
      * Private constructor for non-instanceability.
      */
-    private DatasetUtils() {
-        // now try to instantiate this ;-)
-    }
+    private DatasetUtils() {}
 
     /**
      * Calculates the total of all the values in a {@link PieDataset}.  If

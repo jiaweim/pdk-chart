@@ -5,6 +5,7 @@ import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.fluent.AxisType;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 import pdk.chart.labels.StandardXYToolTipGenerator;
@@ -65,7 +66,7 @@ public class XYBarChartDemo1 {
     }
 
     static void main() {
-        XYChart.create(true)
+        XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .title("State Executions - USA")
                 .axisNames("Year", "Number of People")
                 .dataset(createDataset(), XYChartType.BAR)
@@ -79,7 +80,7 @@ public class XYBarChartDemo1 {
                 .margin(0.1)
                 .done()
 
-                .dateDomainAxis()
+                .domainAxisDate()
                 .tickMarkPosition(DateTickMarkPosition.MIDDLE)
                 .lowerMargin(0.01)
                 .upperMargin(0.01)

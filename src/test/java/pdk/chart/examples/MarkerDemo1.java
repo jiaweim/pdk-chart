@@ -8,6 +8,7 @@ import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.time.*;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.fluent.AxisType;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 import pdk.chart.labels.StandardXYToolTipGenerator;
@@ -96,7 +97,7 @@ public class MarkerDemo1 {
         pointer.setPaint(Color.BLUE);
         pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
 
-        XYChart.create(true)
+        XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .dataset(createDataset(), XYChartType.SCATTER)
                 .title("Marker Demo 1")
                 .showLegend(true)
@@ -118,7 +119,7 @@ public class MarkerDemo1 {
                 .defaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance())
                 .done()
 
-                .dateDomainAxis()
+                .domainAxisDate()
                 .upperMargin(0.5)
                 .doneXY()
 

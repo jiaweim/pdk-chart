@@ -36,31 +36,29 @@ import java.awt.*;
 public class XYChart extends Chart {
 
     public static XYChart create() {
-        return new XYChart();
+        return new XYChart(AxisType.NUMBER, AxisType.NUMBER);
     }
 
-    public static XYChart create(boolean dateAxis) {
-        return new XYChart(dateAxis);
+    /**
+     * Create an {@link XYChart}.
+     *
+     * @param xAxisType {@link AxisType}
+     * @param yAxisType {@link AxisType}
+     * @return {@link XYChart}
+     */
+    public static XYChart create(AxisType xAxisType, AxisType yAxisType) {
+        return new XYChart(xAxisType, yAxisType);
     }
 
     private final ValueAxis domainAxis_;
-    private final NumberAxis rangeAxis_;
+    private final ValueAxis rangeAxis_;
     private final XYPlot plot_;
 
-    public XYChart() {
-        this(false);
-    }
-
-    public XYChart(boolean domainDate) {
+    public XYChart(AxisType xAxisType, AxisType yAxisType) {
         super(null, DEFAULT_TITLE_FONT, new XYPlot<>(), false);
         plot_ = (XYPlot) getPlot();
-        if (domainDate) {
-            domainAxis_ = new DateAxis();
-        } else {
-            domainAxis_ = new NumberAxis();
-            ((NumberAxis) domainAxis_).setAutoRangeIncludesZero(false);
-        }
-        rangeAxis_ = new NumberAxis();
+        this.domainAxis_ = xAxisType.createInstance();
+        this.rangeAxis_ = yAxisType.createInstance();
 
         plot_.setDomainAxis(domainAxis_);
         plot_.setRangeAxis(rangeAxis_);
@@ -75,7 +73,16 @@ public class XYChart extends Chart {
      * @return {@link CategoryNumberAxisProps}.
      */
     public NumberAxisProps rangeAxis() {
-        return new NumberAxisProps(this, rangeAxis_);
+        return new NumberAxisProps(this, (NumberAxis) rangeAxis_);
+    }
+
+    /**
+     * Return the configuration class for range axis properties.
+     *
+     * @return {@link CategoryNumberAxisProps}.
+     */
+    public DateAxisProps rangeAxisDate() {
+        return new DateAxisProps(this, (DateAxis) rangeAxis_);
     }
 
     /**
@@ -96,7 +103,7 @@ public class XYChart extends Chart {
      *
      * @return {@link DateAxisProps}.
      */
-    public DateAxisProps dateDomainAxis() {
+    public DateAxisProps domainAxisDate() {
         if (domainAxis_ instanceof DateAxis da) {
             return new DateAxisProps(this, da);
         } else {

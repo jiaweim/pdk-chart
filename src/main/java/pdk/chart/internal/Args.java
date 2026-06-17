@@ -35,6 +35,20 @@ public class Args {
     }
 
     /**
+     * Check if the lengths of the two arrays are the same.
+     * <p>
+     * Throw an {@link IllegalArgumentException} if the lengths are different.
+     *
+     * @param x an array.
+     * @param y an array.
+     */
+    public static void requireEqualLength(double[] x, double[] y) {
+        if (x.length != y.length) {
+            throw new IllegalArgumentException("Arrays are not equal.");
+        }
+    }
+
+    /**
      * Throws an {@code IllegalArgumentException} if {@code value} is negative.
      *
      * @param value the value.

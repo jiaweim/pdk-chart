@@ -6,6 +6,7 @@ import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.statistics.DefaultBoxAndWhiskerXYDataset;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.RegularTimePeriod;
+import pdk.chart.fluent.AxisType;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 
@@ -40,7 +41,7 @@ public class BoxAndWhiskerChartDemo2 {
     }
 
     static void main() {
-        XYChart.create(true)
+        XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .dataset(createDataset(), XYChartType.BOX_WHISKER)
                 .title("Box-and-Whisker Chart Demo 2")
                 .axisNames("Day", "Value")

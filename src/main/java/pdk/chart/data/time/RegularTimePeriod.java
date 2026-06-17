@@ -26,8 +26,7 @@ public abstract class RegularTimePeriod implements TimePeriod, MonthConstants {
     /**
      * Creates a new default instance.
      */
-    protected RegularTimePeriod() {
-    }
+    protected RegularTimePeriod() {}
 
     /**
      * Creates a time period that includes the specified millisecond, assuming

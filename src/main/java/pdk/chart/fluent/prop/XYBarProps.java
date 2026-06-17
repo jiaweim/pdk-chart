@@ -8,6 +8,9 @@ import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.renderer.xy.XYBarPainter;
 import pdk.chart.renderer.xy.XYBarRenderer;
+import pdk.chart.util.GradientPaintTransformer;
+
+import java.awt.*;
 
 /**
  * A class for configuring properties of {@link pdk.chart.renderer.xy.XYBarRenderer}, designed with a fluent style API.
@@ -92,4 +95,49 @@ public class XYBarProps extends XYRendererProps {
         renderer_.setMargin(margin);
         return this;
     }
+
+    /**
+     * Sets the paint used for a series outline.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     */
+    public XYBarProps seriesOutlinePaint(int series, Paint paint) {
+        renderer_.setSeriesOutlinePaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Sets the paint used for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     */
+    public XYBarProps seriesPaint(int series, Paint paint) {
+        renderer_.setSeriesPaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Sets the flag that determines whether the y-interval from the dataset is
+     * used to calculate the length of each bar.
+     *
+     * @param use the flag (default=false).
+     */
+    public XYBarProps useYInterval(boolean use) {
+        renderer_.setUseYInterval(use);
+        return this;
+    }
+
+    /**
+     * Sets the gradient paint transformer.
+     *
+     * @param transformer the transformer.
+     */
+    public XYBarProps gradientPaintTransformer(
+            @Nullable GradientPaintTransformer transformer) {
+        renderer_.setGradientPaintTransformer(transformer);
+        return this;
+    }
+
 }

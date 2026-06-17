@@ -8,7 +8,6 @@ import org.jfree.svg.SVGUtils;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
-import pdk.chart.title.TextTitle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,14 +31,9 @@ public interface ShowChart {
      *
      * @param chart {@link Chart} to show.
      */
-    default void show(Chart chart) {
+    static void show(Chart chart, String frameTitle) {
         SwingUtilities.invokeLater(() -> {
-            TextTitle title = chart.getTitle();
-            String titleText = "";
-            if (title != null) {
-                titleText = title.getText();
-            }
-            ApplicationFrame frame = new ApplicationFrame(titleText);
+            ApplicationFrame frame = new ApplicationFrame(frameTitle);
             ChartPanel panel = new ChartPanel(chart);
             panel.setMouseWheelEnabled(true);
             frame.setContentPane(panel);
@@ -49,19 +43,15 @@ public interface ShowChart {
         });
     }
 
+
     /**
      * Display the specified chart.
      *
      * @param chart {@link Chart} to show.
      */
-    default void show(Chart chart, int width, int height) {
+    static void show(Chart chart, String frameTitle, int width, int height) {
         SwingUtilities.invokeLater(() -> {
-            TextTitle title = chart.getTitle();
-            String titleText = "";
-            if (title != null) {
-                titleText = title.getText();
-            }
-            ApplicationFrame frame = new ApplicationFrame(titleText);
+            ApplicationFrame frame = new ApplicationFrame(frameTitle);
             ChartPanel panel = new ChartPanel(chart);
             panel.setPreferredSize(new Dimension(width, height));
             panel.setMouseWheelEnabled(true);
@@ -81,7 +71,7 @@ public interface ShowChart {
      * @param width  chart width.
      * @param height chart height.
      */
-    default void save(Chart chart, Path file, FileFormat format, int width, int height) {
+    static void save(Chart chart, Path file, FileFormat format, int width, int height) {
         if (format == FileFormat.SVG) {
             SVGGraphics2D g2 = new SVGGraphics2D(width, height);
             // we suppress shadow generation, because SVG is a vector format and

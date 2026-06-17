@@ -326,10 +326,10 @@ public abstract class ChartUtils {
             throws IOException {
         Objects.requireNonNull(out, "out");
         Objects.requireNonNull(chart, "chart");
+
         BufferedImage image = chart.createBufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB, info);
         EncoderUtil.writeBufferedImage(image, ImageFormat.JPEG, out);
-
     }
 
     /**
@@ -354,7 +354,6 @@ public abstract class ChartUtils {
         BufferedImage image = chart.createBufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB, info);
         EncoderUtil.writeBufferedImage(image, ImageFormat.JPEG, out, quality);
-
     }
 
     /**
@@ -410,7 +409,6 @@ public abstract class ChartUtils {
         try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
             writeChartAsJPEG(out, chart, width, height, info);
         }
-
     }
 
     /**

@@ -7,6 +7,7 @@ import pdk.chart.internal.Args;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A dataset that defines a range (interval) for both the x-values and the
@@ -332,11 +333,10 @@ public class DefaultIntervalXYDataset<S extends Comparable<S>>
      *                  (y, yLow and yHigh)).
      */
     public void addSeries(S seriesKey, double[][] data) {
-        Args.nullNotPermitted(seriesKey, "seriesKey");
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(seriesKey, "seriesKey");
+        Objects.requireNonNull(data, "data");
         if (data.length != 6) {
-            throw new IllegalArgumentException(
-                    "The 'data' array must have length == 6.");
+            throw new IllegalArgumentException("The 'data' array must have length == 6.");
         }
         int length = data[0].length;
         if (length != data[1].length || length != data[2].length

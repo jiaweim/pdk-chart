@@ -296,10 +296,9 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof ClusteredXYBarRenderer)) {
+        if (!(obj instanceof ClusteredXYBarRenderer that)) {
             return false;
         }
-        ClusteredXYBarRenderer that = (ClusteredXYBarRenderer) obj;
         if (this.centerBarAtStartValue != that.centerBarAtStartValue) {
             return false;
         }
@@ -316,5 +315,4 @@ public class ClusteredXYBarRenderer extends XYBarRenderer
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-
 }

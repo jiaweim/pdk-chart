@@ -547,6 +547,25 @@ public class TimeSeries<S extends Comparable<S>> extends Series<S>
     }
 
     /**
+     * Add multiple pairs of data to this Series.
+     *
+     * @param periods RegularTimePeriod array.
+     * @param values  value array.
+     * @param <T>     time type.
+     */
+    public <T extends RegularTimePeriod> void add(T[] periods, double[] values) {
+        Objects.requireNonNull(periods, "periods");
+        Objects.requireNonNull(values, "values");
+        if (periods.length != values.length) {
+            throw new IllegalArgumentException("Arrays are not equal.");
+        }
+        for (int i = 0; i < periods.length; i++) {
+            add(periods[i], values[i], false);
+        }
+        fireSeriesChanged();
+    }
+
+    /**
      * Adds a new data item to the series and sends a {@link SeriesChangeEvent}
      * to all registered listeners.
      *

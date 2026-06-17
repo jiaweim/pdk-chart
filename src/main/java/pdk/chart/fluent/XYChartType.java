@@ -18,11 +18,18 @@ public enum XYChartType {
     SPLINE,
     SCATTER,
     HISTOGRAM,
+    /**
+     * Bar chart, This chart requires the IntervalXYDataset data type.
+     */
     BAR,
     /**
      * displays bars for different series values at the same x next to each other.
      */
     BAR_CLUSTER,
+    /**
+     *
+     */
+    BAR_STACK,
     /**
      * box-and-whisker
      */
@@ -47,6 +54,10 @@ public enum XYChartType {
             XYBarRenderer renderer = new XYBarRenderer();
             renderer.setShadowVisible(false);
             return renderer;
+        } else if (this == XYChartType.BAR_STACK) {
+            StackedXYBarRenderer renderer = new StackedXYBarRenderer();
+            renderer.setShadowVisible(false);
+            return renderer;
         } else if (this == XYChartType.PEAK) {
             YIntervalRenderer renderer = new YIntervalRenderer();
             Ellipse2D.Double shape = new Ellipse2D.Double(-0.5, 0.5, 1, 1);
@@ -54,7 +65,9 @@ public enum XYChartType {
             renderer.setSeriesShape(1, shape);
             return renderer;
         } else if (this == XYChartType.BAR_CLUSTER) {
-            return new ClusteredXYBarRenderer();
+            ClusteredXYBarRenderer renderer = new ClusteredXYBarRenderer();
+            renderer.setShadowVisible(false);
+            return renderer;
         } else if (this == XYChartType.BOX_WHISKER) {
             return new XYBoxAndWhiskerRenderer();
         } else {

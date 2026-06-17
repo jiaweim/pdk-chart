@@ -1,38 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------------
- * XYIntervalSeries.java
- * ---------------------
- * (C) Copyright 2006-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- */
-
 package pdk.chart.data.xy;
 
 import pdk.chart.data.ComparableObjectItem;
@@ -43,10 +8,9 @@ import pdk.chart.data.general.SeriesChangeEvent;
  * A list of (x, x-low, x-high, y, y-low, y-high) data items.
  *
  * @param <S> the series key type.
- *
  * @see XYIntervalSeriesCollection
  */
-public class XYIntervalSeries<S extends Comparable<S>> 
+public class XYIntervalSeries<S extends Comparable<S>>
         extends ComparableObjectSeries<S> {
 
     /**
@@ -54,7 +18,7 @@ public class XYIntervalSeries<S extends Comparable<S>>
      * be sorted into ascending order by x-value, and duplicate x-values will
      * be allowed (these defaults can be modified with another constructor).
      *
-     * @param key  the series key ({@code null} not permitted).
+     * @param key the series key ({@code null} not permitted).
      */
     public XYIntervalSeries(S key) {
         this(key, true, true);
@@ -64,40 +28,39 @@ public class XYIntervalSeries<S extends Comparable<S>>
      * Constructs a new xy-series that contains no data.  You can specify
      * whether duplicate x-values are allowed for the series.
      *
-     * @param key  the series key ({@code null} not permitted).
-     * @param autoSort  a flag that controls whether the items in the
-     *                  series are sorted.
-     * @param allowDuplicateXValues  a flag that controls whether duplicate
-     *                               x-values are allowed.
+     * @param key                   the series key ({@code null} not permitted).
+     * @param autoSort              a flag that controls whether the items in the
+     *                              series are sorted.
+     * @param allowDuplicateXValues a flag that controls whether duplicate
+     *                              x-values are allowed.
      */
-    public XYIntervalSeries(S key, boolean autoSort, 
+    public XYIntervalSeries(S key, boolean autoSort,
             boolean allowDuplicateXValues) {
         super(key, autoSort, allowDuplicateXValues);
     }
 
     /**
-     * Adds a data item to the series and sends a {@link SeriesChangeEvent} to 
+     * Adds a data item to the series and sends a {@link SeriesChangeEvent} to
      * all registered listeners.
      *
-     * @param x  the x-value.
+     * @param x     the x-value.
      * @param xLow  the lower bound of the x-interval.
-     * @param xHigh  the upper bound of the x-interval.
-     * @param y  the y-value.
+     * @param xHigh the upper bound of the x-interval.
+     * @param y     the y-value.
      * @param yLow  the lower bound of the y-interval.
-     * @param yHigh  the upper bound of the y-interval.
+     * @param yHigh the upper bound of the y-interval.
      */
-    public void add(double x, double xLow, double xHigh, double y, double yLow,
-            double yHigh) {
+    public void add(double x, double xLow, double xHigh,
+            double y, double yLow, double yHigh) {
         add(new XYIntervalDataItem(x, xLow, xHigh, y, yLow, yHigh), true);
     }
-    
+
     /**
-     * Adds a data item to the series and, if requested, sends a 
+     * Adds a data item to the series and, if requested, sends a
      * {@link SeriesChangeEvent} to all registered listeners.
-     * 
-     * @param item  the data item ({@code null} not permitted).
-     * @param notify  notify listeners?
-     * 
+     *
+     * @param item   the data item ({@code null} not permitted).
+     * @param notify notify listeners?
      * @since 1.0.18
      */
     public void add(XYIntervalDataItem item, boolean notify) {
@@ -107,8 +70,7 @@ public class XYIntervalSeries<S extends Comparable<S>>
     /**
      * Returns the x-value for the specified item.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The x-value (never {@code null}).
      */
     public Number getX(int index) {
@@ -120,10 +82,8 @@ public class XYIntervalSeries<S extends Comparable<S>>
      * Returns the lower bound of the x-interval for the specified item in the
      * series.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The lower bound of the x-interval.
-     *
      * @since 1.0.5
      */
     public double getXLowValue(int index) {
@@ -135,10 +95,8 @@ public class XYIntervalSeries<S extends Comparable<S>>
      * Returns the upper bound of the x-interval for the specified item in the
      * series.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The upper bound of the x-interval.
-     *
      * @since 1.0.5
      */
     public double getXHighValue(int index) {
@@ -149,8 +107,7 @@ public class XYIntervalSeries<S extends Comparable<S>>
     /**
      * Returns the y-value for the specified item.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The y-value.
      */
     public double getYValue(int index) {
@@ -162,10 +119,8 @@ public class XYIntervalSeries<S extends Comparable<S>>
      * Returns the lower bound of the Y-interval for the specified item in the
      * series.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The lower bound of the Y-interval.
-     *
      * @since 1.0.5
      */
     public double getYLowValue(int index) {
@@ -177,10 +132,8 @@ public class XYIntervalSeries<S extends Comparable<S>>
      * Returns the upper bound of the y-interval for the specified item in the
      * series.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The upper bound of the y-interval.
-     *
      * @since 1.0.5
      */
     public double getYHighValue(int index) {
@@ -191,8 +144,7 @@ public class XYIntervalSeries<S extends Comparable<S>>
     /**
      * Returns the data item at the specified index.
      *
-     * @param index  the item index.
-     *
+     * @param index the item index.
      * @return The data item.
      */
     @Override

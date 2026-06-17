@@ -5,6 +5,7 @@ import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.fluent.AxisType;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 
@@ -35,7 +36,7 @@ public class XYBarChartDemo2 {
     }
 
     static void main() {
-        XYChart chart = XYChart.create(true)
+        XYChart chart = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .title("XY Bar Chart Demo 2")
                 .axisNames("Date", "Y")
                 .dataset(createDataset(), XYChartType.BAR_CLUSTER)
