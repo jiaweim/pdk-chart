@@ -51,7 +51,7 @@ public class BarChartDemo5 {
                 .addTitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf", new Font("Dialog", Font.ITALIC, 10)))
                 .rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT)
                 .rangePannable(true)
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .defaultItemLabelsVisible(true)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())

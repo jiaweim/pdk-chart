@@ -45,7 +45,7 @@ public class LayeredBarChartDemo2 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneCategory()
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))

@@ -10,6 +10,7 @@ import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.fluent.XYChart;
 
 import java.awt.*;
+import java.text.AttributedString;
 import java.text.NumberFormat;
 
 /**
@@ -227,6 +228,17 @@ public class NumberAxisProps {
         axis_.setInverted(flag);
         return this;
     }
+
+    /**
+     * Sets the attributed label for the axis.
+     *
+     * @param label the label ({@code null} permitted).
+     */
+    public NumberAxisProps attributedLabel(AttributedString label) {
+        axis_.setAttributedLabel(label);
+        return this;
+    }
+
 
     /**
      * Sets the list of symbols to display instead of the numeric values.

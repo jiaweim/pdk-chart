@@ -140,7 +140,7 @@ public class CategoryXYChart extends Chart {
      * @param domainAxis {@link CategoryAxis} instance.
      * @return this.
      */
-    public CategoryXYChart domainAxis(CategoryAxis domainAxis) {
+    public CategoryXYChart setDomainAxis(CategoryAxis domainAxis) {
         plot_.setDomainAxis(domainAxis);
         this.domainAxis_ = domainAxis;
         return this;
@@ -181,6 +181,9 @@ public class CategoryXYChart extends Chart {
      */
     public CategoryXYChart addDataset(CategoryDataset dataset, CategoryXYChartType chartType) {
         int datasetCount = plot_.getDatasetCount();
+        if (datasetCount == 1 && plot_.getDataset(0) == null) {
+            datasetCount = 0;
+        }
         return addDataset(datasetCount, dataset, chartType);
     }
 
@@ -265,7 +268,7 @@ public class CategoryXYChart extends Chart {
      * @param index index of the dataset.
      * @return {@link CategoryBarProps}.
      */
-    public CategoryBarProps barRenderer(int index) {
+    public CategoryBarProps barProps(int index) {
         CategoryItemRenderer renderer = plot_.getRenderer(index);
         if (renderer instanceof BarRenderer barRenderer) {
             return new CategoryBarProps(this, barRenderer);

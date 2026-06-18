@@ -35,7 +35,7 @@ public class BarChartCategoryDemo {
                 .axisNames("Age Category", "Percent")
                 .domainGridlinesVisible(true)
                 .rangeGridlinesVisible(true)
-                .barRenderer(0).itemMargin(0.0).done()
+                .barProps(0).itemMargin(0.0).done()
                 .domainAxis().categoryMargin(0.5).done()
                 .show();
     }

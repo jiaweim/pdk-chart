@@ -33,7 +33,7 @@ public class BarChartDemo4 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneCategory()
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .maximumBarWidth(0.5)
                 .legendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));

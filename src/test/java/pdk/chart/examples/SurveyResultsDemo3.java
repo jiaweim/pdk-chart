@@ -63,7 +63,7 @@ public class SurveyResultsDemo3 {
                 .backgroundPaint(Color.WHITE)
                 .plotOutlinePaint(null)
 
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .seriesPaint(0, new Color(156, 164, 74))
                 .drawBarOutline(false)
@@ -79,7 +79,7 @@ public class SurveyResultsDemo3 {
                 .visible(false)
                 .doneCategory()
 
-                .domainAxis(domainAxis)
+                .setDomainAxis(domainAxis)
 
 
                 .show(300, 270);

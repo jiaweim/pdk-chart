@@ -38,7 +38,7 @@ public class BarChartDemo1 {
                 .domainGridlinesVisible(true)
                 .rangeCrosshairVisible(true)
                 .rangeCrosshairPaint(Color.BLUE)
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .barPainter(new StandardBarPainter())
                 .itemMargin(0.06)

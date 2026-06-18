@@ -35,7 +35,7 @@ public class BarChartDemo8 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .upperMargin(0.15)
                 .doneCategory()
-                .barRenderer(0)
+                .barProps(0)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .seriesItemLabelsVisible(0, Boolean.TRUE)
                 .done()

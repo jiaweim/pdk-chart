@@ -31,6 +31,7 @@ public enum CategoryXYChartType {
      * waterfall bar charts
      */
     BAR_WATERFALL,
+    BAR_STACK,
     BoxWhisker;
 
     public CategoryItemRenderer getRenderer() {
@@ -52,6 +53,8 @@ public enum CategoryXYChartType {
             return new StatisticalBarRenderer();
         } else if (this == BAR_WATERFALL) {
             return new WaterfallBarRenderer();
+        } else if (this == BAR_STACK) {
+            return new StackedBarRenderer();
         } else if (this == LINE) {
             LineAndShapeRenderer renderer = new LineAndShapeRenderer();
             return renderer;

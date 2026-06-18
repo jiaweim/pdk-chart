@@ -43,7 +43,7 @@ public class BarChartDemo2 {
                 .range(0, 100)
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneCategory()
-                .barRenderer(0)
+                .barProps(0)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(0, 0, 128), 0.0F, 0.0F, Color.BLUE))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, new Color(0, 128, 0), 0.0F, 0.0F, Color.GREEN))
                 .seriesPaint(2, new GradientPaint(0.0F, 0.0F, new Color(128, 0, 0), 0.0F, 0.0F, Color.RED))

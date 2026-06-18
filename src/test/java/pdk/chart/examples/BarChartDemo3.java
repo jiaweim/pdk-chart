@@ -66,7 +66,7 @@ public class BarChartDemo3 {
                 .setNoDataMessage("NO DATA!")
                 .axisNames("Category", "Value")
                 .addDomainMarker(marker, Layer.BACKGROUND)
-                .barRenderer(0)
+                .barProps(0)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .defaultItemLabelsVisible(true)
                 .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, 0.0))

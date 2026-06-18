@@ -51,7 +51,7 @@ public class WaterfallChartDemo1 {
                 .axisNames("Expense Category", "Cost Per Unit")
                 .dataset(createDataset(), CategoryXYChartType.BAR_WATERFALL)
 
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
                 .base(5)

@@ -11,6 +11,14 @@ import pdk.chart.text.format.RelativeDateFormat;
 
 import java.text.DecimalFormat;
 
+/**
+ * A time series bar chart where the range axis displays the elapsed time
+ * in hours, minutes and seconds. This uses the RelativeDateFormat class.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 18 Jun 2026, 4:35 PM
+ */
 public class RelativeDateFormatDemo2 {
 
     private static IntervalXYDataset createDataset() {

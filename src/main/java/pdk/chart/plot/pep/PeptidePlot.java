@@ -364,10 +364,11 @@ public class PeptidePlot extends Plot {
         int aaDescent = metrics.getDescent();
         int aaHeight = metrics.getAscent() + aaDescent; // without leading
 
-        // 字体高度从上到下：Leading+Ascent+Descent
-        // drawString 中的 y 为 baseline 位置，为 Ascent 和 Descent 之间
-        // ascent: 从基线向上到大多数字符顶部的距离（正值） 文本顶部 y = 基线 y - ascent
-        // descent：从基线向下到字符下伸底部的距离（正值） 文本底部 y = 基线 y + descent
+        // Font height from top to bottom: Leading+Ascent+Descent
+        //  The y coordinate in drawString represents the baseline, which lies between Ascent and Descent.
+        // ascent: the distance from the baseline upward to the top of most characters. Top-Y of text = baseline-Y − ascent
+        // descent: the distance extending downward from the baseline to the bottom of character descenders
+        // Bottom Y of text = baseline Y + descent
         double aaAndSpacing = aminoAcidSpacing + aaWidth;
 
         int length = dataset.size();

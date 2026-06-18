@@ -138,7 +138,7 @@ public class SurveyResultsDemo1 {
                 .rangeGridlinesVisible(false)
                 .clearRangeMarkers()
 
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .seriesPaint(0, new Color(156, 164, 74))
                 .drawBarOutline(false)

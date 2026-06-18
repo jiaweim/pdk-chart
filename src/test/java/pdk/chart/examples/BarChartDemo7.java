@@ -56,7 +56,7 @@ public class BarChartDemo7 {
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneCategory()
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .itemMargin(0.1)
                 .defaultItemLabelGenerator(new LabelGenerator())
