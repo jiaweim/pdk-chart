@@ -28,7 +28,7 @@ public class StackedXYBarChartDemo1 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneXY()
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .margin(0.1)
                 .done()

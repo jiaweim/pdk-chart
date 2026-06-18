@@ -50,6 +50,18 @@ public class XYLineAndShapeProps extends XYRendererProps {
     }
 
     /**
+     * Sets the default 'shapes filled' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     */
+    public XYLineAndShapeProps defaultShapesFilled(boolean flag) {
+        renderer_.setDefaultShapesFilled(flag);
+        return this;
+    }
+
+
+    /**
      * Set whether lines and shapes of the specified series are visible.
      *
      * @param showLine  whether line is visible.

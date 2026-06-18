@@ -24,7 +24,7 @@ public class XYSeriesDemo1 {
                 .axisNames("X", "Y")
                 .showLegend(true)
                 .dataset(dataset, XYChartType.LINE)
-                .lineAndShapeRenderer(0).addTooltips(true).done()
+                .lineAndShapeProps(0).addTooltips(true).done()
                 .show();
     }
 }

@@ -60,6 +60,10 @@ public class XYChart extends Chart {
         this.domainAxis_ = xAxisType.createInstance();
         this.rangeAxis_ = yAxisType.createInstance();
 
+        if (domainAxis_ instanceof NumberAxis numberAxis) {
+            numberAxis.setAutoRangeIncludesZero(false);
+        }
+
         plot_.setDomainAxis(domainAxis_);
         plot_.setRangeAxis(rangeAxis_);
 
@@ -139,7 +143,7 @@ public class XYChart extends Chart {
      * @param dataset index of the dataset.
      * @return {@link XYLineAndShapeProps}.
      */
-    public XYLineAndShapeProps lineAndShapeRenderer(int dataset) {
+    public XYLineAndShapeProps lineAndShapeProps(int dataset) {
         XYItemRenderer renderer = plot_.getRenderer(dataset);
         if (renderer instanceof XYLineAndShapeRenderer lineAndShapeRenderer) {
             return new XYLineAndShapeProps(this, lineAndShapeRenderer);
@@ -156,7 +160,7 @@ public class XYChart extends Chart {
      * @param dataset index of the dataset.
      * @return {@link XYBarProps}.
      */
-    public XYBarProps barRenderer(int dataset) {
+    public XYBarProps barProps(int dataset) {
         XYItemRenderer renderer = plot_.getRenderer(dataset);
         if (renderer instanceof XYBarRenderer xyBarRenderer) {
             return new XYBarProps(this, xyBarRenderer);
@@ -174,7 +178,7 @@ public class XYChart extends Chart {
      * @param dataset index of the dataset.
      * @return {@link YIntervalProps}.
      */
-    public YIntervalProps peakRenderer(int dataset) {
+    public YIntervalProps peakProps(int dataset) {
         XYItemRenderer renderer = plot_.getRenderer(dataset);
         if (renderer instanceof YIntervalRenderer intervalRenderer) {
             return new YIntervalProps(this, intervalRenderer);
@@ -275,8 +279,7 @@ public class XYChart extends Chart {
      * @return this
      */
     public XYChart addDataset(XYDataset dataset, XYChartType chartType) {
-        int datasetCount = plot_.getDatasetCount();
-        return addDataset(datasetCount, dataset, chartType);
+        return addDataset(plot_.getDatasetCount(), dataset, chartType);
     }
 
     /**
@@ -586,4 +589,25 @@ public class XYChart extends Chart {
         plot_.setRangeZeroBaselineVisible(rangeVisible);
         return this;
     }
+
+    /**
+     * Sets whether the domain crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     */
+    public XYChart domainCrosshairVisible(boolean flag) {
+        plot_.setDomainCrosshairVisible(flag);
+        return this;
+    }
+
+    /**
+     * Set whether the range crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     */
+    public XYChart rangeCrosshairVisible(boolean flag) {
+        plot_.setRangeCrosshairVisible(flag);
+        return this;
+    }
+
 }

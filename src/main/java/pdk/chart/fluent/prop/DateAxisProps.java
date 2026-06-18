@@ -7,6 +7,8 @@ import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.fluent.XYChart;
 
+import java.text.DateFormat;
+
 /**
  * A class for configuring properties of DateAxis, designed with a fluent style API.
  *
@@ -86,6 +88,19 @@ public class DateAxisProps {
      */
     public DateAxisProps inverted(boolean flag) {
         axis_.setInverted(flag);
+        return this;
+    }
+
+    /**
+     * Sets the date format override.
+     * <p>
+     * If this is non-null, then it will be
+     * used to format the dates on the axis.
+     *
+     * @param formatter the date formatter ({@code null} permitted).
+     */
+    public DateAxisProps dateFormatOverride(DateFormat formatter) {
+        axis_.setDateFormatOverride(formatter);
         return this;
     }
 }

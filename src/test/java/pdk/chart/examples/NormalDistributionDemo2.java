@@ -52,7 +52,7 @@ public class NormalDistributionDemo2 extends ApplicationFrame {
                 .showLegend(true)
                 .zeroBaselineVisible(true, true)
                 .pannable(true, true)
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .addTooltips(true)
                 .seriesStroke(0, new BasicStroke(1.5F))
                 .seriesStroke(1, new BasicStroke(2.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0F, new float[]{6.0F, 4.0F}, 0.0F))

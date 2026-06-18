@@ -135,7 +135,7 @@ public class TimeTableXYDataset extends AbstractIntervalXYDataset
      * @see #getXPosition()
      */
     public void setXPosition(TimePeriodAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.xPosition = anchor;
         notifyListeners(new DatasetChangeEvent(this, this));
     }
@@ -151,6 +151,28 @@ public class TimeTableXYDataset extends AbstractIntervalXYDataset
      */
     public void add(TimePeriod period, double y, Comparable seriesName) {
         add(period, y, seriesName, true);
+    }
+
+    /**
+     * Add a data series to the dataset.
+     *
+     * @param periods    the time periods.
+     * @param values     the values for the periods
+     * @param seriesName the name of the series to add.
+     * @param <T>        time period type.
+     */
+    public <T extends TimePeriod> void add(T[] periods, double[] values, Comparable seriesName) {
+        Objects.requireNonNull(periods, "periods");
+        Objects.requireNonNull(values, "values");
+
+        if (periods.length != values.length) {
+            throw new IllegalArgumentException("The array lengths are different.");
+        }
+        for (int i = 0; i < periods.length; i++) {
+            add(periods[i], values[i], seriesName, false);
+        }
+
+        fireDatasetChanged();
     }
 
     /**

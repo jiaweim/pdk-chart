@@ -39,7 +39,7 @@ public class XYSeriesDemo3 {
                 .showLegend(true)
                 .addRangeMarker(marker, Layer.BACKGROUND)
                 .addDataset(dataset, XYChartType.BAR)
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true).chart();
         xyChart.show();
     }

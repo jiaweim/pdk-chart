@@ -35,7 +35,7 @@ public class ScatterPlotDemo1 {
                 .rangeMinorGridlinePaint(Color.GRAY)
                 .rangeMinorGridlinesVisible(true)
 
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .addTooltips(true)
                 .seriesOutlinePaint(0, Color.BLACK)
                 .useOutlinePaint(true)

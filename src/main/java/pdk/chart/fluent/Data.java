@@ -14,13 +14,6 @@ import pdk.chart.internal.Args;
  */
 public interface Data {
 
-
-    public static class IntervalXYDatasetBuilder<S extends Comparable<S>> {
-
-        private DefaultIntervalXYDataset<S> dataset = new DefaultIntervalXYDataset<>();
-
-    }
-
     /**
      * Create an {@link IntervalXYDataset}.
      *

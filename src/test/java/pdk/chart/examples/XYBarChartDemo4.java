@@ -29,7 +29,7 @@ public class XYBarChartDemo4 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneXY()
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .done()
 

@@ -33,7 +33,7 @@ public class HistogramGaussian {
                 .dataset(dataset, XYChartType.HISTOGRAM)
                 .title("Histogram Gaussian")
                 .showLegend(true)
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
                 .done().show();

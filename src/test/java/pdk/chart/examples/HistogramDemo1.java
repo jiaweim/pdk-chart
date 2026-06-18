@@ -52,7 +52,7 @@ public class HistogramDemo1 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .doneXY()
 
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
                 .barPainter(new StandardXYBarPainter())

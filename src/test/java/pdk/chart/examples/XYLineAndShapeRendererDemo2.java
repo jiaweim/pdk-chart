@@ -33,7 +33,7 @@ public class XYLineAndShapeRendererDemo2 {
                 .axisNames("X", "Y")
                 .showLegend(true)
 
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .defaultVisible(true, true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
@@ -42,7 +42,7 @@ public class XYLineAndShapeRendererDemo2 {
                 .addTooltips(true)
                 .done()
 
-                .lineAndShapeRenderer(1)
+                .lineAndShapeProps(1)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
@@ -52,7 +52,7 @@ public class XYLineAndShapeRendererDemo2 {
                 .addTooltips(true)
                 .done()
 
-                .lineAndShapeRenderer(2)
+                .lineAndShapeProps(2)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
@@ -62,7 +62,7 @@ public class XYLineAndShapeRendererDemo2 {
                 .addTooltips(true)
                 .done()
 
-                .lineAndShapeRenderer(3)
+                .lineAndShapeProps(3)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
@@ -73,7 +73,7 @@ public class XYLineAndShapeRendererDemo2 {
                 .addTooltips(true)
                 .done()
 
-                .lineAndShapeRenderer(4)
+                .lineAndShapeProps(4)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)

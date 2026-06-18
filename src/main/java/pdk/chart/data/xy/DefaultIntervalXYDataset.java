@@ -335,6 +335,7 @@ public class DefaultIntervalXYDataset<S extends Comparable<S>>
     public void addSeries(S seriesKey, double[][] data) {
         Objects.requireNonNull(seriesKey, "seriesKey");
         Objects.requireNonNull(data, "data");
+
         if (data.length != 6) {
             throw new IllegalArgumentException("The 'data' array must have length == 6.");
         }

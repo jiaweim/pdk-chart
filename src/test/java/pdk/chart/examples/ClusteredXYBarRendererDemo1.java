@@ -54,7 +54,7 @@ public class ClusteredXYBarRendererDemo1 {
                 .dataset(dataset, XYChartType.BAR_CLUSTER)
                 .axisNames(null, "Y")
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, Color.YELLOW))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, Color.GREEN))
@@ -69,7 +69,7 @@ public class ClusteredXYBarRendererDemo1 {
                 .inverted(true)
                 .doneXY()
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, Color.YELLOW))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, Color.GREEN))
@@ -82,7 +82,7 @@ public class ClusteredXYBarRendererDemo1 {
                 .title("Horizontal")
                 .dataset(dataset, XYChartType.BAR_CLUSTER)
 
-                .barRenderer(0)
+                .barProps(0)
                 .margin(0.2)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, Color.YELLOW))
@@ -99,7 +99,7 @@ public class ClusteredXYBarRendererDemo1 {
                 .inverted(true)
                 .doneXY()
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, Color.YELLOW))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, Color.GREEN))

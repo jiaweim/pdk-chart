@@ -245,9 +245,7 @@ public class CategoryBarProps extends CategoryXYRendererProps {
 
     /**
      * Sets the flag that controls whether the base value for the bars
-     * is included in the range calculated by
-     * {@link #findRangeBounds(CategoryDataset)}.  If the flag is changed,
-     * a {@link RendererChangeEvent} is sent to all registered listeners.
+     * is included in the range calculated by {@link BarRenderer#findRangeBounds(CategoryDataset)}.
      *
      * @param include the new value for the flag.
      */

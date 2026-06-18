@@ -44,7 +44,7 @@ public class XYBarChartDemo2 {
                 .domainPannable(true)
                 .rangePannable(true)
 
-                .barRenderer(0)
+                .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
                 .done();

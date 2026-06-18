@@ -56,7 +56,7 @@ public class XYBarChartDemo5 {
                 .axisNames("Year", "$ Billion")
                 .dataset(dataset, XYChartType.BAR)
 
-                .barRenderer(0)
+                .barProps(0)
                 .drawBarOutline(true)
                 .seriesOutlinePaint(0, Color.RED)
                 .defaultToolTipGenerator(new StandardXYToolTipGenerator("{1} = {2}",

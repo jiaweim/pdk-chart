@@ -115,7 +115,7 @@ public class MarkerDemo1 {
                 .position(RectangleEdge.RIGHT)
                 .doneXY()
 
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .defaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance())
                 .done()
 

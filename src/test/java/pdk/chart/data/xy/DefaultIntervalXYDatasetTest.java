@@ -271,14 +271,7 @@ public class DefaultIntervalXYDatasetTest {
         assertEquals(2.1, d.getYValue(0, 0), EPSILON);
 
         // check null key
-        boolean pass = false;
-        try {
-            d.addSeries(null, new double[][]{{1.1}, {0.6}, {1.6}, {2.1}, {2.6},
-                    {1.6}});
-        } catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> d.addSeries(null, new double[][]{{1.1}, {0.6}, {1.6}, {2.1}, {2.6}, {1.6}}));
     }
 
     /**

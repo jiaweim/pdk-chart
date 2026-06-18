@@ -23,7 +23,7 @@ public class XYLineAndShapeRendererDemo1 {
                 .axisNames("X", "Y")
                 .title("XYLineAndShapeRenderer Demo 1")
                 .showLegend(true)
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .addTooltips(true)
                 .seriesVisible(0, true, false)
                 .seriesVisible(1, false, true)

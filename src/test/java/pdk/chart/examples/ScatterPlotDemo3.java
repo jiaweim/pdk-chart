@@ -17,7 +17,7 @@ public class ScatterPlotDemo3 {
                 .title("Scatter Plot Demo 3")
                 .showLegend(true)
                 .axisNames("X", "Y")
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .defaultShapesVisible(true)
                 .defaultLinesVisible(false)
                 .addTooltips(true)

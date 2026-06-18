@@ -27,7 +27,7 @@ public class XYSeriesDemo2 {
                 .axisNames("X", "Y")
                 .showLegend(true)
                 .rangeAxis().autoRangeIncludesZero(false).doneXY()
-                .lineAndShapeRenderer(0)
+                .lineAndShapeProps(0)
                 .addTooltips(true)
                 .done()
                 .show();

@@ -74,7 +74,7 @@ public class XYBarChartDemo1 {
                 .addTitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do",
                         new Font("Dialog", Font.ITALIC, 10)))
 
-                .barRenderer(0)
+                .barProps(0)
                 .defaultToolTipGenerator(new StandardXYToolTipGenerator("{1} = {2}",
                         new SimpleDateFormat("yyyy"), new DecimalFormat("0")))
                 .margin(0.1)

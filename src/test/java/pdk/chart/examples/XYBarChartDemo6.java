@@ -33,7 +33,7 @@ public class XYBarChartDemo6 {
                 .domainPannable(true)
                 .rangePannable(true)
 
-                .barRenderer(0)
+                .barProps(0)
                 .useYInterval(true)
                 .done()
 

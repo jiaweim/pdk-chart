@@ -1,21 +1,14 @@
 package pdk.chart.examples;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
-import pdk.chart.ChartUtils;
-import pdk.chart.axis.DateAxis;
-import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.RegularTimePeriod;
-import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYIntervalSeries;
 import pdk.chart.data.xy.XYIntervalSeriesCollection;
 import pdk.chart.fluent.AxisType;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYBarRenderer;
 
 import java.awt.*;
 
@@ -72,7 +65,7 @@ public class XYBarChartDemo7 {
                 .domainGridlinePaint(Color.WHITE)
                 .rangeGridlinePaint(Color.WHITE)
 
-                .barRenderer(0)
+                .barProps(0)
                 .useYInterval(true)
                 .done();
 

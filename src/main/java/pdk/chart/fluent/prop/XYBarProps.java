@@ -4,8 +4,11 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.fluent.XYChart;
+import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardXYToolTipGenerator;
+import pdk.chart.labels.XYItemLabelGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
+import pdk.chart.renderer.xy.StackedXYBarRenderer;
 import pdk.chart.renderer.xy.XYBarPainter;
 import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.util.GradientPaintTransformer;
@@ -42,6 +45,36 @@ public class XYBarProps extends XYRendererProps {
                 renderer_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
             }
         }
+        return this;
+    }
+
+    /**
+     * Sets whether item labels are visible.
+     *
+     * @param visible the flag.
+     */
+    public XYBarProps defaultItemLabelsVisible(boolean visible) {
+        renderer_.setDefaultItemLabelsVisible(visible);
+        return this;
+    }
+
+    /**
+     * Sets the default item label generator.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public XYBarProps defaultItemLabelGenerator(XYItemLabelGenerator generator) {
+        renderer_.setDefaultItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the default positive item label position.
+     *
+     * @param position the position ({@code null} not permitted).
+     */
+    public XYBarProps defaultPositiveItemLabelPosition(ItemLabelPosition position) {
+        renderer_.setDefaultPositiveItemLabelPosition(position);
         return this;
     }
 
@@ -140,4 +173,18 @@ public class XYBarProps extends XYRendererProps {
         return this;
     }
 
+    /**
+     * Sets whether the renderer displays each item
+     * value as a percentage (so that the stacked bars add to 100%).
+     * <p>
+     * This setting only takes effect for {@link pdk.chart.fluent.XYChartType#BAR_STACK}.
+     *
+     * @param asPercentages the flag.
+     */
+    public XYBarProps renderAsPercentages(boolean asPercentages) {
+        if (renderer_ instanceof StackedXYBarRenderer barRenderer) {
+            barRenderer.setRenderAsPercentages(asPercentages);
+        }
+        return this;
+    }
 }
