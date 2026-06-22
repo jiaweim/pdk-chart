@@ -1,5 +1,6 @@
 package pdk.chart.fluent;
 
+import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
@@ -13,6 +14,27 @@ import pdk.chart.internal.Args;
  * @since 17 Jun 2026, 9:35 AM
  */
 public interface Data {
+
+    static <T1 extends Comparable<T1>, T2 extends Comparable<T2>> CategoryDatasetBuilder<T1, T2> category() {
+        return new CategoryDatasetBuilder<>();
+    }
+
+    /**
+     * Auxiliary class for creating DefaultCategoryDataset
+     */
+    class CategoryDatasetBuilder<T1 extends Comparable<T1>, T2 extends Comparable<T2>> {
+
+        private final DefaultCategoryDataset<T1, T2> dataset = new DefaultCategoryDataset<>();
+
+        public CategoryDatasetBuilder<T1, T2> addSeries(T1 row, T2[] columns, double[] values) {
+            dataset.addSeries(row, columns, values);
+            return this;
+        }
+
+        public DefaultCategoryDataset<T1, T2> build() {
+            return dataset;
+        }
+    }
 
     /**
      * Create an {@link IntervalXYDataset}.

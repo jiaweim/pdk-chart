@@ -3,7 +3,6 @@ package pdk.chart.fluent.prop;
 import org.jspecify.annotations.NonNull;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
-import pdk.chart.event.AxisChangeEvent;
 import pdk.chart.fluent.CategoryXYChart;
 
 /**
@@ -43,8 +42,7 @@ public class CategoryAxisProps {
     }
 
     /**
-     * Sets the category margin and sends an {@link AxisChangeEvent} to all
-     * registered listeners.
+     * Sets the category margin.
      * <p>
      * The overall category margin is distributed over
      * N-1 gaps, where N is the number of categories on the axis.

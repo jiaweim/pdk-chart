@@ -58,7 +58,7 @@ public class RelativeDateFormatDemo1 {
 
                 .rangeAxis()
                 .autoRangeIncludesZero(false)
-                .doneXY()
+                .done()
 
                 .lineAndShapeProps(0)
                 .addTooltips(true)

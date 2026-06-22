@@ -31,17 +31,21 @@ public class BarChartDemo8 {
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .title("Bar Chart Demo 8")
                 .axisNames("Category", "Value")
+
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .upperMargin(0.15)
-                .doneCategory()
+                .done()
+
                 .barProps(0)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .seriesItemLabelsVisible(0, Boolean.TRUE)
                 .done()
+
                 .domainAxis()
                 .categoryLabelPositions(CategoryLabelPositions.UP_45)
                 .done()
+
                 .show(500, 270);
 
     }

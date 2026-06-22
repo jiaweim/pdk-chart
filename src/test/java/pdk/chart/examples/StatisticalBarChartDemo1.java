@@ -38,7 +38,7 @@ public class StatisticalBarChartDemo1 {
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .autoRangeIncludesZero(false)
-                .doneCategory();
+                .done();
 
         Chart.DEFAULT_THEME.apply(chart);
 

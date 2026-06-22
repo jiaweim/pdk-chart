@@ -26,7 +26,7 @@ public class XYSeriesDemo2 {
                 .dataset(dataset, XYChartType.LINE)
                 .axisNames("X", "Y")
                 .showLegend(true)
-                .rangeAxis().autoRangeIncludesZero(false).doneXY()
+                .rangeAxis().autoRangeIncludesZero(false).done()
                 .lineAndShapeProps(0)
                 .addTooltips(true)
                 .done()

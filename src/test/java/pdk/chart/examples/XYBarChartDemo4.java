@@ -27,7 +27,7 @@ public class XYBarChartDemo4 {
 
                 .domainAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneXY()
+                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)

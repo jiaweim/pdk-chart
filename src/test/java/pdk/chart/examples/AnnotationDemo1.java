@@ -20,6 +20,7 @@ import java.io.*;
  * {@link XYTextAnnotation}.
  */
 public class AnnotationDemo1 {
+
     private static XYSeriesCollection<String> createDataset() {
         XYSeriesCollection<String> result = new XYSeriesCollection<>();
 
@@ -86,8 +87,10 @@ public class AnnotationDemo1 {
     static void main() {
         XYSeriesCollection<String> dataset = createDataset();
 
-        TextTitle t1 = new TextTitle("Growth Charts: United States", new Font("SansSerif", Font.BOLD, 14));
-        TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months", new Font("SansSerif", Font.PLAIN, 11));
+        TextTitle t1 = new TextTitle("Growth Charts: United States",
+                new Font("SansSerif", Font.BOLD, 14));
+        TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months",
+                new Font("SansSerif", Font.PLAIN, 11));
 
         Font font = new Font("SansSerif", Font.PLAIN, 9);
         XYTextAnnotation annotation1 = new XYTextAnnotation("3rd", 36.5, 11.76);
@@ -126,6 +129,7 @@ public class AnnotationDemo1 {
                 .addTitle(t2)
                 .domainPannable(true)
                 .rangePannable(true)
+
                 .addAnnotation(annotation1)
                 .addAnnotation(annotation2)
                 .addAnnotation(annotation3)
@@ -135,12 +139,16 @@ public class AnnotationDemo1 {
                 .addAnnotation(annotation7)
                 .addAnnotation(annotation8)
                 .addAnnotation(annotation9)
+
                 .domainAxis()
                 .upperMargin(0.12)
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneXY()
+                .done()
+
                 .rangeAxis()
                 .autoRangeIncludesZero(false)
-                .doneXY().show();
+                .done()
+
+                .show();
     }
 }

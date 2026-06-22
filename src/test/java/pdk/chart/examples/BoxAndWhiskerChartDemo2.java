@@ -55,7 +55,8 @@ public class BoxAndWhiskerChartDemo2 {
 
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneXY()
+                .done()
+
                 .show(500, 270);
     }
 }

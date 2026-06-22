@@ -14,6 +14,7 @@ import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.fluent.prop.*;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
+import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.*;
 import pdk.chart.renderer.category.AreaRenderer;
@@ -71,10 +72,34 @@ public class CategoryXYChart extends Chart {
             legend.setMargin(new RectangleInsets(1.0, 1.0, 1.0, 1.0));
             legend.setBackgroundPaint(Color.WHITE);
             legend.setPosition(RectangleEdge.BOTTOM);
+
             addSubtitle(legend);
         }
         return this;
     }
+
+    /**
+     * Return the
+     *
+     * @return
+     */
+    public LegendTitleProps legendProps() {
+        return new LegendTitleProps(this, (LegendTitle) getSubtitle(0));
+    }
+
+
+    /**
+     * Sets the fixed legend items for the plot.  Leave this set to
+     * {@code null} if you prefer the legend items to be created
+     * automatically.
+     *
+     * @param items the legend items ({@code null} permitted).
+     */
+    public CategoryXYChart fixedLegendItems(@Nullable LegendItemCollection items) {
+        plot_.setFixedLegendItems(items);
+        return this;
+    }
+
 
     /**
      * Sets the chart title.
@@ -130,8 +155,8 @@ public class CategoryXYChart extends Chart {
      *
      * @return {@link CategoryNumberAxisProps}.
      */
-    public NumberAxisProps rangeAxis() {
-        return new NumberAxisProps(this, rangeAxis_);
+    public CategoryNumberAxisProps rangeAxis() {
+        return new CategoryNumberAxisProps(this, rangeAxis_);
     }
 
     /**
@@ -237,6 +262,39 @@ public class CategoryXYChart extends Chart {
             Marker baseline = new ValueMarker(0.0);
             baseline.setPaint(Color.BLACK);
             plot_.addRangeMarker(baseline, Layer.FOREGROUND);
+        }
+
+        plot_.setDataset(index, dataset);
+        plot_.setRenderer(index, renderer);
+        return this;
+    }
+
+    /**
+     * Add a new {@link CategoryDataset} to show.
+     *
+     * @param dataset  {@link CategoryDataset} to show.
+     * @param renderer {@link CategoryItemRenderer} to render the dataset.
+     * @return this.
+     */
+    public CategoryXYChart addDataset(CategoryDataset dataset, CategoryItemRenderer renderer) {
+        int datasetCount = plot_.getDatasetCount();
+        if (datasetCount == 1 && plot_.getDataset(0) == null) {
+            datasetCount = 0;
+        }
+        return addDataset(datasetCount, dataset, renderer);
+    }
+
+    /**
+     * Add a new {@link CategoryDataset} to show.
+     *
+     * @param dataset  {@link CategoryDataset} to show.
+     * @param renderer {@link CategoryItemRenderer} to render the dataset.
+     * @return this.
+     */
+    public CategoryXYChart addDataset(int index, CategoryDataset dataset, CategoryItemRenderer renderer) {
+        CategoryDataset exitingDataset = plot_.getDataset(index);
+        if (exitingDataset != null) {
+            throw new IllegalStateException("Dataset with index " + index + " already exists!");
         }
 
         plot_.setDataset(index, dataset);
@@ -442,7 +500,7 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
-     * Sets the flag indicating whether the range crosshair is visible.
+     * Whether the range crosshair is visible.
      *
      * @param flag the new value of the flag.
      */
@@ -452,12 +510,11 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
-     * Sets the paint used to draw the range crosshair (if visible) and
-     * sends a {@link PlotChangeEvent} to all registered listeners.
+     * Sets the paint used to draw the range crosshair (if visible).
      *
-     * @param paint the paint ({@code null} not permitted).
+     * @param paint the paint.
      */
-    public CategoryXYChart rangeCrosshairPaint(Paint paint) {
+    public CategoryXYChart rangeCrosshairPaint(@NonNull Paint paint) {
         plot_.setRangeCrosshairPaint(paint);
         return this;
     }

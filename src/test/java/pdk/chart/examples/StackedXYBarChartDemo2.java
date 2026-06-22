@@ -79,7 +79,7 @@ public class StackedXYBarChartDemo2 {
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .upperMargin(0.1)
-                .doneXY()
+                .done()
 
                 .barProps(0)
                 .margin(0.15)

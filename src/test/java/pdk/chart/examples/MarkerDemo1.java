@@ -126,7 +126,7 @@ public class MarkerDemo1 {
                 .rangeAxis()
                 .lowerMargin(0.5)
                 .upperMargin(0.3)
-                .doneXY()
+                .done()
 
                 .show(500, 270);
     }

@@ -44,7 +44,7 @@ public class LayeredBarChartDemo1 {
 
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
 
                 .barProps(0)
                 .addTooltips(true)

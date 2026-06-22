@@ -50,7 +50,7 @@ public class CategoryMarkerDemo2 {
 
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
 
                 .lineRenderer(0)
                 .seriesShapesVisible(0, true)

@@ -34,15 +34,18 @@ public class BarChartDemo10 {
                 .axisNames("Category", "Value")
                 .dataset(dataset, CategoryXYChartType.BAR)
                 .domainGridlinesVisible(true)
+
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
+
                 .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
                 .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)))
                 .done()
+
                 .domainAxis()
                 .categoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6))
                 .done();

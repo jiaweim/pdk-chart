@@ -75,7 +75,8 @@ public class BarChartDemo3 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .lowerMargin(0.15)
                 .upperMargin(0.15)
-                .doneCategory()
+                .done()
+
                 .addRangeAxis(1, rangeAxis2)
                 .addDomainAxis(1, domainAxis2)
                 .mapDatasetToDomainAxes(0, axisIndices)

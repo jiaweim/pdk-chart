@@ -154,7 +154,7 @@ public class SurveyResultsDemo1 {
 
                 .rangeAxis()
                 .visible(false)
-                .doneCategory()
+                .done()
 
                 .addAnnotation(a1)
                 .addAnnotation(a2)

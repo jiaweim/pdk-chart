@@ -50,7 +50,7 @@ public class HistogramDemo1 {
 
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneXY()
+                .done()
 
                 .barProps(0)
                 .addTooltips(true)

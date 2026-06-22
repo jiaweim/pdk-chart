@@ -63,7 +63,7 @@ public class BarChartDemo9 {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .range(0, 800)
                 .tickMarkPaint(Color.BLACK)
-                .doneCategory()
+                .done()
                 .show(500, 270);
     }
 

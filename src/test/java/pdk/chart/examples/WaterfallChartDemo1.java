@@ -62,7 +62,7 @@ public class WaterfallChartDemo1 {
 
                 .rangeAxis()
                 .standardTickUnits(standardUnits)
-                .doneCategory()
+                .done()
 
                 .show(500, 270);
     }

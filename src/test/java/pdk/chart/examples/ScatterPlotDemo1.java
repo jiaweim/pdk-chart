@@ -42,18 +42,21 @@ public class ScatterPlotDemo1 {
                 .defaultShapesVisible(true)
                 .defaultLinesVisible(false)
                 .done()
+
                 .domainAxis()
                 .autoRangeIncludesZero(false)
                 .tickMarkInsideLength(2.0f)
                 .tickMarkOutsideLength(2.0f)
                 .minorTickCount(2)
                 .minorTickMarksVisible(true)
-                .doneXY()
-                .rangeAxis().tickMarkInsideLength(2.0f)
+                .done()
+
+                .rangeAxis()
+                .tickMarkInsideLength(2.0f)
                 .tickMarkOutsideLength(2.0f)
                 .minorTickCount(2)
                 .minorTickMarksVisible(true)
-                .doneXY();
+                .done();
 
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));

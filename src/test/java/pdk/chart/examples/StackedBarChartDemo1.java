@@ -13,6 +13,13 @@ import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 
+/**
+ * A regular stacked bar chart.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 22 Jun 2026, 10:39 AM
+ */
 public class StackedBarChartDemo1 {
 
     private static CategoryDataset createDataset() {
@@ -91,6 +98,7 @@ public class StackedBarChartDemo1 {
                 .title("Freshwater Usage By Country")
                 .axisNames("Country", "Value")
                 .addTitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"))
+                .showLegend(true)
 
                 .domainAxis()
                 .lowerMargin(0.01)
@@ -100,7 +108,7 @@ public class StackedBarChartDemo1 {
 
                 .rangeAxis()
                 .attributedLabel(yLabel)
-                .doneCategory()
+                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)

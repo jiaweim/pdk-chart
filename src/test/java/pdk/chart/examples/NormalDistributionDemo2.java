@@ -63,7 +63,7 @@ public class NormalDistributionDemo2 extends ApplicationFrame {
                 .domainAxis()
                 .lowerMargin(0)
                 .upperMargin(0)
-                .doneXY();
+                .done();
 
         XYPointerAnnotation a1 = new XYPointerAnnotation("μ = -2.0, σ² = 0.5", -2.0D, 0.564D, 3.9269908169872414D);
         a1.setLabelOffset(4.0D);

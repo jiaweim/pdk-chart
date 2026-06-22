@@ -2,9 +2,14 @@ package pdk.chart.fluent.prop;
 
 import org.jspecify.annotations.Nullable;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.axis.SymbolAxis;
 import pdk.chart.axis.TickUnitSource;
 import pdk.chart.event.AxisChangeEvent;
 import pdk.chart.fluent.CategoryXYChart;
+
+import java.awt.*;
+import java.text.AttributedString;
+import java.text.NumberFormat;
 
 /**
  * A class for configuring properties of NumberAxis, designed with a fluent style API.
@@ -15,7 +20,7 @@ import pdk.chart.fluent.CategoryXYChart;
  */
 public class CategoryNumberAxisProps {
 
-    private final CategoryXYChart chart_;
+    protected final CategoryXYChart chart_;
     private final NumberAxis axis_;
 
     public CategoryNumberAxisProps(CategoryXYChart chart, NumberAxis axis) {
@@ -24,8 +29,9 @@ public class CategoryNumberAxisProps {
     }
 
     /**
+     * Return the {@link CategoryXYChart} the axis belongs to.
      *
-     * @return
+     * @return {@link CategoryXYChart}
      */
     public CategoryXYChart done() {
         return chart_;
@@ -70,8 +76,7 @@ public class CategoryNumberAxisProps {
     }
 
     /**
-     * Sets the range for the axis and sends a change event to all registered
-     * listeners.
+     * Sets the range for the axis.
      * <p>
      * As a side effect, the auto-range flag is set to {@code false}.
      *
@@ -163,6 +168,89 @@ public class CategoryNumberAxisProps {
      */
     public CategoryNumberAxisProps upperMargin(double margin) {
         axis_.setUpperMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets  whether the axis is visible.
+     *
+     * @param flag the flag.
+     */
+    public CategoryNumberAxisProps visible(boolean flag) {
+        axis_.setVisible(flag);
+        return this;
+    }
+
+    /**
+     * Sets the paint used to draw tick marks.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public CategoryNumberAxisProps tickMarkPaint(Paint paint) {
+        axis_.setTickMarkPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the number format override.  If this is non-null, then it will be
+     * used to format the numbers on the axis.
+     *
+     * @param formatter the number formatter.
+     */
+    public CategoryNumberAxisProps numberFormatOverride(@Nullable NumberFormat formatter) {
+        axis_.setNumberFormatOverride(formatter);
+        return this;
+    }
+
+    /**
+     * Sets the direction of values on the axis.
+     *
+     * @param flag the flag.
+     */
+    public CategoryNumberAxisProps inverted(boolean flag) {
+        axis_.setInverted(flag);
+        return this;
+    }
+
+    /**
+     * Sets the attributed label for the axis.
+     *
+     * @param label the label ({@code null} permitted).
+     */
+    public CategoryNumberAxisProps attributedLabel(AttributedString label) {
+        axis_.setAttributedLabel(label);
+        return this;
+    }
+
+
+    /**
+     * Sets the list of symbols to display instead of the numeric values.
+     *
+     * @param symbols symbols List of symbols.
+     * @return this.
+     */
+    public CategoryNumberAxisProps symbols(String[] symbols) {
+        if (axis_ instanceof SymbolAxis symbolAxis) {
+            symbolAxis.setSymbols(symbols);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether grid bands are drawn for this
+     * axis and notifies registered listeners that the axis has been modified.
+     * <p>
+     * Each band is the area between two adjacent gridlines
+     * running perpendicular to the axis.  When the bands are drawn they are
+     * filled with the colors {@link #getGridBandPaint()} and
+     * {@link #getGridBandAlternatePaint()} in an alternating sequence.
+     *
+     * @param flag the new setting.
+     */
+    public CategoryNumberAxisProps gridBandsVisible(boolean flag) {
+        if (axis_ instanceof SymbolAxis symbolAxis) {
+            symbolAxis.setGridBandsVisible(flag);
+        }
         return this;
     }
 }

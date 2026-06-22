@@ -39,7 +39,7 @@ public class IntervalBarChartDemo1 {
                 .rangePannable(true)
                 .rangeAxis()
                 .numberFormatOverride(new DecimalFormat("0.00%"))
-                .doneCategory();
+                .done();
         chart.show(500, 270);
     }
 }

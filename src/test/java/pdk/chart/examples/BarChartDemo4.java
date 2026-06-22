@@ -31,7 +31,7 @@ public class BarChartDemo4 {
                 .showLegend(true)
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)

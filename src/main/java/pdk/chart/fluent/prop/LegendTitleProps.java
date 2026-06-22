@@ -3,6 +3,7 @@ package pdk.chart.fluent.prop;
 import org.jspecify.annotations.NonNull;
 import pdk.chart.Chart;
 import pdk.chart.api.RectangleEdge;
+import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.legend.LegendTitle;
 
@@ -26,7 +27,11 @@ public class LegendTitleProps {
     public XYChart doneXY() {
         return (XYChart) chart;
     }
-    
+
+    public CategoryXYChart doneCateogry() {
+        return (CategoryXYChart) chart;
+    }
+
     /**
      * Sets the position for the title.
      *

@@ -31,10 +31,12 @@ public class BarChartDemo6 {
                 .upperMargin(0.2)
                 .visible(false)
                 .done()
+
                 .rangeAxis()
                 .range(0, 100)
                 .visible(false)
-                .doneCategory()
+                .done()
+
                 .show(500, 270);
     }
 }

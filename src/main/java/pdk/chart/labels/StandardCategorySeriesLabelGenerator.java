@@ -2,11 +2,10 @@ package pdk.chart.labels;
 
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 /**
  * A standard series label generator for plots that use data from
@@ -44,7 +43,7 @@ public class StandardCategorySeriesLabelGenerator implements
      * @param format the format pattern ({@code null} not permitted).
      */
     public StandardCategorySeriesLabelGenerator(String format) {
-        Args.nullNotPermitted(format, "format");
+        Objects.requireNonNull(format, "format");
         this.formatPattern = format;
     }
 
@@ -57,7 +56,7 @@ public class StandardCategorySeriesLabelGenerator implements
      */
     @Override
     public String generateLabel(CategoryDataset dataset, int series) {
-        Args.nullNotPermitted(dataset, "dataset");
+        Objects.requireNonNull(dataset, "dataset");
         String label = MessageFormat.format(this.formatPattern,
                 createItemArray(dataset, series));
         return label;
@@ -88,38 +87,14 @@ public class StandardCategorySeriesLabelGenerator implements
         return super.clone();
     }
 
-    /**
-     * Tests this object for equality with an arbitrary object.
-     *
-     * @param obj the other object ({@code null} permitted).
-     * @return A boolean.
-     */
     @Override
-    public boolean equals(Object obj) {
-        if (obj == this) {
-            return true;
-        }
-        if (!(obj instanceof StandardCategorySeriesLabelGenerator)) {
-            return false;
-        }
-        StandardCategorySeriesLabelGenerator that
-                = (StandardCategorySeriesLabelGenerator) obj;
-        if (!this.formatPattern.equals(that.formatPattern)) {
-            return false;
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (!(o instanceof StandardCategorySeriesLabelGenerator that)) return false;
+        return Objects.equals(formatPattern, that.formatPattern);
     }
 
-    /**
-     * Returns a hash code for this instance.
-     *
-     * @return A hash code.
-     */
     @Override
     public int hashCode() {
-        int result = 127;
-        result = HashUtils.hashCode(result, this.formatPattern);
-        return result;
+        return Objects.hashCode(formatPattern);
     }
-
 }

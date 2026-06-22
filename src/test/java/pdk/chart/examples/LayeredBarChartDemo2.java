@@ -43,7 +43,7 @@ public class LayeredBarChartDemo2 {
 
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)

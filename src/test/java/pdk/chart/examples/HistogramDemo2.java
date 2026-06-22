@@ -37,7 +37,7 @@ public class HistogramDemo2 {
 
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneXY()
+                .done()
 
                 .barProps(0)
                 .addTooltips(true)

@@ -55,7 +55,7 @@ public class XYBarChartDemo7 {
                 .domainAxis()
                 .symbols(new String[]{"S1", "S2", "S3"})
                 .gridBandsVisible(false)
-                .doneXY()
+                .done()
 
                 .dataset(dataset, XYChartType.BAR)
                 .showLegend(true)

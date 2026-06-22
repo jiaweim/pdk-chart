@@ -380,9 +380,9 @@ public class XYChart extends Chart {
     /**
      * Adds an annotation to the plot.
      *
-     * @param annotation the annotation ({@code null} not permitted).
+     * @param annotation the annotation.
      */
-    public XYChart addAnnotation(XYAnnotation annotation) {
+    public XYChart addAnnotation(@NonNull XYAnnotation annotation) {
         plot_.addAnnotation(annotation, false);
         return this;
     }

@@ -76,8 +76,9 @@ public class CategoryBarProps extends CategoryXYRendererProps {
     }
 
     /**
-     * Sets the bar painter for this renderer and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the bar painter for this renderer.
+     * <p>
+     * {@link pdk.chart.renderer.category.GradientBarPainter} or {@link pdk.chart.renderer.category.StandardBarPainter}.
      *
      * @param painter the painter ({@code null} not permitted).
      */
@@ -97,12 +98,13 @@ public class CategoryBarProps extends CategoryXYRendererProps {
     }
 
     /**
-     * Sets the legend item tool tip generator and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the legend item tool tip generator.
      * <p>
      * Legend tool tips are text displayed when the mouse hovers over the legend.
+     * <p>
+     * Default implementation is {@link StandardCategorySeriesLabelGenerator}.
      *
-     * @param generator the generator ({@code null} permitted).
+     * @param generator the generator.
      */
     public CategoryBarProps legendItemToolTipGenerator(@Nullable CategorySeriesLabelGenerator generator) {
         renderer_.setLegendItemToolTipGenerator(generator);

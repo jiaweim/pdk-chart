@@ -55,7 +55,8 @@ public class BarChartDemo7 {
                 .addRangeMarker(target, Layer.BACKGROUND)
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
+                
                 .barProps(0)
                 .drawBarOutline(false)
                 .itemMargin(0.1)

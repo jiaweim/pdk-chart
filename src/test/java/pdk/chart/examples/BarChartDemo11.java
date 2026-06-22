@@ -58,7 +58,8 @@ public class BarChartDemo11 {
                 .done()
                 .rangeAxis()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .doneCategory()
+                .done()
+
                 .barProps(0)
                 .drawBarOutline(false)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>("{1}: {2} percent", new DecimalFormat("0")))

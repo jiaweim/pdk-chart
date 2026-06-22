@@ -65,7 +65,7 @@ public class SurveyResultsDemo2 {
                 .rangeAxis()
                 .range(0, 5)
                 .visible(false)
-                .doneCategory()
+                .done()
 
                 .setDomainAxis(domainAxis)
 

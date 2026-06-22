@@ -53,7 +53,7 @@ public class StackedXYBarChartDemo3 {
 
                 .rangeAxis()
                 .numberFormatOverride(new DecimalFormat("0.0%"))
-                .doneXY()
+                .done()
 
                 .barProps(0)
                 .margin(0.3)

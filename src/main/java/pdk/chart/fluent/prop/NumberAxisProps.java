@@ -6,7 +6,6 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.axis.TickUnitSource;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.fluent.XYChart;
 
 import java.awt.*;
@@ -22,16 +21,12 @@ import java.text.NumberFormat;
  */
 public class NumberAxisProps {
 
-    protected final Chart chart_;
+    protected final XYChart chart_;
     private final NumberAxis axis_;
 
-    public NumberAxisProps(Chart chart, NumberAxis axis) {
+    public NumberAxisProps(XYChart chart, NumberAxis axis) {
         this.chart_ = chart;
         this.axis_ = axis;
-    }
-
-    public Chart done() {
-        return chart_;
     }
 
     /**
@@ -39,19 +34,8 @@ public class NumberAxisProps {
      *
      * @return {@link Chart}.
      */
-    public XYChart doneXY() {
-        return (XYChart) chart_;
-    }
-
-    /**
-     * Back to the {@link CategoryXYChart} this axis belongs to.
-     * <p>
-     * If the owner chart is not a {@link CategoryXYChart}, throw an exception.
-     *
-     * @return {@link CategoryXYChart}
-     */
-    public CategoryXYChart doneCategory() {
-        return (CategoryXYChart) chart_;
+    public XYChart done() {
+        return chart_;
     }
 
     /**

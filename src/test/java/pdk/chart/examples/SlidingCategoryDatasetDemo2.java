@@ -87,7 +87,7 @@ public class SlidingCategoryDatasetDemo2 extends ApplicationFrame {
                     .rangeAxis()
                     .standardTickUnits(NumberAxis.createIntegerTickUnits())
                     .range(0, 100)
-                    .doneCategory()
+                    .done()
 
                     .barProps(0)
                     .addTooltips(true)
