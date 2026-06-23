@@ -36,6 +36,7 @@ public interface Data {
         }
     }
 
+
     /**
      * Create an {@link IntervalXYDataset}.
      *

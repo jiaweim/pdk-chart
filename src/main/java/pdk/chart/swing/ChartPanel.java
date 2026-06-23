@@ -1245,7 +1245,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
      * @param overlay the overlay ({@code null} not permitted).
      */
     public void addOverlay(Overlay overlay) {
-        Args.nullNotPermitted(overlay, "overlay");
+        Objects.requireNonNull(overlay, "overlay");
         this.overlays.add(overlay);
         overlay.addChangeListener(this);
         repaint();
@@ -1257,7 +1257,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
      * @param overlay the overlay to remove ({@code null} not permitted).
      */
     public void removeOverlay(Overlay overlay) {
-        Args.nullNotPermitted(overlay, "overlay");
+        Objects.requireNonNull(overlay, "overlay");
         boolean removed = this.overlays.remove(overlay);
         if (removed) {
             overlay.removeChangeListener(this);
@@ -3042,7 +3042,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
         if (this.chart != null) {
             this.chart.addChangeListener(this);
         }
-
     }
 
 }
