@@ -1,32 +1,26 @@
-package pdk.chart.demo;
+package pdk.chart.demo.fluent;
 
-import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
-import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.fluent.CategoryXYChart;
+import pdk.chart.fluent.CategoryXYChartType;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.StackedBarRenderer;
 import pdk.chart.renderer.category.StandardBarPainter;
-import pdk.chart.swing.ApplicationFrame;
-import pdk.chart.swing.ChartPanel;
-import pdk.chart.swing.UIUtils;
 import pdk.chart.title.TextTitle;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 
-public class StackedBarChartDemo1 extends ApplicationFrame {
-    public StackedBarChartDemo1(String title) {
-        super(title);
-        JPanel chartPanel = createDemoPanel();
-        chartPanel.setPreferredSize(new Dimension(500, 270));
-        this.setContentPane(chartPanel);
-    }
+/**
+ * A regular stacked bar chart.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 22 Jun 2026, 10:39 AM
+ */
+public class StackedBarChartDemo1 {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -93,40 +87,40 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
         return dataset;
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Freshwater Usage By Country", "Country", "Value", dataset);
-        chart.addSubtitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"));
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        CategoryAxis xAxis = plot.getDomainAxis();
-        xAxis.setLowerMargin(0.01);
-        xAxis.setUpperMargin(0.01);
-        xAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+    static void main() {
         AttributedString yLabel = new AttributedString("m3/person/year");
         yLabel.addAttribute(TextAttribute.WEIGHT, TextAttribute.WEIGHT_ULTRABOLD);
         yLabel.addAttribute(TextAttribute.SIZE, 14);
         yLabel.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUPER, 1, 2);
-        plot.getRangeAxis().setAttributedLabel(yLabel);
-        StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
-        renderer.setBarPainter(new StandardBarPainter());
-        renderer.setDefaultItemLabelsVisible(true);
-        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        renderer.setDefaultItemLabelPaint(Color.WHITE);
-        renderer.setSeriesPaint(0, new Color(0, 55, 122));
-        renderer.setSeriesPaint(1, new Color(24, 123, 58));
-        renderer.setSeriesPaint(2, Color.RED);
-        return chart;
-    }
 
-    public static JPanel createDemoPanel() {
-        Chart chart = createChart(createDataset());
-        return new ChartPanel(chart);
-    }
+        CategoryXYChart.create()
+                .addDataset(createDataset(), CategoryXYChartType.BAR_STACK)
+                .title("Freshwater Usage By Country")
+                .axisNames("Country", "Value")
+                .addTitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"))
+                .showLegend(true)
 
-    public static void main(String[] args) {
-        StackedBarChartDemo1 demo = new StackedBarChartDemo1("Chart: StackedBarChartDemo1");
-        demo.pack();
-        UIUtils.centerFrameOnScreen(demo);
-        demo.setVisible(true);
+                .domainAxis()
+                .lowerMargin(0.01)
+                .upperMargin(0.01)
+                .categoryLabelPositions(CategoryLabelPositions.UP_90)
+                .done()
+
+                .rangeAxis()
+                .attributedLabel(yLabel)
+                .done()
+
+                .barProps(0)
+                .drawBarOutline(false)
+                .barPainter(new StandardBarPainter())
+                .defaultItemLabelsVisible(true)
+                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
+                .defaultItemLabelPaint(Color.WHITE)
+                .seriesPaint(0, new Color(0, 55, 122))
+                .seriesPaint(1, new Color(24, 123, 58))
+                .seriesPaint(2, Color.RED)
+                .done()
+
+                .show(500, 270);
     }
 }

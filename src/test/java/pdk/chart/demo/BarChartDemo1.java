@@ -21,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BarChartDemo1 extends ApplicationFrame {
+
     public BarChartDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -28,43 +29,13 @@ public class BarChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDatasetX() {
-        String series1 = "18 and over";
-        String series2 = "18 - 39";
-        String series3 = "40 - 59";
-        String series4 = "60 and over";
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        String both = "Both sexes";
-        String male = "Male";
-        String female = "Female";
-        dataset.addValue(13.2, series1, both);
-        dataset.addValue(8.4, series1, male);
-        dataset.addValue(17.7, series1, female);
-        dataset.addValue(7.9, series2, both);
-        dataset.addValue((double) 5.5F, series2, male);
-        dataset.addValue(10.3, series2, female);
-        dataset.addValue(14.4, series3, both);
-        dataset.addValue(8.4, series3, male);
-        dataset.addValue(20.1, series3, female);
-        dataset.addValue((double) 19.0F, series4, both);
-        dataset.addValue(12.8, series4, male);
-        dataset.addValue(24.3, series4, female);
-        return dataset;
-    }
+    private static CategoryDataset<String, String> createDataset() {
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        String series1 = "Males";
-        String series2 = "Females";
-        String category1 = "18 to 39";
-        String category2 = "40 - 59";
-        String category3 = "60 and over";
-        dataset.addValue((double) 5.5F, series1, category1);
-        dataset.addValue(10.3, series2, category1);
-        dataset.addValue(8.4, series1, category2);
-        dataset.addValue(20.1, series2, category2);
-        dataset.addValue(12.8, series1, category3);
-        dataset.addValue(24.3, series2, category3);
+        String[] categories = new String[]{"18 to 39", "40 - 59", "60 and over"};
+        dataset.addSeries("Males", categories, new double[]{5.5, 8.4, 12.8});
+        dataset.addSeries("Females", categories, new double[]{10.3, 20.1, 24.3});
+
         return dataset;
     }
 
@@ -74,7 +45,7 @@ public class BarChartDemo1 extends ApplicationFrame {
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));
         TextTitle source = new TextTitle("Source: https://www.cdc.gov/nchs/products/databriefs/db377.htm");
-        source.setFont(new Font("SansSerif", 0, 10));
+        source.setFont(new Font("SansSerif", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);

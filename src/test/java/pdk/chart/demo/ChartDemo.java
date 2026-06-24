@@ -165,7 +165,6 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         } else {
             System.err.println("Couldn't find file: source.html");
         }
-
     }
 
     private void copyToClipboard() {
@@ -928,7 +927,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
     }
 
     public static Image getTestImage() {
-        URL imageURL = ChartDemo.class.getClassLoader().getResource("org/jfree/chart/demo/gorilla.jpg");
+        URL imageURL = ChartDemo.class.getResource("gorilla.jpg");
         ImageIcon temp = new ImageIcon(imageURL);
         return temp.getImage();
     }

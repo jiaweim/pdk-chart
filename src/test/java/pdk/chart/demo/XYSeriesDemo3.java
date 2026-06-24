@@ -1,46 +1,70 @@
 package pdk.chart.demo;
 
+import pdk.chart.Chart;
+import pdk.chart.ChartFactory;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
+import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.fluent.XYChart;
-import pdk.chart.fluent.XYChartType;
 import pdk.chart.plot.IntervalMarker;
-import pdk.chart.plot.Marker;
+import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.swing.ApplicationFrame;
+import pdk.chart.swing.ChartPanel;
+import pdk.chart.swing.UIUtils;
 import pdk.chart.text.TextAnchor;
 
+import javax.swing.*;
 import java.awt.*;
 
-/**
- *
- *
- * @author Jiawei Mao
- * @version 1.0.0
- * @since 05 Jun 2026, 9:20 AM
- */
-public class XYSeriesDemo3 {
-    static void main() {
-        XYSeries<String> series = new XYSeries<>("Random Data",
-                new double[]{1.0, 5.0, 4.0, 12.5, 17.3, 21.2, 21.9, 25.6, 30.0},
-                new double[]{400.2, 294.1, 100.0, 734.4, 453.2, 500.2, Double.NaN, 734.4, 453.2}
-        );
-        XYSeriesCollection<String> dataset = new XYSeriesCollection<>(series);
+public class XYSeriesDemo3 extends ApplicationFrame {
+    public XYSeriesDemo3(String title) {
+        super(title);
+        IntervalXYDataset dataset = createDataset();
+        Chart chart = createChart(dataset);
+        ChartPanel chartPanel = new ChartPanel(chart);
+        chartPanel.setPreferredSize(new Dimension(500, 270));
+        this.setContentPane(chartPanel);
+    }
 
-        Marker marker = new IntervalMarker(400, 700);
-        marker.setLabel("Target Range");
-        marker.setLabelFont(new Font("SansSerif", Font.ITALIC, 11));
-        marker.setLabelAnchor(RectangleAnchor.LEFT);
-        marker.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
-        marker.setPaint(new Color(222, 222, 255, 128));
+    private static IntervalXYDataset createDataset() {
+        XYSeries series = new XYSeries("Random Data");
+        series.add((double) 1.0F, 400.2);
+        series.add((double) 5.0F, 294.1);
+        series.add((double) 4.0F, (double) 100.0F);
+        series.add((double) 12.5F, 734.4);
+        series.add(17.3, 453.2);
+        series.add(21.2, 500.2);
+        series.add(21.9, (Number) null);
+        series.add(25.6, 734.4);
+        series.add((double) 30.0F, 453.2);
+        XYSeriesCollection dataset = new XYSeriesCollection(series);
+        return dataset;
+    }
 
-        XYChart xyChart = XYChart.create()
-                .axisNames("X", "Y")
-                .showLegend(true)
-                .addRangeMarker(marker, Layer.BACKGROUND)
-                .addDataset(dataset, XYChartType.BAR)
-                .barProps(0)
-                .addTooltips(true).chart();
-        xyChart.show();
+    private static Chart createChart(IntervalXYDataset dataset) {
+        Chart chart = ChartFactory.createXYBarChart("XY Series Demo 3", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        IntervalMarker target = new IntervalMarker((double) 400.0F, (double) 700.0F);
+        target.setLabel("Target Range");
+        target.setLabelFont(new Font("SansSerif", 2, 11));
+        target.setLabelAnchor(RectangleAnchor.LEFT);
+        target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
+        target.setPaint(new Color(222, 222, 255, 128));
+        plot.addRangeMarker(target, Layer.BACKGROUND);
+        return chart;
+    }
+
+    public static JPanel createDemoPanel() {
+        Chart chart = createChart(createDataset());
+        return new ChartPanel(chart);
+    }
+
+    public static void main(String[] args) {
+        XYSeriesDemo3 demo = new XYSeriesDemo3("Chart: XYSeriesDemo3.java");
+        demo.pack();
+        UIUtils.centerFrameOnScreen(demo);
+        demo.setVisible(true);
     }
 }

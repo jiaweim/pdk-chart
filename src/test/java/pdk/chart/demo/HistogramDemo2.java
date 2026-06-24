@@ -1,20 +1,35 @@
 package pdk.chart.demo;
 
+import pdk.chart.Chart;
+import pdk.chart.ChartFactory;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.SimpleHistogramBin;
 import pdk.chart.data.statistics.SimpleHistogramDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.fluent.XYChart;
-import pdk.chart.fluent.XYChartType;
+import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.renderer.xy.XYBarRenderer;
+import pdk.chart.swing.ApplicationFrame;
+import pdk.chart.swing.ChartPanel;
+import pdk.chart.swing.UIUtils;
 
-public class HistogramDemo2 {
+import javax.swing.*;
+import java.awt.*;
+
+public class HistogramDemo2 extends ApplicationFrame {
+    public HistogramDemo2(String title) {
+        super(title);
+        JPanel chartPanel = createDemoPanel();
+        chartPanel.setPreferredSize(new Dimension(500, 270));
+        this.setContentPane(chartPanel);
+    }
 
     private static IntervalXYDataset createDataset() {
         SimpleHistogramDataset dataset = new SimpleHistogramDataset("Series 1");
-        SimpleHistogramBin bin1 = new SimpleHistogramBin(0.0, 1.0, true, false);
-        SimpleHistogramBin bin2 = new SimpleHistogramBin(1.0, 2.0, true, false);
-        SimpleHistogramBin bin3 = new SimpleHistogramBin(2.0, 3.0, true, false);
-        SimpleHistogramBin bin4 = new SimpleHistogramBin(3.0, 4.0, true, true);
+        SimpleHistogramBin bin1 = new SimpleHistogramBin((double) 0.0F, (double) 1.0F, true, false);
+        SimpleHistogramBin bin2 = new SimpleHistogramBin((double) 1.0F, (double) 2.0F, true, false);
+        SimpleHistogramBin bin3 = new SimpleHistogramBin((double) 2.0F, (double) 3.0F, true, false);
+        SimpleHistogramBin bin4 = new SimpleHistogramBin((double) 3.0F, (double) 4.0F, true, true);
         bin1.setItemCount(1);
         bin2.setItemCount(10);
         bin3.setItemCount(15);
@@ -26,24 +41,30 @@ public class HistogramDemo2 {
         return dataset;
     }
 
-    static void main() {
-        XYChart.create()
-                .dataset(createDataset(), XYChartType.BAR)
-                .title("HistogramDemo2")
-                .showLegend(true)
-                .foregroundAlpha(0.85f)
-                .domainPannable(true)
-                .rangePannable(true)
+    private static Chart createChart(IntervalXYDataset dataset) {
+        Chart chart = ChartFactory.createHistogram("HistogramDemo2", (String) null, (String) null, dataset, PlotOrientation.VERTICAL, true, true, false);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setForegroundAlpha(0.85F);
+        plot.setDomainPannable(true);
+        plot.setRangePannable(true);
+        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
+        renderer.setDrawBarOutline(false);
+        return chart;
+    }
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
+    public static JPanel createDemoPanel() {
+        Chart chart = createChart(createDataset());
+        ChartPanel panel = new ChartPanel(chart);
+        panel.setMouseWheelEnabled(true);
+        return panel;
+    }
 
-                .barProps(0)
-                .addTooltips(true)
-                .drawBarOutline(false)
-                .done()
-                .show(500, 270);
-
+    public static void main(String[] args) {
+        HistogramDemo2 demo = new HistogramDemo2("Chart: HistogramDemo2.java");
+        demo.pack();
+        UIUtils.centerFrameOnScreen(demo);
+        demo.setVisible(true);
     }
 }

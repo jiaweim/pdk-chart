@@ -1,4 +1,4 @@
-package pdk.chart.demo;
+package pdk.chart.demo.fluent;
 
 import pdk.chart.Chart;
 import pdk.chart.ChartFactory;
@@ -13,22 +13,12 @@ import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.GroupedStackedBarRenderer;
-import pdk.chart.swing.ApplicationFrame;
-import pdk.chart.swing.ChartPanel;
-import pdk.chart.swing.UIUtils;
 import pdk.chart.util.GradientPaintTransformType;
 import pdk.chart.util.StandardGradientPaintTransformer;
 
-import javax.swing.*;
 import java.awt.*;
 
-public class StackedBarChartDemo4 extends ApplicationFrame {
-    public StackedBarChartDemo4(String title) {
-        super(title);
-        JPanel chartPanel = createDemoPanel();
-        chartPanel.setPreferredSize(new Dimension(590, 350));
-        this.setContentPane(chartPanel);
-    }
+public class StackedBarChartDemo4 {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset result = new DefaultCategoryDataset();
@@ -72,7 +62,8 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Stacked Bar Chart Demo 4", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.createStackedBarChart("Stacked Bar Chart Demo 4", "Category", "Value", dataset,
+                PlotOrientation.VERTICAL, true, true, false);
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         KeyToGroupMap map = new KeyToGroupMap("G1");
         map.mapKeyToGroup("Product 1 (US)", "G1");
@@ -100,6 +91,7 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         plot.setRenderer(renderer);
         plot.setFixedLegendItems(createLegendItems());
         ChartUtils.applyCurrentTheme(chart);
+
         domainAxis.setSubLabelFont(new Font("Tahoma", 2, 10));
         Paint p1 = new GradientPaint(0.0F, 0.0F, new Color(34, 34, 255), 0.0F, 0.0F, new Color(136, 136, 255));
         renderer.setSeriesPaint(0, p1);
@@ -123,10 +115,14 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
 
     private static LegendItemCollection createLegendItems() {
         LegendItemCollection result = new LegendItemCollection();
-        LegendItem item1 = new LegendItem("US", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 34, 255));
-        LegendItem item2 = new LegendItem("Europe", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 255, 34));
-        LegendItem item3 = new LegendItem("Asia", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 34, 34));
-        LegendItem item4 = new LegendItem("Middle East", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 255, 34));
+        LegendItem item1 = new LegendItem("US", "-", null, null,
+                Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 34, 255));
+        LegendItem item2 = new LegendItem("Europe", "-", null, null,
+                Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 255, 34));
+        LegendItem item3 = new LegendItem("Asia", "-", null, null,
+                Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 34, 34));
+        LegendItem item4 = new LegendItem("Middle East", "-", null, null,
+                Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 255, 34));
         result.add(item1);
         result.add(item2);
         result.add(item3);
@@ -134,15 +130,9 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         return result;
     }
 
-    public static JPanel createDemoPanel() {
-        Chart chart = createChart(createDataset());
-        return new ChartPanel(chart);
-    }
 
-    public static void main(String[] args) {
-        StackedBarChartDemo4 demo = new StackedBarChartDemo4("Stacked Bar Chart Demo 4");
-        demo.pack();
-        UIUtils.centerFrameOnScreen(demo);
-        demo.setVisible(true);
+    static void main() {
+        Chart chart = createChart(createDataset());
+        chart.show(590, 350);
     }
 }

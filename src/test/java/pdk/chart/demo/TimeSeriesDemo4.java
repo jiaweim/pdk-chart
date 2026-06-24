@@ -51,8 +51,8 @@ public class TimeSeriesDemo4 extends ApplicationFrame {
         String chartTitle = "₢₢₣₤₥₦₧₨₩₪";
         Chart chart = ChartFactory.createTimeSeriesChart(chartTitle, "Time", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
-        plot.setInsets(new RectangleInsets((double)0.0F, (double)0.0F, (double)0.0F, (double)20.0F));
-        Marker marker = new ValueMarker((double)700.0F);
+        plot.setInsets(new RectangleInsets(0.0F, (double)0.0F, (double)0.0F, (double)20.0F));
+        Marker marker = new ValueMarker(700.0F);
         marker.setPaint(Color.BLUE);
         marker.setAlpha(0.8F);
         plot.addRangeMarker(marker);

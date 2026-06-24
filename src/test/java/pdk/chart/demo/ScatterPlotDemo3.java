@@ -1,30 +1,85 @@
 package pdk.chart.demo;
 
-import pdk.chart.fluent.XYChart;
-import pdk.chart.fluent.XYChartType;
+import pdk.chart.Chart;
+import pdk.chart.ChartFactory;
+import pdk.chart.ChartRenderingInfo;
+import pdk.chart.axis.NumberAxis;
+import pdk.chart.axis.ValueAxis;
+import pdk.chart.data.xy.XYDataset;
+import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.swing.*;
 
-/**
- *
- *
- * @author Jiawei Mao
- * @version 1.0.0
- * @since 04 Jun 2026, 12:53 PM
- */
-public class ScatterPlotDemo3 {
-    static void main() {
-        XYChart.create()
-                .dataset(new SampleXYDataset2(), XYChartType.LINE)
-                .title("Scatter Plot Demo 3")
-                .showLegend(true)
-                .axisNames("X", "Y")
-                .lineAndShapeProps(0)
-                .defaultShapesVisible(true)
-                .defaultLinesVisible(false)
-                .addTooltips(true)
-                .done()
-                .domainAxis()
-                .autoRangeIncludesZero(false)
-                .done()
-                .show();
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+
+public class ScatterPlotDemo3 extends ApplicationFrame {
+    public ScatterPlotDemo3(String title) {
+        super(title);
+        JPanel demoPanel = createDemoPanel();
+        demoPanel.setPreferredSize(new Dimension(500, 270));
+        this.setContentPane(demoPanel);
+    }
+
+    private static Chart createChart(XYDataset dataset) {
+        Chart chart = ChartFactory.createScatterPlot("Scatter Plot Demo 3", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        XYPlot plot = (XYPlot) chart.getPlot();
+        plot.setDomainCrosshairVisible(true);
+        plot.setDomainCrosshairLockedOnData(true);
+        plot.setRangeCrosshairVisible(true);
+        plot.setRangeCrosshairLockedOnData(true);
+        plot.setDomainZeroBaselineVisible(true);
+        plot.setRangeZeroBaselineVisible(true);
+        plot.setDomainPannable(true);
+        plot.setRangePannable(true);
+        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
+        domainAxis.setAutoRangeIncludesZero(false);
+        return chart;
+    }
+
+    public static JPanel createDemoPanel() {
+        Chart chart = createChart(new SampleXYDataset2());
+        ChartPanel panel = new ChartPanel(chart);
+        panel.setMouseWheelEnabled(true);
+        panel.addChartMouseListener(new MyChartMouseListener(panel));
+        return panel;
+    }
+
+    public static void main(String[] args) {
+        ScatterPlotDemo3 demo = new ScatterPlotDemo3("Chart: ScatterPlotDemo3.java");
+        demo.pack();
+        UIUtils.centerFrameOnScreen(demo);
+        demo.setVisible(true);
+    }
+
+    static class MyChartMouseListener implements ChartMouseListener {
+        ChartPanel panel;
+
+        public MyChartMouseListener(ChartPanel panel) {
+            this.panel = panel;
+        }
+
+        public void chartMouseClicked(ChartMouseEvent event) {
+            int x = event.getTrigger().getX();
+            int y = event.getTrigger().getY();
+            Point2D p = this.panel.translateScreenToJava2D(new Point(x, y));
+            XYPlot plot = (XYPlot) this.panel.getChart().getPlot();
+            ChartRenderingInfo info = this.panel.getChartRenderingInfo();
+            Rectangle2D dataArea = info.getPlotInfo().getDataArea();
+            double xx = plot.getDomainAxis().java2DToValue(p.getX(), dataArea, plot.getDomainAxisEdge());
+            double yy = plot.getRangeAxis().java2DToValue(p.getY(), dataArea, plot.getRangeAxisEdge());
+            ValueAxis domainAxis = plot.getDomainAxis();
+            ValueAxis rangeAxis = plot.getRangeAxis();
+            double xxx = domainAxis.valueToJava2D(xx, dataArea, plot.getDomainAxisEdge());
+            double yyy = rangeAxis.valueToJava2D(yy, dataArea, plot.getRangeAxisEdge());
+            Point2D p2 = this.panel.translateJava2DToScreen(new Point2D.Double(xxx, yyy));
+            System.out.println("Mouse coordinates are (" + x + ", " + y + "), in data space = (" + xx + ", " + yy + ").");
+            System.out.println("--> (" + p2.getX() + ", " + p2.getY() + ")");
+        }
+
+        public void chartMouseMoved(ChartMouseEvent event) {
+        }
     }
 }
