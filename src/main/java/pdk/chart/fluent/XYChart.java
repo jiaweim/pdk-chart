@@ -39,6 +39,12 @@ public class XYChart extends Chart {
         return new XYChart(AxisType.NUMBER, AxisType.NUMBER);
     }
 
+    public static XYChart create(XYDataset dataset, XYChartType chartType) {
+        XYChart chart = new XYChart(AxisType.NUMBER, AxisType.NUMBER);
+        chart.addDataset(dataset, chartType);
+        return chart;
+    }
+
     /**
      * Create an {@link XYChart}.
      *

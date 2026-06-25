@@ -21,5 +21,76 @@ To use pdk-chart in your projects, add the following dependency to your build to
 </dependency>
 ```
 
-## Bar Chart
+## Examples
+
+### Line
+
+- Basic Line Chart
+
+
+
+### Bar
+
+
+
+
+
+
+
+## Chart
+
+### Title
+
+`Chart` support setting one main title and multiple subtitles.
+
+The class diagram of `Title` is shown below.
+
+<img src="./images/image-20260625114037180.png" alt="image-20260625114037180" style="zoom: 50%;" />
+
+The main title is of the `TextTitle` type, while subtitles can be any subclass of `Title`. The chart's legend is also implemented as a subtitle.
+
+#### Main title
+
+Methods provided by `Chart` for setting main title:
+
+```java
+public void setTitle(TextTitle title);
+public void setTitle(String text); // Convenient methods for the previous
+```
+
+
+
+## Plot
+
+### Gridline
+
+Grid lines fall into two types: 
+
+- domain gridlines
+- range gridlines
+
+Domain grid lines run perpendicular to the domain axis, while range grid lines run perpendicular to the range axis.
+
+Grid lines have three properties: 
+
+- `visible`, whether to display grid lines
+- `stroke`, `Stroke` used for rendering grid lines
+- `paint`, `Paint` used to rendering grid lines
+
+Methods provided by `XYPlot` for configuring grid lines:
+
+```java
+public void setDomainGridlinesVisible(boolean visible);
+public void setDomainMinorGridlinesVisible(boolean visible);
+
+public void setDomainGridlineStroke(Stroke stroke);
+public void setDomainMinorGridlineStroke(Stroke stroke);
+
+public void setDomainGridlinePaint(Paint paint);
+public void setDomainMinorGridlinePaint(Paint paint);
+```
+
+The same methods are available for range grid line; simply replace "Domain" with "Range".
+
+### Crosshair
 

@@ -1,0 +1,10 @@
+@startuml
+abstract class Title
+Title <|-- CompositeTitle
+Title <|-- TextTitle
+TextTitle <|-- DateTitle
+Title <|-- ImageTitle
+Title <|-- LegendTitle
+Title <|-- PaintScaleLegend
+TextTitle <|-- ShortTextTitle
+@enduml

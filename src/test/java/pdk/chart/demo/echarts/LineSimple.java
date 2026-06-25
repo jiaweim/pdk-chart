@@ -1,0 +1,57 @@
+package pdk.chart.demo.echarts;
+
+import pdk.chart.Chart;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.fluent.CategoryXYChart;
+import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.Data;
+import pdk.chart.swing.ApplicationFrame;
+import pdk.chart.swing.ChartPanel;
+import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * https://echarts.apache.org/examples/en/editor.html?c=line-simple
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 25 Jun 2026, 1:58 PM
+ */
+public class LineSimple extends ApplicationFrame {
+
+    /**
+     * Constructs a new application frame.
+     *
+     * @param title the frame title.
+     */
+    public LineSimple(String title) {
+        super(title);
+        JPanel chartPanel = createDemoPanel();
+        chartPanel.setPreferredSize(new Dimension(720, 480));
+        this.setContentPane(chartPanel);
+    }
+
+    private static CategoryDataset<String, String> createDataset() {
+        return Data.createCategoryDataset("line", new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new double[]{150, 230, 224, 218, 135, 147, 260});
+    }
+
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        CategoryXYChart chart = CategoryXYChart.create(dataset, CategoryXYChartType.LINE);
+        return chart;
+    }
+
+    public static JPanel createDemoPanel() {
+        Chart chart = createChart(createDataset());
+        return new ChartPanel(chart);
+    }
+
+    static void main() {
+        LineSimple demo = new LineSimple("Basic Line Chart");
+        demo.pack();
+        UIUtils.centerFrameOnScreen(demo);
+        demo.setVisible(true);
+    }
+}

@@ -29,8 +29,6 @@ public class XYBezierRenderer extends XYLineAndShapeRenderer {
 
     /**
      * An enumeration of the fill types for the renderer.
-     *
-     * @since 1.0.17
      */
     public enum FillType {
 

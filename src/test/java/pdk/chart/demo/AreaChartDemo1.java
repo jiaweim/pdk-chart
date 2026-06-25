@@ -11,7 +11,7 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.AreaRenderer;
@@ -31,33 +31,29 @@ public class AreaChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, "Series 1", "Type 1");
-        dataset.addValue((double) 4.0F, "Series 1", "Type 2");
-        dataset.addValue((double) 3.0F, "Series 1", "Type 3");
-        dataset.addValue((double) 5.0F, "Series 1", "Type 4");
-        dataset.addValue((double) 5.0F, "Series 1", "Type 5");
-        dataset.addValue((double) 7.0F, "Series 1", "Type 6");
-        dataset.addValue((double) 7.0F, "Series 1", "Type 7");
-        dataset.addValue((double) 8.0F, "Series 1", "Type 8");
-        dataset.addValue((double) 5.0F, "Series 2", "Type 1");
-        dataset.addValue((double) 7.0F, "Series 2", "Type 2");
-        dataset.addValue((double) 6.0F, "Series 2", "Type 3");
-        dataset.addValue((double) 8.0F, "Series 2", "Type 4");
-        dataset.addValue((double) 4.0F, "Series 2", "Type 5");
-        dataset.addValue((double) 4.0F, "Series 2", "Type 6");
-        dataset.addValue((double) 2.0F, "Series 2", "Type 7");
-        dataset.addValue((double) 1.0F, "Series 2", "Type 8");
-        dataset.addValue((double) 4.0F, "Series 3", "Type 1");
-        dataset.addValue((double) 3.0F, "Series 3", "Type 2");
-        dataset.addValue((double) 2.0F, "Series 3", "Type 3");
-        dataset.addValue((double) 3.0F, "Series 3", "Type 4");
-        dataset.addValue((double) 6.0F, "Series 3", "Type 5");
-        dataset.addValue((double) 3.0F, "Series 3", "Type 6");
-        dataset.addValue((double) 4.0F, "Series 3", "Type 7");
-        dataset.addValue((double) 3.0F, "Series 3", "Type 8");
-        return dataset;
+    private static CategoryDataset<String, String> createDataset() {
+        String[] categories = new String[]{
+                "Type 1", "Type 2", "Type 3", "Type 4",
+                "Type 5", "Type 6", "Type 7", "Type 8"
+        };
+
+        return Data.<String, String>category()
+                .addSeries("Series 1", categories,
+                        new double[]{
+                                1.0, 4.0, 3.0, 5.0,
+                                5.0, 7.0, 7.0, 8.0
+                        })
+                .addSeries("Series 2", categories,
+                        new double[]{
+                                5.0, 7.0, 6.0, 8.0,
+                                4.0, 4.0, 2.0, 1.0
+                        })
+                .addSeries("Series 3", categories,
+                        new double[]{
+                                4.0, 3.0, 2.0, 3.0,
+                                6.0, 3.0, 4.0, 3.0
+                        })
+                .build();
     }
 
     private static Chart createChart(CategoryDataset dataset) {

@@ -1587,7 +1587,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainGridlineStroke()
      */
     public void setDomainGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.domainGridlineStroke = stroke;
         fireChangeEvent();
     }
@@ -1612,7 +1612,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainMinorGridlineStroke()
      */
     public void setDomainMinorGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.domainMinorGridlineStroke = stroke;
         fireChangeEvent();
     }
@@ -1636,7 +1636,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainGridlinePaint()
      */
     public void setDomainGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.domainGridlinePaint = paint;
         fireChangeEvent();
     }
@@ -1660,7 +1660,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainMinorGridlinePaint()
      */
     public void setDomainMinorGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.domainMinorGridlinePaint = paint;
         fireChangeEvent();
     }
@@ -1712,7 +1712,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeGridlineStroke()
      */
     public void setRangeGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.rangeGridlineStroke = stroke;
         fireChangeEvent();
     }

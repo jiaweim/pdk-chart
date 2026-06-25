@@ -1561,7 +1561,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
 
     /**
      * Sets the flag that controls whether grid-lines are drawn against
-     * the domain axis.
+     * the domain axis. That is, whether to draw grid lines perpendicular to the domain axis.
      * <p>
      * If the flag value changes, a {@link PlotChangeEvent} is sent to all
      * registered listeners.

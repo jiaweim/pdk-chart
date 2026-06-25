@@ -46,6 +46,19 @@ public class CategoryXYChart extends Chart {
         return new CategoryXYChart();
     }
 
+    /**
+     * Create a {@link CategoryXYChart}
+     *
+     * @param dataset   {@link CategoryDataset}
+     * @param chartType {@link CategoryXYChartType}
+     * @return {@link CategoryXYChart} instance.
+     */
+    public static CategoryXYChart create(CategoryDataset dataset, CategoryXYChartType chartType) {
+        CategoryXYChart chart = new CategoryXYChart();
+        chart.addDataset(dataset, chartType);
+        return chart;
+    }
+
     private final NumberAxis rangeAxis_ = new NumberAxis();
     private CategoryAxis domainAxis_ = new CategoryAxis();
     private final CategoryPlot plot_;

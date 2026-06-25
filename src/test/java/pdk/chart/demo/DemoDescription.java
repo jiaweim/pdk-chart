@@ -1,6 +1,7 @@
 package pdk.chart.demo;
 
 public class DemoDescription {
+
     private Class demoClass;
     private String description;
 

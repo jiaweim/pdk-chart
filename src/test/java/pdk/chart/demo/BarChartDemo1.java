@@ -39,18 +39,20 @@ public class BarChartDemo1 extends ApplicationFrame {
         return dataset;
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
         Chart chart = ChartFactory.createBarChart("Antidepressant Medication Usage", "Age Category", "Percent", dataset);
         LegendTitle legend = chart.getLegend();
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));
+
         TextTitle source = new TextTitle("Source: https://www.cdc.gov/nchs/products/databriefs/db377.htm");
         source.setFont(new Font("SansSerif", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
+
         chart.addSubtitle(source);
         chart.addSubtitle(legend);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        CategoryPlot<String, String> plot = chart.getCategoryPlot();
         plot.setDomainGridlinesVisible(true);
         plot.setRangeCrosshairVisible(true);
         plot.setRangeCrosshairPaint(Color.BLUE);
@@ -70,8 +72,8 @@ public class BarChartDemo1 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        BarChartDemo1 demo = new BarChartDemo1("Chart: BarChartDemo1.java");
+    static void main() {
+        BarChartDemo1 demo = new BarChartDemo1("BarChartDemo1");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

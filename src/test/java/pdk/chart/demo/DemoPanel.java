@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DemoPanel extends JPanel {
 
-    List<Chart> charts = new ArrayList();
+    public List<Chart> charts = new ArrayList<>();
 
     public DemoPanel(LayoutManager layout) {
         super(layout);

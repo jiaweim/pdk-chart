@@ -553,11 +553,10 @@ public abstract class ChartFactory {
         }
         if (tooltips) {
             renderer.setDefaultToolTipGenerator(
-                    new StandardCategoryToolTipGenerator());
+                    new StandardCategoryToolTipGenerator<>());
         }
         if (urls) {
-            renderer.setDefaultItemURLGenerator(
-                    new StandardCategoryURLGenerator());
+            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis,
