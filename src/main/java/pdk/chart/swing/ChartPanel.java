@@ -1917,7 +1917,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
                 displayPopupMenu(e.getX(), e.getY());
             }
         }
-
     }
 
     /**
@@ -2402,7 +2401,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
         if (result == JOptionPane.OK_OPTION) {
             editor.updateChart(this.chart);
         }
-
     }
 
     /**
@@ -2936,7 +2934,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
         }
 
         return result;
-
     }
 
     /**

@@ -99,7 +99,7 @@ class DefaultAxisEditor extends JPanel implements ActionListener {
      * The resourceBundle for the localization.
      */
     protected static ResourceBundle localizationResources
-            = ResourceBundle.getBundle("org.jfree.chart.editor.LocalizationBundle");
+            = ResourceBundle.getBundle("pdk.chart.editor.LocalizationBundle");
 
     /**
      * A static method that returns a panel that is appropriate for the axis

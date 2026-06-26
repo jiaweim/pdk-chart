@@ -22,5 +22,4 @@ public class DefaultChartEditorFactory implements ChartEditorFactory {
     public ChartEditor createEditor(Chart chart) {
         return new DefaultChartEditor(chart);
     }
-
 }

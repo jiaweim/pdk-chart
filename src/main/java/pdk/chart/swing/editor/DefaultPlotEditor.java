@@ -99,7 +99,7 @@ class DefaultPlotEditor extends JPanel implements ActionListener {
      * The resourceBundle for the localization.
      */
     protected static ResourceBundle localizationResources
-            = ResourceBundle.getBundle("org.jfree.chart.editor.LocalizationBundle");
+            = ResourceBundle.getBundle("pdk.chart.editor.LocalizationBundle");
 
     /**
      * Standard constructor - constructs a panel for editing the properties of

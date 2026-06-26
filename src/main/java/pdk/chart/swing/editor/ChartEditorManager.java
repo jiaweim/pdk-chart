@@ -1,7 +1,8 @@
 package pdk.chart.swing.editor;
 
 import pdk.chart.Chart;
-import pdk.chart.internal.Args;
+
+import java.util.Objects;
 
 /**
  * The central point for obtaining {@link ChartEditor} instances for editing
@@ -38,7 +39,7 @@ public class ChartEditorManager {
      * @param f the new factory ({@code null} not permitted).
      */
     public static void setChartEditorFactory(ChartEditorFactory f) {
-        Args.nullNotPermitted(f, "f");
+        Objects.requireNonNull(f, "f");
         factory = f;
     }
 

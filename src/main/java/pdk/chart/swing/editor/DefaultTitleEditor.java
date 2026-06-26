@@ -59,7 +59,7 @@ class DefaultTitleEditor extends JPanel implements ActionListener {
      * The resourceBundle for the localization.
      */
     protected static ResourceBundle localizationResources
-            = ResourceBundle.getBundle("org.jfree.chart.editor.LocalizationBundle");
+            = ResourceBundle.getBundle("pdk.chart.editor.LocalizationBundle");
 
     /**
      * Standard constructor: builds a panel for displaying/editing the
