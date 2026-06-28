@@ -1047,4 +1047,5 @@ public class BoxAndWhiskerRenderer extends AbstractCategoryItemRenderer
         this.artifactPaint = SerialUtils.readPaint(stream);
     }
 
+
 }

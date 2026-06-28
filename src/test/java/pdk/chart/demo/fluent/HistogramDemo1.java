@@ -40,7 +40,7 @@ public class HistogramDemo1 {
     }
 
     static void main() {
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .title("Histogram Demo 1")
                 .dataset(createDataset(), XYChartType.HISTOGRAM)
                 .showLegend(true)
@@ -48,17 +48,16 @@ public class HistogramDemo1 {
                 .rangePannable(true)
                 .foregroundAlpha(0.85f)
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-
                 .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
                 .barPainter(new StandardXYBarPainter())
                 .shadowVisible(false)
-                .done()
+                .done();
 
-                .show(500, 270);
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.show(500, 270);
     }
 }

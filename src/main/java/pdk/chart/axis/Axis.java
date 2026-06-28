@@ -980,7 +980,7 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * space).
      */
     public abstract AxisSpace reserveSpace(Graphics2D g2, Plot plot,
-            Rectangle2D plotArea, RectangleEdge edge, AxisSpace space);
+                                           Rectangle2D plotArea, RectangleEdge edge, AxisSpace space);
 
     /**
      * Receives a chart element visitor.  Many plot subclasses will override
@@ -1007,8 +1007,8 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @return The axis state (never {@code null}).
      */
     public abstract AxisState draw(Graphics2D g2, double cursor,
-            Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge,
-            PlotRenderingInfo plotState);
+                                   Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge,
+                                   PlotRenderingInfo plotState);
 
     /**
      * Calculates the positions of the ticks for the axis, storing the results
@@ -1021,7 +1021,7 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @return The list of ticks.
      */
     public abstract List refreshTicks(Graphics2D g2, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge);
+                                      Rectangle2D dataArea, RectangleEdge edge);
 
     /**
      * Creates an entity for the axis and adds it to the rendering info.
@@ -1038,10 +1038,9 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      *                  entity collection can be obtained ({@code null} permitted).
      */
     protected void createAndAddEntity(double cursor, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge,
-            PlotRenderingInfo plotState) {
-
-        Args.nullNotPermitted(edge, "edge");
+                                      Rectangle2D dataArea, RectangleEdge edge,
+                                      PlotRenderingInfo plotState) {
+        Objects.requireNonNull(edge, "edge");
         if (plotState == null || plotState.getOwner() == null) {
             return;  // no need to create entity if we can't save it anyways...
         }
@@ -1125,7 +1124,7 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
     /**
      * Sends an {@link AxisChangeEvent} to all registered listeners.
      */
-    protected void fireChangeEvent() {
+    public void fireChangeEvent() {
         notifyListeners(new AxisChangeEvent(this));
     }
 
@@ -1178,7 +1177,7 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @return The x-coordinate.
      */
     protected double labelLocationX(AxisLabelLocation location,
-            Rectangle2D dataArea) {
+                                    Rectangle2D dataArea) {
         if (location.equals(AxisLabelLocation.HIGH_END)) {
             return dataArea.getMaxX();
         }
@@ -1200,7 +1199,7 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @return The y-coordinate.
      */
     protected double labelLocationY(AxisLabelLocation location,
-            Rectangle2D dataArea) {
+                                    Rectangle2D dataArea) {
         if (location.equals(AxisLabelLocation.HIGH_END)) {
             return dataArea.getMinY();
         }
@@ -1265,8 +1264,8 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @return Information about the axis.
      */
     protected AxisState drawLabel(String label, Graphics2D g2,
-            Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge,
-            AxisState state) {
+                                  Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge,
+                                  AxisState state) {
 
         // it is unlikely that 'state' will be null, but check anyway...
         Args.nullNotPermitted(state, "state");
@@ -1358,8 +1357,8 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @return Information about the axis.
      */
     protected AxisState drawAttributedLabel(AttributedString label,
-            Graphics2D g2, Rectangle2D plotArea, Rectangle2D dataArea,
-            RectangleEdge edge, AxisState state) {
+                                            Graphics2D g2, Rectangle2D plotArea, Rectangle2D dataArea,
+                                            RectangleEdge edge, AxisState state) {
 
         // it is unlikely that 'state' will be null, but check anyway...
         Args.nullNotPermitted(state, "state");
@@ -1446,7 +1445,7 @@ public abstract class Axis implements ChartElement, Cloneable, Serializable {
      * @param edge     the edge.
      */
     protected void drawAxisLine(Graphics2D g2, double cursor,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                Rectangle2D dataArea, RectangleEdge edge) {
         Line2D axisLine = null;
         double x = dataArea.getX();
         double y = dataArea.getY();

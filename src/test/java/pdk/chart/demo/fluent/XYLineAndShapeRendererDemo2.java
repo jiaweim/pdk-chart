@@ -23,7 +23,7 @@ public class XYLineAndShapeRendererDemo2 {
         XYSeriesCollection<String> dataset5 = new XYSeriesCollection<>(new XYSeries<>("Series 5", new double[]{1, 2, 3}, new double[]{5, 5, 5}));
 
         Shape shape = ShapeUtils.createCircle(8);
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .title("XYLineAndShapeRendererDemo2")
                 .dataset(dataset1, XYChartType.LINE)
                 .addDataset(dataset2, XYChartType.LINE)
@@ -83,10 +83,14 @@ public class XYLineAndShapeRendererDemo2 {
                 .useFillPaint(true)
                 .drawOutlines(true)
                 .addTooltips(true)
-                .done()
+                .done();
 
-                .domainAxis().autoRangeIncludesZero(false).done()
-                .rangeAxis().autoRangeIncludesZero(false).done()
-                .show();
+        chart.domainAxisNumber()
+                .autoRangeIncludesZero(false);
+        chart.rangeAxisNumber()
+                .autoRangeIncludesZero(false);
+
+        chart.show();
+
     }
 }

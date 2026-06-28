@@ -4,6 +4,7 @@ import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
+import pdk.chart.demo.ChartDemo;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 import pdk.chart.text.TextAnchor;
@@ -25,7 +26,7 @@ public class AnnotationDemo1 {
         XYSeriesCollection<String> result = new XYSeriesCollection<>();
 
         try {
-            InputStream stream = AnnotationDemo1.class.getResourceAsStream("wtageinf.txt");
+            InputStream stream = ChartDemo.class.getResourceAsStream("wtageinf.txt");
             BufferedReader in = new BufferedReader(new InputStreamReader(stream));
             String data = in.readLine();
             data = in.readLine();
@@ -121,7 +122,7 @@ public class AnnotationDemo1 {
         annotation9.setFont(font);
         annotation9.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
 
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .dataset(dataset, XYChartType.LINE)
                 .axisNames("Age in Months", "Weight (kg)")
                 .showLegend(true)
@@ -138,17 +139,14 @@ public class AnnotationDemo1 {
                 .addAnnotation(annotation6)
                 .addAnnotation(annotation7)
                 .addAnnotation(annotation8)
-                .addAnnotation(annotation9)
+                .addAnnotation(annotation9);
 
-                .domainAxis()
+        chart.domainAxisNumber()
                 .upperMargin(0.12)
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.rangeAxisNumber()
+                .autoRangeIncludesZero(false);
 
-                .rangeAxis()
-                .autoRangeIncludesZero(false)
-                .done()
-
-                .show();
+        chart.show();
     }
 }

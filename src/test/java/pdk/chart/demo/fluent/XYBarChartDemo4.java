@@ -15,7 +15,7 @@ import pdk.chart.fluent.XYChartType;
 public class XYBarChartDemo4 {
 
     static void main() {
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .dataset(Data.createIntervalXYDataset("Series 1",
                                 new double[]{1.0, 2.0, 3.0},
                                 new double[]{5.0, 70.8, 48.3},
@@ -25,14 +25,12 @@ public class XYBarChartDemo4 {
                 .axisNames("X", "Y")
                 .showLegend(true)
 
-                .domainAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-
                 .barProps(0)
                 .drawBarOutline(false)
-                .done()
+                .done();
+        chart.domainAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
 
-                .show(500, 300);
+        chart.show(500, 300);
     }
 }

@@ -1,51 +1,10 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------------------------
- * DefaultKeyedValueDataset.java
- * -----------------------------
- * (C) Copyright 2003-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- * Changes
- * -------
- * 27-Mar-2003 : Version 1 (DG);
- * 18-Aug-2003 : Implemented Cloneable (DG);
- *
- */
-
 package pdk.chart.data.general;
-
-import java.io.Serializable;
-import java.util.Objects;
 
 import pdk.chart.data.DefaultKeyedValue;
 import pdk.chart.data.KeyedValue;
+
+import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A default implementation of the {@link KeyedValueDataset} interface.
@@ -53,10 +12,14 @@ import pdk.chart.data.KeyedValue;
 public class DefaultKeyedValueDataset extends AbstractDataset
         implements KeyedValueDataset, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -8149484339560406750L;
 
-    /** Storage for the data. */
+    /**
+     * Storage for the data.
+     */
     private KeyedValue data;
 
     /**
@@ -69,8 +32,8 @@ public class DefaultKeyedValueDataset extends AbstractDataset
     /**
      * Creates a new dataset with the specified initial value.
      *
-     * @param key  the key.
-     * @param value  the value ({@code null} permitted).
+     * @param key   the key.
+     * @param value the value ({@code null} permitted).
      */
     public DefaultKeyedValueDataset(Comparable key, Number value) {
         this(new DefaultKeyedValue(key, value));
@@ -80,7 +43,7 @@ public class DefaultKeyedValueDataset extends AbstractDataset
      * Creates a new dataset that uses the data from a {@link KeyedValue}
      * instance.
      *
-     * @param data  the data ({@code null} permitted).
+     * @param data the data ({@code null} permitted).
      */
     public DefaultKeyedValueDataset(KeyedValue data) {
         this.data = data;
@@ -118,7 +81,7 @@ public class DefaultKeyedValueDataset extends AbstractDataset
     /**
      * Updates the value.
      *
-     * @param value  the new value ({@code null} permitted).
+     * @param value the new value ({@code null} permitted).
      */
     public void updateValue(Number value) {
         if (this.data == null) {
@@ -131,8 +94,8 @@ public class DefaultKeyedValueDataset extends AbstractDataset
      * Sets the value for the dataset and sends a {@link DatasetChangeEvent} to
      * all registered listeners.
      *
-     * @param key  the key.
-     * @param value  the value ({@code null} permitted).
+     * @param key   the key.
+     * @param value the value ({@code null} permitted).
      */
     public void setValue(Comparable key, Number value) {
         this.data = new DefaultKeyedValue(key, value);
@@ -142,8 +105,7 @@ public class DefaultKeyedValueDataset extends AbstractDataset
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override
@@ -184,9 +146,8 @@ public class DefaultKeyedValueDataset extends AbstractDataset
      * Creates a clone of the dataset.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException This class will not throw this
-     *         exception, but subclasses (if any) might.
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

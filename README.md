@@ -23,6 +23,16 @@ To use pdk-chart in your projects, add the following dependency to your build to
 
 ## Examples
 
+### Scatter
+
+```java
+XYChart chart = JChart.scatter(
+                new double[]{0, 1, 2, 3, 4},
+                new double[]{0, 1, 4, 9, 16})
+        .axisNames("x", "y");
+chart.show();
+```
+
 ### Line
 
 - Basic Line Chart

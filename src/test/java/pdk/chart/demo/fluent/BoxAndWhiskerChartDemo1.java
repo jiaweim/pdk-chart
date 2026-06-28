@@ -33,7 +33,7 @@ public class BoxAndWhiskerChartDemo1 {
             }
         }
 
-        CategoryXYChart xyChart = CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .title("Box and Whisker Chart Demo 1")
                 .axisNames("Category", "Value")
                 .showLegend(true)
@@ -42,10 +42,9 @@ public class BoxAndWhiskerChartDemo1 {
                 .addDataset(dataset, CategoryXYChartType.BoxWhisker)
                 .domainGridlinePaint(Color.WHITE)
                 .domainGridlinesVisible(true)
-                .rangeGridlinePaint(Color.WHITE)
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done();
-        xyChart.show();
+                .rangeGridlinePaint(Color.WHITE);
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createStandardTickUnits());
+        chart.show();
     }
 }

@@ -61,11 +61,12 @@ public class BarChartDemo5 {
                 .domainAxis()
                 .categoryMargin(0.25)
                 .lowerMargin(0.02)
-                .upperMargin(0.02)
-                .done()
-                .rangeAxis()
+                .upperMargin(0.02);
+
+        chart.rangeAxisNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .upperMargin(0.1);
+
         Chart.DEFAULT_THEME.apply(chart);
         chart.show(500, 270);
     }

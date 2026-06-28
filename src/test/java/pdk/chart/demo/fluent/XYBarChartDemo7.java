@@ -52,11 +52,6 @@ public class XYBarChartDemo7 {
                 .axisNames("Series", "Date")
                 .orientation(PlotOrientation.HORIZONTAL)
 
-                .domainAxis()
-                .symbols(new String[]{"S1", "S2", "S3"})
-                .gridBandsVisible(false)
-                .done()
-
                 .dataset(dataset, XYChartType.BAR)
                 .showLegend(true)
                 .rangePannable(true)
@@ -68,6 +63,9 @@ public class XYBarChartDemo7 {
                 .barProps(0)
                 .useYInterval(true)
                 .done();
+        chart.domainAxisNumber()
+                .symbols(new String[]{"S1", "S2", "S3"})
+                .gridBandsVisible(false);
 
         Chart.DEFAULT_THEME.apply(chart);
         chart.show(500, 300);

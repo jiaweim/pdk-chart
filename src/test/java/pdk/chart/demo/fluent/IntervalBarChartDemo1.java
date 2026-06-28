@@ -36,10 +36,10 @@ public class IntervalBarChartDemo1 {
                 .axisNames("Category", "Percentage")
                 .showLegend(true)
                 .domainGridlinesVisible(true)
-                .rangePannable(true)
-                .rangeAxis()
-                .numberFormatOverride(new DecimalFormat("0.00%"))
-                .done();
+                .rangePannable(true);
+
+        chart.rangeAxisNumber()
+                .numberFormatOverride(new DecimalFormat("0.00%"));
         chart.show(500, 270);
     }
 }

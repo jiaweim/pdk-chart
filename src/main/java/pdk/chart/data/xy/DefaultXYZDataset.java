@@ -8,6 +8,7 @@ import pdk.chart.internal.Args;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A default implementation of the {@link XYZDataset} interface that stores
@@ -235,8 +236,8 @@ public class DefaultXYZDataset<S extends Comparable<S>> extends AbstractXYZDatas
      *                  z-values).
      */
     public void addSeries(S seriesKey, double[][] data) {
-        Args.nullNotPermitted(seriesKey, "seriesKey");
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(seriesKey);
+        Objects.requireNonNull(data);
         if (data.length != 3) {
             throw new IllegalArgumentException(
                     "The 'data' array must have length == 3.");

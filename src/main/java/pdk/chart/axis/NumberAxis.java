@@ -1,5 +1,6 @@
 package pdk.chart.axis;
 
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
@@ -16,6 +17,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.font.LineMetrics;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.text.AttributedString;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
@@ -244,7 +246,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param turnOffAutoSelect turn off the auto-tick selection?
      */
     public void setTickUnit(NumberTickUnit unit, boolean notify,
-            boolean turnOffAutoSelect) {
+                            boolean turnOffAutoSelect) {
 
         Args.nullNotPermitted(unit, "unit");
         this.tickUnit = unit;
@@ -415,7 +417,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public double valueToJava2D(double value, Rectangle2D area,
-            RectangleEdge edge) {
+                                RectangleEdge edge) {
 
         Range range = getRange();
         double axisMin = range.getLowerBound();
@@ -452,7 +454,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public double java2DToValue(double java2DValue, Rectangle2D area,
-            RectangleEdge edge) {
+                                RectangleEdge edge) {
 
         Range range = getRange();
         double axisMin = range.getLowerBound();
@@ -530,8 +532,8 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public AxisState draw(Graphics2D g2, double cursor, Rectangle2D plotArea,
-            Rectangle2D dataArea, RectangleEdge edge,
-            PlotRenderingInfo plotState) {
+                          Rectangle2D dataArea, RectangleEdge edge,
+                          PlotRenderingInfo plotState) {
 
         AxisState state;
         // if the axis is not visible, don't draw it...
@@ -644,7 +646,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @return The estimated maximum width of the tick labels.
      */
     protected double estimateMaximumTickLabelWidth(Graphics2D g2,
-            TickUnit unit) {
+                                                   TickUnit unit) {
 
         RectangleInsets tickLabelInsets = getTickLabelInsets();
         double result = tickLabelInsets.getLeft() + tickLabelInsets.getRight();
@@ -689,7 +691,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param edge     the axis location.
      */
     protected void selectAutoTickUnit(Graphics2D g2, Rectangle2D dataArea,
-            RectangleEdge edge) {
+                                      RectangleEdge edge) {
 
         if (RectangleEdge.isTopOrBottom(edge)) {
             selectHorizontalAutoTickUnit(g2, dataArea, edge);
@@ -709,7 +711,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param edge     the axis location.
      */
     protected void selectHorizontalAutoTickUnit(Graphics2D g2,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                                Rectangle2D dataArea, RectangleEdge edge) {
 
         TickUnit unit = getTickUnit();
         TickUnitSource tickUnitSource = getStandardTickUnits();
@@ -757,7 +759,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param edge     the axis location.
      */
     protected void selectVerticalAutoTickUnit(Graphics2D g2,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                              Rectangle2D dataArea, RectangleEdge edge) {
 
         double tickLabelHeight = estimateMaximumTickLabelHeight(g2);
 
@@ -795,7 +797,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public List refreshTicks(Graphics2D g2, AxisState state,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                             Rectangle2D dataArea, RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
         if (RectangleEdge.isTopOrBottom(edge)) {
@@ -817,7 +819,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @return A list of ticks.
      */
     protected List refreshTicksHorizontal(Graphics2D g2,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                          Rectangle2D dataArea, RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
 
@@ -907,7 +909,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @return A list of ticks.
      */
     protected List refreshTicksVertical(Graphics2D g2,
-            Rectangle2D dataArea, RectangleEdge edge) {
+                                        Rectangle2D dataArea, RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
         result.clear();
@@ -1053,4 +1055,223 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
         return super.hashCode();
     }
 
+
+    /**
+     * Sets the flag that indicates whether the axis range, if
+     * automatically calculated, is forced to include zero.
+     * <p>
+     * If the flag is changed to {@code true}, the axis range is
+     * recalculated.
+     * <p>
+     * Any change to the flag will trigger an {@link AxisChangeEvent}.
+     *
+     * @param flag the new value of the flag.
+     * @see #getAutoRangeIncludesZero()
+     */
+    public NumberAxis autoRangeIncludesZero(boolean flag) {
+        setAutoRangeIncludesZero(flag);
+        return this;
+    }
+
+    /**
+     * Sets the label for the axis and sends an {@link AxisChangeEvent} to all
+     * registered listeners.
+     *
+     * @param label the new label ({@code null} permitted).
+     * @see #getLabel()
+     * @see #setLabelFont(Font)
+     * @see #setLabelPaint(Paint)
+     */
+    public NumberAxis label(String label) {
+        setLabel(label);
+        return this;
+    }
+
+    /**
+     * Sets the source for obtaining standard tick units for the axis and sends
+     * an {@link AxisChangeEvent} to all registered listeners.  The axis will
+     * try to select the smallest tick unit from the source that does not cause
+     * the tick labels to overlap (see also the
+     * {@link #setAutoTickUnitSelection(boolean)} method.
+     *
+     * @param source the source for standard tick units.
+     * @see #getStandardTickUnits()
+     */
+    public NumberAxis standardTickUnits(@Nullable TickUnitSource source) {
+        setStandardTickUnits(source);
+        return this;
+    }
+
+    /**
+     * Sets the range for the axis.
+     * <p>
+     * As a side effect, the auto-range flag is set to {@code false}.
+     *
+     * @param lower the lower axis limit.
+     * @param upper the upper axis limit.
+     */
+    public NumberAxis range(double lower, double upper) {
+        setRange(lower, upper);
+        return this;
+    }
+
+    /**
+     * Sets the flag that indicates whether the minor tick marks are
+     * showing.
+     *
+     * @param flag the flag.
+     */
+    public NumberAxis minorTickMarksVisible(boolean flag) {
+        setMinorTickMarksVisible(flag);
+        return this;
+    }
+
+    /**
+     * Sets the number of minor tick marks to display.
+     * <p>
+     * 2 means dividing the interval between two adjacent major ticks into two segments and inserting one minor tick.
+     *
+     * @param count the count.
+     */
+    public NumberAxis minorTickCount(int count) {
+        setMinorTickCount(count);
+        return this;
+    }
+
+    /**
+     * Sets the inside length of the tick marks.
+     *
+     * @param length the new length.
+     */
+    public NumberAxis tickMarkInsideLength(float length) {
+        setTickMarkInsideLength(length);
+        return this;
+    }
+
+    /**
+     * Sets the outside length of the tick marks.
+     *
+     * @param length the new length.
+     */
+    public NumberAxis tickMarkOutsideLength(float length) {
+        setTickMarkOutsideLength(length);
+        return this;
+    }
+
+    /**
+     * Sets the auto range minimum size.
+     * <p>
+     * The minimum display range of the axis values.
+     *
+     * @param size the size.
+     */
+    public NumberAxis autoRangeMinimumSize(double size) {
+        setAutoRangeMinimumSize(size);
+        return this;
+    }
+
+    /**
+     * Sets the lower margin for the axis (as a percentage of the axis range)
+     * and sends an {@link AxisChangeEvent} to all registered listeners.  This
+     * margin is added only when the axis range is auto-calculated - if you set
+     * the axis range manually, the margin is ignored.
+     *
+     * @param margin the margin percentage (for example, 0.05 is five percent).
+     */
+    public NumberAxis lowerMargin(double margin) {
+        setLowerMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets the upper margin for the axis (as a percentage of the axis range)
+     * and sends an {@link AxisChangeEvent} to all registered listeners.
+     * <p>
+     * This margin is added only when the axis range is auto-calculated - if you set
+     * the axis range manually, the margin is ignored.
+     *
+     * @param margin the margin percentage (for example, 0.05 is five percent).
+     */
+    public NumberAxis upperMargin(double margin) {
+        setUpperMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets  whether the axis is visible.
+     *
+     * @param flag the flag.
+     */
+    public NumberAxis visible(boolean flag) {
+        setVisible(flag);
+        return this;
+    }
+
+    /**
+     * Sets the paint used to draw tick marks.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public NumberAxis tickMarkPaint(Paint paint) {
+        setTickMarkPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the number format override.  If this is non-null, then it will be
+     * used to format the numbers on the axis.
+     *
+     * @param formatter the number formatter.
+     */
+    public NumberAxis numberFormatOverride(@Nullable NumberFormat formatter) {
+        setNumberFormatOverride(formatter);
+        return this;
+    }
+
+    /**
+     * Sets the direction of values on the axis.
+     *
+     * @param flag the flag.
+     */
+    public NumberAxis inverted(boolean flag) {
+        setInverted(flag);
+        return this;
+    }
+
+    /**
+     * Sets the attributed label for the axis.
+     *
+     * @param label the label ({@code null} permitted).
+     */
+    public NumberAxis attributedLabel(AttributedString label) {
+        setAttributedLabel(label);
+        return this;
+    }
+
+    /**
+     * Sets the list of symbols to display instead of the numeric values.
+     *
+     * @param symbols symbols List of symbols.
+     * @return this.
+     */
+    public NumberAxis symbols(String[] symbols) {
+        if (this instanceof SymbolAxis symbolAxis) {
+            symbolAxis.setSymbols(symbols);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether grid bands are drawn for this
+     * axis and notifies registered listeners that the axis has been modified.
+     * <p>
+     *
+     * @param flag the new setting.
+     */
+    public NumberAxis gridBandsVisible(boolean flag) {
+        if (this instanceof SymbolAxis symbolAxis) {
+            symbolAxis.setGridBandsVisible(flag);
+        }
+        return this;
+    }
 }

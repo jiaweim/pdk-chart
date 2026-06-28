@@ -46,7 +46,7 @@ public class BarChartDemo11 {
                 new Font("Dialog", Font.PLAIN, 9));
         source.setPosition(RectangleEdge.BOTTOM);
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .title("Open Source Projects By License")
                 .addTitle(source)
                 .axisNames("License", "Percent")
@@ -56,15 +56,14 @@ public class BarChartDemo11 {
                 .domainAxis()
                 .maximumCategoryLabelWidthRatio(0.8f)
                 .done()
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>("{1}: {2} percent", new DecimalFormat("0")))
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
-                .done()
-                .show(500, 270);
+                .done();
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.show(500, 270);
     }
 }

@@ -44,7 +44,7 @@ public class RelativeDateFormatDemo1 {
         RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
         rdf.setSecondFormatter(new DecimalFormat("00"));
 
-        XYChart.create(AxisType.DATE, AxisType.NUMBER)
+        XYChart chart = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .addDataset(createDataset(), XYChartType.LINE)
                 .title("Exercise Chart")
                 .axisNames("Elapsed Time", "Beats Per Minute")
@@ -56,16 +56,14 @@ public class RelativeDateFormatDemo1 {
                 .dateFormatOverride(rdf)
                 .doneXY()
 
-                .rangeAxis()
-                .autoRangeIncludesZero(false)
-                .done()
-
                 .lineAndShapeProps(0)
                 .addTooltips(true)
                 .defaultShapesVisible(true)
                 .defaultShapesFilled(true)
-                .done()
+                .done();
+        chart.rangeAxisNumber()
+                .autoRangeIncludesZero(false);
 
-                .show(500, 270);
+        chart.show(500, 270);
     }
 }

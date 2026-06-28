@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A renderer that draws shapes at (x, y) coordinates and, if the dataset
@@ -123,7 +124,7 @@ public class XYShapeRenderer extends AbstractXYItemRenderer
      * @see #getPaintScale()
      */
     public void setPaintScale(PaintScale scale) {
-        Args.nullNotPermitted(scale, "scale");
+        Objects.requireNonNull(scale);
         this.paintScale = scale;
         notifyListeners(new RendererChangeEvent(this));
     }
@@ -366,9 +367,9 @@ public class XYShapeRenderer extends AbstractXYItemRenderer
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         Shape hotspot;
         EntityCollection entities = null;

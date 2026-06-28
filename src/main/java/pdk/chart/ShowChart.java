@@ -35,6 +35,7 @@ public interface ShowChart {
         SwingUtilities.invokeLater(() -> {
             ApplicationFrame frame = new ApplicationFrame(frameTitle);
             ChartPanel panel = new ChartPanel(chart);
+            panel.setInitialDelay(200);
             panel.setMouseWheelEnabled(true);
             frame.setContentPane(panel);
             frame.pack();

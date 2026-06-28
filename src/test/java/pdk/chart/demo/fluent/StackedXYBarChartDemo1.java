@@ -19,20 +19,19 @@ public class StackedXYBarChartDemo1 {
 
         TableXYDataset<String> dataset = Data.createTableXYDataset(s1, s2);
 
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .title("Stacked XY Bar Chart Demo 1")
-                .dataset(dataset, XYChartType.BAR_STACK)
+                .addDataset(dataset, XYChartType.BAR_STACK)
                 .axisNames("X", "Y")
-
-                .domainAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)
                 .margin(0.1)
-                .done()
+                .done();
 
-                .show(500, 270);
+        chart.domainAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.show(500, 270);
     }
 }

@@ -164,12 +164,12 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
-     * Return the configuration class for range axis properties.
+     * Return the range axis as {@link NumberAxis} instance.
      *
-     * @return {@link CategoryNumberAxisProps}.
+     * @return {@link NumberAxis}
      */
-    public CategoryNumberAxisProps rangeAxis() {
-        return new CategoryNumberAxisProps(this, rangeAxis_);
+    public NumberAxis rangeAxisNumber() {
+        return rangeAxis_;
     }
 
     /**

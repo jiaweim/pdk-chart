@@ -45,7 +45,7 @@ public class SurveyResultsDemo2 {
         domainAxis.addSubLabel("Lg.", "(10)");
         domainAxis.addSubLabel("All", "(10)");
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .title(title)
                 .backgroundPaint(Color.WHITE)
@@ -62,13 +62,12 @@ public class SurveyResultsDemo2 {
                 .positiveItemLabelPositionFallback(new ItemLabelPosition())
                 .done()
 
-                .rangeAxis()
+                .setDomainAxis(domainAxis);
+
+        chart.rangeAxisNumber()
                 .range(0, 5)
-                .visible(false)
-                .done()
+                .visible(false);
 
-                .setDomainAxis(domainAxis)
-
-                .show(300, 270);
+        chart.show(300, 270);
     }
 }

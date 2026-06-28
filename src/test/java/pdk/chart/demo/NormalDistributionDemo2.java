@@ -59,11 +59,11 @@ public class NormalDistributionDemo2 extends ApplicationFrame {
                 .seriesStroke(2, new BasicStroke(2.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0F, new float[]{6.0F, 4.0F, 3.0F, 3.0F}, 0.0F))
                 .seriesStroke(3, new BasicStroke(2.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0F, new float[]{4.0F, 4.0F}, 0.0F))
                 .drawSeriesLineAsPath(true)
-                .done()
-                .domainAxis()
-                .lowerMargin(0)
-                .upperMargin(0)
                 .done();
+
+        chart.domainAxisNumber()
+                .lowerMargin(0)
+                .upperMargin(0);
 
         XYPointerAnnotation a1 = new XYPointerAnnotation("μ = -2.0, σ² = 0.5", -2.0D, 0.564D, 3.9269908169872414D);
         a1.setLabelOffset(4.0D);
@@ -113,7 +113,7 @@ public class NormalDistributionDemo2 extends ApplicationFrame {
     }
 
     static void main(String[] args) {
-        NormalDistributionDemo2 demo = new NormalDistributionDemo2("JFreeChart: NormalDistributionDemo2.java");
+        NormalDistributionDemo2 demo = new NormalDistributionDemo2("NormalDistributionDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

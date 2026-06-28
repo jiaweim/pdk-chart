@@ -45,7 +45,7 @@ public class WaterfallChartDemo1 {
         labelFormatter.setNegativePrefix("(");
         labelFormatter.setNegativeSuffix(")");
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.VERTICAL)
                 .title("Product Cost Breakdown")
                 .axisNames("Expense Category", "Cost Per Unit")
@@ -56,14 +56,13 @@ public class WaterfallChartDemo1 {
                 .drawBarOutline(false)
                 .base(5)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>("{2}", labelFormatter))
-                .defaultToolTipGenerator(new StandardCategoryToolTipGenerator("{0}, {1}) = {2}", new DecimalFormat("$##,###.00")))
+                .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{0}, {1}) = {2}", new DecimalFormat("$##,###.00")))
                 .defaultItemLabelsVisible(true)
-                .done()
+                .done();
 
-                .rangeAxis()
-                .standardTickUnits(standardUnits)
-                .done()
+        chart.rangeAxisNumber()
+                .standardTickUnits(standardUnits);
 
-                .show(500, 270);
+        chart.show(500, 270);
     }
 }

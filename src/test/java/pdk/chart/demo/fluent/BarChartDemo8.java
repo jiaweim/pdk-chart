@@ -27,15 +27,10 @@ public class BarChartDemo8 {
     }
 
     static void main() {
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .title("Bar Chart Demo 8")
                 .axisNames("Category", "Value")
-
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .upperMargin(0.15)
-                .done()
 
                 .barProps(0)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
@@ -44,9 +39,12 @@ public class BarChartDemo8 {
 
                 .domainAxis()
                 .categoryLabelPositions(CategoryLabelPositions.UP_45)
-                .done()
+                .done();
 
-                .show(500, 270);
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits())
+                .upperMargin(0.15);
+        chart.show(500, 270);
 
     }
 }

@@ -125,7 +125,7 @@ public class SurveyResultsDemo1 {
         a15.setTextAnchor(TextAnchor.BOTTOM_LEFT);
         a15.setCategoryAnchor(CategoryAnchor.START);
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .backgroundPaint(Color.WHITE)
@@ -152,10 +152,6 @@ public class SurveyResultsDemo1 {
                 .categoryMargin(0.5)
                 .done()
 
-                .rangeAxis()
-                .visible(false)
-                .done()
-
                 .addAnnotation(a1)
                 .addAnnotation(a2)
                 .addAnnotation(a3)
@@ -170,8 +166,10 @@ public class SurveyResultsDemo1 {
                 .addAnnotation(a12)
                 .addAnnotation(a13)
                 .addAnnotation(a14)
-                .addAnnotation(a15)
+                .addAnnotation(a15);
 
-                .show(700, 600);
+        chart.rangeAxisNumber()
+                .visible(false);
+        chart.show(700, 600);
     }
 }

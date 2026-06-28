@@ -13,7 +13,7 @@ import pdk.chart.fluent.XYChartType;
  */
 public class ScatterPlotDemo3 {
     static void main() {
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .dataset(new SampleXYDataset2(), XYChartType.LINE)
                 .title("Scatter Plot Demo 3")
                 .showLegend(true)
@@ -22,10 +22,10 @@ public class ScatterPlotDemo3 {
                 .defaultShapesVisible(true)
                 .defaultLinesVisible(false)
                 .addTooltips(true)
-                .done()
-                .domainAxis()
-                .autoRangeIncludesZero(false)
-                .done()
-                .show();
+                .done();
+        chart.domainAxisNumber()
+                .autoRangeIncludesZero(false);
+
+        chart.show();
     }
 }

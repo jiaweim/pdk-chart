@@ -17,6 +17,7 @@ public enum XYChartType {
     LINE,
     SPLINE,
     SCATTER,
+    BUBBLE,
     HISTOGRAM,
     /**
      * Bar chart, This chart requires the IntervalXYDataset data type.
@@ -42,36 +43,48 @@ public enum XYChartType {
      * @return {@link XYItemRenderer}.
      */
     public XYItemRenderer getRenderer() {
-        if (this == XYChartType.LINE) {
-            return new XYLineAndShapeRenderer(true, false);
-        } else if (this == XYChartType.SPLINE) {
-            return new XYSplineRenderer();
-        } else if (this == XYChartType.AREA) {
-            return new XYAreaRenderer(XYAreaRenderer.AREA);
-        } else if (this == XYChartType.SCATTER) {
-            return new XYLineAndShapeRenderer(false, true);
-        } else if (this == XYChartType.BAR || this == XYChartType.HISTOGRAM) {
-            XYBarRenderer renderer = new XYBarRenderer();
-            renderer.setShadowVisible(false);
-            return renderer;
-        } else if (this == XYChartType.BAR_STACK) {
-            StackedXYBarRenderer renderer = new StackedXYBarRenderer();
-            renderer.setShadowVisible(false);
-            return renderer;
-        } else if (this == XYChartType.PEAK) {
-            YIntervalRenderer renderer = new YIntervalRenderer();
-            Ellipse2D.Double shape = new Ellipse2D.Double(-0.5, 0.5, 1, 1);
-            renderer.setSeriesShape(0, shape);
-            renderer.setSeriesShape(1, shape);
-            return renderer;
-        } else if (this == XYChartType.BAR_CLUSTER) {
-            ClusteredXYBarRenderer renderer = new ClusteredXYBarRenderer();
-            renderer.setShadowVisible(false);
-            return renderer;
-        } else if (this == XYChartType.BOX_WHISKER) {
-            return new XYBoxAndWhiskerRenderer();
-        } else {
-            throw new IllegalStateException("Unexpected value: " + this);
+        switch (this) {
+            case LINE -> {
+                return new XYLineAndShapeRenderer(true, false);
+            }
+            case SPLINE -> {
+                return new XYSplineRenderer();
+            }
+            case AREA -> {
+                return new XYAreaRenderer(XYAreaRenderer.AREA);
+            }
+            case SCATTER -> {
+                return new XYLineAndShapeRenderer(false, true);
+            }
+            case BUBBLE -> {
+                return new XYBubbleRenderer(XYBubbleRenderer.SCALE_ON_RANGE_AXIS);
+            }
+            case BAR, HISTOGRAM -> {
+                XYBarRenderer renderer = new XYBarRenderer();
+                renderer.setShadowVisible(false);
+                return renderer;
+            }
+            case BAR_STACK -> {
+                StackedXYBarRenderer renderer = new StackedXYBarRenderer();
+                renderer.setShadowVisible(false);
+                return renderer;
+            }
+            case PEAK -> {
+                YIntervalRenderer renderer = new YIntervalRenderer();
+                Ellipse2D.Double shape = new Ellipse2D.Double(-0.5, 0.5, 1, 1);
+                renderer.setSeriesShape(0, shape);
+                renderer.setSeriesShape(1, shape);
+                return renderer;
+            }
+            case BAR_CLUSTER -> {
+                ClusteredXYBarRenderer renderer = new ClusteredXYBarRenderer();
+                renderer.setShadowVisible(false);
+                return renderer;
+            }
+            case BOX_WHISKER -> {
+                return new XYBoxAndWhiskerRenderer();
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + this);
         }
     }
 }

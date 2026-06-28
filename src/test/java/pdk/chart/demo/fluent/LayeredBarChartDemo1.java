@@ -31,7 +31,7 @@ public class LayeredBarChartDemo1 {
     }
 
     static void main() {
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.VERTICAL)
                 .dataset(createDataset(), CategoryXYChartType.BAR_LAYER)
                 .showLegend(true)
@@ -42,19 +42,17 @@ public class LayeredBarChartDemo1 {
                 .rangeZeroBaselineVisible(true)
                 .rowRenderingOrder(SortOrder.DESCENDING)
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-
                 .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
                 .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)))
-                .done()
+                .done();
 
-                .show(500, 270);
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.show(500, 270);
 
     }
 }

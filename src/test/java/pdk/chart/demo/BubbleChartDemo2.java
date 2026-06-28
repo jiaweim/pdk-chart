@@ -21,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BubbleChartDemo2 extends ApplicationFrame {
+
     public BubbleChartDemo2(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -29,7 +30,8 @@ public class BubbleChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        Chart chart = ChartFactory.createBubbleChart("Bubble Chart Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.createBubbleChart("Bubble Chart Demo 2", "X", "Y",
+                dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new XYBubbleRenderer(0));
         plot.setForegroundAlpha(0.65F);
@@ -42,9 +44,9 @@ public class BubbleChartDemo2 extends ApplicationFrame {
         renderer.setDefaultItemLabelsVisible(true);
         renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
-        domainAxis.setRange((double) 0.0F, (double) 10.0F);
+        domainAxis.setRange(0.0, 10.0);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setRange((double) 0.0F, (double) 10.0F);
+        rangeAxis.setRange(0.0, 10.0);
         return chart;
     }
 
@@ -55,8 +57,8 @@ public class BubbleChartDemo2 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        BubbleChartDemo2 demo = new BubbleChartDemo2("Chart: BubbleChartDemo2.java");
+    static void main() {
+        BubbleChartDemo2 demo = new BubbleChartDemo2("BubbleChartDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

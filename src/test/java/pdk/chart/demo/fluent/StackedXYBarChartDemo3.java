@@ -35,7 +35,7 @@ public class StackedXYBarChartDemo3 {
     }
 
     static void main() {
-        XYChart.create(AxisType.DATE, AxisType.NUMBER)
+        XYChart chart = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .dataset(createDataset(), XYChartType.BAR_STACK)
                 .axisNames("Year", "Tonnes")
                 .backgroundPaint(Color.WHITE)
@@ -51,10 +51,6 @@ public class StackedXYBarChartDemo3 {
                 .upperMargin(0.01)
                 .doneXY()
 
-                .rangeAxis()
-                .numberFormatOverride(new DecimalFormat("0.0%"))
-                .done()
-
                 .barProps(0)
                 .margin(0.3)
                 .renderAsPercentages(true)
@@ -64,8 +60,11 @@ public class StackedXYBarChartDemo3 {
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(64, 0, 0), 0.0F, 0.0F, Color.RED))
                 .seriesPaint(1, new GradientPaint(0.0F, 0.0F, new Color(0, 64, 0), 0.0F, 0.0F, Color.GREEN))
                 .gradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL))
-                .done()
+                .done();
 
-                .show(500, 270);
+        chart.rangeAxisNumber()
+                .numberFormatOverride(new DecimalFormat("0.0%"));
+
+        chart.show(500, 270);
     }
 }

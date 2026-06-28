@@ -44,12 +44,10 @@ public class BarChartDemo1 {
 
                 .domainAxis()
                 .categoryMargin(0.2)
-                .done()
-
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .done();
 
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
         TextTitle source = new TextTitle("Source: https://www.cdc.gov/nchs/products/databriefs/db377.htm");
         source.setFont(new Font("SansSerif", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);

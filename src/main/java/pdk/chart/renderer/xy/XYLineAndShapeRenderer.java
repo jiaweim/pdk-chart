@@ -1,5 +1,6 @@
 package pdk.chart.renderer.xy;
 
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
@@ -7,6 +8,8 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.internal.*;
+import pdk.chart.labels.StandardXYToolTipGenerator;
+import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
@@ -584,7 +587,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
          */
         @Override
         public void startSeriesPass(XYDataset dataset, int series,
-                int firstItem, int lastItem, int pass, int passCount) {
+                                    int firstItem, int lastItem, int pass, int passCount) {
             this.seriesPath.reset();
             this.lastPointGood = false;
             super.startSeriesPass(dataset, series, firstItem, lastItem, pass,
@@ -610,7 +613,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
-            XYPlot plot, XYDataset data, PlotRenderingInfo info) {
+                                          XYPlot plot, XYDataset data, PlotRenderingInfo info) {
         return new State(info);
     }
 
@@ -634,9 +637,9 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-            int series, int item, CrosshairState crosshairState, int pass) {
+                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+                         int series, int item, CrosshairState crosshairState, int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(series, item)) {
@@ -708,15 +711,15 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param item       the item index (zero-based).
      */
     protected void drawPrimaryLine(XYItemRendererState state,
-            Graphics2D g2,
-            XYPlot plot,
-            XYDataset dataset,
-            int pass,
-            int series,
-            int item,
-            ValueAxis domainAxis,
-            ValueAxis rangeAxis,
-            Rectangle2D dataArea) {
+                                   Graphics2D g2,
+                                   XYPlot plot,
+                                   XYDataset dataset,
+                                   int pass,
+                                   int series,
+                                   int item,
+                                   ValueAxis domainAxis,
+                                   ValueAxis rangeAxis,
+                                   Rectangle2D dataArea) {
         if (item == 0) {
             return;
         }
@@ -772,7 +775,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param shape  the shape.
      */
     protected void drawFirstPassShape(Graphics2D g2, int pass, int series,
-            int item, Shape shape) {
+                                      int item, Shape shape) {
         g2.setStroke(getItemStroke(series, item));
         g2.setPaint(getItemPaint(series, item));
         g2.draw(shape);
@@ -798,9 +801,9 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param dataArea   the area within which the data is being drawn.
      */
     protected void drawPrimaryLineAsPath(XYItemRendererState state,
-            Graphics2D g2, XYPlot plot, XYDataset dataset, int pass,
-            int series, int item, ValueAxis domainAxis, ValueAxis rangeAxis,
-            Rectangle2D dataArea) {
+                                         Graphics2D g2, XYPlot plot, XYDataset dataset, int pass,
+                                         int series, int item, ValueAxis domainAxis, ValueAxis rangeAxis,
+                                         Rectangle2D dataArea) {
 
         RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
         RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
@@ -857,9 +860,9 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param entities       the entity collection.
      */
     protected void drawSecondaryPass(Graphics2D g2, XYPlot plot,
-            XYDataset dataset, int pass, int series, int item,
-            ValueAxis domainAxis, Rectangle2D dataArea, ValueAxis rangeAxis,
-            CrosshairState crosshairState, EntityCollection entities) {
+                                     XYDataset dataset, int pass, int series, int item,
+                                     ValueAxis domainAxis, Rectangle2D dataArea, ValueAxis rangeAxis,
+                                     CrosshairState crosshairState, EntityCollection entities) {
 
         Shape entityArea = null;
 
@@ -1106,4 +1109,28 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
         SerialUtils.writeShape(this.legendLine, stream);
     }
 
+    /**
+     * Sets the default tool tip generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     * @return this
+     */
+    public XYLineAndShapeRenderer defaultToolTipGenerator(@Nullable XYToolTipGenerator generator) {
+        setDefaultToolTipGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Configure chart to generate tool tips
+     *
+     * @param show true if generate tool tips
+     * @return this
+     */
+    public XYLineAndShapeRenderer showTooltips(boolean show) {
+        if (show) {
+            setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+        return this;
+    }
 }

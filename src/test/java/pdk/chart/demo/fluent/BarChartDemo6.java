@@ -18,7 +18,7 @@ public class BarChartDemo6 {
     }
 
     static void main() {
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .plotInsets(RectangleInsets.ZERO_INSETS)
@@ -30,13 +30,11 @@ public class BarChartDemo6 {
                 .lowerMargin(0.2)
                 .upperMargin(0.2)
                 .visible(false)
-                .done()
+                .done();
 
-                .rangeAxis()
+        chart.rangeAxisNumber()
                 .range(0, 100)
-                .visible(false)
-                .done()
-
-                .show(500, 270);
+                .visible(false);
+        chart.show(500, 270);
     }
 }

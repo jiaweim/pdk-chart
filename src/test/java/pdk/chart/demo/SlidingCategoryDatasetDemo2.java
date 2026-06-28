@@ -84,16 +84,14 @@ public class SlidingCategoryDatasetDemo2 extends ApplicationFrame {
                     .upperMargin(0.02)
                     .done()
 
-                    .rangeAxis()
-                    .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                    .range(0, 100)
-                    .done()
-
                     .barProps(0)
                     .addTooltips(true)
                     .drawBarOutline(false)
                     .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
                     .done();
+            chart.rangeAxisNumber()
+                    .standardTickUnits(NumberAxis.createIntegerTickUnits())
+                    .range(0, 100);
 
             return chart;
         }

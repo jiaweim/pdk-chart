@@ -47,7 +47,7 @@ public class BarChartDemo9 {
         renderer.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.CENTER_HORIZONTAL));
 
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .title(title)
                 .axisNames(null, "Value")
                 .dataset(createDataset(), CategoryXYChartType.BAR)
@@ -58,13 +58,14 @@ public class BarChartDemo9 {
                 .plotOutlinePaint(Color.BLACK)
                 .rangeGridlinePaint(Color.GRAY)
                 .rangeGridlineStroke(new BasicStroke(1.0f))
-                .setRenderer(0, renderer)
-                .rangeAxis()
+                .setRenderer(0, renderer);
+
+        chart.rangeAxisNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .range(0, 800)
-                .tickMarkPaint(Color.BLACK)
-                .done()
-                .show(500, 270);
+                .tickMarkPaint(Color.BLACK);
+
+        chart.show(500, 270);
     }
 
     static class CustomBarRenderer extends BarRenderer {

@@ -29,15 +29,14 @@ public class BarChartDemo4 {
                 .title("Bar Chart Demo 4")
                 .axisNames(null, "Value")
                 .showLegend(true)
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
 
                 .barProps(0)
                 .drawBarOutline(false)
                 .maximumBarWidth(0.5)
                 .legendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));
 
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
         chart.show(500, 270);
     }
 }

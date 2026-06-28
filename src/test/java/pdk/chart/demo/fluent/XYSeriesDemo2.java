@@ -22,14 +22,15 @@ public class XYSeriesDemo2 {
         );
         dataset.addSeries(series);
 
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .dataset(dataset, XYChartType.LINE)
                 .axisNames("X", "Y")
                 .showLegend(true)
-                .rangeAxis().autoRangeIncludesZero(false).done()
                 .lineAndShapeProps(0)
                 .addTooltips(true)
-                .done()
-                .show();
+                .done();
+        chart.rangeAxisNumber()
+                .autoRangeIncludesZero(false);
+        chart.show();
     }
 }

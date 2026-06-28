@@ -60,7 +60,7 @@ public class BarChartDemo3 {
         CategoryAxis domainAxis2 = new CategoryAxis(null);
 
         List<Integer> axisIndices = Arrays.asList(0, 1);
-        CategoryXYChart xyChart = CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .setRenderer(0, new CustomRenderer(customColours))
                 .setNoDataMessage("NO DATA!")
@@ -71,18 +71,19 @@ public class BarChartDemo3 {
                 .defaultItemLabelsVisible(true)
                 .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, 0.0))
                 .done()
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .lowerMargin(0.15)
-                .upperMargin(0.15)
-                .done()
 
                 .addRangeAxis(1, rangeAxis2)
                 .addDomainAxis(1, domainAxis2)
                 .mapDatasetToDomainAxes(0, axisIndices)
                 .mapDatasetToRangeAxes(0, axisIndices);
-        Chart.DEFAULT_THEME.apply(xyChart);
-        xyChart.show(500, 270);
+
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits())
+                .lowerMargin(0.15)
+                .upperMargin(0.15);
+
+        Chart.DEFAULT_THEME.apply(chart);
+        chart.show(500, 270);
     }
 
     static class CustomRenderer extends BarRenderer {

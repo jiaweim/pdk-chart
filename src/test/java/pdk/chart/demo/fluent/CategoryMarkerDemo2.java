@@ -42,23 +42,21 @@ public class CategoryMarkerDemo2 {
         marker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
         marker.setLabelOffset(new RectangleInsets(2.0, 5.0, 2.0, 5.0));
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .title("Category Marker Demo 2")
                 .axisNames("Category", "Count")
                 .dataset(createDataset(), CategoryXYChartType.LINE)
                 .addDomainMarker(marker, Layer.BACKGROUND)
-
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
 
                 .lineRenderer(0)
                 .seriesShapesVisible(0, true)
                 .drawOutlines(true)
                 .useFillPaint(true)
                 .defaultFillPaint(Color.WHITE)
-                .done()
+                .done();
 
-                .show(500, 270);
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.show(500, 270);
     }
 }

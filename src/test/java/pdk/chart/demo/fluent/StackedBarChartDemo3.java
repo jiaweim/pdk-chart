@@ -36,19 +36,17 @@ public class StackedBarChartDemo3 {
         renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
         renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .addDataset(createDataset(), renderer)
                 .title("Stacked Bar Chart Demo 3")
                 .axisNames("Category", "Value")
-                .showLegend(true)
+                .showLegend(true);
 
-                .rangeAxis()
+        chart.rangeAxisNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .lowerMargin(0.15)
                 .upperMargin(0.15)
-                .numberFormatOverride(NumberFormat.getPercentInstance())
-                .done()
-
-                .show(500, 270);
+                .numberFormatOverride(NumberFormat.getPercentInstance());
+        chart.show(500, 270);
     }
 }

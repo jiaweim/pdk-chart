@@ -82,10 +82,9 @@ public class LookupPaintScale
             if (obj == this) {
                 return true;
             }
-            if (!(obj instanceof PaintItem)) {
+            if (!(obj instanceof PaintItem that)) {
                 return false;
             }
-            PaintItem that = (PaintItem) obj;
             if (this.value != that.value) {
                 return false;
             }
@@ -162,7 +161,7 @@ public class LookupPaintScale
      *                     permitted).
      */
     public LookupPaintScale(double lowerBound, double upperBound,
-            Paint defaultPaint) {
+                            Paint defaultPaint) {
         if (lowerBound >= upperBound) {
             throw new IllegalArgumentException(
                     "Requires lowerBound < upperBound.");

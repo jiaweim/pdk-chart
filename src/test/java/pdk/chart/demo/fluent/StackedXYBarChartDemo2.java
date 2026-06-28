@@ -76,11 +76,6 @@ public class StackedXYBarChartDemo2 {
                 .upperMargin(0.01)
                 .doneXY()
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .upperMargin(0.1)
-                .done()
-
                 .barProps(0)
                 .margin(0.15)
                 .drawBarOutline(false)
@@ -90,6 +85,10 @@ public class StackedXYBarChartDemo2 {
                 .defaultToolTipGenerator(new StandardXYToolTipGenerator("{0} : {1} = {2}",
                         new SimpleDateFormat("yyyy"), new DecimalFormat("0")))
                 .done();
+
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits())
+                .upperMargin(0.1);
 
         LegendTitle legend = new LegendTitle(chart.getPlot());
         legend.setBackgroundPaint(Color.WHITE);

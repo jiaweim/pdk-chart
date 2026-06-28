@@ -1,5 +1,6 @@
 package pdk.chart.data.xy;
 
+import org.jspecify.annotations.NonNull;
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesException;
@@ -79,9 +80,9 @@ public class XYSeries<K extends Comparable<K>> extends Series<K>
      * be sorted into ascending order by x-value, and duplicate x-values will
      * be allowed (these defaults can be modified with another constructor).
      *
-     * @param key the series key ({@code null} not permitted).
+     * @param key the series key.
      */
-    public XYSeries(K key) {
+    public XYSeries(@NonNull K key) {
         this(key, true, true);
     }
 
@@ -90,9 +91,9 @@ public class XYSeries<K extends Comparable<K>> extends Series<K>
      * be sorted into ascending order by x-value, and duplicate x-values will
      * be allowed (these defaults can be modified with another constructor).
      *
-     * @param key the series key ({@code null} not permitted).
+     * @param key the series key.
      */
-    public XYSeries(K key, double[] x, double[] y) {
+    public XYSeries(@NonNull K key, double[] x, double[] y) {
         this(key, true, true);
         if (x.length != y.length) {
             throw new IllegalArgumentException("The number of data contained in x and y is inconsistent.");

@@ -17,14 +17,12 @@ import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.Marker;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYBarRenderer;
-import pdk.chart.renderer.xy.XYItemRenderer;
-import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
-import pdk.chart.renderer.xy.YIntervalRenderer;
+import pdk.chart.renderer.xy.*;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.title.Title;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Line Chart.
@@ -42,6 +40,7 @@ public class XYChart extends Chart {
     public static XYChart create(XYDataset dataset, XYChartType chartType) {
         XYChart chart = new XYChart(AxisType.NUMBER, AxisType.NUMBER);
         chart.addDataset(dataset, chartType);
+        Chart.DEFAULT_THEME.apply(chart);
         return chart;
     }
 
@@ -76,16 +75,6 @@ public class XYChart extends Chart {
         DEFAULT_THEME.apply(this);
     }
 
-
-    /**
-     * Return the configuration class for range axis properties.
-     *
-     * @return {@link CategoryNumberAxisProps}.
-     */
-    public NumberAxisProps rangeAxis() {
-        return new NumberAxisProps(this, (NumberAxis) rangeAxis_);
-    }
-
     /**
      * Return the configuration class for range axis properties.
      *
@@ -93,19 +82,6 @@ public class XYChart extends Chart {
      */
     public DateAxisProps rangeAxisDate() {
         return new DateAxisProps(this, (DateAxis) rangeAxis_);
-    }
-
-    /**
-     * Return the configuration class for domain axis properties.
-     *
-     * @return {@link CategoryNumberAxisProps}.
-     */
-    public NumberAxisProps domainAxis() {
-        if (domainAxis_ instanceof NumberAxis nAxis) {
-            return new NumberAxisProps(this, nAxis);
-        } else {
-            throw new IllegalStateException("The domain axis is not NumberAxis");
-        }
     }
 
     /**
@@ -122,12 +98,45 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Return the domain axis as {@link NumberAxis}.
+     * <p>
+     * If the domain axis is not a {@link NumberAxis}, throws {@link ClassCastException}.
+     *
+     * @return {@link NumberAxis}
+     */
+    public NumberAxis domainAxisNumber() {
+        return (NumberAxis) domainAxis_;
+    }
+
+    /**
+     * Return the range axis as {@link NumberAxis}.
+     * <p>
+     * If the range axis is not a {@link NumberAxis}, throws {@link ClassCastException}.
+     *
+     * @return {@link NumberAxis}
+     */
+    public NumberAxis rangeAxisNumber() {
+        return (NumberAxis) rangeAxis_;
+    }
+
+    /**
      * Return the domain axis.
      *
      * @return {@link ValueAxis}.
      */
     public ValueAxis getDomainAxis() {
         return domainAxis_;
+    }
+
+    /**
+     * Sets the axis offsets (gap between the data area and the axes).
+     *
+     * @param offset the offset.
+     */
+    public XYChart axisOffset(@NonNull RectangleInsets offset) {
+        Objects.requireNonNull(offset);
+        plot_.setAxisOffset(offset);
+        return this;
     }
 
     /**
@@ -153,6 +162,20 @@ public class XYChart extends Chart {
         XYItemRenderer renderer = plot_.getRenderer(dataset);
         if (renderer instanceof XYLineAndShapeRenderer lineAndShapeRenderer) {
             return new XYLineAndShapeProps(this, lineAndShapeRenderer);
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not LINE or SCATTER type.");
+    }
+
+    /**
+     * Return the {@link XYLineAndShapeRenderer} for a given dataset.
+     *
+     * @param dataset index of the dataset.
+     * @return {@link XYLineAndShapeRenderer}.
+     */
+    public XYLineAndShapeRenderer getLineAndShape(int dataset) {
+        XYItemRenderer renderer = plot_.getRenderer(dataset);
+        if (renderer instanceof XYLineAndShapeRenderer lineAndShapeRenderer) {
+            return lineAndShapeRenderer;
         }
         throw new IllegalStateException("The renderer corresponding to the specified dataset is not LINE or SCATTER type.");
     }
@@ -190,6 +213,20 @@ public class XYChart extends Chart {
             return new YIntervalProps(this, intervalRenderer);
         }
         throw new IllegalStateException("The renderer corresponding to the specified dataset is not PEAK type.");
+    }
+
+    /**
+     * Return the {@link XYBubbleRenderer} for a given dataset.
+     *
+     * @param dataset index of the dataset.
+     * @return {@link XYBubbleRenderer}
+     */
+    public XYBubbleRenderer bubbleRenderer(int dataset) {
+        XYItemRenderer renderer = plot_.getRenderer(dataset);
+        if (renderer instanceof XYBubbleRenderer bubbleRenderer) {
+            return bubbleRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not BUBBLE type.");
     }
 
     /**
@@ -372,8 +409,8 @@ public class XYChart extends Chart {
      * @return this
      */
     public XYChart addPointerAnnotation(String label, double x, double y,
-            double angle, double labelOffset,
-            TextAnchor textAnchor, Color backgroundColor) {
+                                        double angle, double labelOffset,
+                                        TextAnchor textAnchor, Color backgroundColor) {
 
         XYPointerAnnotation annotation = new XYPointerAnnotation(label, x, y, angle);
         annotation.setLabelOffset(labelOffset);

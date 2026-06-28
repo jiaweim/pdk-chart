@@ -7,6 +7,7 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.CategoryPlot;
@@ -30,13 +31,12 @@ public class BarChartDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-
         String[] categories = new String[]{"18 to 39", "40 - 59", "60 and over"};
-        dataset.addSeries("Males", categories, new double[]{5.5, 8.4, 12.8});
-        dataset.addSeries("Females", categories, new double[]{10.3, 20.1, 24.3});
 
-        return dataset;
+        return Data.<String, String>category()
+                .addSeries("Males", categories, new double[]{5.5, 8.4, 12.8})
+                .addSeries("Females", categories, new double[]{10.3, 20.1, 24.3})
+                .build();
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {

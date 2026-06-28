@@ -39,10 +39,6 @@ public class BarChartDemo2 {
                 .axisNames("Category", "Score (%)")
                 .orientation(PlotOrientation.HORIZONTAL)
                 .rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT)
-                .rangeAxis()
-                .range(0, 100)
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
 
                 .barProps(0)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(0, 0, 128), 0.0F, 0.0F, Color.BLUE))
@@ -52,6 +48,9 @@ public class BarChartDemo2 {
                 .gradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL))
                 .legendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"))
                 .done();
+        chart.rangeAxisNumber()
+                .range(0, 100)
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
         chart.show(500, 270);
     }
 }

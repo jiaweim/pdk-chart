@@ -40,7 +40,7 @@ public class CategoryMarkerDemo1 {
         marker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
         marker.setLabelOffset(new RectangleInsets((double) 2.0F, (double) 5.0F, (double) 2.0F, (double) 5.0F));
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .dataset(createDataset(), CategoryXYChartType.LINE)
                 .title("Category Marker Demo 1")
                 .axisNames("Category", "Count")
@@ -53,13 +53,11 @@ public class CategoryMarkerDemo1 {
                 .drawOutlines(true)
                 .useFillPaint(true)
                 .defaultFillPaint(Color.WHITE)
-                .done()
+                .done();
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-
-                .show(500, 270);
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.show(500, 270);
 
     }
 }

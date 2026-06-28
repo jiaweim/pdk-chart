@@ -33,15 +33,13 @@ public class StatisticalBarChartDemo1 {
                 .title("Statistical Bar Chart Demo 1")
                 .axisNames("Type", "Value")
                 .dataset(createDataset(), CategoryXYChartType.BAR_STATISTICS)
-                .showLegend(true)
-
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .autoRangeIncludesZero(false)
-                .done();
+                .showLegend(true);
 
         Chart.DEFAULT_THEME.apply(chart);
 
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits())
+                .autoRangeIncludesZero(false);
         chart.barProps(0)
                 .drawBarOutline(false)
                 .errorIndicatorPaint(Color.BLACK)

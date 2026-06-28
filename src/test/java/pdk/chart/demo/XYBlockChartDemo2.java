@@ -1,9 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.RectangleAnchor;
@@ -12,22 +8,25 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.SymbolAxis;
+import pdk.chart.data.time.Day;
+import pdk.chart.data.time.RegularTimePeriod;
+import pdk.chart.data.xy.DefaultXYZDataset;
+import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.renderer.LookupPaintScale;
 import pdk.chart.renderer.xy.XYBlockRenderer;
-
-import pdk.chart.data.time.Day;
-import pdk.chart.data.time.RegularTimePeriod;
-import pdk.chart.data.xy.DefaultXYZDataset;
-import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class XYBlockChartDemo2 extends ApplicationFrame {
+
     public XYBlockChartDemo2(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -37,37 +36,40 @@ public class XYBlockChartDemo2 extends ApplicationFrame {
 
     private static Chart createChart(XYZDataset dataset) {
         DateAxis xAxis = new DateAxis("Date");
-        xAxis.setLowerMargin((double)0.0F);
-        xAxis.setUpperMargin((double)0.0F);
+        xAxis.setLowerMargin(0.0);
+        xAxis.setUpperMargin(0.0);
         xAxis.setInverted(true);
+
         NumberAxis yAxis = new NumberAxis("Hour");
-        yAxis.setUpperMargin((double)0.0F);
+        yAxis.setUpperMargin(0.0);
         yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
         XYBlockRenderer renderer = new XYBlockRenderer();
-        renderer.setBlockWidth((double)8.64E7F);
+        renderer.setBlockWidth(8.64E7);
         renderer.setBlockAnchor(RectangleAnchor.BOTTOM_LEFT);
-        LookupPaintScale paintScale = new LookupPaintScale((double)0.5F, (double)4.5F, Color.WHITE);
-        paintScale.add((double)0.5F, Color.RED);
-        paintScale.add((double)1.5F, Color.GREEN);
-        paintScale.add((double)2.5F, Color.BLUE);
-        paintScale.add((double)3.5F, Color.YELLOW);
+        LookupPaintScale paintScale = new LookupPaintScale(0.5, 4.5, Color.WHITE);
+        paintScale.add(0.5, Color.RED);
+        paintScale.add(1.5, Color.GREEN);
+        paintScale.add(2.5, Color.BLUE);
+        paintScale.add(3.5, Color.YELLOW);
         renderer.setPaintScale(paintScale);
+
         XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
         plot.setOrientation(PlotOrientation.HORIZONTAL);
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
         plot.setRangeGridlinePaint(Color.WHITE);
-        plot.setAxisOffset(new RectangleInsets((double)5.0F, (double)5.0F, (double)5.0F, (double)5.0F));
+        plot.setAxisOffset(new RectangleInsets(5.0, 5.0F, 5.0F, 5.0F));
         Chart chart = new Chart("XYBlockChartDemo2", plot);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.WHITE);
-        SymbolAxis scaleAxis = new SymbolAxis((String)null, new String[]{"", "Unavailable", "Free", "Group 1", "Group 2"});
-        scaleAxis.setRange((double)0.5F, (double)4.5F);
+        SymbolAxis scaleAxis = new SymbolAxis(null, new String[]{"", "Unavailable", "Free", "Group 1", "Group 2"});
+        scaleAxis.setRange(0.5, 4.5);
         scaleAxis.setPlot(new PiePlot());
         scaleAxis.setGridBandsVisible(false);
         PaintScaleLegend psl = new PaintScaleLegend(paintScale, scaleAxis);
-        psl.setMargin(new RectangleInsets((double)3.0F, (double)10.0F, (double)3.0F, (double)10.0F));
+        psl.setMargin(new RectangleInsets(3.0, 10.0, 3.0, 10.0));
         psl.setPosition(RectangleEdge.BOTTOM);
-        psl.setAxisOffset((double)5.0F);
+        psl.setAxisOffset(5.0F);
         chart.addSubtitle(psl);
         ChartUtils.applyCurrentTheme(chart);
         return chart;
@@ -79,16 +81,15 @@ public class XYBlockChartDemo2 extends ApplicationFrame {
         double[] zvalues = new double[2400];
         RegularTimePeriod t = new Day();
 
-        for(int days = 0; days < 100; ++days) {
-            double value = (double)1.0F;
-
-            for(int hour = 0; hour < 24; ++hour) {
+        for (int days = 0; days < 100; ++days) {
+            double value = 1.0;
+            for (int hour = 0; hour < 24; ++hour) {
                 if (Math.random() < 0.1) {
-                    value = Math.random() * (double)4.0F;
+                    value = Math.random() * (double) 4.0F;
                 }
 
-                xvalues[days * 24 + hour] = (double)t.getFirstMillisecond();
-                yvalues[days * 24 + hour] = (double)hour;
+                xvalues[days * 24 + hour] = (double) t.getFirstMillisecond();
+                yvalues[days * 24 + hour] = hour;
                 zvalues[days * 24 + hour] = value;
             }
 
@@ -104,7 +105,7 @@ public class XYBlockChartDemo2 extends ApplicationFrame {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYBlockChartDemo2 demo = new XYBlockChartDemo2("Block Chart Demo 2");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

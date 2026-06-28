@@ -98,7 +98,7 @@ public class MarkerDemo1 {
         pointer.setPaint(Color.BLUE);
         pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
 
-        XYChart.create(AxisType.DATE, AxisType.NUMBER)
+        XYChart chart = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .dataset(createDataset(), XYChartType.SCATTER)
                 .title("Marker Demo 1")
                 .showLegend(true)
@@ -122,13 +122,12 @@ public class MarkerDemo1 {
 
                 .domainAxisDate()
                 .upperMargin(0.5)
-                .doneXY()
+                .doneXY();
 
-                .rangeAxis()
+        chart.rangeAxisNumber()
                 .lowerMargin(0.5)
-                .upperMargin(0.3)
-                .done()
+                .upperMargin(0.3);
 
-                .show(500, 270);
+        chart.show(500, 270);
     }
 }

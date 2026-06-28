@@ -1,39 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------------------
- * TestIntervalXYZDataset.java
- * ---------------------------
- * (C) Copyright 2020-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.data.general;
 
 import pdk.chart.data.DomainOrder;
@@ -44,22 +8,22 @@ import pdk.chart.data.xy.IntervalXYZDataset;
  * used for testing.
  */
 public class TestIntervalXYZDataset implements IntervalXYZDataset<Integer> {
-    
+
     private final int seriesCount;
-    
+
     private final int itemCount;
-    
+
     /**
      * Creates a new instance.
-     * 
-     * @param seriesCount  the number of series.
-     * @param itemCount  the number of items per series.
+     *
+     * @param seriesCount the number of series.
+     * @param itemCount   the number of items per series.
      */
     public TestIntervalXYZDataset(int seriesCount, int itemCount) {
         this.seriesCount = seriesCount;
         this.itemCount = itemCount;
     }
-    
+
     @Override
     public Number getStartXValue(int series, int item) {
         return getXValue(series, item) - 0.5;
@@ -108,7 +72,7 @@ public class TestIntervalXYZDataset implements IntervalXYZDataset<Integer> {
     @Override
     public int getItemCount(int series) {
         // for this test dataset, every series has the same number of items
-        return this.itemCount; 
+        return this.itemCount;
     }
 
     @Override
@@ -148,12 +112,12 @@ public class TestIntervalXYZDataset implements IntervalXYZDataset<Integer> {
 
     @Override
     public void addChangeListener(DatasetChangeListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void removeChangeListener(DatasetChangeListener listener) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }

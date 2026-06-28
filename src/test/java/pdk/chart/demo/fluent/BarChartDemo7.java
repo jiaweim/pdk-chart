@@ -47,16 +47,13 @@ public class BarChartDemo7 {
         target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
         target.setPaint(new Color(222, 222, 255, 128));
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .title("Bar Chart Demo 7")
                 .axisNames("Category", "Value")
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .rangePannable(true)
                 .addRangeMarker(target, Layer.BACKGROUND)
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-                
+
                 .barProps(0)
                 .drawBarOutline(false)
                 .itemMargin(0.1)
@@ -69,8 +66,11 @@ public class BarChartDemo7 {
                 .done()
                 .domainAxis()
                 .categoryLabelPositions(CategoryLabelPositions.UP_90)
-                .done()
-                .show(500, 270);
+                .done();
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.show(500, 270);
     }
 
     static class LabelGenerator extends StandardCategoryItemLabelGenerator {

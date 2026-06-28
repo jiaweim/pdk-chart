@@ -32,6 +32,100 @@ public interface Data {
     }
 
     /**
+     * Create a {@link XYDatasetBuilder} to build {@link XYDataset}
+     *
+     * @param <S> series key type.
+     * @return {@link CategoryDatasetBuilder} instance.
+     */
+    static <S extends Comparable<S>> XYDatasetBuilder<S> xy() {
+        return new XYDatasetBuilder<>();
+    }
+
+    /**
+     * Create a {@link XYZDatasetBuilder} to build {@link XYZDataset}.
+     *
+     * @param <S> series key type.
+     * @return {@link CategoryDatasetBuilder} instance.
+     */
+    static <S extends Comparable<S>> XYZDatasetBuilder<S> xyz() {
+        return new XYZDatasetBuilder<>();
+    }
+
+    /**
+     * Create a {@link XYDataset}.
+     *
+     * @param seriesKey series key.
+     * @param x         x values.
+     * @param y         y values.
+     * @param <S>       series name type.
+     * @return {@link XYDataset}.
+     */
+    static <S extends Comparable<S>> XYDataset<S> create(@NonNull S seriesKey,
+                                                         double[] x, double[] y) {
+        Args.requireEqualLength(x, y);
+        XYSeries<S> series = new XYSeries<>(seriesKey);
+        series.add(x, y);
+        return new XYSeriesCollection<>(series);
+    }
+
+    /**
+     * Create a {@link XYDataset}.
+     *
+     * @param seriesKey series key.
+     * @param x         x values.
+     * @param y         y values.
+     * @param <S>       series name type.
+     * @return {@link XYDataset}.
+     */
+    static <S extends Comparable<S>> XYDataset<S> create(@NonNull S seriesKey,
+                                                         Double[] x, Double[] y) {
+        Objects.requireNonNull(x);
+        Objects.requireNonNull(y);
+        if (x.length != y.length) {
+            throw new IllegalArgumentException("The length of x and y are not equal");
+        }
+
+        XYSeries<S> series = new XYSeries<>(seriesKey);
+        for (int i = 0; i < x.length; i++) {
+            series.add(x[i], y[i], false);
+        }
+        return new XYSeriesCollection<>(series);
+    }
+
+    /**
+     * Create a {@link XYDataset}.
+     *
+     * @param seriesKey series key.
+     * @param x         x values.
+     * @param y         y values.
+     * @param <S>       series name type.
+     * @return {@link XYDataset}.
+     */
+    static <S extends Comparable<S>> XYZDataset<S> create(@NonNull S seriesKey,
+                                                          double[] x, double[] y, double[] z) {
+        DefaultXYZDataset<S> dataset = new DefaultXYZDataset<>();
+        dataset.addSeries(seriesKey, new double[][]{x, y, z});
+        return dataset;
+    }
+
+    /**
+     * Create a {@link XYDataset}.
+     *
+     * @param seriesKey series key.
+     * @param x         x values.
+     * @param y         y values.
+     * @param z         z values.
+     * @param <S>       series name type.
+     * @return {@link XYDataset}.
+     */
+    static <S extends Comparable<S>> XYZDataset<S> create(@NonNull S seriesKey,
+                                                          Double[] x, Double[] y, Double[] z) {
+        return new XYZDatasetBuilder<S>()
+                .addSeries(seriesKey, x, y, z)
+                .build();
+    }
+
+    /**
      * Creates a {@link CategoryDataset} that contains a copy of the data in
      * an array (instances of {@code double} are created to represent the
      * data items).
@@ -47,7 +141,7 @@ public interface Data {
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
     CategoryDataset<R, C> createCategoryDataset(R[] rowKeys, C[] columnKeys,
-            double[][] data) {
+                                                double[][] data) {
         Objects.requireNonNull(rowKeys, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");
 
@@ -63,8 +157,8 @@ public interface Data {
                             + "the data array.");
         }
         int columnCount = 0;
-        for (int r = 0; r < data.length; r++) {
-            columnCount = Math.max(columnCount, data[r].length);
+        for (double[] datum : data) {
+            columnCount = Math.max(columnCount, datum.length);
         }
         if (columnKeys.length != columnCount) {
             throw new IllegalArgumentException(
@@ -98,7 +192,7 @@ public interface Data {
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
     CategoryDataset<R, C> createCategoryDataset(@NonNull R rowKey, @NonNull C[] columnKeys,
-            double[] data) {
+                                                double[] data) {
         Objects.requireNonNull(rowKey, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");
 
@@ -116,7 +210,6 @@ public interface Data {
         result.addSeries(rowKey, columnKeys, data);
         return result;
     }
-
 
     /**
      * Auxiliary class for creating DefaultCategoryDataset
@@ -143,6 +236,76 @@ public interface Data {
         }
     }
 
+    class XYDatasetBuilder<T extends Comparable<T>> {
+
+        private final XYSeriesCollection<T> dataset = new XYSeriesCollection<>();
+
+        /**
+         * Adda new series.
+         *
+         * @param key series key.
+         * @param x   x values
+         * @param y   y values.
+         * @return this.
+         */
+        public XYDatasetBuilder<T> addSeries(@NonNull T key, double[] x, double[] y) {
+            Args.requireEqualLength(x, y);
+            XYSeries<T> series = new XYSeries<>(key);
+            series.add(x, y);
+            dataset.addSeries(series);
+            return this;
+        }
+
+        public XYSeriesCollection<T> build() {
+            return dataset;
+        }
+    }
+
+    class XYZDatasetBuilder<S extends Comparable<S>> {
+
+        private final DefaultXYZDataset<S> dataset = new DefaultXYZDataset<>();
+
+        /**
+         * Add a new series
+         *
+         * @param x x values.
+         * @param y y values.
+         * @param z z values.
+         * @return this.
+         */
+        public XYZDatasetBuilder<S> addSeries(S key, double[] x, double[] y, double[] z) {
+            dataset.addSeries(key, new double[][]{x, y, z});
+            return this;
+        }
+
+        /**
+         * Add a new series
+         *
+         * @param x x values.
+         * @param y y values.
+         * @param z z values.
+         * @return this.
+         */
+        public XYZDatasetBuilder<S> addSeries(S key, Double[] x, Double[] y, Double[] z) {
+            Objects.requireNonNull(x);
+            Objects.requireNonNull(y);
+            Objects.requireNonNull(z);
+            dataset.addSeries(key, new double[][]{convert(x), convert(y), convert(z)});
+            return this;
+        }
+
+        private double[] convert(Double[] array) {
+            double[] p = new double[array.length];
+            for (int i = 0; i < array.length; i++) {
+                p[i] = array[i];
+            }
+            return p;
+        }
+
+        public DefaultXYZDataset<S> build() {
+            return dataset;
+        }
+    }
 
     /**
      * Create an {@link IntervalXYDataset}.
@@ -155,7 +318,7 @@ public interface Data {
      * @return {@link IntervalXYDataset}
      */
     static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
-            double[] x, double[] y, double barWidth) {
+                                                                                  double[] x, double[] y, double barWidth) {
         Args.requireEqualLength(x, y);
 
         XYSeries<S> series = new XYSeries<>(name);
@@ -198,8 +361,8 @@ public interface Data {
      * @return {@link IntervalXYDataset}
      */
     static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
-            double[] x, double[] startX, double[] endX,
-            double[] y, double[] startY, double[] endY
+                                                                                  double[] x, double[] startX, double[] endX,
+                                                                                  double[] y, double[] startY, double[] endY
     ) {
         DefaultIntervalXYDataset<S> dataset = new DefaultIntervalXYDataset<>();
         dataset.addSeries(name, new double[][]{x, startX, endX, y, startY, endY});
@@ -222,4 +385,20 @@ public interface Data {
         return dataset;
     }
 
+
+    static double getMin(Double[] values) {
+        double min = Double.MAX_VALUE;
+        for (Double value : values) {
+            min = Math.min(value, min);
+        }
+        return min;
+    }
+
+    static double getMax(Double[] values) {
+        double max = -Double.MAX_VALUE;
+        for (Double value : values) {
+            max = Math.max(value, max);
+        }
+        return max;
+    }
 }

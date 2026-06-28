@@ -36,10 +36,6 @@ public class BarChartDemo10 {
                 .dataset(dataset, CategoryXYChartType.BAR)
                 .domainGridlinesVisible(true)
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-
                 .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
@@ -51,6 +47,9 @@ public class BarChartDemo10 {
                 .categoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6))
                 .done();
 
+
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
 
         Animator animator = new Animator(dataset);
         animator.start();

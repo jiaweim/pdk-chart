@@ -27,7 +27,7 @@ public class HistogramDemo2 {
     }
 
     static void main() {
-        XYChart.create()
+        XYChart chart = XYChart.create()
                 .dataset(createDataset(), XYChartType.BAR)
                 .title("HistogramDemo2")
                 .showLegend(true)
@@ -35,15 +35,13 @@ public class HistogramDemo2 {
                 .domainPannable(true)
                 .rangePannable(true)
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
-
                 .barProps(0)
                 .addTooltips(true)
                 .drawBarOutline(false)
-                .done()
-                .show(500, 270);
+                .done();
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.show(500, 270);
 
     }
 }

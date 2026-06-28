@@ -41,7 +41,7 @@ public class BoxAndWhiskerChartDemo2 {
     }
 
     static void main() {
-        XYChart.create(AxisType.DATE, AxisType.NUMBER)
+        XYChart chart = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .dataset(createDataset(), XYChartType.BOX_WHISKER)
                 .title("Box-and-Whisker Chart Demo 2")
                 .axisNames("Day", "Value")
@@ -51,12 +51,11 @@ public class BoxAndWhiskerChartDemo2 {
                 .domainGridlinesVisible(true)
                 .rangeGridlinePaint(Color.WHITE)
                 .domainPannable(true)
-                .rangePannable(true)
+                .rangePannable(true);
 
-                .rangeAxis()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .done()
+        chart.rangeAxisNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
 
-                .show(500, 270);
+        chart.show(500, 270);
     }
 }

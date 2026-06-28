@@ -56,7 +56,7 @@ public class SurveyResultsDemo3 {
         CategoryLabelPosition left = new CategoryLabelPosition(RectangleAnchor.LEFT, TextBlockAnchor.CENTER_LEFT);
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.replaceLeftPosition(p, left));
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
                 .dataset(createDataset(), CategoryXYChartType.BAR)
                 .title(title)
@@ -74,14 +74,12 @@ public class SurveyResultsDemo3 {
                 .positiveItemLabelPositionFallback(new ItemLabelPosition())
                 .done()
 
-                .rangeAxis()
+                .setDomainAxis(domainAxis);
+
+        chart.rangeAxisNumber()
                 .range(0, 4)
-                .visible(false)
-                .done()
+                .visible(false);
 
-                .setDomainAxis(domainAxis)
-
-
-                .show(300, 270);
+        chart.show(300, 270);
     }
 }
