@@ -11,7 +11,6 @@ import pdk.chart.api.SortOrder;
 import pdk.chart.axis.*;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.fluent.prop.CategoryAreaProps;
 import pdk.chart.fluent.prop.CategoryAxisProps;
 import pdk.chart.fluent.prop.CategoryBarProps;
 import pdk.chart.fluent.prop.CategoryLineProps;
@@ -20,7 +19,6 @@ import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.*;
-import pdk.chart.renderer.category.AreaRenderer;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.CategoryItemRenderer;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
@@ -305,22 +303,6 @@ public class CategoryXYChart extends Chart {
         plot_.setDataset(index, dataset);
         plot_.setRenderer(index, renderer);
         return this;
-    }
-
-    /**
-     * Set properties for the {@link CategoryXYChartType#AREA}.
-     * <p>
-     * Throw an {@link IllegalStateException} if the renderer type of the specified dataset is not AREA
-     *
-     * @param index index of the dataset.
-     * @return {@link CategoryAreaProps}.
-     */
-    public CategoryAreaProps areaRenderer(int index) {
-        CategoryItemRenderer renderer = plot_.getRenderer(index);
-        if (renderer instanceof AreaRenderer areaRenderer) {
-            return new CategoryAreaProps(this, areaRenderer);
-        }
-        throw new IllegalStateException("The specified chart type is not area.");
     }
 
     /**

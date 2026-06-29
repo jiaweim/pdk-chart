@@ -39,7 +39,7 @@ public class AreaChartDemo1 {
         title.setPadding(new RectangleInsets(UnitType.RELATIVE, 0.05, 0.05, 0.05, 0.05));
         title.setVerticalAlignment(VerticalAlignment.BOTTOM);
 
-        CategoryXYChart xyChart = CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .dataset(dataset, CategoryXYChartType.AREA)
                 .title("Area Chart")
                 .axisNames("Category", "Value")
@@ -48,12 +48,13 @@ public class AreaChartDemo1 {
                 .backgroundPaint(Color.WHITE)
                 .foregroundAlpha(0.5f)
                 .addTitle(title)
-                .areaRenderer(0)
-                .addTooltips(true)
-                .endType(AreaRendererEndType.LEVEL)
-                .chart()
                 .domainAxis().categoryMargin(0.0).chart();
 
-        xyChart.show();
+        chart.getCategoryPlot()
+                .getAreaRenderer(0)
+                .showTooltips(true)
+                .endType(AreaRendererEndType.LEVEL);
+
+        chart.show();
     }
 }

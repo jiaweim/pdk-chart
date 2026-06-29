@@ -14,6 +14,7 @@ import pdk.chart.event.*;
 import pdk.chart.fluent.CategoryXYChartType;
 import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.renderer.category.AreaRenderer;
 import pdk.chart.renderer.category.CategoryItemRenderer;
 import pdk.chart.renderer.category.CategoryItemRendererState;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
@@ -1376,6 +1377,21 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
             return lineAndShapeRenderer;
         }
         throw new IllegalStateException("The renderer corresponding to the specified dataset is not LineAndShapeRenderer.");
+    }
+
+    /**
+     * Returns the renderer at the given index.
+     *
+     * @param index the renderer index.
+     * @return The renderer (possibly {@code null}).
+     * @see #setRenderer(int, CategoryItemRenderer)
+     */
+    public AreaRenderer getAreaRenderer(int index) {
+        CategoryItemRenderer renderer = getRenderer(index);
+        if (renderer instanceof AreaRenderer areaRenderer) {
+            return areaRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not AreaRenderer.");
     }
 
     /**

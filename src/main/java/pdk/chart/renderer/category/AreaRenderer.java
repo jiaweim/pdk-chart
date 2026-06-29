@@ -1,5 +1,7 @@
 package pdk.chart.renderer.category;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryAxis;
@@ -7,7 +9,8 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.Args;
+import pdk.chart.labels.CategoryToolTipGenerator;
+import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
@@ -17,6 +20,7 @@ import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A category item renderer that draws area charts.  You can use this renderer
@@ -67,7 +71,7 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
      * @see #getEndType()
      */
     public void setEndType(AreaRendererEndType type) {
-        Args.nullNotPermitted(type, "type");
+        Objects.requireNonNull(type, "type");
         this.endType = type;
         fireChangeEvent();
     }
@@ -285,4 +289,39 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
         return super.clone();
     }
 
+    /**
+     * configure chart to generate tool tips
+     *
+     * @param addTooltip true if generate tool tips
+     * @return this
+     */
+    public AreaRenderer showTooltips(boolean addTooltip) {
+        if (addTooltip) {
+            setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+        }
+        return this;
+    }
+
+    /**
+     * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     * @see #getDefaultToolTipGenerator()
+     */
+    public AreaRenderer defaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator) {
+        setDefaultToolTipGenerator(generator, true);
+        return this;
+    }
+
+    /**
+     * Sets a token that controls how the renderer draws the end points, and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param type the end type.
+     */
+    public AreaRenderer endType(@NonNull AreaRendererEndType type) {
+        setEndType(type);
+        return this;
+    }
 }
