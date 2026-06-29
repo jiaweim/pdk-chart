@@ -703,7 +703,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
             this.refreshBuffer = true;
         }
         repaint();
-
     }
 
     /**

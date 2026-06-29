@@ -668,7 +668,7 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization3() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = ChartFactory.createBarChart(
+        Chart chart = ChartFactory.bar(
                 "Test Chart", "Category Axis", "Value Axis", dataset,
                 PlotOrientation.VERTICAL, true, true, false);
         Chart chart2 = TestUtils.serialised(chart);
@@ -687,7 +687,7 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization4() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = ChartFactory.createBarChart(
+        Chart chart = ChartFactory.bar(
                 "Test Chart", "Category Axis", "Value Axis",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
         @SuppressWarnings("unchecked")

@@ -1,6 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.data.statistics.HistogramDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
 
@@ -15,19 +16,23 @@ import java.util.Random;
  */
 public class HistogramGaussian {
     static void main() {
-        HistogramDataset dataset = new HistogramDataset();
+        Data.HistogramDatasetBuilder his = Data.his();
         double[] values = new double[1000];
         Random random = new Random(12345678L);
         for (int i = 0; i < 1000; i++) {
             values[i] = random.nextGaussian() + 5;
         }
-        dataset.addSeries("H1", values, 100, 2.0, 8.0);
+        his.addSeries("H1", values, 100, 2.0, 8.0);
 
         values = new double[1000];
         for (int i = 0; i < 1000; i++) {
             values[i] = random.nextGaussian() + 7;
         }
-        dataset.addSeries("H2", values, 100, 4.0, 10.0);
+        his.addSeries("H2", values, 100, 4.0, 10.0);
+
+        HistogramDataset dataset = his.build();
+
+
 
         XYChart.create()
                 .dataset(dataset, XYChartType.HISTOGRAM)

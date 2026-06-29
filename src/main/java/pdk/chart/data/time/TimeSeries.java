@@ -4,7 +4,6 @@ import pdk.chart.data.Range;
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesException;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 
 import java.io.Serializable;
@@ -209,9 +208,9 @@ public class TimeSeries<S extends Comparable<S>> extends Series<S>
      */
     public Range findValueRange(Range xRange, TimePeriodAnchor xAnchor,
             TimeZone zone) {
-        Args.nullNotPermitted(xRange, "xRange");
-        Args.nullNotPermitted(xAnchor, "xAnchor");
-        Args.nullNotPermitted(zone, "zone");
+        Objects.requireNonNull(xRange);
+        Objects.requireNonNull(xAnchor);
+        Objects.requireNonNull(zone);
         if (this.data.isEmpty()) {
             return null;
         }
@@ -423,7 +422,7 @@ public class TimeSeries<S extends Comparable<S>> extends Series<S>
      * @return The index.
      */
     public int getIndex(RegularTimePeriod period) {
-        Args.nullNotPermitted(period, "period");
+        Objects.requireNonNull(period);
         TimeSeriesDataItem dummy = new TimeSeriesDataItem(
                 period, Integer.MIN_VALUE);
         return Collections.binarySearch(this.data, dummy);
@@ -472,7 +471,7 @@ public class TimeSeries<S extends Comparable<S>> extends Series<S>
      * @param notify notify listeners?
      */
     public void add(TimeSeriesDataItem item, boolean notify) {
-        Args.nullNotPermitted(item, "item");
+        Objects.requireNonNull(item);
         item = (TimeSeriesDataItem) item.clone();
         Class c = item.getPeriod().getClass();
         if (this.timePeriodClass == null) {
@@ -722,8 +721,7 @@ public class TimeSeries<S extends Comparable<S>> extends Series<S>
      * @since 1.0.14
      */
     public TimeSeriesDataItem addOrUpdate(TimeSeriesDataItem item) {
-
-        Args.nullNotPermitted(item, "item");
+        Objects.requireNonNull(item);
         Class periodClass = item.getPeriod().getClass();
         if (this.timePeriodClass == null) {
             this.timePeriodClass = periodClass;
@@ -988,9 +986,9 @@ public class TimeSeries<S extends Comparable<S>> extends Series<S>
      */
     public TimeSeries<S> createCopy(RegularTimePeriod start, RegularTimePeriod end)
             throws CloneNotSupportedException {
+        Objects.requireNonNull(start);
+        Objects.requireNonNull(end);
 
-        Args.nullNotPermitted(start, "start");
-        Args.nullNotPermitted(end, "end");
         if (start.compareTo(end) > 0) {
             throw new IllegalArgumentException(
                     "Requires start on or before end.");

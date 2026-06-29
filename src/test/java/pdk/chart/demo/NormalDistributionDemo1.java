@@ -32,7 +32,7 @@ public class NormalDistributionDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart("Normal Distribution", "X", "Y", dataset);
+        Chart chart = ChartFactory.line("Normal Distribution", "X", "Y", dataset);
         return chart;
     }
 

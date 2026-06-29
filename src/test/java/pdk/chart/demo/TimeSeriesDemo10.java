@@ -25,7 +25,7 @@ public class TimeSeriesDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Time Series Demo 10", "Time", "Value", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Time Series Demo 10", "Time", "Value", dataset, true, true, false);
         return chart;
     }
 

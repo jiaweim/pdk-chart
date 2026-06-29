@@ -59,7 +59,7 @@ public class DeviationRendererDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Projected Values - Test",
+        Chart chart = ChartFactory.timeLine("Projected Values - Test",
                 "Date", "Index Projection", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);

@@ -42,7 +42,7 @@ public class SurveyResultsDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart((String)null, (String)null, (String)null, dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = ChartFactory.bar((String)null, (String)null, (String)null, dataset, PlotOrientation.VERTICAL, false, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         chart.getPlot().setOutlinePaint((Paint)null);
         TextTitle title = new TextTitle("Figure 8.5 - Case studies are available");

@@ -24,7 +24,7 @@ public class GradientPaintTransformerDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart(title, (String) null, "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar(title, (String) null, "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         BarRenderer r = (BarRenderer) plot.getRenderer();
         r.setItemMargin(0.02);

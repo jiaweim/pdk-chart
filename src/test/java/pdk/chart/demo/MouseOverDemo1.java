@@ -54,7 +54,7 @@ public class MouseOverDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Mouseover Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("Mouseover Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();

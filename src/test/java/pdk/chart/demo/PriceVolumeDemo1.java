@@ -34,7 +34,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
     private static Chart createChart() {
         XYDataset priceData = createPriceDataset();
         String title = "Eurodollar Futures Contract (MAR03)";
-        Chart chart = ChartFactory.createTimeSeriesChart(title, "Date", "Price", priceData, true, true, false);
+        Chart chart = ChartFactory.timeLine(title, "Date", "Price", priceData, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         NumberAxis rangeAxis1 = (NumberAxis)plot.getRangeAxis();
         rangeAxis1.setLowerMargin(0.4);

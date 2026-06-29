@@ -31,7 +31,7 @@ public class XYTaskDatasetDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("XYTaskDatasetDemo1", "Resource", false, "Timing", dataset, PlotOrientation.HORIZONTAL, true, false, false);
+        Chart chart = ChartFactory.bar("XYTaskDatasetDemo1", "Resource", false, "Timing", dataset, PlotOrientation.HORIZONTAL, true, false, false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangePannable(true);

@@ -22,9 +22,7 @@ import pdk.chart.internal.SerialUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.RendererUtils;
-import pdk.chart.renderer.xy.AbstractXYItemRenderer;
-import pdk.chart.renderer.xy.XYItemRenderer;
-import pdk.chart.renderer.xy.XYItemRendererState;
+import pdk.chart.renderer.xy.*;
 import pdk.chart.util.ShadowGenerator;
 
 import java.awt.*;
@@ -421,7 +419,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param renderer   the renderer ({@code null} permitted).
      */
     public XYPlot(XYDataset<S> dataset, ValueAxis domainAxis, ValueAxis rangeAxis,
-                  XYItemRenderer renderer) {
+            XYItemRenderer renderer) {
         super();
         this.orientation = PlotOrientation.VERTICAL;
         this.weight = 1;  // only relevant when this is a subplot
@@ -584,6 +582,32 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public ValueAxis getDomainAxis() {
         return getDomainAxis(0);
+    }
+
+    /**
+     * Returns the domain axis with index 0.  If the domain axis for this plot
+     * is {@code null}, then the method will return the parent plot's
+     * domain axis (if there is a parent plot).
+     *
+     * @return The domain axis (possibly {@code null}).
+     * @see #getDomainAxis(int)
+     * @see #setDomainAxis(ValueAxis)
+     */
+    public NumberAxis domainAxisNumber() {
+        return (NumberAxis) getDomainAxis(0);
+    }
+
+    /**
+     * Returns the domain axis with index 0.  If the domain axis for this plot
+     * is {@code null}, then the method will return the parent plot's
+     * domain axis (if there is a parent plot).
+     *
+     * @return The domain axis (possibly {@code null}).
+     * @see #getDomainAxis(int)
+     * @see #setDomainAxis(ValueAxis)
+     */
+    public DateAxis domainAxisDate() {
+        return (DateAxis) getDomainAxis();
     }
 
     /**
@@ -812,7 +836,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #setRangeAxisLocation(int, AxisLocation, boolean)
      */
     public void setDomainAxisLocation(int index, AxisLocation location,
-                                      boolean notify) {
+            boolean notify) {
         if (index == 0 && location == null) {
             throw new IllegalArgumentException(
                     "Null 'location' for index 0 not permitted.");
@@ -846,6 +870,32 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public ValueAxis getRangeAxis() {
         return getRangeAxis(0);
+    }
+
+    /**
+     * Returns the range axis for the plot.  If the range axis for this plot is
+     * {@code null}, then the method will return the parent plot's range
+     * axis (if there is a parent plot).
+     *
+     * @return The range axis.
+     * @see #getRangeAxis(int)
+     * @see #setRangeAxis(ValueAxis)
+     */
+    public NumberAxis rangeAxisNumber() {
+        return (NumberAxis) getRangeAxis(0);
+    }
+
+    /**
+     * Returns the range axis for the plot.  If the range axis for this plot is
+     * {@code null}, then the method will return the parent plot's range
+     * axis (if there is a parent plot).
+     *
+     * @return The range axis.
+     * @see #getRangeAxis(int)
+     * @see #setRangeAxis(ValueAxis)
+     */
+    public DateAxis rangeAxisDate() {
+        return (DateAxis) getRangeAxis(0);
     }
 
     /**
@@ -1085,7 +1135,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #setDomainAxisLocation(int, AxisLocation, boolean)
      */
     public void setRangeAxisLocation(int index, AxisLocation location,
-                                     boolean notify) {
+            boolean notify) {
         if (index == 0 && location == null) {
             throw new IllegalArgumentException(
                     "Null 'location' for index 0 not permitted.");
@@ -1311,6 +1361,32 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Return the first renderer and {@link XYLineAndShapeRenderer} instance.
+     *
+     * @return {@link XYLineAndShapeRenderer}.
+     */
+    public XYLineAndShapeRenderer getLineAndShapeRenderer() {
+        XYItemRenderer renderer = getRenderer();
+        if (renderer instanceof XYLineAndShapeRenderer lineAndShapeRenderer) {
+            return lineAndShapeRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not XYLineAndShapeRenderer.");
+    }
+
+    /**
+     * Return the first renderer and {@link XYLineAndShapeRenderer} instance.
+     *
+     * @return {@link XYLineAndShapeRenderer}.
+     */
+    public XYBarRenderer getXYBarRenderer() {
+        XYItemRenderer renderer = getRenderer();
+        if (renderer instanceof XYBarRenderer barRenderer) {
+            return barRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not XYBarRenderer.");
+    }
+
+    /**
      * Returns the renderer with the specified index, or {@code null}.
      *
      * @param index the renderer index (must be &gt;= 0).
@@ -1371,7 +1447,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRenderer(int)
      */
     public void setRenderer(int index, XYItemRenderer renderer,
-                            boolean notify) {
+            boolean notify) {
         XYItemRenderer existing = getRenderer(index);
         if (existing != null) {
             existing.removeChangeListener(this);
@@ -2175,7 +2251,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param notify notify listeners?
      */
     public void addDomainMarker(int index, Marker marker, Layer layer,
-                                boolean notify) {
+            boolean notify) {
         Args.nullNotPermitted(marker, "marker");
         Args.nullNotPermitted(layer, "layer");
         if (layer == Layer.FOREGROUND) {
@@ -2242,7 +2318,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * removed.
      */
     public boolean removeDomainMarker(int index, Marker marker, Layer layer,
-                                      boolean notify) {
+            boolean notify) {
         List<Marker> markers;
         if (layer == Layer.FOREGROUND) {
             markers = this.foregroundDomainMarkers.get(index);
@@ -2342,7 +2418,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param notify notify listeners?
      */
     public void addRangeMarker(int index, Marker marker, Layer layer,
-                               boolean notify) {
+            boolean notify) {
         if (layer == Layer.FOREGROUND) {
             List<Marker> markers = this.foregroundRangeMarkers.computeIfAbsent(index, k -> new ArrayList<>());
             markers.add(marker);
@@ -2435,7 +2511,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * removed.
      */
     public boolean removeRangeMarker(int index, Marker marker, Layer layer,
-                                     boolean notify) {
+            boolean notify) {
         Args.nullNotPermitted(marker, "marker");
         Args.nullNotPermitted(layer, "layer");
         List<Marker> markers;
@@ -2565,7 +2641,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return The required space.
      */
     protected AxisSpace calculateAxisSpace(Graphics2D g2,
-                                           Rectangle2D plotArea) {
+            Rectangle2D plotArea) {
         AxisSpace space = new AxisSpace();
         space = calculateRangeAxisSpace(g2, plotArea, space);
         Rectangle2D revPlotArea = space.shrink(plotArea, null);
@@ -2582,7 +2658,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return The required space.
      */
     protected AxisSpace calculateDomainAxisSpace(Graphics2D g2,
-                                                 Rectangle2D plotArea, AxisSpace space) {
+            Rectangle2D plotArea, AxisSpace space) {
 
         if (space == null) {
             space = new AxisSpace();
@@ -2624,7 +2700,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return The required space.
      */
     protected AxisSpace calculateRangeAxisSpace(Graphics2D g2,
-                                                Rectangle2D plotArea, AxisSpace space) {
+            Rectangle2D plotArea, AxisSpace space) {
         if (space == null) {
             space = new AxisSpace();
         }
@@ -2711,7 +2787,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void draw(Graphics2D g2, Rectangle2D area, Point2D anchor,
-                     PlotState parentState, PlotRenderingInfo info) {
+            PlotState parentState, PlotRenderingInfo info) {
 
         // if the plot area is too small, just return...
         if ((area.getWidth() <= MINIMUM_WIDTH_TO_DRAW)
@@ -3117,7 +3193,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #setDomainTickBandPaint(Paint)
      */
     public void drawDomainTickBands(Graphics2D g2, Rectangle2D dataArea,
-                                    List<ValueTick> ticks) {
+            List<ValueTick> ticks) {
         Paint bandPaint = getDomainTickBandPaint();
         if (bandPaint != null) {
             boolean fillBand = false;
@@ -3149,7 +3225,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #setRangeTickBandPaint(Paint)
      */
     public void drawRangeTickBands(Graphics2D g2, Rectangle2D dataArea,
-                                   List<ValueTick> ticks) {
+            List<ValueTick> ticks) {
         Paint bandPaint = getRangeTickBandPaint();
         if (bandPaint != null) {
             boolean fillBand = false;
@@ -3183,7 +3259,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return A map containing the state for each axis drawn.
      */
     protected Map<Axis, AxisState> drawAxes(Graphics2D g2, Rectangle2D plotArea,
-                                            Rectangle2D dataArea, PlotRenderingInfo plotState) {
+            Rectangle2D dataArea, PlotRenderingInfo plotState) {
 
         AxisCollection axisCollection = new AxisCollection();
 
@@ -3264,7 +3340,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return A flag that indicates whether any data was actually rendered.
      */
     public boolean render(Graphics2D g2, Rectangle2D dataArea, int index,
-                          PlotRenderingInfo info, CrosshairState crosshairState) {
+            PlotRenderingInfo info, CrosshairState crosshairState) {
 
         boolean foundData = false;
         XYDataset<S> dataset = getDataset(index);
@@ -3395,7 +3471,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #drawRangeGridlines(Graphics2D, Rectangle2D, List)
      */
     protected void drawDomainGridlines(Graphics2D g2, Rectangle2D dataArea,
-                                       List<ValueTick> ticks) {
+            List<ValueTick> ticks) {
 
         // no renderer, no gridlines...
         if (getRenderer() == null) {
@@ -3438,7 +3514,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #drawDomainGridlines(Graphics2D, Rectangle2D, List)
      */
     protected void drawRangeGridlines(Graphics2D g2, Rectangle2D area,
-                                      List<ValueTick> ticks) {
+            List<ValueTick> ticks) {
 
         // no renderer, no gridlines...
         if (getRenderer() == null) {
@@ -3511,7 +3587,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param info     the chart rendering info.
      */
     public void drawAnnotations(Graphics2D g2, Rectangle2D dataArea,
-                                PlotRenderingInfo info) {
+            PlotRenderingInfo info) {
 
         for (XYAnnotation annotation : this.annotations) {
             ValueAxis xAxis = getDomainAxis();
@@ -3531,7 +3607,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param layer    the layer (foreground or background).
      */
     protected void drawDomainMarkers(Graphics2D g2, Rectangle2D dataArea,
-                                     int index, Layer layer) {
+            int index, Layer layer) {
 
         XYItemRenderer r = getRenderer(index);
         if (r == null) {
@@ -3562,7 +3638,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param layer    the layer (foreground or background).
      */
     protected void drawRangeMarkers(Graphics2D g2, Rectangle2D dataArea,
-                                    int index, Layer layer) {
+            int index, Layer layer) {
 
         XYItemRenderer r = getRenderer(index);
         if (r == null) {
@@ -3659,8 +3735,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param paint    the paint to use.
      */
     protected void drawHorizontalLine(Graphics2D g2, Rectangle2D dataArea,
-                                      double value, Stroke stroke,
-                                      Paint paint) {
+            double value, Stroke stroke,
+            Paint paint) {
 
         ValueAxis axis = getRangeAxis();
         if (getOrientation() == PlotOrientation.HORIZONTAL) {
@@ -3689,8 +3765,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param paint       the paint used to draw the crosshair line.
      */
     protected void drawDomainCrosshair(Graphics2D g2, Rectangle2D dataArea,
-                                       PlotOrientation orientation, double value, ValueAxis axis,
-                                       Stroke stroke, Paint paint) {
+            PlotOrientation orientation, double value, ValueAxis axis,
+            Stroke stroke, Paint paint) {
 
         if (!axis.getRange().contains(value)) {
             return;
@@ -3726,7 +3802,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param paint    the paint to use.
      */
     protected void drawVerticalLine(Graphics2D g2, Rectangle2D dataArea,
-                                    double value, Stroke stroke, Paint paint) {
+            double value, Stroke stroke, Paint paint) {
 
         ValueAxis axis = getDomainAxis();
         if (getOrientation() == PlotOrientation.HORIZONTAL) {
@@ -3756,8 +3832,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param paint       the paint used to draw the crosshair line.
      */
     protected void drawRangeCrosshair(Graphics2D g2, Rectangle2D dataArea,
-                                      PlotOrientation orientation, double value, ValueAxis axis,
-                                      Stroke stroke, Paint paint) {
+            PlotOrientation orientation, double value, ValueAxis axis,
+            Stroke stroke, Paint paint) {
 
         if (!axis.getRange().contains(value)) {
             return;
@@ -4436,6 +4512,17 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag that enables or disables panning of the plot along the
+     * domain axes.
+     *
+     * @param pannable the new flag value.
+     */
+    public XYPlot<S> domainPannable(boolean pannable) {
+        this.domainPannable = pannable;
+        return this;
+    }
+
+    /**
      * Returns {@code true} if panning is enabled for the range axis/axes,
      * and {@code false} otherwise.  The default value is {@code false}.
      *
@@ -4457,6 +4544,17 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag that enables or disables panning of the plot along
+     * the range axis/axes.
+     *
+     * @param pannable the new flag value.
+     */
+    public XYPlot<S> rangePannable(boolean pannable) {
+        this.rangePannable = pannable;
+        return this;
+    }
+
+    /**
      * Pans the domain axes by the specified percentage.
      *
      * @param percent the distance to pan (as a percentage of the axis length).
@@ -4465,7 +4563,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void panDomainAxes(double percent, PlotRenderingInfo info,
-                              Point2D source) {
+            Point2D source) {
         if (!isDomainPannable()) {
             return;
         }
@@ -4489,7 +4587,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void panRangeAxes(double percent, PlotRenderingInfo info,
-                             Point2D source) {
+            Point2D source) {
         if (!isRangePannable()) {
             return;
         }
@@ -4514,7 +4612,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void zoomDomainAxes(double factor, PlotRenderingInfo info,
-                               Point2D source) {
+            Point2D source) {
         // delegate to other method
         zoomDomainAxes(factor, info, source, false);
     }
@@ -4530,7 +4628,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void zoomDomainAxes(double factor, PlotRenderingInfo info,
-                               Point2D source, boolean useAnchor) {
+            Point2D source, boolean useAnchor) {
 
         // perform the zoom on each domain axis
         for (ValueAxis xAxis : this.domainAxes.values()) {
@@ -4567,7 +4665,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void zoomDomainAxes(double lowerPercent, double upperPercent,
-                               PlotRenderingInfo info, Point2D source) {
+            PlotRenderingInfo info, Point2D source) {
         for (ValueAxis xAxis : this.domainAxes.values()) {
             if (xAxis != null) {
                 xAxis.zoomRange(lowerPercent, upperPercent);
@@ -4585,7 +4683,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo info,
-                              Point2D source) {
+            Point2D source) {
         // delegate to other method
         zoomRangeAxes(factor, info, source, false);
     }
@@ -4602,7 +4700,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void zoomRangeAxes(double factor, PlotRenderingInfo info,
-                              Point2D source, boolean useAnchor) {
+            Point2D source, boolean useAnchor) {
 
         // perform the zoom on each range axis
         for (ValueAxis yAxis : this.rangeAxes.values()) {
@@ -4635,7 +4733,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     @Override
     public void zoomRangeAxes(double lowerPercent, double upperPercent,
-                              PlotRenderingInfo info, Point2D source) {
+            PlotRenderingInfo info, Point2D source) {
         for (ValueAxis yAxis : this.rangeAxes.values()) {
             if (yAxis != null) {
                 yAxis.zoomRange(lowerPercent, upperPercent);
@@ -5161,6 +5259,39 @@ public class XYPlot<S extends Comparable<S>> extends Plot
                 renderer.addChangeListener(this);
             }
         }
+    }
+
+    /**
+     * Set axis names.
+     *
+     * @param xName x-axis name.
+     * @param yName y-axis name.
+     * @return this.
+     */
+    public XYPlot<S> axisNames(String xName, String yName) {
+        getDomainAxis().setLabel(xName);
+        getRangeAxis().setLabel(yName);
+        return this;
+    }
+
+    /**
+     * Sets whether the domain crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     */
+    public XYPlot<S> domainCrosshairVisible(boolean flag) {
+        setDomainCrosshairVisible(flag);
+        return this;
+    }
+
+    /**
+     * Set whether the range crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     */
+    public XYPlot<S> rangeCrosshairVisible(boolean flag) {
+        setRangeCrosshairVisible(flag);
+        return this;
     }
 
 }

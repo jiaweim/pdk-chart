@@ -170,7 +170,7 @@ public class ValueAxisTest {
         series.add(200.0, 2.2);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>(series);
         dataset.setIntervalWidth(0.0);
-        Chart chart = ChartFactory.createScatterPlot("Title", "X", "Y",
+        Chart chart = ChartFactory.scatter("Title", "X", "Y",
                 dataset);
         ValueAxis domainAxis = ((XYPlot) chart.getPlot()).getDomainAxis();
         Range r = domainAxis.getRange();

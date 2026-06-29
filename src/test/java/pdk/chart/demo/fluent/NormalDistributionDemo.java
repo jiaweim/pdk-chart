@@ -1,4 +1,4 @@
-package pdk.chart.demo;
+package pdk.chart.demo.fluent;
 
 import pdk.chart.data.function.NormalDistributionFunction2D;
 import pdk.chart.data.xy.XYSeries;

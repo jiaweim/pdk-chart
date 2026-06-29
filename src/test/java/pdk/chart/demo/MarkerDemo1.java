@@ -9,12 +9,12 @@ import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.axis.DateAxis;
-import pdk.chart.axis.ValueAxis;
-import pdk.chart.data.time.*;
+import pdk.chart.data.time.Day;
+import pdk.chart.data.time.Hour;
+import pdk.chart.data.time.Minute;
+import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.legend.LegendTitle;
+import pdk.chart.fluent.Data;
 import pdk.chart.plot.Marker;
 import pdk.chart.plot.ValueMarker;
 import pdk.chart.plot.XYPlot;
@@ -27,6 +27,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MarkerDemo1 extends ApplicationFrame {
+
     public MarkerDemo1(String title) {
         super(title);
         ChartPanel chartPanel = (ChartPanel) createDemoPanel();
@@ -36,34 +37,36 @@ public class MarkerDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(XYDataset data) {
-        Chart chart = ChartFactory.createScatterPlot("Marker Demo 1", "X", "Y", data);
-        LegendTitle legend = (LegendTitle) chart.getSubtitle(0);
-        legend.setPosition(RectangleEdge.RIGHT);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        plot.getRenderer().setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
-        DateAxis domainAxis = new DateAxis("Time");
-        domainAxis.setUpperMargin((double) 0.5F);
-        plot.setDomainAxis(domainAxis);
-        ValueAxis rangeAxis = plot.getRangeAxis();
-        rangeAxis.setUpperMargin(0.3);
-        rangeAxis.setLowerMargin((double) 0.5F);
-        Marker start = new ValueMarker((double) 200.0F);
+    private static Chart createChart(XYDataset<String> data) {
+        Chart chart = ChartFactory.scatter("Marker Demo 1", "Time", "Y", data);
+        chart.getLegend(0).position(RectangleEdge.RIGHT);
+
+        XYPlot plot = chart.getXYPlot();
+        plot.domainPannable(true)
+                .rangePannable(true);
+
+        plot.domainAxisDate()
+                .upperMargin(0.5);
+        plot.rangeAxisNumber()
+                .lowerMargin(0.5)
+                .upperMargin(0.3);
+
+        Marker start = new ValueMarker(200.0);
         start.setLabelOffsetType(LengthAdjustmentType.EXPAND);
         start.setPaint(Color.GREEN);
         start.setLabel("Bid Start Price");
         start.setLabelAnchor(RectangleAnchor.BOTTOM_RIGHT);
         start.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
         plot.addRangeMarker(start);
-        Marker target = new ValueMarker((double) 175.0F);
+
+        Marker target = new ValueMarker(175.0);
         target.setLabelOffsetType(LengthAdjustmentType.EXPAND);
         target.setPaint(Color.RED);
         target.setLabel("Target Price");
         target.setLabelAnchor(RectangleAnchor.TOP_RIGHT);
         target.setLabelTextAnchor(TextAnchor.BOTTOM_RIGHT);
         plot.addRangeMarker(target);
+
         Hour hour = new Hour(2, new Day(22, 5, 2003));
         double millis = (double) hour.getFirstMillisecond();
         Marker originalEnd = new ValueMarker(millis);
@@ -72,6 +75,7 @@ public class MarkerDemo1 extends ApplicationFrame {
         originalEnd.setLabelAnchor(RectangleAnchor.TOP_LEFT);
         originalEnd.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
         plot.addDomainMarker(originalEnd);
+
         Minute min = new Minute(15, hour);
         millis = (double) min.getFirstMillisecond();
         Marker currentEnd = new ValueMarker(millis);
@@ -83,49 +87,50 @@ public class MarkerDemo1 extends ApplicationFrame {
         Hour h = new Hour(2, new Day(22, 5, 2003));
         Minute m = new Minute(10, h);
         millis = (double) m.getFirstMillisecond();
-        CircleDrawer cd = new CircleDrawer(Color.RED, new BasicStroke(1.0F), (Paint) null);
-        XYAnnotation bestBid = new XYDrawableAnnotation(millis, (double) 163.0F, (double) 11.0F, (double) 11.0F, cd);
+        CircleDrawer cd = new CircleDrawer(Color.RED, new BasicStroke(1.0F), null);
+        XYAnnotation bestBid = new XYDrawableAnnotation(millis, 163.0, 11.0, 11.0, cd);
         plot.addAnnotation(bestBid);
-        XYPointerAnnotation pointer = new XYPointerAnnotation("Best Bid", millis, (double) 163.0F, 2.356194490192345);
-        pointer.setBaseRadius((double) 35.0F);
-        pointer.setTipRadius((double) 10.0F);
-        pointer.setFont(new Font("SansSerif", 0, 9));
+
+        XYPointerAnnotation pointer = new XYPointerAnnotation("Best Bid", millis, 163.0, 2.356194490192345);
+        pointer.setBaseRadius(35.0);
+        pointer.setTipRadius(10.0);
+        pointer.setFont(new Font("SansSerif", Font.PLAIN, 9));
         pointer.setPaint(Color.BLUE);
         pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
         plot.addAnnotation(pointer);
+
         ChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 
-    private static XYDataset createDataset() {
-        TimeSeriesCollection result = new TimeSeriesCollection();
-        result.addSeries(createSupplier1Bids());
-        result.addSeries(createSupplier2Bids());
-        return result;
+    private static XYDataset<String> createDataset() {
+        return Data.<String>time()
+                .addSeries(createSupplier1Bids())
+                .addSeries(createSupplier2Bids()).build();
     }
 
-    private static TimeSeries createSupplier1Bids() {
+    private static TimeSeries<String> createSupplier1Bids() {
         Hour hour = new Hour(1, new Day(22, 5, 2003));
-        TimeSeries series1 = new TimeSeries("Supplier 1");
-        series1.add(new Minute(13, hour), (double) 200.0F);
-        series1.add(new Minute(14, hour), (double) 195.0F);
-        series1.add(new Minute(45, hour), (double) 190.0F);
-        series1.add(new Minute(46, hour), (double) 188.0F);
-        series1.add(new Minute(47, hour), (double) 185.0F);
-        series1.add(new Minute(52, hour), (double) 180.0F);
+        TimeSeries<String> series1 = new TimeSeries<>("Supplier 1");
+        series1.add(new Minute(13, hour), 200.0);
+        series1.add(new Minute(14, hour), 195.0);
+        series1.add(new Minute(45, hour), 190.0);
+        series1.add(new Minute(46, hour), 188.0);
+        series1.add(new Minute(47, hour), 185.0);
+        series1.add(new Minute(52, hour), 180.0);
         return series1;
     }
 
-    private static TimeSeries createSupplier2Bids() {
+    private static TimeSeries<String> createSupplier2Bids() {
         Hour hour1 = new Hour(1, new Day(22, 5, 2003));
         Hour hour2 = (Hour) hour1.next();
-        TimeSeries series2 = new TimeSeries("Supplier 2");
-        series2.add(new Minute(25, hour1), (double) 185.0F);
-        series2.add(new Minute(0, hour2), (double) 175.0F);
-        series2.add(new Minute(5, hour2), (double) 170.0F);
-        series2.add(new Minute(6, hour2), (double) 168.0F);
-        series2.add(new Minute(9, hour2), (double) 165.0F);
-        series2.add(new Minute(10, hour2), (double) 163.0F);
+        TimeSeries<String> series2 = new TimeSeries<>("Supplier 2");
+        series2.add(new Minute(25, hour1), 185.0);
+        series2.add(new Minute(0, hour2), 175.0);
+        series2.add(new Minute(5, hour2), 170.0);
+        series2.add(new Minute(6, hour2), 168.0);
+        series2.add(new Minute(9, hour2), 165.0);
+        series2.add(new Minute(10, hour2), 163.0);
         return series2;
     }
 
@@ -136,8 +141,8 @@ public class MarkerDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        MarkerDemo1 demo = new MarkerDemo1("JFreeChart: MarkerDemo1.java");
+    static void main() {
+        MarkerDemo1 demo = new MarkerDemo1("MarkerDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -2,10 +2,9 @@ package pdk.chart.plot.pep;
 
 import org.jspecify.annotations.NonNull;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.general.DatasetChangeEvent;
-import pdk.chart.plot.Plot;
-import pdk.chart.plot.PlotRenderingInfo;
-import pdk.chart.plot.PlotState;
+import pdk.chart.plot.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -18,7 +17,7 @@ import java.awt.geom.Rectangle2D;
  * @version 1.0.0
  * @since 09 Jun 2026, 5:09 PM
  */
-public class PSMPlot extends Plot {
+public class PSMPlot extends Plot implements Zoomable {
 
     private final PeptidePlot peptidePlot = new PeptidePlot();
     private final SpectrumPlot spectrumPlot = new SpectrumPlot();
@@ -210,5 +209,92 @@ public class PSMPlot extends Plot {
         }
 
         drawOutline(g2, area);
+    }
+
+    @Override
+    public boolean isDomainZoomable() {
+        return true;
+    }
+
+    @Override
+    public boolean isRangeZoomable() {
+        return true;
+    }
+
+    @Override
+    public PlotOrientation getOrientation() {
+        return spectrumPlot.getOrientation();
+    }
+
+    @Override
+    public void zoomDomainAxes(double factor, PlotRenderingInfo info, Point2D source) {
+        zoomDomainAxes(factor, info, source, false);
+    }
+
+    @Override
+    public void zoomDomainAxes(double factor, PlotRenderingInfo info, Point2D source, boolean useAnchor) {
+        // perform the zoom on each domain axis
+        for (ValueAxis xAxis : this.spectrumPlot.getDomainAxes().values()) {
+            if (xAxis == null) {
+                continue;
+            }
+            if (useAnchor) {
+                // get the relevant source coordinate given the plot orientation
+                double sourceX = source.getX();
+                if (this.spectrumPlot.getOrientation() == PlotOrientation.HORIZONTAL) {
+                    sourceX = source.getY();
+                }
+                double anchorX = xAxis.java2DToValue(sourceX,
+                        info.getDataArea(), this.spectrumPlot.getDomainAxisEdge());
+                xAxis.resizeRange2(factor, anchorX);
+            } else {
+                xAxis.resizeRange(factor);
+            }
+        }
+    }
+
+    @Override
+    public void zoomDomainAxes(double lowerPercent, double upperPercent, PlotRenderingInfo info, Point2D source) {
+        for (ValueAxis xAxis : this.spectrumPlot.getDomainAxes().values()) {
+            if (xAxis != null) {
+                xAxis.zoomRange(lowerPercent, upperPercent);
+            }
+        }
+    }
+
+    @Override
+    public void zoomRangeAxes(double factor, PlotRenderingInfo info, Point2D source) {
+        zoomRangeAxes(factor, info, source, false);
+    }
+
+    @Override
+    public void zoomRangeAxes(double factor, PlotRenderingInfo info, Point2D source, boolean useAnchor) {
+        // perform the zoom on each range axis
+        for (ValueAxis yAxis : this.spectrumPlot.getRangeAxes().values()) {
+            if (yAxis == null) {
+                continue;
+            }
+            if (useAnchor) {
+                // get the relevant source coordinate given the plot orientation
+                double sourceY = source.getY();
+                if (this.spectrumPlot.getOrientation() == PlotOrientation.HORIZONTAL) {
+                    sourceY = source.getX();
+                }
+                double anchorY = yAxis.java2DToValue(sourceY,
+                        info.getDataArea(), spectrumPlot.getRangeAxisEdge());
+                yAxis.resizeRange2(factor, anchorY);
+            } else {
+                yAxis.resizeRange(factor);
+            }
+        }
+    }
+
+    @Override
+    public void zoomRangeAxes(double lowerPercent, double upperPercent, PlotRenderingInfo info, Point2D source) {
+        for (ValueAxis yAxis : this.spectrumPlot.getRangeAxes().values()) {
+            if (yAxis != null) {
+                yAxis.zoomRange(lowerPercent, upperPercent);
+            }
+        }
     }
 }

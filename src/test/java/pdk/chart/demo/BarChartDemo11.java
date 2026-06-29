@@ -45,7 +45,7 @@ public class BarChartDemo11 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Open Source Projects By License", "License", "Percent", dataset);
+        Chart chart = ChartFactory.bar("Open Source Projects By License", "License", "Percent", dataset);
         chart.removeLegend();
         TextTitle source = new TextTitle("Source: http://www.blackducksoftware.com/resources/data/top-20-licenses (as at 30 Aug 2013)", new Font("Dialog", 0, 9));
         source.setPosition(RectangleEdge.BOTTOM);

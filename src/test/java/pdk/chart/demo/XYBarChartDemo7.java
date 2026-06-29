@@ -29,7 +29,7 @@ public class XYBarChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("XYBarChartDemo7", "Date", true, "Y", dataset, PlotOrientation.HORIZONTAL, true, false, false);
+        Chart chart = ChartFactory.bar("XYBarChartDemo7", "Date", true, "Y", dataset, PlotOrientation.HORIZONTAL, true, false, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeAxis(new DateAxis("Date"));

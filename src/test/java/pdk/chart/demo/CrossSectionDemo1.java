@@ -104,7 +104,7 @@ public class CrossSectionDemo1 extends ApplicationFrame {
             this.add(chartPanel);
             JPanel slider1Panel = new JPanel(new BorderLayout());
             XYSeriesCollection dataset1 = new XYSeriesCollection();
-            this.subchart1 = ChartFactory.createXYLineChart("Cross-section A", "Y", "Z",
+            this.subchart1 = ChartFactory.line("Cross-section A", "Y", "Z",
                     dataset1, PlotOrientation.HORIZONTAL, false, false, false);
             XYPlot plot1 = (XYPlot) this.subchart1.getPlot();
             plot1.getDomainAxis().setLowerMargin(0.0);
@@ -121,7 +121,7 @@ public class CrossSectionDemo1 extends ApplicationFrame {
             slider1Panel.add(this.slider1, "West");
             JPanel slider2Panel = new JPanel(new BorderLayout());
             XYSeriesCollection dataset2 = new XYSeriesCollection();
-            this.subchart2 = ChartFactory.createXYLineChart("Cross-section B", "X", "Z",
+            this.subchart2 = ChartFactory.line("Cross-section B", "X", "Z",
                     dataset2, PlotOrientation.VERTICAL, false, false, false);
             XYPlot plot2 = (XYPlot) this.subchart2.getPlot();
             plot2.getDomainAxis().setLowerMargin(0.0);
@@ -184,7 +184,7 @@ public class CrossSectionDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = ChartFactory.createScatterPlot("CrossSectionDemo1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, false, false);
+            Chart chart = ChartFactory.scatter("CrossSectionDemo1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, false, false);
             this.dataset = CrossSectionDemo1.createMapDataset();
             PaintScale ps = new GrayPaintScale(-1.0F, 1.0F, 128);
             BufferedImage image = HeatMapUtils.createHeatMapImage(this.dataset, ps);

@@ -66,10 +66,6 @@ public class ClusteredXYBarRendererDemo1 {
                 .title("Vertical / Inverted Axis")
                 .dataset(dataset, XYChartType.BAR_CLUSTER)
 
-                .domainAxisDate()
-                .inverted(true)
-                .doneXY()
-
                 .barProps(0)
                 .drawBarOutline(false)
                 .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, Color.YELLOW))
@@ -77,6 +73,8 @@ public class ClusteredXYBarRendererDemo1 {
                 .gradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL))
                 .margin(0.2)
                 .done();
+        chart2.getXYPlot().rangeAxisDate()
+                .inverted(true);
 
         XYChart chart3 = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .orientation(PlotOrientation.HORIZONTAL)

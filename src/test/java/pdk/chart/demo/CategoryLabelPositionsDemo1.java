@@ -35,7 +35,7 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("CategoryLabelPositionsDemo1", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = ChartFactory.bar("CategoryLabelPositionsDemo1", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis axis = plot.getDomainAxis();
         axis.setMaximumCategoryLabelLines(Integer.MAX_VALUE);

@@ -86,7 +86,7 @@ public class HideSeriesDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = ChartFactory.createXYLineChart("Hide Series Demo 1", "X", "Y", dataset);
+            Chart chart = ChartFactory.line("Hide Series Demo 1", "X", "Y", dataset);
             XYPlot plot = (XYPlot) chart.getPlot();
             this.renderer = plot.getRenderer();
             return chart;

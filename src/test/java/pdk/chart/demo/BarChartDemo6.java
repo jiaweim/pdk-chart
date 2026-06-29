@@ -31,7 +31,7 @@ public class BarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart((String)null, "Category", "Score (%)", dataset);
+        Chart chart = ChartFactory.bar((String)null, "Category", "Score (%)", dataset);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.YELLOW);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();

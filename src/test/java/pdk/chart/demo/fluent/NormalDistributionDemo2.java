@@ -1,4 +1,4 @@
-package pdk.chart.demo;
+package pdk.chart.demo.fluent;
 
 import pdk.chart.Chart;
 import pdk.chart.annotations.XYPointerAnnotation;

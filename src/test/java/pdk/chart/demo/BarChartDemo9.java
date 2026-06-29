@@ -5,7 +5,7 @@ import pdk.chart.ChartFactory;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
@@ -21,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BarChartDemo9 extends ApplicationFrame {
+
     public BarChartDemo9(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -28,27 +29,26 @@ public class BarChartDemo9 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 410.0F, "Network Traffic", "Monday");
-        dataset.addValue((double) 680.0F, "Network Traffic", "Tuesday");
-        dataset.addValue((double) 530.0F, "Network Traffic", "Wednesday");
-        dataset.addValue((double) 570.0F, "Network Traffic", "Thursday");
-        dataset.addValue((double) 330.0F, "Network Traffic", "Friday");
-        return dataset;
+    private static CategoryDataset<String, String> createDataset() {
+        return Data.createCategoryDataset("Network Traffic",
+                new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"},
+                new double[]{410.0, 680.0, 530.0, 570.0, 330.0}
+        );
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Bar Chart Demo 9", (String) null, "Value", dataset, PlotOrientation.VERTICAL, false, true, false);
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        Chart chart = ChartFactory.bar("Bar Chart Demo 9", null, "Value", dataset,
+                PlotOrientation.VERTICAL, false, true, false);
         TextTitle title = chart.getTitle();
-        title.setBorder((double) 0.0F, (double) 0.0F, (double) 1.0F, (double) 0.0F);
+        title.setBorder(0.0, 0.0, 1.0, 0.0);
         title.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.RED, 350.0F, 0.0F, Color.WHITE, true));
         title.setExpandToFitSpace(true);
+
         chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.YELLOW, 350.0F, 0.0F, Color.WHITE, true));
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setNoDataMessage("NO DATA!");
-        plot.setBackgroundPaint((Paint) null);
-        plot.setInsets(new RectangleInsets((double) 10.0F, (double) 5.0F, (double) 5.0F, (double) 5.0F));
+        plot.setBackgroundPaint(null);
+        plot.setInsets(new RectangleInsets(10.0F, (double) 5.0F, (double) 5.0F, (double) 5.0F));
         plot.setOutlinePaint(Color.BLACK);
         plot.setRangeGridlinePaint(Color.GRAY);
         plot.setRangeGridlineStroke(new BasicStroke(1.0F));

@@ -23,7 +23,7 @@ public class XYBarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("XYBarChartDemo6", "X", false, "Y", dataset, PlotOrientation.HORIZONTAL, false, false, false);
+        Chart chart = ChartFactory.bar("XYBarChartDemo6", "X", false, "Y", dataset, PlotOrientation.HORIZONTAL, false, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

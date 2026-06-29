@@ -30,7 +30,7 @@ public class BubbleChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        Chart chart = ChartFactory.createBubbleChart("Bubble Chart Demo 2", "X", "Y",
+        Chart chart = ChartFactory.bubble("Bubble Chart Demo 2", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new XYBubbleRenderer(0));

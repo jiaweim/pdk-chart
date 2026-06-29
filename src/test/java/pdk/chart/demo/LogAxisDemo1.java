@@ -26,7 +26,7 @@ public class LogAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createScatterPlot("Log Axis Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.scatter("Log Axis Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

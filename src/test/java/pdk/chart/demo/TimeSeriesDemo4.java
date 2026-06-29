@@ -49,7 +49,7 @@ public class TimeSeriesDemo4 extends ApplicationFrame {
 
     private static Chart createChart(XYDataset dataset) {
         String chartTitle = "₢₢₣₤₥₦₧₨₩₪";
-        Chart chart = ChartFactory.createTimeSeriesChart(chartTitle, "Time", "Value", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine(chartTitle, "Time", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setInsets(new RectangleInsets(0.0F, (double)0.0F, (double)0.0F, (double)20.0F));
         Marker marker = new ValueMarker(700.0F);

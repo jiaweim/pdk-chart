@@ -185,7 +185,7 @@ public class XYBarRendererTest {
     public void testFindDomainBounds() {
         XYSeriesCollection<String> dataset
                 = RendererXYPackageUtils.createTestXYSeriesCollection();
-        Chart chart = ChartFactory.createXYBarChart("Test Chart", "X",
+        Chart chart = ChartFactory.bar("Test Chart", "X",
                 false, "Y", dataset, PlotOrientation.VERTICAL, false, false,
                 false);
         XYPlot<String> plot = (XYPlot) chart.getPlot();

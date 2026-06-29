@@ -6,7 +6,6 @@ import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.Data;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.legend.LegendTitle;
@@ -40,7 +39,7 @@ public class BarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = ChartFactory.createBarChart("Antidepressant Medication Usage", "Age Category", "Percent", dataset);
+        Chart chart = ChartFactory.bar("Antidepressant Medication Usage", "Age Category", "Percent", dataset);
         LegendTitle legend = chart.getLegend();
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));

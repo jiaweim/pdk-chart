@@ -66,7 +66,7 @@ public class TimeSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Time Series Demo 3", "Time", "Value", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Time Series Demo 3", "Time", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         DateAxis axis = (DateAxis)plot.getDomainAxis();
         axis.setTickUnit(new DateTickUnit(DateTickUnitType.MONTH, 1, new SimpleDateFormat("MMM-yyyy")));

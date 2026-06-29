@@ -30,7 +30,7 @@ public class DualAxisDemo4 extends ApplicationFrame {
 
     private static Chart createChart() {
         CategoryDataset dataset1 = createDataset1();
-        Chart chart = ChartFactory.createBarChart("Dual Axis Chart", "Category", "Value", dataset1, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("Dual Axis Chart", "Category", "Value", dataset1, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
         plot.setRangeAxisLocation(AxisLocation.TOP_OR_LEFT);

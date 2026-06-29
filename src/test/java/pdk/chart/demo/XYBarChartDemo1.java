@@ -32,7 +32,7 @@ public class XYBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("State Executions - USA", "Year", true, "Number of People", dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = ChartFactory.bar("State Executions - USA", "Year", true, "Number of People", dataset, PlotOrientation.VERTICAL, true, false, false);
         chart.addSubtitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do", new Font("Dialog", 2, 10)));
         XYPlot plot = (XYPlot)chart.getPlot();
         XYBarRenderer renderer = (XYBarRenderer)plot.getRenderer();

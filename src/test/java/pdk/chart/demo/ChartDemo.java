@@ -5,6 +5,7 @@ import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
 import pdk.chart.*;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.demo.fluent.NormalDistributionDemo2;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;

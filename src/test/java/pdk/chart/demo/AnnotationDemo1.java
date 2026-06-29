@@ -18,10 +18,16 @@ import pdk.chart.title.TextTitle;
 import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * A line chart with annotations used to label each series. The axis ranges do not automatically adjust to accommodate
+ * the annotations, so the upper margin on the domain axis has been increased manually.
+ * <p>
+ * A demo showing chart annotations, in this case several instances of
+ * {@link XYTextAnnotation}.
+ */
 public class AnnotationDemo1 extends ApplicationFrame {
     public AnnotationDemo1(String title) {
         super(title);
@@ -31,15 +37,15 @@ public class AnnotationDemo1 extends ApplicationFrame {
     }
 
     public static JPanel createDemoPanel() {
-        XYSeriesCollection dataset = createDataset();
+        XYSeriesCollection<String> dataset = createDataset();
         Chart chart = createChart(dataset);
         ChartPanel panel = new ChartPanel(chart);
         panel.setMouseWheelEnabled(true);
         return panel;
     }
 
-    private static XYSeriesCollection createDataset() {
-        XYSeriesCollection result = new XYSeriesCollection();
+    private static XYSeriesCollection<String> createDataset() {
+        XYSeriesCollection<String> result = new XYSeriesCollection<>();
 
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(AnnotationDemo1.class.getResourceAsStream("wtageinf.txt")));
@@ -47,15 +53,15 @@ public class AnnotationDemo1 extends ApplicationFrame {
             data = in.readLine();
             data = in.readLine();
             data = in.readLine();
-            XYSeries s3 = new XYSeries("P3", true, false);
-            XYSeries s5 = new XYSeries("P5", true, false);
-            XYSeries s10 = new XYSeries("P10", true, false);
-            XYSeries s25 = new XYSeries("P25", true, false);
-            XYSeries s50 = new XYSeries("P50", true, false);
-            XYSeries s75 = new XYSeries("P75", true, false);
-            XYSeries s90 = new XYSeries("P90", true, false);
-            XYSeries s95 = new XYSeries("P95", true, false);
-            XYSeries s97 = new XYSeries("P97", true, false);
+            XYSeries<String> s3 = new XYSeries<>("P3", true, false);
+            XYSeries<String> s5 = new XYSeries<>("P5", true, false);
+            XYSeries<String> s10 = new XYSeries<>("P10", true, false);
+            XYSeries<String> s25 = new XYSeries<>("P25", true, false);
+            XYSeries<String> s50 = new XYSeries<>("P50", true, false);
+            XYSeries<String> s75 = new XYSeries<>("P75", true, false);
+            XYSeries<String> s90 = new XYSeries<>("P90", true, false);
+            XYSeries<String> s95 = new XYSeries<>("P95", true, false);
+            XYSeries<String> s97 = new XYSeries<>("P97", true, false);
 
             for (String var28 = in.readLine(); var28 != null; var28 = in.readLine()) {
                 int sex = Integer.parseInt(var28.substring(1, 8).trim());
@@ -70,15 +76,15 @@ public class AnnotationDemo1 extends ApplicationFrame {
                 float p95 = Float.parseFloat(var28.substring(194, 212).trim());
                 float p97 = Float.parseFloat(var28.substring(212, var28.length()).trim());
                 if (sex == 1) {
-                    s3.add((double) age, (double) p3);
-                    s5.add((double) age, (double) p5);
-                    s10.add((double) age, (double) p10);
-                    s25.add((double) age, (double) p25);
-                    s50.add((double) age, (double) p50);
-                    s75.add((double) age, (double) p75);
-                    s90.add((double) age, (double) p90);
-                    s95.add((double) age, (double) p95);
-                    s97.add((double) age, (double) p97);
+                    s3.add(age, p3);
+                    s5.add(age, p5);
+                    s10.add(age, p10);
+                    s25.add(age, p25);
+                    s50.add(age, p50);
+                    s75.add(age, p75);
+                    s90.add(age, p90);
+                    s95.add(age, p95);
+                    s97.add(age, p97);
                 }
             }
 
@@ -91,8 +97,6 @@ public class AnnotationDemo1 extends ApplicationFrame {
             result.addSeries(s90);
             result.addSeries(s95);
             result.addSeries(s97);
-        } catch (FileNotFoundException e) {
-            System.err.println(e);
         } catch (IOException e) {
             System.err.println(e);
         }
@@ -100,63 +104,44 @@ public class AnnotationDemo1 extends ApplicationFrame {
         return result;
     }
 
-    private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart((String) null, "Age in Months", "Weight (kg)", dataset);
-        TextTitle t1 = new TextTitle("Growth Charts: United States", new Font("SansSerif", 1, 14));
-        TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months", new Font("SansSerif", 0, 11));
+    private static Chart createChart(XYDataset<String> dataset) {
+        Chart chart = ChartFactory.line(null, "Age in Months", "Weight (kg)", dataset);
+        TextTitle t1 = new TextTitle("Growth Charts: United States",
+                new Font("SansSerif", Font.BOLD, 14));
+        TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months",
+                new Font("SansSerif", Font.PLAIN, 11));
         chart.addSubtitle(t1);
         chart.addSubtitle(t2);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
-        domainAxis.setUpperMargin(0.12);
-        domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setAutoRangeIncludesZero(false);
-        Font font = new Font("SansSerif", 0, 9);
-        XYTextAnnotation annotation = new XYTextAnnotation("3rd", (double) 36.5F, 11.76);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("5th", (double) 36.5F, 12.04);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("10th", (double) 36.5F, 12.493);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("25th", (double) 36.5F, 13.313);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("50th", (double) 36.5F, 14.33);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("75th", (double) 36.5F, 15.478);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("90th", (double) 36.5F, 16.642);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("95th", (double) 36.5F, 17.408);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
-        annotation = new XYTextAnnotation("97th", (double) 36.5F, 17.936);
-        annotation.setFont(font);
-        annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-        plot.addAnnotation(annotation);
+        XYPlot<String> plot = chart.getXYPlot();
+        plot.domainPannable(true)
+                .rangePannable(true);
+
+        plot.domainAxisNumber()
+                .upperMargin(0.12)
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        plot.rangeAxisNumber()
+                .autoRangeIncludesZero(false);
+
+        Font font = new Font("SansSerif", Font.PLAIN, 9);
+        String[] annoTexts = new String[]{
+                "3rd", "5th", "10th", "25th", "50th", "75th", "90th", "95th", "97th"
+        };
+        double[] ys = new double[]{
+                11.76, 12.04, 12.493, 13.313, 14.33, 15.478, 16.642, 17.408, 17.936
+        };
+        for (int i = 0; i < annoTexts.length; i++) {
+            XYTextAnnotation annotation = new XYTextAnnotation(annoTexts[i], 36.5, ys[i]);
+            annotation.setFont(font);
+            annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
+            plot.addAnnotation(annotation);
+        }
+
         ChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 
-    public static void main(String[] args) {
-        AnnotationDemo1 demo = new AnnotationDemo1("Chart: AnnotationDemo1.java");
+    static void main() {
+        AnnotationDemo1 demo = new AnnotationDemo1("AnnotationDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

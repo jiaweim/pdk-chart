@@ -637,4 +637,14 @@ public class LegendTitle extends Title
         this.itemPaint = SerialUtils.readPaint(stream);
     }
 
+    /**
+     * Sets the position for the title and sends a {@link TitleChangeEvent} to
+     * all registered listeners.
+     *
+     * @param position the position ({@code null} not permitted).
+     */
+    public LegendTitle position(RectangleEdge position) {
+        setPosition(position);
+        return this;
+    }
 }

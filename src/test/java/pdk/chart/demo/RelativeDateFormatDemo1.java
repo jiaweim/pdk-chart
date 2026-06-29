@@ -1,26 +1,31 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.text.DecimalFormat;
-import javax.swing.JPanel;
+import pdk.chart.Chart;
 import pdk.chart.ChartFactory;
 import pdk.chart.ChartUtils;
-import pdk.chart.Chart;
-import pdk.chart.axis.DateAxis;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYItemRenderer;
-import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.Second;
-import pdk.chart.data.time.TimeSeries;
-import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.fluent.Data;
+import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.text.format.RelativeDateFormat;
 
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+
+/**
+ * A time series chart where the time axis displays a relative date (that is, the elapsed time in hours, minutes and seconds).
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 18 Jun 2026, 10:18 AM
+ */
 public class RelativeDateFormatDemo1 extends ApplicationFrame {
+
     public RelativeDateFormatDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -28,40 +33,41 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Exercise Chart", "Elapsed Time", "Beats Per Minute", dataset, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        XYItemRenderer r = plot.getRenderer();
-        if (r instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer)r;
-            renderer.setDefaultShapesVisible(true);
-            renderer.setDefaultShapesFilled(true);
-        }
+    private static Chart createChart(XYDataset<String> dataset) {
+        Chart chart = ChartFactory.timeLine("Exercise Chart",
+                "Elapsed Time", "Beats Per Minute", dataset, true, true, false);
+        XYPlot plot = chart.getXYPlot();
+        plot.domainCrosshairVisible(true)
+                .rangeCrosshairVisible(true);
 
-        DateAxis axis = (DateAxis)plot.getDomainAxis();
+        plot.getLineAndShapeRenderer()
+                .defaultVisible(true, true);
+
         Minute base = new Minute(0, 9, 1, 10, 2006);
         RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
         rdf.setSecondFormatter(new DecimalFormat("00"));
-        axis.setDateFormatOverride(rdf);
+
+        plot.domainAxisDate()
+                .dateFormatOverride(rdf);
+
         ChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 
-    private static XYDataset createDataset() {
-        TimeSeries s1 = new TimeSeries("Heart Rate");
-        s1.add(new Second(45, 6, 9, 1, 10, 2006), (double)143.0F);
-        s1.add(new Second(33, 8, 9, 1, 10, 2006), (double)167.0F);
-        s1.add(new Second(10, 10, 9, 1, 10, 2006), (double)189.0F);
-        s1.add(new Second(19, 12, 9, 1, 10, 2006), (double)156.0F);
-        s1.add(new Second(5, 15, 9, 1, 10, 2006), (double)176.0F);
-        s1.add(new Second(12, 16, 9, 1, 10, 2006), (double)183.0F);
-        s1.add(new Second(6, 18, 9, 1, 10, 2006), (double)138.0F);
-        s1.add(new Second(11, 20, 9, 1, 10, 2006), (double)102.0F);
-        TimeSeriesCollection dataset = new TimeSeriesCollection();
-        dataset.addSeries(s1);
-        return dataset;
+    private static XYDataset<String> createDataset() {
+        return Data.createTime("Heart Rate",
+                new Second[]{
+                        new Second(45, 6, 9, 1, 10, 2006),
+                        new Second(33, 8, 9, 1, 10, 2006),
+                        new Second(10, 10, 9, 1, 10, 2006),
+                        new Second(19, 12, 9, 1, 10, 2006),
+                        new Second(5, 15, 9, 1, 10, 2006),
+                        new Second(12, 16, 9, 1, 10, 2006),
+                        new Second(6, 18, 9, 1, 10, 2006),
+                        new Second(11, 20, 9, 1, 10, 2006)
+                },
+                new double[]{143.0, 167.0, 189.0, 156.0, 176.0, 183.0, 138.0, 102.0}
+        );
     }
 
     public static JPanel createDemoPanel() {
@@ -69,8 +75,8 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        RelativeDateFormatDemo1 demo = new RelativeDateFormatDemo1("Chart: RelativeDateFormatDemo1.java");
+    static void main() {
+        RelativeDateFormatDemo1 demo = new RelativeDateFormatDemo1("RelativeDateFormatDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

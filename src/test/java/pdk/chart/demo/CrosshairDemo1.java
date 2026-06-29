@@ -101,7 +101,7 @@ public class CrosshairDemo1 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset dataset1 = this.createDataset("Random 1", (double) 100.0F, new Minute(), 200);
-            Chart chart1 = ChartFactory.createTimeSeriesChart("Crosshair Demo 1", "Time of Day", "Value", dataset1);
+            Chart chart1 = ChartFactory.timeLine("Crosshair Demo 1", "Time of Day", "Value", dataset1);
             XYPlot plot = (XYPlot) chart1.getPlot();
             plot.setOrientation(PlotOrientation.VERTICAL);
             plot.setDomainCrosshairVisible(true);

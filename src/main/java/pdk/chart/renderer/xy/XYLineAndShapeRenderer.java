@@ -7,6 +7,7 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
+import pdk.chart.fluent.prop.XYLineAndShapeProps;
 import pdk.chart.internal.*;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
@@ -587,7 +588,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
          */
         @Override
         public void startSeriesPass(XYDataset dataset, int series,
-                                    int firstItem, int lastItem, int pass, int passCount) {
+                int firstItem, int lastItem, int pass, int passCount) {
             this.seriesPath.reset();
             this.lastPointGood = false;
             super.startSeriesPass(dataset, series, firstItem, lastItem, pass,
@@ -613,7 +614,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      */
     @Override
     public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
-                                          XYPlot plot, XYDataset data, PlotRenderingInfo info) {
+            XYPlot plot, XYDataset data, PlotRenderingInfo info) {
         return new State(info);
     }
 
@@ -637,9 +638,9 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-                         int series, int item, CrosshairState crosshairState, int pass) {
+            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+            int series, int item, CrosshairState crosshairState, int pass) {
 
         // do nothing if item is not visible
         if (!getItemVisible(series, item)) {
@@ -711,15 +712,15 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param item       the item index (zero-based).
      */
     protected void drawPrimaryLine(XYItemRendererState state,
-                                   Graphics2D g2,
-                                   XYPlot plot,
-                                   XYDataset dataset,
-                                   int pass,
-                                   int series,
-                                   int item,
-                                   ValueAxis domainAxis,
-                                   ValueAxis rangeAxis,
-                                   Rectangle2D dataArea) {
+            Graphics2D g2,
+            XYPlot plot,
+            XYDataset dataset,
+            int pass,
+            int series,
+            int item,
+            ValueAxis domainAxis,
+            ValueAxis rangeAxis,
+            Rectangle2D dataArea) {
         if (item == 0) {
             return;
         }
@@ -775,7 +776,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param shape  the shape.
      */
     protected void drawFirstPassShape(Graphics2D g2, int pass, int series,
-                                      int item, Shape shape) {
+            int item, Shape shape) {
         g2.setStroke(getItemStroke(series, item));
         g2.setPaint(getItemPaint(series, item));
         g2.draw(shape);
@@ -801,9 +802,9 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param dataArea   the area within which the data is being drawn.
      */
     protected void drawPrimaryLineAsPath(XYItemRendererState state,
-                                         Graphics2D g2, XYPlot plot, XYDataset dataset, int pass,
-                                         int series, int item, ValueAxis domainAxis, ValueAxis rangeAxis,
-                                         Rectangle2D dataArea) {
+            Graphics2D g2, XYPlot plot, XYDataset dataset, int pass,
+            int series, int item, ValueAxis domainAxis, ValueAxis rangeAxis,
+            Rectangle2D dataArea) {
 
         RectangleEdge xAxisLocation = plot.getDomainAxisEdge();
         RectangleEdge yAxisLocation = plot.getRangeAxisEdge();
@@ -860,9 +861,9 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param entities       the entity collection.
      */
     protected void drawSecondaryPass(Graphics2D g2, XYPlot plot,
-                                     XYDataset dataset, int pass, int series, int item,
-                                     ValueAxis domainAxis, Rectangle2D dataArea, ValueAxis rangeAxis,
-                                     CrosshairState crosshairState, EntityCollection entities) {
+            XYDataset dataset, int pass, int series, int item,
+            ValueAxis domainAxis, Rectangle2D dataArea, ValueAxis rangeAxis,
+            CrosshairState crosshairState, EntityCollection entities) {
 
         Shape entityArea = null;
 
@@ -1131,6 +1132,200 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
         if (show) {
             setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
         }
+        return this;
+    }
+
+    /**
+     * Sets the default 'lines visible' flag.
+     *
+     * @param showLine whether show lines between data points.
+     * @return this
+     */
+    public XYLineAndShapeRenderer defaultLinesVisible(boolean showLine) {
+        setDefaultLinesVisible(showLine);
+        return this;
+    }
+
+    /**
+     * Set true to create scatter chart.
+     *
+     * @param showShape whether show shapes of data points
+     * @return this
+     */
+    public XYLineAndShapeRenderer defaultShapesVisible(boolean showShape) {
+        setDefaultShapesVisible(showShape);
+        return this;
+    }
+
+    /**
+     * Sets the default 'shapes filled' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     */
+    public XYLineAndShapeRenderer defaultShapesFilled(boolean flag) {
+        setDefaultShapesFilled(flag);
+        return this;
+    }
+
+    /**
+     * Set whether lines and shapes of the specified series are visible.
+     *
+     * @param showLine  whether line is visible.
+     * @param showShape whether shape is visible.
+     * @return {@link XYLineAndShapeProps}.
+     */
+    public XYLineAndShapeRenderer defaultVisible(boolean showLine, boolean showShape) {
+        setDefaultLinesVisible(showLine);
+        setDefaultShapesVisible(showShape);
+        return this;
+    }
+
+    /**
+     * Sets the 'lines visible' flag for a series.
+     *
+     * @param series  the series index (zero-based).
+     * @param visible the flag.
+     */
+    public XYLineAndShapeRenderer seriesLinesVisible(int series, boolean visible) {
+        setSeriesLinesVisible(series, visible);
+        return this;
+    }
+
+    /**
+     * Sets the 'shapes visible' flag for a series.
+     *
+     * @param series  the series index (zero-based).
+     * @param visible the flag.
+     */
+    public XYLineAndShapeRenderer seriesShapesVisible(int series, boolean visible) {
+        setSeriesShapesVisible(series, visible);
+        return this;
+    }
+
+    /**
+     * Sets the 'shapes visible' flag for a series.
+     *
+     * @param series        the series index (zero-based).
+     * @param linesVisible  the flag.
+     * @param shapesVisible the flag.
+     */
+    public XYLineAndShapeRenderer seriesVisible(int series, boolean linesVisible, boolean shapesVisible) {
+        setSeriesLinesVisible(series, linesVisible);
+        setSeriesShapesVisible(series, shapesVisible);
+        return this;
+    }
+
+    /**
+     * Sets the shape used for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param shape  the shape.
+     */
+    public XYLineAndShapeRenderer seriesShape(int series, @Nullable Shape shape) {
+        setSeriesShape(series, shape);
+        return this;
+    }
+
+    /**
+     * Sets the paint used for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint.
+     */
+    public XYLineAndShapeRenderer seriesPaint(int series, @Nullable Paint paint) {
+        setSeriesPaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Sets the stroke used for a series.
+     *
+     * @param series series index
+     * @param stroke {@link Stroke}
+     * @return this
+     */
+    public XYLineAndShapeRenderer seriesStroke(int series, @Nullable Stroke stroke) {
+        setSeriesStroke(series, stroke);
+        return this;
+    }
+
+    /**
+     * Set the line width of a given series
+     *
+     * @param series series index
+     * @param width  line width
+     * @return this
+     */
+    public XYLineAndShapeRenderer seriesLineWidth(int series, float width) {
+        setSeriesStroke(series, new BasicStroke(width));
+        return this;
+    }
+
+    /**
+     * Sets the paint used for a series fill.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint.
+     */
+    public XYLineAndShapeRenderer seriesFillPaint(int series, @Nullable Paint paint) {
+        setSeriesFillPaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Whether the fill paint is used to fill shapes.
+     *
+     * @param flag the flag.
+     */
+    public XYLineAndShapeRenderer useFillPaint(boolean flag) {
+        setUseFillPaint(flag);
+        return this;
+    }
+
+    /**
+     * Sets the paint used for a series outline.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint.
+     */
+    public XYLineAndShapeRenderer seriesOutlinePaint(int series, @Nullable Paint paint) {
+        setSeriesOutlinePaint(series, paint, false);
+        return this;
+    }
+
+    /**
+     * Whether the outline paint is used to draw shape outlines.
+     *
+     * @param flag the flag.
+     */
+    public XYLineAndShapeRenderer useOutlinePaint(boolean flag) {
+        setUseOutlinePaint(flag);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether outlines are drawn for shapes.
+     * <p>
+     * In some cases, shapes look better if they do NOT have an outline, but
+     * this flag allows you to set your own preference.
+     *
+     * @param flag the flag.
+     */
+    public XYLineAndShapeRenderer drawOutlines(boolean flag) {
+        setDrawOutlines(flag);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether each series is drawn as a
+     * single path and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     *
+     * @param flag the flag.
+     */
+    public XYLineAndShapeRenderer drawSeriesLineAsPath(boolean flag) {
+        setDrawSeriesLineAsPath(flag);
         return this;
     }
 }

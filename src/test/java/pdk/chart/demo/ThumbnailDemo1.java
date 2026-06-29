@@ -90,7 +90,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart1(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Bar Chart Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("Bar Chart Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
@@ -209,7 +209,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart4(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Projected Values - Test", "Date", "Index Projection", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Projected Values - Test", "Date", "Index Projection", dataset, true, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setInsets(new RectangleInsets((double)5.0F, (double)5.0F, (double)5.0F, (double)20.0F));
@@ -251,7 +251,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart5(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createHistogram("Histogram Demo 1", (String)null, (String)null, dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.histogram("Histogram Demo 1", (String)null, (String)null, dataset, PlotOrientation.VERTICAL, true, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);

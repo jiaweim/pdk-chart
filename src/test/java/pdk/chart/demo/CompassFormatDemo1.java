@@ -66,7 +66,7 @@ public class CompassFormatDemo1 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset direction = createDirectionDataset(600);
-        Chart chart = ChartFactory.createTimeSeriesChart("Time", "Date", "Direction", direction, true, true, false);
+        Chart chart = ChartFactory.timeLine("Time", "Date", "Direction", direction, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

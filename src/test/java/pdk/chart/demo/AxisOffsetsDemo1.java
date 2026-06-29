@@ -52,7 +52,7 @@ public class AxisOffsetsDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart(title, "Category", "Value", dataset);
+        Chart chart = ChartFactory.bar(title, "Category", "Value", dataset);
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);

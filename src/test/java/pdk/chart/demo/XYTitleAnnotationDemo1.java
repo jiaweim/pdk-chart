@@ -34,7 +34,7 @@ public class XYTitleAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, false, true, false);
+        Chart chart = ChartFactory.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, false, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

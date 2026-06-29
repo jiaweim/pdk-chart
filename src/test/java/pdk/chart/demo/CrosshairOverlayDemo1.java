@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
 
 public class CrosshairOverlayDemo1 extends JFrame {
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart("CrosshairOverlayDemo1", "X", "Y", dataset);
+        Chart chart = ChartFactory.line("CrosshairOverlayDemo1", "X", "Y", dataset);
         return chart;
     }
 

@@ -54,7 +54,7 @@ public class BarChartDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Bar Chart Demo 10", "Category", "Value", dataset);
+        Chart chart = ChartFactory.bar("Bar Chart Demo 10", "Category", "Value", dataset);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();

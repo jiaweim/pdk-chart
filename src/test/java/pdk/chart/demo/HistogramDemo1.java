@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class HistogramDemo1 extends ApplicationFrame {
+
     public HistogramDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -35,19 +36,21 @@ public class HistogramDemo1 extends ApplicationFrame {
             values[i] = generator.nextGaussian() + (double) 5.0F;
         }
 
-        dataset.addSeries("H1", values, 100, (double) 2.0F, (double) 8.0F);
+        dataset.addSeries("H1", values, 100, 2.0, 8.0);
         values = new double[1000];
 
         for (int i = 0; i < 1000; ++i) {
-            values[i] = generator.nextGaussian() + (double) 7.0F;
+            values[i] = generator.nextGaussian() + 7.0;
         }
 
-        dataset.addSeries("H2", values, 100, (double) 4.0F, (double) 10.0F);
+        dataset.addSeries("H2", values, 100, 4.0, 10.0);
         return dataset;
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createHistogram("Histogram Demo 1", (String) null, (String) null, dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.histogram("Histogram Demo 1", null, null,
+                dataset, PlotOrientation.VERTICAL, true, true, false);
+
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
@@ -68,8 +71,8 @@ public class HistogramDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) throws IOException {
-        HistogramDemo1 demo = new HistogramDemo1("Chart: HistogramDemo1.java");
+    static void main() throws IOException {
+        HistogramDemo1 demo = new HistogramDemo1("HistogramDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

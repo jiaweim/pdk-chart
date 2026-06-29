@@ -387,7 +387,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
             return this;
         }
         return p.getRootPlot();
-
     }
 
     /**

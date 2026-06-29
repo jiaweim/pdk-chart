@@ -85,7 +85,7 @@ public class HideSeriesDemo3 extends ApplicationFrame {
         }
 
         private Chart createChart(XYZDataset dataset) {
-            Chart result = ChartFactory.createBubbleChart("Hide Series Demo 3", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+            Chart result = ChartFactory.bubble("Hide Series Demo 3", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
             XYPlot plot = (XYPlot) result.getPlot();
             plot.setDomainPannable(true);
             plot.setRangePannable(true);

@@ -33,7 +33,7 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("Maximum Temperature", "Day", true, "Temperature", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("Maximum Temperature", "Day", true, "Temperature", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

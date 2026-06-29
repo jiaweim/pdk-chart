@@ -44,7 +44,7 @@ public class XYSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("XY Series Demo 3", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("XY Series Demo 3", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         IntervalMarker target = new IntervalMarker((double) 400.0F, (double) 700.0F);
         target.setLabel("Target Range");

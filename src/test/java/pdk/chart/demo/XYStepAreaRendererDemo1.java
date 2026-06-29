@@ -25,7 +25,7 @@ public class XYStepAreaRendererDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart("XYStepAreaRenderer Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.line("XYStepAreaRenderer Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         XYStepAreaRenderer renderer = new XYStepAreaRenderer(2);

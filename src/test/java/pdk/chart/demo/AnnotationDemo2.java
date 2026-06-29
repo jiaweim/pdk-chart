@@ -91,7 +91,7 @@ public class AnnotationDemo2 extends ApplicationFrame {
 
     public static Chart createChart() {
         XYDataset dataset = createDataset1();
-        Chart chart = ChartFactory.createXYLineChart("Annotation Demo 2", "Date", "Price Per Unit", dataset);
+        Chart chart = ChartFactory.line("Annotation Demo 2", "Date", "Price Per Unit", dataset);
         chart.removeLegend();
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);

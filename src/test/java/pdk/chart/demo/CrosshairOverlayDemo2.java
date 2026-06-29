@@ -75,7 +75,7 @@ public class CrosshairOverlayDemo2 extends JFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = ChartFactory.createXYLineChart("CrosshairOverlayDemo2", "X", "Y", dataset);
+            Chart chart = ChartFactory.line("CrosshairOverlayDemo2", "X", "Y", dataset);
             return chart;
         }
 

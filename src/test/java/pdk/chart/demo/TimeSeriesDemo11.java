@@ -27,7 +27,7 @@ public class TimeSeriesDemo11 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart(title, "Date", "Price", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine(title, "Date", "Price", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setOrientation(PlotOrientation.VERTICAL);
         XYItemRenderer renderer = plot.getRenderer();

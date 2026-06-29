@@ -22,7 +22,7 @@ public class GridBandDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createScatterPlot("Grid Band Demo 1", "X", "Y", dataset);
+        Chart chart = ChartFactory.scatter("Grid Band Demo 1", "X", "Y", dataset);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setNoDataMessage("NO DATA");
         plot.setRangeZeroBaselineVisible(true);

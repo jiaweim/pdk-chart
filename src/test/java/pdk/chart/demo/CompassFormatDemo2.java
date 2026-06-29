@@ -129,7 +129,7 @@ public class CompassFormatDemo2 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset direction = this.createDirectionDataset(100);
-            Chart chart = ChartFactory.createTimeSeriesChart("Time", "Date", "Direction", direction, true, true, false);
+            Chart chart = ChartFactory.timeLine("Time", "Date", "Direction", direction, true, true, false);
             XYPlot plot = (XYPlot)chart.getPlot();
             plot.getDomainAxis().setLowerMargin((double)0.0F);
             plot.getDomainAxis().setUpperMargin((double)0.0F);

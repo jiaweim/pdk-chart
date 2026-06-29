@@ -58,7 +58,7 @@ public class YIntervalChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart("YIntervalChartDemo2", "Date", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.line("YIntervalChartDemo2", "Date", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

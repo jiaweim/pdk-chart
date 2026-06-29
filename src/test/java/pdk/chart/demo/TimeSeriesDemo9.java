@@ -30,7 +30,7 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Time Series Demo 9", "Date", "Price Per Unit", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Time Series Demo 9", "Date", "Price Per Unit", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {

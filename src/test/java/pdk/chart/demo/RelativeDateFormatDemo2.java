@@ -1,24 +1,30 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.text.DecimalFormat;
-import javax.swing.JPanel;
+import pdk.chart.Chart;
 import pdk.chart.ChartFactory;
 import pdk.chart.ChartUtils;
-import pdk.chart.Chart;
-import pdk.chart.axis.DateAxis;
+import pdk.chart.data.time.Day;
+import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYBarRenderer;
-import pdk.chart.data.time.Day;
-import pdk.chart.data.time.TimeSeries;
-import pdk.chart.data.time.TimeSeriesCollection;
-import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.text.format.RelativeDateFormat;
 
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+
+/**
+ * A time series bar chart where the range axis displays the elapsed time
+ * in hours, minutes and seconds. This uses the RelativeDateFormat class.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 18 Jun 2026, 4:35 PM
+ */
 public class RelativeDateFormatDemo2 extends ApplicationFrame {
     public RelativeDateFormatDemo2(String title) {
         super(title);
@@ -27,36 +33,49 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("RelativeDateFormat Demo 2", "Date ", true, "Time To Complete", dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        XYBarRenderer r = (XYBarRenderer)plot.getRenderer();
-        r.setDrawBarOutline(false);
-        DateAxis rangeAxis = new DateAxis();
+    private static Chart createChart(IntervalXYDataset<String> dataset) {
+        Chart chart = ChartFactory.bar("RelativeDateFormat Demo 2",
+                "Date ", true,
+                "Time To Complete", true,
+                dataset, PlotOrientation.VERTICAL, true, true, false);
+        XYPlot plot = chart.getXYPlot();
+        plot.domainCrosshairVisible(true)
+                .rangeCrosshairVisible(true);
+        plot.getXYBarRenderer()
+                .drawBarOutline(false);
+
         RelativeDateFormat rdf = new RelativeDateFormat();
         rdf.setShowZeroDays(false);
         rdf.setSecondFormatter(new DecimalFormat("00"));
-        rangeAxis.setDateFormatOverride(rdf);
-        plot.setRangeAxis(rangeAxis);
+
+        plot.rangeAxisDate()
+                .dateFormatOverride(rdf);
+
         ChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 
-    private static IntervalXYDataset createDataset() {
-        TimeSeries s1 = new TimeSeries("Completion");
-        s1.add(new Day(19, 1, 2007), (double)3343000.0F);
-        s1.add(new Day(20, 1, 2007), (double)3420000.0F);
-        s1.add(new Day(21, 1, 2007), (double)3515000.0F);
-        s1.add(new Day(22, 1, 2007), (double)3315000.0F);
-        s1.add(new Day(23, 1, 2007), (double)3490000.0F);
-        s1.add(new Day(24, 1, 2007), (double)3556000.0F);
-        s1.add(new Day(25, 1, 2007), (double)3383000.0F);
-        s1.add(new Day(26, 1, 2007), (double)3575000.0F);
-        TimeSeriesCollection dataset = new TimeSeriesCollection();
-        dataset.addSeries(s1);
-        return dataset;
+    private static IntervalXYDataset<String> createDataset() {
+        return Data.createTime("Completion",
+                new Day[]{
+                        new Day(19, 1, 2007),
+                        new Day(20, 1, 2007),
+                        new Day(21, 1, 2007),
+                        new Day(22, 1, 2007),
+                        new Day(23, 1, 2007),
+                        new Day(24, 1, 2007),
+                        new Day(25, 1, 2007),
+                        new Day(26, 1, 2007)
+                }, new double[]{
+                        3343000.0,
+                        3420000.0,
+                        3515000.0,
+                        3315000.0,
+                        3490000.0,
+                        3556000.0,
+                        3383000.0,
+                        3575000.0
+                });
     }
 
     public static JPanel createDemoPanel() {

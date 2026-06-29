@@ -267,7 +267,7 @@ public class ChartTest implements ChartChangeListener {
         dataset.addValue(3.0, series3, category8);
 
         // create the chart...
-        Chart c1 = ChartFactory.createBarChart("Vertical Bar Chart",
+        Chart c1 = ChartFactory.bar("Vertical Bar Chart",
                 "Category", "Value", dataset);
         Chart c2 = TestUtils.serialised(c1);
         assertEquals(c1, c2);
@@ -286,7 +286,7 @@ public class ChartTest implements ChartChangeListener {
         TimeSeriesCollection<String> dataset = new TimeSeriesCollection<>();
         dataset.addSeries(series);
 
-        Chart c1 = ChartFactory.createTimeSeriesChart("Test", "Date",
+        Chart c1 = ChartFactory.timeLine("Test", "Date",
                 "Value", dataset);
         Chart c2 = TestUtils.serialised(c1);
         assertEquals(c1, c2);

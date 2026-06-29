@@ -42,7 +42,7 @@ public class MarkerDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset data) {
-        Chart chart = ChartFactory.createXYLineChart("Marker Demo 2", "X", "Temperature", data);
+        Chart chart = ChartFactory.line("Marker Demo 2", "X", "Temperature", data);
         XYPlot plot = (XYPlot) chart.getPlot();
         PeriodAxis domainAxis = new PeriodAxis((String) null, new Hour(0, 30, 6, 2005), new Hour(23, 30, 6, 2005));
         PeriodAxisLabelInfo[] info = new PeriodAxisLabelInfo[2];

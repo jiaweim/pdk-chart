@@ -23,7 +23,7 @@ public class ScatterPlotDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createScatterPlot("Scatter Plot Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.scatter("Scatter Plot Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setNoDataMessage("NO DATA");
         plot.setDomainPannable(true);

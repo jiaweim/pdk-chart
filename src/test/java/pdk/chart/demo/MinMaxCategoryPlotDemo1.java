@@ -53,7 +53,7 @@ public class MinMaxCategoryPlotDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Min/Max Category Plot", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("Min/Max Category Plot", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         MinMaxCategoryRenderer renderer = new MinMaxCategoryRenderer();

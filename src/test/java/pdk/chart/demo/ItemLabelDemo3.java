@@ -42,7 +42,7 @@ public class ItemLabelDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Item Label Demo 3", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = ChartFactory.bar("Item Label Demo 3", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeZeroBaselineVisible(true);

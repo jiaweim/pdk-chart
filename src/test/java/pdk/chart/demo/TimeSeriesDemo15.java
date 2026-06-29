@@ -27,7 +27,7 @@ public class TimeSeriesDemo15 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Bug Report Submissions for Java", "Date", "Evaluation ID", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Bug Report Submissions for Java", "Date", "Evaluation ID", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

@@ -11,7 +11,10 @@ import pdk.chart.api.SortOrder;
 import pdk.chart.axis.*;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.fluent.prop.*;
+import pdk.chart.fluent.prop.CategoryAreaProps;
+import pdk.chart.fluent.prop.CategoryAxisProps;
+import pdk.chart.fluent.prop.CategoryBarProps;
+import pdk.chart.fluent.prop.CategoryLineProps;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItemCollection;
@@ -92,16 +95,6 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
-     * Return the
-     *
-     * @return
-     */
-    public LegendTitleProps legendProps() {
-        return new LegendTitleProps(this, (LegendTitle) getSubtitle(0));
-    }
-
-
-    /**
      * Sets the fixed legend items for the plot.  Leave this set to
      * {@code null} if you prefer the legend items to be created
      * automatically.
@@ -112,7 +105,6 @@ public class CategoryXYChart extends Chart {
         plot_.setFixedLegendItems(items);
         return this;
     }
-
 
     /**
      * Sets the chart title.

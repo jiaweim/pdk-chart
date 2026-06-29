@@ -23,7 +23,7 @@ public class ScatterPlotDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createScatterPlot("Scatter Plot Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.scatter("Scatter Plot Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setDomainCrosshairLockedOnData(true);

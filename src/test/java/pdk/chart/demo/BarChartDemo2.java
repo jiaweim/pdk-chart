@@ -34,7 +34,7 @@ public class BarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Bar Chart Demo 2", "Category", "Score (%)", dataset);
+        Chart chart = ChartFactory.bar("Bar Chart Demo 2", "Category", "Score (%)", dataset);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setOrientation(PlotOrientation.HORIZONTAL);
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);

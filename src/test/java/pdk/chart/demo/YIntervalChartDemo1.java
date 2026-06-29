@@ -26,7 +26,7 @@ public class YIntervalChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createScatterPlot("Y Interval Chart Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.scatter("Y Interval Chart Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRenderer(new YIntervalRenderer());

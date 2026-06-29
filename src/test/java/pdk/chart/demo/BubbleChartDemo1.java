@@ -24,7 +24,7 @@ public class BubbleChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        Chart chart = ChartFactory.createBubbleChart("Bubble Chart Demo 1", "X", "Y",
+        Chart chart = ChartFactory.bubble("Bubble Chart Demo 1", "X", "Y",
                 dataset, PlotOrientation.HORIZONTAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setForegroundAlpha(0.65F);

@@ -54,7 +54,7 @@ public class LayeredBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Layered Bar Chart Demo 2", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = ChartFactory.bar("Layered Bar Chart Demo 2", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         plot.setRangePannable(true);

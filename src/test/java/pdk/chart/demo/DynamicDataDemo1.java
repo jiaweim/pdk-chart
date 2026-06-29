@@ -59,7 +59,7 @@ public class DynamicDataDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart result = ChartFactory.createTimeSeriesChart("Dynamic Data Demo", "Time", "Value", dataset);
+            Chart result = ChartFactory.timeLine("Dynamic Data Demo", "Time", "Value", dataset);
             XYPlot plot = (XYPlot)result.getPlot();
             ValueAxis axis = plot.getDomainAxis();
             axis.setAutoRange(true);

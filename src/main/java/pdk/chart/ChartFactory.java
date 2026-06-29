@@ -1,5 +1,6 @@
 package pdk.chart;
 
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.TableOrder;
@@ -16,7 +17,8 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
-import pdk.chart.internal.Args;
+import pdk.chart.fluent.Data;
+import pdk.chart.fluent.XYChart;
 import pdk.chart.labels.*;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
@@ -32,24 +34,20 @@ import pdk.chart.urls.*;
 import java.awt.*;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 /**
- * A collection of utility methods for creating some standard charts with
- * JFreeChart.
+ * A collection of utility methods for creating some standard charts.
  */
 public abstract class ChartFactory {
 
     /**
      * The chart theme.
      */
-    private static ChartTheme currentTheme = new StandardChartTheme("JFree");
+    private static ChartTheme currentTheme = new StandardChartTheme("PDK");
 
-    private ChartFactory() {
-        // no requirement to instantiate
-    }
+    private ChartFactory() {}
 
     /**
      * Returns the current chart theme used by the factory.
@@ -486,6 +484,33 @@ public abstract class ChartFactory {
     }
 
     /**
+     * Creates a bar chart.
+     *
+     * @param categories category values.
+     * @param values     values
+     * @return a bar chart.
+     */
+    public static Chart bar(String[] categories, double[] values) {
+        CategoryDataset<String, String> dataset = Data.createCategoryDataset("", categories, values);
+        return bar(null, null, null, dataset,
+                PlotOrientation.VERTICAL, false, true, false);
+    }
+
+    /**
+     * Creates a bar chart.
+     *
+     * @param categories  category values.
+     * @param values      values
+     * @param orientation {@link PlotOrientation}
+     * @return a bar chart.
+     */
+    public static Chart bar(String[] categories, double[] values,
+            PlotOrientation orientation) {
+        CategoryDataset<String, String> dataset = Data.createCategoryDataset("", categories, values);
+        return bar(null, null, null, dataset, orientation, false, true, false);
+    }
+
+    /**
      * Creates a bar chart with a vertical orientation.  The chart object
      * returned by this method uses a {@link CategoryPlot} instance as the
      * plot, with a {@link CategoryAxis} for the domain axis, a
@@ -500,10 +525,10 @@ public abstract class ChartFactory {
      * @param dataset           the dataset for the chart ({@code null} permitted).
      * @return A bar chart.
      */
-    public static Chart createBarChart(String title,
+    public static Chart bar(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset) {
-        return createBarChart(title, categoryAxisLabel, valueAxisLabel, dataset,
+        return bar(title, categoryAxisLabel, valueAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -526,7 +551,7 @@ public abstract class ChartFactory {
      * @param urls              configure chart to generate URLs?
      * @return A bar chart.
      */
-    public static Chart createBarChart(String title,
+    public static Chart bar(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
@@ -566,7 +591,6 @@ public abstract class ChartFactory {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -1017,6 +1041,50 @@ public abstract class ChartFactory {
     }
 
     /**
+     * Create a scatter chart.
+     *
+     * @param x x values.
+     * @param y y values.
+     * @return a scatter chart.
+     */
+    public static Chart scatter(double[] x, double[] y) {
+        XYDataset<String> dataset = Data.createXY("", x, y);
+        return scatter(null, null, null, dataset, PlotOrientation.VERTICAL,
+                false, true, false);
+    }
+
+
+    /**
+     * Create a scatter chart.
+     *
+     * @param xName name of x-axis.
+     * @param x     x values.
+     * @param yName name of y-axis.
+     * @param y     y values.
+     * @return a scatter chart.
+     */
+    public static Chart scatter(String xName, double[] x, String yName, double[] y) {
+        XYDataset<String> dataset = Data.createXY("", x, y);
+        return scatter(null, xName, yName, dataset, PlotOrientation.VERTICAL,
+                false, true, false);
+    }
+
+    /**
+     * Create a scatter chart.
+     *
+     * @param xName name of x-axis.
+     * @param x     x values.
+     * @param yName name of y-axis.
+     * @param y     y values.
+     * @return a scatter chart.
+     */
+    public static Chart scatter(String xName, Double[] x, String yName, Double[] y) {
+        XYDataset<String> dataset = Data.createXY("", x, y);
+        return scatter(null, xName, yName, dataset, PlotOrientation.VERTICAL,
+                false, true, false);
+    }
+
+    /**
      * Creates a scatter plot with default settings.  The chart object
      * returned by this method uses an {@link XYPlot} instance as the plot,
      * with a {@link NumberAxis} for the domain axis, a  {@link NumberAxis}
@@ -1029,9 +1097,9 @@ public abstract class ChartFactory {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return A scatter plot.
      */
-    public static Chart createScatterPlot(String title, String xAxisLabel,
+    public static Chart scatter(String title, String xAxisLabel,
             String yAxisLabel, XYDataset dataset) {
-        return createScatterPlot(title, xAxisLabel, yAxisLabel, dataset,
+        return scatter(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1053,12 +1121,18 @@ public abstract class ChartFactory {
      * @param urls        configure chart to generate URLs?
      * @return A scatter plot.
      */
-    public static Chart createScatterPlot(String title, String xAxisLabel,
+    public static Chart scatter(String title, String xAxisLabel,
             String yAxisLabel, XYDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
+
+        ValueAxis xAxis;
+        if (dataset instanceof TimeSeriesCollection<?>) {
+            xAxis = new DateAxis(xAxisLabel);
+        } else {
+            xAxis = new NumberAxis(xAxisLabel);
+            ((NumberAxis) xAxis).setAutoRangeIncludesZero(false);
+        }
         NumberAxis yAxis = new NumberAxis(yAxisLabel);
         yAxis.setAutoRangeIncludesZero(false);
 
@@ -1066,7 +1140,11 @@ public abstract class ChartFactory {
 
         XYToolTipGenerator toolTipGenerator = null;
         if (tooltips) {
-            toolTipGenerator = new StandardXYToolTipGenerator();
+            if (xAxis instanceof DateAxis) {
+                toolTipGenerator = StandardXYToolTipGenerator.getTimeSeriesInstance();
+            } else {
+                toolTipGenerator = new StandardXYToolTipGenerator();
+            }
         }
 
         XYURLGenerator urlGenerator = null;
@@ -1083,7 +1161,6 @@ public abstract class ChartFactory {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -1101,9 +1178,9 @@ public abstract class ChartFactory {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return An XY bar chart.
      */
-    public static Chart createXYBarChart(String title, String xAxisLabel,
+    public static Chart bar(String title, String xAxisLabel,
             boolean dateAxis, String yAxisLabel, IntervalXYDataset dataset) {
-        return createXYBarChart(title, xAxisLabel, dateAxis, yAxisLabel,
+        return bar(title, xAxisLabel, dateAxis, yAxisLabel,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1127,7 +1204,7 @@ public abstract class ChartFactory {
      * @param urls        configure chart to generate URLs?
      * @return An XY bar chart.
      */
-    public static Chart createXYBarChart(String title, String xAxisLabel,
+    public static Chart bar(String title, String xAxisLabel,
             boolean dateAxis, String yAxisLabel, IntervalXYDataset dataset,
             PlotOrientation orientation, boolean legend, boolean tooltips,
             boolean urls) {
@@ -1163,7 +1240,73 @@ public abstract class ChartFactory {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
+    }
 
+    /**
+     * Creates and returns a default instance of an XY bar chart.
+     * <p>
+     * The chart object returned by this method uses an {@link XYPlot} instance
+     * as the plot, with a {@link DateAxis} for the domain axis, a
+     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
+     * renderer.
+     *
+     * @param title       the chart title ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param xAxisDate   make the domain axis display dates?
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param yAxisDate   make the range axis display dates
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @param urls        configure chart to generate URLs?
+     * @return An XY bar chart.
+     */
+    public static Chart bar(String title,
+            String xAxisLabel, boolean xAxisDate,
+            String yAxisLabel, boolean yAxisDate,
+            IntervalXYDataset dataset,
+            PlotOrientation orientation, boolean legend, boolean tooltips,
+            boolean urls) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        ValueAxis domainAxis;
+        if (xAxisDate) {
+            domainAxis = new DateAxis(xAxisLabel);
+        } else {
+            NumberAxis axis = new NumberAxis(xAxisLabel);
+            axis.setAutoRangeIncludesZero(false);
+            domainAxis = axis;
+        }
+        ValueAxis valueAxis;
+        if (yAxisDate) {
+            valueAxis = new DateAxis(yAxisLabel);
+        } else {
+            valueAxis = new NumberAxis(yAxisLabel);
+        }
+
+        XYBarRenderer renderer = new XYBarRenderer();
+        if (tooltips) {
+            XYToolTipGenerator tt;
+            if (xAxisDate) {
+                tt = StandardXYToolTipGenerator.getTimeSeriesInstance();
+            } else {
+                tt = new StandardXYToolTipGenerator();
+            }
+            renderer.setDefaultToolTipGenerator(tt);
+        }
+        if (urls) {
+            renderer.setURLGenerator(new StandardXYURLGenerator());
+        }
+
+        XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
+        plot.setOrientation(orientation);
+
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
+                plot, legend);
+        currentTheme.apply(chart);
+        return chart;
     }
 
     /**
@@ -1318,9 +1461,9 @@ public abstract class ChartFactory {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return The chart.
      */
-    public static Chart createXYLineChart(String title,
+    public static Chart line(String title,
             String xAxisLabel, String yAxisLabel, XYDataset dataset) {
-        return createXYLineChart(title, xAxisLabel, yAxisLabel, dataset,
+        return line(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1339,10 +1482,11 @@ public abstract class ChartFactory {
      * @param urls        configure chart to generate URLs?
      * @return The chart.
      */
-    public static Chart createXYLineChart(String title, String xAxisLabel,
+    public static Chart line(String title, String xAxisLabel,
             String yAxisLabel, XYDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");
+
         NumberAxis xAxis = new NumberAxis(xAxisLabel);
         xAxis.setAutoRangeIncludesZero(false);
         NumberAxis yAxis = new NumberAxis(yAxisLabel);
@@ -1355,8 +1499,7 @@ public abstract class ChartFactory {
         if (urls) {
             renderer.setURLGenerator(new StandardXYURLGenerator());
         }
-        Chart chart = null;
-        chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
@@ -1504,14 +1647,16 @@ public abstract class ChartFactory {
      * @param dataset        the dataset for the chart ({@code null} permitted).
      * @return A time series chart.
      */
-    public static Chart createTimeSeriesChart(String title,
+    public static Chart timeLine(String title,
             String timeAxisLabel, String valueAxisLabel, XYDataset dataset) {
-        return createTimeSeriesChart(title, timeAxisLabel, valueAxisLabel,
+        return timeLine(title, timeAxisLabel, valueAxisLabel,
                 dataset, true, true, false);
     }
 
     /**
-     * Creates and returns a time series chart.  A time series chart is an
+     * Creates and returns a time series chart.
+     * <p>
+     * A time series chart is an
      * {@link XYPlot} with a {@link DateAxis} for the x-axis and a
      * {@link NumberAxis} for the y-axis.  The default renderer is an
      * {@link XYLineAndShapeRenderer}.
@@ -1530,7 +1675,7 @@ public abstract class ChartFactory {
      * @param urls           configure chart to generate URLs?
      * @return A time series chart.
      */
-    public static Chart createTimeSeriesChart(String title,
+    public static Chart timeLine(String title,
             String timeAxisLabel, String valueAxisLabel, XYDataset dataset,
             boolean legend, boolean tooltips, boolean urls) {
 
@@ -1543,8 +1688,7 @@ public abstract class ChartFactory {
 
         XYToolTipGenerator toolTipGenerator = null;
         if (tooltips) {
-            toolTipGenerator
-                    = StandardXYToolTipGenerator.getTimeSeriesInstance();
+            toolTipGenerator = StandardXYToolTipGenerator.getTimeSeriesInstance();
         }
 
         XYURLGenerator urlGenerator = null;
@@ -1552,8 +1696,7 @@ public abstract class ChartFactory {
             urlGenerator = new StandardXYURLGenerator();
         }
 
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true,
-                false);
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(true, false);
         renderer.setDefaultToolTipGenerator(toolTipGenerator);
         renderer.setURLGenerator(urlGenerator);
         plot.setRenderer(renderer);
@@ -1562,7 +1705,6 @@ public abstract class ChartFactory {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -1620,6 +1762,63 @@ public abstract class ChartFactory {
 
     }
 
+
+    /**
+     * Create a bubble chart.
+     *
+     * @param x     x values.
+     * @param y     y values.
+     * @param size  data for bubble size.
+     * @param color series name for each entry.
+     * @return {@link XYChart}
+     */
+    public static Chart bubble(String xName, Double[] x,
+            String yName, Double[] y, Double[] size, @Nullable String[] color) {
+        // adjust size to make bubble size
+        double minY = Data.getMin(y);
+        double maxy = Data.getMax(y);
+        double rangeY = maxy - minY;
+
+        double maxZ = Data.getMax(size);
+        double scale = Math.max(maxZ, rangeY) * 4;
+
+        Double[] z = new Double[size.length];
+        for (int i = 0; i < size.length; i++) {
+            z[i] = size[i] / scale;
+        }
+
+        Data.XYZDatasetBuilder<String> xyz = Data.xyz();
+        Map<String, ArrayList<Double>[]> map = new HashMap<>();
+        if (color != null) {
+            // create multiple series
+            for (int i = 0; i < color.length; i++) {
+                ArrayList<Double>[] list = map.get(color[i]);
+                if (list == null) {
+                    list = new ArrayList[3];
+                    list[0] = new ArrayList<>();
+                    list[1] = new ArrayList<>();
+                    list[2] = new ArrayList<>();
+                    map.put(color[i], list);
+                }
+                list[0].add(x[i]);
+                list[1].add(y[i]);
+                list[2].add(z[i]);
+            }
+            for (Map.Entry<String, ArrayList<Double>[]> entry : map.entrySet()) {
+                ArrayList<Double>[] value = entry.getValue();
+                xyz.addSeries(entry.getKey(), value[0].toArray(new Double[0]),
+                        value[1].toArray(new Double[0]),
+                        value[2].toArray(new Double[0]));
+            }
+        } else {
+            // only one series
+            xyz.addSeries("", x, y, z);
+        }
+
+        XYZDataset<String> dataset = xyz.build();
+        return bubble(null, xName, yName, dataset);
+    }
+
     /**
      * Creates a bubble chart with default settings.  The chart is composed of
      * an {@link XYPlot}, with a {@link NumberAxis} for the domain axis,
@@ -1632,9 +1831,9 @@ public abstract class ChartFactory {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return A bubble chart.
      */
-    public static Chart createBubbleChart(String title, String xAxisLabel,
+    public static Chart bubble(String title, String xAxisLabel,
             String yAxisLabel, XYZDataset dataset) {
-        return createBubbleChart(title, xAxisLabel, yAxisLabel, dataset,
+        return bubble(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1655,7 +1854,7 @@ public abstract class ChartFactory {
      * @param urls        configure chart to generate URLs?
      * @return A bubble chart.
      */
-    public static Chart createBubbleChart(String title, String xAxisLabel,
+    public static Chart bubble(String title, String xAxisLabel,
             String yAxisLabel, XYZDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");
@@ -1681,7 +1880,6 @@ public abstract class ChartFactory {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -1695,9 +1893,9 @@ public abstract class ChartFactory {
      * @param dataset    the dataset ({@code null} permitted).
      * @return A chart.
      */
-    public static Chart createHistogram(String title,
+    public static Chart histogram(String title,
             String xAxisLabel, String yAxisLabel, IntervalXYDataset dataset) {
-        return createHistogram(title, xAxisLabel, yAxisLabel, dataset,
+        return histogram(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1717,7 +1915,7 @@ public abstract class ChartFactory {
      * @param urls        generate URLs?
      * @return The chart.
      */
-    public static Chart createHistogram(String title,
+    public static Chart histogram(String title,
             String xAxisLabel, String yAxisLabel, IntervalXYDataset dataset,
             PlotOrientation orientation, boolean legend, boolean tooltips,
             boolean urls) {

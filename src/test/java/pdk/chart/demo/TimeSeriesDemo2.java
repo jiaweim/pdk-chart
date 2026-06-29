@@ -41,7 +41,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Time Series Demo 2", "Time", "Value", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Time Series Demo 2", "Time", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.addRangeMarker(new ValueMarker((double) 550.0F));
         Quarter q = new Quarter(2, 2002);

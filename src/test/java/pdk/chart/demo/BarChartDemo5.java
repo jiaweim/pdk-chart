@@ -54,7 +54,7 @@ public class BarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Prison Population Rates - Selected Countries", "Country", "Prisoners Per 100,000 National Population", dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = ChartFactory.bar("Prison Population Rates - Selected Countries", "Country", "Prisoners Per 100,000 National Population", dataset, PlotOrientation.HORIZONTAL, false, true, false);
         chart.addSubtitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf", new Font("Dialog", 2, 10)));
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);

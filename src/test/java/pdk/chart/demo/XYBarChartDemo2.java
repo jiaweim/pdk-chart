@@ -41,7 +41,7 @@ public class XYBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("XY Bar Chart Demo 2", "Date", true, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.bar("XY Bar Chart Demo 2", "Date", true, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

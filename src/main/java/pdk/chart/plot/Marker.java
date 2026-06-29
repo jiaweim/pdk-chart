@@ -5,7 +5,6 @@ import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.event.MarkerChangeEvent;
 import pdk.chart.event.MarkerChangeListener;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.text.TextAnchor;
@@ -132,9 +131,8 @@ public abstract class Marker implements Cloneable, Serializable {
      */
     protected Marker(Paint paint, Stroke stroke, Paint outlinePaint,
             Stroke outlineStroke, float alpha) {
-
-        Args.nullNotPermitted(paint, "paint");
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(paint);
+        Objects.requireNonNull(stroke);
         if (alpha < 0.0f || alpha > 1.0f) {
             throw new IllegalArgumentException(
                     "The 'alpha' value must be in the range 0.0f to 1.0f");
@@ -175,7 +173,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint);
         this.paint = paint;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -198,7 +196,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke);
         this.stroke = stroke;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -318,7 +316,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getLabelFont()
      */
     public void setLabelFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font);
         this.labelFont = font;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -341,7 +339,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getLabelPaint()
      */
     public void setLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint);
         this.labelPaint = paint;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -362,7 +360,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @param color the color ({@code null} not permitted).
      */
     public void setLabelBackgroundColor(Color color) {
-        Args.nullNotPermitted(color, "color");
+        Objects.requireNonNull(color);
         this.labelBackgroundColor = color;
     }
 
@@ -379,14 +377,16 @@ public abstract class Marker implements Cloneable, Serializable {
 
     /**
      * Sets the label anchor and sends a {@link MarkerChangeEvent} to all
-     * registered listeners.  The anchor defines the position of the label
+     * registered listeners.
+     * <p>
+     * The anchor defines the position of the label
      * anchor, relative to the bounds of the marker.
      *
      * @param anchor the anchor ({@code null} not permitted).
      * @see #getLabelAnchor()
      */
     public void setLabelAnchor(RectangleAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.labelAnchor = anchor;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -409,7 +409,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getLabelOffset()
      */
     public void setLabelOffset(RectangleInsets offset) {
-        Args.nullNotPermitted(offset, "offset");
+        Objects.requireNonNull(offset, "offset");
         this.labelOffset = offset;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -432,7 +432,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getLabelOffsetType()
      */
     public void setLabelOffsetType(LengthAdjustmentType adj) {
-        Args.nullNotPermitted(adj, "adj");
+        Objects.requireNonNull(adj, "adj");
         this.labelOffsetType = adj;
         notifyListeners(new MarkerChangeEvent(this));
     }
@@ -455,7 +455,7 @@ public abstract class Marker implements Cloneable, Serializable {
      * @see #getLabelTextAnchor()
      */
     public void setLabelTextAnchor(TextAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.labelTextAnchor = anchor;
         notifyListeners(new MarkerChangeEvent(this));
     }

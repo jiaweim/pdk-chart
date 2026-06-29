@@ -3,6 +3,8 @@ package pdk.chart.fluent;
 import org.jspecify.annotations.NonNull;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.data.statistics.HistogramDataset;
+import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
@@ -60,12 +62,28 @@ public interface Data {
      * @param <S>       series name type.
      * @return {@link XYDataset}.
      */
-    static <S extends Comparable<S>> XYDataset<S> create(@NonNull S seriesKey,
-                                                         double[] x, double[] y) {
+    static <S extends Comparable<S>> XYDataset<S> createXY(@NonNull S seriesKey,
+            double[] x, double[] y) {
         Args.requireEqualLength(x, y);
         XYSeries<S> series = new XYSeries<>(seriesKey);
         series.add(x, y);
         return new XYSeriesCollection<>(series);
+    }
+
+    /**
+     * Create a {@link XYDataset} where the x values are of date type.
+     *
+     * @param seriesKey   series key
+     * @param timePeriods {@link RegularTimePeriod} array.
+     * @param values      y values.
+     * @param <S>         series name type.
+     * @return a {@link XYDataset}.
+     */
+    static <S extends Comparable<S>> IntervalXYDataset<S> createTime(@NonNull S seriesKey,
+            RegularTimePeriod[] timePeriods, double[] values) {
+        TimeSeries<S> series = new TimeSeries<>(seriesKey);
+        series.add(timePeriods, values);
+        return new TimeSeriesCollection<>(series);
     }
 
     /**
@@ -77,8 +95,8 @@ public interface Data {
      * @param <S>       series name type.
      * @return {@link XYDataset}.
      */
-    static <S extends Comparable<S>> XYDataset<S> create(@NonNull S seriesKey,
-                                                         Double[] x, Double[] y) {
+    static <S extends Comparable<S>> XYDataset<S> createXY(@NonNull S seriesKey,
+            Double[] x, Double[] y) {
         Objects.requireNonNull(x);
         Objects.requireNonNull(y);
         if (x.length != y.length) {
@@ -101,8 +119,8 @@ public interface Data {
      * @param <S>       series name type.
      * @return {@link XYDataset}.
      */
-    static <S extends Comparable<S>> XYZDataset<S> create(@NonNull S seriesKey,
-                                                          double[] x, double[] y, double[] z) {
+    static <S extends Comparable<S>> XYZDataset<S> createXYZ(@NonNull S seriesKey,
+            double[] x, double[] y, double[] z) {
         DefaultXYZDataset<S> dataset = new DefaultXYZDataset<>();
         dataset.addSeries(seriesKey, new double[][]{x, y, z});
         return dataset;
@@ -118,8 +136,8 @@ public interface Data {
      * @param <S>       series name type.
      * @return {@link XYDataset}.
      */
-    static <S extends Comparable<S>> XYZDataset<S> create(@NonNull S seriesKey,
-                                                          Double[] x, Double[] y, Double[] z) {
+    static <S extends Comparable<S>> XYZDataset<S> createXYZ(@NonNull S seriesKey,
+            Double[] x, Double[] y, Double[] z) {
         return new XYZDatasetBuilder<S>()
                 .addSeries(seriesKey, x, y, z)
                 .build();
@@ -141,7 +159,7 @@ public interface Data {
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
     CategoryDataset<R, C> createCategoryDataset(R[] rowKeys, C[] columnKeys,
-                                                double[][] data) {
+            double[][] data) {
         Objects.requireNonNull(rowKeys, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");
 
@@ -192,7 +210,7 @@ public interface Data {
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
     CategoryDataset<R, C> createCategoryDataset(@NonNull R rowKey, @NonNull C[] columnKeys,
-                                                double[] data) {
+            double[] data) {
         Objects.requireNonNull(rowKey, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");
 
@@ -210,6 +228,102 @@ public interface Data {
         result.addSeries(rowKey, columnKeys, data);
         return result;
     }
+
+    /**
+     * Create an {@link IntervalXYDataset}.
+     *
+     * @param name     series name
+     * @param x        x values.
+     * @param y        y values.
+     * @param barWidth bar width.
+     * @param <S>      series name type.
+     * @return {@link IntervalXYDataset}
+     */
+    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
+            double[] x, double[] y, double barWidth) {
+        Args.requireEqualLength(x, y);
+
+        XYSeries<S> series = new XYSeries<>(name);
+        for (int i = 0; i < x.length; i++) {
+            series.add(x[i], y[i]);
+        }
+        XYSeriesCollection<S> dataset = new XYSeriesCollection<>(series);
+        return new XYBarDataset<>(dataset, barWidth);
+    }
+
+    /**
+     * Create an {@link IntervalXYDataset} from {@link TimeSeries}
+     *
+     * @param series {@link TimeSeries}
+     * @param <S>    series name type.
+     * @return {@link IntervalXYDataset}
+     */
+    @SafeVarargs
+    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(TimeSeries<S>... series) {
+        TimeSeriesCollection<S> tc = new TimeSeriesCollection<>();
+        for (TimeSeries<S> sTimeSeries : series) {
+            tc.addSeries(sTimeSeries);
+        }
+        return tc;
+    }
+
+    /**
+     * Create an {@link IntervalXYDataset}.
+     * <p>
+     * This dataset is flexible, allowing the start and end points of each bar to be specified.
+     *
+     * @param name   series name
+     * @param x      x value
+     * @param startX start x for each bar
+     * @param endX   end x for each bar
+     * @param y      y values.
+     * @param startY start y for each bar
+     * @param endY   end y for each bar
+     * @param <S>    name type
+     * @return {@link IntervalXYDataset}
+     */
+    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
+            double[] x, double[] startX, double[] endX,
+            double[] y, double[] startY, double[] endY
+    ) {
+        DefaultIntervalXYDataset<S> dataset = new DefaultIntervalXYDataset<>();
+        dataset.addSeries(name, new double[][]{x, startX, endX, y, startY, endY});
+        return dataset;
+    }
+
+    /**
+     * Create a {@link TableXYDataset} for stacked bar chart.
+     *
+     * @param series {@link XYSeries}
+     * @param <S>    series name type.
+     * @return {@link TableXYDataset}
+     */
+    @SafeVarargs
+    static <S extends Comparable<S>> TableXYDataset<S> createTableXYDataset(XYSeries<S>... series) {
+        DefaultTableXYDataset<S> dataset = new DefaultTableXYDataset<>();
+        for (XYSeries<S> s : series) {
+            dataset.addSeries(s);
+        }
+        return dataset;
+    }
+
+
+    static double getMin(Double[] values) {
+        double min = Double.MAX_VALUE;
+        for (Double value : values) {
+            min = Math.min(value, min);
+        }
+        return min;
+    }
+
+    static double getMax(Double[] values) {
+        double max = -Double.MAX_VALUE;
+        for (Double value : values) {
+            max = Math.max(value, max);
+        }
+        return max;
+    }
+
 
     /**
      * Auxiliary class for creating DefaultCategoryDataset
@@ -308,97 +422,89 @@ public interface Data {
     }
 
     /**
-     * Create an {@link IntervalXYDataset}.
-     *
-     * @param name     series name
-     * @param x        x values.
-     * @param y        y values.
-     * @param barWidth bar width.
-     * @param <S>      series name type.
-     * @return {@link IntervalXYDataset}
-     */
-    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
-                                                                                  double[] x, double[] y, double barWidth) {
-        Args.requireEqualLength(x, y);
-
-        XYSeries<S> series = new XYSeries<>(name);
-        for (int i = 0; i < x.length; i++) {
-            series.add(x[i], y[i]);
-        }
-        XYSeriesCollection<S> dataset = new XYSeriesCollection<>(series);
-        return new XYBarDataset<>(dataset, barWidth);
-    }
-
-    /**
-     * Create an {@link IntervalXYDataset} from {@link TimeSeries}
-     *
-     * @param series {@link TimeSeries}
-     * @param <S>    series name type.
-     * @return {@link IntervalXYDataset}
-     */
-    @SafeVarargs
-    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(TimeSeries<S>... series) {
-        TimeSeriesCollection<S> tc = new TimeSeriesCollection<>();
-        for (TimeSeries<S> sTimeSeries : series) {
-            tc.addSeries(sTimeSeries);
-        }
-        return tc;
-    }
-
-    /**
-     * Create an {@link IntervalXYDataset}.
+     * Create a histogram dataset.
      * <p>
-     * This dataset is flexible, allowing the start and end points of each bar to be specified.
+     * Any data less than minimum will be assigned to the first bin, and any
+     * data greater than the maximum will be assigned to the last bin.
+     * <p>
+     * Values falling on the boundary of adjacent bins will be assigned to the higher indexed bin.
      *
-     * @param name   series name
-     * @param x      x value
-     * @param startX start x for each bar
-     * @param endX   end x for each bar
-     * @param y      y values.
-     * @param startY start y for each bar
-     * @param endY   end y for each bar
-     * @param <S>    name type
-     * @return {@link IntervalXYDataset}
+     * @param key     series key
+     * @param values  observations.
+     * @param bins    number of bins.
+     * @param minimum the lower bound of the bin range.
+     * @param maximum the upper bound of the bin range.
+     * @param <S>     series key type.
+     * @return {@link HistogramDataset} instance.
      */
-    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
-                                                                                  double[] x, double[] startX, double[] endX,
-                                                                                  double[] y, double[] startY, double[] endY
-    ) {
-        DefaultIntervalXYDataset<S> dataset = new DefaultIntervalXYDataset<>();
-        dataset.addSeries(name, new double[][]{x, startX, endX, y, startY, endY});
+    static <S extends Comparable<S>> HistogramDataset createHis(S key, double[] values, int bins,
+            double minimum, double maximum) {
+        HistogramDataset dataset = new HistogramDataset();
+        dataset.addSeries(key, values, bins, minimum, maximum);
         return dataset;
     }
 
     /**
-     * Create a {@link TableXYDataset} for stacked bar chart.
+     * Create a {@link HistogramDatasetBuilder} to build {@link HistogramDataset}.
      *
-     * @param series {@link XYSeries}
-     * @param <S>    series name type.
-     * @return {@link TableXYDataset}
+     * @return {@link HistogramDatasetBuilder} instance.
      */
-    @SafeVarargs
-    static <S extends Comparable<S>> TableXYDataset<S> createTableXYDataset(XYSeries<S>... series) {
-        DefaultTableXYDataset<S> dataset = new DefaultTableXYDataset<>();
-        for (XYSeries<S> s : series) {
-            dataset.addSeries(s);
-        }
-        return dataset;
+    static HistogramDatasetBuilder his() {
+        return new HistogramDatasetBuilder();
     }
 
+    class HistogramDatasetBuilder {
 
-    static double getMin(Double[] values) {
-        double min = Double.MAX_VALUE;
-        for (Double value : values) {
-            min = Math.min(value, min);
+        private final HistogramDataset dataset = new HistogramDataset();
+
+        /**
+         * Add a series to the dataset.
+         * <p>
+         * Any data less than minimum will be assigned to the first bin, and any
+         * data greater than the maximum will be assigned to the last bin.
+         * <p>
+         * Values falling on the boundary of adjacent bins will be assigned to the higher indexed bin.
+         *
+         * @param key     the series key.
+         * @param values  the raw values.
+         * @param bins    number of bins.
+         * @param minimum the lower bound of the bin range.
+         * @param maximum the upper bound of the bin range.
+         * @return this.
+         */
+        public HistogramDatasetBuilder addSeries(@NonNull Comparable key, double[] values, int bins,
+                double minimum, double maximum) {
+            dataset.addSeries(key, values, bins, minimum, maximum);
+            return this;
         }
-        return min;
+
+        public HistogramDataset build() {
+            return dataset;
+        }
     }
 
-    static double getMax(Double[] values) {
-        double max = -Double.MAX_VALUE;
-        for (Double value : values) {
-            max = Math.max(value, max);
+    static <S extends Comparable<S>> TimeSeriesDatasetBuilder<S> time() {
+        return new TimeSeriesDatasetBuilder<>();
+    }
+
+    class TimeSeriesDatasetBuilder<S extends Comparable<S>> {
+
+        private final TimeSeriesCollection<S> dataset = new TimeSeriesCollection<>();
+
+        public TimeSeriesDatasetBuilder<S> addSeries(S key, RegularTimePeriod[] times, double[] values) {
+            TimeSeries<S> series = new TimeSeries<>(key);
+            series.add(times, values);
+            dataset.addSeries(series);
+            return this;
         }
-        return max;
+
+        public TimeSeriesDatasetBuilder<S> addSeries(TimeSeries<S> series) {
+            dataset.addSeries(series);
+            return this;
+        }
+
+        public TimeSeriesCollection<S> build() {
+            return dataset;
+        }
     }
 }

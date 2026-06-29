@@ -60,7 +60,7 @@ public class CrosshairDemo3 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart c = ChartFactory.createTimeSeriesChart("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
+            Chart c = ChartFactory.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
             XYPlot plot = (XYPlot) c.getPlot();
             plot.setDomainCrosshairVisible(true);
             plot.setDomainCrosshairLockedOnData(false);

@@ -799,7 +799,7 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Daylight Hours - London, UK", "Date", "Time", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Daylight Hours - London, UK", "Date", "Time", dataset, true, true, false);
         chart.addSubtitle(new TextTitle("Data source: http://www.sunrisesunset.com/", new Font("SansSerif", 0, 12)));
         XYDifferenceRenderer renderer = new XYDifferenceRenderer(Color.BLUE, Color.BLUE, false);
         renderer.setRoundXCoordinates(true);

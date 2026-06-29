@@ -189,7 +189,7 @@ public class XYLineAndShapeRendererTest {
     public void testFindDomainBounds() {
         XYSeriesCollection<String> dataset
                 = RendererXYPackageUtils.createTestXYSeriesCollection();
-        Chart chart = ChartFactory.createXYLineChart(
+        Chart chart = ChartFactory.line(
                 "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
@@ -209,7 +209,7 @@ public class XYLineAndShapeRendererTest {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = ChartFactory.createXYLineChart(
+        Chart chart = ChartFactory.line(
                 "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();

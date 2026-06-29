@@ -553,9 +553,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * Sets the tick mark position (start, middle or end of the time period)
      * and sends an {@link AxisChangeEvent} to all registered listeners.
      *
-     * @param position the position ({@code null} not permitted).
+     * @param position the position.
      */
-    public void setTickMarkPosition(DateTickMarkPosition position) {
+    public void setTickMarkPosition(@NonNull DateTickMarkPosition position) {
         Objects.requireNonNull(position, "position");
         this.tickMarkPosition = position;
         fireChangeEvent();
@@ -1706,4 +1706,73 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         return clone;
     }
 
+    /**
+     * Set the axis name.
+     *
+     * @param name axis name.
+     * @return this.
+     */
+    public DateAxis name(String name) {
+        setLabel(name);
+        return this;
+    }
+
+    /**
+     * Sets the tick mark position (start, middle or end of the time period).
+     *
+     * @param position the position ({@code null} not permitted).
+     */
+    public DateAxis tickMarkPosition(@NonNull DateTickMarkPosition position) {
+        setTickMarkPosition(position);
+        return this;
+    }
+
+    /**
+     * Sets the lower margin for the axis (as a percentage of the axis range).
+     * <p>
+     * This margin is added only when the axis range is auto-calculated - if you set
+     * the axis range manually, the margin is ignored.
+     *
+     * @param margin the margin percentage (for example, 0.05 is five percent).
+     */
+    public DateAxis lowerMargin(double margin) {
+        setLowerMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets the upper margin for the axis (as a percentage of the axis range).
+     * <p>
+     * This margin is added only when the axis range is auto-calculated - if you set
+     * the axis range manually, the margin is ignored.
+     *
+     * @param margin the margin percentage (for example, 0.05 is five percent).
+     */
+    public DateAxis upperMargin(double margin) {
+        setUpperMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets the direction of values on the axis.
+     *
+     * @param flag the flag.
+     */
+    public DateAxis inverted(boolean flag) {
+        setInverted(flag);
+        return this;
+    }
+
+    /**
+     * Sets the date format override.
+     * <p>
+     * If this is non-null, then it will be
+     * used to format the dates on the axis.
+     *
+     * @param formatter the date formatter ({@code null} permitted).
+     */
+    public DateAxis dateFormatOverride(DateFormat formatter) {
+        setDateFormatOverride(formatter);
+        return this;
+    }
 }

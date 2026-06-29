@@ -29,7 +29,7 @@ public class PeriodAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

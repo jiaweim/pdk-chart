@@ -11,6 +11,7 @@ import pdk.chart.renderer.category.*;
  * @since 08 Jun 2026, 10:46 AM
  */
 public enum CategoryXYChartType {
+
     LINE,
     AREA,
     BAR,

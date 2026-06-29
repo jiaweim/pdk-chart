@@ -75,11 +75,7 @@ public class StackedBarChartDemo2 {
         CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
                 .addDataset(createDataset(), CategoryXYChartType.BAR_STACK)
-
                 .showLegend(true)
-                .legendProps()
-                .position(RectangleEdge.BOTTOM)
-                .doneCateogry()
 
                 .title("Public Opinion : Torture of Prisoners")
                 .addTitle(tt)
@@ -96,6 +92,9 @@ public class StackedBarChartDemo2 {
                 .seriesPaint(1, new Color(0, 0, 0, 0))
                 .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)))
                 .done();
+
+        chart.getLegend(0)
+                .position(RectangleEdge.BOTTOM);
 
         chart.rangeAxisNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())

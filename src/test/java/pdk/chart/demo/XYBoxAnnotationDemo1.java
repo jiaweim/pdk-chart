@@ -552,7 +552,7 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Breakdowns", "Production Date", "Hours of Operation", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Breakdowns", "Production Date", "Hours of Operation", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

@@ -46,7 +46,6 @@ public class BarChartDemo9 {
         renderer.setDrawBarOutline(true);
         renderer.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.CENTER_HORIZONTAL));
 
-
         CategoryXYChart chart = CategoryXYChart.create()
                 .title(title)
                 .axisNames(null, "Value")

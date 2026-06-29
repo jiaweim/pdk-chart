@@ -42,7 +42,7 @@ public class BarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Bar Chart Demo 3", "Category", "Value", dataset);
+        Chart chart = ChartFactory.bar("Bar Chart Demo 3", "Category", "Value", dataset);
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setNoDataMessage("NO DATA!");

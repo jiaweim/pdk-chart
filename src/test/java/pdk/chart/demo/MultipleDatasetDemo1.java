@@ -51,7 +51,7 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
         public MyDemoPanel() {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = this.createRandomDataset("Series 1");
-            Chart chart = ChartFactory.createTimeSeriesChart("Multiple Dataset Demo 1", "Time", "Value", dataset1, true, true, false);
+            Chart chart = ChartFactory.timeLine("Multiple Dataset Demo 1", "Time", "Value", dataset1, true, true, false);
             chart.setBackgroundPaint((Paint)null);
             this.addChart(chart);
             this.plot = (XYPlot)chart.getPlot();

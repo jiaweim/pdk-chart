@@ -1,5 +1,6 @@
 package pdk.chart;
 
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.*;
 import pdk.chart.block.*;
 import pdk.chart.data.Range;
@@ -1607,5 +1608,21 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
         chart.progressListeners = new EventListenerList();
         chart.changeListeners = new EventListenerList();
         return chart;
+    }
+
+    /**
+     * Sets the chart title.
+     * <p>
+     * This is a convenience method that ends up calling
+     * the {@link #setTitle(TextTitle)} method.  If there is an existing title,
+     * its text is updated, otherwise a new title using the default font is
+     * added to the chart.  If {@code text} is {@code null} the chart
+     * title is set to {@code null}.
+     *
+     * @param title the title text.
+     */
+    public Chart title(@Nullable String title) {
+        setTitle(title);
+        return this;
     }
 }

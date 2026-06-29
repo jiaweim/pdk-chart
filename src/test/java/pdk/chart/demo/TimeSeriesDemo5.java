@@ -44,7 +44,7 @@ public class TimeSeriesDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Test", "Day", "Value", dataset, false, false, false);
+        Chart chart = ChartFactory.timeLine("Test", "Day", "Value", dataset, false, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         SamplingXYLineRenderer renderer = new SamplingXYLineRenderer();

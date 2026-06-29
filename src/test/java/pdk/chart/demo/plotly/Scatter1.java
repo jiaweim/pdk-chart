@@ -1,7 +1,7 @@
 package pdk.chart.demo.plotly;
 
-import pdk.chart.fluent.JChart;
-import pdk.chart.fluent.XYChart;
+import pdk.chart.Chart;
+import pdk.chart.ChartFactory;
 
 /**
  * https://plotly.com/python/line-and-scatter/
@@ -12,10 +12,9 @@ import pdk.chart.fluent.XYChart;
  */
 public class Scatter1 {
     static void main() {
-        XYChart chart = JChart.scatter(
-                        new double[]{0, 1, 2, 3, 4},
-                        new double[]{0, 1, 4, 9, 16})
-                .axisNames("x", "y");
+        Chart chart = ChartFactory.scatter(
+                "x", new double[]{0, 1, 2, 3, 4},
+                "y", new double[]{0, 1, 4, 9, 16});
         chart.show();
     }
 }

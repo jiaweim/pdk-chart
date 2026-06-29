@@ -20,7 +20,7 @@ public class XYBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("Sample", "X", false, "Y", dataset);
+        Chart chart = ChartFactory.bar("Sample", "X", false, "Y", dataset);
         return chart;
     }
 

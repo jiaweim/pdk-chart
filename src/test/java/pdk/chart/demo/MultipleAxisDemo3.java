@@ -30,7 +30,7 @@ public class MultipleAxisDemo3 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset dataset1 = createDataset("Series 1", (double) 100.0F, new Minute(), 200);
-        Chart chart = ChartFactory.createTimeSeriesChart("Multiple Axis Demo 3", "Time of Day", "Primary Range Axis", dataset1, true, true, false);
+        Chart chart = ChartFactory.timeLine("Multiple Axis Demo 3", "Time of Day", "Primary Range Axis", dataset1, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setOrientation(PlotOrientation.VERTICAL);
         NumberAxis xAxis2 = new NumberAxis("Domain Axis 2");

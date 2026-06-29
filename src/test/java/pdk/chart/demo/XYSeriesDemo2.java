@@ -25,7 +25,7 @@ public class XYSeriesDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart("XY Series Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = ChartFactory.line("XY Series Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         NumberAxis axis = (NumberAxis)plot.getRangeAxis();
         axis.setAutoRangeIncludesZero(false);

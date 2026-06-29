@@ -36,7 +36,7 @@ public class XYBarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.createXYBarChart("US Budget Deficit", "Year", true, "$ Billion", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = ChartFactory.bar("US Budget Deficit", "Year", true, "$ Billion", dataset, PlotOrientation.VERTICAL, false, false, false);
         TextTitle source = new TextTitle("Source: http://www.cbo.gov/showdoc.cfm?index=1821&sequence=0#table12");
         source.setFont(new Font("Dialog", 0, 8));
         source.setPosition(RectangleEdge.BOTTOM);

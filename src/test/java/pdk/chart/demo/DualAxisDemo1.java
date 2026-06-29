@@ -1,121 +1,99 @@
 package pdk.chart.demo;
 
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.ChartFactory;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.ValueAxis;
 import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.Data;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DatasetRenderingOrder;
-import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.title.CompositeTitle;
 
+import javax.swing.*;
+
 
 public class DualAxisDemo1 extends ApplicationFrame {
+
     public DualAxisDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset1() {
-        String series1 = "S1";
-        String series2 = "S2";
-        String series3 = "S3";
-        String category1 = "Category 1";
-        String category2 = "Category 2";
-        String category3 = "Category 3";
-        String category4 = "Category 4";
-        String category5 = "Category 5";
-        String category6 = "Category 6";
-        String category7 = "Category 7";
-        String category8 = "Category 8";
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double)1.0F, series1, category1);
-        dataset.addValue((double)4.0F, series1, category2);
-        dataset.addValue((double)3.0F, series1, category3);
-        dataset.addValue((double)5.0F, series1, category4);
-        dataset.addValue((double)5.0F, series1, category5);
-        dataset.addValue((double)7.0F, series1, category6);
-        dataset.addValue((double)7.0F, series1, category7);
-        dataset.addValue((double)8.0F, series1, category8);
-        dataset.addValue((double)5.0F, series2, category1);
-        dataset.addValue((double)7.0F, series2, category2);
-        dataset.addValue((double)6.0F, series2, category3);
-        dataset.addValue((double)8.0F, series2, category4);
-        dataset.addValue((double)4.0F, series2, category5);
-        dataset.addValue((double)4.0F, series2, category6);
-        dataset.addValue((double)2.0F, series2, category7);
-        dataset.addValue((double)1.0F, series2, category8);
-        dataset.addValue((double)4.0F, series3, category1);
-        dataset.addValue((double)3.0F, series3, category2);
-        dataset.addValue((double)2.0F, series3, category3);
-        dataset.addValue((double)3.0F, series3, category4);
-        dataset.addValue((double)6.0F, series3, category5);
-        dataset.addValue((double)3.0F, series3, category6);
-        dataset.addValue((double)4.0F, series3, category7);
-        dataset.addValue((double)3.0F, series3, category8);
-        return dataset;
+    private static CategoryDataset<String, String> createDataset1() {
+        String[] categories = new String[]{
+                "Category 1",
+                "Category 2",
+                "Category 3",
+                "Category 4",
+                "Category 5",
+                "Category 6",
+                "Category 7",
+                "Category 8"
+        };
+
+        return Data.<String, String>category()
+                .addSeries("S1",
+                        categories,
+                        new double[]{1.0, 4.0, 3.0, 5.0, 5.0, 7.0, 7.0, 8.0})
+                .addSeries("S2",
+                        categories,
+                        new double[]{5.0, 7.0, 6.0, 8.0, 4.0, 4.0, 2.0, 1.0})
+                .addSeries("S3",
+                        categories,
+                        new double[]{4.0, 3.0, 2.0, 3.0, 6.0, 3.0, 4.0, 3.0,}).build();
     }
 
-    private static CategoryDataset createDataset2() {
-        String series1 = "S4";
-        String category1 = "Category 1";
-        String category2 = "Category 2";
-        String category3 = "Category 3";
-        String category4 = "Category 4";
-        String category5 = "Category 5";
-        String category6 = "Category 6";
-        String category7 = "Category 7";
-        String category8 = "Category 8";
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double)15.0F, series1, category1);
-        dataset.addValue((double)24.0F, series1, category2);
-        dataset.addValue((double)31.0F, series1, category3);
-        dataset.addValue((double)25.0F, series1, category4);
-        dataset.addValue((double)56.0F, series1, category5);
-        dataset.addValue((double)37.0F, series1, category6);
-        dataset.addValue((double)77.0F, series1, category7);
-        dataset.addValue((double)18.0F, series1, category8);
-        return dataset;
+    private static CategoryDataset<String, String> createDataset2() {
+        return Data.createCategoryDataset("S4",
+                new String[]{"Category 1",
+                        "Category 2",
+                        "Category 3",
+                        "Category 4",
+                        "Category 5",
+                        "Category 6",
+                        "Category 7",
+                        "Category 8"},
+                new double[]{15.0, 24.0, 31.0, 25.0, 56.0, 37.0, 77.0, 18.0}
+        );
     }
 
     private static Chart createChart() {
-        Chart chart = ChartFactory.createBarChart("DualAxisDemo1", "Category", "Value", createDataset1());
+        Chart chart = ChartFactory.bar("DualAxisDemo1", "Category", "Value",
+                createDataset1());
         chart.removeLegend();
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
-        CategoryDataset dataset2 = createDataset2();
-        plot.setDataset(1, dataset2);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+
+        plot.setDataset(1, createDataset2(), CategoryXYChartType.LINE);
+        plot.setRangeAxis(1, new NumberAxis("Secondary"));
+
         plot.mapDatasetToRangeAxis(1, 1);
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.DOWN_45);
-        ValueAxis axis2 = new NumberAxis("Secondary");
-        plot.setRangeAxis(1, axis2);
-        LineAndShapeRenderer renderer2 = new LineAndShapeRenderer();
-        renderer2.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
-        plot.setRenderer(1, renderer2);
+        plot.getDomainAxis().categoryLabelPositions(CategoryLabelPositions.DOWN_45);
+
+        plot.getLineAndShapeRenderer(1)
+                .setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+
         LegendTitle legend1 = new LegendTitle(plot.getRenderer(0));
         LegendTitle legend2 = new LegendTitle(plot.getRenderer(1));
         BlockContainer container = new BlockContainer(new BorderArrangement());
         container.add(legend1, RectangleEdge.LEFT);
         container.add(legend2, RectangleEdge.RIGHT);
-        container.add(new EmptyBlock((double)2000.0F, (double)0.0F));
+        container.add(new EmptyBlock(2000.0, 0.0));
         CompositeTitle legends = new CompositeTitle(container);
         legends.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legends);
@@ -128,8 +106,8 @@ public class DualAxisDemo1 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        DualAxisDemo1 demo = new DualAxisDemo1("Chart: DualAxisDemo1.java");
+    static void main() {
+        DualAxisDemo1 demo = new DualAxisDemo1("DualAxisDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

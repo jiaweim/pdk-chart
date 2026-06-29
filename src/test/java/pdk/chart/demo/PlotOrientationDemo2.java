@@ -41,7 +41,7 @@ public class PlotOrientationDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(int index, XYDataset dataset) {
-        Chart chart = ChartFactory.createXYLineChart("Chart " + (index + 1), "X", "Y", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = ChartFactory.line("Chart " + (index + 1), "X", "Y", dataset, PlotOrientation.VERTICAL, false, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
         renderer.setDefaultShapesVisible(true);

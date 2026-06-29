@@ -341,6 +341,18 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the flag that controls whether bar outlines are drawn and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param draw the flag.
+     * @see #isDrawBarOutline()
+     */
+    public XYBarRenderer drawBarOutline(boolean draw) {
+        setDrawBarOutline(draw);
+        return this;
+    }
+
+    /**
      * Returns the gradient paint transformer (an object used to transform
      * gradient paint objects to fit each bar).
      *

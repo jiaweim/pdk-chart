@@ -62,7 +62,7 @@ public class YieldCurveDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("US$ Treasury Yields", "Date", "Yield", dataset);
+        Chart chart = ChartFactory.timeLine("US$ Treasury Yields", "Date", "Yield", dataset);
         chart.removeLegend();
         XYPlot plot = (XYPlot)chart.getPlot();
         GregorianCalendar cal = new GregorianCalendar(2016, 2, 23);

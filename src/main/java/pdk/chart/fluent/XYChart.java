@@ -251,10 +251,6 @@ public class XYChart extends Chart {
         return this;
     }
 
-    public LegendTitleProps legend() {
-        return new LegendTitleProps(this, (LegendTitle) getSubtitle(0));
-    }
-
     /**
      * Whether to create and display the legend.
      *
@@ -409,8 +405,8 @@ public class XYChart extends Chart {
      * @return this
      */
     public XYChart addPointerAnnotation(String label, double x, double y,
-                                        double angle, double labelOffset,
-                                        TextAnchor textAnchor, Color backgroundColor) {
+            double angle, double labelOffset,
+            TextAnchor textAnchor, Color backgroundColor) {
 
         XYPointerAnnotation annotation = new XYPointerAnnotation(label, x, y, angle);
         annotation.setLabelOffset(labelOffset);

@@ -36,7 +36,7 @@ public class ParetoChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset[] datasets) {
-        Chart chart = ChartFactory.createBarChart("TIOBE Index of Programming Languages", (String)null, "Index Value", datasets[0]);
+        Chart chart = ChartFactory.bar("TIOBE Index of Programming Languages", (String)null, "Index Value", datasets[0]);
         chart.addSubtitle(new TextTitle("As at August 2013"));
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot)chart.getPlot();

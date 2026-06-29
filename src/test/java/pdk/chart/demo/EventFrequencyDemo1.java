@@ -30,7 +30,7 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createBarChart("Event Frequency Demo", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = ChartFactory.bar("Event Frequency Demo", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);

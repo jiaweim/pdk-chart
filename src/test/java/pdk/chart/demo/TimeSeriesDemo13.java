@@ -32,7 +32,7 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createTimeSeriesChart("Weekly Data", "Date", "Value", dataset, true, true, false);
+        Chart chart = ChartFactory.timeLine("Weekly Data", "Date", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

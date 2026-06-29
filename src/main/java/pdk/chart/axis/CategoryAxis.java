@@ -300,6 +300,18 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
     }
 
     /**
+     * Sets the category label position specification for the axis and sends an
+     * {@link AxisChangeEvent} to all registered listeners.
+     *
+     * @param positions the positions ({@code null} not permitted).
+     * @see #getCategoryLabelPositions()
+     */
+    public CategoryAxis categoryLabelPositions(CategoryLabelPositions positions) {
+        setCategoryLabelPositions(positions);
+        return this;
+    }
+
+    /**
      * Returns the font for the tick label for the given category.
      *
      * @param category the category ({@code null} not permitted).
