@@ -4,7 +4,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 
 /**
@@ -25,7 +25,7 @@ public class BarChartDemo4 {
 
     static void main() {
         CategoryXYChart chart = CategoryXYChart.create();
-        chart.dataset(createDataset(), CategoryXYChartType.BAR)
+        chart.dataset(createDataset(), CategoryChartType.BAR)
                 .title("Bar Chart Demo 4")
                 .axisNames(null, "Value")
                 .showLegend(true)

@@ -5,7 +5,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.util.GradientPaintTransformType;
@@ -35,7 +35,7 @@ public class BarChartDemo2 {
         CategoryXYChart chart = CategoryXYChart.create()
                 .title("Bar Chart Demo 2")
                 .showLegend(true)
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .axisNames("Category", "Score (%)")
                 .orientation(PlotOrientation.HORIZONTAL)
                 .rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT)

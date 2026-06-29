@@ -2,7 +2,7 @@ package pdk.chart.axis;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.plot.CategoryPlot;
@@ -92,7 +92,7 @@ public class SubCategoryAxisTest {
      */
     @Test
     public void test2275695() {
-        Chart chart = ChartFactory.createStackedBarChart("Test",
+        Chart chart = JChart.createStackedBarChart("Test",
                 "Category", "Value", null, PlotOrientation.VERTICAL,
                 true, false, false);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();

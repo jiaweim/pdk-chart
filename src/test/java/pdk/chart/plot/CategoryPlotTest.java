@@ -2,7 +2,7 @@ package pdk.chart.plot;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.annotations.CategoryLineAnnotation;
 import pdk.chart.annotations.CategoryTextAnnotation;
@@ -668,7 +668,7 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization3() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = ChartFactory.bar(
+        Chart chart = JChart.bar(
                 "Test Chart", "Category Axis", "Value Axis", dataset,
                 PlotOrientation.VERTICAL, true, true, false);
         Chart chart2 = TestUtils.serialised(chart);
@@ -687,7 +687,7 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization4() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = ChartFactory.bar(
+        Chart chart = JChart.bar(
                 "Test Chart", "Category Axis", "Value Axis",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
         @SuppressWarnings("unchecked")
@@ -822,7 +822,7 @@ public class CategoryPlotTest {
     @Test
     public void test1654215() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = ChartFactory.createLineChart("Title", "X", "Y",
+        Chart chart = JChart.line("Title", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, false, false);
         @SuppressWarnings("unchecked")
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();

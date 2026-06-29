@@ -16,7 +16,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.CompassFormat;
 import pdk.chart.axis.ModuloAxis;
@@ -129,7 +129,7 @@ public class CompassFormatDemo2 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset direction = this.createDirectionDataset(100);
-            Chart chart = ChartFactory.timeLine("Time", "Date", "Direction", direction, true, true, false);
+            Chart chart = JChart.timeLine("Time", "Date", "Direction", direction, true, true, false);
             XYPlot plot = (XYPlot)chart.getPlot();
             plot.getDomainAxis().setLowerMargin((double)0.0F);
             plot.getDomainAxis().setUpperMargin((double)0.0F);

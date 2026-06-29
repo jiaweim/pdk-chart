@@ -7,7 +7,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
@@ -75,7 +75,7 @@ public class CrosshairOverlayDemo2 extends JFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = ChartFactory.line("CrosshairOverlayDemo2", "X", "Y", dataset);
+            Chart chart = JChart.line("CrosshairOverlayDemo2", "X", "Y", dataset);
             return chart;
         }
 

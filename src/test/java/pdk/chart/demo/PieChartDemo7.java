@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.labels.StandardPieSectionLabelGenerator;
@@ -35,7 +35,7 @@ public class PieChartDemo7 extends ApplicationFrame {
 
     public static JPanel createDemoPanel() {
         PieDataset dataset = createDataset(14);
-        Chart chart = ChartFactory.createPieChart("Pie Chart Demo 7", dataset, false, true, false);
+        Chart chart = JChart.createPieChart("Pie Chart Demo 7", dataset, false, true, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setCircular(true);
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {2}", NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));

@@ -6,7 +6,7 @@ import pdk.chart.api.UnitType;
 import pdk.chart.api.VerticalAlignment;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.title.TextTitle;
@@ -40,7 +40,7 @@ public class AreaChartDemo1 {
         title.setVerticalAlignment(VerticalAlignment.BOTTOM);
 
         CategoryXYChart chart = CategoryXYChart.create()
-                .dataset(dataset, CategoryXYChartType.AREA)
+                .dataset(dataset, CategoryChartType.AREA)
                 .title("Area Chart")
                 .axisNames("Category", "Value")
                 .orientation(PlotOrientation.VERTICAL)

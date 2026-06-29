@@ -109,7 +109,7 @@ public class ScatterPlotTest {
         series1.add(2.0, 2.0);
         series1.add(3.0, 3.0);
         XYDataset<String> dataset = new XYSeriesCollection<>(series1);
-        return ChartFactory.scatter("Scatter Plot", "Domain",
+        return JChart.scatter("Scatter Plot", "Domain",
                 "Range", dataset);
     }
 

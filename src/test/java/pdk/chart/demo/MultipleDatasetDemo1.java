@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
@@ -51,7 +51,7 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
         public MyDemoPanel() {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = this.createRandomDataset("Series 1");
-            Chart chart = ChartFactory.timeLine("Multiple Dataset Demo 1", "Time", "Value", dataset1, true, true, false);
+            Chart chart = JChart.timeLine("Multiple Dataset Demo 1", "Time", "Value", dataset1, true, true, false);
             chart.setBackgroundPaint((Paint)null);
             this.addChart(chart);
             this.plot = (XYPlot)chart.getPlot();

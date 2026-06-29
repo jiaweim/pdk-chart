@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.axis.NumberAxis;
@@ -29,7 +29,7 @@ public class HighLowChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = ChartFactory.createHighLowChart("High-Low-Open-Close Demo", "Time", "Price", dataset, true);
+        Chart chart = JChart.createHighLowChart("High-Low-Open-Close Demo", "Time", "Price", dataset, true);
         XYPlot plot = (XYPlot)chart.getPlot();
         DateAxis axis = (DateAxis)plot.getDomainAxis();
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);

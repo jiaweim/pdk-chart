@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
@@ -51,7 +51,7 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(BoxAndWhiskerCategoryDataset dataset) {
-        Chart chart = ChartFactory.createBoxAndWhiskerChart("Box and Whisker Chart Demo 1", "Category", "Value", dataset, true);
+        Chart chart = JChart.boxAndWhisker("Box and Whisker Chart Demo 1", "Category", "Value", dataset, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         plot.setRangePannable(true);

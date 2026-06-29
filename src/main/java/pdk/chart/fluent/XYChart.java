@@ -76,15 +76,6 @@ public class XYChart extends Chart {
     }
 
     /**
-     * Return the configuration class for range axis properties.
-     *
-     * @return {@link CategoryNumberAxisProps}.
-     */
-    public DateAxisProps rangeAxisDate() {
-        return new DateAxisProps(this, (DateAxis) rangeAxis_);
-    }
-
-    /**
      * Return the configuration class for domain axis properties.
      *
      * @return {@link DateAxisProps}.

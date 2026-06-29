@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -37,7 +37,7 @@ public class StackedBarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Stacked Bar Chart Demo 6", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart Demo 6", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         StackedBarRenderer renderer = (StackedBarRenderer)plot.getRenderer();
         renderer.setDrawBarOutline(false);

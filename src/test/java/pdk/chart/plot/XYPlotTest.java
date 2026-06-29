@@ -2,7 +2,7 @@ package pdk.chart.plot;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.api.Layer;
@@ -696,7 +696,7 @@ public class XYPlotTest {
     public void testSerialization3() {
 
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-        Chart chart = ChartFactory.line("Test Chart",
+        Chart chart = JChart.line("Test Chart",
                 "Domain Axis", "Range Axis", dataset);
         Chart chart2 = TestUtils.serialised(chart);
         assertEquals(chart, chart2);
@@ -715,7 +715,7 @@ public class XYPlotTest {
     public void testSerialization4() {
 
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-        Chart chart = ChartFactory.line("Test Chart",
+        Chart chart = JChart.line("Test Chart",
                 "Domain Axis", "Range Axis", dataset);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.addDomainMarker(new ValueMarker(1.0), Layer.FOREGROUND);
@@ -942,7 +942,7 @@ public class XYPlotTest {
     @Test
     public void test1654215() {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
-        Chart chart = ChartFactory.line("Title", "X", "Y",
+        Chart chart = JChart.line("Title", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(1, new XYLineAndShapeRenderer());
@@ -964,7 +964,7 @@ public class XYPlotTest {
     @Test
     public void testDrawRangeGridlines() {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
-        Chart chart = ChartFactory.line("Title", "X", "Y",
+        Chart chart = JChart.line("Title", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(null);
@@ -988,7 +988,7 @@ public class XYPlotTest {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
         dataset.addSeries("Series 1", new double[][]{{1.0, 2.0}, {3.0, 4.0}});
         dataset.addSeries("Series 2", new double[][]{{}, {}});
-        Chart chart = ChartFactory.line("Title", "X", "Y",
+        Chart chart = JChart.line("Title", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, false, false);
         try {
             BufferedImage image = new BufferedImage(200, 100,

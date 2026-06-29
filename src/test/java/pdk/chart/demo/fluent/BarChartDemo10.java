@@ -5,7 +5,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.demo.Animator;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 
 import java.awt.*;
 
@@ -33,7 +33,7 @@ public class BarChartDemo10 {
         CategoryXYChart chart = CategoryXYChart.create()
                 .title("Bar Chart Demo 10")
                 .axisNames("Category", "Value")
-                .dataset(dataset, CategoryXYChartType.BAR)
+                .dataset(dataset, CategoryChartType.BAR)
                 .domainGridlinesVisible(true)
 
                 .barProps(0)

@@ -6,7 +6,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.text.TextAnchor;
 
@@ -41,7 +41,7 @@ public class CategoryMarkerDemo1 {
         marker.setLabelOffset(new RectangleInsets((double) 2.0F, (double) 5.0F, (double) 2.0F, (double) 5.0F));
 
         CategoryXYChart chart = CategoryXYChart.create()
-                .dataset(createDataset(), CategoryXYChartType.LINE)
+                .dataset(createDataset(), CategoryChartType.LINE)
                 .title("Category Marker Demo 1")
                 .axisNames("Category", "Count")
                 .showLegend(true)

@@ -4,7 +4,7 @@ import java.awt.Color;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.api.RectangleEdge;
@@ -91,7 +91,7 @@ public class AnnotationDemo2 extends ApplicationFrame {
 
     public static Chart createChart() {
         XYDataset dataset = createDataset1();
-        Chart chart = ChartFactory.line("Annotation Demo 2", "Date", "Price Per Unit", dataset);
+        Chart chart = JChart.line("Annotation Demo 2", "Date", "Price Per Unit", dataset);
         chart.removeLegend();
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);

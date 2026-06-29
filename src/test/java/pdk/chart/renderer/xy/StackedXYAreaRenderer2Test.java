@@ -2,7 +2,7 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
@@ -31,7 +31,7 @@ public class StackedXYAreaRenderer2Test {
     @Test
     public void testDrawWithEmptyDataset() {
         boolean success;
-        Chart chart = ChartFactory.createStackedXYAreaChart("title", "x",
+        Chart chart = JChart.createStackedXYAreaChart("title", "x",
                 "y", new DefaultTableXYDataset<String>(), PlotOrientation.VERTICAL,
                 true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
@@ -116,7 +116,7 @@ public class StackedXYAreaRenderer2Test {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = ChartFactory.createStackedXYAreaChart(
+        Chart chart = JChart.createStackedXYAreaChart(
                 "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();

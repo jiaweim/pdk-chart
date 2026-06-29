@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.api.HorizontalAlignment;
@@ -36,7 +36,7 @@ public class XYBarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("US Budget Deficit", "Year", true, "$ Billion", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.bar("US Budget Deficit", "Year", true, "$ Billion", dataset, PlotOrientation.VERTICAL, false, false, false);
         TextTitle source = new TextTitle("Source: http://www.cbo.gov/showdoc.cfm?index=1821&sequence=0#table12");
         source.setFont(new Font("Dialog", 0, 8));
         source.setPosition(RectangleEdge.BOTTOM);

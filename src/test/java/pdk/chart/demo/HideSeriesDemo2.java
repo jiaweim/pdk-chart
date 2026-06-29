@@ -8,7 +8,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
@@ -85,7 +85,7 @@ public class HideSeriesDemo2 extends ApplicationFrame {
         }
 
         private Chart createChart(CategoryDataset dataset) {
-            Chart result = ChartFactory.createAreaChart("Hide Series Demo 2", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+            Chart result = JChart.area("Hide Series Demo 2", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
             CategoryPlot plot = (CategoryPlot)result.getPlot();
             plot.setRenderer(new StatisticalLineAndShapeRenderer());
             this.renderer = plot.getRenderer(0);

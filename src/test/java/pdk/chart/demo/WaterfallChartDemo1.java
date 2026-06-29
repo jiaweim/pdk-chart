@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberTickUnit;
 import pdk.chart.axis.TickUnits;
 import pdk.chart.axis.ValueAxis;
@@ -39,7 +39,7 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createWaterfallChart("Product Cost Breakdown", "Expense Category", "Cost Per Unit", dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.createWaterfallChart("Product Cost Breakdown", "Expense Category", "Cost Per Unit", dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         ValueAxis rangeAxis = plot.getRangeAxis();
         DecimalFormat formatter = new DecimalFormat("##,###");

@@ -1,37 +1,33 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-import java.awt.GridLayout;
-import java.util.Date;
-import javax.swing.JPanel;
-
-import pdk.chart.ChartFactory;
 import pdk.chart.Chart;
-import pdk.chart.fluent.Data;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.ClusteredXYBarRenderer;
-import pdk.chart.renderer.xy.XYBarRenderer;
+import pdk.chart.JChart;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.renderer.xy.ClusteredXYBarRenderer;
+import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.util.GradientPaintTransformType;
 import pdk.chart.util.StandardGradientPaintTransformer;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
+
     public ClusteredXYBarRendererDemo1(String title) {
         super(title);
         this.setContentPane(createDemoPanel());
     }
 
     private static Chart createChart(String title, IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar(title, null, true, "Y", dataset);
+        Chart chart = JChart.bar(title, null, true, "Y", dataset);
         XYPlot plot = (XYPlot) chart.getPlot();
         ClusteredXYBarRenderer r = new ClusteredXYBarRenderer(0.2, false);
         plot.setRenderer(r);
@@ -60,14 +56,15 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
         panel.setPreferredSize(new Dimension(800, 600));
         IntervalXYDataset dataset = createDataset();
         Chart chart1 = createChart("Vertical", dataset);
-        XYPlot plot1 = (XYPlot) chart1.getPlot();
-        XYBarRenderer renderer1 = (XYBarRenderer) plot1.getRenderer();
+        XYPlot plot1 = chart1.getXYPlot();
+        XYBarRenderer renderer1 = plot1.getXYBarRenderer();
         renderer1.setDrawBarOutline(false);
         renderer1.setSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, Color.YELLOW));
         renderer1.setSeriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, Color.GREEN));
         renderer1.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.VERTICAL));
         ChartPanel chartPanel1 = new ChartPanel(chart1);
         panel.add(chartPanel1);
+
         Chart chart2 = createChart("Vertical / Inverted Axis", dataset);
         XYPlot plot2 = (XYPlot) chart2.getPlot();
         XYBarRenderer renderer2 = (XYBarRenderer) plot2.getRenderer();
@@ -78,6 +75,7 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
         plot2.getDomainAxis().setInverted(true);
         ChartPanel chartPanel2 = new ChartPanel(chart2);
         panel.add(chartPanel2);
+
         Chart chart3 = createChart("Horizontal", dataset);
         XYPlot plot3 = (XYPlot) chart3.getPlot();
         plot3.setOrientation(PlotOrientation.HORIZONTAL);
@@ -88,6 +86,7 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
         renderer3.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.CENTER_VERTICAL));
         ChartPanel chartPanel3 = new ChartPanel(chart3);
         panel.add(chartPanel3);
+
         Chart chart4 = createChart("Horizontal / Inverted Axis", dataset);
         XYPlot plot4 = (XYPlot) chart4.getPlot();
         plot4.setOrientation(PlotOrientation.HORIZONTAL);
@@ -106,8 +105,8 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        ClusteredXYBarRendererDemo1 demo = new ClusteredXYBarRendererDemo1("Chart: ClusteredXYBarRendererDemo1.java");
+    static void main() {
+        ClusteredXYBarRendererDemo1 demo = new ClusteredXYBarRendererDemo1("ClusteredXYBarRendererDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

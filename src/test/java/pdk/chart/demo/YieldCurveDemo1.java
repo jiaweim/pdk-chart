@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -62,7 +62,7 @@ public class YieldCurveDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("US$ Treasury Yields", "Date", "Yield", dataset);
+        Chart chart = JChart.timeLine("US$ Treasury Yields", "Date", "Yield", dataset);
         chart.removeLegend();
         XYPlot plot = (XYPlot)chart.getPlot();
         GregorianCalendar cal = new GregorianCalendar(2016, 2, 23);

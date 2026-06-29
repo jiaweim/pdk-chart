@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
@@ -38,7 +38,7 @@ public class PriceVolumeDemo2 extends ApplicationFrame {
     private static Chart createChart() {
         OHLCDataset priceData = createPriceDataset();
         String title = "Sun Microsystems (SUNW)";
-        Chart chart = ChartFactory.createHighLowChart(title, "Date", "Price", priceData, true);
+        Chart chart = JChart.createHighLowChart(title, "Date", "Price", priceData, true);
         XYPlot plot = (XYPlot) chart.getPlot();
         DateAxis xAxis = (DateAxis) plot.getDomainAxis();
         xAxis.setLowerMargin(0.01);

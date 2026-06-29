@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.annotations.XYTitleAnnotation;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
@@ -34,7 +34,7 @@ public class XYTitleAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, false, true, false);
+        Chart chart = JChart.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, false, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

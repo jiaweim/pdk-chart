@@ -259,7 +259,7 @@ public interface Data {
      * @return {@link IntervalXYDataset}
      */
     @SafeVarargs
-    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(TimeSeries<S>... series) {
+    static <S extends Comparable<S>> IntervalXYDataset<S> createTime(TimeSeries<S>... series) {
         TimeSeriesCollection<S> tc = new TimeSeriesCollection<>();
         for (TimeSeries<S> sTimeSeries : series) {
             tc.addSeries(sTimeSeries);

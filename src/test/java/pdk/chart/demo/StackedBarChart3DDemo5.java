@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -41,7 +41,7 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(int index, CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Chart " + (index + 1), "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.createStackedBarChart("Chart " + (index + 1), "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.getDomainAxis().setMaximumCategoryLabelLines(2);
         ValueAxis rangeAxis = plot.getRangeAxis();

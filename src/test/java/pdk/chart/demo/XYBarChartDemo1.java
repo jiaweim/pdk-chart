@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.axis.DateAxis;
@@ -32,7 +32,7 @@ public class XYBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("State Executions - USA", "Year", true, "Number of People", dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.bar("State Executions - USA", "Year", true, "Number of People", dataset, PlotOrientation.VERTICAL, true, false, false);
         chart.addSubtitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do", new Font("Dialog", 2, 10)));
         XYPlot plot = (XYPlot)chart.getPlot();
         XYBarRenderer renderer = (XYBarRenderer)plot.getRenderer();

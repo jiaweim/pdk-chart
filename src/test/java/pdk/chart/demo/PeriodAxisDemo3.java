@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.PeriodAxis;
@@ -33,7 +33,7 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("Maximum Temperature", "Day", true, "Temperature", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar("Maximum Temperature", "Day", true, "Temperature", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

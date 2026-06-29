@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.swing.ApplicationFrame;
@@ -20,7 +20,7 @@ public class XYBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("Sample", "X", false, "Y", dataset);
+        Chart chart = JChart.bar("Sample", "X", false, "Y", dataset);
         return chart;
     }
 

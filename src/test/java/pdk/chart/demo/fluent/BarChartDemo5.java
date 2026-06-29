@@ -7,7 +7,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
@@ -45,7 +45,7 @@ public class BarChartDemo5 {
     static void main() {
         CategoryXYChart chart = CategoryXYChart.create();
         chart.orientation(PlotOrientation.HORIZONTAL)
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .title("Prison Population Rates - Selected Countries")
                 .axisNames("Country", "Prisoners Per 100,000 National Population")
                 .addTitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf", new Font("Dialog", Font.ITALIC, 10)))

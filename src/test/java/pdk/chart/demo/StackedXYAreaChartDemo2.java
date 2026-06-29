@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.xy.CategoryTableXYDataset;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
@@ -40,7 +40,7 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = ChartFactory.createStackedXYAreaChart("Stacked XY Area Chart Demo 2", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.createStackedXYAreaChart("Stacked XY Area Chart Demo 2", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
         renderer.setRoundXCoordinates(true);

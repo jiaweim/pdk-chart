@@ -61,12 +61,12 @@ public abstract class ChartUtils {
     /**
      * Applies the current theme to the specified chart.  This method is
      * provided for convenience, the theme itself is stored in the
-     * {@link ChartFactory} class.
+     * {@link JChart} class.
      *
      * @param chart the chart ({@code null} not permitted).
      */
     public static void applyCurrentTheme(Chart chart) {
-        ChartFactory.getChartTheme().apply(chart);
+        JChart.getChartTheme().apply(chart);
     }
 
     /**

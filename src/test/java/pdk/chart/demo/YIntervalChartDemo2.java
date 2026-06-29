@@ -6,7 +6,7 @@ import java.util.Calendar;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
@@ -58,7 +58,7 @@ public class YIntervalChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.line("YIntervalChartDemo2", "Date", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line("YIntervalChartDemo2", "Date", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

@@ -10,7 +10,7 @@ import pdk.chart.renderer.category.*;
  * @version 1.0.0
  * @since 08 Jun 2026, 10:46 AM
  */
-public enum CategoryXYChartType {
+public enum CategoryChartType {
 
     LINE,
     AREA,

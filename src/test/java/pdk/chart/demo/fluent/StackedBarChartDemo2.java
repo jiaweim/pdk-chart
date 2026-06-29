@@ -7,7 +7,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.PlotOrientation;
@@ -74,7 +74,7 @@ public class StackedBarChartDemo2 {
 
         CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
-                .addDataset(createDataset(), CategoryXYChartType.BAR_STACK)
+                .addDataset(createDataset(), CategoryChartType.BAR_STACK)
                 .showLegend(true)
 
                 .title("Public Opinion : Torture of Prisoners")

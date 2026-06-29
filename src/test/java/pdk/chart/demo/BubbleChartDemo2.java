@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.labels.BubbleXYItemLabelGenerator;
@@ -30,7 +30,7 @@ public class BubbleChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        Chart chart = ChartFactory.bubble("Bubble Chart Demo 2", "X", "Y",
+        Chart chart = JChart.bubble("Bubble Chart Demo 2", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new XYBubbleRenderer(0));

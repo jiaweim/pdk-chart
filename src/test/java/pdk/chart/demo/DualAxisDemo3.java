@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
@@ -30,7 +30,7 @@ public class DualAxisDemo3 extends ApplicationFrame {
 
     private static Chart createChart() {
         CategoryDataset dataset1 = createDataset1();
-        Chart chart = ChartFactory.bar("Dual Axis Chart", "Category", "Value", dataset1, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.bar("Dual Axis Chart", "Category", "Value", dataset1, PlotOrientation.HORIZONTAL, true, true, false);
         LegendTitle legend = (LegendTitle) chart.getSubtitle(0);
         legend.setPosition(RectangleEdge.LEFT);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();

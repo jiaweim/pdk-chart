@@ -7,7 +7,7 @@ import java.util.Date;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.renderer.category.CategoryItemRenderer;
 import pdk.chart.data.category.IntervalCategoryDataset;
@@ -27,7 +27,7 @@ public class GanttDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalCategoryDataset dataset) {
-        Chart chart = ChartFactory.createGanttChart("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
+        Chart chart = JChart.createGanttChart("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setRangePannable(true);
         plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);

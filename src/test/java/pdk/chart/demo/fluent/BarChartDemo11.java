@@ -5,7 +5,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.title.TextTitle;
@@ -52,7 +52,7 @@ public class BarChartDemo11 {
                 .axisNames("License", "Percent")
                 .orientation(PlotOrientation.HORIZONTAL)
                 .domainGridlinesVisible(true)
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .domainAxis()
                 .maximumCategoryLabelWidthRatio(0.8f)
                 .done()

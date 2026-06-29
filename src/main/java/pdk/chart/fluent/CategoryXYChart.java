@@ -51,10 +51,10 @@ public class CategoryXYChart extends Chart {
      * Create a {@link CategoryXYChart}
      *
      * @param dataset   {@link CategoryDataset}
-     * @param chartType {@link CategoryXYChartType}
+     * @param chartType {@link CategoryChartType}
      * @return {@link CategoryXYChart} instance.
      */
-    public static CategoryXYChart create(CategoryDataset dataset, CategoryXYChartType chartType) {
+    public static CategoryXYChart create(CategoryDataset dataset, CategoryChartType chartType) {
         CategoryXYChart chart = new CategoryXYChart();
         chart.addDataset(dataset, chartType);
         return chart;
@@ -193,10 +193,10 @@ public class CategoryXYChart extends Chart {
      * Add a new {@link CategoryDataset} to show.
      *
      * @param dataset   {@link CategoryDataset} to show.
-     * @param chartType {@link CategoryXYChartType} to render the dataset.
+     * @param chartType {@link CategoryChartType} to render the dataset.
      * @return this.
      */
-    public CategoryXYChart dataset(CategoryDataset dataset, CategoryXYChartType chartType) {
+    public CategoryXYChart dataset(CategoryDataset dataset, CategoryChartType chartType) {
         return addDataset(0, dataset, chartType);
     }
 
@@ -204,10 +204,10 @@ public class CategoryXYChart extends Chart {
      * Add a new {@link CategoryDataset} to show.
      *
      * @param dataset   {@link CategoryDataset} to show.
-     * @param chartType {@link CategoryXYChartType} to render the dataset.
+     * @param chartType {@link CategoryChartType} to render the dataset.
      * @return this.
      */
-    public CategoryXYChart addDataset(CategoryDataset dataset, CategoryXYChartType chartType) {
+    public CategoryXYChart addDataset(CategoryDataset dataset, CategoryChartType chartType) {
         int datasetCount = plot_.getDatasetCount();
         if (datasetCount == 1 && plot_.getDataset(0) == null) {
             datasetCount = 0;
@@ -219,17 +219,17 @@ public class CategoryXYChart extends Chart {
      * Add a new {@link CategoryDataset} to show.
      *
      * @param dataset   {@link CategoryDataset} to show.
-     * @param chartType {@link CategoryXYChartType} to render the dataset.
+     * @param chartType {@link CategoryChartType} to render the dataset.
      * @return this.
      */
-    public CategoryXYChart addDataset(int index, CategoryDataset dataset, CategoryXYChartType chartType) {
+    public CategoryXYChart addDataset(int index, CategoryDataset dataset, CategoryChartType chartType) {
         CategoryDataset exitingDataset = plot_.getDataset(index);
         if (exitingDataset != null) {
             throw new IllegalStateException("Dataset with index " + index + " already exists!");
         }
 
         CategoryItemRenderer renderer = chartType.getRenderer();
-        if (chartType == CategoryXYChartType.BAR) {
+        if (chartType == CategoryChartType.BAR) {
             PlotOrientation orientation = plot_.getOrientation();
             if (orientation == PlotOrientation.HORIZONTAL) {
                 ItemLabelPosition position1 = new ItemLabelPosition(
@@ -246,7 +246,7 @@ public class CategoryXYChart extends Chart {
                         ItemLabelAnchor.OUTSIDE6, TextAnchor.TOP_CENTER);
                 renderer.setDefaultNegativeItemLabelPosition(position2);
             }
-        } else if (chartType == CategoryXYChartType.BAR_WATERFALL) {
+        } else if (chartType == CategoryChartType.BAR_WATERFALL) {
             PlotOrientation orientation = plot_.getOrientation();
             if (orientation == PlotOrientation.HORIZONTAL) {
                 ItemLabelPosition position = new ItemLabelPosition(
@@ -306,7 +306,7 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
-     * Set properties for the {@link CategoryXYChartType#BAR}.
+     * Set properties for the {@link CategoryChartType#BAR}.
      * <p>
      * Throw an {@link IllegalStateException} if the renderer type of the specified dataset is not BAR.
      *
@@ -322,7 +322,7 @@ public class CategoryXYChart extends Chart {
     }
 
     /**
-     * Set properties for the {@link CategoryXYChartType#LINE}.
+     * Set properties for the {@link CategoryChartType#LINE}.
      * <p>
      * Throw an {@link IllegalStateException} if the renderer type of the specified dataset is not LINE.
      *

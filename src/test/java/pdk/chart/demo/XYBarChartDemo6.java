@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.xy.DefaultIntervalXYDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
@@ -23,7 +23,7 @@ public class XYBarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("XYBarChartDemo6", "X", false, "Y", dataset, PlotOrientation.HORIZONTAL, false, false, false);
+        Chart chart = JChart.bar("XYBarChartDemo6", "X", false, "Y", dataset, PlotOrientation.HORIZONTAL, false, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

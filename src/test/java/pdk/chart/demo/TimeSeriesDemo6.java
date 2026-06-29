@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.time.Month;
@@ -29,7 +29,7 @@ public class TimeSeriesDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("International Coffee Organisation : Coffee Prices", (String) null, "US cents/lb", dataset, true, true, false);
+        Chart chart = JChart.timeLine("International Coffee Organisation : Coffee Prices", (String) null, "US cents/lb", dataset, true, true, false);
         String fontName = "Palatino";
         chart.getTitle().setFont(new Font(fontName, 1, 18));
         chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf", new Font(fontName, 0, 14)));

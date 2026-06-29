@@ -8,7 +8,7 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -71,7 +71,7 @@ public class LineChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createLineChart("Line Chart Demo 5", "Type", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line("Line Chart Demo 5", "Type", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         Shape[] shapes = new Shape[3];
         int[] xpoints = new int[]{-3, 3, -3};
         int[] ypoints = new int[]{-3, 0, 3};

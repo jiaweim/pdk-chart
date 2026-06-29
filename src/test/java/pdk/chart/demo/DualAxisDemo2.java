@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.DateAxis;
@@ -89,7 +89,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset dataset = createDataset1();
-        Chart chart = ChartFactory.timeLine("Dual Axis Demo 2", "Date", "Price Per Unit", dataset, false, true, false);
+        Chart chart = JChart.timeLine("Dual Axis Demo 2", "Date", "Price Per Unit", dataset, false, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryLabelPositions;
@@ -10,7 +10,7 @@ import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.fluent.Data;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
@@ -71,13 +71,13 @@ public class DualAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart() {
-        Chart chart = ChartFactory.bar("DualAxisDemo1", "Category", "Value",
+        Chart chart = JChart.bar("DualAxisDemo1", "Category", "Value",
                 createDataset1());
         chart.removeLegend();
 
         CategoryPlot plot = chart.getCategoryPlot();
 
-        plot.setDataset(1, createDataset2(), CategoryXYChartType.LINE);
+        plot.setDataset(1, createDataset2(), CategoryChartType.LINE);
         plot.setRangeAxis(1, new NumberAxis("Secondary"));
 
         plot.mapDatasetToRangeAxis(1, 1);

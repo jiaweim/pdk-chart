@@ -1,5 +1,6 @@
 package pdk.chart.plot;
 
+import org.jspecify.annotations.NonNull;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
@@ -169,10 +170,10 @@ public abstract class Marker implements Cloneable, Serializable {
      * Sets the paint and sends a {@link MarkerChangeEvent} to all registered
      * listeners.
      *
-     * @param paint the paint ({@code null} not permitted).
+     * @param paint the paint.
      * @see #getPaint()
      */
-    public void setPaint(Paint paint) {
+    public void setPaint(@NonNull Paint paint) {
         Objects.requireNonNull(paint);
         this.paint = paint;
         notifyListeners(new MarkerChangeEvent(this));

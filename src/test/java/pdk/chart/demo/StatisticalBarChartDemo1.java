@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.axis.NumberAxis;
@@ -25,7 +25,7 @@ public class StatisticalBarChartDemo1 extends ApplicationFrame {
     private static final long serialVersionUID = 1L;
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createLineChart("Statistical Bar Chart Demo 1", "Type", "Value", dataset);
+        Chart chart = JChart.line("Statistical Bar Chart Demo 1", "Type", "Value", dataset);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());

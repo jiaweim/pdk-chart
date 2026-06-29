@@ -11,7 +11,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.plot.CategoryPlot;
@@ -89,7 +89,7 @@ public class SlidingGanttDatasetDemo1 extends ApplicationFrame {
         }
 
         private static Chart createChart(SlidingGanttCategoryDataset dataset) {
-            Chart chart = ChartFactory.createGanttChart("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
+            Chart chart = JChart.createGanttChart("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
             CategoryPlot plot = (CategoryPlot)chart.getPlot();
             Hour h = new Hour(1, 14, 5, 2008);
 

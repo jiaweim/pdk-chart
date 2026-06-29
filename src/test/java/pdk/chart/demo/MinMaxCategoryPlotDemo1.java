@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -53,7 +53,7 @@ public class MinMaxCategoryPlotDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("Min/Max Category Plot", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar("Min/Max Category Plot", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         MinMaxCategoryRenderer renderer = new MinMaxCategoryRenderer();

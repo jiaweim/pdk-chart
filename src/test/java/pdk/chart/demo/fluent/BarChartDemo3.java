@@ -9,7 +9,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
@@ -61,7 +61,7 @@ public class BarChartDemo3 {
 
         List<Integer> axisIndices = Arrays.asList(0, 1);
         CategoryXYChart chart = CategoryXYChart.create()
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .setRenderer(0, new CustomRenderer(customColours))
                 .setNoDataMessage("NO DATA!")
                 .axisNames("Category", "Value")

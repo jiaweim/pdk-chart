@@ -2,7 +2,7 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartRenderingInfo;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
@@ -194,7 +194,7 @@ public class StandardXYItemRendererTest {
         XYSeries<String> s1 = new XYSeries<>("S1");
         s1.add(10.0, 10.0);
         dataset.addSeries(s1);
-        Chart chart = ChartFactory.line("Title", "X", "Y",
+        Chart chart = JChart.line("Title", "X", "Y",
                 dataset, PlotOrientation.VERTICAL, false, true, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StandardXYItemRenderer());

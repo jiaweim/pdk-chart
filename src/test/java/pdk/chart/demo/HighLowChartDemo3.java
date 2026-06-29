@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -65,7 +65,7 @@ public class HighLowChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = ChartFactory.createHighLowChart("OHLC Demo 3", "Time", "Price", dataset, true);
+        Chart chart = JChart.createHighLowChart("OHLC Demo 3", "Time", "Price", dataset, true);
         XYPlot plot = (XYPlot)chart.getPlot();
         HighLowRenderer renderer = (HighLowRenderer)plot.getRenderer();
         renderer.setDefaultStroke(new BasicStroke(2.0F));

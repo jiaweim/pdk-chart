@@ -3,7 +3,7 @@ package pdk.chart.demo.fluent;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 
 import java.awt.*;
 import java.util.List;
@@ -39,7 +39,7 @@ public class BoxAndWhiskerChartDemo1 {
                 .showLegend(true)
                 .backgroundPaint(Color.WHITE)
                 .plotBackgroundPaint(Color.LIGHT_GRAY)
-                .addDataset(dataset, CategoryXYChartType.BoxWhisker)
+                .addDataset(dataset, CategoryChartType.BoxWhisker)
                 .domainGridlinePaint(Color.WHITE)
                 .domainGridlinesVisible(true)
                 .rangeGridlinePaint(Color.WHITE);

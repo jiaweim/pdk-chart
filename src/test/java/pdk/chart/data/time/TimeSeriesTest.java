@@ -152,12 +152,7 @@ public class TimeSeriesTest implements SeriesChangeListener {
         assertFalse(this.gotSeriesChangeEvent);
 
         // try deleting null
-        try {
-            s1.delete(null);
-            fail("Expected IllegalArgumentException.");
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
+        assertThrows(NullPointerException.class, () -> s1.delete(null));
     }
 
     /**
@@ -637,14 +632,7 @@ public class TimeSeriesTest implements SeriesChangeListener {
         assertNull(series.getDataItem(new Year(2006)));
 
         // try a null argument
-        boolean pass = false;
-        try {
-            /* TimeSeriesDataItem item = */
-            series.getDataItem(null);
-        } catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> series.getDataItem(null));
     }
 
     /**

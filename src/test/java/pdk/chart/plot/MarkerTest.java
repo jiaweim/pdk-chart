@@ -37,12 +37,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setPaint(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setPaint(null));
     }
 
     /**
@@ -61,12 +56,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setStroke(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setStroke(null));
     }
 
     /**
@@ -163,12 +153,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setLabelFont(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setLabelFont(null));
     }
 
     /**
@@ -187,12 +172,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setLabelPaint(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setLabelPaint(null));
     }
 
     /**
@@ -211,12 +191,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setLabelAnchor(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setLabelAnchor(null));
     }
 
     /**
@@ -235,12 +210,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setLabelOffset(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setLabelOffset(null));
     }
 
     /**
@@ -260,12 +230,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setLabelOffsetType(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setLabelOffsetType(null));
     }
 
     /**
@@ -285,12 +250,7 @@ public class MarkerTest implements MarkerChangeListener {
         assertEquals(m, this.lastEvent.getMarker());
 
         // check null argument...
-        try {
-            m.setLabelTextAnchor(null);
-            fail("Expected an IllegalArgumentException for null.");
-        } catch (IllegalArgumentException e) {
-            assertTrue(true);
-        }
+        assertThrows(NullPointerException.class, () -> m.setLabelTextAnchor(null));
     }
 
     /**

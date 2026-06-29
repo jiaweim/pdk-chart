@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
@@ -27,7 +27,7 @@ public class TimeSeriesDemo15 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Bug Report Submissions for Java", "Date", "Evaluation ID", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Bug Report Submissions for Java", "Date", "Evaluation ID", dataset, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

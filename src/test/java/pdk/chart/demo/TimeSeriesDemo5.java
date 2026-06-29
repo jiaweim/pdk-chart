@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.general.SeriesException;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
@@ -44,7 +44,7 @@ public class TimeSeriesDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Test", "Day", "Value", dataset, false, false, false);
+        Chart chart = JChart.timeLine("Test", "Day", "Value", dataset, false, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         SamplingXYLineRenderer renderer = new SamplingXYLineRenderer();

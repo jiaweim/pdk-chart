@@ -5,7 +5,7 @@ import pdk.chart.axis.TickUnits;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
@@ -49,7 +49,7 @@ public class WaterfallChartDemo1 {
                 .orientation(PlotOrientation.VERTICAL)
                 .title("Product Cost Breakdown")
                 .axisNames("Expense Category", "Cost Per Unit")
-                .dataset(createDataset(), CategoryXYChartType.BAR_WATERFALL)
+                .dataset(createDataset(), CategoryChartType.BAR_WATERFALL)
 
                 .barProps(0)
                 .addTooltips(true)

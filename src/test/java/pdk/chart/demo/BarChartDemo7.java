@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
@@ -62,7 +62,7 @@ public class BarChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("Bar Chart Demo 7", "Category", "Value", dataset);
+        Chart chart = JChart.bar("Bar Chart Demo 7", "Category", "Value", dataset);
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setRangePannable(true);

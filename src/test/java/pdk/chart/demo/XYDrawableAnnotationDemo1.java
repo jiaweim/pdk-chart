@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.annotations.XYDrawableAnnotation;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.DateAxis;
@@ -46,7 +46,7 @@ public class XYDrawableAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("XYDrawableAnnotationDemo1", (String)null, "$ million", dataset, true, true, false);
+        Chart chart = JChart.timeLine("XYDrawableAnnotationDemo1", (String)null, "$ million", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
@@ -121,7 +121,7 @@ public class XYDrawableAnnotationDemo1 extends ApplicationFrame {
         dataset.addValue(6.1, "R2", "Q2");
         dataset.addValue((double)8.5F, "R2", "Q3");
         dataset.addValue(4.3, "R2", "Q4");
-        Chart chart = ChartFactory.bar("Sales 2008", (String)null, (String)null, dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.bar("Sales 2008", (String)null, (String)null, dataset, PlotOrientation.VERTICAL, false, false, false);
         chart.setBackgroundPaint((Paint)null);
         chart.getPlot().setBackgroundPaint(new Color(200, 200, 255, 60));
         return chart;

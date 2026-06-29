@@ -3,7 +3,7 @@ package pdk.chart.demo.echarts;
 import pdk.chart.Chart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.fluent.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -39,7 +39,7 @@ public class LineSmooth extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        CategoryXYChart chart = CategoryXYChart.create(dataset, CategoryXYChartType.LINE);
+        CategoryXYChart chart = CategoryXYChart.create(dataset, CategoryChartType.LINE);
         return chart;
     }
 

@@ -1,10 +1,12 @@
 package pdk.chart.demo.fluent;
 
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.data.function.NormalDistributionFunction2D;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.fluent.XYChart;
 import pdk.chart.fluent.XYChartType;
+import pdk.chart.plot.XYPlot;
 
 /**
  *
@@ -22,10 +24,10 @@ public class NormalDistributionDemo {
         XYSeriesCollection<String> dataset1 = new XYSeriesCollection<>(lineSeries);
         XYSeriesCollection<String> dataset2 = new XYSeriesCollection<>(areaSeries);
 
-        XYChart.create()
-                .axisNames("X", "Probability Density")
-                .dataset(dataset1, XYChartType.LINE)
-                .addDataset(dataset2, XYChartType.AREA)
-                .show();
+        Chart line = JChart.line(null, "X", "Probability Density", dataset1);
+        XYPlot plot = line.getXYPlot();
+        plot.addDataset(dataset2, XYChartType.AREA);
+
+        line.show();
     }
 }

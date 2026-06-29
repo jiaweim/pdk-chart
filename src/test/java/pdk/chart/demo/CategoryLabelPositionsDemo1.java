@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.data.category.CategoryDataset;
@@ -35,7 +35,7 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("CategoryLabelPositionsDemo1", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.bar("CategoryLabelPositionsDemo1", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis axis = plot.getDomainAxis();
         axis.setMaximumCategoryLabelLines(Integer.MAX_VALUE);

@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.CategoryAxis;
@@ -31,7 +31,7 @@ public class BarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar((String)null, "Category", "Score (%)", dataset);
+        Chart chart = JChart.bar((String)null, "Category", "Score (%)", dataset);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.YELLOW);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();

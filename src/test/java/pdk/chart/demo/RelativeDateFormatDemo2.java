@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
@@ -34,7 +34,7 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = ChartFactory.bar("RelativeDateFormat Demo 2",
+        Chart chart = JChart.bar("RelativeDateFormat Demo 2",
                 "Date ", true,
                 "Time To Complete", true,
                 dataset, PlotOrientation.VERTICAL, true, true, false);

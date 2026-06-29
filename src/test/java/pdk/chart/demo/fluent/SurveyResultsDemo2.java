@@ -5,7 +5,7 @@ import pdk.chart.axis.ExtendedCategoryAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.text.TextAnchor;
@@ -46,7 +46,7 @@ public class SurveyResultsDemo2 {
         domainAxis.addSubLabel("All", "(10)");
 
         CategoryXYChart chart = CategoryXYChart.create()
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .title(title)
                 .backgroundPaint(Color.WHITE)
 

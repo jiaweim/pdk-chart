@@ -2,7 +2,7 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.statistics.BoxAndWhiskerItem;
@@ -113,7 +113,7 @@ public class XYBoxAndWhiskerRendererTest {
         DefaultBoxAndWhiskerXYDataset<String> d1 = new DefaultBoxAndWhiskerXYDataset<>("Series");
         d1.add(new Date(1L), new BoxAndWhiskerItem(1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
                 null, null, null));
-        Chart chart = ChartFactory.createBoxAndWhiskerChart("Title", "X",
+        Chart chart = JChart.boxAndWhisker("Title", "X",
                 "Y", d1, true);
         try {
             BufferedImage image = new BufferedImage(400, 200,

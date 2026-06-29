@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -41,7 +41,7 @@ public class PolarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createPolarChart("Polar Chart Demo 1", dataset, true, false, false);
+        Chart chart = JChart.createPolarChart("Polar Chart Demo 1", dataset, true, false, false);
         PolarPlot plot = (PolarPlot) chart.getPlot();
         plot.addCornerTextItem("Corner Item 1");
         plot.addCornerTextItem("Corner Item 2");

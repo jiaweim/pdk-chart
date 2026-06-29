@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
@@ -54,7 +54,7 @@ public class BarChartDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("Bar Chart Demo 10", "Category", "Value", dataset);
+        Chart chart = JChart.bar("Bar Chart Demo 10", "Category", "Value", dataset);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();

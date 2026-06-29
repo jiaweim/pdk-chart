@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -38,7 +38,7 @@ public class StatisticalLineChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createLineChart("Statistical Line Chart Demo 1", "Type", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line("Statistical Line Chart Demo 1", "Type", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         CategoryAxis domainAxis = plot.getDomainAxis();

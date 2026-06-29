@@ -5,7 +5,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
@@ -25,7 +25,7 @@ public class ScatterPlotDemo4 extends ApplicationFrame {
 
     public static JPanel createDemoPanel() {
         XYDataset dataset = new SampleXYDataset2();
-        Chart chart = ChartFactory.scatter("Scatter Plot Demo 4", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.scatter("Scatter Plot Demo 4", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setRangeTickBandPaint(new Color(200, 200, 100, 100));
         XYDotRenderer renderer = new XYDotRenderer();

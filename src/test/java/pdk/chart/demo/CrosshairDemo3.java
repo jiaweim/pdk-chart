@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.Range;
@@ -60,7 +60,7 @@ public class CrosshairDemo3 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart c = ChartFactory.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
+            Chart c = JChart.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
             XYPlot plot = (XYPlot) c.getPlot();
             plot.setDomainCrosshairVisible(true);
             plot.setDomainCrosshairLockedOnData(false);

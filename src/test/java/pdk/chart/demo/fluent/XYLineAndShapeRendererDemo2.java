@@ -1,10 +1,12 @@
 package pdk.chart.demo.fluent;
 
-import pdk.chart.data.xy.XYSeries;
-import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.fluent.XYChart;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
+import pdk.chart.data.xy.XYDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.fluent.XYChartType;
 import pdk.chart.internal.ShapeUtils;
+import pdk.chart.plot.XYPlot;
 
 import java.awt.*;
 
@@ -16,53 +18,46 @@ import java.awt.*;
  */
 public class XYLineAndShapeRendererDemo2 {
     static void main() {
-        XYSeriesCollection<String> dataset1 = new XYSeriesCollection<>(new XYSeries<>("Series 1", new double[]{1, 2, 3}, new double[]{1, 1, 1}));
-        XYSeriesCollection<String> dataset2 = new XYSeriesCollection<>(new XYSeries<>("Series 2", new double[]{1, 2, 3}, new double[]{2, 2, 2}));
-        XYSeriesCollection<String> dataset3 = new XYSeriesCollection<>(new XYSeries<>("Series 3", new double[]{1, 2, 3}, new double[]{3, 3, 3}));
-        XYSeriesCollection<String> dataset4 = new XYSeriesCollection<>(new XYSeries<>("Series 4", new double[]{1, 2, 3}, new double[]{4, 4, 4}));
-        XYSeriesCollection<String> dataset5 = new XYSeriesCollection<>(new XYSeries<>("Series 5", new double[]{1, 2, 3}, new double[]{5, 5, 5}));
+        XYDataset<String> dataset1 = Data.createXY("Series 1", new double[]{1, 2, 3}, new double[]{1, 1, 1});
+        XYDataset<String> dataset2 = Data.createXY("Series 2", new double[]{1, 2, 3}, new double[]{2, 2, 2});
+        XYDataset<String> dataset3 = Data.createXY("Series 3", new double[]{1, 2, 3}, new double[]{3, 3, 3});
+        XYDataset<String> dataset4 = Data.createXY("Series 4", new double[]{1, 2, 3}, new double[]{4, 4, 4});
+        XYDataset<String> dataset5 = Data.createXY("Series 5", new double[]{1, 2, 3}, new double[]{5, 5, 5});
 
         Shape shape = ShapeUtils.createCircle(8);
-        XYChart chart = XYChart.create()
-                .title("XYLineAndShapeRendererDemo2")
-                .dataset(dataset1, XYChartType.LINE)
-                .addDataset(dataset2, XYChartType.LINE)
-                .addDataset(dataset3, XYChartType.LINE)
-                .addDataset(dataset4, XYChartType.LINE)
-                .addDataset(dataset5, XYChartType.LINE)
-                .axisNames("X", "Y")
-                .showLegend(true)
+        Chart line = JChart.line("XYLineAndShapeRendererDemo2", "x", "y",
+                dataset1);
+        XYPlot plot = line.getXYPlot();
+        plot.addDataset(dataset2, XYChartType.LINE);
+        plot.addDataset(dataset3, XYChartType.LINE);
+        plot.addDataset(dataset4, XYChartType.LINE);
+        plot.addDataset(dataset5, XYChartType.LINE);
 
-                .lineAndShapeProps(0)
+        plot.getLineAndShapeRenderer(0)
                 .defaultVisible(true, true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
                 .seriesFillPaint(0, Color.YELLOW)
                 .seriesOutlinePaint(0, Color.GRAY)
-                .addTooltips(true)
-                .done()
-
-                .lineAndShapeProps(1)
+                .showTooltips(true);
+        plot.getLineAndShapeRenderer(1)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
                 .seriesFillPaint(0, Color.YELLOW)
                 .seriesOutlinePaint(0, Color.GRAY)
                 .useFillPaint(true)
-                .addTooltips(true)
-                .done()
-
-                .lineAndShapeProps(2)
+                .showTooltips(true);
+        plot.getLineAndShapeRenderer(2)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
                 .seriesFillPaint(0, Color.YELLOW)
                 .seriesOutlinePaint(0, Color.GRAY)
                 .useOutlinePaint(true)
-                .addTooltips(true)
-                .done()
+                .showTooltips(true);
 
-                .lineAndShapeProps(3)
+        plot.getLineAndShapeRenderer(3)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
@@ -70,10 +65,9 @@ public class XYLineAndShapeRendererDemo2 {
                 .seriesOutlinePaint(0, Color.GRAY)
                 .useFillPaint(true)
                 .useOutlinePaint(true)
-                .addTooltips(true)
-                .done()
+                .showTooltips(true);
 
-                .lineAndShapeProps(4)
+        plot.getLineAndShapeRenderer(4)
                 .defaultShapesVisible(true)
                 .seriesShape(0, shape)
                 .seriesPaint(0, Color.RED)
@@ -82,15 +76,10 @@ public class XYLineAndShapeRendererDemo2 {
                 .useOutlinePaint(true)
                 .useFillPaint(true)
                 .drawOutlines(true)
-                .addTooltips(true)
-                .done();
+                .showTooltips(true);
 
-        chart.domainAxisNumber()
+        plot.rangeAxisNumber()
                 .autoRangeIncludesZero(false);
-        chart.rangeAxisNumber()
-                .autoRangeIncludesZero(false);
-
-        chart.show();
-
+        line.show();
     }
 }

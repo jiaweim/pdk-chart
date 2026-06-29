@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -36,7 +36,7 @@ public class ParetoChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset[] datasets) {
-        Chart chart = ChartFactory.bar("TIOBE Index of Programming Languages", (String)null, "Index Value", datasets[0]);
+        Chart chart = JChart.bar("TIOBE Index of Programming Languages", (String)null, "Index Value", datasets[0]);
         chart.addSubtitle(new TextTitle("As at August 2013"));
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot)chart.getPlot();

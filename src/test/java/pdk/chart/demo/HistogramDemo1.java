@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.HistogramDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
@@ -48,7 +48,7 @@ public class HistogramDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.histogram("Histogram Demo 1", null, null,
+        Chart chart = JChart.histogram("Histogram Demo 1", null, null,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
 
         XYPlot plot = (XYPlot) chart.getPlot();

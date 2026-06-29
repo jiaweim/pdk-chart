@@ -2,6 +2,7 @@ package pdk.chart.plot;
 
 import pdk.chart.Chart;
 import pdk.chart.ChartElementVisitor;
+import pdk.chart.JChart;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYAnnotationBoundsInfo;
@@ -15,6 +16,7 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.*;
+import pdk.chart.fluent.XYChartType;
 import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.internal.PaintUtils;
@@ -46,7 +48,7 @@ import java.util.Map.Entry;
  * on the plot.  By using different renderers, various chart types can be
  * produced.
  * <p>
- * The {@link pdk.chart.ChartFactory} class contains static methods for
+ * The {@link JChart} class contains static methods for
  * creating pre-configured charts.
  *
  * @param <S>The type for the series keys.
@@ -1230,6 +1232,18 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Add a new dataset for the plot.
+     *
+     * @param dataset   {@link XYDataset}.
+     * @param chartType {@link XYChartType}.
+     */
+    public void addDataset(XYDataset<S> dataset, XYChartType chartType) {
+        int datasetCount = getDatasetCount();
+        setDataset(datasetCount, dataset);
+        setRenderer(datasetCount, chartType.getRenderer());
+    }
+
+    /**
      * Returns the number of datasets.
      *
      * @return The number of datasets.
@@ -1387,6 +1401,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Return the first renderer and {@link XYLineAndShapeRenderer} instance.
+     *
+     * @return {@link XYLineAndShapeRenderer}.
+     */
+    public XYBarRenderer getXYBarRenderer(int index) {
+        XYItemRenderer renderer = getRenderer(index);
+        if (renderer instanceof XYBarRenderer barRenderer) {
+            return barRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not XYBarRenderer.");
+    }
+
+    /**
      * Returns the renderer with the specified index, or {@code null}.
      *
      * @param index the renderer index (must be &gt;= 0).
@@ -1395,6 +1422,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public XYItemRenderer getRenderer(int index) {
         return this.renderers.get(index);
+    }
+
+    /**
+     * Return the first renderer and {@link XYLineAndShapeRenderer} instance.
+     *
+     * @return {@link XYLineAndShapeRenderer}.
+     */
+    public XYLineAndShapeRenderer getLineAndShapeRenderer(int index) {
+        XYItemRenderer renderer = getRenderer(index);
+        if (renderer instanceof XYLineAndShapeRenderer lineAndShapeRenderer) {
+            return lineAndShapeRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not XYLineAndShapeRenderer.");
     }
 
     /**

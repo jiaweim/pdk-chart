@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -54,7 +54,7 @@ public class StackedAreaChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedAreaChart("Stacked Area Chart", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.createStackedAreaChart("Stacked Area Chart", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setForegroundAlpha(0.85F);
         CategoryAxis domainAxis = plot.getDomainAxis();

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -50,7 +50,7 @@ public class ItemLabelDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Item Label Demo 5", (String) null, (String) null, dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.createStackedBarChart("Item Label Demo 5", (String) null, (String) null, dataset, PlotOrientation.VERTICAL, false, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         MyStackedBarRenderer renderer = new MyStackedBarRenderer();
         plot.setRenderer(renderer);

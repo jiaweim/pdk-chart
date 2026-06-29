@@ -2,7 +2,7 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
@@ -185,7 +185,7 @@ public class XYBarRendererTest {
     public void testFindDomainBounds() {
         XYSeriesCollection<String> dataset
                 = RendererXYPackageUtils.createTestXYSeriesCollection();
-        Chart chart = ChartFactory.bar("Test Chart", "X",
+        Chart chart = JChart.bar("Test Chart", "X",
                 false, "Y", dataset, PlotOrientation.VERTICAL, false, false,
                 false);
         XYPlot<String> plot = (XYPlot) chart.getPlot();

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.plot.PlotOrientation;
@@ -25,7 +25,7 @@ public class XYSeriesDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.line("XY Series Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line("XY Series Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         NumberAxis axis = (NumberAxis)plot.getRangeAxis();
         axis.setAutoRangeIncludesZero(false);

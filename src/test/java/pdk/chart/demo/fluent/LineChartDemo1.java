@@ -3,7 +3,7 @@ package pdk.chart.demo.fluent;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.PlotOrientation;
 
 /**
@@ -25,7 +25,7 @@ public class LineChartDemo1 {
                         6002.0, 4411.0, 4433.0, 4545.0, 4569.0});
 
         CategoryXYChart.create()
-                .dataset(dataset, CategoryXYChartType.LINE)
+                .dataset(dataset, CategoryChartType.LINE)
                 .title("Java Standard Class Library")
                 .axisNames(null, "Class Count")
                 .showLegend(false)

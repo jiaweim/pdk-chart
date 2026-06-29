@@ -6,7 +6,7 @@ import java.text.NumberFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -71,7 +71,7 @@ public class StackedBarChart3DDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Stacked Bar Chart 3D Demo 4", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart 3D Demo 4", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         NumberAxis yAxis = (NumberAxis)plot.getRangeAxis();
         yAxis.setNumberFormatOverride(new DecimalFormat("0%"));

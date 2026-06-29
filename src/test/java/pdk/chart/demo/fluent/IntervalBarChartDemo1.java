@@ -3,7 +3,7 @@ package pdk.chart.demo.fluent;
 import pdk.chart.data.category.DefaultIntervalCategoryDataset;
 import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 
 import java.text.DecimalFormat;
 
@@ -32,7 +32,7 @@ public class IntervalBarChartDemo1 {
     static void main() {
         CategoryXYChart chart = CategoryXYChart.create()
                 .title("IntervalBarChartDemo1")
-                .dataset(createDataset(), CategoryXYChartType.BAR_INTERVAL)
+                .dataset(createDataset(), CategoryChartType.BAR_INTERVAL)
                 .axisNames("Category", "Percentage")
                 .showLegend(true)
                 .domainGridlinesVisible(true)

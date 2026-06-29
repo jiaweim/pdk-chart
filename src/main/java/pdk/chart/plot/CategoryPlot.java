@@ -11,7 +11,7 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.event.*;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.category.AreaRenderer;
@@ -1159,7 +1159,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @param dataset the dataset ({@code null} permitted).
      * @see #getDataset(int)
      */
-    public void setDataset(int index, CategoryDataset<R, C> dataset, CategoryXYChartType chartType) {
+    public void setDataset(int index, CategoryDataset<R, C> dataset, CategoryChartType chartType) {
         setDataset(index, dataset);
         setRenderer(index, chartType.getRenderer());
     }

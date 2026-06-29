@@ -152,13 +152,7 @@ public class DefaultXYZDatasetTest {
         assertEquals(12.0, d.getYValue(0, 0), EPSILON);
 
         // check null key
-        boolean pass = false;
-        try {
-            d.addSeries(null, new double[][]{{1.0}, {2.0}, {3.0}});
-        } catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> d.addSeries(null, new double[][]{{1.0}, {2.0}, {3.0}}));
     }
 
     /**

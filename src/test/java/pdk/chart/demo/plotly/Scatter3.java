@@ -1,7 +1,7 @@
 package pdk.chart.demo.plotly;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 
 import java.util.HashMap;
 
@@ -17,7 +17,7 @@ public class Scatter3 {
     static void main() {
         HashMap<String, Object[]> iris = Datasets.iris();
 
-        Chart chart = ChartFactory.bubble(
+        Chart chart = JChart.bubble(
                 "x", (Double[]) iris.get("Sepal Width"),
                 "y", (Double[]) iris.get("Sepal Length"),
                 (Double[]) iris.get("Petal Length"),

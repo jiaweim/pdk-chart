@@ -2,7 +2,7 @@ package pdk.chart.plot.pie;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.Rotation;
 import pdk.chart.data.general.DefaultPieDataset;
@@ -546,7 +546,7 @@ public class PiePlotTest {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         dataset.setValue("L1", 12.0);
         dataset.setValue("L2", 11.0);
-        Chart chart = ChartFactory.createPieChart("Test", dataset, true,
+        Chart chart = JChart.createPieChart("Test", dataset, true,
                 false, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLegendLabelGenerator(new NullLegendLabelGenerator());

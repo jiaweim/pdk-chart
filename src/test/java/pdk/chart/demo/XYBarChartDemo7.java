@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.axis.DateAxis;
@@ -29,7 +29,7 @@ public class XYBarChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("XYBarChartDemo7", "Date", true, "Y", dataset, PlotOrientation.HORIZONTAL, true, false, false);
+        Chart chart = JChart.bar("XYBarChartDemo7", "Date", true, "Y", dataset, PlotOrientation.HORIZONTAL, true, false, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeAxis(new DateAxis("Date"));

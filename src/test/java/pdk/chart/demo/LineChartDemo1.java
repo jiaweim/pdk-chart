@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -52,7 +52,7 @@ public class LineChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createLineChart("Java Standard Class Library", (String) null, "Class Count", dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.line("Java Standard Class Library", (String) null, "Class Count", dataset, PlotOrientation.VERTICAL, false, true, false);
         chart.addSubtitle(new TextTitle("Number of Classes By Release"));
         TextTitle source = new TextTitle("Source: https://stackoverflow.com/q/3112882 and Java In A Nutshell (5th Edition) by David Flanagan (O'Reilly)");
         source.setFont(new Font("SansSerif", 0, 10));

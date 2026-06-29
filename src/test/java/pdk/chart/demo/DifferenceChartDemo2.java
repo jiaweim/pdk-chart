@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
@@ -799,7 +799,7 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Daylight Hours - London, UK", "Date", "Time", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Daylight Hours - London, UK", "Date", "Time", dataset, true, true, false);
         chart.addSubtitle(new TextTitle("Data source: http://www.sunrisesunset.com/", new Font("SansSerif", 0, 12)));
         XYDifferenceRenderer renderer = new XYDifferenceRenderer(Color.BLUE, Color.BLUE, false);
         renderer.setRoundXCoordinates(true);

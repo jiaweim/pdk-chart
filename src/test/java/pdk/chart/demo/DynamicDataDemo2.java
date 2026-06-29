@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
@@ -51,7 +51,7 @@ public class DynamicDataDemo2 extends ApplicationFrame {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = new TimeSeriesCollection(this.series1);
             TimeSeriesCollection dataset2 = new TimeSeriesCollection(this.series2);
-            Chart chart = ChartFactory.timeLine("Dynamic Data Demo 2", "Time", "Value", dataset1);
+            Chart chart = JChart.timeLine("Dynamic Data Demo 2", "Time", "Value", dataset1);
             this.addChart(chart);
             XYPlot plot = (XYPlot) chart.getPlot();
             ValueAxis axis = plot.getDomainAxis();

@@ -2,7 +2,7 @@ package pdk.chart.axis;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.RangeType;
@@ -141,7 +141,7 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = ChartFactory.bar("Test", "Categories",
+        Chart chart = JChart.bar("Test", "Categories",
                 "Value", dataset);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();
@@ -159,7 +159,7 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = ChartFactory.createLineChart("Test", "Categories",
+        Chart chart = JChart.line("Test", "Categories",
                 "Value", dataset, PlotOrientation.VERTICAL, false, false,
                 false);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();
@@ -180,7 +180,7 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = ChartFactory.createLineChart("Test", "Categories",
+        Chart chart = JChart.line("Test", "Categories",
                 "Value", dataset, PlotOrientation.VERTICAL, false, false,
                 false);
         @SuppressWarnings("unchecked")
@@ -208,7 +208,7 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = ChartFactory.bar("Test", "Categories",
+        Chart chart = JChart.bar("Test", "Categories",
                 "Value", dataset, PlotOrientation.VERTICAL, false, false,
                 false);
         @SuppressWarnings("unchecked")
@@ -261,7 +261,7 @@ public class NumberAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = ChartFactory.scatter("Test", "X", "Y",
+        Chart chart = JChart.scatter("Test", "X", "Y",
                 dataset);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getDomainAxis();
@@ -282,7 +282,7 @@ public class NumberAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = ChartFactory.scatter("Test", "X", "Y",
+        Chart chart = JChart.scatter("Test", "X", "Y",
                 dataset);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();

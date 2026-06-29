@@ -6,7 +6,7 @@ import java.awt.Font;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -57,7 +57,7 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYAreaChart("XY Area Chart Demo", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.createXYAreaChart("XY Area Chart Demo", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setForegroundAlpha(0.65F);
         ValueAxis domainAxis = plot.getDomainAxis();

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DefaultKeyedValues2DDataset;
 import pdk.chart.plot.PlotOrientation;
@@ -21,7 +21,7 @@ public class PopulationChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Population Chart Demo 1", "Age Group", "Population (millions)", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.createStackedBarChart("Population Chart Demo 1", "Age Group", "Population (millions)", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         return chart;
     }
 

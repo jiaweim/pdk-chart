@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.function.Function2D;
 import pdk.chart.data.function.NormalDistributionFunction2D;
 import pdk.chart.data.xy.XYDataset;
@@ -32,7 +32,7 @@ public class NormalDistributionDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.line("Normal Distribution", "X", "Y", dataset);
+        Chart chart = JChart.line("Normal Distribution", "X", "Y", dataset);
         return chart;
     }
 

@@ -40,14 +40,14 @@ import java.util.List;
 /**
  * A collection of utility methods for creating some standard charts.
  */
-public abstract class ChartFactory {
+public abstract class JChart {
 
     /**
      * The chart theme.
      */
     private static ChartTheme currentTheme = new StandardChartTheme("PDK");
 
-    private ChartFactory() {}
+    private JChart() {}
 
     /**
      * Returns the current chart theme used by the factory.
@@ -593,6 +593,63 @@ public abstract class ChartFactory {
         return chart;
     }
 
+
+
+    /**
+     * Create a clustered bar chart.
+     *
+     * @param title       chart title.
+     * @param xAxisLabel  x-axis name.
+     * @param dateAxis    true if the x-axis is of date time.
+     * @param yAxisLabel  y-axis name.
+     * @param dataset
+     * @param orientation
+     * @param legend
+     * @param tooltips
+     * @param urls
+     * @return
+     */
+    public static Chart barCluster(String title, String xAxisLabel,
+            boolean dateAxis, String yAxisLabel, IntervalXYDataset dataset,
+            PlotOrientation orientation, boolean legend, boolean tooltips,
+            boolean urls) {
+
+        Objects.requireNonNull(orientation, "orientation");
+        ValueAxis domainAxis;
+        if (dateAxis) {
+            domainAxis = new DateAxis(xAxisLabel);
+        } else {
+            NumberAxis axis = new NumberAxis(xAxisLabel);
+            axis.setAutoRangeIncludesZero(false);
+            domainAxis = axis;
+        }
+        ValueAxis valueAxis = new NumberAxis(yAxisLabel);
+
+        ClusteredXYBarRenderer renderer = new ClusteredXYBarRenderer();
+        renderer.setShadowVisible(false);
+        if (tooltips) {
+            XYToolTipGenerator tt;
+            if (dateAxis) {
+                tt = StandardXYToolTipGenerator.getTimeSeriesInstance();
+            } else {
+                tt = new StandardXYToolTipGenerator();
+            }
+            renderer.setDefaultToolTipGenerator(tt);
+        }
+        if (urls) {
+            renderer.setURLGenerator(new StandardXYURLGenerator());
+        }
+
+        XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
+        plot.setOrientation(orientation);
+
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
+                plot, legend);
+        currentTheme.apply(chart);
+
+        return chart;
+    }
+
     /**
      * Creates a stacked bar chart with default settings.  The chart object
      * returned by this method uses a {@link CategoryPlot} instance as the
@@ -678,10 +735,10 @@ public abstract class ChartFactory {
      * @param dataset           the dataset for the chart ({@code null} permitted).
      * @return An area chart.
      */
-    public static Chart createAreaChart(String title,
+    public static Chart area(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset) {
-        return createAreaChart(title, categoryAxisLabel, valueAxisLabel,
+        return area(title, categoryAxisLabel, valueAxisLabel,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -704,7 +761,7 @@ public abstract class ChartFactory {
      * @param urls              configure chart to generate URLs?
      * @return An area chart.
      */
-    public static Chart createAreaChart(String title,
+    public static Chart area(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
@@ -820,10 +877,10 @@ public abstract class ChartFactory {
      * @param dataset           the dataset for the chart ({@code null} permitted).
      * @return A line chart.
      */
-    public static Chart createLineChart(String title,
+    public static Chart line(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset) {
-        return createLineChart(title, categoryAxisLabel, valueAxisLabel,
+        return line(title, categoryAxisLabel, valueAxisLabel,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -846,7 +903,7 @@ public abstract class ChartFactory {
      * @param urls              configure chart to generate URLs?
      * @return A line chart.
      */
-    public static Chart createLineChart(String title,
+    public static Chart line(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
@@ -1503,7 +1560,65 @@ public abstract class ChartFactory {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
+    }
 
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
+     * @param title       the chart title ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the plot orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @return The chart.
+     */
+    public static Chart line(String title, String xAxisLabel,
+            String yAxisLabel, XYDataset dataset, boolean smooth, PlotOrientation orientation) {
+        return line(title, xAxisLabel, yAxisLabel, dataset, smooth, orientation, true, true);
+    }
+
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
+     * @param title       the chart title ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the plot orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @return The chart.
+     */
+    public static Chart line(String title, String xAxisLabel,
+            String yAxisLabel, XYDataset dataset, boolean smooth, PlotOrientation orientation,
+            boolean legend, boolean tooltips) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        NumberAxis xAxis = new NumberAxis(xAxisLabel);
+        xAxis.setAutoRangeIncludesZero(false);
+        NumberAxis yAxis = new NumberAxis(yAxisLabel);
+        XYItemRenderer renderer;
+        if (smooth) {
+            renderer = new XYSplineRenderer();
+        } else {
+            renderer = new XYLineAndShapeRenderer(true, false);
+        }
+
+        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
+        plot.setOrientation(orientation);
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
+                plot, legend);
+        currentTheme.apply(chart);
+        return chart;
     }
 
     /**
@@ -1956,7 +2071,7 @@ public abstract class ChartFactory {
      * @param legend            a flag specifying whether a legend is required.
      * @return A box and whisker chart.
      */
-    public static Chart createBoxAndWhiskerChart(String title,
+    public static Chart boxAndWhisker(String title,
             String categoryAxisLabel, String valueAxisLabel,
             BoxAndWhiskerCategoryDataset dataset, boolean legend) {
 
@@ -1987,20 +2102,19 @@ public abstract class ChartFactory {
      * @param legend         a flag specifying whether a legend is required.
      * @return A box and whisker chart.
      */
-    public static Chart createBoxAndWhiskerChart(String title,
+    public static Chart boxAndWhisker(String title,
             String timeAxisLabel, String valueAxisLabel,
             BoxAndWhiskerXYDataset dataset, boolean legend) {
 
         ValueAxis timeAxis = new DateAxis(timeAxisLabel);
         NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
         valueAxis.setAutoRangeIncludesZero(false);
-        XYBoxAndWhiskerRenderer renderer = new XYBoxAndWhiskerRenderer(10.0);
+        XYBoxAndWhiskerRenderer renderer = new XYBoxAndWhiskerRenderer();
         XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, renderer);
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**

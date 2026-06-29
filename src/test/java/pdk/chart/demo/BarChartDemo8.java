@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
@@ -55,7 +55,7 @@ public class BarChartDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("Bar Chart Demo 8", "Category", "Value", dataset);
+        Chart chart = JChart.bar("Bar Chart Demo 8", "Category", "Value", dataset);
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();

@@ -4,7 +4,7 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.PlotOrientation;
 
 import java.awt.*;
@@ -20,7 +20,7 @@ public class BarChartDemo6 {
     static void main() {
         CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .plotInsets(RectangleInsets.ZERO_INSETS)
                 .axisOffset(RectangleInsets.ZERO_INSETS)
                 .axisNames("Category", "Score (%)")

@@ -5,7 +5,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.PlotOrientation;
 
 import java.awt.*;
@@ -33,7 +33,7 @@ public class LayeredBarChartDemo1 {
     static void main() {
         CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.VERTICAL)
-                .dataset(createDataset(), CategoryXYChartType.BAR_LAYER)
+                .dataset(createDataset(), CategoryChartType.BAR_LAYER)
                 .showLegend(true)
                 .title("Layered Bar Chart Demo 1")
                 .axisNames("Category", "Value")

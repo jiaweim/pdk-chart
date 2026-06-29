@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.data.xy.IntervalXYDataset;
@@ -44,7 +44,7 @@ public class XYSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("XY Series Demo 3", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar("XY Series Demo 3", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         IntervalMarker target = new IntervalMarker((double) 400.0F, (double) 700.0F);
         target.setLabel("Target Range");

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -46,7 +46,7 @@ public class LineChartDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createLineChart("Line Chart Demo 8", "Category", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line("Line Chart Demo 8", "Category", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         SymbolAxis rangeAxis = new SymbolAxis("Group", new String[]{"A", "B", "C", "D", "E", "F"});
         plot.setRangeAxis(rangeAxis);

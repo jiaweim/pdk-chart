@@ -2,7 +2,7 @@ package pdk.chart.plot.pie;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.TableOrder;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -85,10 +85,10 @@ public class MultiplePiePlotTest implements PlotChangeListener {
                 3.0f, 4.0f, Color.YELLOW));
         assertEquals(p1, p2);
 
-        p1.setPieChart(ChartFactory.createPieChart("Title", null, true, true,
+        p1.setPieChart(JChart.createPieChart("Title", null, true, true,
                 true));
         assertNotEquals(p1, p2);
-        p2.setPieChart(ChartFactory.createPieChart("Title", null, true, true,
+        p2.setPieChart(JChart.createPieChart("Title", null, true, true,
                 true));
         assertEquals(p1, p2);
 

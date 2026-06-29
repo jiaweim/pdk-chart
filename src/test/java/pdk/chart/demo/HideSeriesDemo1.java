@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
@@ -86,7 +86,7 @@ public class HideSeriesDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = ChartFactory.line("Hide Series Demo 1", "X", "Y", dataset);
+            Chart chart = JChart.line("Hide Series Demo 1", "X", "Y", dataset);
             XYPlot plot = (XYPlot) chart.getPlot();
             this.renderer = plot.getRenderer();
             return chart;

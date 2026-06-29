@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartRenderingInfo;
 import pdk.chart.ChartUtils;
 import pdk.chart.api.HorizontalAlignment;
@@ -90,7 +90,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart1(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("Bar Chart Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar("Bar Chart Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
@@ -146,7 +146,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart3(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Public Opinion : Torture of Prisoners", "Country", "%", dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.createStackedBarChart("Public Opinion : Torture of Prisoners", "Country", "%", dataset, PlotOrientation.HORIZONTAL, false, true, false);
         chart.getTitle().setMargin((double)2.0F, (double)0.0F, (double)0.0F, (double)0.0F);
         TextTitle tt = new TextTitle("Source: http://news.bbc.co.uk/1/hi/world/6063386.stm", new Font("Dialog", 0, 11));
         tt.setPosition(RectangleEdge.BOTTOM);
@@ -209,7 +209,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart4(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Projected Values - Test", "Date", "Index Projection", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Projected Values - Test", "Date", "Index Projection", dataset, true, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setInsets(new RectangleInsets((double)5.0F, (double)5.0F, (double)5.0F, (double)20.0F));
@@ -251,7 +251,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart5(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.histogram("Histogram Demo 1", (String)null, (String)null, dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.histogram("Histogram Demo 1", (String)null, (String)null, dataset, PlotOrientation.VERTICAL, true, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
@@ -274,7 +274,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart6(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createLineChart("Java Standard Class Library", "Release", "Class Count", dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.line("Java Standard Class Library", "Release", "Class Count", dataset, PlotOrientation.VERTICAL, false, true, false);
         chart.addSubtitle(new TextTitle("Number of Classes By Release"));
         TextTitle source = new TextTitle("Source: Java In A Nutshell (4th Edition) by David Flanagan (O'Reilly)");
         source.setFont(new Font("SansSerif", 0, 10));

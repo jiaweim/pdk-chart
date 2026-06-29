@@ -120,7 +120,7 @@ public class LineChartTest {
         Number[][] data = new Integer[][]{{-3, -2}, {-1, 1}, {2, 3}};
         CategoryDataset<String, String> dataset
                 = DatasetUtils.createCategoryDataset("S", "C", data);
-        return ChartFactory.createLineChart("Line Chart", "Domain", "Range",
+        return JChart.line("Line Chart", "Domain", "Range",
                 dataset);
     }
 

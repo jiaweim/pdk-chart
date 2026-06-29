@@ -6,7 +6,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Paint;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.annotations.CategoryTextAnnotation;
 import pdk.chart.api.HorizontalAlignment;
@@ -55,7 +55,7 @@ public class SurveyResultsDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar((String)null, (String)null, (String)null, dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.bar((String)null, (String)null, (String)null, dataset, PlotOrientation.HORIZONTAL, false, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         TextTitle title = new TextTitle("Figure 7 | I. Resources - The site offers users relevant, informative and educational resources");
         title.setHorizontalAlignment(HorizontalAlignment.LEFT);

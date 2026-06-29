@@ -7,7 +7,7 @@ import java.awt.GradientPaint;
 import java.awt.Paint;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.api.HorizontalAlignment;
@@ -63,7 +63,7 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Public Opinion : Torture of Prisoners", "Country", "%", dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.createStackedBarChart("Public Opinion : Torture of Prisoners", "Country", "%", dataset, PlotOrientation.HORIZONTAL, false, true, false);
         chart.getTitle().setMargin((double)2.0F, (double)0.0F, (double)0.0F, (double)0.0F);
         TextTitle tt = new TextTitle("Source: http://news.bbc.co.uk/1/hi/world/6063386.stm", new Font("Dialog", 0, 11));
         tt.setPosition(RectangleEdge.BOTTOM);

@@ -1,9 +1,10 @@
 package pdk.chart.demo;
 
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.fluent.XYChart;
-import pdk.chart.fluent.XYChartType;
+import pdk.chart.plot.PlotOrientation;
 
 /**
  *
@@ -18,9 +19,11 @@ public class SmoothedLineChart {
         dataset.addSeries(new XYSeries<>("line",
                 new double[]{1, 2, 3, 4, 5, 6, 7},
                 new double[]{820, 932, 901, 934, 1290, 1330, 1320}));
-        XYChart.create()
-                .dataset(dataset, XYChartType.SPLINE)
-                .domainGridlinesVisible(false)
-                .show();
+
+        Chart line = JChart.line(null, null, null, dataset, true, PlotOrientation.VERTICAL);
+        line.getXYPlot()
+                .rangeAxisNumber()
+                .autoRangeIncludesZero(false);
+        line.show();
     }
 }

@@ -6,7 +6,7 @@ import java.awt.Font;
 import java.awt.Paint;
 import java.text.DecimalFormat;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleAnchor;
@@ -47,7 +47,7 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar((String)null, (String)null, (String)null, dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.bar((String)null, (String)null, (String)null, dataset, PlotOrientation.HORIZONTAL, false, true, false);
         chart.setBackgroundPaint(Color.WHITE);
         chart.getPlot().setOutlinePaint((Paint)null);
         TextTitle title = new TextTitle("Figure 6 | Overall SEO Rating");

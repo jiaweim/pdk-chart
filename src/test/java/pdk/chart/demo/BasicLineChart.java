@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.internal.ShapeUtils;
 
 import java.awt.*;
@@ -25,7 +25,7 @@ public class BasicLineChart {
                 new double[]{150, 230, 224, 218, 135, 147, 260});
 
         CategoryXYChart.create()
-                .dataset(dataset, CategoryXYChartType.LINE)
+                .dataset(dataset, CategoryChartType.LINE)
                 .showLegend(true)
                 .lineRenderer(0)
                 .seriesShape(0, ShapeUtils.createCircle(6))

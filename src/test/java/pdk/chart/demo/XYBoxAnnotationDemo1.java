@@ -7,7 +7,7 @@ import java.awt.Paint;
 import java.awt.Rectangle;
 import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.Chart;
 import pdk.chart.annotations.XYBoxAnnotation;
 import pdk.chart.axis.DateAxis;
@@ -552,7 +552,7 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Breakdowns", "Production Date", "Hours of Operation", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Breakdowns", "Production Date", "Hours of Operation", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

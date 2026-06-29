@@ -6,7 +6,7 @@ import pdk.chart.axis.CategoryAnchor;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.plot.PlotOrientation;
@@ -127,7 +127,7 @@ public class SurveyResultsDemo1 {
 
         CategoryXYChart chart = CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
-                .dataset(createDataset(), CategoryXYChartType.BAR)
+                .dataset(createDataset(), CategoryChartType.BAR)
                 .backgroundPaint(Color.WHITE)
                 .title(title)
                 .plotOutlinePaint(null)

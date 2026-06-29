@@ -5,7 +5,7 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.fluent.Data;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.title.TextTitle;
@@ -30,7 +30,7 @@ public class BarChartDemo1 {
         CategoryXYChart chart = CategoryXYChart.create()
                 .title("Antidepressant Medication Usage")
                 .axisNames("Age Category", "Percent")
-                .addDataset(dataset, CategoryXYChartType.BAR)
+                .addDataset(dataset, CategoryChartType.BAR)
                 .addTitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"))
                 .domainGridlinesVisible(true)
                 .rangeCrosshairVisible(true)

@@ -3,7 +3,7 @@ package pdk.chart.demo.fluent;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DefaultKeyedValues2DDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.PlotOrientation;
 
 /**
@@ -40,7 +40,7 @@ public class PopulationChartDemo1 {
     static void main() {
         CategoryXYChart.create()
                 .orientation(PlotOrientation.HORIZONTAL)
-                .addDataset(createDataset(), CategoryXYChartType.BAR_STACK)
+                .addDataset(createDataset(), CategoryChartType.BAR_STACK)
                 .title("Population Chart Demo 1")
                 .axisNames("Age Group", "Population (millions)")
                 .showLegend(true)

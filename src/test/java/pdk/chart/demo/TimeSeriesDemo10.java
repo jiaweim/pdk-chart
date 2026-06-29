@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.data.time.Hour;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.TimeSeries;
@@ -25,7 +25,7 @@ public class TimeSeriesDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Time Series Demo 10", "Time", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Time Series Demo 10", "Time", "Value", dataset, true, true, false);
         return chart;
     }
 

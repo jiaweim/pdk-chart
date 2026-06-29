@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickUnit;
 import pdk.chart.axis.DateTickUnitType;
@@ -66,7 +66,7 @@ public class TimeSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Time Series Demo 3", "Time", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Time Series Demo 3", "Time", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         DateAxis axis = (DateAxis)plot.getDomainAxis();
         axis.setTickUnit(new DateTickUnit(DateTickUnitType.MONTH, 1, new SimpleDateFormat("MMM-yyyy")));

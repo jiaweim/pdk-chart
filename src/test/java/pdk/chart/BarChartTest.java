@@ -123,7 +123,7 @@ public class BarChartTest {
         Number[][] data = new Integer[][]{{-3, -2}, {-1, 1}, {2, 3}};
         CategoryDataset<String, String> dataset
                 = DatasetUtils.createCategoryDataset("S", "C", data);
-        return ChartFactory.bar("Bar Chart", "Domain", "Range",
+        return JChart.bar("Bar Chart", "Domain", "Range",
                 dataset, PlotOrientation.HORIZONTAL, true, true, true);
     }
 

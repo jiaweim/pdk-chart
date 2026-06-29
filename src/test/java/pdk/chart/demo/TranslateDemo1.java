@@ -10,7 +10,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.Range;
 import pdk.chart.data.general.DatasetChangeEvent;
@@ -76,7 +76,7 @@ public class TranslateDemo1 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset dataset1 = this.createDataset("Random 1", (double)100.0F, new Minute(), 200);
-            Chart chart1 = ChartFactory.timeLine("Translate Demo 1", "Time of Day", "Value", dataset1);
+            Chart chart1 = JChart.timeLine("Translate Demo 1", "Time of Day", "Value", dataset1);
             XYPlot plot = (XYPlot)chart1.getPlot();
             plot.setOrientation(PlotOrientation.VERTICAL);
             plot.setDomainCrosshairVisible(true);

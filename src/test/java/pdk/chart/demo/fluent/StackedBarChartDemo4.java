@@ -1,7 +1,7 @@
 package pdk.chart.demo.fluent;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
@@ -62,7 +62,7 @@ public class StackedBarChartDemo4 {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.createStackedBarChart("Stacked Bar Chart Demo 4", "Category", "Value", dataset,
+        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart Demo 4", "Category", "Value", dataset,
                 PlotOrientation.VERTICAL, true, true, false);
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         KeyToGroupMap map = new KeyToGroupMap("G1");

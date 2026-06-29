@@ -6,7 +6,7 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.category.SlidingCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -77,7 +77,7 @@ public class SlidingCategoryDatasetDemo1 extends ApplicationFrame {
                     .title("SlidingCategoryDatasetDemo1")
                     .axisNames("Series", "Value")
                     .orientation(PlotOrientation.HORIZONTAL)
-                    .dataset(dataset, CategoryXYChartType.BAR)
+                    .dataset(dataset, CategoryChartType.BAR)
 
                     .domainAxis()
                     .maximumCategoryLabelWidthRatio(0.8f)

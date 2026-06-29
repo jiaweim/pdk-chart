@@ -48,11 +48,11 @@ import java.util.List;
  * <p>
  * You should use a {@link ChartPanel} to display a chart in a GUI.
  * <p>
- * The {@link ChartFactory} class contains static methods for creating
+ * The {@link JChart} class contains static methods for creating
  * 'ready-made' charts.
  *
  * @see ChartPanel
- * @see ChartFactory
+ * @see JChart
  * @see Title
  * @see Plot
  */
@@ -200,7 +200,7 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * a legend added automatically, but no title (although you can easily add
      * one later).
      * <br><br>
-     * Note that the  {@link ChartFactory} class contains a range
+     * Note that the  {@link JChart} class contains a range
      * of static methods that will return ready-made charts, and often this
      * is a more convenient way to create charts than using this constructor.
      *
@@ -215,7 +215,7 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * ({@link #DEFAULT_TITLE_FONT}) is used for the title, and the chart will
      * have a legend added automatically.
      * <br><br>
-     * Note that the {@link ChartFactory} class contains a range
+     * Note that the {@link JChart} class contains a range
      * of static methods that will return ready-made charts, and often this
      * is a more convenient way to create charts than using this constructor.
      *
@@ -231,7 +231,7 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * {@code createLegend} argument specifies whether a legend
      * should be added to the chart.
      * <br><br>
-     * Note that the  {@link ChartFactory} class contains a range
+     * Note that the  {@link JChart} class contains a range
      * of static methods that will return ready-made charts, and often this
      * is a more convenient way to create charts than using this constructor.
      *

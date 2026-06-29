@@ -6,7 +6,7 @@ import java.awt.Paint;
 import java.util.Arrays;
 import java.util.List;
 import javax.swing.JPanel;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.api.Layer;
@@ -42,7 +42,7 @@ public class BarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = ChartFactory.bar("Bar Chart Demo 3", "Category", "Value", dataset);
+        Chart chart = JChart.bar("Bar Chart Demo 3", "Category", "Value", dataset);
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setNoDataMessage("NO DATA!");

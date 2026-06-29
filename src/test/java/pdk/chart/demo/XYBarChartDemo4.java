@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYBarDataset;
@@ -26,7 +26,7 @@ public class XYBarChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("XYBarChartDemo4", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.bar("XYBarChartDemo4", "X", false, "Y", dataset, PlotOrientation.VERTICAL, true, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
         domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());

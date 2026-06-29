@@ -5,7 +5,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
@@ -32,7 +32,7 @@ public class StatisticalBarChartDemo1 {
         CategoryXYChart chart = CategoryXYChart.create()
                 .title("Statistical Bar Chart Demo 1")
                 .axisNames("Type", "Value")
-                .dataset(createDataset(), CategoryXYChartType.BAR_STATISTICS)
+                .dataset(createDataset(), CategoryChartType.BAR_STATISTICS)
                 .showLegend(true);
 
         Chart.DEFAULT_THEME.apply(chart);

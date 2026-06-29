@@ -43,7 +43,7 @@ public class XYBarChartDemo5 {
                         236.0, 128.0, -158.0, -378.0, -412.0
                 }
         );
-        IntervalXYDataset<String> dataset = Data.createIntervalXYDataset(timeSeries);
+        IntervalXYDataset<String> dataset = Data.createTime(timeSeries);
 
         TextTitle source = new TextTitle("Source: http://www.cbo.gov/showdoc.cfm?index=1821&sequence=0#table12");
         source.setFont(new Font("Dialog", Font.PLAIN, 8));

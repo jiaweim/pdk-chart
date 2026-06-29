@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultHighLowDataset;
 import pdk.chart.data.xy.OHLCDataset;
@@ -26,7 +26,7 @@ public class CandlestickChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = ChartFactory.createCandlestickChart("Candlestick Demo 1", "Time", "Value", dataset, true);
+        Chart chart = JChart.createCandlestickChart("Candlestick Demo 1", "Time", "Value", dataset, true);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();

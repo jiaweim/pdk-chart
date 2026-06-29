@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.ValueAxis;
@@ -47,7 +47,7 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.createXYAreaChart("XY Area Chart Demo 2", "Time", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.createXYAreaChart("XY Area Chart Demo 2", "Time", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         ValueAxis domainAxis = new DateAxis("Time");

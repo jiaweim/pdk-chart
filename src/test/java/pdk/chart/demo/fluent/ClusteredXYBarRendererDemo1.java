@@ -45,10 +45,12 @@ public class ClusteredXYBarRendererDemo1 {
                 },
                 new double[]{8.0, 16.0, 21.0, 5.0,});
 
-        IntervalXYDataset<String> dataset = Data.createIntervalXYDataset(s1, s2);
+        IntervalXYDataset<String> dataset = Data.createTime(s1, s2);
 
         DemoPanel panel = new DemoPanel(new GridLayout(2, 2));
         panel.setPreferredSize(new Dimension(800, 600));
+
+
 
         XYChart chart1 = XYChart.create(AxisType.DATE, AxisType.NUMBER)
                 .title("Vertical")

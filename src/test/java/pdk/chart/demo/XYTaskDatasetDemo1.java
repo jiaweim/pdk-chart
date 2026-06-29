@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.SymbolAxis;
@@ -31,7 +31,7 @@ public class XYTaskDatasetDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = ChartFactory.bar("XYTaskDatasetDemo1", "Resource", false, "Timing", dataset, PlotOrientation.HORIZONTAL, true, false, false);
+        Chart chart = JChart.bar("XYTaskDatasetDemo1", "Resource", false, "Timing", dataset, PlotOrientation.HORIZONTAL, true, false, false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangePannable(true);

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.ValueAxis;
@@ -41,7 +41,7 @@ public class DifferenceChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Difference Chart Demo 1", "Time", "Value", dataset);
+        Chart chart = JChart.timeLine("Difference Chart Demo 1", "Time", "Value", dataset);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         XYDifferenceRenderer r = new XYDifferenceRenderer(Color.GREEN, Color.RED, false);

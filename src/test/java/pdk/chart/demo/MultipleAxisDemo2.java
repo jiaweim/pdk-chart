@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
@@ -30,7 +30,7 @@ public class MultipleAxisDemo2 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset dataset1 = createDataset("Series 1", (double) 100.0F, new Minute(), 200);
-        Chart chart = ChartFactory.timeLine("Multiple Axis Demo 2", "Time of Day", "Primary Range Axis", dataset1, true, true, false);
+        Chart chart = JChart.timeLine("Multiple Axis Demo 2", "Time of Day", "Primary Range Axis", dataset1, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setOrientation(PlotOrientation.VERTICAL);

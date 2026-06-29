@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.data.time.Millisecond;
@@ -59,7 +59,7 @@ public class DynamicDataDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart result = ChartFactory.timeLine("Dynamic Data Demo", "Time", "Value", dataset);
+            Chart result = JChart.timeLine("Dynamic Data Demo", "Time", "Value", dataset);
             XYPlot plot = (XYPlot)result.getPlot();
             ValueAxis axis = plot.getDomainAxis();
             axis.setAutoRange(true);

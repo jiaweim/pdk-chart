@@ -206,16 +206,16 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         } else if (command.equals("COPY")) {
             this.copyToClipboard();
         } else if (command.equals("LEGACY_THEME")) {
-            ChartFactory.setChartTheme(StandardChartTheme.createLegacyTheme());
+            JChart.setChartTheme(StandardChartTheme.createLegacyTheme());
             this.applyThemeToChart();
         } else if (command.equals("JFREE_THEME")) {
-            ChartFactory.setChartTheme(StandardChartTheme.createJFreeTheme());
+            JChart.setChartTheme(StandardChartTheme.createJFreeTheme());
             this.applyThemeToChart();
         } else if (command.equals("JFREE_SHADOW_THEME")) {
-            ChartFactory.setChartTheme(new StandardChartTheme("JFreeChart/Shadow", true));
+            JChart.setChartTheme(new StandardChartTheme("JFreeChart/Shadow", true));
             this.applyThemeToChart();
         } else if (command.equals("DARKNESS_THEME")) {
-            ChartFactory.setChartTheme(StandardChartTheme.createDarknessTheme());
+            JChart.setChartTheme(StandardChartTheme.createDarknessTheme());
             this.applyThemeToChart();
         } else if (command.equals("EXIT")) {
             System.exit(0);

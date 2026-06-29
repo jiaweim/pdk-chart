@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.axis.NumberAxis;
@@ -105,13 +105,14 @@ public class AnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> dataset) {
-        Chart chart = ChartFactory.line(null, "Age in Months", "Weight (kg)", dataset);
+        Chart chart = JChart.line(null, "Age in Months", "Weight (kg)", dataset);
         TextTitle t1 = new TextTitle("Growth Charts: United States",
                 new Font("SansSerif", Font.BOLD, 14));
         TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months",
                 new Font("SansSerif", Font.PLAIN, 11));
         chart.addSubtitle(t1);
         chart.addSubtitle(t2);
+
         XYPlot<String> plot = chart.getXYPlot();
         plot.domainPannable(true)
                 .rangePannable(true);

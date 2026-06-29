@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartFactory;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickUnit;
 import pdk.chart.axis.DateTickUnitType;
@@ -32,7 +32,7 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = ChartFactory.timeLine("Weekly Data", "Date", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine("Weekly Data", "Date", "Value", dataset, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

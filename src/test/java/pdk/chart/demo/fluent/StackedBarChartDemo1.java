@@ -4,7 +4,7 @@ import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.title.TextTitle;
@@ -94,7 +94,7 @@ public class StackedBarChartDemo1 {
         yLabel.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUPER, 1, 2);
 
         CategoryXYChart chart = CategoryXYChart.create()
-                .addDataset(createDataset(), CategoryXYChartType.BAR_STACK)
+                .addDataset(createDataset(), CategoryChartType.BAR_STACK)
                 .title("Freshwater Usage By Country")
                 .axisNames("Country", "Value")
                 .addTitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"))
