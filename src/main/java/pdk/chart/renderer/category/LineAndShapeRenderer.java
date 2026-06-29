@@ -1,5 +1,6 @@
 package pdk.chart.renderer.category;
 
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.ValueAxis;
@@ -770,4 +771,49 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         return clone;
     }
 
+    /**
+     * Sets the shape of a given series.
+     *
+     * @param shape the shape.
+     */
+    public LineAndShapeRenderer seriesShape(int series, @Nullable Shape shape) {
+        setSeriesShape(series, shape);
+        return this;
+    }
+
+    /**
+     * Set the line width of a given series
+     *
+     * @param series series index
+     * @param width  line width
+     * @return this
+     */
+    public LineAndShapeRenderer seriesLinesWidth(int series, float width) {
+        setSeriesStroke(series, new BasicStroke(width));
+        return this;
+    }
+
+    /**
+     * Sets the 'shapes filled' flag for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param filled the flag.
+     */
+    public LineAndShapeRenderer seriesShapesFilled(int series, boolean filled) {
+        setSeriesShapesFilled(series, filled);
+        return this;
+    }
+
+    /**
+     * Sets the outline stroke used for a series.
+     * <p>
+     * For example, it can be used to set the border width of each data point.
+     *
+     * @param series the series index (zero-based).
+     * @param stroke the stroke.
+     */
+    public LineAndShapeRenderer seriesOutlineStroke(int series, @Nullable Stroke stroke) {
+        setSeriesOutlineStroke(series, stroke);
+        return this;
+    }
 }

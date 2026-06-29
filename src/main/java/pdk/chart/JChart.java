@@ -17,6 +17,7 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
+import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.fluent.Data;
 import pdk.chart.fluent.XYChart;
 import pdk.chart.labels.*;
@@ -593,7 +594,35 @@ public abstract class JChart {
         return chart;
     }
 
+    /**
+     * Create a category chart.
+     *
+     * @param dataset           {@link CategoryDataset} instance.
+     * @param chartType         {@link CategoryChartType}.
+     * @param title             chart title
+     * @param categoryAxisTitle category axis title.
+     * @param valueAxisTitle    value axis title.
+     * @param orientation       {@link PlotOrientation}
+     * @param legend            whether a legend is required.
+     * @param tooltips          configure chart to generate tool tips?
+     * @return a chart.
+     */
+    public static Chart create(CategoryDataset dataset, CategoryChartType chartType,
+            String title, String categoryAxisTitle, String valueAxisTitle, PlotOrientation orientation,
+            boolean legend, boolean tooltips) {
+        CategoryAxis domainAxis = new CategoryAxis(categoryAxisTitle);
+        NumberAxis valueAxis = new NumberAxis(valueAxisTitle);
+        CategoryItemRenderer renderer = chartType.getRenderer();
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+        }
 
+        CategoryPlot plot = new CategoryPlot(dataset, domainAxis, valueAxis, renderer);
+        plot.setOrientation(orientation);
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
+        currentTheme.apply(chart);
+        return chart;
+    }
 
     /**
      * Create a clustered bar chart.
@@ -789,7 +818,6 @@ public abstract class JChart {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -807,10 +835,10 @@ public abstract class JChart {
      * @param dataset           the dataset for the chart ({@code null} permitted).
      * @return A stacked area chart.
      */
-    public static Chart createStackedAreaChart(String title,
+    public static Chart stackedArea(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset) {
-        return createStackedAreaChart(title, categoryAxisLabel, valueAxisLabel,
+        return stackedArea(title, categoryAxisLabel, valueAxisLabel,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -834,7 +862,7 @@ public abstract class JChart {
      * @param urls              configure chart to generate URLs?
      * @return A stacked area chart.
      */
-    public static Chart createStackedAreaChart(String title,
+    public static Chart stackedArea(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {

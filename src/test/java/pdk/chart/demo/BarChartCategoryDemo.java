@@ -1,8 +1,10 @@
 package pdk.chart.demo;
 
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryChartType;
+import pdk.chart.fluent.Data;
+import pdk.chart.plot.CategoryPlot;
 
 /**
  *
@@ -13,31 +15,21 @@ import pdk.chart.fluent.CategoryChartType;
  */
 public class BarChartCategoryDemo {
     static void main() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        String[] categories = {"18 to 39", "40 - 59", "60 and over",};
+        DefaultCategoryDataset<String, String> dataset = Data.<String, String>category()
+                .addSeries("Males", categories, new double[]{5.5, 8.4, 12.8})
+                .addSeries("Females", categories, new double[]{10.3, 20.1, 24.3}).build();
 
-        String series1 = "Males";
-        String series2 = "Females";
-
-        String category1 = "18 to 39";
-        String category2 = "40 - 59";
-        String category3 = "60 and over";
-
-        dataset.addValue(5.5, series1, category1);
-        dataset.addValue(10.3, series2, category1);
-        dataset.addValue(8.4, series1, category2);
-        dataset.addValue(20.1, series2, category2);
-        dataset.addValue(12.8, series1, category3);
-        dataset.addValue(24.3, series2, category3);
-
-
-        CategoryXYChart chart = CategoryXYChart.create()
-                .dataset(dataset, CategoryChartType.BAR)
-                .title("Antidepressant Medication Usage")
-                .axisNames("Age Category", "Percent")
-                .domainGridlinesVisible(true)
-                .rangeGridlinesVisible(true)
-                .barProps(0).itemMargin(0.0).done()
-                .domainAxis().categoryMargin(0.5).done();
+        Chart chart = JChart.bar("Antidepressant Medication Usage",
+                "Age Category", "Percent",
+                dataset);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.domainGridlinesVisible(true)
+                .rangeGridlinesVisible(true);
+        plot.getBarRenderer(0)
+                .itemMargin(0.0);
+        plot.getDomainAxis()
+                .categoryMargin(0.5);
 
         chart.show();
     }

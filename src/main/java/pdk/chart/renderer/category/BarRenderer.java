@@ -14,6 +14,7 @@ import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.labels.CategoryItemLabelGenerator;
+import pdk.chart.labels.CategoryToolTipGenerator;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItem;
@@ -1206,6 +1207,61 @@ public class BarRenderer extends AbstractCategoryItemRenderer
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.shadowPaint = SerialUtils.readPaint(stream);
+    }
+
+    /**
+     * Sets the default flag that controls whether item labels are visible
+     * and sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param visible the flag.
+     */
+    public BarRenderer defaultItemLabelsVisible(boolean visible) {
+        setDefaultItemLabelsVisible(visible);
+        return this;
+    }
+
+    /**
+     * Sets the default item label generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public BarRenderer defaultItemLabelGenerator(CategoryItemLabelGenerator generator) {
+        setDefaultItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public BarRenderer defaultToolTipGenerator(CategoryToolTipGenerator generator) {
+        setDefaultToolTipGenerator(generator, true);
+        return this;
+    }
+
+    /**
+     * Sets the item label insets, which is the distance
+     * of the itemLabel relative to the bar.
+     *
+     * @param itemLabelInsets the insets
+     */
+    public BarRenderer itemLabelInsets(RectangleInsets itemLabelInsets) {
+        setItemLabelInsets(itemLabelInsets);
+        return this;
+    }
+
+    /**
+     * Set the margin between items (bars) within a category.
+     *
+     * @param itemMargin a percentage of the available space for all bars.
+     * @return this
+     */
+    public BarRenderer itemMargin(double itemMargin) {
+        setItemMargin(itemMargin);
+        return this;
     }
 
 }

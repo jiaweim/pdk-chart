@@ -14,5 +14,4 @@ public enum SortOrder {
      * Descending order.
      */
     DESCENDING
-
 }

@@ -540,7 +540,6 @@ public class CategoryXYChart extends Chart {
         return this;
     }
 
-
     /**
      * Enables or disables panning of the plot along the range axes.
      *

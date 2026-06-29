@@ -14,10 +14,7 @@ import pdk.chart.event.*;
 import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItemCollection;
-import pdk.chart.renderer.category.AreaRenderer;
-import pdk.chart.renderer.category.CategoryItemRenderer;
-import pdk.chart.renderer.category.CategoryItemRendererState;
-import pdk.chart.renderer.category.LineAndShapeRenderer;
+import pdk.chart.renderer.category.*;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.util.ShadowGenerator;
 
@@ -820,6 +817,17 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Returns the range axis for the plot.  If the range axis for this plot is
+     * null, then the method will return the parent plot's range axis (if there
+     * is a parent plot).
+     *
+     * @return The range axis (possibly {@code null}).
+     */
+    public NumberAxis getRangeAxisNumber() {
+        return (NumberAxis) getRangeAxis(0);
+    }
+
+    /**
      * Returns a range axis.
      *
      * @param index the axis index.
@@ -978,6 +986,17 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     public void setRangeAxisLocation(AxisLocation location) {
         // defer argument checking...
         setRangeAxisLocation(location, true);
+    }
+
+    /**
+     * Sets the location of the range axis and sends a {@link PlotChangeEvent}
+     * to all registered listeners.
+     *
+     * @param location the location ({@code null} not permitted).
+     */
+    public CategoryPlot<R, C> rangeAxisLocation(AxisLocation location) {
+        setRangeAxisLocation(location);
+        return this;
     }
 
     /**
@@ -1395,6 +1414,21 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Returns the renderer at the given index.
+     *
+     * @param index the renderer index.
+     * @return The renderer (possibly {@code null}).
+     * @see #setRenderer(int, CategoryItemRenderer)
+     */
+    public BarRenderer getBarRenderer(int index) {
+        CategoryItemRenderer renderer = getRenderer(index);
+        if (renderer instanceof BarRenderer barRenderer) {
+            return barRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not BarRenderer.");
+    }
+
+    /**
      * Returns a map containing the renderers that are assigned to this plot.
      * The map is unmodifiable.
      *
@@ -1577,7 +1611,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #setRowRenderingOrder(SortOrder)
      */
     public void setColumnRenderingOrder(SortOrder order) {
-        Args.nullNotPermitted(order, "order");
+        Objects.requireNonNull(order, "order");
         this.columnRenderingOrder = order;
         fireChangeEvent();
     }
@@ -1604,7 +1638,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * @see #setColumnRenderingOrder(SortOrder)
      */
     public void setRowRenderingOrder(SortOrder order) {
-        Args.nullNotPermitted(order, "order");
+        Objects.requireNonNull(order, "order");
         this.rowRenderingOrder = order;
         fireChangeEvent();
     }
@@ -1637,6 +1671,21 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Sets the flag that controls whether grid-lines are drawn against
+     * the domain axis. That is, whether to draw grid lines perpendicular to the domain axis.
+     * <p>
+     * If the flag value changes, a {@link PlotChangeEvent} is sent to all
+     * registered listeners.
+     *
+     * @param visible the new value of the flag.
+     * @see #isDomainGridlinesVisible()
+     */
+    public CategoryPlot<R, C> domainGridlinesVisible(boolean visible) {
+        setDomainGridlinesVisible(visible);
+        return this;
+    }
+
+    /**
      * Returns the position used for the domain gridlines.
      *
      * @return The gridline position (never {@code null}).
@@ -1657,6 +1706,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         Objects.requireNonNull(position, "position");
         this.domainGridlinePosition = position;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the position used for the domain gridlines and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param position the position ({@code null} not permitted).
+     * @see #getDomainGridlinePosition()
+     */
+    public CategoryPlot<R, C> domainGridlinePosition(CategoryAnchor position) {
+        setDomainGridlinePosition(position);
+        return this;
     }
 
     /**
@@ -1799,6 +1860,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
             this.rangeGridlinesVisible = visible;
             fireChangeEvent();
         }
+    }
+
+
+    /**
+     * Whether grid-lines are drawn against the range axis.
+     *
+     * @param showGridlines true if show grid lines
+     * @return this
+     */
+    public CategoryPlot<R, C> rangeGridlinesVisible(boolean showGridlines) {
+        setRangeGridlinesVisible(showGridlines);
+        return this;
     }
 
     /**
@@ -2934,7 +3007,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      */
     public boolean removeAnnotation(CategoryAnnotation annotation,
             boolean notify) {
-        Args.nullNotPermitted(annotation, "annotation");
+        Objects.requireNonNull(annotation, "annotation");
         boolean removed = this.annotations.remove(annotation);
         annotation.removeChangeListener(this);
         if (removed && notify) {
@@ -4112,6 +4185,16 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      */
     public void setRangePannable(boolean pannable) {
         this.rangePannable = pannable;
+    }
+
+    /**
+     * Enables or disables panning of the plot along the range axes.
+     *
+     * @param pannable the new flag value.
+     */
+    public CategoryPlot<R, C> rangePannable(boolean pannable) {
+        setRangePannable(pannable);
+        return this;
     }
 
     /**

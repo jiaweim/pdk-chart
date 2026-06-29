@@ -1,9 +1,11 @@
 package pdk.chart.demo;
 
-import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryChartType;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.fluent.Data;
 import pdk.chart.internal.ShapeUtils;
+import pdk.chart.plot.PlotOrientation;
 
 import java.awt.*;
 
@@ -19,20 +21,22 @@ import java.awt.*;
 public class BasicLineChart {
 
     static void main() {
-        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        dataset.addSeries("Category",
-                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
-                new double[]{150, 230, 224, 218, 135, 147, 260});
 
-        CategoryXYChart.create()
-                .dataset(dataset, CategoryChartType.LINE)
-                .showLegend(true)
-                .lineRenderer(0)
+        CategoryDataset<String, String> dataset = Data.createCategoryDataset(
+                "Category",
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new double[]{150, 230, 224, 218, 135, 147, 260}
+        );
+
+        Chart chart = JChart.line(null, null, null, dataset, PlotOrientation.VERTICAL,
+                false, true, false);
+
+        chart.getCategoryPlot()
+                .getLineAndShapeRenderer()
                 .seriesShape(0, ShapeUtils.createCircle(6))
                 .seriesLinesWidth(0, 2f)
                 .seriesShapesFilled(0, false)
-                .seriesOutlineStroke(0, new BasicStroke(2f))
-                .done()
-                .show();
+                .seriesOutlineStroke(0, new BasicStroke(2f));
+        chart.show();
     }
 }
