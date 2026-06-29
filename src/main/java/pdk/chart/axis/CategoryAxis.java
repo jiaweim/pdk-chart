@@ -1303,4 +1303,70 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
         }
     }
 
+    /**
+     * Set Axis title.
+     *
+     * @param axisTitle axis title.
+     * @return this.
+     */
+    public CategoryAxis name(String axisTitle) {
+        setLabel(axisTitle);
+        return this;
+    }
+
+    /**
+     * Sets the category margin.
+     * <p>
+     * The overall category margin is distributed over
+     * N-1 gaps, where N is the number of categories on the axis.
+     *
+     * @param margin the margin as a percentage of the axis length (for
+     *               example, 0.05 is five percent).
+     */
+    public CategoryAxis categoryMargin(double margin) {
+        setCategoryMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets the lower margin for the axis.
+     *
+     * @param margin the margin as a percentage of the axis length (for
+     *               example, 0.05 is five percent).
+     */
+    public CategoryAxis lowerMargin(double margin) {
+        setLowerMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets the upper margin for the axis.
+     *
+     * @param margin the margin as a percentage of the axis length (for
+     *               example, 0.05 is five percent).
+     */
+    public CategoryAxis upperMargin(double margin) {
+        setUpperMargin(margin);
+        return this;
+    }
+
+    /**
+     * Sets  whether the axis is visible.
+     *
+     * @param flag the flag.
+     */
+    public CategoryAxis visible(boolean flag) {
+        setVisible(flag);
+        return this;
+    }
+
+    /**
+     * Sets the maximum category label width ratio.
+     *
+     * @param ratio the ratio.
+     */
+    public CategoryAxis maximumCategoryLabelWidthRatio(float ratio) {
+        setMaximumCategoryLabelWidthRatio(ratio);
+        return this;
+    }
 }

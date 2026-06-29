@@ -7,6 +7,7 @@ import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.category.SlidingCategoryDataset;
 import pdk.chart.fluent.CategoryXYChart;
 import pdk.chart.fluent.CategoryXYChartType;
+import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -78,17 +79,17 @@ public class SlidingCategoryDatasetDemo2 extends ApplicationFrame {
                     .orientation(PlotOrientation.VERTICAL)
                     .dataset(dataset, CategoryXYChartType.BAR)
 
-                    .domainAxis()
-                    .maximumCategoryLabelWidthRatio(0.8f)
-                    .lowerMargin(0.02)
-                    .upperMargin(0.02)
-                    .done()
-
                     .barProps(0)
                     .addTooltips(true)
                     .drawBarOutline(false)
                     .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
                     .done();
+            CategoryPlot plot = chart.getCategoryPlot();
+            plot.getDomainAxis()
+                    .maximumCategoryLabelWidthRatio(0.8f)
+                    .lowerMargin(0.02)
+                    .upperMargin(0.02);
+
             chart.rangeAxisNumber()
                     .standardTickUnits(NumberAxis.createIntegerTickUnits())
                     .range(0, 100);

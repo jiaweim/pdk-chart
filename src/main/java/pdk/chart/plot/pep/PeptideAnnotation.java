@@ -56,7 +56,7 @@ public class PeptideAnnotation implements Serializable, Cloneable {
      * @return true if it is an n-TERMINAL FRAGMENT.
      */
     public boolean isNTerminal() {
-        return this.seriesType == SeriesType.b;
+        return this.seriesType == SeriesType.y;
     }
 
     /**

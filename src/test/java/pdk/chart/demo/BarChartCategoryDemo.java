@@ -29,14 +29,15 @@ public class BarChartCategoryDemo {
         dataset.addValue(12.8, series1, category3);
         dataset.addValue(24.3, series2, category3);
 
-        CategoryXYChart.create()
+        CategoryXYChart chart = CategoryXYChart.create()
                 .dataset(dataset, CategoryXYChartType.BAR)
                 .title("Antidepressant Medication Usage")
                 .axisNames("Age Category", "Percent")
                 .domainGridlinesVisible(true)
                 .rangeGridlinesVisible(true)
                 .barProps(0).itemMargin(0.0).done()
-                .domainAxis().categoryMargin(0.5).done()
-                .show();
+                .domainAxis().categoryMargin(0.5).done();
+
+        chart.show();
     }
 }
