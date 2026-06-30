@@ -1,9 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartRenderingInfo;
-import pdk.chart.axis.NumberAxis;
+import pdk.chart.JChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.PlotOrientation;
@@ -15,7 +14,15 @@ import java.awt.*;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+/**
+ *
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 30 Jun 2026, 2:25 PM
+ */
 public class ScatterPlotDemo3 extends ApplicationFrame {
+
     public ScatterPlotDemo3(String title) {
         super(title);
         JPanel demoPanel = createDemoPanel();
@@ -24,18 +31,20 @@ public class ScatterPlotDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter("Scatter Plot Demo 3", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainCrosshairVisible(true);
-        plot.setDomainCrosshairLockedOnData(true);
-        plot.setRangeCrosshairVisible(true);
-        plot.setRangeCrosshairLockedOnData(true);
-        plot.setDomainZeroBaselineVisible(true);
-        plot.setRangeZeroBaselineVisible(true);
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
-        domainAxis.setAutoRangeIncludesZero(false);
+        Chart chart = JChart.scatter("Scatter Plot Demo 3", "X", "Y",
+                dataset, PlotOrientation.VERTICAL, true, true, false);
+        XYPlot plot = chart.getXYPlot();
+        plot.domainCrosshairVisible(true)
+                .domainCrosshairLockedOnData(true)
+                .rangeCrosshairVisible(true)
+                .rangeCrosshairLockedOnData(true)
+                .domainZeroBaselineVisible(true)
+                .rangeZeroBaselineVisible(true)
+                .domainPannable(true)
+                .rangePannable(true);
+        plot.getDomainAxisAsNumber()
+                .autoRangeIncludesZero(false);
+
         return chart;
     }
 
@@ -47,7 +56,7 @@ public class ScatterPlotDemo3 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         ScatterPlotDemo3 demo = new ScatterPlotDemo3("Chart: ScatterPlotDemo3.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
@@ -55,6 +64,7 @@ public class ScatterPlotDemo3 extends ApplicationFrame {
     }
 
     static class MyChartMouseListener implements ChartMouseListener {
+
         ChartPanel panel;
 
         public MyChartMouseListener(ChartPanel panel) {

@@ -1,5 +1,8 @@
 package pdk.chart.renderer.xy;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+import pdk.chart.XYChartType;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -9,14 +12,10 @@ import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.internal.ShapeUtils;
-import pdk.chart.labels.ItemLabelAnchor;
-import pdk.chart.labels.ItemLabelPosition;
-import pdk.chart.labels.XYItemLabelGenerator;
-import pdk.chart.labels.XYSeriesLabelGenerator;
+import pdk.chart.labels.*;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
@@ -71,7 +70,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
      * @param painter the painter ({@code null} not permitted).
      */
     public static void setDefaultBarPainter(XYBarPainter painter) {
-        Args.nullNotPermitted(painter, "painter");
+        Objects.requireNonNull(painter, "painter");
         XYBarRenderer.defaultBarPainter = painter;
     }
 
@@ -296,6 +295,17 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the flag that determines whether the y-interval from the dataset is
+     * used to calculate the length of each bar.
+     *
+     * @param use the flag (default=false).
+     */
+    public XYBarRenderer useYInterval(boolean use) {
+        setUseYInterval(use);
+        return this;
+    }
+
+    /**
      * Returns the margin which is a percentage amount by which the bars are
      * trimmed.
      *
@@ -316,6 +326,18 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     public void setMargin(double margin) {
         this.margin = margin;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the percentage amount by which the bars are trimmed and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param margin the new margin.
+     * @see #getMargin()
+     */
+    public XYBarRenderer margin(double margin) {
+        setMargin(margin);
+        return this;
     }
 
     /**
@@ -377,6 +399,19 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the gradient paint transformer and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param transformer the transformer.
+     * @see #getGradientPaintTransformer()
+     */
+    public XYBarRenderer gradientPaintTransformer(
+            @Nullable GradientPaintTransformer transformer) {
+        setGradientPaintTransformer(transformer);
+        return this;
+    }
+
+    /**
      * Returns the shape used to represent bars in each legend item.
      *
      * @return The shape used to represent bars in each legend item (never
@@ -395,7 +430,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
      * @see #getLegendBar()
      */
     public void setLegendBar(Shape bar) {
-        Args.nullNotPermitted(bar, "bar");
+        Objects.requireNonNull(bar, "bar");
         this.legendBar = bar;
         fireChangeEvent();
     }
@@ -463,12 +498,23 @@ public class XYBarRenderer extends AbstractXYItemRenderer
      * Sets the bar painter and sends a {@link RendererChangeEvent} to all
      * registered listeners.
      *
-     * @param painter the painter ({@code null} not permitted).
+     * @param painter the painter.
      */
-    public void setBarPainter(XYBarPainter painter) {
+    public void setBarPainter(@NonNull XYBarPainter painter) {
         Objects.requireNonNull(painter, "painter");
         this.barPainter = painter;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the bar painter and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param painter the painter.
+     */
+    public XYBarRenderer barPainter(@NonNull XYBarPainter painter) {
+        setBarPainter(painter);
+        return this;
     }
 
     /**
@@ -491,6 +537,18 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     public void setShadowVisible(boolean visible) {
         this.shadowsVisible = visible;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the flag that controls whether the renderer
+     * draws shadows for the bars, and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param visible the new flag value.
+     */
+    public XYBarRenderer shadowVisible(boolean visible) {
+        setShadowVisible(visible);
+        return this;
     }
 
     /**
@@ -1229,4 +1287,102 @@ public class XYBarRenderer extends AbstractXYItemRenderer
         SerialUtils.writeShape(this.legendBar, stream);
     }
 
+    /**
+     * Sets the paint used for a series and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     * @see #getSeriesPaint(int)
+     */
+    public XYBarRenderer seriesPaint(int series, Paint paint) {
+        setSeriesPaint(series, paint, true);
+        return this;
+    }
+
+    /**
+     * Sets the paint used for a series outline.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     */
+    public XYBarRenderer seriesOutlinePaint(int series, Paint paint) {
+        setSeriesOutlinePaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Configure chart to generate tool tips.
+     *
+     * @param addTooltip true if generate tool tips.
+     * @return this.
+     */
+    public XYBarRenderer showTooltips(boolean addTooltip) {
+        if (addTooltip) {
+            setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+        return this;
+    }
+
+    /**
+     * Sets the base flag that controls whether item labels are visible,
+     * and sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param visible the flag.
+     * @see #getDefaultItemLabelsVisible()
+     */
+    public XYBarRenderer defaultItemLabelsVisible(boolean visible) {
+        setDefaultItemLabelsVisible(visible, true);
+        return this;
+    }
+
+    /**
+     * Sets the default item label generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public XYBarRenderer defaultItemLabelGenerator(XYItemLabelGenerator generator) {
+        setDefaultItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the default positive item label position.
+     *
+     * @param position the position ({@code null} not permitted).
+     * @see #getDefaultPositiveItemLabelPosition()
+     */
+    public XYBarRenderer defaultPositiveItemLabelPosition(
+            ItemLabelPosition position) {
+        setDefaultPositiveItemLabelPosition(position, true);
+        return this;
+    }
+
+    /**
+     * Sets the default tool tip generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param generator the generator.
+     * @see #getDefaultToolTipGenerator()
+     */
+    public XYBarRenderer defaultToolTipGenerator(@Nullable XYToolTipGenerator generator) {
+        setDefaultToolTipGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets whether the renderer displays each item
+     * value as a percentage (so that the stacked bars add to 100%).
+     * <p>
+     * This setting only takes effect for {@link XYChartType#BAR_STACK}.
+     *
+     * @param asPercentages the flag.
+     */
+    public XYBarRenderer renderAsPercentages(boolean asPercentages) {
+        if (this instanceof StackedXYBarRenderer barRenderer) {
+            barRenderer.setRenderAsPercentages(asPercentages);
+        }
+        return this;
+    }
 }

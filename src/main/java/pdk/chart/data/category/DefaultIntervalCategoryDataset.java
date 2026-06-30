@@ -376,7 +376,6 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
 
         // fetch the value...
         return this.startData[series][category];
-
     }
 
     /**

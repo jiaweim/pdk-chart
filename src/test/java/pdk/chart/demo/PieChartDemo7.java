@@ -35,7 +35,7 @@ public class PieChartDemo7 extends ApplicationFrame {
 
     public static JPanel createDemoPanel() {
         PieDataset dataset = createDataset(14);
-        Chart chart = JChart.createPieChart("Pie Chart Demo 7", dataset, false, true, false);
+        Chart chart = JChart.pie("Pie Chart Demo 7", dataset, false, true, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setCircular(true);
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {2}", NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));

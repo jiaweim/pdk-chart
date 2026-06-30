@@ -39,7 +39,7 @@ public class LegendWrapperDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.createPieChart("Legend Wrapper Demo 1", dataset, false, true, false);
+        Chart chart = JChart.pie("Legend Wrapper Demo 1", dataset, false, true, false);
         PiePlot plot = (PiePlot)chart.getPlot();
         plot.setLabelFont(new Font("SansSerif", 0, 12));
         plot.setNoDataMessage("No data available");

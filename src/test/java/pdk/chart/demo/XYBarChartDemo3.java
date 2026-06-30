@@ -1,15 +1,26 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import pdk.chart.JChart;
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * A demo that shows varying bar widths on an XYPlot.
+ * <p>
+ * The underlying dataset is an IntervalXYDataset which places no limitation on the interval for either the x-values or the y-values.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 16 Jun 2026, 2:25 PM
+ */
 public class XYBarChartDemo3 extends ApplicationFrame {
+
     public XYBarChartDemo3(String title) {
         super(title);
         IntervalXYDataset dataset = new SimpleIntervalXYDataset();
@@ -20,8 +31,7 @@ public class XYBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar("Sample", "X", false, "Y", dataset);
-        return chart;
+        return JChart.bar("Sample", "X", false, "Y", dataset);
     }
 
     public static JPanel createDemoPanel() {
@@ -29,7 +39,7 @@ public class XYBarChartDemo3 extends ApplicationFrame {
         return new ChartPanel(createChart(dataset), false);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYBarChartDemo3 demo = new XYBarChartDemo3("XY Bar Chart Demo 3");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

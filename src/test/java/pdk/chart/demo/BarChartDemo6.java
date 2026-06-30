@@ -1,22 +1,21 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import pdk.chart.JChart;
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
-import pdk.chart.axis.CategoryAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.plot.CategoryPlot;
+import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class BarChartDemo6 extends ApplicationFrame {
+
     public BarChartDemo6(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -24,28 +23,29 @@ public class BarChartDemo6 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double)83.0F, "First", "Factor 1");
+    private static CategoryDataset<String, String> createDataset() {
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        dataset.addValue(83.0F, "First", "Factor 1");
         return dataset;
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar((String)null, "Category", "Score (%)", dataset);
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        Chart chart = JChart.bar(null, "Category", "Score (%)", dataset);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.YELLOW);
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
-        plot.setOrientation(PlotOrientation.HORIZONTAL);
-        plot.setInsets(new RectangleInsets((double)0.0F, (double)0.0F, (double)0.0F, (double)0.0F));
-        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        plot.setRangeGridlinesVisible(false);
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setLowerMargin(0.2);
-        domainAxis.setUpperMargin(0.2);
-        domainAxis.setVisible(false);
-        NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
-        rangeAxis.setRange((double)0.0F, (double)100.0F);
-        rangeAxis.setVisible(false);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.orientation(PlotOrientation.HORIZONTAL)
+                .insets(RectangleInsets.ZERO_INSETS)
+                .axisOffset(RectangleInsets.ZERO_INSETS)
+                .rangeGridlinesVisible(false);
+        plot.getDomainAxis()
+                .lowerMargin(0.2)
+                .upperMargin(0.2)
+                .visible(false);
+        plot.getRangeAxisAsNumber()
+                .range(0, 100)
+                .visible(false);
         return chart;
     }
 
@@ -54,7 +54,7 @@ public class BarChartDemo6 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         BarChartDemo6 demo = new BarChartDemo6("Chart: BarChartDemo6.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

@@ -5,7 +5,7 @@ import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
@@ -41,14 +41,14 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
         XYPlot plot = chart.getXYPlot();
         plot.domainCrosshairVisible(true)
                 .rangeCrosshairVisible(true);
-        plot.getXYBarRenderer()
+        plot.getBarRenderer()
                 .drawBarOutline(false);
 
         RelativeDateFormat rdf = new RelativeDateFormat();
         rdf.setShowZeroDays(false);
         rdf.setSecondFormatter(new DecimalFormat("00"));
 
-        plot.rangeAxisDate()
+        plot.getRangeAxisAsDate()
                 .dateFormatOverride(rdf);
 
         ChartUtils.applyCurrentTheme(chart);

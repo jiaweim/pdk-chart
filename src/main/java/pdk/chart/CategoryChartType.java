@@ -1,4 +1,4 @@
-package pdk.chart.fluent;
+package pdk.chart;
 
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.*;

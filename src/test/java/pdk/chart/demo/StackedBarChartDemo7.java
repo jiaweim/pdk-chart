@@ -43,7 +43,7 @@ public class StackedBarChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart Demo 7", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 7", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setNumberFormatOverride(NumberFormat.getPercentInstance());

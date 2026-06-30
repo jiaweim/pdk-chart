@@ -7,7 +7,6 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.fluent.prop.XYLineAndShapeProps;
 import pdk.chart.internal.*;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
@@ -1173,7 +1172,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      *
      * @param showLine  whether line is visible.
      * @param showShape whether shape is visible.
-     * @return {@link XYLineAndShapeProps}.
+     * @return this.
      */
     public XYLineAndShapeRenderer defaultVisible(boolean showLine, boolean showShape) {
         setDefaultLinesVisible(showLine);

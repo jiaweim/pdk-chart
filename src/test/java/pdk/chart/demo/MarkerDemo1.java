@@ -14,7 +14,7 @@ import pdk.chart.data.time.Hour;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.plot.Marker;
 import pdk.chart.plot.ValueMarker;
 import pdk.chart.plot.XYPlot;
@@ -45,9 +45,9 @@ public class MarkerDemo1 extends ApplicationFrame {
         plot.domainPannable(true)
                 .rangePannable(true);
 
-        plot.domainAxisDate()
+        plot.getDomainAxisAsDate()
                 .upperMargin(0.5);
-        plot.rangeAxisNumber()
+        plot.getRangeAxisAsNumber()
                 .lowerMargin(0.5)
                 .upperMargin(0.3);
 

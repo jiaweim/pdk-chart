@@ -1,12 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.category.SlidingCategoryDataset;
-import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryChartType;
+import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -73,27 +73,20 @@ public class SlidingCategoryDatasetDemo1 extends ApplicationFrame {
         }
 
         private static Chart createChart(CategoryDataset dataset) {
-            CategoryXYChart chart = CategoryXYChart.create()
-                    .title("SlidingCategoryDatasetDemo1")
-                    .axisNames("Series", "Value")
-                    .orientation(PlotOrientation.HORIZONTAL)
-                    .dataset(dataset, CategoryChartType.BAR)
-
-                    .domainAxis()
+            Chart chart = JChart.bar("SlidingCategoryDatasetDemo1", "Series", "Value",
+                    dataset, PlotOrientation.HORIZONTAL, true, true, false);
+            CategoryPlot plot = chart.getCategoryPlot();
+            plot.getDomainAxis()
                     .maximumCategoryLabelWidthRatio(0.8f)
                     .lowerMargin(0.02)
-                    .upperMargin(0.02)
-                    .done()
-
-                    .barProps(0)
-                    .addTooltips(true)
+                    .upperMargin(0.02);
+            plot.getBarRenderer(0)
                     .drawBarOutline(false)
-                    .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
-                    .done();
-            chart.rangeAxisNumber()
+                    .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)));
+
+            plot.getRangeAxisAsNumber()
                     .standardTickUnits(NumberAxis.createIntegerTickUnits())
                     .range(0, 100);
-
             return chart;
         }
 

@@ -1,28 +1,34 @@
 package pdk.chart.demo;
 
-import java.awt.BasicStroke;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.geom.Rectangle2D;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
-import pdk.chart.JChart;
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.plot.Crosshair;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
-import pdk.chart.data.xy.XYSeriesCollection;
+import pdk.chart.Data;
+import pdk.chart.plot.Crosshair;
+import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ChartMouseEvent;
 import pdk.chart.swing.ChartMouseListener;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.CrosshairOverlay;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+
+/**
+ * In this demo we use the overlay feature on the ChartPanel
+ * in conjunction with the ChartMouseListener to update crosshairs
+ * in real time as the mouse moves over the chart.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 04 Jun 2026, 10:27 AM
+ */
 public class CrosshairOverlayDemo2 extends JFrame {
     public CrosshairOverlayDemo2(String title) {
         super(title);
@@ -33,17 +39,16 @@ public class CrosshairOverlayDemo2 extends JFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                CrosshairOverlayDemo2 app = new CrosshairOverlayDemo2("Chart: CrosshairOverlayDemo2.java");
-                app.pack();
-                app.setVisible(true);
-            }
+    static void main() {
+        SwingUtilities.invokeLater(() -> {
+            CrosshairOverlayDemo2 app = new CrosshairOverlayDemo2("CrosshairOverlayDemo2.java");
+            app.pack();
+            app.setVisible(true);
         });
     }
 
     static class MyDemoPanel extends JPanel implements ChartMouseListener {
+
         private static final int SERIES_COUNT = 4;
         private ChartPanel chartPanel;
         private Crosshair xCrosshair;
@@ -60,7 +65,7 @@ public class CrosshairOverlayDemo2 extends JFrame {
             crosshairOverlay.addDomainCrosshair(this.xCrosshair);
             this.yCrosshairs = new Crosshair[4];
 
-            for(int i = 0; i < 4; ++i) {
+            for (int i = 0; i < SERIES_COUNT; ++i) {
                 this.yCrosshairs[i] = new Crosshair(Double.NaN, Color.GRAY, new BasicStroke(0.5F));
                 this.yCrosshairs[i].setLabelVisible(true);
                 if (i % 2 != 0) {
@@ -74,25 +79,21 @@ public class CrosshairOverlayDemo2 extends JFrame {
             this.add(this.chartPanel);
         }
 
-        private Chart createChart(XYDataset dataset) {
-            Chart chart = JChart.line("CrosshairOverlayDemo2", "X", "Y", dataset);
-            return chart;
+        private Chart createChart(XYDataset<String> dataset) {
+            return JChart.line("CrosshairOverlayDemo2", "X", "Y", dataset);
         }
 
-        private XYDataset createDataset() {
-            XYSeriesCollection dataset = new XYSeriesCollection();
-
-            for(int i = 0; i < 4; ++i) {
-                XYSeries series = new XYSeries("S" + i);
-
-                for(int x = 0; x < 10; ++x) {
-                    series.add((double)x, (double)x + Math.random() * (double)4.0F);
+        private XYDataset<String> createDataset() {
+            Data.XYDatasetBuilder<String> xy = Data.xy();
+            for (int i = 0; i < 4; ++i) {
+                XYSeries<String> series = new XYSeries<>("S" + i);
+                for (int x = 0; x < 10; ++x) {
+                    series.add(x, x + Math.random() * 4.0);
                 }
-
-                dataset.addSeries(series);
+                xy.addSeries(series);
             }
 
-            return dataset;
+            return xy.build();
         }
 
         public void chartMouseClicked(ChartMouseEvent event) {
@@ -101,16 +102,15 @@ public class CrosshairOverlayDemo2 extends JFrame {
         public void chartMouseMoved(ChartMouseEvent event) {
             Rectangle2D dataArea = this.chartPanel.getScreenDataArea();
             Chart chart = event.getChart();
-            XYPlot plot = (XYPlot)chart.getPlot();
+            XYPlot plot = chart.getXYPlot();
             ValueAxis xAxis = plot.getDomainAxis();
-            double x = xAxis.java2DToValue((double)event.getTrigger().getX(), dataArea, RectangleEdge.BOTTOM);
+            double x = xAxis.java2DToValue(event.getTrigger().getX(), dataArea, RectangleEdge.BOTTOM);
             this.xCrosshair.setValue(x);
 
-            for(int i = 0; i < 4; ++i) {
+            for (int i = 0; i < 4; ++i) {
                 double y = DatasetUtils.findYValue(plot.getDataset(), i, x);
                 this.yCrosshairs[i].setValue(y);
             }
-
         }
     }
 }

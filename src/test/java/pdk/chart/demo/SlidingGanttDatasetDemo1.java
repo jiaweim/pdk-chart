@@ -89,7 +89,7 @@ public class SlidingGanttDatasetDemo1 extends ApplicationFrame {
         }
 
         private static Chart createChart(SlidingGanttCategoryDataset dataset) {
-            Chart chart = JChart.createGanttChart("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
+            Chart chart = JChart.gantt("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
             CategoryPlot plot = (CategoryPlot)chart.getPlot();
             Hour h = new Hour(1, 14, 5, 2008);
 

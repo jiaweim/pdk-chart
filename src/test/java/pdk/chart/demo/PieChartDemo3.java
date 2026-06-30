@@ -21,7 +21,7 @@ public class PieChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.createPieChart("Pie Chart Demo 3", dataset, true, true, false);
+        Chart chart = JChart.pie("Pie Chart Demo 3", dataset, true, true, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setNoDataMessage("No data available so we go into this really long spiel about what that means and it runs off the end of the line but what can you do about that!");
         plot.setNoDataMessageFont(new Font("Serif", Font.ITALIC, 10));

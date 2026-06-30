@@ -44,7 +44,7 @@ public class StackedXYAreaRendererDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = JChart.createStackedXYAreaChart("StackedXYAreaRendererDemo1", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.stackedAreaXY("StackedXYAreaRendererDemo1", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         StackedXYAreaRenderer renderer = new StackedXYAreaRenderer(5);
         renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());

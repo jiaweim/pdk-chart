@@ -30,7 +30,7 @@ public class MultiplePieChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.createMultiplePieChart("Multiple Pie Chart", dataset, TableOrder.BY_ROW, true, true, false);
+        Chart chart = JChart.pieMultiple("Multiple Pie Chart", dataset, TableOrder.BY_ROW, true, true, false);
         MultiplePiePlot plot = (MultiplePiePlot) chart.getPlot();
         Chart subchart = plot.getPieChart();
         PiePlot p = (PiePlot) subchart.getPlot();

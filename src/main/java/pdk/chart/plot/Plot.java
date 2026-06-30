@@ -14,7 +14,6 @@ import pdk.chart.data.general.DatasetChangeListener;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.PlotEntity;
 import pdk.chart.event.*;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
@@ -311,7 +310,7 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
      * @see #getNoDataMessageFont()
      */
     public void setNoDataMessageFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.noDataMessageFont = font;
         fireChangeEvent();
     }
@@ -335,7 +334,7 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
      * @see #getNoDataMessagePaint()
      */
     public void setNoDataMessagePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.noDataMessagePaint = paint;
         fireChangeEvent();
     }
@@ -427,6 +426,9 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
     /**
      * Sets the insets for the plot and, if requested,  and sends a
      * {@link PlotChangeEvent} to all registered listeners.
+     * <p>
+     * Used to control the padding between the chart's plot area and its outer border,
+     * i.e., to add or remove blank space around the plot area.
      *
      * @param insets the new insets ({@code null} not permitted).
      * @param notify a flag that controls whether the registered listeners are
@@ -442,7 +444,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
                 fireChangeEvent();
             }
         }
-
     }
 
     /**
@@ -463,7 +464,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
      * @see #getBackgroundPaint()
      */
     public void setBackgroundPaint(Paint paint) {
-
         if (paint == null) {
             if (this.backgroundPaint != null) {
                 this.backgroundPaint = null;
@@ -478,7 +478,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
             this.backgroundPaint = paint;
             fireChangeEvent();
         }
-
     }
 
     /**
@@ -599,7 +598,7 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
      * @see #getBackgroundImageAlignment()
      */
     public void setBackgroundImageAlignment(RectangleAlignment alignment) {
-        Args.nullNotPermitted(alignment, "alignment");
+        Objects.requireNonNull(alignment, "alignment");
         if (this.backgroundImageAlignment != alignment) {
             this.backgroundImageAlignment = alignment;
             fireChangeEvent();
@@ -1125,7 +1124,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
             result = result + w2;
         }
         return result;
-
     }
 
     /**
@@ -1275,9 +1273,8 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
      */
     public static RectangleEdge resolveDomainAxisLocation(
             AxisLocation location, PlotOrientation orientation) {
-
-        Args.nullNotPermitted(location, "location");
-        Args.nullNotPermitted(orientation, "orientation");
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(orientation);
 
         RectangleEdge result = null;
         switch (location) {
@@ -1329,9 +1326,8 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
      */
     public static RectangleEdge resolveRangeAxisLocation(
             AxisLocation location, PlotOrientation orientation) {
-
-        Args.nullNotPermitted(location, "location");
-        Args.nullNotPermitted(orientation, "orientation");
+        Objects.requireNonNull(location);
+        Objects.requireNonNull(orientation);
 
         RectangleEdge result = null;
         switch (location) {

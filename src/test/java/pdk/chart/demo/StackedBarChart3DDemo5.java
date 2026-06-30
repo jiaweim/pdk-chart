@@ -41,7 +41,7 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(int index, CategoryDataset dataset) {
-        Chart chart = JChart.createStackedBarChart("Chart " + (index + 1), "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.barStacked("Chart " + (index + 1), "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.getDomainAxis().setMaximumCategoryLabelLines(2);
         ValueAxis rangeAxis = plot.getRangeAxis();

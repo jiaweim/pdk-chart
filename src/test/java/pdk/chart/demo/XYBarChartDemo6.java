@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.data.xy.DefaultIntervalXYDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBarRenderer;
@@ -34,16 +34,14 @@ public class XYBarChartDemo6 extends ApplicationFrame {
     }
 
     private static IntervalXYDataset createDataset() {
-        DefaultIntervalXYDataset dataset = new DefaultIntervalXYDataset();
-        double[] x = new double[]{(double) 1.0F, (double) 2.0F, (double) 3.0F, (double) 4.0F};
-        double[] startx = new double[]{0.9, 1.8, 2.7, 3.6};
-        double[] endx = new double[]{1.1, 2.2, 3.3, 4.4};
-        double[] y = new double[]{(double) 1.0F, (double) 2.0F, (double) 3.0F, (double) 4.0F};
-        double[] starty = new double[]{0.9, 1.8, 2.7, 3.6};
-        double[] endy = new double[]{1.1, 2.2, 3.3, 4.4};
-        double[][] data = new double[][]{x, startx, endx, y, starty, endy};
-        dataset.addSeries("Series 1", data);
-        return dataset;
+        return Data.createIntervalXY("Series 1",
+                new double[]{1.0, 2.0, 3.0, 4.0},
+                new double[]{0.9, 1.8, 2.7, 3.6},
+                new double[]{1.1, 2.2, 3.3, 4.4},
+                new double[]{1.0, 2.0, 3.0, 4.0},
+                new double[]{0.9, 1.8, 2.7, 3.6},
+                new double[]{1.1, 2.2, 3.3, 4.4}
+        );
     }
 
     public static JPanel createDemoPanel() {
@@ -53,7 +51,7 @@ public class XYBarChartDemo6 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYBarChartDemo6 demo = new XYBarChartDemo6("Chart : XYBarChartDemo6");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

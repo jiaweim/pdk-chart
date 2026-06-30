@@ -1,22 +1,27 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GradientPaint;
-import javax.swing.JPanel;
-import pdk.chart.JChart;
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.SortOrder;
 import pdk.chart.axis.NumberAxis;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.LayeredBarRenderer;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.plot.CategoryPlot;
+import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * A layered bar chart.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 15 Jun 2026, 2:28 PM
+ */
 public class LayeredBarChartDemo1 extends ApplicationFrame {
     public LayeredBarChartDemo1(String title) {
         super(title);
@@ -25,52 +30,32 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        String series1 = "First";
-        String series2 = "Second";
-        String series3 = "Third";
-        String category1 = "Category 1";
-        String category2 = "Category 2";
-        String category3 = "Category 3";
-        String category4 = "Category 4";
-        String category5 = "Category 5";
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double)1.0F, series1, category1);
-        dataset.addValue((double)4.0F, series1, category2);
-        dataset.addValue((double)3.0F, series1, category3);
-        dataset.addValue((double)5.0F, series1, category4);
-        dataset.addValue((double)5.0F, series1, category5);
-        dataset.addValue((double)5.0F, series2, category1);
-        dataset.addValue((double)7.0F, series2, category2);
-        dataset.addValue((double)6.0F, series2, category3);
-        dataset.addValue((double)8.0F, series2, category4);
-        dataset.addValue((double)4.0F, series2, category5);
-        dataset.addValue((double)4.0F, series3, category1);
-        dataset.addValue((double)3.0F, series3, category2);
-        dataset.addValue((double)2.0F, series3, category3);
-        dataset.addValue((double)3.0F, series3, category4);
-        dataset.addValue((double)6.0F, series3, category5);
+    private static CategoryDataset<String, String> createDataset() {
+        String[] categories = {"Category 1", "Category 2", "Category 3", "Category 4", "Category 5"};
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        dataset.addSeries("First", categories, new double[]{1.0, 4.0, 3.0, 5.0, 5.0});
+        dataset.addSeries("Second", categories, new double[]{5.0, 7.0, 6.0, 8.0, 4.0});
+        dataset.addSeries("Third", categories, new double[]{4.0, 3.0, 2.0, 3.0, 6.0});
+
         return dataset;
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Layered Bar Chart Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
-        plot.setDomainGridlinesVisible(true);
-        plot.setRangePannable(true);
-        plot.setRangeZeroBaselineVisible(true);
-        NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        LayeredBarRenderer renderer = new LayeredBarRenderer();
-        renderer.setDrawBarOutline(false);
-        plot.setRenderer(renderer);
-        plot.setRowRenderingOrder(SortOrder.DESCENDING);
-        GradientPaint gp0 = new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64));
-        GradientPaint gp1 = new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0));
-        GradientPaint gp2 = new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0));
-        renderer.setSeriesPaint(0, gp0);
-        renderer.setSeriesPaint(1, gp1);
-        renderer.setSeriesPaint(2, gp2);
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        Chart chart = JChart.barLayered("Layered Bar Chart Demo 1", "Category", "Value", dataset,
+                PlotOrientation.VERTICAL, true, true, false);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.domainGridlinesVisible(true)
+                .rangePannable(true)
+                .rangeZeroBaselineVisible(true)
+                .rowRenderingOrder(SortOrder.DESCENDING);
+        plot.getRangeAxisAsNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        plot.getBarRenderer(0)
+                .drawBarOutline(false)
+                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
+                .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
+                .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
+
         return chart;
     }
 
@@ -81,8 +66,8 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        LayeredBarChartDemo1 demo = new LayeredBarChartDemo1("Chart: LayeredBarChartDemo1.java");
+    static void main() {
+        LayeredBarChartDemo1 demo = new LayeredBarChartDemo1("LayeredBarChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

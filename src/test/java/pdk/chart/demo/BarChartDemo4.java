@@ -7,7 +7,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -15,6 +14,13 @@ import pdk.chart.swing.UIUtils;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * A demo that shows the use of the maximum bar width setting to cap the width of bars.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 11 Jun 2026, 4:41 PM
+ */
 public class BarChartDemo4 extends ApplicationFrame {
     public BarChartDemo4(String title) {
         super(title);
@@ -23,22 +29,22 @@ public class BarChartDemo4 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, "First", "Category 1");
-        dataset.addValue((double) 5.0F, "Second", "Category 1");
+    private static CategoryDataset<String, String> createDataset() {
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        dataset.addValue(1.0, "First", "Category 1");
+        dataset.addValue(5.0, "Second", "Category 1");
         return dataset;
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Bar Chart Demo 4", (String) null, "Value", dataset);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
-        renderer.setMaximumBarWidth(0.1);
-        renderer.setLegendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        Chart chart = JChart.bar("Bar Chart Demo 4", null, "Value", dataset);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.getRangeAxisAsNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        plot.getBarRenderer(0)
+                .drawBarOutline(false)
+                .maximumBarWidth(0.1)
+                .legendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));
         return chart;
     }
 
@@ -47,8 +53,8 @@ public class BarChartDemo4 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        BarChartDemo4 demo = new BarChartDemo4("Chart: BarChartDemo4.java");
+    static void main() {
+        BarChartDemo4 demo = new BarChartDemo4("BarChartDemo4.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

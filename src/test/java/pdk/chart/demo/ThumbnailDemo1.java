@@ -146,7 +146,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart3(CategoryDataset dataset) {
-        Chart chart = JChart.createStackedBarChart("Public Opinion : Torture of Prisoners", "Country", "%", dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.barStacked("Public Opinion : Torture of Prisoners", "Country", "%", dataset, PlotOrientation.HORIZONTAL, false, true, false);
         chart.getTitle().setMargin((double)2.0F, (double)0.0F, (double)0.0F, (double)0.0F);
         TextTitle tt = new TextTitle("Source: http://news.bbc.co.uk/1/hi/world/6063386.stm", new Font("Dialog", 0, 11));
         tt.setPosition(RectangleEdge.BOTTOM);

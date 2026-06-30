@@ -2,11 +2,9 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -15,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ScatterPlotDemo1 extends ApplicationFrame {
+
     public ScatterPlotDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -23,35 +22,37 @@ public class ScatterPlotDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter("Scatter Plot Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setNoDataMessage("NO DATA");
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        plot.setDomainZeroBaselineVisible(true);
-        plot.setRangeZeroBaselineVisible(true);
-        plot.setDomainGridlineStroke(new BasicStroke(0.0F));
-        plot.setDomainMinorGridlineStroke(new BasicStroke(0.0F));
-        plot.setDomainGridlinePaint(Color.BLUE);
-        plot.setRangeGridlineStroke(new BasicStroke(0.0F));
-        plot.setRangeMinorGridlineStroke(new BasicStroke(0.0F));
-        plot.setRangeGridlinePaint(Color.BLUE);
-        plot.setDomainMinorGridlinesVisible(true);
-        plot.setRangeMinorGridlinesVisible(true);
-        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
-        renderer.setSeriesOutlinePaint(0, Color.black);
-        renderer.setUseOutlinePaint(true);
-        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
-        domainAxis.setAutoRangeIncludesZero(false);
-        domainAxis.setTickMarkInsideLength(2.0F);
-        domainAxis.setTickMarkOutsideLength(2.0F);
-        domainAxis.setMinorTickCount(2);
-        domainAxis.setMinorTickMarksVisible(true);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setTickMarkInsideLength(2.0F);
-        rangeAxis.setTickMarkOutsideLength(2.0F);
-        rangeAxis.setMinorTickCount(2);
-        rangeAxis.setMinorTickMarksVisible(true);
+        Chart chart = JChart.scatter("Scatter Plot Demo 1", "X", "Y",
+                dataset, PlotOrientation.VERTICAL, true, true, false);
+        XYPlot plot = chart.getXYPlot();
+        plot.noDataMessage("NO DATA")
+                .domainPannable(true)
+                .rangePannable(true)
+                .domainZeroBaselineVisible(true)
+                .rangeZeroBaselineVisible(true)
+                .domainGridlineStroke(new BasicStroke(0f))
+                .domainMinorGridlineStroke(new BasicStroke(0f))
+                .domainGridlinePaint(Color.BLUE)
+                .rangeGridlineStroke(new BasicStroke(0f))
+                .rangeMinorGridlineStroke(new BasicStroke(0f))
+                .rangeGridlinePaint(Color.BLUE)
+                .domainMinorGridlinesVisible(true)
+                .rangeMinorGridlinesVisible(true);
+
+        plot.getLineAndShapeRenderer()
+                .seriesOutlinePaint(0, Color.BLACK)
+                .useOutlinePaint(true);
+        plot.getDomainAxisAsNumber()
+                .autoRangeIncludesZero(false)
+                .tickMarkInsideLength(2.0f)
+                .tickMarkOutsideLength(2.0f)
+                .minorTickCount(2)
+                .minorTickMarksVisible(true);
+        plot.getRangeAxisAsNumber()
+                .tickMarkInsideLength(2.0f)
+                .tickMarkOutsideLength(2.0f)
+                .minorTickCount(2)
+                .minorTickMarksVisible(true);
         return chart;
     }
 
@@ -62,8 +63,8 @@ public class ScatterPlotDemo1 extends ApplicationFrame {
         return chartPanel;
     }
 
-    public static void main(String[] args) {
-        ScatterPlotDemo1 demo = new ScatterPlotDemo1("Chart: ScatterPlotDemo1.java");
+    static void main() {
+        ScatterPlotDemo1 demo = new ScatterPlotDemo1("ScatterPlotDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

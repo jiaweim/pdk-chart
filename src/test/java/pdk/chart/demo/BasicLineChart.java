@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.internal.ShapeUtils;
 import pdk.chart.plot.PlotOrientation;
 
@@ -22,7 +22,7 @@ public class BasicLineChart {
 
     static void main() {
 
-        CategoryDataset<String, String> dataset = Data.createCategoryDataset(
+        CategoryDataset<String, String> dataset = Data.createCategory(
                 "Category",
                 new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
                 new double[]{150, 230, 224, 218, 135, 147, 260}

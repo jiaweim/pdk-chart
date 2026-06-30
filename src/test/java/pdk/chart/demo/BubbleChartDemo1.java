@@ -4,7 +4,7 @@ import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYItemRenderer;

@@ -117,10 +117,10 @@ public class AnnotationDemo1 extends ApplicationFrame {
         plot.domainPannable(true)
                 .rangePannable(true);
 
-        plot.domainAxisNumber()
+        plot.getDomainAxisAsNumber()
                 .upperMargin(0.12)
                 .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.rangeAxisNumber()
+        plot.getRangeAxisAsNumber()
                 .autoRangeIncludesZero(false);
 
         Font font = new Font("SansSerif", Font.PLAIN, 9);

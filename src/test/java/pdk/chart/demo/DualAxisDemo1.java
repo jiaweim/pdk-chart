@@ -10,8 +10,8 @@ import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.fluent.CategoryChartType;
-import pdk.chart.fluent.Data;
+import pdk.chart.CategoryChartType;
+import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.CategoryPlot;
@@ -57,7 +57,7 @@ public class DualAxisDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset2() {
-        return Data.createCategoryDataset("S4",
+        return Data.createCategory("S4",
                 new String[]{"Category 1",
                         "Category 2",
                         "Category 3",

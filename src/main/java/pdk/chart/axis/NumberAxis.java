@@ -6,7 +6,6 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
 import pdk.chart.data.RangeType;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.internal.Args;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.ValueAxisPlot;
@@ -137,7 +136,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @see #getRangeType()
      */
     public void setRangeType(RangeType rangeType) {
-        Args.nullNotPermitted(rangeType, "rangeType");
+        Objects.requireNonNull(rangeType, "rangeType");
         this.rangeType = rangeType;
         notifyListeners(new AxisChangeEvent(this));
     }
@@ -246,9 +245,9 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param turnOffAutoSelect turn off the auto-tick selection?
      */
     public void setTickUnit(NumberTickUnit unit, boolean notify,
-                            boolean turnOffAutoSelect) {
+            boolean turnOffAutoSelect) {
+        Objects.requireNonNull(unit, "unit");
 
-        Args.nullNotPermitted(unit, "unit");
         this.tickUnit = unit;
         if (turnOffAutoSelect) {
             setAutoTickUnitSelection(false, false);
@@ -417,7 +416,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public double valueToJava2D(double value, Rectangle2D area,
-                                RectangleEdge edge) {
+            RectangleEdge edge) {
 
         Range range = getRange();
         double axisMin = range.getLowerBound();
@@ -454,7 +453,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public double java2DToValue(double java2DValue, Rectangle2D area,
-                                RectangleEdge edge) {
+            RectangleEdge edge) {
 
         Range range = getRange();
         double axisMin = range.getLowerBound();
@@ -532,8 +531,8 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public AxisState draw(Graphics2D g2, double cursor, Rectangle2D plotArea,
-                          Rectangle2D dataArea, RectangleEdge edge,
-                          PlotRenderingInfo plotState) {
+            Rectangle2D dataArea, RectangleEdge edge,
+            PlotRenderingInfo plotState) {
 
         AxisState state;
         // if the axis is not visible, don't draw it...
@@ -646,7 +645,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @return The estimated maximum width of the tick labels.
      */
     protected double estimateMaximumTickLabelWidth(Graphics2D g2,
-                                                   TickUnit unit) {
+            TickUnit unit) {
 
         RectangleInsets tickLabelInsets = getTickLabelInsets();
         double result = tickLabelInsets.getLeft() + tickLabelInsets.getRight();
@@ -691,7 +690,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param edge     the axis location.
      */
     protected void selectAutoTickUnit(Graphics2D g2, Rectangle2D dataArea,
-                                      RectangleEdge edge) {
+            RectangleEdge edge) {
 
         if (RectangleEdge.isTopOrBottom(edge)) {
             selectHorizontalAutoTickUnit(g2, dataArea, edge);
@@ -711,7 +710,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param edge     the axis location.
      */
     protected void selectHorizontalAutoTickUnit(Graphics2D g2,
-                                                Rectangle2D dataArea, RectangleEdge edge) {
+            Rectangle2D dataArea, RectangleEdge edge) {
 
         TickUnit unit = getTickUnit();
         TickUnitSource tickUnitSource = getStandardTickUnits();
@@ -759,7 +758,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param edge     the axis location.
      */
     protected void selectVerticalAutoTickUnit(Graphics2D g2,
-                                              Rectangle2D dataArea, RectangleEdge edge) {
+            Rectangle2D dataArea, RectangleEdge edge) {
 
         double tickLabelHeight = estimateMaximumTickLabelHeight(g2);
 
@@ -797,7 +796,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      */
     @Override
     public List refreshTicks(Graphics2D g2, AxisState state,
-                             Rectangle2D dataArea, RectangleEdge edge) {
+            Rectangle2D dataArea, RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
         if (RectangleEdge.isTopOrBottom(edge)) {
@@ -819,7 +818,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @return A list of ticks.
      */
     protected List refreshTicksHorizontal(Graphics2D g2,
-                                          Rectangle2D dataArea, RectangleEdge edge) {
+            Rectangle2D dataArea, RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
 
@@ -909,7 +908,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @return A list of ticks.
      */
     protected List refreshTicksVertical(Graphics2D g2,
-                                        Rectangle2D dataArea, RectangleEdge edge) {
+            Rectangle2D dataArea, RectangleEdge edge) {
 
         List result = new java.util.ArrayList();
         result.clear();
@@ -1272,6 +1271,18 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
         if (this instanceof SymbolAxis symbolAxis) {
             symbolAxis.setGridBandsVisible(flag);
         }
+        return this;
+    }
+
+    /**
+     * Sets the angle for the label and sends an {@link AxisChangeEvent} to all
+     * registered listeners.
+     *
+     * @param angle the angle (in radians).
+     * @see #getLabelAngle()
+     */
+    public NumberAxis labelAngle(double angle) {
+        setLabelAngle(angle);
         return this;
     }
 }

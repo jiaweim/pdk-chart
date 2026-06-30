@@ -29,7 +29,7 @@ public class HighLowChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.createHighLowChart("High-Low-Open-Close Demo", "Time", "Price", dataset, true);
+        Chart chart = JChart.highLow("High-Low-Open-Close Demo", "Time", "Price", dataset, true);
         XYPlot plot = (XYPlot)chart.getPlot();
         DateAxis axis = (DateAxis)plot.getDomainAxis();
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);

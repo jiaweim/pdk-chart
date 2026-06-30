@@ -1,5 +1,7 @@
 package pdk.chart.plot;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.JChart;
@@ -16,7 +18,7 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.*;
-import pdk.chart.fluent.XYChartType;
+import pdk.chart.XYChartType;
 import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.internal.PaintUtils;
@@ -415,12 +417,12 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * take care to specify the value before using the plot (otherwise a
      * {@code NullPointerException} may be thrown).
      *
-     * @param dataset    the dataset ({@code null} permitted).
+     * @param dataset    the dataset.
      * @param domainAxis the domain axis ({@code null} permitted).
      * @param rangeAxis  the range axis ({@code null} permitted).
      * @param renderer   the renderer ({@code null} permitted).
      */
-    public XYPlot(XYDataset<S> dataset, ValueAxis domainAxis, ValueAxis rangeAxis,
+    public XYPlot(@Nullable XYDataset<S> dataset, ValueAxis domainAxis, ValueAxis rangeAxis,
             XYItemRenderer renderer) {
         super();
         this.orientation = PlotOrientation.VERTICAL;
@@ -543,7 +545,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getOrientation()
      */
     public void setOrientation(PlotOrientation orientation) {
-        Args.nullNotPermitted(orientation, "orientation");
+        Objects.requireNonNull(orientation, "orientation");
         if (orientation != this.orientation) {
             this.orientation = orientation;
             fireChangeEvent();
@@ -595,7 +597,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainAxis(int)
      * @see #setDomainAxis(ValueAxis)
      */
-    public NumberAxis domainAxisNumber() {
+    public NumberAxis getDomainAxisAsNumber() {
         return (NumberAxis) getDomainAxis(0);
     }
 
@@ -608,7 +610,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainAxis(int)
      * @see #setDomainAxis(ValueAxis)
      */
-    public DateAxis domainAxisDate() {
+    public DateAxis getDomainAxisAsDate() {
         return (DateAxis) getDomainAxis();
     }
 
@@ -883,7 +885,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeAxis(int)
      * @see #setRangeAxis(ValueAxis)
      */
-    public NumberAxis rangeAxisNumber() {
+    public NumberAxis getRangeAxisAsNumber() {
         return (NumberAxis) getRangeAxis(0);
     }
 
@@ -896,7 +898,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeAxis(int)
      * @see #setRangeAxis(ValueAxis)
      */
-    public DateAxis rangeAxisDate() {
+    public DateAxis getRangeAxisAsDate() {
         return (DateAxis) getRangeAxis(0);
     }
 
@@ -1392,7 +1394,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      *
      * @return {@link XYLineAndShapeRenderer}.
      */
-    public XYBarRenderer getXYBarRenderer() {
+    public XYBarRenderer getBarRenderer() {
         XYItemRenderer renderer = getRenderer();
         if (renderer instanceof XYBarRenderer barRenderer) {
             return barRenderer;
@@ -1405,12 +1407,26 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      *
      * @return {@link XYLineAndShapeRenderer}.
      */
-    public XYBarRenderer getXYBarRenderer(int index) {
+    public XYBarRenderer getBarRenderer(int index) {
         XYItemRenderer renderer = getRenderer(index);
         if (renderer instanceof XYBarRenderer barRenderer) {
             return barRenderer;
         }
         throw new IllegalStateException("The renderer corresponding to the specified dataset is not XYBarRenderer.");
+    }
+
+
+    /**
+     * Return the first renderer and {@link XYLineAndShapeRenderer} instance.
+     *
+     * @return {@link XYLineAndShapeRenderer}.
+     */
+    public ClusteredXYBarRenderer getClusteredXYBarRenderer(int index) {
+        XYItemRenderer renderer = getRenderer(index);
+        if (renderer instanceof ClusteredXYBarRenderer barRenderer) {
+            return barRenderer;
+        }
+        throw new IllegalStateException("The renderer corresponding to the specified dataset is not ClusteredXYBarRenderer.");
     }
 
     /**
@@ -1537,7 +1553,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDatasetRenderingOrder()
      */
     public void setDatasetRenderingOrder(DatasetRenderingOrder order) {
-        Args.nullNotPermitted(order, "order");
+        Objects.requireNonNull(order, "order");
         this.datasetRenderingOrder = order;
         fireChangeEvent();
     }
@@ -1562,7 +1578,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getSeriesRenderingOrder()
      */
     public void setSeriesRenderingOrder(SeriesRenderingOrder order) {
-        Args.nullNotPermitted(order, "order");
+        Objects.requireNonNull(order, "order");
         this.seriesRenderingOrder = order;
         fireChangeEvent();
     }
@@ -1685,6 +1701,21 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag that controls whether the domain minor grid-lines
+     * are visible.
+     * <p>
+     * If the flag value is changed, a {@link PlotChangeEvent} is sent to all
+     * registered listeners.
+     *
+     * @param visible the new value of the flag.
+     * @see #isDomainMinorGridlinesVisible()
+     */
+    public XYPlot<S> domainMinorGridlinesVisible(boolean visible) {
+        setDomainMinorGridlinesVisible(visible);
+        return this;
+    }
+
+    /**
      * Returns the stroke for the grid-lines (if any) plotted against the
      * domain axis.
      *
@@ -1709,13 +1740,24 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the stroke for the grid lines plotted against the domain axis, and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     * @see #getDomainGridlineStroke()
+     */
+    public XYPlot<S> domainGridlineStroke(Stroke stroke) {
+        setDomainGridlineStroke(stroke);
+        return this;
+    }
+
+    /**
      * Returns the stroke for the minor grid-lines (if any) plotted against the
      * domain axis.
      *
      * @return The stroke (never {@code null}).
      * @see #setDomainMinorGridlineStroke(Stroke)
      */
-
     public Stroke getDomainMinorGridlineStroke() {
         return this.domainMinorGridlineStroke;
     }
@@ -1731,6 +1773,18 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         Objects.requireNonNull(stroke, "stroke");
         this.domainMinorGridlineStroke = stroke;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the stroke for the minor grid lines plotted against the domain
+     * axis, and sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     * @see #getDomainMinorGridlineStroke()
+     */
+    public XYPlot<S> domainMinorGridlineStroke(Stroke stroke) {
+        setDomainMinorGridlineStroke(stroke);
+        return this;
     }
 
     /**
@@ -1755,6 +1809,18 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         Objects.requireNonNull(paint, "paint");
         this.domainGridlinePaint = paint;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the paint for the grid lines plotted against the domain axis, and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint.
+     * @see #getDomainGridlinePaint()
+     */
+    public XYPlot<S> domainGridlinePaint(@NonNull Paint paint) {
+        setDomainGridlinePaint(paint);
+        return this;
     }
 
     /**
@@ -1834,6 +1900,18 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the stroke for the grid lines plotted against the range axis,
+     * and sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     * @see #getRangeGridlineStroke()
+     */
+    public XYPlot<S> rangeGridlineStroke(Stroke stroke) {
+        setRangeGridlineStroke(stroke);
+        return this;
+    }
+
+    /**
      * Returns the paint for the grid lines (if any) plotted against the range
      * axis.
      *
@@ -1852,9 +1930,21 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeGridlinePaint()
      */
     public void setRangeGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeGridlinePaint = paint;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the paint for the grid lines plotted against the range axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     * @see #getRangeGridlinePaint()
+     */
+    public XYPlot<S> rangeGridlinePaint(Paint paint) {
+        setRangeGridlinePaint(paint);
+        return this;
     }
 
     /**
@@ -1886,6 +1976,21 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag that controls whether the range axis minor grid
+     * lines are visible.
+     * <p>
+     * If the flag value is changed, a {@link PlotChangeEvent} is sent to all
+     * registered listeners.
+     *
+     * @param visible the new value of the flag.
+     * @see #isRangeMinorGridlinesVisible()
+     */
+    public XYPlot<S> rangeMinorGridlinesVisible(boolean visible) {
+        setRangeMinorGridlinesVisible(visible);
+        return this;
+    }
+
+    /**
      * Returns the stroke for the minor grid lines (if any) plotted against the
      * range axis.
      *
@@ -1904,9 +2009,21 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeMinorGridlineStroke()
      */
     public void setRangeMinorGridlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke);
         this.rangeMinorGridlineStroke = stroke;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the stroke for the minor grid lines plotted against the range axis,
+     * and sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     * @see #getRangeMinorGridlineStroke()
+     */
+    public XYPlot<S> rangeMinorGridlineStroke(Stroke stroke) {
+        setRangeMinorGridlineStroke(stroke);
+        return this;
     }
 
     /**
@@ -1928,7 +2045,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeMinorGridlinePaint()
      */
     public void setRangeMinorGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeMinorGridlinePaint = paint;
         fireChangeEvent();
     }
@@ -1958,6 +2075,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag that controls whether the zero baseline is
+     * displayed for the domain axis, and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param visible the flag.
+     * @see #isDomainZeroBaselineVisible()
+     */
+    public XYPlot<S> domainZeroBaselineVisible(boolean visible) {
+        setDomainZeroBaselineVisible(visible);
+        return this;
+    }
+
+    /**
      * Returns the stroke used for the zero baseline against the domain axis.
      *
      * @return The stroke (never {@code null}).
@@ -1975,7 +2105,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeZeroBaselineStroke()
      */
     public void setDomainZeroBaselineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke);
         this.domainZeroBaselineStroke = stroke;
         fireChangeEvent();
     }
@@ -1999,7 +2129,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainZeroBaselinePaint()
      */
     public void setDomainZeroBaselinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.domainZeroBaselinePaint = paint;
         fireChangeEvent();
     }
@@ -2029,6 +2159,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag that controls whether the zero baseline is
+     * displayed for the range axis, and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param visible the flag.
+     * @see #isRangeZeroBaselineVisible()
+     */
+    public XYPlot<S> rangeZeroBaselineVisible(boolean visible) {
+        setRangeZeroBaselineVisible(visible);
+        return this;
+    }
+
+    /**
      * Returns the stroke used for the zero baseline against the range axis.
      *
      * @return The stroke (never {@code null}).
@@ -2046,7 +2189,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeZeroBaselineStroke()
      */
     public void setRangeZeroBaselineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke);
         this.rangeZeroBaselineStroke = stroke;
         fireChangeEvent();
     }
@@ -2070,7 +2213,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeZeroBaselinePaint()
      */
     public void setRangeZeroBaselinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeZeroBaselinePaint = paint;
         fireChangeEvent();
     }
@@ -2138,7 +2281,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getQuadrantOrigin()
      */
     public void setQuadrantOrigin(Point2D origin) {
-        Args.nullNotPermitted(origin, "origin");
+        Objects.requireNonNull(origin, "origin");
         this.quadrantOrigin = origin;
         fireChangeEvent();
     }
@@ -2292,8 +2435,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public void addDomainMarker(int index, Marker marker, Layer layer,
             boolean notify) {
-        Args.nullNotPermitted(marker, "marker");
-        Args.nullNotPermitted(layer, "layer");
+        Objects.requireNonNull(marker, "marker");
+        Objects.requireNonNull(layer, "layer");
         if (layer == Layer.FOREGROUND) {
             List<Marker> markers = this.foregroundDomainMarkers.computeIfAbsent(index, k -> new ArrayList<>());
             markers.add(marker);
@@ -2552,8 +2695,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public boolean removeRangeMarker(int index, Marker marker, Layer layer,
             boolean notify) {
-        Args.nullNotPermitted(marker, "marker");
-        Args.nullNotPermitted(layer, "layer");
+        Objects.requireNonNull(marker, "marker must not be null");
+        Objects.requireNonNull(layer, "layer must not be null");
         List<Marker> markers;
         if (layer == Layer.FOREGROUND) {
             markers = this.foregroundRangeMarkers.get(index);
@@ -2590,7 +2733,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param notify     notify listeners?
      */
     public void addAnnotation(XYAnnotation annotation, boolean notify) {
-        Args.nullNotPermitted(annotation, "annotation");
+        Objects.requireNonNull(annotation, "annotation must not be null");
         this.annotations.add(annotation);
         annotation.addChangeListener(this);
         if (notify) {
@@ -2620,7 +2763,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return A boolean (indicates whether the annotation was removed).
      */
     public boolean removeAnnotation(XYAnnotation annotation, boolean notify) {
-        Args.nullNotPermitted(annotation, "annotation");
+        Objects.requireNonNull(annotation, "annotation must not be null");
         boolean removed = this.annotations.remove(annotation);
         annotation.removeChangeListener(this);
         if (removed && notify) {
@@ -3936,7 +4079,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return A list of datasets.
      */
     private List<XYDataset<S>> getDatasetsMappedToDomainAxis(Integer axisIndex) {
-        Args.nullNotPermitted(axisIndex, "axisIndex");
+        Objects.requireNonNull(axisIndex, "axisIndex");
         List<XYDataset<S>> result = new ArrayList<>();
         for (Entry<Integer, XYDataset<S>> entry : this.datasets.entrySet()) {
             int index = entry.getKey();
@@ -3962,7 +4105,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @return A list of datasets.
      */
     private List<XYDataset<S>> getDatasetsMappedToRangeAxis(Integer axisIndex) {
-        Args.nullNotPermitted(axisIndex, "axisIndex");
+        Objects.requireNonNull(axisIndex, "axisIndex");
         List<XYDataset<S>> result = new ArrayList<>();
         for (Entry<Integer, XYDataset<S>> entry : this.datasets.entrySet()) {
             int index = entry.getKey();
@@ -4230,6 +4373,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     }
 
     /**
+     * Sets the flag indicating whether the domain crosshair should
+     * "lock-on" to actual data values.  If the flag value changes, this
+     * method sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #isDomainCrosshairLockedOnData()
+     */
+    public XYPlot<S> domainCrosshairLockedOnData(boolean flag) {
+        setDomainCrosshairLockedOnData(flag);
+        return this;
+    }
+
+    /**
      * Returns the domain crosshair value.
      *
      * @return The value.
@@ -4286,7 +4442,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainCrosshairStroke()
      */
     public void setDomainCrosshairStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke);
         this.domainCrosshairStroke = stroke;
         fireChangeEvent();
     }
@@ -4311,7 +4467,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getDomainCrosshairPaint()
      */
     public void setDomainCrosshairPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint);
         this.domainCrosshairPaint = paint;
         fireChangeEvent();
     }
@@ -4366,6 +4522,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
             this.rangeCrosshairLockedOnData = flag;
             fireChangeEvent();
         }
+    }
+
+    /**
+     * Sets the flag indicating whether the range crosshair should
+     * "lock-on" to actual data values.  If the flag value changes, this method
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #isRangeCrosshairLockedOnData()
+     */
+    public XYPlot<S> rangeCrosshairLockedOnData(boolean flag) {
+        setRangeCrosshairLockedOnData(flag);
+        return this;
     }
 
     /**
@@ -4428,7 +4597,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeCrosshairStroke()
      */
     public void setRangeCrosshairStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke);
         this.rangeCrosshairStroke = stroke;
         fireChangeEvent();
     }
@@ -4453,7 +4622,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @see #getRangeCrosshairPaint()
      */
     public void setRangeCrosshairPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint);
         this.rangeCrosshairPaint = paint;
         fireChangeEvent();
     }
@@ -5334,4 +5503,43 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         return this;
     }
 
+    /**
+     * Sets the alpha-transparency for the plot and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     * <p>
+     * The alpha transparency is a value in the range 0.0f
+     * (completely transparent) to 1.0f (completely opaque).
+     *
+     * @param alpha the new alpha transparency.
+     * @see #getForegroundAlpha()
+     */
+    public XYPlot<S> foregroundAlpha(float alpha) {
+        setForegroundAlpha(alpha);
+        return this;
+    }
+
+    /**
+     * Sets the message that is displayed when the dataset is empty or
+     * {@code null}, and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param message the message ({@code null} permitted).
+     * @see #getNoDataMessage()
+     */
+    public XYPlot<S> noDataMessage(String message) {
+        setNoDataMessage(message);
+        return this;
+    }
+
+    /**
+     * Sets the background color of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getBackgroundPaint()
+     */
+    public XYPlot<S> backgroundPaint(Paint paint) {
+        setBackgroundPaint(paint);
+        return this;
+    }
 }

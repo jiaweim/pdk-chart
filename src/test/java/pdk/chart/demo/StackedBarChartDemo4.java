@@ -1,12 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.Data;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.CategoryPlot;
@@ -30,51 +30,41 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset result = new DefaultCategoryDataset();
-        result.addValue(20.3, "Product 1 (US)", "Jan 04");
-        result.addValue(27.2, "Product 1 (US)", "Feb 04");
-        result.addValue(19.7, "Product 1 (US)", "Mar 04");
-        result.addValue(19.4, "Product 1 (Europe)", "Jan 04");
-        result.addValue(10.9, "Product 1 (Europe)", "Feb 04");
-        result.addValue(18.4, "Product 1 (Europe)", "Mar 04");
-        result.addValue((double) 16.5F, "Product 1 (Asia)", "Jan 04");
-        result.addValue(15.9, "Product 1 (Asia)", "Feb 04");
-        result.addValue(16.1, "Product 1 (Asia)", "Mar 04");
-        result.addValue(13.2, "Product 1 (Middle East)", "Jan 04");
-        result.addValue(14.4, "Product 1 (Middle East)", "Feb 04");
-        result.addValue(13.7, "Product 1 (Middle East)", "Mar 04");
-        result.addValue(23.3, "Product 2 (US)", "Jan 04");
-        result.addValue(16.2, "Product 2 (US)", "Feb 04");
-        result.addValue(28.7, "Product 2 (US)", "Mar 04");
-        result.addValue(12.7, "Product 2 (Europe)", "Jan 04");
-        result.addValue(17.9, "Product 2 (Europe)", "Feb 04");
-        result.addValue(12.6, "Product 2 (Europe)", "Mar 04");
-        result.addValue(15.4, "Product 2 (Asia)", "Jan 04");
-        result.addValue((double) 21.0F, "Product 2 (Asia)", "Feb 04");
-        result.addValue(11.1, "Product 2 (Asia)", "Mar 04");
-        result.addValue(23.8, "Product 2 (Middle East)", "Jan 04");
-        result.addValue(23.4, "Product 2 (Middle East)", "Feb 04");
-        result.addValue(19.3, "Product 2 (Middle East)", "Mar 04");
-        result.addValue(11.9, "Product 3 (US)", "Jan 04");
-        result.addValue((double) 31.0F, "Product 3 (US)", "Feb 04");
-        result.addValue(22.7, "Product 3 (US)", "Mar 04");
-        result.addValue(15.3, "Product 3 (Europe)", "Jan 04");
-        result.addValue(14.4, "Product 3 (Europe)", "Feb 04");
-        result.addValue(25.3, "Product 3 (Europe)", "Mar 04");
-        result.addValue(23.9, "Product 3 (Asia)", "Jan 04");
-        result.addValue((double) 19.0F, "Product 3 (Asia)", "Feb 04");
-        result.addValue(10.1, "Product 3 (Asia)", "Mar 04");
-        result.addValue(13.2, "Product 3 (Middle East)", "Jan 04");
-        result.addValue((double) 15.5F, "Product 3 (Middle East)", "Feb 04");
-        result.addValue(10.1, "Product 3 (Middle East)", "Mar 04");
-        return result;
+    private static CategoryDataset<String, String> createDataset() {
+        String[] categories = new String[]{"Jan 04", "Feb 04", "Mar 04"};
+        return Data.<String, String>category()
+                .addSeries("Product 1 (US)", categories,
+                        new double[]{20.3, 27.2, 19.7})
+                .addSeries("Product 1 (Europe)", categories,
+                        new double[]{19.4, 10.9, 18.4})
+                .addSeries("Product 1 (Asia)", categories,
+                        new double[]{16.5, 15.9, 16.1})
+                .addSeries("Product 1 (Middle East)", categories,
+                        new double[]{13.2, 14.4, 13.7})
+                .addSeries("Product 2 (US)", categories,
+                        new double[]{23.3, 16.2, 28.7})
+                .addSeries("Product 2 (Europe)", categories,
+                        new double[]{12.7, 17.9, 12.6})
+                .addSeries("Product 2 (Asia)", categories,
+                        new double[]{15.4, 21.0, 11.1})
+                .addSeries("Product 2 (Middle East)", categories,
+                        new double[]{23.8, 23.4, 19.3})
+                .addSeries("Product 3 (US)", categories,
+                        new double[]{11.9, 31.0, 22.7})
+                .addSeries("Product 3 (Europe)", categories,
+                        new double[]{15.3, 14.4, 25.3})
+                .addSeries("Product 3 (Asia)", categories,
+                        new double[]{23.9, 19.0, 10.1})
+                .addSeries("Product 3 (Middle East)", categories,
+                        new double[]{13.2, 15.5, 10.1})
+                .build();
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart Demo 4", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 4", "Category", "Value",
+                dataset, PlotOrientation.VERTICAL, true, true, false);
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
-        KeyToGroupMap map = new KeyToGroupMap("G1");
+        KeyToGroupMap<String, String> map = new KeyToGroupMap<>("G1");
         map.mapKeyToGroup("Product 1 (US)", "G1");
         map.mapKeyToGroup("Product 1 (Europe)", "G1");
         map.mapKeyToGroup("Product 1 (Asia)", "G1");
@@ -95,12 +85,12 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         domainAxis.addSubCategory("Product 1");
         domainAxis.addSubCategory("Product 2");
         domainAxis.addSubCategory("Product 3");
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+        CategoryPlot plot = chart.getCategoryPlot();
         plot.setDomainAxis(domainAxis);
         plot.setRenderer(renderer);
         plot.setFixedLegendItems(createLegendItems());
         ChartUtils.applyCurrentTheme(chart);
-        domainAxis.setSubLabelFont(new Font("Tahoma", 2, 10));
+        domainAxis.setSubLabelFont(new Font("Tahoma", Font.ITALIC, 10));
         Paint p1 = new GradientPaint(0.0F, 0.0F, new Color(34, 34, 255), 0.0F, 0.0F, new Color(136, 136, 255));
         renderer.setSeriesPaint(0, p1);
         renderer.setSeriesPaint(4, p1);
@@ -123,10 +113,10 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
 
     private static LegendItemCollection createLegendItems() {
         LegendItemCollection result = new LegendItemCollection();
-        LegendItem item1 = new LegendItem("US", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 34, 255));
-        LegendItem item2 = new LegendItem("Europe", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 255, 34));
-        LegendItem item3 = new LegendItem("Asia", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 34, 34));
-        LegendItem item4 = new LegendItem("Middle East", "-", (String) null, (String) null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 255, 34));
+        LegendItem item1 = new LegendItem("US", "-", null, null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 34, 255));
+        LegendItem item2 = new LegendItem("Europe", "-", null, null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(34, 255, 34));
+        LegendItem item3 = new LegendItem("Asia", "-", null, null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 34, 34));
+        LegendItem item4 = new LegendItem("Middle East", "-", null, null, Plot.DEFAULT_LEGEND_ITEM_BOX, new Color(255, 255, 34));
         result.add(item1);
         result.add(item2);
         result.add(item3);
@@ -139,7 +129,7 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         StackedBarChartDemo4 demo = new StackedBarChartDemo4("Stacked Bar Chart Demo 4");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

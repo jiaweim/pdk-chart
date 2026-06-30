@@ -37,7 +37,7 @@ public class StackedBarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart Demo 6", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 6", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         StackedBarRenderer renderer = (StackedBarRenderer)plot.getRenderer();
         renderer.setDrawBarOutline(false);

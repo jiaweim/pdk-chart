@@ -1,9 +1,12 @@
 package pdk.chart.plot;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.CategoryAnnotation;
+import pdk.chart.annotations.CategoryTextAnnotation;
 import pdk.chart.api.*;
 import pdk.chart.axis.*;
 import pdk.chart.data.Range;
@@ -11,11 +14,12 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.event.*;
-import pdk.chart.fluent.CategoryChartType;
+import pdk.chart.CategoryChartType;
 import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.category.*;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
+import pdk.chart.text.TextAnchor;
 import pdk.chart.util.ShadowGenerator;
 
 import java.awt.*;
@@ -510,6 +514,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Sets the orientation for the plot and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param orientation the orientation ({@code null} not permitted).
+     * @see #getOrientation()
+     */
+    public CategoryPlot<R, C> orientation(PlotOrientation orientation) {
+        setOrientation(orientation);
+        return this;
+    }
+
+    /**
      * Returns the axis offset.
      *
      * @return The axis offset (never {@code null}).
@@ -530,6 +546,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         Objects.requireNonNull(offset, "offset");
         this.axisOffset = offset;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the axis offsets (gap between the data area and the axes) and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param offset the offset ({@code null} not permitted).
+     * @see #getAxisOffset()
+     */
+    public CategoryPlot<R, C> axisOffset(RectangleInsets offset) {
+        setAxisOffset(offset);
+        return this;
     }
 
     /**
@@ -823,7 +851,7 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      *
      * @return The range axis (possibly {@code null}).
      */
-    public NumberAxis getRangeAxisNumber() {
+    public NumberAxis getRangeAxisAsNumber() {
         return (NumberAxis) getRangeAxis(0);
     }
 
@@ -1644,6 +1672,21 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Sets the row order in which the items in each dataset should be
+     * rendered and sends a {@link PlotChangeEvent} to all registered
+     * listeners.  Note that this affects the order in which items are drawn,
+     * NOT their position in the chart.
+     *
+     * @param order the order ({@code null} not permitted).
+     * @see #getRowRenderingOrder()
+     * @see #setColumnRenderingOrder(SortOrder)
+     */
+    public CategoryPlot<R, C> rowRenderingOrder(SortOrder order) {
+        setRowRenderingOrder(order);
+        return this;
+    }
+
+    /**
      * Returns the flag that controls whether the domain grid-lines are visible.
      *
      * @return The {@code true} or {@code false}.
@@ -1744,6 +1787,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Sets the stroke used to draw grid-lines against the domain axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     * @see #getDomainGridlineStroke()
+     */
+    public CategoryPlot<R, C> domainGridlineStroke(Stroke stroke) {
+        setDomainGridlineStroke(stroke);
+        return this;
+    }
+
+    /**
      * Returns the paint used to draw grid-lines against the domain axis.
      *
      * @return The paint (never {@code null}).
@@ -1764,6 +1819,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         Objects.requireNonNull(paint, "paint");
         this.domainGridlinePaint = paint;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the paint used to draw the grid-lines (if any) against the domain
+     * axis and sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint.
+     * @see #getDomainGridlinePaint()
+     */
+    public CategoryPlot<R, C> domainGridlinePaint(@NonNull Paint paint) {
+        setDomainGridlinePaint(paint);
+        return this;
     }
 
     /**
@@ -1888,13 +1955,25 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * Sets the stroke used to draw the grid-lines against the range axis and
      * sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param stroke the stroke ({@code null} not permitted).
+     * @param stroke the stroke.
      * @see #getRangeGridlineStroke()
      */
-    public void setRangeGridlineStroke(Stroke stroke) {
+    public void setRangeGridlineStroke(@NonNull Stroke stroke) {
         Objects.requireNonNull(stroke, "stroke");
         this.rangeGridlineStroke = stroke;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the stroke used to draw the grid-lines against the range axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke.
+     * @see #getRangeGridlineStroke()
+     */
+    public CategoryPlot<R, C> rangeGridlineStroke(@NonNull Stroke stroke) {
+        setRangeGridlineStroke(stroke);
+        return this;
     }
 
     /**
@@ -1911,13 +1990,25 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * Sets the paint used to draw the grid lines against the range axis and
      * sends a {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint the paint ({@code null} not permitted).
+     * @param paint the paint.
      * @see #getRangeGridlinePaint()
      */
-    public void setRangeGridlinePaint(Paint paint) {
+    public void setRangeGridlinePaint(@NonNull Paint paint) {
         Objects.requireNonNull(paint, "paint");
         this.rangeGridlinePaint = paint;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the paint used to draw the grid lines against the range axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint.
+     * @see #getRangeGridlinePaint()
+     */
+    public CategoryPlot<R, C> rangeGridlinePaint(@NonNull Paint paint) {
+        setRangeGridlinePaint(paint);
+        return this;
     }
 
     /**
@@ -2011,10 +2102,10 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * {@code null} if you prefer the legend items to be created
      * automatically.
      *
-     * @param items the legend items ({@code null} permitted).
+     * @param items the legend items.
      * @see #getFixedLegendItems()
      */
-    public void setFixedLegendItems(LegendItemCollection items) {
+    public void setFixedLegendItems(@Nullable LegendItemCollection items) {
         this.fixedLegendItems = items;
         fireChangeEvent();
     }
@@ -2831,6 +2922,17 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Sets the flag indicating whether the range crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     * @see #isRangeCrosshairVisible()
+     */
+    public CategoryPlot<R, C> rangeCrosshairVisible(boolean flag) {
+        setRangeCrosshairVisible(flag);
+        return this;
+    }
+
+    /**
      * Returns a flag indicating whether the crosshair should "lock-on"
      * to actual data values.
      *
@@ -2948,6 +3050,18 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
+     * Sets the paint used to draw the range crosshair (if visible) and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     * @see #getRangeCrosshairPaint()
+     */
+    public CategoryPlot<R, C> rangeCrosshairPaint(Paint paint) {
+        setRangeCrosshairPaint(paint);
+        return this;
+    }
+
+    /**
      * Returns the list of annotations.
      *
      * @return The list of annotations (never {@code null}).
@@ -2962,11 +3076,32 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
      * Adds an annotation to the plot and sends a {@link PlotChangeEvent} to all
      * registered listeners.
      *
-     * @param annotation the annotation ({@code null} not permitted).
+     * @param annotation the annotation.
      * @see #removeAnnotation(CategoryAnnotation)
      */
-    public void addAnnotation(CategoryAnnotation annotation) {
+    public void addAnnotation(@NonNull CategoryAnnotation annotation) {
         addAnnotation(annotation, true);
+    }
+
+    /**
+     * Add a new annotation to the plot.
+     *
+     * @param text           annotation text.
+     * @param category       category to annotate
+     * @param value          value to annotate
+     * @param font           {@link Font} for annotation
+     * @param anchor         {@link TextAnchor}
+     * @param categoryAnchor {@link CategoryAnchor}
+     * @return this.
+     */
+    public CategoryPlot<R, C> addAnnotation(String text, Comparable category, double value,
+            Font font, TextAnchor anchor, CategoryAnchor categoryAnchor) {
+        CategoryTextAnnotation annotation = new CategoryTextAnnotation(text, category, value);
+        annotation.setFont(font);
+        annotation.setCategoryAnchor(categoryAnchor);
+        annotation.setTextAnchor(anchor);
+        addAnnotation(annotation);
+        return this;
     }
 
     /**
@@ -4780,4 +4915,78 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
 
     }
 
+    /**
+     * Sets the flag that controls whether the zero baseline is
+     * displayed for the range axis, and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param visible the flag.
+     * @see #isRangeZeroBaselineVisible()
+     */
+    public CategoryPlot<R, C> rangeZeroBaselineVisible(boolean visible) {
+        setRangeZeroBaselineVisible(visible);
+        return this;
+    }
+
+    /**
+     * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param insets the new insets ({@code null} not permitted).
+     * @see #getInsets()
+     * @see #setInsets(RectangleInsets, boolean)
+     */
+    public CategoryPlot<R, C> insets(RectangleInsets insets) {
+        setInsets(insets, true);
+        return this;
+    }
+
+    /**
+     * Sets the alpha-transparency for the plot and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param alpha the new alpha transparency.
+     * @see #getForegroundAlpha()
+     */
+    public CategoryPlot<R, C> foregroundAlpha(float alpha) {
+        setForegroundAlpha(alpha);
+        return this;
+    }
+
+    /**
+     * Sets the message that is displayed when the dataset is empty or
+     * {@code null}, and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param message the message ({@code null} permitted).
+     * @see #getNoDataMessage()
+     */
+    public CategoryPlot<R, C> noDataMessage(String message) {
+        setNoDataMessage(message);
+        return this;
+    }
+
+    /**
+     * Sets the background color of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint, null means no background is set.
+     * @see #getBackgroundPaint()
+     */
+    public CategoryPlot<R, C> backgroundPaint(@Nullable Paint paint) {
+        setBackgroundPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the paint used to draw the outline of the plot area.
+     * <p>
+     * If set this attribute to {@code null}, no outline will be drawn.
+     *
+     * @param paint the paint.
+     */
+    public CategoryPlot<R, C> outlinePaint(@Nullable Paint paint) {
+        setOutlinePaint(paint);
+        return this;
+    }
 }

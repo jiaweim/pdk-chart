@@ -100,7 +100,7 @@ public class StackedXYAreaRendererTest {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = JChart.createStackedXYAreaChart(
+        Chart chart = JChart.stackedAreaXY(
                 "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();

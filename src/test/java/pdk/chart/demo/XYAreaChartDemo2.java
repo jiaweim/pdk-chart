@@ -47,7 +47,7 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.createXYAreaChart("XY Area Chart Demo 2", "Time", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.areaXY("XY Area Chart Demo 2", "Time", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         ValueAxis domainAxis = new DateAxis("Time");

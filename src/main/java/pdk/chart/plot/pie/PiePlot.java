@@ -631,6 +631,19 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
         setCircular(flag, true);
     }
 
+
+    /**
+     * A flag indicating whether the pie chart is circular, or stretched into
+     * an elliptical shape.
+     *
+     * @param flag the new value.
+     * @see #isCircular()
+     */
+    public PiePlot<K> circular(boolean flag) {
+        setCircular(flag);
+        return this;
+    }
+
     /**
      * Sets the circular attribute and, if requested, sends a
      * {@link PlotChangeEvent} to all registered listeners.
@@ -800,6 +813,21 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
         // null argument check delegated...
         this.sectionPaintMap.put(key, paint);
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the paint associated with the specified key, and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param key   the key ({@code null} not permitted).
+     * @param paint the paint.
+     * @throws IllegalArgumentException if {@code key} is
+     *                                  {@code null}.
+     * @see #getSectionPaint(K)
+     */
+    public PiePlot<K> sectionPaint(K key, Paint paint) {
+        setSectionPaint(key, paint);
+        return this;
     }
 
     /**
@@ -1329,6 +1357,18 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
     }
 
     /**
+     * Sets the section label generator and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     * @see #getLabelGenerator()
+     */
+    public PiePlot<K> labelGenerator(PieSectionLabelGenerator generator) {
+        setLabelGenerator(generator);
+        return this;
+    }
+
+    /**
      * Returns the gap between the edge of the pie and the labels, expressed as
      * a percentage of the plot width.
      *
@@ -1350,6 +1390,19 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
     public void setLabelGap(double gap) {
         this.labelGap = gap;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the gap between the edge of the pie and the labels (expressed as a
+     * percentage of the plot width) and sends a {@link PlotChangeEvent} to all
+     * registered listeners.
+     *
+     * @param gap the gap (a percentage, where 0.05 = five percent).
+     * @see #getLabelGap()
+     */
+    public PiePlot<K> labelGap(double gap) {
+        setLabelGap(gap);
+        return this;
     }
 
     /**
@@ -1525,9 +1578,33 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
      * @see #getLabelFont()
      */
     public void setLabelFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.labelFont = font;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the section label font and sends a {@link PlotChangeEvent} to all
+     * registered listeners.
+     *
+     * @param font the font ({@code null} not permitted).
+     * @see #getLabelFont()
+     */
+    public PiePlot<K> labelFont(Font font) {
+        setLabelFont(font);
+        return this;
+    }
+
+    /**
+     * Sets the message that is displayed when the dataset is empty or
+     * {@code null}, and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param message the message ({@code null} permitted).
+     */
+    public PiePlot<K> noDataMessage(String message) {
+        setNoDataMessage(message);
+        return this;
     }
 
     /**
@@ -1548,7 +1625,7 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
      * @see #getLabelPaint()
      */
     public void setLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.labelPaint = paint;
         fireChangeEvent();
     }

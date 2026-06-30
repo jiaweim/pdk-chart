@@ -1,5 +1,7 @@
 package pdk.chart.renderer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.*;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleInsets;
@@ -1585,9 +1587,9 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
      * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param series  the series index (zero-based).
-     * @param visible the flag ({@code null} permitted).
+     * @param visible the flag.
      */
-    public void setSeriesItemLabelsVisible(int series, Boolean visible) {
+    public void setSeriesItemLabelsVisible(int series, @Nullable Boolean visible) {
         setSeriesItemLabelsVisible(series, visible, true);
     }
 
@@ -1743,10 +1745,10 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
      * Sets the default item label font and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param font the font ({@code null} not permitted).
+     * @param font the font.
      * @see #getDefaultItemLabelFont()
      */
-    public void setDefaultItemLabelFont(Font font) {
+    public void setDefaultItemLabelFont(@NonNull Font font) {
         Objects.requireNonNull(font, "font");
         setDefaultItemLabelFont(font, true);
     }
@@ -1755,12 +1757,12 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
      * Sets the base item label font and, if requested, sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param font   the font ({@code null} not permitted).
+     * @param font   the font.
      * @param notify a flag that controls whether listeners are
      *               notified.
      * @see #getDefaultItemLabelFont()
      */
-    public void setDefaultItemLabelFont(Font font, boolean notify) {
+    public void setDefaultItemLabelFont(@NonNull Font font, boolean notify) {
         this.defaultItemLabelFont = font;
         if (notify) {
             fireChangeEvent();
@@ -2139,7 +2141,7 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
      *
      * @param itemLabelInsets the insets
      */
-    public void setItemLabelInsets(RectangleInsets itemLabelInsets) {
+    public void setItemLabelInsets(@NonNull RectangleInsets itemLabelInsets) {
         Objects.requireNonNull(itemLabelInsets, "itemLabelInsets");
         this.itemLabelInsets = itemLabelInsets;
         fireChangeEvent();

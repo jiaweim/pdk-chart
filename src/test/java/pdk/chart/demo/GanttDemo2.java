@@ -27,7 +27,7 @@ public class GanttDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalCategoryDataset dataset) {
-        Chart chart = JChart.createGanttChart("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
+        Chart chart = JChart.gantt("Gantt Chart Demo", "Task", "Date", dataset, true, true, false);
         CategoryPlot plot = (CategoryPlot)chart.getPlot();
         plot.setRangePannable(true);
         plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);

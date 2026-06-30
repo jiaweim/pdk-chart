@@ -6,7 +6,7 @@ import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.Data;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
@@ -19,7 +19,16 @@ import pdk.chart.text.TextAnchor;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This demo shows a CategoryMarker added to a simple line plot.
+ * The marker is displayed as a line in the centre of the category.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 16 Jun 2026, 3:52 PM
+ */
 public class CategoryMarkerDemo1 extends ApplicationFrame {
+
     public CategoryMarkerDemo1(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -27,33 +36,33 @@ public class CategoryMarkerDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 21.0F, "Series 1", "Category 1");
-        dataset.addValue((double) 50.0F, "Series 1", "Category 2");
-        dataset.addValue((double) 152.0F, "Series 1", "Category 3");
-        dataset.addValue((double) 184.0F, "Series 1", "Category 4");
-        dataset.addValue((double) 299.0F, "Series 1", "Category 5");
-        return dataset;
+    private static CategoryDataset<String, String> createDataset() {
+        return Data.createCategory("Series 1",
+                new String[]{"Category 1", "Category 2", "Category 3", "Category 4", "Category 5"},
+                new double[]{21.0, 50.0, 152.0, 184.0, 299.0});
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line("Category Marker Demo 1", "Category", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setSeriesShapesVisible(0, true);
-        renderer.setDrawOutlines(true);
-        renderer.setUseFillPaint(true);
-        renderer.setDefaultFillPaint(Color.WHITE);
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        Chart chart = JChart.line("Category Marker Demo 1", "Category", "Count",
+                dataset, PlotOrientation.VERTICAL, true, true, false);
+
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.getRangeAxisAsNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        LineAndShapeRenderer renderer = plot.getLineAndShapeRenderer(0);
+        renderer.seriesShapesVisible(0, true)
+                .drawOutlines(true)
+                .useFillPaint(true)
+                .defaultFillPaint(Color.WHITE);
+
         CategoryMarker marker = new CategoryMarker("Category 4", Color.BLUE, new BasicStroke(1.0F));
         marker.setDrawAsLine(true);
         marker.setLabel("Marker Label");
-        marker.setLabelFont(new Font("Dialog", 0, 11));
+        marker.setLabelFont(new Font("Dialog", Font.PLAIN, 11));
         marker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
-        marker.setLabelOffset(new RectangleInsets((double) 2.0F, (double) 5.0F, (double) 2.0F, (double) 5.0F));
+        marker.setLabelOffset(new RectangleInsets(2.0, 5.0, 2.0, 5.0));
         plot.addDomainMarker(marker, Layer.BACKGROUND);
+
         return chart;
     }
 
@@ -62,8 +71,8 @@ public class CategoryMarkerDemo1 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        CategoryMarkerDemo1 demo = new CategoryMarkerDemo1("Chart: CategoryMarkerDemo1.java");
+    static void main() {
+        CategoryMarkerDemo1 demo = new CategoryMarkerDemo1("CategoryMarkerDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

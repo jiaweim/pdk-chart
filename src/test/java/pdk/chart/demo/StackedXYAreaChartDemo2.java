@@ -40,7 +40,7 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = JChart.createStackedXYAreaChart("Stacked XY Area Chart Demo 2", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.stackedAreaXY("Stacked XY Area Chart Demo 2", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
         renderer.setRoundXCoordinates(true);

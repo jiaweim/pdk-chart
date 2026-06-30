@@ -6,7 +6,9 @@ import pdk.chart.api.UnitType;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.PieSectionEntity;
+import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.internal.*;
+import pdk.chart.labels.PieSectionLabelGenerator;
 import pdk.chart.labels.PieToolTipGenerator;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.plot.pie.PiePlotState;
@@ -146,9 +148,25 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
      * @param mode the mode ({@code null} not permitted).
      */
     public void setCenterTextMode(CenterTextMode mode) {
-        Args.nullNotPermitted(mode, "mode");
+        Objects.requireNonNull(mode, "mode");
         this.centerTextMode = mode;
         fireChangeEvent();
+    }
+
+
+    /**
+     * Sets the mode for displaying text in the center of the plot and sends
+     * a change event to all registered listeners.  For
+     * {@link CenterTextMode#FIXED}, the display text will come from the
+     * {@code centerText} attribute (see {@link #getCenterText()}).
+     * For {@link CenterTextMode#VALUE}, the center text will be the value from
+     * the first section in the dataset.
+     *
+     * @param mode the mode ({@code null} not permitted).
+     */
+    public RingPlot centerTextMode(CenterTextMode mode) {
+        setCenterTextMode(mode);
+        return this;
     }
 
     /**
@@ -191,8 +209,19 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
      * @param formatter the formatter ({@code null} not permitted).
      */
     public void setCenterTextFormatter(Format formatter) {
-        Args.nullNotPermitted(formatter, "formatter");
+        Objects.requireNonNull(formatter, "formatter");
         this.centerTextFormatter = formatter;
+    }
+
+    /**
+     * Sets the formatter used to format the center text value and sends a
+     * change event to all registered listeners.
+     *
+     * @param formatter the formatter ({@code null} not permitted).
+     */
+    public RingPlot centerTextFormatter(Format formatter) {
+        setCenterTextFormatter(formatter);
+        return this;
     }
 
     /**
@@ -212,9 +241,20 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
      * @param font the font ({@code null} not permitted).
      */
     public void setCenterTextFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.centerTextFont = font;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the font used to display the center text and sends a change event
+     * to all registered listeners.
+     *
+     * @param font the font ({@code null} not permitted).
+     */
+    public RingPlot centerTextFont(Font font) {
+        setCenterTextFont(font);
+        return this;
     }
 
     /**
@@ -234,9 +274,20 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
      * @param color the color ({@code null} not permitted).
      */
     public void setCenterTextColor(Color color) {
-        Args.nullNotPermitted(color, "color");
+        Objects.requireNonNull(color, "color");
         this.centerTextColor = color;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the color for the center text and sends a change event to all
+     * registered listeners.
+     *
+     * @param color the color ({@code null} not permitted).
+     */
+    public RingPlot centerTextColor(Color color) {
+        setCenterTextColor(color);
+        return this;
     }
 
     /**
@@ -382,6 +433,18 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
     public void setSectionDepth(double sectionDepth) {
         this.sectionDepth = sectionDepth;
         fireChangeEvent();
+    }
+
+    /**
+     * The section depth is given as proportion of the plot radius.
+     * Specifying 1.0 results in a straightforward pie chart.
+     *
+     * @param sectionDepth the section depth.
+     * @see #getSectionDepth()
+     */
+    public RingPlot sectionDepth(double sectionDepth) {
+        setSectionDepth(sectionDepth);
+        return this;
     }
 
     /**
@@ -636,6 +699,41 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
         stream.defaultReadObject();
         this.separatorStroke = SerialUtils.readStroke(stream);
         this.separatorPaint = SerialUtils.readPaint(stream);
+    }
+
+    /**
+     * Sets the background color of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getBackgroundPaint()
+     */
+    public RingPlot backgroundPaint(Paint paint) {
+        setBackgroundPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether the plot's outline is
+     * drawn, and sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param visible the new flag value.
+     */
+    public RingPlot outlineVisible(boolean visible) {
+        setOutlineVisible(visible);
+        return this;
+    }
+
+    /**
+     * Sets the section label generator and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     * @see #getLabelGenerator()
+     */
+    public RingPlot labelGenerator(PieSectionLabelGenerator generator) {
+        setLabelGenerator(generator);
+        return this;
     }
 
 }

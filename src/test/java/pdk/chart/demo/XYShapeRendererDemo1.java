@@ -6,7 +6,7 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.LookupPaintScale;

@@ -1,15 +1,14 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import javax.swing.JPanel;
-import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
+import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
+import pdk.chart.data.time.TimeSeries;
+import pdk.chart.data.time.TimeSeriesCollection;
+import pdk.chart.data.time.Year;
+import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
@@ -18,11 +17,19 @@ import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.title.TextTitle;
-import pdk.chart.data.time.TimeSeries;
-import pdk.chart.data.time.TimeSeriesCollection;
-import pdk.chart.data.time.Year;
-import pdk.chart.data.xy.IntervalXYDataset;
 
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+
+/**
+ * A bar chart created using data from a TimeSeriesCollection. The chart uses a subtitle to cite the data source.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 16 Jun 2026, 2:10 PM
+ */
 public class XYBarChartDemo1 extends ApplicationFrame {
     public XYBarChartDemo1(String title) {
         super(title);
@@ -31,15 +38,16 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar("State Executions - USA", "Year", true, "Number of People", dataset, PlotOrientation.VERTICAL, true, false, false);
-        chart.addSubtitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do", new Font("Dialog", 2, 10)));
-        XYPlot plot = (XYPlot)chart.getPlot();
-        XYBarRenderer renderer = (XYBarRenderer)plot.getRenderer();
+    private static Chart createChart(IntervalXYDataset<String> dataset) {
+        Chart chart = JChart.bar("State Executions - USA", "Year", true, "Number of People",
+                dataset, PlotOrientation.VERTICAL, true, false, false);
+        chart.addSubtitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do", new Font("Dialog", Font.ITALIC, 10)));
+        XYPlot plot = chart.getXYPlot();
+        XYBarRenderer renderer = plot.getBarRenderer();
         StandardXYToolTipGenerator generator = new StandardXYToolTipGenerator("{1} = {2}", new SimpleDateFormat("yyyy"), new DecimalFormat("0"));
         renderer.setDefaultToolTipGenerator(generator);
         renderer.setMargin(0.1);
-        DateAxis axis = (DateAxis)plot.getDomainAxis();
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
         axis.setLowerMargin(0.01);
         axis.setUpperMargin(0.01);
@@ -47,45 +55,44 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         return chart;
     }
 
-    private static IntervalXYDataset createDataset() {
-        TimeSeries t1 = new TimeSeries("Executions");
-
+    private static IntervalXYDataset<String> createDataset() {
+        TimeSeries<String> t1 = new TimeSeries<>("Executions");
         try {
-            t1.add(new Year(1976), (double)0.0F);
-            t1.add(new Year(1977), (double)1.0F);
-            t1.add(new Year(1978), (double)0.0F);
-            t1.add(new Year(1979), (double)2.0F);
-            t1.add(new Year(1980), (double)0.0F);
-            t1.add(new Year(1981), (double)1.0F);
-            t1.add(new Year(1982), (double)2.0F);
-            t1.add(new Year(1983), (double)5.0F);
-            t1.add(new Year(1984), (double)21.0F);
-            t1.add(new Year(1985), (double)18.0F);
-            t1.add(new Year(1986), (double)18.0F);
-            t1.add(new Year(1987), (double)25.0F);
-            t1.add(new Year(1988), (double)11.0F);
-            t1.add(new Year(1989), (double)16.0F);
-            t1.add(new Year(1990), (double)23.0F);
-            t1.add(new Year(1991), (double)14.0F);
-            t1.add(new Year(1992), (double)31.0F);
-            t1.add(new Year(1993), (double)38.0F);
-            t1.add(new Year(1994), (double)31.0F);
-            t1.add(new Year(1995), (double)56.0F);
-            t1.add(new Year(1996), (double)45.0F);
-            t1.add(new Year(1997), (double)74.0F);
-            t1.add(new Year(1998), (double)68.0F);
-            t1.add(new Year(1999), (double)98.0F);
-            t1.add(new Year(2000), (double)85.0F);
-            t1.add(new Year(2001), (double)66.0F);
-            t1.add(new Year(2002), (double)71.0F);
-            t1.add(new Year(2003), (double)65.0F);
-            t1.add(new Year(2004), (double)59.0F);
-            t1.add(new Year(2005), (double)60.0F);
+            t1.add(new Year(1976), 0.0);
+            t1.add(new Year(1977), 1.0);
+            t1.add(new Year(1978), 0.0);
+            t1.add(new Year(1979), 2.0);
+            t1.add(new Year(1980), 0.0);
+            t1.add(new Year(1981), 1.0);
+            t1.add(new Year(1982), 2.0);
+            t1.add(new Year(1983), 5.0);
+            t1.add(new Year(1984), 21.0);
+            t1.add(new Year(1985), 18.0);
+            t1.add(new Year(1986), 18.0);
+            t1.add(new Year(1987), 25.0);
+            t1.add(new Year(1988), 11.0);
+            t1.add(new Year(1989), 16.0);
+            t1.add(new Year(1990), 23.0);
+            t1.add(new Year(1991), 14.0);
+            t1.add(new Year(1992), 31.0);
+            t1.add(new Year(1993), 38.0);
+            t1.add(new Year(1994), 31.0);
+            t1.add(new Year(1995), 56.0);
+            t1.add(new Year(1996), 45.0);
+            t1.add(new Year(1997), 74.0);
+            t1.add(new Year(1998), 68.0);
+            t1.add(new Year(1999), 98.0);
+            t1.add(new Year(2000), 85.0);
+            t1.add(new Year(2001), 66.0);
+            t1.add(new Year(2002), 71.0);
+            t1.add(new Year(2003), 65.0);
+            t1.add(new Year(2004), 59.0);
+            t1.add(new Year(2005), 60.0);
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
-        TimeSeriesCollection tsc = new TimeSeriesCollection(t1);
+        TimeSeriesCollection<String> tsc = new TimeSeriesCollection<>(t1);
         return tsc;
     }
 
@@ -93,7 +100,7 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYBarChartDemo1 demo = new XYBarChartDemo1("State Executions - USA");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

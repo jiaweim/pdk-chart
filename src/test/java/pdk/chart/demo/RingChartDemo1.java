@@ -1,9 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.fluent.RingChart;
+import pdk.chart.plot.RingPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -52,16 +53,15 @@ public class RingChartDemo1 extends ApplicationFrame {
      * @return a chart.
      */
     private static Chart createChart(PieDataset dataset) {
-        RingChart ringChart = new RingChart();
-        ringChart.dataset(dataset)
-                .labelFont(new Font("SansSerif", Font.PLAIN, 12))
+        Chart chart = JChart.ring(null, dataset, true, true, false);
+        RingPlot plot = (RingPlot) chart.getPlot();
+        plot.labelFont(new Font("SansSerif", Font.PLAIN, 12))
                 .noDataMessage("No data available")
-                .sectionDepth(0.35)
                 .circular(false)
                 .labelGap(0.02);
+        plot.sectionDepth(0.35);
 
-        return ringChart;
-
+        return chart;
     }
 
     /**

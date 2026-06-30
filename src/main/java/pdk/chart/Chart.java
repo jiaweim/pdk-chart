@@ -12,10 +12,8 @@ import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.Plot;
-import pdk.chart.plot.PlotRenderingInfo;
-import pdk.chart.plot.XYPlot;
+import pdk.chart.plot.*;
+import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.title.TextTitle;
 import pdk.chart.title.Title;
@@ -686,6 +684,10 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
         return this.plot;
     }
 
+    public RingPlot getRingPlot() {
+        return (RingPlot) this.plot;
+    }
+
     /**
      * Returns the plot cast as a {@link CategoryPlot}.
      * <p>
@@ -710,6 +712,19 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      */
     public XYPlot getXYPlot() {
         return (XYPlot) this.plot;
+    }
+
+    /**
+     * Returns the plot cast as an {@link PiePlot}.
+     * <p>
+     * NOTE: if the plot is not an instance of {@link PiePlot}, then a
+     * {@code ClassCastException} is thrown.
+     *
+     * @return The plot.
+     * @see #getPlot()
+     */
+    public PiePlot getPiePlot() {
+        return (PiePlot) this.plot;
     }
 
     /**
@@ -813,6 +828,18 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
                 fireChartChanged();
             }
         }
+    }
+
+    /**
+     * Sets the paint used to fill the chart background and sends a
+     * {@link ChartChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint.
+     * @see #getBackgroundPaint()
+     */
+    public Chart backgroundPaint(@Nullable Paint paint) {
+        setBackgroundPaint(paint);
+        return this;
     }
 
     /**

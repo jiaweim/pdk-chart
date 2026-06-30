@@ -65,7 +65,7 @@ public class HighLowChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.createHighLowChart("OHLC Demo 3", "Time", "Price", dataset, true);
+        Chart chart = JChart.highLow("OHLC Demo 3", "Time", "Price", dataset, true);
         XYPlot plot = (XYPlot)chart.getPlot();
         HighLowRenderer renderer = (HighLowRenderer)plot.getRenderer();
         renderer.setDefaultStroke(new BasicStroke(2.0F));

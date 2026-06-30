@@ -7,7 +7,6 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.AnnotationChangeEvent;
-import pdk.chart.internal.Args;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
@@ -16,37 +15,46 @@ import pdk.chart.text.TextUtils;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A text annotation that can be placed on a {@link CategoryPlot}.
  */
 public class CategoryTextAnnotation extends TextAnnotation
         implements CategoryAnnotation, Cloneable, PublicCloneable,
-                   Serializable {
+        Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 3333360090781320147L;
 
-    /** The category. */
+    /**
+     * The category.
+     */
     private Comparable category;
 
-    /** The category anchor (START, MIDDLE, or END). */
+    /**
+     * The category anchor (START, MIDDLE, or END).
+     */
     private CategoryAnchor categoryAnchor;
 
-    /** The value. */
+    /**
+     * The value.
+     */
     private double value;
 
     /**
      * Creates a new annotation to be displayed at the given location.
      *
-     * @param text  the text ({@code null} not permitted).
-     * @param category  the category ({@code null} not permitted).
-     * @param value  the value.
+     * @param text     the text ({@code null} not permitted).
+     * @param category the category ({@code null} not permitted).
+     * @param value    the value.
      */
     public CategoryTextAnnotation(String text, Comparable category,
-                                  double value) {
+            double value) {
         super(text);
-        Args.nullNotPermitted(category, "category");
+        Objects.requireNonNull(category);
         this.category = category;
         this.value = value;
         this.categoryAnchor = CategoryAnchor.MIDDLE;
@@ -56,7 +64,6 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns the category.
      *
      * @return The category (never {@code null}).
-     *
      * @see #setCategory(Comparable)
      */
     public Comparable getCategory() {
@@ -67,12 +74,11 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Sets the category that the annotation attaches to and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param category  the category ({@code null} not permitted).
-     *
+     * @param category the category ({@code null} not permitted).
      * @see #getCategory()
      */
     public void setCategory(Comparable category) {
-        Args.nullNotPermitted(category, "category");
+        Objects.requireNonNull(category, "category");
         this.category = category;
         fireAnnotationChanged();
     }
@@ -81,7 +87,6 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns the category anchor point.
      *
      * @return The category anchor point.
-     *
      * @see #setCategoryAnchor(CategoryAnchor)
      */
     public CategoryAnchor getCategoryAnchor() {
@@ -92,12 +97,11 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Sets the category anchor point and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param anchor  the anchor point ({@code null} not permitted).
-     *
+     * @param anchor the anchor point ({@code null} not permitted).
      * @see #getCategoryAnchor()
      */
     public void setCategoryAnchor(CategoryAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.categoryAnchor = anchor;
         fireAnnotationChanged();
     }
@@ -106,7 +110,6 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns the value that the annotation attaches to.
      *
      * @return The value.
-     *
      * @see #setValue(double)
      */
     public double getValue() {
@@ -117,8 +120,7 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Sets the value and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
      *
-     * @param value  the value.
-     *
+     * @param value the value.
      * @see #getValue()
      */
     public void setValue(double value) {
@@ -129,10 +131,10 @@ public class CategoryTextAnnotation extends TextAnnotation
     /**
      * Draws the annotation.
      *
-     * @param g2  the graphics device.
-     * @param plot  the plot.
-     * @param dataArea  the data area.
-     * @param domainAxis  the domain axis.
+     * @param g2         the graphics device.
+     * @param plot       the plot.
+     * @param dataArea   the data area.
+     * @param domainAxis the domain axis.
      * @param rangeAxis  the range axis.
      */
     @Override
@@ -157,8 +159,7 @@ public class CategoryTextAnnotation extends TextAnnotation
                     domainEdge);
             anchorX = (float) rangeAxis.valueToJava2D(this.value, dataArea,
                     rangeEdge);
-        }
-        else if (orientation == PlotOrientation.VERTICAL) {
+        } else if (orientation == PlotOrientation.VERTICAL) {
             anchorX = (float) domainAxis.getCategoryJava2DCoordinate(
                     this.categoryAnchor, catIndex, catCount, dataArea,
                     domainEdge);
@@ -175,8 +176,7 @@ public class CategoryTextAnnotation extends TextAnnotation
     /**
      * Tests this object for equality with another.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return {@code true} or {@code false}.
      */
     @Override
@@ -222,9 +222,8 @@ public class CategoryTextAnnotation extends TextAnnotation
      * Returns a clone of the annotation.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  this class will not throw this
-     *         exception, but subclasses (if any) might.
+     * @throws CloneNotSupportedException this class will not throw this
+     *                                    exception, but subclasses (if any) might.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

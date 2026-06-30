@@ -6,10 +6,9 @@ import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.Data;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -18,7 +17,16 @@ import pdk.chart.text.TextAnchor;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This demo shows a CategoryMarker added to a simple line plot.
+ * The marker is displayed as a rectangle in the background of the category.
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 16 Jun 2026, 3:56 PM
+ */
 public class CategoryMarkerDemo2 extends ApplicationFrame {
+
     public CategoryMarkerDemo2(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -26,33 +34,33 @@ public class CategoryMarkerDemo2 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 21.0F, "Series 1", "Category 1");
-        dataset.addValue((double) 50.0F, "Series 1", "Category 2");
-        dataset.addValue((double) 152.0F, "Series 1", "Category 3");
-        dataset.addValue((double) 184.0F, "Series 1", "Category 4");
-        dataset.addValue((double) 299.0F, "Series 1", "Category 5");
-        return dataset;
+    private static CategoryDataset<String, String> createDataset() {
+        return Data.createCategory("Series 1",
+                new String[]{"Category 1", "Category 2", "Category 3", "Category 4", "Category 5"},
+                new double[]{21.0, 50.0, 152.0, 184.0, 299.0});
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line("Category Marker Demo 2", "Category", "Count", dataset);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setSeriesShapesVisible(0, true);
-        renderer.setDrawOutlines(true);
-        renderer.setUseFillPaint(true);
-        renderer.setDefaultFillPaint(Color.WHITE);
-        CategoryMarker marker = new CategoryMarker("Category 4", new Color(0, 0, 255, 25), new BasicStroke(1.0F));
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
+        Chart chart = JChart.line("Category Marker Demo 2",
+                "Category", "Count", dataset);
+        CategoryPlot plot = chart.getCategoryPlot();
+        plot.getRangeAxisAsNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        plot.getLineAndShapeRenderer()
+                .seriesShapesVisible(0, true)
+                .drawOutlines(true)
+                .useFillPaint(true)
+                .defaultFillPaint(Color.WHITE);
+
+        CategoryMarker marker = new CategoryMarker("Category 4",
+                new Color(0, 0, 255, 25), new BasicStroke(1.0F));
         marker.setDrawAsLine(false);
         marker.setAlpha(1.0F);
         marker.setLabel("Marker Label");
-        marker.setLabelFont(new Font("Dialog", 0, 11));
+        marker.setLabelFont(new Font("Dialog", Font.PLAIN, 11));
         marker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
-        marker.setLabelOffset(new RectangleInsets((double) 2.0F, (double) 5.0F, (double) 2.0F, (double) 5.0F));
+        marker.setLabelOffset(new RectangleInsets(2.0, 5.0, 2.0, 5.0));
+
         plot.addDomainMarker(marker, Layer.BACKGROUND);
         return chart;
     }
@@ -62,8 +70,8 @@ public class CategoryMarkerDemo2 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        CategoryMarkerDemo2 demo = new CategoryMarkerDemo2("Chart: CategoryMarkerDemo2.java");
+    static void main() {
+        CategoryMarkerDemo2 demo = new CategoryMarkerDemo2("CategoryMarkerDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -1,5 +1,7 @@
 package pdk.chart.renderer.category;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.*;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.ValueAxis;
@@ -10,7 +12,6 @@ import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.entity.CategoryItemEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.labels.*;
 import pdk.chart.legend.LegendItem;
@@ -155,7 +156,7 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      */
     @Override
     public void setPlot(CategoryPlot plot) {
-        Args.nullNotPermitted(plot, "plot");
+        Objects.requireNonNull(plot);
         this.plot = plot;
     }
 
@@ -352,11 +353,11 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param generator the generator ({@code null} permitted).
+     * @param generator the generator.
      * @see #getDefaultToolTipGenerator()
      */
     @Override
-    public void setDefaultToolTipGenerator(CategoryToolTipGenerator generator) {
+    public void setDefaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator) {
         setDefaultToolTipGenerator(generator, true);
     }
 
@@ -364,12 +365,12 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param generator the generator ({@code null} permitted).
+     * @param generator the generator.
      * @param notify    notify listeners?
      * @see #getDefaultToolTipGenerator()
      */
     @Override
-    public void setDefaultToolTipGenerator(CategoryToolTipGenerator generator, boolean notify) {
+    public void setDefaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator, boolean notify) {
         this.defaultToolTipGenerator = generator;
         if (notify) {
             fireChangeEvent();
@@ -1209,8 +1210,7 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
             Comparable rowKey, Comparable columnKey, double value,
             int datasetIndex,
             double transX, double transY, PlotOrientation orientation) {
-
-        Args.nullNotPermitted(orientation, "orientation");
+        Objects.requireNonNull(orientation);
 
         if (crosshairState != null) {
             if (this.plot.isRangeCrosshairLockedOnData()) {
@@ -1429,12 +1429,12 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      * Sets the legend item label generator and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param generator the generator ({@code null} not permitted).
+     * @param generator the generator.
      * @see #getLegendItemLabelGenerator()
      */
     public void setLegendItemLabelGenerator(
-            CategorySeriesLabelGenerator generator) {
-        Args.nullNotPermitted(generator, "generator");
+            @NonNull CategorySeriesLabelGenerator generator) {
+        Objects.requireNonNull(generator);
         this.legendItemLabelGenerator = generator;
         fireChangeEvent();
     }
@@ -1496,7 +1496,7 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      */
     protected void addItemEntity(EntityCollection entities,
             CategoryDataset dataset, int row, int column, Shape hotspot) {
-        Args.nullNotPermitted(hotspot, "hotspot");
+        Objects.requireNonNull(hotspot, "hotspot");
         if (!getItemCreateEntity(row, column)) {
             return;
         }

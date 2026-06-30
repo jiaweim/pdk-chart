@@ -53,7 +53,7 @@ public class WindChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(WindDataset dataset) {
-        Chart chart = JChart.createWindPlot("Wind Chart Demo", "Date", "Direction / Force", dataset, true, false, false);
+        Chart chart = JChart.wind("Wind Chart Demo", "Date", "Direction / Force", dataset, true, false, false);
         return chart;
     }
 

@@ -52,7 +52,7 @@ public class XYAreaRenderer2Demo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.createXYAreaChart("XYAreaRenderer2Demo1", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.areaXY("XYAreaRenderer2Demo1", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new XYAreaRenderer2());
         plot.setForegroundAlpha(0.65F);

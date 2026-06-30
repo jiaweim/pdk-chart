@@ -5,7 +5,6 @@ import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
 import pdk.chart.*;
 import pdk.chart.api.RectangleInsets;
-import pdk.chart.demo.fluent.NormalDistributionDemo2;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
@@ -582,6 +581,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createNode(MultipleAxisDemo1.class, "MultipleAxisDemo1.java"));
         root.add(this.createNode(MultiplePieChartDemo1.class, "MultiplePieChartDemo1.java"));
         root.add(this.createNode(NormalDistributionDemo2.class, "NormalDistributionDemo2.java"));
+        root.add(this.createNode(NormalDistributionDemo3.class, "NormalDistributionDemo3.java"));
         root.add(this.createNode(OverlaidChartDemo1.class, "OverlaidChartDemo1.java"));
         root.add(this.createNode(ParetoChartDemo1.class, "ParetoChartDemo1.java"));
         root.add(this.createNode(PieChartDemo1.class, "PieChartDemo1.java"));

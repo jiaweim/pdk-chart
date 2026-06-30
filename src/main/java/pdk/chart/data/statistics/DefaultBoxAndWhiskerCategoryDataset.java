@@ -831,5 +831,4 @@ public class DefaultBoxAndWhiskerCategoryDataset<R extends Comparable<R>,
         clone.data = (KeyedObjects2D<R, C>) this.data.clone();
         return clone;
     }
-
 }

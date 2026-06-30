@@ -259,7 +259,9 @@ public abstract class Marker implements Cloneable, Serializable {
     /**
      * Sets the alpha transparency that should be used when drawing the
      * marker, and sends a {@link MarkerChangeEvent} to all registered
-     * listeners.  The alpha transparency is a value in the range 0.0f
+     * listeners.
+     * <p>
+     * The alpha transparency is a value in the range 0.0f
      * (completely transparent) to 1.0f (completely opaque).
      *
      * @param alpha the alpha transparency (must be in the range 0.0f to

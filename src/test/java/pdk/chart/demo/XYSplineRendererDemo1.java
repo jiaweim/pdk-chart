@@ -44,31 +44,16 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
         }
 
         private XYDataset createSampleData() {
-            XYSeries series = new XYSeries("Series 1");
-            series.add((double) 2.0F, 56.27);
-            series.add((double) 3.0F, 41.32);
-            series.add((double) 4.0F, 31.45);
-            series.add((double) 5.0F, 30.05);
-            series.add((double) 6.0F, 24.69);
-            series.add((double) 7.0F, 19.78);
-            series.add((double) 8.0F, 20.94);
-            series.add((double) 9.0F, 16.73);
-            series.add((double) 10.0F, 14.21);
-            series.add((double) 11.0F, 12.44);
-            XYSeriesCollection result = new XYSeriesCollection(series);
-            XYSeries series2 = new XYSeries("Series 2");
-            series2.add((double) 11.0F, 56.27);
-            series2.add((double) 10.0F, 41.32);
-            series2.add((double) 9.0F, 31.45);
-            series2.add((double) 8.0F, 30.05);
-            series2.add((double) 7.0F, 24.69);
-            series2.add((double) 6.0F, 19.78);
-            series2.add((double) 5.0F, 20.94);
-            series2.add((double) 4.0F, 16.73);
-            series2.add((double) 3.0F, 14.21);
-            series2.add((double) 2.0F, 12.44);
-            result.addSeries(series2);
-            return result;
+            XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
+            XYSeries<String> s1 = new XYSeries<>("Series 1",
+                    new double[]{2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0},
+                    new double[]{56.27, 41.32, 31.45, 30.05, 24.69, 19.78, 20.94, 16.73, 14.21, 12.44});
+            XYSeries<String> s2 = new XYSeries<>("Series 2",
+                    new double[]{11.0, 10.0F, 9.0F, 8.0F, 7.0F, 6.0F, 5.0F, 4.0F, 3.0F, 2.0F},
+                    new double[]{56.27, 41.32, 31.45, 30.05, 24.69, 19.78, 20.94, 16.73, 14.21, 12.44});
+            dataset.addSeries(s1);
+            dataset.addSeries(s2);
+            return dataset;
         }
 
         private JTabbedPane createContent() {
@@ -88,7 +73,7 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
             plot.setBackgroundPaint(Color.LIGHT_GRAY);
             plot.setDomainGridlinePaint(Color.WHITE);
             plot.setRangeGridlinePaint(Color.WHITE);
-            plot.setAxisOffset(new RectangleInsets((double) 4.0F, (double) 4.0F, (double) 4.0F, (double) 4.0F));
+            plot.setAxisOffset(new RectangleInsets( 4.0F, (double) 4.0F, (double) 4.0F, (double) 4.0F));
             Chart chart = new Chart("XYSplineRenderer", Chart.DEFAULT_TITLE_FONT, plot, true);
             this.addChart(chart);
             ChartUtils.applyCurrentTheme(chart);

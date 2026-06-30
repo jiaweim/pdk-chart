@@ -39,7 +39,7 @@ public class PieChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.createPieChart("Pie Chart Demo 4", dataset, true, true, false);
+        Chart chart = JChart.pie("Pie Chart Demo 4", dataset, true, true, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setNoDataMessage("No data available");
         plot.setCircular(false);

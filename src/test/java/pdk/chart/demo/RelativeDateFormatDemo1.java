@@ -6,7 +6,7 @@ import pdk.chart.ChartUtils;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.Second;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -47,7 +47,7 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
         RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
         rdf.setSecondFormatter(new DecimalFormat("00"));
 
-        plot.domainAxisDate()
+        plot.getDomainAxisAsDate()
                 .dateFormatOverride(rdf);
 
         ChartUtils.applyCurrentTheme(chart);

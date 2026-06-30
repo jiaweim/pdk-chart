@@ -6,11 +6,10 @@ import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -48,21 +47,23 @@ public class BarChartDemo1 extends ApplicationFrame {
         source.setFont(new Font("SansSerif", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-
         chart.addSubtitle(source);
+
         chart.addSubtitle(legend);
         CategoryPlot<String, String> plot = chart.getCategoryPlot();
-        plot.setDomainGridlinesVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        plot.setRangeCrosshairPaint(Color.BLUE);
-        plot.getDomainAxis().setCategoryMargin(0.2);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
-        renderer.setBarPainter(new StandardBarPainter());
-        renderer.setItemMargin(0.06);
-        renderer.setLegendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
+        plot.domainGridlinesVisible(true)
+                .rangeCrosshairVisible(true)
+                .rangeCrosshairPaint(Color.BLUE);
+        plot.getDomainAxis()
+                .categoryMargin(0.2);
+        plot.getRangeAxisAsNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        plot.getBarRenderer(0)
+                .drawBarOutline(false)
+                .barPainter(new StandardBarPainter())
+                .itemMargin(0.06)
+                .legendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
+
         return chart;
     }
 

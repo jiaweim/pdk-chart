@@ -1,11 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.fluent.PieChart;
 import pdk.chart.labels.StandardPieSectionLabelGenerator;
+import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -55,11 +56,11 @@ public class PieChartDemo1 extends ApplicationFrame {
      * @return a chart.
      */
     private static Chart createChart(PieDataset<String> dataset) {
-        PieChart chart = new PieChart();
-        chart.title("Cognac Exports 2019")
-                .dataset(dataset)
-                .plotBackgroundPaint(new Color(169, 191, 191))
-                .sectionPaint("NAFTA", new Color(175, 115, 75))
+        Chart chart = JChart.pie("Cognac Exports 2019", dataset);
+        PiePlot plot = chart.getPiePlot();
+        plot.setBackgroundPaint(new Color(169, 191, 191));
+
+        plot.sectionPaint("NAFTA", new Color(175, 115, 75))
                 .sectionPaint("Europe", new Color(71, 70, 76))
                 .sectionPaint("Far East", new Color(161, 152, 94))
                 .sectionPaint("Other", new Color(241, 208, 158))

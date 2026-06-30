@@ -92,7 +92,7 @@ public class SubCategoryAxisTest {
      */
     @Test
     public void test2275695() {
-        Chart chart = JChart.createStackedBarChart("Test",
+        Chart chart = JChart.barStacked("Test",
                 "Category", "Value", null, PlotOrientation.VERTICAL,
                 true, false, false);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();

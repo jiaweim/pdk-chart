@@ -33,7 +33,7 @@ public class PieChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.createPieChart("Pie Chart Demo 2", dataset, true, true, false);
+        Chart chart = JChart.pie("Pie Chart Demo 2", dataset, true, true, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setSectionPaint("One", new Color(160, 160, 255));
         plot.setSectionPaint("Two", new Color(128, 128, 223));

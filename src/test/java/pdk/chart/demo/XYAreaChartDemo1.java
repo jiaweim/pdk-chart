@@ -57,7 +57,7 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.createXYAreaChart("XY Area Chart Demo", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.areaXY("XY Area Chart Demo", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot)chart.getPlot();
         plot.setForegroundAlpha(0.65F);
         ValueAxis domainAxis = plot.getDomainAxis();

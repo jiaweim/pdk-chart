@@ -43,7 +43,7 @@ public class StackedBarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.createStackedBarChart("Stacked Bar Chart Demo 5", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 5", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         KeyToGroupMap map = new KeyToGroupMap("G1");
         map.mapKeyToGroup("S1", "G1");

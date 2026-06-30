@@ -14,8 +14,6 @@ module pdk.chart {
     exports pdk.chart.date;
     exports pdk.chart.entity;
     exports pdk.chart.event;
-    exports pdk.chart.fluent;
-    exports pdk.chart.fluent.prop;
     exports pdk.chart.imagemap;
     exports pdk.chart.labels;
     exports pdk.chart.legend;

@@ -1,12 +1,13 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.fluent.RingChart;
 import pdk.chart.plot.CenterTextMode;
+import pdk.chart.plot.RingPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -42,22 +43,22 @@ public class RingChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset<String> dataset) {
-        RingChart chart = new RingChart();
-        chart.dataset(dataset)
-                .centerTextMode(CenterTextMode.VALUE)
+        Chart chart = JChart.ring("Machine Capacity", dataset, true, true, false);
+        chart.backgroundPaint(new GradientPaint(new Point(0, 0), new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
+        RingPlot plot = chart.getRingPlot();
+        plot.centerTextMode(CenterTextMode.VALUE)
                 .centerTextFont(new Font("SansSerif", Font.BOLD, 24))
                 .centerTextColor(Color.LIGHT_GRAY)
                 .centerTextFormatter(new DecimalFormat("0.0%"))
-                .title("Machine Capacity")
-                .backgroundPaint(new GradientPaint(new Point(0, 0), new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY))
-                .plotBackgroundPaint(null)
+                .backgroundPaint(null)
                 .outlineVisible(false)
-                .labelGenerator(null)
-                .sectionPaint("A", Color.ORANGE)
-                .sectionPaint("B", new Color(100, 100, 100))
-                .sectionDepth(0.05)
-                .sectionOutlinesVisible(false)
-                .shadowPaint(null);
+                .labelGenerator(null);
+
+        plot.setSectionPaint("A", Color.ORANGE);
+        plot.setSectionPaint("B", new Color(100, 100, 100));
+        plot.setSectionDepth(0.05);
+        plot.setSectionOutlinesVisible(false);
+        plot.setShadowPaint(null);
 
         TextTitle t = chart.getTitle();
         t.setHorizontalAlignment(HorizontalAlignment.LEFT);

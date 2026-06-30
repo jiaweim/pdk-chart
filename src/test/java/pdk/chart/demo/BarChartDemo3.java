@@ -1,34 +1,41 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Paint;
-import java.util.Arrays;
-import java.util.List;
-import javax.swing.JPanel;
-import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
 import pdk.chart.Chart;
+import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.renderer.category.BarRenderer;
-import pdk.chart.renderer.category.CategoryItemRenderer;
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.text.TextAnchor;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * A bar chart with item labels displayed. The item labels for positive data values are displayed inside the bars,
+ * while the item label for the negative data value is displayed underneath the bar (this is configurable).
+ *
+ * @author Jiawei Mao
+ * @version 1.0.0
+ * @since 11 Jun 2026, 10:18 AM
+ */
 public class BarChartDemo3 extends ApplicationFrame {
+
     public BarChartDemo3(String title) {
         super(title);
         JPanel chartPanel = createDemoPanel();
@@ -36,24 +43,30 @@ public class BarChartDemo3 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        double[][] data = new double[][]{{(double)4.0F, (double)3.0F, (double)-2.0F, (double)3.0F, (double)6.0F}};
+    private static CategoryDataset<String, String> createDataset() {
+        double[][] data = new double[][]{{4.0, 3.0, -2.0, 3.0, 6.0}};
         return DatasetUtils.createCategoryDataset("Series ", "Category ", data);
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
+    private static Chart createChart(CategoryDataset<String, String> dataset) {
         Chart chart = JChart.bar("Bar Chart Demo 3", "Category", "Value", dataset);
         chart.removeLegend();
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
+        CategoryPlot<String, String> plot = chart.getCategoryPlot();
         plot.setNoDataMessage("NO DATA!");
         plot.setRangePannable(true);
-        Paint[] customColours = new Paint[]{new Color(196, 215, 216), new Color(78, 137, 139), new Color(138, 177, 178), new Color(19, 97, 100)};
-        CategoryItemRenderer renderer = new CustomRenderer(customColours);
-        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        renderer.setDefaultItemLabelsVisible(true);
-        ItemLabelPosition p = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, (double)0.0F);
-        renderer.setDefaultPositiveItemLabelPosition(p);
+        Paint[] customColours = new Paint[]{
+                new Color(196, 215, 216),
+                new Color(78, 137, 139),
+                new Color(138, 177, 178),
+                new Color(19, 97, 100)
+        };
+        CustomRenderer renderer = new CustomRenderer(customColours);
+        renderer.defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
+                .defaultItemLabelsVisible(true)
+                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER,
+                        TextAnchor.CENTER, TextAnchor.CENTER, 0.0));
         plot.setRenderer(renderer);
+
         CategoryMarker marker = new CategoryMarker("Category 3");
         marker.setLabel("Special");
         marker.setPaint(new Color(221, 255, 221, 128));
@@ -62,20 +75,25 @@ public class BarChartDemo3 extends ApplicationFrame {
         marker.setLabelTextAnchor(TextAnchor.TOP_LEFT);
         marker.setLabelOffsetType(LengthAdjustmentType.CONTRACT);
         plot.addDomainMarker(marker, Layer.BACKGROUND);
-        NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        rangeAxis.setLowerMargin(0.15);
-        rangeAxis.setUpperMargin(0.15);
-        NumberAxis rangeAxis2 = new NumberAxis((String)null);
+
+        plot.getRangeAxisAsNumber()
+                .standardTickUnits(NumberAxis.createIntegerTickUnits())
+                .lowerMargin(0.15)
+                .upperMargin(0.15);
+
+        NumberAxis rangeAxis2 = new NumberAxis(null);
         rangeAxis2.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis2.setLowerMargin(0.15);
         rangeAxis2.setUpperMargin(0.15);
         plot.setRangeAxis(1, rangeAxis2);
-        CategoryAxis domainAxis2 = new CategoryAxis((String)null);
+
+        CategoryAxis domainAxis2 = new CategoryAxis(null);
         plot.setDomainAxis(1, domainAxis2);
+
         List<Integer> axisIndices = Arrays.asList(0, 1);
         plot.mapDatasetToDomainAxes(0, axisIndices);
         plot.mapDatasetToRangeAxes(0, axisIndices);
+
         ChartUtils.applyCurrentTheme(chart);
         return chart;
     }
@@ -85,15 +103,15 @@ public class BarChartDemo3 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        BarChartDemo3 demo = new BarChartDemo3("Chart: BarChartDemo3.java");
+    static void main() {
+        BarChartDemo3 demo = new BarChartDemo3("BarChartDemo3.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
     }
 
     static class CustomRenderer extends BarRenderer {
-        private Paint[] colors;
+        private final Paint[] colors;
 
         public CustomRenderer(Paint[] colors) {
             this.colors = colors;

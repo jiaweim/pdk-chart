@@ -1,5 +1,6 @@
 package pdk.chart;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
@@ -17,9 +18,6 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
-import pdk.chart.fluent.CategoryChartType;
-import pdk.chart.fluent.Data;
-import pdk.chart.fluent.XYChart;
 import pdk.chart.labels.*;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
@@ -94,7 +92,7 @@ public abstract class JChart {
      * @param locale   the locale ({@code null} not permitted).
      * @return A pie chart.
      */
-    public static Chart createPieChart(String title, PieDataset dataset,
+    public static Chart pie(String title, PieDataset dataset,
             boolean legend, boolean tooltips, Locale locale) {
 
         PiePlot plot = new PiePlot(dataset);
@@ -119,8 +117,8 @@ public abstract class JChart {
      * @param dataset the dataset for the chart ({@code null} permitted).
      * @return A pie chart.
      */
-    public static Chart createPieChart(String title, PieDataset dataset) {
-        return createPieChart(title, dataset, true, true, false);
+    public static Chart pie(String title, PieDataset dataset) {
+        return pie(title, dataset, true, true, false);
     }
 
     /**
@@ -136,17 +134,17 @@ public abstract class JChart {
      * @param urls     configure chart to generate URLs?
      * @return A pie chart.
      */
-    public static Chart createPieChart(String title, PieDataset dataset,
+    public static Chart pie(String title, PieDataset dataset,
             boolean legend, boolean tooltips, boolean urls) {
 
         PiePlot plot = new PiePlot(dataset);
-        plot.setLabelGenerator(new StandardPieSectionLabelGenerator());
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator<>());
         plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
         if (tooltips) {
-            plot.setToolTipGenerator(new StandardPieToolTipGenerator());
+            plot.setToolTipGenerator(new StandardPieToolTipGenerator<>());
         }
         if (urls) {
-            plot.setURLGenerator(new StandardPieURLGenerator());
+            plot.setURLGenerator(new StandardPieURLGenerator<>());
         }
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
                 plot, legend);
@@ -191,7 +189,7 @@ public abstract class JChart {
      *                               difference between the two datasets.
      * @return A pie chart.
      */
-    public static Chart createPieChart(String title, PieDataset<String> dataset,
+    public static Chart pie(String title, PieDataset<String> dataset,
             PieDataset<String> previousDataset, int percentDiffForMaxScale,
             boolean greenForIncrease, boolean legend, boolean tooltips,
             Locale locale, boolean subTitle, boolean showDifference) {
@@ -304,7 +302,7 @@ public abstract class JChart {
      *                               difference between the two datasets.
      * @return A pie chart.
      */
-    public static Chart createPieChart(String title, PieDataset<String> dataset,
+    public static Chart pie(String title, PieDataset<String> dataset,
             PieDataset<String> previousDataset, int percentDiffForMaxScale,
             boolean greenForIncrease, boolean legend, boolean tooltips,
             boolean urls, boolean subTitle, boolean showDifference) {
@@ -395,7 +393,7 @@ public abstract class JChart {
      * @param locale   the locale ({@code null} not permitted).
      * @return A ring chart.
      */
-    public static Chart createRingChart(String title, PieDataset dataset,
+    public static Chart ring(String title, PieDataset dataset,
             boolean legend, boolean tooltips, Locale locale) {
 
         RingPlot plot = new RingPlot(dataset);
@@ -423,22 +421,21 @@ public abstract class JChart {
      * @param urls     configure chart to generate URLs?
      * @return A ring chart.
      */
-    public static Chart createRingChart(String title, PieDataset dataset,
+    public static Chart ring(String title, PieDataset dataset,
             boolean legend, boolean tooltips, boolean urls) {
 
         RingPlot plot = new RingPlot(dataset);
-        plot.setLabelGenerator(new StandardPieSectionLabelGenerator());
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator<>());
         plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
         if (tooltips) {
-            plot.setToolTipGenerator(new StandardPieToolTipGenerator());
+            plot.setToolTipGenerator(new StandardPieToolTipGenerator<>());
         }
         if (urls) {
-            plot.setURLGenerator(new StandardPieURLGenerator());
+            plot.setURLGenerator(new StandardPieURLGenerator<>());
         }
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -455,7 +452,7 @@ public abstract class JChart {
      * @param urls     generate URLs?
      * @return A chart.
      */
-    public static Chart createMultiplePieChart(String title,
+    public static Chart pieMultiple(String title,
             CategoryDataset dataset, TableOrder order, boolean legend,
             boolean tooltips, boolean urls) {
         Objects.requireNonNull(order, "order");
@@ -492,7 +489,7 @@ public abstract class JChart {
      * @return a bar chart.
      */
     public static Chart bar(String[] categories, double[] values) {
-        CategoryDataset<String, String> dataset = Data.createCategoryDataset("", categories, values);
+        CategoryDataset<String, String> dataset = Data.createCategory("", categories, values);
         return bar(null, null, null, dataset,
                 PlotOrientation.VERTICAL, false, true, false);
     }
@@ -507,8 +504,26 @@ public abstract class JChart {
      */
     public static Chart bar(String[] categories, double[] values,
             PlotOrientation orientation) {
-        CategoryDataset<String, String> dataset = Data.createCategoryDataset("", categories, values);
+        CategoryDataset<String, String> dataset = Data.createCategory("", categories, values);
         return bar(null, null, null, dataset, orientation, false, true, false);
+    }
+
+    /**
+     * Creates a bar chart with a vertical orientation.  The chart object
+     * returned by this method uses a {@link CategoryPlot} instance as the
+     * plot, with a {@link CategoryAxis} for the domain axis, a
+     * {@link NumberAxis} as the range axis, and a {@link BarRenderer} as the
+     * renderer.
+     *
+     * @param categoryAxisLabel the label for the category axis.
+     * @param valueAxisLabel    the label for the value axis.
+     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @return A bar chart.
+     */
+    public static Chart bar(@Nullable String categoryAxisLabel, @Nullable String valueAxisLabel,
+            CategoryDataset dataset) {
+        return bar(null, categoryAxisLabel, valueAxisLabel, dataset,
+                PlotOrientation.VERTICAL, true, true, false);
     }
 
     /**
@@ -595,6 +610,67 @@ public abstract class JChart {
     }
 
     /**
+     * Creates a bar chart.  The chart object returned by this method uses a
+     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
+     * for the domain axis, a {@link NumberAxis} as the range axis, and a
+     * {@link BarRenderer} as the renderer.
+     *
+     * @param title             the chart title ({@code null} permitted).
+     * @param categoryAxisLabel the label for the category axis
+     *                          ({@code null} permitted).
+     * @param valueAxisLabel    the label for the value axis
+     *                          ({@code null} permitted).
+     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param orientation       the plot orientation (horizontal or vertical)
+     *                          ({@code null} not permitted).
+     * @param legend            a flag specifying whether a legend is required.
+     * @param tooltips          configure chart to generate tool tips?
+     * @param urls              configure chart to generate URLs?
+     * @return A bar chart.
+     */
+    public static Chart barLayered(String title,
+            String categoryAxisLabel, String valueAxisLabel,
+            CategoryDataset dataset, PlotOrientation orientation,
+            boolean legend, boolean tooltips, boolean urls) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
+        ValueAxis valueAxis = new NumberAxis(valueAxisLabel);
+
+        LayeredBarRenderer renderer = new LayeredBarRenderer();
+        if (orientation == PlotOrientation.HORIZONTAL) {
+            ItemLabelPosition position1 = new ItemLabelPosition(
+                    ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
+            renderer.setDefaultPositiveItemLabelPosition(position1);
+            ItemLabelPosition position2 = new ItemLabelPosition(
+                    ItemLabelAnchor.OUTSIDE9, TextAnchor.CENTER_RIGHT);
+            renderer.setDefaultNegativeItemLabelPosition(position2);
+        } else if (orientation == PlotOrientation.VERTICAL) {
+            ItemLabelPosition position1 = new ItemLabelPosition(
+                    ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER);
+            renderer.setDefaultPositiveItemLabelPosition(position1);
+            ItemLabelPosition position2 = new ItemLabelPosition(
+                    ItemLabelAnchor.OUTSIDE6, TextAnchor.TOP_CENTER);
+            renderer.setDefaultNegativeItemLabelPosition(position2);
+        }
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(
+                    new StandardCategoryToolTipGenerator<>());
+        }
+        if (urls) {
+            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
+        }
+
+        CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis,
+                renderer);
+        plot.setOrientation(orientation);
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
+                plot, legend);
+        currentTheme.apply(chart);
+        return chart;
+    }
+
+    /**
      * Create a category chart.
      *
      * @param dataset           {@link CategoryDataset} instance.
@@ -625,22 +701,64 @@ public abstract class JChart {
     }
 
     /**
-     * Create a clustered bar chart.
+     * Create a chart with {@link XYPlot}
+     *
+     * @param dataset         {@link XYDataset}.
+     * @param chartType       {@link XYChartType}
+     * @param domainAxisType  {@link AxisType} for domain-axis.
+     * @param rangeAxisType   {@link AxisType} for range-axis.
+     * @param title           chart title.
+     * @param domainAxisTitle domain-axis name.
+     * @param rangeAxisTitle  range-axis name.
+     * @param orientation     {@link PlotOrientation}
+     * @param legend          true if create legend.
+     * @param tooltips        true if show tooltips.
+     * @return a chart.
+     */
+    public static Chart createXY(@Nullable XYDataset dataset, XYChartType chartType,
+            AxisType domainAxisType, AxisType rangeAxisType, String title,
+            String domainAxisTitle, String rangeAxisTitle,
+            PlotOrientation orientation, boolean legend, boolean tooltips) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        ValueAxis domainAxis = domainAxisType.createInstance();
+        domainAxis.setLabel(domainAxisTitle);
+
+        ValueAxis rangeAxis = rangeAxisType.createInstance();
+        rangeAxis.setLabel(rangeAxisTitle);
+
+        XYItemRenderer renderer = chartType.getRenderer();
+
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+
+        XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
+        plot.setOrientation(orientation);
+
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
+        currentTheme.apply(chart);
+        return chart;
+    }
+
+    /**
+     * Create a clustered bar chart, returns a default instance of XY bar chart.
      *
      * @param title       chart title.
      * @param xAxisLabel  x-axis name.
      * @param dateAxis    true if the x-axis is of date time.
      * @param yAxisLabel  y-axis name.
-     * @param dataset
-     * @param orientation
-     * @param legend
-     * @param tooltips
-     * @param urls
-     * @return
+     * @param dataset     the dataset for the chart.
+     * @param orientation {@link PlotOrientation}
+     * @param legend      whether show legend.
+     * @param tooltips    whether create tool tips.
+     * @param urls        whether create urls.
+     * @return a clustered bar chart.
      */
-    public static Chart barCluster(String title, String xAxisLabel,
-            boolean dateAxis, String yAxisLabel, IntervalXYDataset dataset,
-            PlotOrientation orientation, boolean legend, boolean tooltips,
+    public static Chart barCluster(@Nullable String title,
+            @Nullable String xAxisLabel, boolean dateAxis, String yAxisLabel,
+            @Nullable IntervalXYDataset dataset,
+            @NonNull PlotOrientation orientation, boolean legend, boolean tooltips,
             boolean urls) {
 
         Objects.requireNonNull(orientation, "orientation");
@@ -694,10 +812,10 @@ public abstract class JChart {
      * @param dataset         the dataset for the chart ({@code null} permitted).
      * @return A stacked bar chart.
      */
-    public static Chart createStackedBarChart(String title,
+    public static Chart barStacked(String title,
             String domainAxisLabel, String rangeAxisLabel,
             CategoryDataset dataset) {
-        return createStackedBarChart(title, domainAxisLabel, rangeAxisLabel,
+        return barStacked(title, domainAxisLabel, rangeAxisLabel,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -721,7 +839,7 @@ public abstract class JChart {
      * @param urls            configure chart to generate URLs?
      * @return A stacked bar chart.
      */
-    public static Chart createStackedBarChart(String title,
+    public static Chart barStacked(String title,
             String domainAxisLabel, String rangeAxisLabel,
             CategoryDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
@@ -732,12 +850,10 @@ public abstract class JChart {
 
         StackedBarRenderer renderer = new StackedBarRenderer();
         if (tooltips) {
-            renderer.setDefaultToolTipGenerator(
-                    new StandardCategoryToolTipGenerator());
+            renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         }
         if (urls) {
-            renderer.setDefaultItemURLGenerator(
-                    new StandardCategoryURLGenerator());
+            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis,
@@ -747,7 +863,49 @@ public abstract class JChart {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
+    }
 
+    /**
+     * Creates a stacked bar chart with default settings.  The chart object
+     * returned by this method uses a {@link XYPlot} instance as the
+     * plot, with a {@link NumberAxis} for the domain axis, a
+     * {@link NumberAxis} as the range axis, and a {@link StackedXYBarRenderer}
+     * as the renderer.
+     *
+     * @param title           the chart title.
+     * @param domainAxisLabel the label for the category axis.
+     * @param rangeAxisLabel  the label for the value axis.
+     * @param dataset         the dataset for the chart.
+     * @param orientation     the orientation of the chart (horizontal or
+     *                        vertical).
+     * @param legend          a flag specifying whether a legend is required.
+     * @param tooltips        configure chart to generate tool tips?
+     * @param urls            configure chart to generate URLs?
+     * @return A stacked bar chart.
+     */
+    public static Chart barStackedXY(@Nullable String title,
+            @Nullable String domainAxisLabel, @Nullable String rangeAxisLabel,
+            @Nullable XYDataset dataset, @NonNull PlotOrientation orientation,
+            boolean legend, boolean tooltips, boolean urls) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        NumberAxis domainAxis = new NumberAxis(domainAxisLabel);
+        ValueAxis valueAxis = new NumberAxis(rangeAxisLabel);
+
+        StackedXYBarRenderer renderer = new StackedXYBarRenderer();
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+        if (urls) {
+            renderer.setURLGenerator(new StandardXYURLGenerator());
+        }
+
+        XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
+        plot.setOrientation(orientation);
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
+                plot, legend);
+        currentTheme.apply(chart);
+        return chart;
     }
 
     /**
@@ -803,12 +961,10 @@ public abstract class JChart {
 
         AreaRenderer renderer = new AreaRenderer();
         if (tooltips) {
-            renderer.setDefaultToolTipGenerator(
-                    new StandardCategoryToolTipGenerator());
+            renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         }
         if (urls) {
-            renderer.setDefaultItemURLGenerator(
-                    new StandardCategoryURLGenerator());
+            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
         CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis,
@@ -897,6 +1053,27 @@ public abstract class JChart {
      * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
      * range axis, and a {@link LineAndShapeRenderer} as the renderer.
      *
+     * @param title             the chart title.
+     * @param categoryAxisLabel the label for the category axis.
+     * @param valueAxisLabel    the label for the value axis.
+     * @param categories        categories of the data items
+     * @param values            values of the data items.
+     * @return A line chart.
+     */
+    public static Chart line(@Nullable String title,
+            @Nullable String categoryAxisLabel, @Nullable String valueAxisLabel,
+            String[] categories, double[] values) {
+        return line(title, categoryAxisLabel, valueAxisLabel,
+                Data.createCategory("", categories, values),
+                PlotOrientation.VERTICAL, true, true, false);
+    }
+
+    /**
+     * Creates a line chart with default settings.  The chart object returned
+     * by this method uses a {@link CategoryPlot} instance as the plot, with a
+     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
+     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
+     *
      * @param title             the chart title ({@code null} permitted).
      * @param categoryAxisLabel the label for the category axis
      *                          ({@code null} permitted).
@@ -955,7 +1132,6 @@ public abstract class JChart {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -973,10 +1149,10 @@ public abstract class JChart {
      * @param dataset           the dataset for the chart ({@code null} permitted).
      * @return A Gantt chart.
      */
-    public static Chart createGanttChart(String title,
+    public static Chart gantt(String title,
             String categoryAxisLabel, String dateAxisLabel,
             IntervalCategoryDataset dataset) {
-        return createGanttChart(title, categoryAxisLabel, dateAxisLabel,
+        return gantt(title, categoryAxisLabel, dateAxisLabel,
                 dataset, true, true, false);
     }
 
@@ -998,7 +1174,7 @@ public abstract class JChart {
      * @param urls              configure chart to generate URLs?
      * @return A Gantt chart.
      */
-    public static Chart createGanttChart(String title,
+    public static Chart gantt(String title,
             String categoryAxisLabel, String dateAxisLabel,
             IntervalCategoryDataset dataset, boolean legend, boolean tooltips,
             boolean urls) {
@@ -1046,7 +1222,7 @@ public abstract class JChart {
      * @param urls              configure chart to generate URLs?
      * @return A waterfall chart.
      */
-    public static Chart createWaterfallChart(String title,
+    public static Chart waterfall(String title,
             String categoryAxisLabel, String valueAxisLabel,
             CategoryDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
@@ -1107,7 +1283,7 @@ public abstract class JChart {
      * @param urls     URLs required?
      * @return A chart.
      */
-    public static Chart createPolarChart(String title, XYDataset dataset,
+    public static Chart polar(String title, XYDataset dataset,
             boolean legend, boolean tooltips, boolean urls) {
 
         PolarPlot plot = new PolarPlot();
@@ -1409,10 +1585,10 @@ public abstract class JChart {
      * @param <S>        the type for series keys.
      * @return An XY area chart.
      */
-    public static <S extends Comparable<S>> Chart createXYAreaChart(
+    public static <S extends Comparable<S>> Chart areaXY(
             String title, String xAxisLabel, String yAxisLabel,
             XYDataset<S> dataset) {
-        return createXYAreaChart(title, xAxisLabel, yAxisLabel, dataset,
+        return areaXY(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1436,7 +1612,7 @@ public abstract class JChart {
      * @param <S>         the type for series keys.
      * @return An XY area chart.
      */
-    public static <S extends Comparable<S>> Chart createXYAreaChart(
+    public static <S extends Comparable<S>> Chart areaXY(
             String title, String xAxisLabel,
             String yAxisLabel, XYDataset<S> dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
@@ -1479,9 +1655,9 @@ public abstract class JChart {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return A stacked XY area chart.
      */
-    public static Chart createStackedXYAreaChart(String title,
+    public static Chart stackedAreaXY(String title,
             String xAxisLabel, String yAxisLabel, TableXYDataset dataset) {
-        return createStackedXYAreaChart(title, xAxisLabel, yAxisLabel,
+        return stackedAreaXY(title, xAxisLabel, yAxisLabel,
                 dataset, PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1502,7 +1678,7 @@ public abstract class JChart {
      * @param urls        configure chart to generate URLs?
      * @return A stacked XY area chart.
      */
-    public static Chart createStackedXYAreaChart(String title,
+    public static Chart stackedAreaXY(String title,
             String xAxisLabel, String yAxisLabel, TableXYDataset dataset,
             PlotOrientation orientation, boolean legend, boolean tooltips,
             boolean urls) {
@@ -1658,9 +1834,9 @@ public abstract class JChart {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return A chart.
      */
-    public static Chart createXYStepChart(String title, String xAxisLabel,
+    public static Chart stepXY(String title, String xAxisLabel,
             String yAxisLabel, XYDataset dataset) {
-        return createXYStepChart(title, xAxisLabel, yAxisLabel, dataset,
+        return stepXY(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1678,7 +1854,7 @@ public abstract class JChart {
      * @param urls        configure chart to generate URLs?
      * @return A chart.
      */
-    public static Chart createXYStepChart(String title, String xAxisLabel,
+    public static Chart stepXY(String title, String xAxisLabel,
             String yAxisLabel, XYDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");
@@ -1719,9 +1895,9 @@ public abstract class JChart {
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return A chart.
      */
-    public static Chart createXYStepAreaChart(String title,
+    public static Chart stepAreaXY(String title,
             String xAxisLabel, String yAxisLabel, XYDataset dataset) {
-        return createXYStepAreaChart(title, xAxisLabel, yAxisLabel, dataset,
+        return stepAreaXY(title, xAxisLabel, yAxisLabel, dataset,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1739,7 +1915,7 @@ public abstract class JChart {
      * @param urls        configure chart to generate URLs?
      * @return A chart.
      */
-    public static Chart createXYStepAreaChart(String title,
+    public static Chart stepAreaXY(String title,
             String xAxisLabel, String yAxisLabel, XYDataset dataset,
             PlotOrientation orientation, boolean legend, boolean tooltips,
             boolean urls) {
@@ -1862,7 +2038,7 @@ public abstract class JChart {
      * @param legend         a flag specifying whether a legend is required.
      * @return A candlestick chart.
      */
-    public static Chart createCandlestickChart(String title,
+    public static Chart candlestick(String title,
             String timeAxisLabel, String valueAxisLabel, OHLCDataset dataset,
             boolean legend) {
 
@@ -1874,7 +2050,6 @@ public abstract class JChart {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
     /**
@@ -1889,7 +2064,7 @@ public abstract class JChart {
      * @param legend         a flag specifying whether a legend is required.
      * @return A high-low-open-close chart.
      */
-    public static Chart createHighLowChart(String title,
+    public static Chart highLow(String title,
             String timeAxisLabel, String valueAxisLabel, OHLCDataset dataset,
             boolean legend) {
 
@@ -1902,7 +2077,6 @@ public abstract class JChart {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
-
     }
 
 
@@ -1913,7 +2087,7 @@ public abstract class JChart {
      * @param y     y values.
      * @param size  data for bubble size.
      * @param color series name for each entry.
-     * @return {@link XYChart}
+     * @return a bubble chart.
      */
     public static Chart bubble(String xName, Double[] x,
             String yName, Double[] y, Double[] size, @Nullable String[] color) {
@@ -2157,7 +2331,7 @@ public abstract class JChart {
      * @param urls       configure chart to generate URLs?
      * @return A wind plot.
      */
-    public static Chart createWindPlot(String title, String xAxisLabel,
+    public static Chart wind(String title, String xAxisLabel,
             String yAxisLabel, WindDataset dataset, boolean legend,
             boolean tooltips, boolean urls) {
 
@@ -2192,7 +2366,7 @@ public abstract class JChart {
      * @param urls        generate URLs?
      * @return A wafer map chart.
      */
-    public static Chart createWaferMapChart(String title,
+    public static Chart waferMap(String title,
             WaferMapDataset dataset, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");

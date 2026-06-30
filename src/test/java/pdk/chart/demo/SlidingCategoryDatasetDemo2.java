@@ -1,12 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.category.SlidingCategoryDataset;
-import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryChartType;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
@@ -73,24 +72,19 @@ public class SlidingCategoryDatasetDemo2 extends ApplicationFrame {
         }
 
         private static Chart createChart(CategoryDataset<String, String> dataset) {
-            CategoryXYChart chart = CategoryXYChart.create()
-                    .title("SlidingCategoryDatasetDemo2")
-                    .axisNames("Series", "Value")
-                    .orientation(PlotOrientation.VERTICAL)
-                    .dataset(dataset, CategoryChartType.BAR)
-
-                    .barProps(0)
-                    .addTooltips(true)
-                    .drawBarOutline(false)
-                    .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
-                    .done();
+            Chart chart = JChart.bar("SlidingCategoryDatasetDemo2", "Series", "Value",
+                    dataset, PlotOrientation.VERTICAL, true, true, false);
             CategoryPlot plot = chart.getCategoryPlot();
+            plot.getBarRenderer(0)
+                    .drawBarOutline(false)
+                    .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)));
+
             plot.getDomainAxis()
                     .maximumCategoryLabelWidthRatio(0.8f)
                     .lowerMargin(0.02)
                     .upperMargin(0.02);
 
-            chart.rangeAxisNumber()
+            plot.getRangeAxisAsNumber()
                     .standardTickUnits(NumberAxis.createIntegerTickUnits())
                     .range(0, 100);
 

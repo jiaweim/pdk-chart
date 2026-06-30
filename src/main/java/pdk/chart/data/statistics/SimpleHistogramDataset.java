@@ -5,7 +5,6 @@ import pdk.chart.data.DomainOrder;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.AbstractIntervalXYDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 
 import java.io.Serializable;
@@ -50,7 +49,7 @@ public class SimpleHistogramDataset<K extends Comparable<K>>
      */
     public SimpleHistogramDataset(K key) {
         super();
-        Args.nullNotPermitted(key, "key");
+        Objects.requireNonNull(key, "Key must not be null");
         this.key = key;
         this.bins = new ArrayList<>();
         this.adjustForBinSize = true;

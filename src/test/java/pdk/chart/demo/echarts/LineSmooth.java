@@ -1,10 +1,9 @@
 package pdk.chart.demo.echarts;
 
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.fluent.CategoryXYChart;
-import pdk.chart.fluent.CategoryChartType;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -34,13 +33,12 @@ public class LineSmooth extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategoryDataset("line", new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+        return Data.createCategory("line", new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
                 new double[]{820, 932, 901, 934, 1290, 1330, 1320});
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        CategoryXYChart chart = CategoryXYChart.create(dataset, CategoryChartType.LINE);
-        return chart;
+        return JChart.line(null, null, null, dataset);
     }
 
     public static JPanel createDemoPanel() {

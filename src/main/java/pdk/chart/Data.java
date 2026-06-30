@@ -1,8 +1,11 @@
-package pdk.chart.fluent;
+package pdk.chart;
 
 import org.jspecify.annotations.NonNull;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.data.category.DefaultIntervalCategoryDataset;
+import pdk.chart.data.category.IntervalCategoryDataset;
+import pdk.chart.data.statistics.DefaultBoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.HistogramDataset;
 import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.TimeSeries;
@@ -11,6 +14,8 @@ import pdk.chart.data.xy.*;
 import pdk.chart.internal.Args;
 import pdk.chart.internal.ArrayUtils;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -158,7 +163,7 @@ public interface Data {
      * @return The dataset.
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
-    CategoryDataset<R, C> createCategoryDataset(R[] rowKeys, C[] columnKeys,
+    CategoryDataset<R, C> createCategory(R[] rowKeys, C[] columnKeys,
             double[][] data) {
         Objects.requireNonNull(rowKeys, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");
@@ -209,7 +214,7 @@ public interface Data {
      * @return The dataset.
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
-    CategoryDataset<R, C> createCategoryDataset(@NonNull R rowKey, @NonNull C[] columnKeys,
+    CategoryDataset<R, C> createCategory(@NonNull R rowKey, @NonNull C[] columnKeys,
             double[] data) {
         Objects.requireNonNull(rowKey, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");
@@ -239,7 +244,7 @@ public interface Data {
      * @param <S>      series name type.
      * @return {@link IntervalXYDataset}
      */
-    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
+    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXY(S name,
             double[] x, double[] y, double barWidth) {
         Args.requireEqualLength(x, y);
 
@@ -282,10 +287,9 @@ public interface Data {
      * @param <S>    name type
      * @return {@link IntervalXYDataset}
      */
-    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXYDataset(S name,
+    static <S extends Comparable<S>> IntervalXYDataset<S> createIntervalXY(S name,
             double[] x, double[] startX, double[] endX,
-            double[] y, double[] startY, double[] endY
-    ) {
+            double[] y, double[] startY, double[] endY) {
         DefaultIntervalXYDataset<S> dataset = new DefaultIntervalXYDataset<>();
         dataset.addSeries(name, new double[][]{x, startX, endX, y, startY, endY});
         return dataset;
@@ -350,6 +354,32 @@ public interface Data {
         }
     }
 
+    static <R extends Comparable<R>, C extends Comparable<C>> IntervalCategoryDatasetBuilder<R, C> intervalCategory() {
+        return new IntervalCategoryDatasetBuilder<>();
+    }
+
+    class IntervalCategoryDatasetBuilder<R extends Comparable<R>, C extends Comparable<C>> {
+
+        private final List<double[]> starts = new ArrayList<>();
+        private final List<double[]> ends = new ArrayList<>();
+
+        public IntervalCategoryDatasetBuilder<R, C> addSeries(double[] starts, double[] ends) {
+            this.starts.add(starts);
+            this.ends.add(ends);
+            return this;
+        }
+
+        public IntervalCategoryDataset<R, C> build() {
+            double[][] startArray = new double[this.starts.size()][];
+            double[][] endArray = new double[this.ends.size()][];
+            for (int i = 0; i < starts.size(); i++) {
+                startArray[i] = starts.get(i);
+                endArray[i] = ends.get(i);
+            }
+            return new DefaultIntervalCategoryDataset(startArray, endArray);
+        }
+    }
+
     class XYDatasetBuilder<T extends Comparable<T>> {
 
         private final XYSeriesCollection<T> dataset = new XYSeriesCollection<>();
@@ -369,6 +399,18 @@ public interface Data {
             dataset.addSeries(series);
             return this;
         }
+
+        /**
+         * Add a new series.
+         *
+         * @param series {@link XYSeries} instance.
+         * @return this.
+         */
+        public XYDatasetBuilder<T> addSeries(XYSeries<T> series) {
+            dataset.addSeries(series);
+            return this;
+        }
+
 
         public XYSeriesCollection<T> build() {
             return dataset;
@@ -504,6 +546,24 @@ public interface Data {
         }
 
         public TimeSeriesCollection<S> build() {
+            return dataset;
+        }
+    }
+
+    static <R extends Comparable<R>, C extends Comparable<C>> BoxAndWhiskerDatasetBuilder<R, C> boxAndWhisker() {
+        return new BoxAndWhiskerDatasetBuilder<>();
+    }
+
+    class BoxAndWhiskerDatasetBuilder<R extends Comparable<R>, C extends Comparable<C>> {
+
+        private final DefaultBoxAndWhiskerCategoryDataset<R, C> dataset = new DefaultBoxAndWhiskerCategoryDataset<>();
+
+        public BoxAndWhiskerDatasetBuilder<R, C> add(List<? extends Number> list, R rowKey, C columnKey) {
+            dataset.add(list, rowKey, columnKey);
+            return this;
+        }
+
+        public DefaultBoxAndWhiskerCategoryDataset<R, C> build() {
             return dataset;
         }
     }

@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.fluent.Data;
+import pdk.chart.Data;
 import pdk.chart.plot.CategoryPlot;
 
 /**

@@ -63,7 +63,7 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
 
-        plot.rangeAxisNumber().standardTickUnits(NumberAxis.createIntegerTickUnits());
+        plot.getRangeAxisAsNumber().standardTickUnits(NumberAxis.createIntegerTickUnits());
 
         ChartUtils.applyCurrentTheme(chart);
         return chart;

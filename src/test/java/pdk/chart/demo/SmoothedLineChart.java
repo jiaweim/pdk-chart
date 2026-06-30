@@ -22,7 +22,7 @@ public class SmoothedLineChart {
 
         Chart line = JChart.line(null, null, null, dataset, true, PlotOrientation.VERTICAL);
         line.getXYPlot()
-                .rangeAxisNumber()
+                .getRangeAxisAsNumber()
                 .autoRangeIncludesZero(false);
         line.show();
     }

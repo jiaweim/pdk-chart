@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -27,13 +27,14 @@ public class XYSeriesDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("XY Series Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line("XY Series Demo 1", "X", "Y",
+                dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
-        NumberAxis xAxis2 = new NumberAxis((String) null);
+        NumberAxis xAxis2 = new NumberAxis( null);
         plot.setDomainAxis(1, xAxis2);
-        NumberAxis yAxis2 = new NumberAxis((String) null);
+        NumberAxis yAxis2 = new NumberAxis( null);
         plot.setRangeAxis(1, yAxis2);
         List<Integer> axisIndices = Arrays.asList(0, 1);
         plot.mapDatasetToDomainAxes(0, axisIndices);
@@ -43,17 +44,11 @@ public class XYSeriesDemo1 extends ApplicationFrame {
     }
 
     private static XYDataset createDataset() {
-        XYSeries series = new XYSeries("Random Data");
-        series.add((double) 1.0F, 500.2);
-        series.add((double) 5.0F, 694.1);
-        series.add((double) 4.0F, (double) 100.0F);
-        series.add((double) 12.5F, 734.4);
-        series.add(17.3, 453.2);
-        series.add(21.2, 500.2);
-        series.add(21.9, (Number) null);
-        series.add(25.6, 734.4);
-        series.add((double) 30.0F, 453.2);
-        return new XYSeriesCollection(series);
+        XYSeries<String> series1 = new XYSeries<>("Random data",
+                new double[]{1.0, 5.0, 4.0, 12.5, 17.3, 21.2, 21.9, 25.6, 30.0},
+                new double[]{500.2, 694.1, 100.0, 734.4, 453.2, 500.2, Double.NaN, 734.4, 453.2});
+        XYSeriesCollection<String> dataset = new XYSeriesCollection<>(series1);
+        return dataset;
     }
 
     public static JPanel createDemoPanel() {

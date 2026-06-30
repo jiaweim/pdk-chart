@@ -1,5 +1,7 @@
 package pdk.chart.renderer.category;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -13,10 +15,7 @@ import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
-import pdk.chart.labels.CategoryItemLabelGenerator;
-import pdk.chart.labels.CategoryToolTipGenerator;
-import pdk.chart.labels.ItemLabelAnchor;
-import pdk.chart.labels.ItemLabelPosition;
+import pdk.chart.labels.*;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
@@ -239,6 +238,16 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the base value for the bars.
+     *
+     * @param base the new base value.
+     */
+    public BarRenderer base(double base) {
+        setBase(base);
+        return this;
+    }
+
+    /**
      * Returns the item margin as a percentage of the available space for all
      * bars.
      *
@@ -286,6 +295,18 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the flag that controls whether bar outlines are drawn and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param draw the flag.
+     * @see #isDrawBarOutline()
+     */
+    public BarRenderer drawBarOutline(boolean draw) {
+        setDrawBarOutline(draw);
+        return this;
+    }
+
+    /**
      * Returns the maximum bar width, as a percentage of the available drawing
      * space.
      *
@@ -307,6 +328,19 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     public void setMaximumBarWidth(double percent) {
         this.maximumBarWidth = percent;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the maximum bar width, which is specified as a percentage of the
+     * available space for all bars, and sends a {@link RendererChangeEvent} to
+     * all registered listeners.
+     *
+     * @param percent the percent (where 0.05 is five percent).
+     * @see #getMaximumBarWidth()
+     */
+    public BarRenderer maximumBarWidth(double percent) {
+        setMaximumBarWidth(percent);
+        return this;
     }
 
     /**
@@ -356,13 +390,26 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * Sets the gradient paint transformer and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param transformer the transformer ({@code null} permitted).
+     * @param transformer the transformer.
      * @see #getGradientPaintTransformer()
      */
     public void setGradientPaintTransformer(
-            GradientPaintTransformer transformer) {
+            @Nullable GradientPaintTransformer transformer) {
         this.gradientPaintTransformer = transformer;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the gradient paint transformer and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param transformer the transformer.
+     * @see #getGradientPaintTransformer()
+     */
+    public BarRenderer gradientPaintTransformer(
+            @Nullable GradientPaintTransformer transformer) {
+        setGradientPaintTransformer(transformer);
+        return this;
     }
 
     /**
@@ -388,6 +435,20 @@ public class BarRenderer extends AbstractCategoryItemRenderer
             ItemLabelPosition position) {
         this.positiveItemLabelPositionFallback = position;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the fallback position for positive item labels that don't fit
+     * within a bar, and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     *
+     * @param position the position.
+     * @see #getPositiveItemLabelPositionFallback()
+     */
+    public BarRenderer positiveItemLabelPositionFallback(
+            @Nullable ItemLabelPosition position) {
+        setPositiveItemLabelPositionFallback(position);
+        return this;
     }
 
     /**
@@ -465,6 +526,20 @@ public class BarRenderer extends AbstractCategoryItemRenderer
         Objects.requireNonNull(painter, "painter");
         this.barPainter = painter;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the bar painter for this renderer and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     * <p>
+     * {@link GradientBarPainter} or {@link StandardBarPainter}.
+     *
+     * @param painter the painter ({@code null} not permitted).
+     * @see #getBarPainter()
+     */
+    public BarRenderer barPainter(BarPainter painter) {
+        setBarPainter(painter);
+        return this;
     }
 
     /**
@@ -1224,9 +1299,9 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * Sets the default item label generator and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
-     * @param generator the generator ({@code null} permitted).
+     * @param generator the generator.
      */
-    public BarRenderer defaultItemLabelGenerator(CategoryItemLabelGenerator generator) {
+    public BarRenderer defaultItemLabelGenerator(@Nullable CategoryItemLabelGenerator generator) {
         setDefaultItemLabelGenerator(generator);
         return this;
     }
@@ -1235,10 +1310,36 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
      * to all registered listeners.
      *
-     * @param generator the generator ({@code null} permitted).
+     * @param generator the generator.
      */
-    public BarRenderer defaultToolTipGenerator(CategoryToolTipGenerator generator) {
+    public BarRenderer defaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator) {
         setDefaultToolTipGenerator(generator, true);
+        return this;
+    }
+
+    /**
+     * configure chart to generate tool tips
+     *
+     * @param addTooltip true if generate tool tips
+     * @return this
+     */
+    public BarRenderer showTooltips(boolean addTooltip) {
+        if (addTooltip) {
+            setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+        }
+        return this;
+    }
+
+    /**
+     * Sets the default item label paint and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     * @see #getDefaultItemLabelPaint()
+     */
+    public BarRenderer defaultItemLabelPaint(Paint paint) {
+        // defer argument checking...
+        setDefaultItemLabelPaint(paint, true);
         return this;
     }
 
@@ -1264,4 +1365,106 @@ public class BarRenderer extends AbstractCategoryItemRenderer
         return this;
     }
 
+    /**
+     * Sets the paint used for a series and, if requested, sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series the series index.
+     * @param paint  the paint.
+     * @see #getSeriesPaint(int)
+     */
+    public BarRenderer seriesPaint(int series, @Nullable Paint paint) {
+        setSeriesPaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Set whether the item labels of the specified series are visible.
+     *
+     * @param visible the flag.
+     */
+    public BarRenderer seriesItemLabelsVisible(int series, @Nullable Boolean visible) {
+        setSeriesItemLabelsVisible(series, visible);
+        return this;
+    }
+
+    /**
+     * Sets the legend item tool tip generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     * <p>
+     * Legend tool tips are text displayed when the mouse hovers over the legend.
+     * <p>
+     * Default implementation is {@link StandardCategorySeriesLabelGenerator}.
+     *
+     * @param generator the generator.
+     * @see #setLegendItemToolTipGenerator(CategorySeriesLabelGenerator)
+     */
+    public BarRenderer legendItemToolTipGenerator(
+            @Nullable CategorySeriesLabelGenerator generator) {
+        setLegendItemToolTipGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the default positive item label position.
+     *
+     * @param position the position.
+     * @see #getDefaultPositiveItemLabelPosition()
+     */
+    public BarRenderer defaultPositiveItemLabelPosition(
+            @NonNull ItemLabelPosition position) {
+        setDefaultPositiveItemLabelPosition(position);
+        return this;
+    }
+
+    /**
+     * Sets the legend item label generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param generator the generator.
+     * @see #getLegendItemLabelGenerator()
+     */
+    public BarRenderer legendItemLabelGenerator(
+            @NonNull CategorySeriesLabelGenerator generator) {
+        setLegendItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the paint used for the error indicators (if {@code null},
+     * the item outline paint is used instead).
+     *
+     * @param paint the paint.
+     */
+    public BarRenderer errorIndicatorPaint(@Nullable Paint paint) {
+        if (this instanceof StatisticalBarRenderer barRenderer) {
+            barRenderer.setErrorIndicatorPaint(paint);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether the base value for the bars
+     * is included in the range calculated by {@link BarRenderer#findRangeBounds(CategoryDataset)}.
+     *
+     * @param include the new value for the flag.
+     */
+    public BarRenderer includeBaseInRange(boolean include) {
+        if (this instanceof StatisticalBarRenderer barRenderer) {
+            barRenderer.setIncludeBaseInRange(include);
+        }
+        return this;
+    }
+
+    /**
+     * Sets the default item label font and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param font the font.
+     * @see #getDefaultItemLabelFont()
+     */
+    public BarRenderer defaultItemLabelFont(@NonNull Font font) {
+        setDefaultItemLabelFont(font);
+        return this;
+    }
 }

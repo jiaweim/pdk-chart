@@ -38,7 +38,7 @@ public class PriceVolumeDemo2 extends ApplicationFrame {
     private static Chart createChart() {
         OHLCDataset priceData = createPriceDataset();
         String title = "Sun Microsystems (SUNW)";
-        Chart chart = JChart.createHighLowChart(title, "Date", "Price", priceData, true);
+        Chart chart = JChart.highLow(title, "Date", "Price", priceData, true);
         XYPlot plot = (XYPlot) chart.getPlot();
         DateAxis xAxis = (DateAxis) plot.getDomainAxis();
         xAxis.setLowerMargin(0.01);

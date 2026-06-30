@@ -1,10 +1,12 @@
 package pdk.chart.util;
 
+import org.jspecify.annotations.NonNull;
 import pdk.chart.api.PublicCloneable;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Transforms a {@code GradientPaint} to range over the width of a target
@@ -35,13 +37,11 @@ public class StandardGradientPaintTransformer
     /**
      * Creates a new transformer with the specified type.
      *
-     * @param type the transform type ({@code null} not permitted).
+     * @param type the transform type.
      */
     public StandardGradientPaintTransformer(
-            final GradientPaintTransformType type) {
-        if (type == null) {
-            throw new IllegalArgumentException("Null 'type' argument.");
-        }
+            @NonNull final GradientPaintTransformType type) {
+        Objects.requireNonNull(type);
         this.type = type;
     }
 

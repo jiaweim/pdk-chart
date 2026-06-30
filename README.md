@@ -68,6 +68,19 @@ public void setTitle(TextTitle title);
 public void setTitle(String text); // Convenient methods for the previous
 ```
 
+#### Legend
+
+-  Custom Legend
+
+```java
+LegendItemCollection items = new LegendItemCollection();
+items.add(new LegendItem("Against all torture", null, null, null,
+        new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.GREEN));
+items.add(new LegendItem("Some degree permissible", null, null, null,
+        new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.RED));
+plot.setFixedLegendItems(items);
+```
+
 
 
 ## Plot
