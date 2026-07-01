@@ -82,12 +82,12 @@ public class CategoryLineAnnotation extends AbstractAnnotation
         // FIXME : the order of the paint and stroke parameters is reversed
         // compared to XYLineAnnotation...should be consistent
         super();
-        Args.nullNotPermitted(category1, "category1");
+        Objects.requireNonNull(category1, "category1");
         Args.requireFinite(value1, "value1");
-        Args.nullNotPermitted(category2, "category2");
+        Objects.requireNonNull(category2, "category2");
         Args.requireFinite(value2, "value2");
-        Args.nullNotPermitted(paint, "paint");
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(paint, "paint");
+        Objects.requireNonNull(stroke, "stroke");
         this.category1 = category1;
         this.value1 = value1;
         this.category2 = category2;
@@ -114,7 +114,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * @see #getCategory1()
      */
     public void setCategory1(Comparable category) {
-        Args.nullNotPermitted(category, "category");
+        Objects.requireNonNull(category, "category");
         this.category1 = category;
         fireAnnotationChanged();
     }
@@ -160,7 +160,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * @see #getCategory2()
      */
     public void setCategory2(Comparable category) {
-        Args.nullNotPermitted(category, "category");
+        Objects.requireNonNull(category, "category");
         this.category2 = category;
         fireAnnotationChanged();
     }
@@ -206,7 +206,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.paint = paint;
         fireAnnotationChanged();
     }
@@ -229,7 +229,7 @@ public class CategoryLineAnnotation extends AbstractAnnotation
      * @see #getStroke()
      */
     public void setStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.stroke = stroke;
         fireAnnotationChanged();
     }

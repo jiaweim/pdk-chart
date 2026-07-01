@@ -1,14 +1,12 @@
 package pdk.chart.swing;
 
 import pdk.chart.event.ChartChangeEvent;
-import pdk.chart.internal.Args;
 
 import javax.swing.event.EventListenerList;
+import java.util.Objects;
 
 /**
  * A base class for implementing overlays for a {@link ChartPanel}.
- *
- * @since 1.0.13
  */
 public class AbstractOverlay {
 
@@ -31,7 +29,7 @@ public class AbstractOverlay {
      * @see #removeChangeListener(OverlayChangeListener)
      */
     public void addChangeListener(OverlayChangeListener listener) {
-        Args.nullNotPermitted(listener, "listener");
+        Objects.requireNonNull(listener, "listener");
         this.changeListeners.add(OverlayChangeListener.class, listener);
     }
 
@@ -42,7 +40,7 @@ public class AbstractOverlay {
      * @see #addChangeListener(OverlayChangeListener)
      */
     public void removeChangeListener(OverlayChangeListener listener) {
-        Args.nullNotPermitted(listener, "listener");
+        Objects.requireNonNull(listener, "listener");
         this.changeListeners.remove(OverlayChangeListener.class, listener);
     }
 

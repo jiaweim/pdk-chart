@@ -6,7 +6,6 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.AnnotationChangeEvent;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.HashUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.plot.CategoryPlot;
@@ -286,7 +285,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * @see #getArrowStroke()
      */
     public void setArrowStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.arrowStroke = stroke;
         fireAnnotationChanged();
     }
@@ -309,7 +308,7 @@ public class CategoryPointerAnnotation extends CategoryTextAnnotation
      * @see #getArrowPaint()
      */
     public void setArrowPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.arrowPaint = paint;
         fireAnnotationChanged();
     }

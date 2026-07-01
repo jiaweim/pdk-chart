@@ -1,45 +1,9 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------------
- * MatrixSeries.java
- * -----------------
- * (C) Copyright 2003-present, by Barak Naveh and Contributors.
- *
- * Original Author:  Barak Naveh;
- * Contributor(s):   David Gilbert;
- *                   Zhitao Wang;
- */
-
 package pdk.chart.data.xy;
-
-import java.io.Serializable;
 
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
+
+import java.io.Serializable;
 
 /**
  * Represents a dense matrix M[i,j] where each Mij item of the matrix has a
@@ -47,13 +11,17 @@ import pdk.chart.data.general.SeriesChangeEvent;
  *
  * @param <K> the series key type.
  */
-public class MatrixSeries<K extends Comparable<K>> extends Series<K> 
+public class MatrixSeries<K extends Comparable<K>> extends Series<K>
         implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7934188527308315704L;
 
-    /** Series matrix values */
+    /**
+     * Series matrix values
+     */
     protected double[][] data;
 
     /**
@@ -62,9 +30,9 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
      * By default, all matrix items are initialzed to 0.
      * </p>
      *
-     * @param name  series name ({@code null} not permitted).
-     * @param rows  the number of rows.
-     * @param columns  the number of columns.
+     * @param name    series name ({@code null} not permitted).
+     * @param rows    the number of rows.
+     * @param columns the number of columns.
      */
     public MatrixSeries(K name, int rows, int columns) {
         super(name);
@@ -87,9 +55,7 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
      * creates a new {@code double} instance every time it is called.
      *
      * @param itemIndex item index.
-     *
      * @return The matrix item at the specified index.
-     *
      * @see #get(int, int)
      */
     public Number getItem(int itemIndex) {
@@ -103,7 +69,6 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
      * Returns the column of the specified item.
      *
      * @param itemIndex the index of the item.
-     *
      * @return The column of the specified item.
      */
     public int getItemColumn(int itemIndex) {
@@ -127,7 +92,6 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
      * Returns the row of the specified item.
      *
      * @param itemIndex the index of the item.
-     *
      * @return The row of the specified item.
      */
     public int getItemRow(int itemIndex) {
@@ -151,9 +115,7 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
      *
      * @param i the row of the item.
      * @param j the column of the item.
-     *
      * @return The value of the specified item in this matrix series.
-     *
      * @see #getItem(int)
      * @see #update(int, int, double)
      */
@@ -165,10 +127,9 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
     /**
      * Updates the value of the specified item in this matrix series.
      *
-     * @param i the row of the item.
-     * @param j the column of the item.
+     * @param i   the row of the item.
+     * @param j   the column of the item.
      * @param mij the new value for the item.
-     *
      * @see #get(int, int)
      */
     public void update(int i, int j, double mij) {
@@ -197,8 +158,7 @@ public class MatrixSeries<K extends Comparable<K>> extends Series<K>
     /**
      * Tests this object instance for equality with an arbitrary object.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override

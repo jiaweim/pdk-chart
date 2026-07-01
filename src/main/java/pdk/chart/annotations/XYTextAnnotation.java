@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A text annotation that can be placed at a particular (x, y) location on an
@@ -131,7 +132,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      */
     public XYTextAnnotation(String text, double x, double y) {
         super();
-        Args.nullNotPermitted(text, "text");
+        Objects.requireNonNull(text, "text");
         Args.requireFinite(x, "x");
         Args.requireFinite(y, "y");
         this.text = text;
@@ -167,7 +168,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getText()
      */
     public void setText(String text) {
-        Args.nullNotPermitted(text, "text");
+        Objects.requireNonNull(text, "text");
         this.text = text;
         fireAnnotationChanged();
     }
@@ -190,7 +191,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getFont()
      */
     public void setFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.font = font;
         fireAnnotationChanged();
     }
@@ -213,7 +214,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.paint = paint;
         fireAnnotationChanged();
     }
@@ -237,7 +238,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getTextAnchor()
      */
     public void setTextAnchor(TextAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.textAnchor = anchor;
         fireAnnotationChanged();
     }
@@ -260,7 +261,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getRotationAnchor()
      */
     public void setRotationAnchor(TextAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.rotationAnchor = anchor;
         fireAnnotationChanged();
     }
@@ -377,7 +378,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getOutlinePaint()
      */
     public void setOutlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.outlinePaint = paint;
         fireAnnotationChanged();
     }
@@ -400,7 +401,7 @@ public class XYTextAnnotation extends AbstractXYAnnotation
      * @see #getOutlineStroke()
      */
     public void setOutlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.outlineStroke = stroke;
         fireAnnotationChanged();
     }

@@ -533,6 +533,15 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
     }
 
     /**
+     * Set the  position of the first legend.
+     *
+     * @param position {@link RectangleEdge}.
+     */
+    public void setLegendPosition(RectangleEdge position) {
+        getLegend().setPosition(position);
+    }
+
+    /**
      * Returns the nth legend for a chart, or {@code null}.
      *
      * @param index the legend index (zero-based).
@@ -1168,6 +1177,7 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
             Rectangle2D area, boolean entities) {
         Objects.requireNonNull(t, "title");
         Objects.requireNonNull(area, "area");
+
         Rectangle2D titleArea;
         RectangleEdge position = t.getPosition();
         double ww = area.getWidth();

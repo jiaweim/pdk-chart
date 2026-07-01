@@ -163,7 +163,7 @@ public class AbstractBlock implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the margin.
+     * Sets the margin (the space between the border and external objects).
      *
      * @param top    the top margin.
      * @param left   the left margin.
@@ -228,12 +228,14 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getPadding()
      */
     public void setPadding(RectangleInsets padding) {
-        Args.nullNotPermitted(padding, "padding");
+        Objects.requireNonNull(padding, "padding");
         this.padding = padding;
     }
 
     /**
-     * Sets the padding.
+     * Sets the padding (the space between content and its border).
+     * <p>
+     * Increase padding reduces the block size.
      *
      * @param top    the top padding.
      * @param left   the left padding.

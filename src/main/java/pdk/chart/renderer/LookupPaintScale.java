@@ -1,7 +1,7 @@
 package pdk.chart.renderer;
 
+import org.jspecify.annotations.NonNull;
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
 
@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A paint scale that uses a lookup table to associate paint instances
@@ -149,7 +150,7 @@ public class LookupPaintScale
      * Creates a new paint scale.
      */
     public LookupPaintScale() {
-        this(0.0, 1.0, Color.lightGray);
+        this(0.0, 1.0, Color.LIGHT_GRAY);
     }
 
     /**
@@ -157,16 +158,15 @@ public class LookupPaintScale
      *
      * @param lowerBound   the lower bound.
      * @param upperBound   the upper bound.
-     * @param defaultPaint the default paint ({@code null} not
-     *                     permitted).
+     * @param defaultPaint the default paint.
      */
     public LookupPaintScale(double lowerBound, double upperBound,
-                            Paint defaultPaint) {
+            @NonNull Paint defaultPaint) {
         if (lowerBound >= upperBound) {
             throw new IllegalArgumentException(
                     "Requires lowerBound < upperBound.");
         }
-        Args.nullNotPermitted(defaultPaint, "defaultPaint");
+        Objects.requireNonNull(defaultPaint);
         this.lowerBound = lowerBound;
         this.upperBound = upperBound;
         this.defaultPaint = defaultPaint;

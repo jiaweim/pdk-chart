@@ -1,61 +1,17 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ------------------------
- * XYDatasetTableModel.java
- * ------------------------
- * (C)opyright 2003-2008, by Bryan Scott and Contributors.
- *
- * Original Author:  Bryan Scott ;
- * Contributor(s):   David Gilbert;
- *
- * Changes
- * -------
- * 01-Jul-2003 : Version 1 contributed by Bryan Scott (DG);
- * 27-Apr-2005 : Change XYDataset --> TableXYDataset because the table model
- *               assumes all series share the same x-values, and this is not
- *               enforced by XYDataset.  Also fixed bug 1191046, a problem
- *               in the getValueAt() method (DG);
- *
- */
-
 package pdk.chart.data.xy;
-
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetChangeListener;
+
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 /**
  * A READ-ONLY wrapper around a {@link TableXYDataset} to convert it to a
  * table model for use in a JTable.  The first column of the table shows the
  * x-values, the remaining columns show the y-values for each series (series 0
  * appears in column 1, series 1 appears in column 2, etc).
- * <P>
+ * <p>
  * TO DO:
  * <ul>
  * <li>implement proper naming for x axis (getColumnName)</li>
@@ -63,9 +19,11 @@ import pdk.chart.data.general.DatasetChangeListener;
  * </ul>
  */
 public class XYDatasetTableModel extends AbstractTableModel
-        implements TableModel, DatasetChangeListener  {
+        implements TableModel, DatasetChangeListener {
 
-    /** The dataset. */
+    /**
+     * The dataset.
+     */
     TableXYDataset model = null;
 
     /**
@@ -78,7 +36,7 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Creates a new table model based on the specified dataset.
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      */
     public XYDatasetTableModel(TableXYDataset dataset) {
         this();
@@ -89,7 +47,7 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Sets the model (dataset).
      *
-     * @param dataset  the dataset.
+     * @param dataset the dataset.
      */
     public void setModel(TableXYDataset dataset) {
         this.model = dataset;
@@ -126,8 +84,7 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Returns the column name.
      *
-     * @param column  the column index.
-     *
+     * @param column the column index.
      * @return The column name.
      */
     @Override
@@ -137,8 +94,7 @@ public class XYDatasetTableModel extends AbstractTableModel
         }
         if (column < 1) {
             return "X Value";
-        }
-        else {
+        } else {
             return this.model.getSeriesKey(column - 1).toString();
         }
     }
@@ -147,9 +103,8 @@ public class XYDatasetTableModel extends AbstractTableModel
      * Returns a value of the specified cell.
      * Column 0 is the X axis, Columns 1 and over are the Y axis
      *
-     * @param row  the row number.
-     * @param column  the column number.
-     *
+     * @param row    the row number.
+     * @param column the column number.
      * @return The value of the specified cell.
      */
     @Override
@@ -159,17 +114,15 @@ public class XYDatasetTableModel extends AbstractTableModel
         }
         if (column < 1) {
             return this.model.getX(0, row);
-        }
-        else {
+        } else {
             return this.model.getY(column - 1, row);
         }
     }
 
     /**
      * Receives notification that the underlying dataset has changed.
-    *
-     * @param event  the event
      *
+     * @param event the event
      * @see DatasetChangeListener
      */
     @Override
@@ -180,22 +133,21 @@ public class XYDatasetTableModel extends AbstractTableModel
     /**
      * Returns a flag indicating whether the specified cell is editable.
      *
-     * @param row  the row number.
-     * @param column  the column number.
-     *
+     * @param row    the row number.
+     * @param column the column number.
      * @return {@code true} if the specified cell is editable.
      */
     @Override
     public boolean isCellEditable(int row, int column) {
         return false;
-   }
+    }
 
     /**
      * Updates the {@link XYDataset} if allowed.
      *
      * @param value  the new value.
-     * @param row  the row.
-     * @param column  the column.
+     * @param row    the row.
+     * @param column the column.
      */
     @Override
     public void setValueAt(Object value, int row, int column) {

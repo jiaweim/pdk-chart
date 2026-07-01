@@ -3,12 +3,11 @@ package pdk.chart;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.api.Layer;
+import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.TableOrder;
-import pdk.chart.axis.CategoryAxis;
-import pdk.chart.axis.DateAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.ValueAxis;
+import pdk.chart.axis.*;
+import pdk.chart.color.JColorSequential;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.data.general.DefaultPieDataset;
@@ -18,11 +17,14 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
+import pdk.chart.internal.ShapeUtils;
 import pdk.chart.labels.*;
+import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.renderer.DefaultPolarItemRenderer;
+import pdk.chart.renderer.LookupPaintScale;
 import pdk.chart.renderer.WaferMapRenderer;
 import pdk.chart.renderer.category.*;
 import pdk.chart.renderer.xy.*;
@@ -1324,10 +1326,13 @@ public abstract class JChart {
      * @param y     y values.
      * @return a scatter chart.
      */
-    public static Chart scatter(String xName, double[] x, String yName, double[] y) {
+    public static Chart scatter(String xName, double[] x,
+            String yName, double[] y) {
         XYDataset<String> dataset = Data.createXY("", x, y);
-        return scatter(null, xName, yName, dataset, PlotOrientation.VERTICAL,
+        Chart chart = scatter(null, xName, yName, dataset, PlotOrientation.VERTICAL,
                 false, true, false);
+        chart.getXYPlot().getLineAndShapeRenderer().seriesShape(0, ShapeUtils.createCircle(6));
+        return chart;
     }
 
     /**
@@ -1339,10 +1344,64 @@ public abstract class JChart {
      * @param y     y values.
      * @return a scatter chart.
      */
-    public static Chart scatter(String xName, Double[] x, String yName, Double[] y) {
+    public static Chart scatter(String xName, Double[] x,
+            String yName, Double[] y) {
         XYDataset<String> dataset = Data.createXY("", x, y);
-        return scatter(null, xName, yName, dataset, PlotOrientation.VERTICAL,
+        Chart chart = scatter(null, xName, yName, dataset, PlotOrientation.VERTICAL,
                 false, true, false);
+        chart.getXYPlot().getLineAndShapeRenderer().seriesShape(0, ShapeUtils.createCircle(6));
+        return chart;
+    }
+
+    /**
+     * Create a scatter chart.
+     *
+     * @param x     x values.
+     * @param y     y values.
+     * @param color z values map to shape colors.
+     * @param xName name of x-axis.
+     * @param yName name of y-axis.
+     * @return a scatter chart.
+     */
+    public static Chart scatter(Double[] x, Double[] y, Double[] color,
+            String xName, String yName, String zName) {
+
+        NumberAxis xAixs = new NumberAxis(xName);
+        xAixs.setAutoRangeIncludesZero(false);
+
+        NumberAxis yAixs = new NumberAxis(yName);
+        yAixs.setAutoRangeIncludesZero(false);
+
+        double min = Data.getMin(color);
+        double max = Data.getMax(color);
+
+        XYShapeRenderer renderer = new XYShapeRenderer();
+
+        LookupPaintScale ps = new LookupPaintScale(min, max, Color.GRAY);
+        Color[] colors = JColorSequential.Plasma();
+        double stepSize = (max - min) / (colors.length - 1);
+        for (int i = 0; i < colors.length; i++) {
+            ps.add(min + i * stepSize, colors[i]);
+        }
+        renderer.setPaintScale(ps);
+
+        XYZDataset<String> dataset = Data.createXYZ("", x, y, color);
+
+        XYPlot plot = new XYPlot(dataset, xAixs, yAixs, renderer);
+
+        NumberAxis zAxis = new NumberAxis(zName);
+        zAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        PaintScaleLegend legend = new PaintScaleLegend(ps, zAxis);
+        legend.setPosition(RectangleEdge.RIGHT);
+        legend.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
+
+        Chart chart = new Chart(null, plot);
+        chart.removeLegend();
+        chart.addSubtitle(legend);
+
+        ChartUtils.applyCurrentTheme(chart);
+        return chart;
     }
 
     /**
@@ -1397,7 +1456,10 @@ public abstract class JChart {
         NumberAxis yAxis = new NumberAxis(yAxisLabel);
         yAxis.setAutoRangeIncludesZero(false);
 
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, null);
+        XYURLGenerator urlGenerator = null;
+        if (urls) {
+            urlGenerator = new StandardXYURLGenerator();
+        }
 
         XYToolTipGenerator toolTipGenerator = null;
         if (tooltips) {
@@ -1408,14 +1470,11 @@ public abstract class JChart {
             }
         }
 
-        XYURLGenerator urlGenerator = null;
-        if (urls) {
-            urlGenerator = new StandardXYURLGenerator();
-        }
         XYItemRenderer renderer = new XYLineAndShapeRenderer(false, true);
         renderer.setDefaultToolTipGenerator(toolTipGenerator);
         renderer.setURLGenerator(urlGenerator);
-        plot.setRenderer(renderer);
+
+        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
         plot.setOrientation(orientation);
 
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
@@ -1783,7 +1842,6 @@ public abstract class JChart {
         return line(title, xAxisLabel, yAxisLabel, dataset, smooth, orientation, true, true);
     }
 
-
     /**
      * Creates a line chart (based on an {@link XYDataset}) with default
      * settings.
@@ -2091,10 +2149,7 @@ public abstract class JChart {
      */
     public static Chart bubble(String xName, Double[] x,
             String yName, Double[] y, Double[] size, @Nullable String[] color) {
-        // adjust size to make bubble size
-        double minY = Data.getMin(y);
-        double maxy = Data.getMax(y);
-        double rangeY = maxy - minY;
+        double rangeY = Data.getRange(y);
 
         double maxZ = Data.getMax(size);
         double scale = Math.max(maxZ, rangeY) * 4;
@@ -2133,7 +2188,15 @@ public abstract class JChart {
         }
 
         XYZDataset<String> dataset = xyz.build();
-        return bubble(null, xName, yName, dataset);
+        Chart chart = bubble(null, xName, yName, dataset);
+        chart.getLegend().setPosition(RectangleEdge.RIGHT);
+        XYPlot plot = chart.getXYPlot();
+        XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
+        for (int i = 0; i < dataset.getSeriesCount(); i++) {
+            renderer.seriesOutlinePaint(i, Color.WHITE);
+        }
+
+        return chart;
     }
 
     /**

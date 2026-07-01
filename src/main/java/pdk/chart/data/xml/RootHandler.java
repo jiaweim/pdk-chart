@@ -1,56 +1,18 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ----------------
- * RootHandler.java
- * ----------------
- * (C) Copyright 2003-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- * Changes
- * -------
- * 23-Jan-2003 : Version 1 (DG);
- *
- */
-
 package pdk.chart.data.xml;
-
-import java.util.Stack;
 
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import java.util.Stack;
 
 /**
  * A SAX handler that delegates work to sub-handlers.
  */
 public class RootHandler extends DefaultHandler implements DatasetTags {
 
-    /** The sub-handlers. */
+    /**
+     * The sub-handlers.
+     */
     private Stack subHandlers;
 
     /**
@@ -72,15 +34,14 @@ public class RootHandler extends DefaultHandler implements DatasetTags {
     /**
      * Receives some (or all) of the text in the current element.
      *
-     * @param ch  character buffer.
+     * @param ch     character buffer.
      * @param start  the start index.
-     * @param length  the length of the valid character data.
-     *
+     * @param length the length of the valid character data.
      * @throws SAXException for errors.
      */
     @Override
     public void characters(char[] ch, int start, int length)
-        throws SAXException {
+            throws SAXException {
         DefaultHandler handler = getCurrentHandler();
         if (handler != this) {
             handler.characters(ch, start, length);
@@ -108,7 +69,7 @@ public class RootHandler extends DefaultHandler implements DatasetTags {
     /**
      * Pushes a sub-handler onto the stack.
      *
-     * @param subhandler  the sub-handler.
+     * @param subhandler the sub-handler.
      */
     public void pushSubHandler(DefaultHandler subhandler) {
         this.subHandlers.push(subhandler);

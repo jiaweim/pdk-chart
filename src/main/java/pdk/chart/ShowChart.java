@@ -35,6 +35,12 @@ public interface ShowChart {
         SwingUtilities.invokeLater(() -> {
             ApplicationFrame frame = new ApplicationFrame(frameTitle);
             ChartPanel panel = new ChartPanel(chart);
+
+            // Used to prevent stretching distortion
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            panel.setMaximumDrawHeight((int) screenSize.getHeight());
+            panel.setMaximumDrawWidth((int) screenSize.getWidth());
+
             panel.setInitialDelay(200);
             panel.setMouseWheelEnabled(true);
             frame.setContentPane(panel);
@@ -54,7 +60,13 @@ public interface ShowChart {
         SwingUtilities.invokeLater(() -> {
             ApplicationFrame frame = new ApplicationFrame(frameTitle);
             ChartPanel panel = new ChartPanel(chart);
+            // Used to prevent stretching distortion
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            panel.setMaximumDrawHeight((int) screenSize.getHeight());
+            panel.setMaximumDrawWidth((int) screenSize.getWidth());
+
             panel.setPreferredSize(new Dimension(width, height));
+            panel.setInitialDelay(200);
             panel.setMouseWheelEnabled(true);
             frame.setContentPane(panel);
             frame.pack();

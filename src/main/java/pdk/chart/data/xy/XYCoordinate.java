@@ -1,39 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------------
- * XYCoordinate.java
- * -----------------
- * (C) Copyright 2007-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.data.xy;
 
 import java.io.Serializable;
@@ -43,10 +7,14 @@ import java.io.Serializable;
  */
 public class XYCoordinate implements Comparable, Serializable {
 
-    /** The x-coordinate. */
+    /**
+     * The x-coordinate.
+     */
     private double x;
 
-    /** The y-coordinate. */
+    /**
+     * The y-coordinate.
+     */
     private double y;
 
     /**
@@ -59,8 +27,8 @@ public class XYCoordinate implements Comparable, Serializable {
     /**
      * Creates a new coordinate for the point (x, y).
      *
-     * @param x  the x-coordinate.
-     * @param y  the y-coordinate.
+     * @param x the x-coordinate.
+     * @param y the y-coordinate.
      */
     public XYCoordinate(double x, double y) {
         this.x = x;
@@ -88,8 +56,7 @@ public class XYCoordinate implements Comparable, Serializable {
     /**
      * Tests this coordinate for equality with an arbitrary object.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override
@@ -139,8 +106,7 @@ public class XYCoordinate implements Comparable, Serializable {
     /**
      * Compares this instance against an arbitrary object.
      *
-     * @param obj  the object ({@code null} not permitted).
-     *
+     * @param obj the object ({@code null} not permitted).
      * @return An integer indicating the relative order of the items.
      */
     @Override
@@ -151,15 +117,12 @@ public class XYCoordinate implements Comparable, Serializable {
         XYCoordinate that = (XYCoordinate) obj;
         if (this.x > that.x) {
             return 1;
-        }
-        else if (this.x < that.x) {
+        } else if (this.x < that.x) {
             return -1;
-        }
-        else {
+        } else {
             if (this.y > that.y) {
                 return 1;
-            }
-            else if (this.y < that.y) {
+            } else if (this.y < that.y) {
                 return -1;
             }
         }

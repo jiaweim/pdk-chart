@@ -1,38 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * --------------------
- * VectorXYDataset.java
- * --------------------
- * (C) Copyright 2007-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- */
-
 package pdk.chart.data.xy;
 
 /**
@@ -46,9 +11,8 @@ public interface VectorXYDataset<S extends Comparable<S>> extends XYDataset<S> {
     /**
      * Returns the x-component of the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The x-component of the vector.
      */
     double getVectorXValue(int series, int item);
@@ -56,9 +20,8 @@ public interface VectorXYDataset<S extends Comparable<S>> extends XYDataset<S> {
     /**
      * Returns the y-component of the vector for an item in a series.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The y-component of the vector.
      */
     double getVectorYValue(int series, int item);
@@ -70,9 +33,8 @@ public interface VectorXYDataset<S extends Comparable<S>> extends XYDataset<S> {
      * use the {@link #getVectorXValue(int, int)} and
      * {@link #getVectorYValue(int, int)} methods instead.
      *
-     * @param series  the series index.
-     * @param item  the item index.
-     *
+     * @param series the series index.
+     * @param item   the item index.
      * @return The vector (possibly {@code null}).
      */
     Vector getVector(int series, int item);

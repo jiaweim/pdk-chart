@@ -1,39 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------------------
- * NormalizedMatrixSeries.java
- * ---------------------------
- * (C) Copyright 2003-2020, by Barak Naveh and Contributors.
- *
- * Original Author:  Barak Naveh;
- * Contributor(s):   David Gilbert;
- *
- */
-
 package pdk.chart.data.xy;
 
 /**
@@ -44,7 +8,9 @@ package pdk.chart.data.xy;
  */
 public class NormalizedMatrixSeries extends MatrixSeries {
 
-    /** The default scale factor. */
+    /**
+     * The default scale factor.
+     */
     public static final double DEFAULT_SCALE_FACTOR = 1.0;
 
     /**
@@ -53,15 +19,17 @@ public class NormalizedMatrixSeries extends MatrixSeries {
      */
     private double m_scaleFactor = DEFAULT_SCALE_FACTOR;
 
-    /** The sum of all items in this matrix */
+    /**
+     * The sum of all items in this matrix
+     */
     private double m_totalSum;
 
     /**
      * Constructor for NormalizedMatrixSeries.
      *
-     * @param name  the series name.
-     * @param rows  the number of rows.
-     * @param columns  the number of columns.
+     * @param name    the series name.
+     * @param rows    the number of rows.
+     * @param columns the number of columns.
      */
     public NormalizedMatrixSeries(String name, int rows, int columns) {
         super(name, rows, columns);
@@ -78,10 +46,8 @@ public class NormalizedMatrixSeries extends MatrixSeries {
     /**
      * Returns an item.
      *
-     * @param itemIndex  the index.
-     *
+     * @param itemIndex the index.
      * @return The value.
-     *
      * @see MatrixSeries#getItem(int)
      */
     @Override
@@ -100,7 +66,6 @@ public class NormalizedMatrixSeries extends MatrixSeries {
      * using getItem mehtod.
      *
      * @param factor new factor to set.
-     *
      * @see #DEFAULT_SCALE_FACTOR
      */
     public void setScaleFactor(double factor) {
@@ -123,10 +88,9 @@ public class NormalizedMatrixSeries extends MatrixSeries {
     /**
      * Updates the value of the specified item in this matrix series.
      *
-     * @param i the row of the item.
-     * @param j the column of the item.
+     * @param i   the row of the item.
+     * @param j   the column of the item.
      * @param mij the new value for the item.
-     *
      * @see #get(int, int)
      */
     @Override

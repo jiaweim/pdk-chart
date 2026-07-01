@@ -328,6 +328,15 @@ public interface Data {
         return max;
     }
 
+    static double getRange(Double[] values) {
+        double min = Double.MAX_VALUE;
+        double max = -Double.MAX_VALUE;
+        for (Double value : values) {
+            max = Math.max(value, max);
+            min = Math.min(value, min);
+        }
+        return max - min;
+    }
 
     /**
      * Auxiliary class for creating DefaultCategoryDataset

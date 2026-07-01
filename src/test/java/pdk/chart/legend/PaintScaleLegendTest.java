@@ -134,5 +134,4 @@ public class PaintScaleLegendTest {
         PaintScaleLegend l2 = TestUtils.serialised(l1);
         assertEquals(l1, l2);
     }
-
 }

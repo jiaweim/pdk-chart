@@ -1,53 +1,19 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------------------
- * CategoryDatasetHandler.java
- * ---------------------------
- * (C) Copyright 2003-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.data.xml;
 
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.category.DefaultCategoryDataset;
 
 /**
  * A SAX handler for reading a {@link CategoryDataset} from an XML file.
  */
 public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
 
-    /** The dataset under construction. */
+    /**
+     * The dataset under construction.
+     */
     private DefaultCategoryDataset<String, String> dataset;
 
     /**
@@ -70,9 +36,9 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * Adds an item to the dataset.
      *
-     * @param rowKey  the row key.
-     * @param columnKey  the column key.
-     * @param value  the value.
+     * @param rowKey    the row key.
+     * @param columnKey the column key.
+     * @param value     the value.
      */
     public void addItem(String rowKey, String columnKey, Number value) {
         this.dataset.addValue(value, rowKey, columnKey);
@@ -81,32 +47,28 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * The start of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     * @param atts  the element attributes.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
+     * @param atts         the element attributes.
      * @throws SAXException for errors.
      */
     @Override
     public void startElement(String namespaceURI,
-                             String localName,
-                             String qName,
-                             Attributes atts) throws SAXException {
+            String localName,
+            String qName,
+            Attributes atts) throws SAXException {
 
         DefaultHandler current = getCurrentHandler();
         if (current != this) {
             current.startElement(namespaceURI, localName, qName, atts);
-        }
-        else if (qName.equals(CATEGORYDATASET_TAG)) {
+        } else if (qName.equals(CATEGORYDATASET_TAG)) {
             this.dataset = new DefaultCategoryDataset<>();
-        }
-        else if (qName.equals(SERIES_TAG)) {
+        } else if (qName.equals(SERIES_TAG)) {
             CategorySeriesHandler subhandler = new CategorySeriesHandler(this);
             getSubHandlers().push(subhandler);
             subhandler.startElement(namespaceURI, localName, qName, atts);
-        }
-        else {
+        } else {
             throw new SAXException("Element not recognised: " + qName);
         }
 
@@ -115,16 +77,15 @@ public class CategoryDatasetHandler extends RootHandler implements DatasetTags {
     /**
      * The end of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
      * @throws SAXException for errors.
      */
     @Override
     public void endElement(String namespaceURI,
-                           String localName,
-                           String qName) throws SAXException {
+            String localName,
+            String qName) throws SAXException {
 
         DefaultHandler current = getCurrentHandler();
         if (current != this) {

@@ -497,7 +497,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
                 true,  // zoom
                 true   // tooltips
         );
-
     }
 
     /**

@@ -1,44 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------------
- * ValueHandler.java
- * -----------------
- * (C) Copyright 2003-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   Luke Quinane;
- *
- * Changes
- * -------
- * 23-Jan-2003 : Version 1 (DG);
- * 25-Nov-2003 : Patch to handle 'NaN' values (DG);
- *
- */
-
 package pdk.chart.data.xml;
 
 import org.xml.sax.Attributes;
@@ -50,20 +9,26 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class ValueHandler extends DefaultHandler implements DatasetTags {
 
-    /** The root handler. */
+    /**
+     * The root handler.
+     */
     private RootHandler rootHandler;
 
-    /** The item handler. */
+    /**
+     * The item handler.
+     */
     private ItemHandler itemHandler;
 
-    /** Storage for the current CDATA */
+    /**
+     * Storage for the current CDATA
+     */
     private StringBuffer currentText;
 
     /**
      * Creates a new value handler.
      *
-     * @param rootHandler  the root handler.
-     * @param itemHandler  the item handler.
+     * @param rootHandler the root handler.
+     * @param itemHandler the item handler.
      */
     public ValueHandler(RootHandler rootHandler, ItemHandler itemHandler) {
         this.rootHandler = rootHandler;
@@ -74,24 +39,22 @@ public class ValueHandler extends DefaultHandler implements DatasetTags {
     /**
      * The start of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     * @param atts  the attributes.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
+     * @param atts         the attributes.
      * @throws SAXException for errors.
      */
     @Override
     public void startElement(String namespaceURI,
-                             String localName,
-                             String qName,
-                             Attributes atts) throws SAXException {
+            String localName,
+            String qName,
+            Attributes atts) throws SAXException {
 
         if (qName.equals(VALUE_TAG)) {
             // no attributes to read
             clearCurrentText();
-        }
-        else {
+        } else {
             throw new SAXException("Expecting <Value> but found " + qName);
         }
 
@@ -100,16 +63,15 @@ public class ValueHandler extends DefaultHandler implements DatasetTags {
     /**
      * The end of an element.
      *
-     * @param namespaceURI  the namespace.
-     * @param localName  the element name.
-     * @param qName  the element name.
-     *
+     * @param namespaceURI the namespace.
+     * @param localName    the element name.
+     * @param qName        the element name.
      * @throws SAXException for errors.
      */
     @Override
     public void endElement(String namespaceURI,
-                           String localName,
-                           String qName) throws SAXException {
+            String localName,
+            String qName) throws SAXException {
 
         if (qName.equals(VALUE_TAG)) {
             Number value;
@@ -118,14 +80,12 @@ public class ValueHandler extends DefaultHandler implements DatasetTags {
                 if (((Double) value).isNaN()) {
                     value = null;
                 }
-            }
-            catch (NumberFormatException e1) {
+            } catch (NumberFormatException e1) {
                 value = null;
             }
             this.itemHandler.setValue(value);
             this.rootHandler.popSubHandler();
-        }
-        else {
+        } else {
             throw new SAXException("Expecting </Value> but found " + qName);
         }
 
@@ -134,9 +94,9 @@ public class ValueHandler extends DefaultHandler implements DatasetTags {
     /**
      * Receives some (or all) of the text in the current element.
      *
-     * @param ch  character buffer.
+     * @param ch     character buffer.
      * @param start  the start index.
-     * @param length  the length of the valid character data.
+     * @param length the length of the valid character data.
      */
     @Override
     public void characters(char[] ch, int start, int length) {

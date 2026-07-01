@@ -1,38 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------------------
- * IntervalXYZDataset.java
- * -----------------------
- * (C) Copyright 2001-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- */
-
 package pdk.chart.data.xy;
 
 /**
@@ -41,15 +6,14 @@ package pdk.chart.data.xy;
  *
  * @param <S> the series key type.
  */
-public interface IntervalXYZDataset<S extends Comparable<S>> 
+public interface IntervalXYZDataset<S extends Comparable<S>>
         extends XYZDataset<S> {
 
     /**
      * Returns the starting X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The starting X value for the specified series and item.
      */
     Number getStartXValue(int series, int item);
@@ -57,9 +21,8 @@ public interface IntervalXYZDataset<S extends Comparable<S>>
     /**
      * Returns the ending X value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The ending X value for the specified series and item.
      */
     Number getEndXValue(int series, int item);
@@ -67,9 +30,8 @@ public interface IntervalXYZDataset<S extends Comparable<S>>
     /**
      * Returns the starting Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The starting Y value for the specified series and item.
      */
     Number getStartYValue(int series, int item);
@@ -77,9 +39,8 @@ public interface IntervalXYZDataset<S extends Comparable<S>>
     /**
      * Returns the ending Y value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The ending Y value for the specified series and item.
      */
     Number getEndYValue(int series, int item);
@@ -87,9 +48,8 @@ public interface IntervalXYZDataset<S extends Comparable<S>>
     /**
      * Returns the starting Z value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The starting Z value for the specified series and item.
      */
     Number getStartZValue(int series, int item);
@@ -97,9 +57,8 @@ public interface IntervalXYZDataset<S extends Comparable<S>>
     /**
      * Returns the ending Z value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item within a series (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item within a series (zero-based index).
      * @return The ending Z value for the specified series and item.
      */
     Number getEndZValue(int series, int item);

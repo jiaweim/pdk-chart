@@ -8,7 +8,6 @@ import pdk.chart.axis.*;
 import pdk.chart.block.Block;
 import pdk.chart.block.BlockContainer;
 import pdk.chart.block.LabelBlock;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.PaintUtils;
 import pdk.chart.internal.SerialUtils;
 import pdk.chart.legend.LegendTitle;
@@ -370,7 +369,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getLargeFont()
      */
     public void setLargeFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.largeFont = font;
     }
 
@@ -391,7 +390,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getRegularFont()
      */
     public void setRegularFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.regularFont = font;
     }
 
@@ -412,7 +411,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getSmallFont()
      */
     public void setSmallFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.smallFont = font;
     }
 
@@ -433,7 +432,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getTitlePaint()
      */
     public void setTitlePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.titlePaint = paint;
     }
 
@@ -454,7 +453,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getSubtitlePaint()
      */
     public void setSubtitlePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.subtitlePaint = paint;
     }
 
@@ -475,7 +474,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getChartBackgroundPaint()
      */
     public void setChartBackgroundPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.chartBackgroundPaint = paint;
     }
 
@@ -496,7 +495,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getLegendBackgroundPaint()
      */
     public void setLegendBackgroundPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.legendBackgroundPaint = paint;
     }
 
@@ -517,7 +516,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getLegendItemPaint()
      */
     public void setLegendItemPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.legendItemPaint = paint;
     }
 
@@ -538,7 +537,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getPlotBackgroundPaint()
      */
     public void setPlotBackgroundPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.plotBackgroundPaint = paint;
     }
 
@@ -559,7 +558,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getPlotOutlinePaint()
      */
     public void setPlotOutlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.plotOutlinePaint = paint;
     }
 
@@ -580,7 +579,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getLabelLinkStyle()
      */
     public void setLabelLinkStyle(PieLabelLinkStyle style) {
-        Args.nullNotPermitted(style, "style");
+        Objects.requireNonNull(style, "style");
         this.labelLinkStyle = style;
     }
 
@@ -601,7 +600,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getLabelLinkPaint()
      */
     public void setLabelLinkPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.labelLinkPaint = paint;
     }
 
@@ -622,7 +621,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getDomainGridlinePaint()
      */
     public void setDomainGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.domainGridlinePaint = paint;
     }
 
@@ -643,7 +642,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getRangeGridlinePaint()
      */
     public void setRangeGridlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.rangeGridlinePaint = paint;
     }
 
@@ -662,7 +661,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @param paint the paint ({@code null} not permitted).
      */
     public void setBaselinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.baselinePaint = paint;
     }
 
@@ -681,7 +680,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @param paint the paint ({@code null} not permitted).
      */
     public void setCrosshairPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.crosshairPaint = paint;
     }
 
@@ -702,7 +701,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getAxisOffset()
      */
     public void setAxisOffset(RectangleInsets offset) {
-        Args.nullNotPermitted(offset, "offset");
+        Objects.requireNonNull(offset, "offset");
         this.axisOffset = offset;
     }
 
@@ -723,7 +722,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getAxisLabelPaint()
      */
     public void setAxisLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.axisLabelPaint = paint;
     }
 
@@ -744,7 +743,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getTickLabelPaint()
      */
     public void setTickLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.tickLabelPaint = paint;
     }
 
@@ -765,7 +764,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getItemLabelPaint()
      */
     public void setItemLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.itemLabelPaint = paint;
     }
 
@@ -806,7 +805,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getShadowPaint()
      */
     public void setShadowPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.shadowPaint = paint;
     }
 
@@ -827,7 +826,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getBarPainter()
      */
     public void setBarPainter(BarPainter painter) {
-        Args.nullNotPermitted(painter, "painter");
+        Objects.requireNonNull(painter, "painter");
         this.barPainter = painter;
     }
 
@@ -848,7 +847,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @see #getXYBarPainter()
      */
     public void setXYBarPainter(XYBarPainter painter) {
-        Args.nullNotPermitted(painter, "painter");
+        Objects.requireNonNull(painter, "painter");
         this.xyBarPainter = painter;
     }
 
@@ -1426,7 +1425,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @param renderer the renderer ({@code null} not permitted).
      */
     protected void applyToCategoryItemRenderer(CategoryItemRenderer renderer) {
-        Args.nullNotPermitted(renderer, "renderer");
+        Objects.requireNonNull(renderer, "renderer");
 
         if (renderer instanceof AbstractRenderer) {
             applyToAbstractRenderer((AbstractRenderer) renderer);
@@ -1465,7 +1464,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @param renderer the renderer ({@code null} not permitted).
      */
     protected void applyToXYItemRenderer(XYItemRenderer renderer) {
-        Args.nullNotPermitted(renderer, "renderer");
+        Objects.requireNonNull(renderer, "renderer");
         if (renderer instanceof AbstractRenderer) {
             applyToAbstractRenderer((AbstractRenderer) renderer);
         }
@@ -1484,7 +1483,7 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      * @param annotation the annotation.
      */
     protected void applyToXYAnnotation(XYAnnotation annotation) {
-        Args.nullNotPermitted(annotation, "annotation");
+        Objects.requireNonNull(annotation, "annotation");
         if (annotation instanceof XYTextAnnotation) {
             XYTextAnnotation xyta = (XYTextAnnotation) annotation;
             xyta.setFont(this.smallFont);

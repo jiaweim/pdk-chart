@@ -1,46 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------
- * Vector.java
- * -----------
- * (C) Copyright 2007, 2022, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- * Changes
- * -------
- * 30-Jan-2007 : Version 1 (DG);
- * 24-May-2007 : Added getLength() and getAngle() methods, thanks to
- *               matinh (DG);
- * 25-May-2007 : Moved from experimental to the main source tree (DG);
- *
- */
-
 package pdk.chart.data.xy;
 
 import java.io.Serializable;
@@ -52,17 +9,21 @@ import java.io.Serializable;
  */
 public class Vector implements Serializable {
 
-    /** The vector x. */
+    /**
+     * The vector x.
+     */
     private double x;
 
-    /** The vector y. */
+    /**
+     * The vector y.
+     */
     private double y;
 
     /**
      * Creates a new instance of {@code Vector}.
      *
-     * @param x  the x-component.
-     * @param y  the y-component.
+     * @param x the x-component.
+     * @param y the y-component.
      */
     public Vector(double x, double y) {
         this.x = x;
@@ -108,8 +69,7 @@ public class Vector implements Serializable {
     /**
      * Tests this vector for equality with an arbitrary object.
      *
-     * @param obj  the object ({@code null} not permitted).
-     *
+     * @param obj the object ({@code null} not permitted).
      * @return A boolean.
      */
     @Override

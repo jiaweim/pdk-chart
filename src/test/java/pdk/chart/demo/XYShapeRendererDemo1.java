@@ -46,12 +46,15 @@ public class XYShapeRendererDemo1 extends ApplicationFrame {
         plot.setRangeCrosshairLockedOnData(true);
         Chart chart = new Chart("XYShapeRendererDemo1", plot);
         chart.removeLegend();
+
         NumberAxis zAxis = new NumberAxis("Score");
         zAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
         PaintScaleLegend psl = new PaintScaleLegend(ps, zAxis);
         psl.setPosition(RectangleEdge.RIGHT);
         psl.setMargin(4.0, 4.0, 40.0, 4.0);
         psl.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
+
         chart.addSubtitle(psl);
         ChartUtils.applyCurrentTheme(chart);
         return chart;
