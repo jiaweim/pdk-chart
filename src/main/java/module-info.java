@@ -39,7 +39,6 @@ module pdk.chart {
     exports pdk.chart.data.gantt;
     exports pdk.chart.data.general;
     exports pdk.chart.data.io;
-    exports pdk.chart.data.json;
     exports pdk.chart.data.statistics;
     exports pdk.chart.data.time;
     exports pdk.chart.data.time.ohlc;
