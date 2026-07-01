@@ -1,51 +1,14 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ----------------------------------
- * DefaultBoxAndWhiskerXYDataset.java
- * ----------------------------------
- * (C) Copyright 2003-present, by David Browning and Contributors.
- *
- * Original Author:  David Browning (for Australian Institute of Marine
- *                   Science);
- * Contributor(s):   David Gilbert;
- *
- */
-
 package pdk.chart.data.statistics;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
 import pdk.chart.data.Range;
 import pdk.chart.data.RangeInfo;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.AbstractXYDataset;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * A simple implementation of the {@link BoxAndWhiskerXYDataset} interface.
@@ -53,26 +16,38 @@ import pdk.chart.data.xy.AbstractXYDataset;
  *
  * @param <S> the series key type.
  */
-public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>> 
+public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
         extends AbstractXYDataset<S>
         implements BoxAndWhiskerXYDataset<S>, RangeInfo {
 
-    /** The series key. */
+    /**
+     * The series key.
+     */
     private final S seriesKey;
 
-    /** Storage for the dates. */
+    /**
+     * Storage for the dates.
+     */
     private List<Date> dates;
 
-    /** Storage for the box and whisker statistics. */
+    /**
+     * Storage for the box and whisker statistics.
+     */
     private List<BoxAndWhiskerItem> items;
 
-    /** The minimum range value. */
+    /**
+     * The minimum range value.
+     */
     private Number minimumRangeValue;
 
-    /** The maximum range value. */
+    /**
+     * The maximum range value.
+     */
     private Number maximumRangeValue;
 
-    /** The range of values. */
+    /**
+     * The range of values.
+     */
     private Range rangeBounds;
 
     /**
@@ -97,7 +72,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * The current implementation allows only one series in the dataset.
      * This may be extended in a future version.
      *
-     * @param seriesKey  the key for the series.
+     * @param seriesKey the key for the series.
      */
     public DefaultBoxAndWhiskerXYDataset(S seriesKey) {
         super();
@@ -117,8 +92,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * greater than the outlier coefficient
      *
      * @return A {@code double} representing the value used to calculate
-     *         outliers.
-     *
+     * outliers.
      * @see #setOutlierCoefficient(double)
      */
     @Override
@@ -129,9 +103,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Sets the value used as the outlier coefficient
      *
-     * @param outlierCoefficient  being a {@code double} representing the
-     *                            value used to calculate outliers.
-     *
+     * @param outlierCoefficient being a {@code double} representing the
+     *                           value used to calculate outliers.
      * @see #getOutlierCoefficient()
      */
     public void setOutlierCoefficient(double outlierCoefficient) {
@@ -143,8 +116,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * allows the calculation of which values will be off the graph.
      *
      * @return A {@code double} representing the value used to calculate
-     *         farouts.
-     *
+     * farouts.
      * @see #setFaroutCoefficient(double)
      */
     @Override
@@ -158,18 +130,16 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      *
      * @param faroutCoefficient being a {@code double} representing the
      *                          value used to calculate farouts.
-     *
      * @see #getFaroutCoefficient()
      */
     public void setFaroutCoefficient(double faroutCoefficient) {
 
         if (faroutCoefficient > getOutlierCoefficient()) {
             this.faroutCoefficient = faroutCoefficient;
-        }
-        else {
+        } else {
             throw new IllegalArgumentException("Farout value must be greater "
-                + "than the outlier value, which is currently set at: ("
-                + getOutlierCoefficient() + ")");
+                    + "than the outlier value, which is currently set at: ("
+                    + getOutlierCoefficient() + ")");
         }
     }
 
@@ -188,8 +158,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the number of items in the specified series.
      *
-     * @param series  the index (zero-based) of the series.
-     *
+     * @param series the index (zero-based) of the series.
      * @return The number of items in the specified series.
      */
     @Override
@@ -201,16 +170,15 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * Adds an item to the dataset and sends a {@link DatasetChangeEvent} to
      * all registered listeners.
      *
-     * @param date  the date ({@code null} not permitted).
-     * @param item  the item ({@code null} not permitted).
+     * @param date the date ({@code null} not permitted).
+     * @param item the item ({@code null} not permitted).
      */
     public void add(Date date, BoxAndWhiskerItem item) {
         this.dates.add(date);
         this.items.add(item);
         if (this.minimumRangeValue == null) {
             this.minimumRangeValue = item.getMinRegularValue();
-        }
-        else {
+        } else {
             if (item.getMinRegularValue().doubleValue()
                     < this.minimumRangeValue.doubleValue()) {
                 this.minimumRangeValue = item.getMinRegularValue();
@@ -218,8 +186,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
         }
         if (this.maximumRangeValue == null) {
             this.maximumRangeValue = item.getMaxRegularValue();
-        }
-        else {
+        } else {
             if (item.getMaxRegularValue().doubleValue()
                     > this.maximumRangeValue.doubleValue()) {
                 this.maximumRangeValue = item.getMaxRegularValue();
@@ -233,8 +200,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the name of the series stored in this dataset.
      *
-     * @param i  the index of the series. Currently ignored.
-     *
+     * @param i the index of the series. Currently ignored.
      * @return The name of this series.
      */
     @Override
@@ -245,10 +211,9 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Return an item from within the dataset.
      *
-     * @param series  the series index (ignored, since this dataset contains
-     *                only one series).
-     * @param item  the item within the series (zero-based index)
-     *
+     * @param series the series index (ignored, since this dataset contains
+     *               only one series).
+     * @param item   the item within the series (zero-based index)
      * @return The item.
      */
     public BoxAndWhiskerItem getItem(int series, int item) {
@@ -261,9 +226,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * The value returned is a Long object generated from the underlying Date
      * object.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The x-value.
      */
     @Override
@@ -276,9 +240,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * <p>
      * This method is provided for convenience only.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The x-value as a Date.
      */
     public Date getXDate(int series, int item) {
@@ -291,9 +254,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * This method (from the XYDataset interface) is mapped to the
      * getMeanValue() method.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The y-value.
      */
     @Override
@@ -304,9 +266,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the mean for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The mean for the specified series and item.
      */
     @Override
@@ -322,9 +283,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the median-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The median-value for the specified series and item.
      */
     @Override
@@ -340,9 +300,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the Q1 median-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The Q1 median-value for the specified series and item.
      */
     @Override
@@ -358,9 +317,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the Q3 median-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The Q3 median-value for the specified series and item.
      */
     @Override
@@ -376,9 +334,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the min-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The min-value for the specified series and item.
      */
     @Override
@@ -394,9 +351,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the max-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The max-value for the specified series and item.
      */
     @Override
@@ -411,9 +367,9 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
 
     /**
      * Returns the minimum value which is not a farout.
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
      *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return A {@code Number} representing the maximum non-farout value.
      */
     @Override
@@ -430,9 +386,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * Returns the maximum value which is not a farout, ie Q3 + (interquartile
      * range * farout coefficient).
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return A {@code Number} representing the maximum non-farout value.
      */
     @Override
@@ -448,11 +403,10 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns a list of outliers for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The list of outliers for the specified series and item
-     *         (possibly {@code null}).
+     * (possibly {@code null}).
      */
     @Override
     public List<? extends Number> getOutliers(int series, int item) {
@@ -466,9 +420,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the minimum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether the
+     *                        y-interval is taken into account.
      * @return The minimum value.
      */
     @Override
@@ -483,9 +436,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the maximum y-value in the dataset.
      *
-     * @param includeInterval  a flag that determines whether the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether the
+     *                        y-interval is taken into account.
      * @return The maximum value.
      */
     @Override
@@ -500,9 +452,8 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the range of the values in this dataset's range.
      *
-     * @param includeInterval  a flag that determines whether the
-     *                         y-interval is taken into account.
-     *
+     * @param includeInterval a flag that determines whether the
+     *                        y-interval is taken into account.
      * @return The range.
      */
     @Override
@@ -513,8 +464,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Tests this dataset for equality with an arbitrary object.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override
@@ -540,7 +490,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int hash = 5;
         hash = 59 * hash + Objects.hashCode(this.seriesKey);
         hash = 59 * hash + Objects.hashCode(this.dates);
@@ -552,8 +502,7 @@ public class DefaultBoxAndWhiskerXYDataset<S extends Comparable<S>>
      * Returns a clone of the plot.
      *
      * @return A clone.
-     *
-     * @throws CloneNotSupportedException  if the cloning is not supported.
+     * @throws CloneNotSupportedException if the cloning is not supported.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {

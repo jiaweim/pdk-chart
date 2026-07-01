@@ -1076,6 +1076,21 @@ public abstract class JChart {
      * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
      * range axis, and a {@link LineAndShapeRenderer} as the renderer.
      *
+     * @param categories categories of the dataset
+     * @param values     values of the dataset
+     * @return A line chart.
+     */
+    public static Chart line(String[] categories, double[] values) {
+        return line(null, null, null, Data.createCategory("", categories, values),
+                PlotOrientation.VERTICAL, false, true, false);
+    }
+
+    /**
+     * Creates a line chart with default settings.  The chart object returned
+     * by this method uses a {@link CategoryPlot} instance as the plot, with a
+     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
+     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
+     *
      * @param title             the chart title ({@code null} permitted).
      * @param categoryAxisLabel the label for the category axis
      *                          ({@code null} permitted).
@@ -1775,6 +1790,21 @@ public abstract class JChart {
      * Creates a line chart (based on an {@link XYDataset}) with default
      * settings.
      *
+     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
+     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @return The chart.
+     */
+    public static Chart line(String xAxisLabel, String yAxisLabel,
+            XYDataset dataset) {
+        return line(null, xAxisLabel, yAxisLabel, dataset,
+                PlotOrientation.VERTICAL, true, true, false);
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
      * @param title      the chart title ({@code null} permitted).
      * @param xAxisLabel a label for the X-axis ({@code null} permitted).
      * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
@@ -1846,6 +1876,25 @@ public abstract class JChart {
      * Creates a line chart (based on an {@link XYDataset}) with default
      * settings.
      *
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the plot orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @return The chart.
+     */
+    public static Chart line(String xAxisLabel, String yAxisLabel,
+            XYDataset dataset, boolean smooth, PlotOrientation orientation,
+            boolean legend, boolean tooltips) {
+        return line(null, xAxisLabel, yAxisLabel, dataset, smooth, orientation, legend, tooltips);
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
      * @param title       the chart title ({@code null} permitted).
      * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
      * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
@@ -1857,8 +1906,8 @@ public abstract class JChart {
      * @return The chart.
      */
     public static Chart line(String title, String xAxisLabel,
-            String yAxisLabel, XYDataset dataset, boolean smooth, PlotOrientation orientation,
-            boolean legend, boolean tooltips) {
+            String yAxisLabel, XYDataset dataset, boolean smooth,
+            PlotOrientation orientation, boolean legend, boolean tooltips) {
         Objects.requireNonNull(orientation, "orientation");
 
         NumberAxis xAxis = new NumberAxis(xAxisLabel);
@@ -2005,6 +2054,48 @@ public abstract class JChart {
                 plot, legend);
         currentTheme.apply(chart);
         return chart;
+    }
+
+    /**
+     * Creates and returns a time series chart.  A time series chart is an
+     * {@link XYPlot} with a {@link DateAxis} for the x-axis and a
+     * {@link NumberAxis} for the y-axis.  The default renderer is an
+     * {@link XYLineAndShapeRenderer}.
+     * <p>
+     * A convenient dataset to use with this chart is a
+     * {@link TimeSeriesCollection}.
+     *
+     * @param timeAxisLabel  a label for the time axis ({@code null}
+     *                       permitted).
+     * @param valueAxisLabel a label for the value axis ({@code null}
+     *                       permitted).
+     * @param dataset        the dataset for the chart ({@code null} permitted).
+     * @return A time series chart.
+     */
+    public static Chart timeLine(XYDataset dataset, String timeAxisLabel, String valueAxisLabel) {
+        return timeLine(null, timeAxisLabel, valueAxisLabel,
+                dataset, true, true, false);
+    }
+
+    /**
+     * Creates and returns a time series chart.  A time series chart is an
+     * {@link XYPlot} with a {@link DateAxis} for the x-axis and a
+     * {@link NumberAxis} for the y-axis.  The default renderer is an
+     * {@link XYLineAndShapeRenderer}.
+     * <p>
+     * A convenient dataset to use with this chart is a
+     * {@link TimeSeriesCollection}.
+     *
+     * @param title          the chart title ({@code null} permitted).
+     * @param timeAxisLabel  a label for the time axis.
+     * @param valueAxisLabel a label for the value axis.
+     * @param dataset        the dataset for the chart ({@code null} permitted).
+     * @return A time series chart.
+     */
+    public static Chart timeLine(XYDataset dataset, @Nullable String timeAxisLabel,
+            @Nullable String valueAxisLabel, String title) {
+        return timeLine(title, timeAxisLabel, valueAxisLabel,
+                dataset, false, true, false);
     }
 
     /**

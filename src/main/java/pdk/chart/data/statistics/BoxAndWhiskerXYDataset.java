@@ -1,63 +1,26 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------------------
- * BoxAndWhiskerXYDataset.java
- * ---------------------------
- * (C) Copyright 2003-present, by David Browning and Contributors.
- *
- * Original Author:  David Browning (for Australian Institute of Marine
- *                   Science);
- * Contributor(s):   David Gilbert;
- */
-
 package pdk.chart.data.statistics;
 
-import java.util.List;
-
 import pdk.chart.data.xy.XYDataset;
+
+import java.util.List;
 
 /**
  * An interface that defines data in the form of (x, max, min, average, median)
  * tuples.
- * <P>
+ * <p>
  * Example: JFreeChart uses this interface to obtain data for AIMS
  * max-min-average-median plots.
  *
  * @param <S> the series key type.
  */
-public interface BoxAndWhiskerXYDataset<S extends Comparable<S>> 
+public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
         extends XYDataset<S> {
 
     /**
      * Returns the mean for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The mean for the specified series and item.
      */
     Number getMeanValue(int series, int item);
@@ -65,9 +28,8 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the median-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The median-value for the specified series and item.
      */
     Number getMedianValue(int series, int item);
@@ -75,9 +37,8 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the Q1 median-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The Q1 median-value for the specified series and item.
      */
     Number getQ1Value(int series, int item);
@@ -85,9 +46,8 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the Q3 median-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The Q3 median-value for the specified series and item.
      */
     Number getQ3Value(int series, int item);
@@ -95,9 +55,8 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the min-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The min-value for the specified series and item.
      */
     Number getMinRegularValue(int series, int item);
@@ -105,18 +64,17 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns the max-value for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The max-value for the specified series and item.
      */
     Number getMaxRegularValue(int series, int item);
 
     /**
      * Returns the minimum value which is not a farout.
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
      *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return A {@code Number} representing the maximum non-farout value.
      */
     Number getMinOutlier(int series, int item);
@@ -125,9 +83,8 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
      * Returns the maximum value which is not a farout, ie Q3 + (interquartile
      * range * farout coefficient).
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return A {@code Number} representing the maximum non-farout value.
      */
     Number getMaxOutlier(int series, int item);
@@ -135,11 +92,10 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
     /**
      * Returns a list of outliers for the specified series and item.
      *
-     * @param series  the series (zero-based index).
-     * @param item  the item (zero-based index).
-     *
+     * @param series the series (zero-based index).
+     * @param item   the item (zero-based index).
      * @return The list of outliers for the specified series and item
-     *         (possibly {@code null}).
+     * (possibly {@code null}).
      */
     List<? extends Number> getOutliers(int series, int item);
 
@@ -151,7 +107,7 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
      * is greater than the outlier coefficient
      *
      * @return A {@code double} representing the value used to calculate
-     *         outliers
+     * outliers
      */
     double getOutlierCoefficient();
 
@@ -160,7 +116,7 @@ public interface BoxAndWhiskerXYDataset<S extends Comparable<S>>
      * allows the calculation of which values will be off the graph.
      *
      * @return A {@code double} representing the value used to calculate
-     *         farouts
+     * farouts
      */
     double getFaroutCoefficient();
 

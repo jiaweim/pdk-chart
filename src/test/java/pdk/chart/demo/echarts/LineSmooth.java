@@ -47,9 +47,6 @@ public class LineSmooth extends ApplicationFrame {
     }
 
     static void main() {
-        LineSimple demo = new LineSimple("Basic Line Chart");
-        demo.pack();
-        UIUtils.centerFrameOnScreen(demo);
-        demo.setVisible(true);
+
     }
 }

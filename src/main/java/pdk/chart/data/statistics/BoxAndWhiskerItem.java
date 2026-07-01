@@ -1,39 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ----------------------
- * BoxAndWhiskerItem.java
- * ----------------------
- * (C) Copyright 2003-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.data.statistics;
 
 import java.io.Serializable;
@@ -47,50 +11,70 @@ import java.util.Objects;
  */
 public class BoxAndWhiskerItem implements Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7329649623148167423L;
 
-    /** The mean. */
+    /**
+     * The mean.
+     */
     private Number mean;
 
-    /** The median. */
+    /**
+     * The median.
+     */
     private Number median;
 
-    /** The first quarter. */
+    /**
+     * The first quarter.
+     */
     private Number q1;
 
-    /** The third quarter. */
+    /**
+     * The third quarter.
+     */
     private Number q3;
 
-    /** The minimum regular value. */
+    /**
+     * The minimum regular value.
+     */
     private Number minRegularValue;
 
-    /** The maximum regular value. */
+    /**
+     * The maximum regular value.
+     */
     private Number maxRegularValue;
 
-    /** The minimum outlier. */
+    /**
+     * The minimum outlier.
+     */
     private Number minOutlier;
 
-    /** The maximum outlier. */
+    /**
+     * The maximum outlier.
+     */
     private Number maxOutlier;
 
-    /** The outliers. */
+    /**
+     * The outliers.
+     */
     private List<? extends Number> outliers;
 
     /**
      * Creates a new box-and-whisker item.
      *
-     * @param mean  the mean ({@code null} permitted).
-     * @param median  the median ({@code null} permitted).
-     * @param q1  the first quartile ({@code null} permitted).
-     * @param q3  the third quartile ({@code null} permitted).
-     * @param minRegularValue  the minimum regular value ({@code null}
-     *                         permitted).
-     * @param maxRegularValue  the maximum regular value ({@code null}
-     *                         permitted).
-     * @param minOutlier  the minimum outlier ({@code null} permitted).
-     * @param maxOutlier  the maximum outlier ({@code null} permitted).
-     * @param outliers  the outliers ({@code null} permitted).
+     * @param mean            the mean ({@code null} permitted).
+     * @param median          the median ({@code null} permitted).
+     * @param q1              the first quartile ({@code null} permitted).
+     * @param q3              the third quartile ({@code null} permitted).
+     * @param minRegularValue the minimum regular value ({@code null}
+     *                        permitted).
+     * @param maxRegularValue the maximum regular value ({@code null}
+     *                        permitted).
+     * @param minOutlier      the minimum outlier ({@code null} permitted).
+     * @param maxOutlier      the maximum outlier ({@code null} permitted).
+     * @param outliers        the outliers ({@code null} permitted).
      */
     public BoxAndWhiskerItem(Number mean, Number median, Number q1, Number q3,
             Number minRegularValue, Number maxRegularValue, Number minOutlier,
@@ -111,16 +95,15 @@ public class BoxAndWhiskerItem implements Serializable {
     /**
      * Creates a new box-and-whisker item.
      *
-     * @param mean  the mean.
-     * @param median  the median
-     * @param q1  the first quartile.
-     * @param q3  the third quartile.
-     * @param minRegularValue  the minimum regular value.
-     * @param maxRegularValue  the maximum regular value.
-     * @param minOutlier  the minimum outlier value.
-     * @param maxOutlier  the maximum outlier value.
-     * @param outliers  a list of the outliers.
-     *
+     * @param mean            the mean.
+     * @param median          the median
+     * @param q1              the first quartile.
+     * @param q3              the third quartile.
+     * @param minRegularValue the minimum regular value.
+     * @param maxRegularValue the maximum regular value.
+     * @param minOutlier      the minimum outlier value.
+     * @param maxOutlier      the maximum outlier value.
+     * @param outliers        a list of the outliers.
      * @since 1.0.7
      */
     public BoxAndWhiskerItem(double mean, double median, double q1, double q3,
@@ -234,8 +217,7 @@ public class BoxAndWhiskerItem implements Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against ({@code null} permitted).
-     *
+     * @param obj the object to test against ({@code null} permitted).
      * @return A boolean.
      */
     @Override
@@ -279,7 +261,7 @@ public class BoxAndWhiskerItem implements Serializable {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         int hash = 3;
         hash = 67 * hash + Objects.hashCode(this.mean);
         hash = 67 * hash + Objects.hashCode(this.median);

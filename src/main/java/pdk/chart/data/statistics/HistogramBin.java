@@ -1,48 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -----------------
- * HistogramBin.java
- * -----------------
- * (C) Copyright 2003-2008, by Jelai Wang and Contributors.
- *
- * Original Author:  Jelai Wang (jelaiw AT mindspring.com);
- * Contributor(s):   David Gilbert;
- *
- * Changes
- * -------
- * 06-Jul-2003 : Version 1, contributed by Jelai Wang (DG);
- * 07-Jul-2003 : Changed package and added Javadocs (DG);
- * 01-Mar-2004 : Moved from org.jfree.data --> org.jfree.data.statistics (DG);
- * ------------- JFREECHART 1.0.x ---------------------------------------------
- * 02-Feb-2007 : Removed author tags from all over JFreeChart sources (DG);
- * 29-Jan-2017 : Added missing hashCode (TH);
- *
- */
-
 package pdk.chart.data.statistics;
 
 import java.io.Serializable;
@@ -52,23 +7,31 @@ import java.io.Serializable;
  */
 public class HistogramBin implements Cloneable, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = 7614685080015589931L;
 
-    /** The number of items in the bin. */
+    /**
+     * The number of items in the bin.
+     */
     private int count;
 
-    /** The start boundary. */
+    /**
+     * The start boundary.
+     */
     private double startBoundary;
 
-    /** The end boundary. */
+    /**
+     * The end boundary.
+     */
     private double endBoundary;
 
     /**
      * Creates a new bin.
      *
-     * @param startBoundary  the start boundary.
-     * @param endBoundary  the end boundary.
+     * @param startBoundary the start boundary.
+     * @param endBoundary   the end boundary.
      */
     public HistogramBin(double startBoundary, double endBoundary) {
         if (startBoundary > endBoundary) {
@@ -126,8 +89,7 @@ public class HistogramBin implements Cloneable, Serializable {
     /**
      * Tests this object for equality with an arbitrary object.
      *
-     * @param obj  the object to test against.
-     *
+     * @param obj the object to test against.
      * @return A boolean.
      */
     @Override
@@ -149,12 +111,11 @@ public class HistogramBin implements Cloneable, Serializable {
     }
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         int hash = 7;
         hash = 37 * hash + this.count;
-        hash = 37 * hash + (int) ( Double.doubleToLongBits( this.startBoundary ) ^ ( Double.doubleToLongBits( this.startBoundary ) >>> 32 ) );
-        hash = 37 * hash + (int) ( Double.doubleToLongBits( this.endBoundary ) ^ ( Double.doubleToLongBits( this.endBoundary ) >>> 32 ) );
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.startBoundary) ^ (Double.doubleToLongBits(this.startBoundary) >>> 32));
+        hash = 37 * hash + (int) (Double.doubleToLongBits(this.endBoundary) ^ (Double.doubleToLongBits(this.endBoundary) >>> 32));
         return hash;
     }
 
@@ -162,7 +123,6 @@ public class HistogramBin implements Cloneable, Serializable {
      * Returns a clone of the bin.
      *
      * @return A clone.
-     *
      * @throws CloneNotSupportedException not thrown by this class.
      */
     @Override
