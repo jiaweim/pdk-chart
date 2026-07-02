@@ -3,7 +3,6 @@ package pdk.chart.demo;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -23,16 +22,17 @@ public class LineChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("Line Chart Demo 4", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y",
+                "Line Chart Demo 4");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainZeroBaselineVisible(true);
         plot.setRangeZeroBaselineVisible(true);
-        plot.getDomainAxis().setLowerMargin((double) 0.0F);
-        plot.getDomainAxis().setUpperMargin((double) 0.0F);
+        plot.getDomainAxis().setLowerMargin(0.0);
+        plot.getDomainAxis().setUpperMargin(0.0);
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
-        renderer.setLegendLine(new Rectangle2D.Double((double) -4.0F, (double) -3.0F, (double) 8.0F, (double) 6.0F));
+        renderer.setLegendLine(new Rectangle2D.Double(-4.0, -3.0, 8.0, 6.0));
         return chart;
     }
 
@@ -43,8 +43,8 @@ public class LineChartDemo4 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        LineChartDemo4 demo = new LineChartDemo4("Chart: LineChartDemo4.java");
+    static void main() {
+        LineChartDemo4 demo = new LineChartDemo4("LineChartDemo4.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

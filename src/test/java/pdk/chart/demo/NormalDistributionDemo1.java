@@ -37,7 +37,7 @@ public class NormalDistributionDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset<String> dataset) {
-        return JChart.line("Normal Distribution", "X", "Y", dataset);
+        return JChart.line(dataset, "Normal Distribution", "X", "Y");
     }
 
     static void main() {

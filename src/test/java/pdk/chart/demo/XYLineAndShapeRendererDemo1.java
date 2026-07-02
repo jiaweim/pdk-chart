@@ -6,7 +6,6 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -25,7 +24,8 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("XYLineAndShapeRenderer Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y",
+                "XYLineAndShapeRenderer Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
@@ -42,14 +42,14 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         XYSeries series1 = new XYSeries("Series 1");
-        series1.add((double) 1.0F, 3.3);
-        series1.add((double) 2.0F, 4.4);
-        series1.add((double) 3.0F, 1.7);
+        series1.add(1.0, 3.3);
+        series1.add(2.0, 4.4);
+        series1.add(3.0, 1.7);
         XYSeries series2 = new XYSeries("Series 2");
-        series2.add((double) 1.0F, 7.3);
-        series2.add((double) 2.0F, (double) 0.0F);
-        series2.add((double) 3.0F, 9.6);
-        series2.add((double) 4.0F, 5.6);
+        series2.add(1.0, 7.3);
+        series2.add(2.0, 0.0);
+        series2.add(3.0, 9.6);
+        series2.add(4.0, 5.6);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
@@ -63,7 +63,7 @@ public class XYLineAndShapeRendererDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYLineAndShapeRendererDemo1 demo = new XYLineAndShapeRendererDemo1("Chart: XYLineAndShapeRendererDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

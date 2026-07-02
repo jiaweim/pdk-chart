@@ -74,10 +74,10 @@ public class HideSeriesDemo1 extends ApplicationFrame {
             series2.add((double) 3.0F, 9.6);
             series2.add((double) 4.0F, 5.6);
             XYSeries series3 = new XYSeries("Series 3");
-            series3.add((double) 1.0F, 17.3);
-            series3.add((double) 2.0F, 16.8);
-            series3.add((double) 3.0F, 19.6);
-            series3.add((double) 4.0F, 15.6);
+            series3.add(1.0, 17.3);
+            series3.add(2.0, 16.8);
+            series3.add(3.0, 19.6);
+            series3.add(4.0, 15.6);
             XYSeriesCollection dataset = new XYSeriesCollection();
             dataset.addSeries(series1);
             dataset.addSeries(series2);
@@ -86,7 +86,7 @@ public class HideSeriesDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = JChart.line("Hide Series Demo 1", "X", "Y", dataset);
+            Chart chart = JChart.line(dataset, "X", "Y", "Hide Series Demo 1");
             XYPlot plot = (XYPlot) chart.getPlot();
             this.renderer = plot.getRenderer();
             return chart;

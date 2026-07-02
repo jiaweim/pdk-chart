@@ -332,7 +332,7 @@ public class HighLowChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.highLow("HighLowChartDemo2", "Time", "Value", dataset, true);
+        Chart chart = JChart.highLow(dataset, "Time", "Value", "HighLowChartDemo2", true);
         XYPlot plot = (XYPlot) chart.getPlot();
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);

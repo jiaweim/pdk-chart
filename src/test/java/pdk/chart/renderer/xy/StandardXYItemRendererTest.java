@@ -194,8 +194,8 @@ public class StandardXYItemRendererTest {
         XYSeries<String> s1 = new XYSeries<>("S1");
         s1.add(10.0, 10.0);
         dataset.addSeries(s1);
-        Chart chart = JChart.line("Title", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+                PlotOrientation.VERTICAL, false, true, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StandardXYItemRenderer());
         NumberAxis xAxis = (NumberAxis) plot.getDomainAxis();

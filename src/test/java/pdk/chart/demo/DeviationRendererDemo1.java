@@ -38,7 +38,7 @@ public class DeviationRendererDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("DeviationRendererDemo1", "X", "Y", dataset);
+        Chart chart = JChart.line(dataset, "X", "Y", "DeviationRendererDemo1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         DeviationRenderer renderer = new DeviationRenderer(true, false);

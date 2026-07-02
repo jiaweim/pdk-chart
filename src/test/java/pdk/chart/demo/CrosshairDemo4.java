@@ -6,7 +6,6 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -35,22 +34,22 @@ public class CrosshairDemo4 extends ApplicationFrame {
         series1.add((double) 7.0F, (double) 7.0F);
         series1.add((double) 8.0F, (double) 8.0F);
         XYSeries series2 = new XYSeries("Second");
-        series2.add((double) 1.0F, (double) 5.0F);
-        series2.add((double) 2.0F, (double) 7.0F);
-        series2.add((double) 3.0F, (double) 6.0F);
-        series2.add((double) 4.0F, (double) 8.0F);
-        series2.add((double) 5.0F, (double) 4.0F);
-        series2.add((double) 6.0F, (double) 4.0F);
-        series2.add((double) 7.0F, (double) 2.0F);
-        series2.add((double) 8.0F, (double) 1.0F);
+        series2.add(1.0F, 5.0F);
+        series2.add(2.0F, 7.0F);
+        series2.add(3.0F, 6.0F);
+        series2.add(4.0F, 8.0F);
+        series2.add(5.0F, 4.0F);
+        series2.add(6.0F, 4.0F);
+        series2.add(7.0F, 2.0F);
+        series2.add(8.0F, 1.0F);
         XYSeries series3 = new XYSeries("Third");
-        series3.add((double) 3.0F, (double) 4.0F);
-        series3.add((double) 4.0F, (double) 3.0F);
-        series3.add((double) 5.0F, (double) 2.0F);
-        series3.add((double) 6.0F, (double) 3.0F);
-        series3.add((double) 7.0F, (double) 6.0F);
-        series3.add((double) 8.0F, (double) 3.0F);
-        series3.add((double) 9.0F, (double) 4.0F);
+        series3.add((double) 3.0F, 4.0F);
+        series3.add((double) 4.0F, 3.0F);
+        series3.add((double) 5.0F, 2.0F);
+        series3.add((double) 6.0F, 3.0F);
+        series3.add((double) 7.0F, 6.0F);
+        series3.add((double) 8.0F, 3.0F);
+        series3.add((double) 9.0F, 4.0F);
         series3.add((double) 10.0F, (double) 3.0F);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
@@ -60,7 +59,8 @@ public class CrosshairDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("Crosshair Demo 4", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y",
+                "Crosshair Demo 4");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

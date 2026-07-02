@@ -108,8 +108,8 @@ public class XYLineChartTest {
         series1.add(2.0, 2.0);
         series1.add(3.0, 3.0);
         XYDataset<String> dataset = new XYSeriesCollection<>(series1);
-        return JChart.line("XY Line Chart", "Domain",
-                "Range", dataset);
+        return JChart.line(dataset, "Domain",
+                "Range", "XY Line Chart");
     }
 
     /**

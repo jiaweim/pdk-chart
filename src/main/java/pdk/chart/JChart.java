@@ -21,6 +21,10 @@ import pdk.chart.internal.ShapeUtils;
 import pdk.chart.labels.*;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;
+import pdk.chart.plot.pep.PSMDataset;
+import pdk.chart.plot.pep.PSMPlot;
+import pdk.chart.plot.pep.SpectrumDataset;
+import pdk.chart.plot.pep.SpectrumPlot;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.renderer.DefaultPolarItemRenderer;
@@ -1790,14 +1794,131 @@ public abstract class JChart {
      * Creates a line chart (based on an {@link XYDataset}) with default
      * settings.
      *
+     * @param x x values.
+     * @param y y values.
+     * @return The chart.
+     */
+    public static Chart line(double[] x, double[] y) {
+        return line(Data.createXY("", x, y), null, null, null,
+                false, PlotOrientation.VERTICAL, true, true);
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
+     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @return The chart.
+     */
+    public static Chart line(XYDataset dataset) {
+        return line(dataset, null, null, null,
+                false, PlotOrientation.VERTICAL, true, true);
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
+     * @param title       the chart title.
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the plot orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @return The chart.
+     */
+    public static Chart line(XYDataset dataset, String xAxisLabel,
+            String yAxisLabel, @Nullable String title, boolean smooth,
+            PlotOrientation orientation, boolean legend, boolean tooltips) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        NumberAxis xAxis = new NumberAxis(xAxisLabel);
+        xAxis.setAutoRangeIncludesZero(false);
+        NumberAxis yAxis = new NumberAxis(yAxisLabel);
+        XYItemRenderer renderer;
+        if (smooth) {
+            renderer = new XYSplineRenderer();
+        } else {
+            renderer = new XYLineAndShapeRenderer(true, true);
+        }
+
+        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
+        plot.setOrientation(orientation);
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
+        currentTheme.apply(chart);
+        return chart;
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
+     * @param title       the chart title.
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the plot orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @return The chart.
+     */
+    public static Chart lineSmooth(XYDataset dataset, String xAxisLabel,
+            String yAxisLabel, @Nullable String title, PlotOrientation orientation,
+            boolean legend, boolean tooltips, boolean urls) {
+        Objects.requireNonNull(orientation, "orientation");
+
+        NumberAxis xAxis = new NumberAxis(xAxisLabel);
+        xAxis.setAutoRangeIncludesZero(false);
+        NumberAxis yAxis = new NumberAxis(yAxisLabel);
+        XYItemRenderer renderer = new XYSplineRenderer();
+        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
+        plot.setOrientation(orientation);
+        if (tooltips) {
+            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        }
+        if (urls) {
+            renderer.setURLGenerator(new StandardXYURLGenerator());
+        }
+
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
+        currentTheme.apply(chart);
+        return chart;
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
      * @param xAxisLabel a label for the X-axis ({@code null} permitted).
      * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
      * @param dataset    the dataset for the chart ({@code null} permitted).
      * @return The chart.
      */
-    public static Chart line(String xAxisLabel, String yAxisLabel,
-            XYDataset dataset) {
-        return line(null, xAxisLabel, yAxisLabel, dataset,
+    public static Chart line(XYDataset dataset,
+            String xAxisLabel, String yAxisLabel) {
+        return line(dataset, xAxisLabel, yAxisLabel, null);
+    }
+
+    /**
+     * Creates a line chart (based on an {@link XYDataset}) with default
+     * settings.
+     *
+     * @param title      the chart title.
+     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
+     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @return The chart.
+     */
+    public static Chart line(XYDataset dataset, String xAxisLabel,
+            String yAxisLabel, @Nullable String title) {
+        return line(dataset, xAxisLabel, yAxisLabel, title,
                 PlotOrientation.VERTICAL, true, true, false);
     }
 
@@ -1805,16 +1926,20 @@ public abstract class JChart {
      * Creates a line chart (based on an {@link XYDataset}) with default
      * settings.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param title       the chart title ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param orientation the plot orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
      * @return The chart.
      */
-    public static Chart line(String title,
-            String xAxisLabel, String yAxisLabel, XYDataset dataset) {
-        return line(title, xAxisLabel, yAxisLabel, dataset,
-                PlotOrientation.VERTICAL, true, true, false);
+    public static Chart line(XYDataset dataset, String xAxisLabel,
+            String yAxisLabel, String title, PlotOrientation orientation,
+            boolean legend, boolean tooltips) {
+        return line(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
     }
 
     /**
@@ -1832,8 +1957,8 @@ public abstract class JChart {
      * @param urls        configure chart to generate URLs?
      * @return The chart.
      */
-    public static Chart line(String title, String xAxisLabel,
-            String yAxisLabel, XYDataset dataset, PlotOrientation orientation,
+    public static Chart line(XYDataset dataset, String xAxisLabel,
+            String yAxisLabel, String title, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");
 
@@ -1849,85 +1974,7 @@ public abstract class JChart {
         if (urls) {
             renderer.setURLGenerator(new StandardXYURLGenerator());
         }
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
-                plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @return The chart.
-     */
-    public static Chart line(String title, String xAxisLabel,
-            String yAxisLabel, XYDataset dataset, boolean smooth, PlotOrientation orientation) {
-        return line(title, xAxisLabel, yAxisLabel, dataset, smooth, orientation, true, true);
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return The chart.
-     */
-    public static Chart line(String xAxisLabel, String yAxisLabel,
-            XYDataset dataset, boolean smooth, PlotOrientation orientation,
-            boolean legend, boolean tooltips) {
-        return line(null, xAxisLabel, yAxisLabel, dataset, smooth, orientation, legend, tooltips);
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return The chart.
-     */
-    public static Chart line(String title, String xAxisLabel,
-            String yAxisLabel, XYDataset dataset, boolean smooth,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        Objects.requireNonNull(orientation, "orientation");
-
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        XYItemRenderer renderer;
-        if (smooth) {
-            renderer = new XYSplineRenderer();
-        } else {
-            renderer = new XYLineAndShapeRenderer(true, false);
-        }
-
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        plot.setOrientation(orientation);
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        }
-
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
-                plot, legend);
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;
     }
@@ -2213,21 +2260,18 @@ public abstract class JChart {
      * @param legend         a flag specifying whether a legend is required.
      * @return A high-low-open-close chart.
      */
-    public static Chart highLow(String title,
-            String timeAxisLabel, String valueAxisLabel, OHLCDataset dataset,
-            boolean legend) {
+    public static Chart highLow(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
+            String title, boolean legend) {
 
-        ValueAxis timeAxis = new DateAxis(timeAxisLabel);
+        DateAxis timeAxis = new DateAxis(timeAxisLabel);
         NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
         HighLowRenderer renderer = new HighLowRenderer();
         renderer.setDefaultToolTipGenerator(new HighLowItemLabelGenerator());
         XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, renderer);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
-                plot, legend);
+        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;
     }
-
 
     /**
      * Create a bubble chart.
@@ -2532,6 +2576,32 @@ public abstract class JChart {
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT,
                 plot, legend);
         currentTheme.apply(chart);
+        return chart;
+    }
+
+    /**
+     * Create a chart for spectrum.
+     *
+     * @param dataset {@link SpectrumDataset}.
+     * @return a spectrum.
+     */
+    public static Chart spectrum(SpectrumDataset dataset) {
+        SpectrumPlot plot = new SpectrumPlot();
+        plot.setDataset(dataset);
+        return new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
+    }
+
+    /**
+     * Create a chart to display peptide spectrum match.
+     *
+     * @param dataset {@link PSMDataset}
+     * @return a PSM chart.
+     */
+    public static Chart psm(PSMDataset dataset) {
+        PSMPlot plot = new PSMPlot();
+        plot.setDataset(dataset);
+        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
+        ChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

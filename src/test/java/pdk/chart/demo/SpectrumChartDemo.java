@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.plot.pep.SeriesType;
-import pdk.chart.plot.pep.SpectrumChart;
 import pdk.chart.plot.pep.SpectrumDataset;
 
 /**
@@ -82,8 +83,7 @@ public class SpectrumChartDemo {
                         10463.09, 10858.71, 10689.76
                 });
 
-        SpectrumChart chart = new SpectrumChart();
-        chart.dataset(dataset);
+        Chart chart = JChart.spectrum(dataset);
         chart.show();
     }
 }

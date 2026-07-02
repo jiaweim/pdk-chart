@@ -2,6 +2,7 @@ package pdk.chart.plot.pep;
 
 import org.jspecify.annotations.NonNull;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.plot.*;
@@ -35,6 +36,28 @@ public class PSMPlot extends Plot implements Zoomable {
     }
 
     /**
+     * Returns the domain axis with index 0.  If the domain axis for this plot
+     * is {@code null}, then the method will return the parent plot's
+     * domain axis (if there is a parent plot).
+     *
+     * @return The domain axis (possibly {@code null}).
+     */
+    public NumberAxis getDomainAxis() {
+        return spectrumPlot.getDomainAxisAsNumber();
+    }
+
+    /**
+     * Returns the range axis for the plot.  If the range axis for this plot is
+     * {@code null}, then the method will return the parent plot's range
+     * axis (if there is a parent plot).
+     *
+     * @return The range axis.
+     */
+    public NumberAxis getRangeAxis() {
+        return spectrumPlot.getRangeAxisAsNumber();
+    }
+
+    /**
      * Set the paint used to draw amino acid letters.
      *
      * @param paint {@link Paint}
@@ -57,7 +80,7 @@ public class PSMPlot extends Plot implements Zoomable {
      *
      * @param font {@link Font}
      */
-    public void setAminoAcidFont(Font font) {
+    public void setAminoAcidFont(@NonNull Font font) {
         peptidePlot.setAminoAcidFont(font);
     }
 
@@ -90,7 +113,8 @@ public class PSMPlot extends Plot implements Zoomable {
     }
 
     /**
-     * Set the vertical distance between amino acid residues and annotation lines.
+     * Set the vertical distance between amino acid
+     * residues and annotation lines.
      *
      * @param gap the gap in pixels.
      */
@@ -99,7 +123,8 @@ public class PSMPlot extends Plot implements Zoomable {
     }
 
     /**
-     * Set the vertical distance between the annotation label and annotation line.
+     * Set the vertical distance between the
+     * annotation text and annotation line.
      *
      * @param gap gap in pixel.
      */

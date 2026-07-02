@@ -37,4 +37,13 @@ public enum SeriesType implements Comparable<SeriesType> {
     public int getStokeWidth() {
         return stokeWidth;
     }
+
+    /**
+     * Return true if it is an N-terminal fragment type.
+     *
+     * @return true if it is an n-TERMINAL FRAGMENT type.
+     */
+    public boolean isNTerminal() {
+        return this == SeriesType.y || this == SeriesType.z;
+    }
 }

@@ -1,18 +1,18 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import pdk.chart.JChart;
 import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
+import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class XYSeriesDemo2 extends ApplicationFrame {
     public XYSeriesDemo2(String title) {
@@ -25,10 +25,9 @@ public class XYSeriesDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("XY Series Demo 2", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
-        NumberAxis axis = (NumberAxis)plot.getRangeAxis();
+        Chart chart = JChart.line(dataset, "X", "Y", "XY Series Demo 2");
+        XYPlot plot = (XYPlot) chart.getPlot();
+        NumberAxis axis = (NumberAxis) plot.getRangeAxis();
         axis.setAutoRangeIncludesZero(false);
         axis.setAutoRangeMinimumSize(1.0);
         return chart;

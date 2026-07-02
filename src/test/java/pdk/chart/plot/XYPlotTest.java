@@ -696,8 +696,8 @@ public class XYPlotTest {
     public void testSerialization3() {
 
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-        Chart chart = JChart.line("Test Chart",
-                "Domain Axis", "Range Axis", dataset);
+        Chart chart = JChart.line(dataset, "Domain Axis", "Range Axis",
+                "Test Chart");
         Chart chart2 = TestUtils.serialised(chart);
         assertEquals(chart, chart2);
         try {
@@ -715,8 +715,7 @@ public class XYPlotTest {
     public void testSerialization4() {
 
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-        Chart chart = JChart.line("Test Chart",
-                "Domain Axis", "Range Axis", dataset);
+        Chart chart = JChart.line(dataset, "Domain Axis", "Range Axis", "Test Chart");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.addDomainMarker(new ValueMarker(1.0), Layer.FOREGROUND);
         plot.addDomainMarker(new IntervalMarker(2.0, 3.0), Layer.BACKGROUND);
@@ -942,8 +941,8 @@ public class XYPlotTest {
     @Test
     public void test1654215() {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
-        Chart chart = JChart.line("Title", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+                PlotOrientation.VERTICAL, true, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(1, new XYLineAndShapeRenderer());
         try {
@@ -964,8 +963,8 @@ public class XYPlotTest {
     @Test
     public void testDrawRangeGridlines() {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
-        Chart chart = JChart.line("Title", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+                PlotOrientation.VERTICAL, true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(null);
         try {
@@ -988,8 +987,8 @@ public class XYPlotTest {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
         dataset.addSeries("Series 1", new double[][]{{1.0, 2.0}, {3.0, 4.0}});
         dataset.addSeries("Series 2", new double[][]{{}, {}});
-        Chart chart = JChart.line("Title", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+                PlotOrientation.VERTICAL, true, false, false);
         try {
             BufferedImage image = new BufferedImage(200, 100,
                     BufferedImage.TYPE_INT_RGB);

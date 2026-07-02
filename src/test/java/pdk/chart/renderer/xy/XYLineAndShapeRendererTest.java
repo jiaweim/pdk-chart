@@ -189,9 +189,8 @@ public class XYLineAndShapeRendererTest {
     public void testFindDomainBounds() {
         XYSeriesCollection<String> dataset
                 = RendererXYPackageUtils.createTestXYSeriesCollection();
-        Chart chart = JChart.line(
-                "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
-                false, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Test Chart",
+                PlotOrientation.VERTICAL, false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
         domainAxis.setAutoRangeIncludesZero(false);
@@ -209,8 +208,8 @@ public class XYLineAndShapeRendererTest {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = JChart.line(
-                "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
+        Chart chart = JChart.line(dataset,
+                "X", "Y", "Test Chart", PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();

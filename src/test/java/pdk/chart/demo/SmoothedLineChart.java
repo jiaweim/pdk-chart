@@ -20,7 +20,7 @@ public class SmoothedLineChart {
                 new double[]{1, 2, 3, 4, 5, 6, 7},
                 new double[]{820, 932, 901, 934, 1290, 1330, 1320}));
 
-        Chart line = JChart.line(null, null, null, dataset, true, PlotOrientation.VERTICAL);
+        Chart line = JChart.line(dataset, null, null, null, true, PlotOrientation.VERTICAL, true, true);
         line.getXYPlot()
                 .getRangeAxisAsNumber()
                 .autoRangeIncludesZero(false);

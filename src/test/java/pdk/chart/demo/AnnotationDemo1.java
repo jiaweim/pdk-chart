@@ -105,7 +105,7 @@ public class AnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> dataset) {
-        Chart chart = JChart.line(null, "Age in Months", "Weight (kg)", dataset);
+        Chart chart = JChart.line(dataset, "Age in Months", "Weight (kg)");
         TextTitle t1 = new TextTitle("Growth Charts: United States",
                 new Font("SansSerif", Font.BOLD, 14));
         TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months",

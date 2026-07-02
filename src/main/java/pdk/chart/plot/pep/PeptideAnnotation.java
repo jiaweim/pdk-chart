@@ -56,7 +56,7 @@ public class PeptideAnnotation implements Serializable, Cloneable {
      * @return true if it is an n-TERMINAL FRAGMENT.
      */
     public boolean isNTerminal() {
-        return this.seriesType == SeriesType.y;
+        return this.seriesType.isNTerminal();
     }
 
     /**
@@ -67,7 +67,6 @@ public class PeptideAnnotation implements Serializable, Cloneable {
     public int getSize() {
         return size;
     }
-
 
     /**
      * Returns the annotation label.

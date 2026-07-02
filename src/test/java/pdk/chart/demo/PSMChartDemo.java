@@ -1,5 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.plot.pep.*;
 
 import java.util.Arrays;
@@ -95,8 +97,7 @@ public class PSMChartDemo {
         }
 
         PSMDataset psmDataset = new PSMDataset(peptideDataset, dataset);
-        PSMChart chart = new PSMChart();
-        chart.setDataset(psmDataset);
+        Chart chart = JChart.psm(psmDataset);
         chart.show();
     }
 }

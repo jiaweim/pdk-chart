@@ -7,7 +7,6 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -45,14 +44,14 @@ public class LineChartDemo6 extends ApplicationFrame {
         series2.add((double) 7.0F, (double) 2.0F);
         series2.add((double) 8.0F, (double) 1.0F);
         XYSeries series3 = new XYSeries("Third");
-        series3.add((double) 3.0F, (double) 4.0F);
-        series3.add((double) 4.0F, (double) 3.0F);
-        series3.add((double) 5.0F, (double) 2.0F);
-        series3.add((double) 6.0F, (double) 3.0F);
-        series3.add((double) 7.0F, (double) 6.0F);
-        series3.add((double) 8.0F, (double) 3.0F);
-        series3.add((double) 9.0F, (double) 4.0F);
-        series3.add((double) 10.0F, (double) 3.0F);
+        series3.add(3.0, 4.0);
+        series3.add(4.0, 3.0);
+        series3.add(5.0, 2.0);
+        series3.add(6.0, 3.0);
+        series3.add(7.0, 6.0);
+        series3.add(8.0, 3.0);
+        series3.add(9.0, 4.0);
+        series3.add(10.0, 3.0);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
@@ -61,7 +60,7 @@ public class LineChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("Line Chart Demo 6", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Line Chart Demo 6");
         XYPlot plot = (XYPlot) chart.getPlot();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesLinesVisible(0, false);
@@ -78,7 +77,7 @@ public class LineChartDemo6 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         LineChartDemo6 demo = new LineChartDemo6("Chart: LineChartDemo6.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

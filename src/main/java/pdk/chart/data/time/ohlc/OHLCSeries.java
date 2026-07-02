@@ -3,7 +3,8 @@ package pdk.chart.data.time.ohlc;
 import pdk.chart.data.ComparableObjectItem;
 import pdk.chart.data.ComparableObjectSeries;
 import pdk.chart.data.time.RegularTimePeriod;
-import pdk.chart.internal.Args;
+
+import java.util.Objects;
 
 /**
  * A list of ({@link RegularTimePeriod}, open, high, low, close) data items.
@@ -72,10 +73,9 @@ public class OHLCSeries<S extends Comparable<S>> extends ComparableObjectSeries<
      * this method will be copied into a new object.
      *
      * @param item the item ({@code null} not permitted).
-     * @since 1.0.17
      */
     public void add(OHLCItem item) {
-        Args.nullNotPermitted(item, "item");
+        Objects.requireNonNull(item, "item");
         add(item.getPeriod(), item.getOpenValue(), item.getHighValue(),
                 item.getLowValue(), item.getCloseValue());
     }

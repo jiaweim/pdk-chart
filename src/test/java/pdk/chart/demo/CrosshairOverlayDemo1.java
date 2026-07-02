@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
 
 public class CrosshairOverlayDemo1 extends JFrame {
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("CrosshairOverlayDemo1", "X", "Y", dataset);
+        Chart chart = JChart.line(dataset, "X", "Y", "CrosshairOverlayDemo1");
         return chart;
     }
 
@@ -29,7 +29,7 @@ public class CrosshairOverlayDemo1 extends JFrame {
         XYSeries series = new XYSeries("S1");
 
         for (int x = 0; x < 10; ++x) {
-            series.add((double) x, (double) x + Math.random() * (double) 4.0F);
+            series.add(x, x + Math.random() * 4.0);
         }
 
         XYSeriesCollection dataset = new XYSeriesCollection(series);

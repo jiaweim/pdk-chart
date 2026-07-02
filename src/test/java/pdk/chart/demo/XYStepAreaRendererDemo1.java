@@ -6,7 +6,6 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYStepAreaRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -25,7 +24,8 @@ public class XYStepAreaRendererDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("XYStepAreaRenderer Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y",
+                "XYStepAreaRenderer Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         XYStepAreaRenderer renderer = new XYStepAreaRenderer(2);
@@ -38,16 +38,16 @@ public class XYStepAreaRendererDemo1 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         XYSeries series1 = new XYSeries("Series 1");
-        series1.add((double) 1.0F, (double) 3.0F);
-        series1.add((double) 2.0F, (double) 4.0F);
-        series1.add((double) 3.0F, (double) 2.0F);
-        series1.add((double) 6.0F, (double) 3.0F);
+        series1.add(1.0, 3.0);
+        series1.add(2.0, 4.0);
+        series1.add(3.0, 2.0);
+        series1.add(6.0, 3.0);
         XYSeries series2 = new XYSeries("Series 2");
-        series2.add((double) 1.0F, (double) 7.0F);
-        series2.add((double) 2.0F, (double) 6.0F);
-        series2.add((double) 3.0F, (double) 9.0F);
-        series2.add((double) 4.0F, (double) 5.0F);
-        series2.add((double) 6.0F, (double) 4.0F);
+        series2.add(1.0, 7.0);
+        series2.add(2.0, 6.0);
+        series2.add(3.0, 9.0);
+        series2.add(4.0, 5.0);
+        series2.add(6.0, 4.0);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         dataset.addSeries(series2);

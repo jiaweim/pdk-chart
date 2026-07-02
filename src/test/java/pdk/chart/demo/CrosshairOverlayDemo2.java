@@ -1,6 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
@@ -8,7 +9,6 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
-import pdk.chart.Data;
 import pdk.chart.plot.Crosshair;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ChartMouseEvent;
@@ -80,7 +80,7 @@ public class CrosshairOverlayDemo2 extends JFrame {
         }
 
         private Chart createChart(XYDataset<String> dataset) {
-            return JChart.line("CrosshairOverlayDemo2", "X", "Y", dataset);
+            return JChart.line(dataset, "X", "Y", "CrosshairOverlayDemo2");
         }
 
         private XYDataset<String> createDataset() {

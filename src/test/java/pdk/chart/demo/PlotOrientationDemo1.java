@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.annotations.XYDataImageAnnotation;
 import pdk.chart.annotations.XYLineAnnotation;
 import pdk.chart.annotations.XYShapeAnnotation;
@@ -32,15 +32,16 @@ public class PlotOrientationDemo1 extends ApplicationFrame {
 
     private static XYDataset createDataset(int index) {
         XYSeries series1 = new XYSeries("Series " + (index + 1));
-        series1.add((double) -10.0F, (double) -5.0F);
-        series1.add((double) 10.0F, (double) 5.0F);
+        series1.add(-10.0, -5.0);
+        series1.add(10.0, 5.0);
         XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(series1);
         return dataset;
     }
 
     private static Chart createChart(int index, XYDataset dataset) {
-        Chart chart = JChart.line("Chart " + (index + 1), "X", "Y", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Chart " + (index + 1),
+                PlotOrientation.VERTICAL, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
         renderer.setDefaultShapesVisible(true);
@@ -57,8 +58,8 @@ public class PlotOrientationDemo1 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        PlotOrientationDemo1 demo = new PlotOrientationDemo1("JFreeChart: PlotOrientationDemo1.java");
+    static void main() {
+        PlotOrientationDemo1 demo = new PlotOrientationDemo1("PlotOrientationDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -81,9 +82,11 @@ public class PlotOrientationDemo1 extends ApplicationFrame {
                 XYPlot plot = (XYPlot) this.charts[i].getPlot();
                 plot.setDomainPannable(true);
                 plot.setRangePannable(true);
-                XYShapeAnnotation a1 = new XYShapeAnnotation(new Rectangle2D.Double((double) -2.0F, (double) -3.0F, (double) 1.0F, (double) 4.0F), new BasicStroke(1.0F), Color.BLUE, Color.YELLOW);
-                XYLineAnnotation a2 = new XYLineAnnotation((double) 0.0F, (double) -5.0F, (double) 10.0F, (double) -5.0F);
-                XYDataImageAnnotation a3 = new XYDataImageAnnotation(ChartDemo.getTestImage(), (double) 5.0F, (double) 2.0F, (double) 6.0F, (double) 4.0F, true);
+                XYShapeAnnotation a1 = new XYShapeAnnotation(new Rectangle2D.Double(-2.0, -3.0, 1.0, 4.0),
+                        new BasicStroke(1.0F), Color.BLUE, Color.YELLOW);
+                XYLineAnnotation a2 = new XYLineAnnotation(0.0, -5.0, 10.0, -5.0);
+                XYDataImageAnnotation a3 = new XYDataImageAnnotation(ChartDemo.getTestImage(),
+                        5.0, 2.0, 6.0, 4.0, true);
                 plot.addAnnotation(a1);
                 plot.addAnnotation(a2);
                 plot.addAnnotation(a3);

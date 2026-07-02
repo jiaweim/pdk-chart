@@ -2,9 +2,9 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.XYChartType;
 import pdk.chart.data.function.NormalDistributionFunction2D;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.XYChartType;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -38,7 +38,7 @@ public class NormalDistributionDemo3 extends ApplicationFrame {
         XYDataset<String> lineDataset = func.sample(20.6 - 10, 20.6 + 10, 500, "Line");
         XYDataset<String> areaDataset = func.sample(10.6, 18, 100, "Area");
 
-        Chart chart = JChart.line(null, "X", "Probability Density", lineDataset);
+        Chart chart = JChart.line(lineDataset, "X", "Probability Density");
         chart.getXYPlot()
                 .addDataset(areaDataset, XYChartType.AREA);
 

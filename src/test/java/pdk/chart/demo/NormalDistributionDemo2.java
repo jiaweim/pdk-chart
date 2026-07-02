@@ -7,7 +7,6 @@ import pdk.chart.data.function.NormalDistributionFunction2D;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -46,8 +45,8 @@ public class NormalDistributionDemo2 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("Normal Distributions", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y",
+                "Normal Distributions");
         XYPlot plot = chart.getXYPlot();
         plot.rangeZeroBaselineVisible(true)
                 .domainZeroBaselineVisible(true)

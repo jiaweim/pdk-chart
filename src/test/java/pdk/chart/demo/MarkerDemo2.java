@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
@@ -42,9 +42,9 @@ public class MarkerDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset data) {
-        Chart chart = JChart.line("Marker Demo 2", "X", "Temperature", data);
+        Chart chart = JChart.line(data, "X", "Temperature", "Marker Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
-        PeriodAxis domainAxis = new PeriodAxis((String) null, new Hour(0, 30, 6, 2005), new Hour(23, 30, 6, 2005));
+        PeriodAxis domainAxis = new PeriodAxis(null, new Hour(0, 30, 6, 2005), new Hour(23, 30, 6, 2005));
         PeriodAxisLabelInfo[] info = new PeriodAxisLabelInfo[2];
         info[0] = new PeriodAxisLabelInfo(Hour.class, new SimpleDateFormat("HH"));
         info[1] = new PeriodAxisLabelInfo(Day.class, new SimpleDateFormat("dd-MMM"));
@@ -59,11 +59,11 @@ public class MarkerDemo2 extends ApplicationFrame {
         ValueAxis yAxis = plot.getRangeAxis();
         NumberTickUnitSource tickUnitSource = new NumberTickUnitSource();
         yAxis.setStandardTickUnits(tickUnitSource);
-        yAxis.setRange((double) 0.0F, (double) 100.0F);
+        yAxis.setRange(0.0, 100.0);
         XYItemRenderer renderer = plot.getRenderer();
         renderer.setSeriesPaint(0, Color.GREEN);
         renderer.setSeriesStroke(0, new BasicStroke(2.0F));
-        Marker threshold = new ValueMarker((double) 80.0F);
+        Marker threshold = new ValueMarker(80.0F);
         threshold.setLabelOffsetType(LengthAdjustmentType.EXPAND);
         threshold.setPaint(Color.RED);
         threshold.setStroke(new BasicStroke(2.0F));

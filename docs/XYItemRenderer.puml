@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface XYItemRenderer
+abstract class AbstractXYItemRenderer
+class CandlestickRenderer
+class XYBarRenderer
+class ClusteredXYBarRenderer
+class StandardXYItemRenderer
+class CyclicXYItemRenderer
+
+XYItemRenderer <|.. AbstractXYItemRenderer
+AbstractXYItemRenderer <|-- CandlestickRenderer
+AbstractXYItemRenderer <|-- XYBarRenderer
+AbstractXYItemRenderer <|-- StandardXYItemRenderer
+AbstractXYItemRenderer <|-- XYLineAndShapeRenderer
+AbstractXYItemRenderer <|-- HighLowRenderer
+AbstractXYItemRenderer <|-- SamplingXYLineRenderer
+AbstractXYItemRenderer <|-- XYAreaRenderer
+AbstractXYItemRenderer <|-- XYAreaRenderer2
+AbstractXYItemRenderer <|-- VectorRenderer
+
+StandardXYItemRenderer <|-- CyclicXYItemRenderer
+XYBarRenderer <|-- ClusteredXYBarRenderer
+
+XYLineAndShapeRenderer <|-- DefaultXYItemRenderer
+XYLineAndShapeRenderer <|-- DeviationRenderer
+XYLineAndShapeRenderer <|-- XYBezierRenderer
+XYLineAndShapeRenderer <|-- XYErrorRenderer
+XYLineAndShapeRenderer <|-- XYSplineRenderer
+XYLineAndShapeRenderer <|-- XYStepRenderer
+
+
+XYAreaRenderer <|-- StackedXYAreaRenderer
+XYAreaRenderer2 <|-- StackedXYAreaRenderer2
+DeviationRenderer <|-- DeviationStepRenderer
+@enduml

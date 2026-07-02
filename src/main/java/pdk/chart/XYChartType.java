@@ -15,6 +15,10 @@ public enum XYChartType {
 
     AREA,
     LINE,
+    /**
+     * Draws lines between data points, only allowing horizontal or vertical lines (steps).
+     */
+    STEP,
     SPLINE,
     SCATTER,
     BUBBLE,
@@ -46,6 +50,9 @@ public enum XYChartType {
         switch (this) {
             case LINE -> {
                 return new XYLineAndShapeRenderer(true, false);
+            }
+            case STEP -> {
+                return new XYStepRenderer();
             }
             case SPLINE -> {
                 return new XYSplineRenderer();

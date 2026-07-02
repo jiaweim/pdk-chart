@@ -5,7 +5,6 @@ import pdk.chart.JChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.function.Function2D;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -23,7 +22,8 @@ public class Function2DDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line("Function2DDemo1 ", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "X", "Y",
+                "Function2DDemo1 ");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

@@ -104,8 +104,8 @@ public class CrossSectionDemo1 extends ApplicationFrame {
             this.add(chartPanel);
             JPanel slider1Panel = new JPanel(new BorderLayout());
             XYSeriesCollection dataset1 = new XYSeriesCollection();
-            this.subchart1 = JChart.line("Cross-section A", "Y", "Z",
-                    dataset1, PlotOrientation.HORIZONTAL, false, false, false);
+            this.subchart1 = JChart.line(dataset1, "Y", "Z", "Cross-section A",
+                    PlotOrientation.HORIZONTAL, false, false);
             XYPlot plot1 = (XYPlot) this.subchart1.getPlot();
             plot1.getDomainAxis().setLowerMargin(0.0);
             plot1.getDomainAxis().setUpperMargin(0.0);
@@ -121,8 +121,8 @@ public class CrossSectionDemo1 extends ApplicationFrame {
             slider1Panel.add(this.slider1, "West");
             JPanel slider2Panel = new JPanel(new BorderLayout());
             XYSeriesCollection dataset2 = new XYSeriesCollection();
-            this.subchart2 = JChart.line("Cross-section B", "X", "Z",
-                    dataset2, PlotOrientation.VERTICAL, false, false, false);
+            this.subchart2 = JChart.line(dataset2, "X", "Z", "Cross-section B",
+                    PlotOrientation.VERTICAL, false, false);
             XYPlot plot2 = (XYPlot) this.subchart2.getPlot();
             plot2.getDomainAxis().setLowerMargin(0.0);
             plot2.getDomainAxis().setUpperMargin(0.0);
