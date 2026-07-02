@@ -1,4 +1,4 @@
 /**
- * Internal classes used by JFreeChart (not exposed in the public API).
+ * Internal classes used by pdk-chart (not exposed in the public API).
  */
-package org.jfree.chart.internal;
+package pdk.chart.internal;

@@ -1,4 +1,4 @@
 /**
  * Types and enumerations used in the JFreeChart public API.
  */
-package org.jfree.chart.api;
+package pdk.chart.api;

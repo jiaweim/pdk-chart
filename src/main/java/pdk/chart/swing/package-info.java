@@ -1,4 +1,4 @@
 /**
- * Classes that provide support for JFreeChart in Swing applications.
+ * Classes that provide support for pdk-chart in Swing applications.
  */
-package org.jfree.chart.swing;
+package pdk.chart.swing;

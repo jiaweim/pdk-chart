@@ -1,4 +1,4 @@
 /**
  * Classes for creating flow plots (a type of Sankey chart).
  */
-package org.jfree.chart.plot.flow;
+package pdk.chart.plot.flow;

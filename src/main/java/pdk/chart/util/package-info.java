@@ -1,4 +1,4 @@
 /**
- * Utility classes used by JFreeChart.
+ * Utility classes used by pdk-chart.
  */
-package org.jfree.chart.util;
+package pdk.chart.util;

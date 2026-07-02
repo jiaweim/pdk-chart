@@ -1,4 +1,4 @@
 /**
  * Text-related classes.
  */
-package org.jfree.chart.text;
+package pdk.chart.text;

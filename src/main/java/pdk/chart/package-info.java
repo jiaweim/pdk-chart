@@ -1,4 +1,4 @@
 /**
- * Core classes for JFreeChart including {@link org.jfree.chart.Chart} and {@link org.jfree.chart.ChartFactory}.
+ * Core classes for pdk-chart including {@link pdk.chart.Chart} and {@link pdk.chart.JChart}.
  */
-package org.jfree.chart;
+package pdk.chart;

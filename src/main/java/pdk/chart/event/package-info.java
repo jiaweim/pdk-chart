@@ -3,4 +3,4 @@
  * notification mechanism so that charts are automatically redrawn
  * whenever changes are made to any chart component.
  */
-package org.jfree.chart.event;
+package pdk.chart.event;

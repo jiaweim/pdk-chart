@@ -1,4 +1,4 @@
 /**
  * A framework for adding annotations to charts.
  */
-package org.jfree.chart.annotations;
+package pdk.chart.annotations;
