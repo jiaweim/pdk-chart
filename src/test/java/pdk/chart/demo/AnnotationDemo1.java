@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -114,8 +114,7 @@ public class AnnotationDemo1 extends ApplicationFrame {
         chart.addSubtitle(t2);
 
         XYPlot<String> plot = chart.getXYPlot();
-        plot.domainPannable(true)
-                .rangePannable(true);
+        plot.pannable(true, true);
 
         plot.getDomainAxisAsNumber()
                 .upperMargin(0.12)

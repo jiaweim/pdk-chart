@@ -5,6 +5,7 @@ import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.JChart;
+import pdk.chart.XYChartType;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYAnnotationBoundsInfo;
@@ -18,7 +19,6 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.*;
-import pdk.chart.XYChartType;
 import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.internal.PaintUtils;
@@ -1016,6 +1016,17 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public void setRangeAxis(int index, ValueAxis axis) {
         setRangeAxis(index, axis, true);
+    }
+
+    /**
+     * Sets a range axis and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param axis the axis ({@code null} permitted).
+     * @see #getRangeAxis(int)
+     */
+    public void addRangeAxis(ValueAxis axis) {
+        setRangeAxis(getRangeAxisCount(), axis, true);
     }
 
     /**
@@ -4760,6 +4771,19 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public XYPlot<S> rangePannable(boolean pannable) {
         this.rangePannable = pannable;
+        return this;
+    }
+
+    /**
+     * Sets the flag that enables or disables panning of the plot along
+     * the range axis/axes.
+     *
+     * @param domainPannable the new flag value for domain pannable.
+     * @param rangePannable  the new flag for range pannable.
+     */
+    public XYPlot<S> pannable(boolean domainPannable, boolean rangePannable) {
+        setDomainPannable(domainPannable);
+        setRangePannable(rangePannable);
         return this;
     }
 

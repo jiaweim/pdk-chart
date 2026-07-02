@@ -2,6 +2,7 @@ package pdk.chart.plot;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import pdk.chart.CategoryChartType;
 import pdk.chart.Chart;
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.annotations.Annotation;
@@ -14,7 +15,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.event.*;
-import pdk.chart.CategoryChartType;
 import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.category.*;
@@ -1209,6 +1209,19 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     public void setDataset(int index, CategoryDataset<R, C> dataset, CategoryChartType chartType) {
         setDataset(index, dataset);
         setRenderer(index, chartType.getRenderer());
+    }
+
+    /**
+     * Sets a dataset for the plot and sends a change notification to all
+     * registered listeners.
+     *
+     * @param dataset the dataset ({@code null} permitted).
+     * @see #getDataset(int)
+     */
+    public void addDataset(CategoryDataset<R, C> dataset, CategoryChartType chartType) {
+        int datasetCount = getDatasetCount();
+        setDataset(datasetCount, dataset);
+        setRenderer(datasetCount, chartType.getRenderer());
     }
 
     /**

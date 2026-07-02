@@ -54,7 +54,8 @@ public class StackedAreaChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.stackedArea("Stacked Area Chart", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.stackedArea(dataset, "Category", "Value", "Stacked Area Chart",
+                PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setForegroundAlpha(0.85F);
         CategoryAxis domainAxis = plot.getDomainAxis();

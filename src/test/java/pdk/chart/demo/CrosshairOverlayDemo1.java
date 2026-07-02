@@ -45,13 +45,12 @@ public class CrosshairOverlayDemo1 extends JFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                CrosshairOverlayDemo1 app = new CrosshairOverlayDemo1("Chart: CrosshairOverlayDemo1.java");
-                app.pack();
-                app.setVisible(true);
-            }
+    static void main() {
+        SwingUtilities.invokeLater(() -> {
+            CrosshairOverlayDemo1 app = new CrosshairOverlayDemo1("CrosshairOverlayDemo1.java");
+            app.pack();
+            app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            app.setVisible(true);
         });
     }
 

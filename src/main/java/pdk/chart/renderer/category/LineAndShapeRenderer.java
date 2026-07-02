@@ -513,6 +513,19 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the flag that controls whether the x-position for each
+     * data item is offset within its category according to the series, and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param offset the offset.
+     * @see #getUseSeriesOffset()
+     */
+    public LineAndShapeRenderer useSeriesOffset(boolean offset) {
+        setUseSeriesOffset(offset);
+        return this;
+    }
+
+    /**
      * Returns the item margin, which is the gap between items within a
      * category (expressed as a percentage of the overall category width).
      * This can be used to match the offset alignment with the bars drawn by

@@ -1,5 +1,6 @@
 package pdk.chart.renderer.xy;
 
+import org.jspecify.annotations.NonNull;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.api.Layer;
@@ -361,10 +362,10 @@ public abstract class AbstractXYItemRenderer extends AbstractRenderer
      * registered listeners.  The annotation is added to the foreground
      * layer.
      *
-     * @param annotation the annotation ({@code null} not permitted).
+     * @param annotation the annotation.
      */
     @Override
-    public void addAnnotation(XYAnnotation annotation) {
+    public void addAnnotation(@NonNull XYAnnotation annotation) {
         // defer argument checking
         addAnnotation(annotation, Layer.FOREGROUND);
     }
@@ -378,8 +379,8 @@ public abstract class AbstractXYItemRenderer extends AbstractRenderer
      */
     @Override
     public void addAnnotation(XYAnnotation annotation, Layer layer) {
-        Args.nullNotPermitted(annotation, "annotation");
-        Args.nullNotPermitted(layer, "layer");
+        Objects.requireNonNull(annotation, "annotation");
+        Objects.requireNonNull(layer, "layer");
         switch (layer) {
             case FOREGROUND:
                 this.foregroundAnnotations.add(annotation);
@@ -478,7 +479,7 @@ public abstract class AbstractXYItemRenderer extends AbstractRenderer
      */
     @Override
     public void setLegendItemLabelGenerator(XYSeriesLabelGenerator generator) {
-        Args.nullNotPermitted(generator, "generator");
+        Objects.requireNonNull(generator, "generator");
         this.legendItemLabelGenerator = generator;
         fireChangeEvent();
     }
