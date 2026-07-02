@@ -1,54 +1,13 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -------------------
- * StatisticsTest.java
- * -------------------
- * (C) Copyright 2004-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- * Changes
- * -------
- * 25-Mar-2004 : Version 1 (DG);
- * 04-Oct-2004 : Eliminated NumberUtils usage (DG);
- *
- */
-
 package pdk.chart.data.statistics;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for the {@link Statistics} class.
@@ -63,23 +22,8 @@ public class StatisticsTest {
     public void testCalculateMean_Array() {
 
         // try null array
-        boolean pass = false;
-        try {
-            Statistics.calculateMean((Number[]) null);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
-
-        pass = false;
-        try {
-            Statistics.calculateMean((Number[]) null, false);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> Statistics.calculateMean((Number[]) null));
+        assertThrows(NullPointerException.class, () -> Statistics.calculateMean((Number[]) null, false));
 
         // try an array containing no items
         assertTrue(Double.isNaN(Statistics.calculateMean(new Number[0])));
@@ -87,19 +31,19 @@ public class StatisticsTest {
                 false)));
 
         // try an array containing a single Number
-        Number[] values = new Number[] {1.0};
+        Number[] values = new Number[]{1.0};
         assertEquals(1.0, Statistics.calculateMean(values), EPSILON);
         assertEquals(1.0, Statistics.calculateMean(values, true), EPSILON);
         assertEquals(1.0, Statistics.calculateMean(values, false), EPSILON);
 
         // try an array containing a single Number and a null
-        values = new Number[] {1.0, null};
+        values = new Number[]{1.0, null};
         assertTrue(Double.isNaN(Statistics.calculateMean(values)));
         assertTrue(Double.isNaN(Statistics.calculateMean(values, true)));
         assertEquals(1.0, Statistics.calculateMean(values, false), EPSILON);
 
         // try an array containing a single Number and a NaN
-        values = new Number[] {1.0, Double.NaN};
+        values = new Number[]{1.0, Double.NaN};
         assertTrue(Double.isNaN(Statistics.calculateMean(values)));
         assertTrue(Double.isNaN(Statistics.calculateMean(values, true)));
         assertEquals(1.0, Statistics.calculateMean(values, false), EPSILON);
@@ -113,23 +57,8 @@ public class StatisticsTest {
     public void testCalculateMean_Collection() {
 
         // try a null collection
-        boolean pass = false;
-        try {
-            Statistics.calculateMean((Collection<Number>) null);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
-
-        pass = false;
-        try {
-            Statistics.calculateMean((Collection<Number>) null, false);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> Statistics.calculateMean((Collection<Number>) null));
+        assertThrows(NullPointerException.class, () -> Statistics.calculateMean((Collection<Number>) null, false));
 
         // try an empty collection
         List<Double> values = new ArrayList<>();
@@ -190,24 +119,8 @@ public class StatisticsTest {
 
         // check list containing null
         list.add(null);
-        boolean pass = false;
-        try {
-            Statistics.calculateMedian(list, false);
-        }
-        catch (NullPointerException e) {
-            pass = true;
-        }
-        assertTrue(pass);
-
-        pass = false;
-        try {
-            Statistics.calculateMedian(list, true);
-        }
-        catch (NullPointerException e) {
-            pass = true;
-        }
-        assertTrue(pass);
-
+        assertThrows(NullPointerException.class, () -> Statistics.calculateMedian(list, false));
+        assertThrows(NullPointerException.class, () -> Statistics.calculateMedian(list, true));
     }
 
     /**
@@ -411,24 +324,8 @@ public class StatisticsTest {
     public void testGetStdDev() {
 
         // try null argument
-        boolean pass = false;
-        try {
-            Statistics.getStdDev(null);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
-
-        // try zero length array
-        pass = false;
-        try {
-            Statistics.getStdDev(new Double[0]);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> Statistics.getStdDev(null));
+        assertThrows(IllegalArgumentException.class, () -> Statistics.getStdDev(new Double[0]));
 
         // try single value
         assertTrue(Double.isNaN(Statistics.getStdDev(new Double[]{1.0})));

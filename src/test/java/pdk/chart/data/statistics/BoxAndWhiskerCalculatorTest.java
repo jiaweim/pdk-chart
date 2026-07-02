@@ -1,47 +1,11 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * --------------------------------
- * BoxAndWhiskerCalculatorTest.java
- * --------------------------------
- * (C) Copyright 2003-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.data.statistics;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests for the {@link BoxAndWhiskerCalculator} class.
@@ -55,20 +19,13 @@ public class BoxAndWhiskerCalculatorTest {
     public void testCalculateBoxAndWhiskerStatistics() {
 
         // try null list
-        boolean pass = false;
-        try {
-            BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(null);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(null));
 
         // try a list containing a single value
         List<Number> values = new ArrayList<>();
         values.add(1.1);
         BoxAndWhiskerItem item
-            = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
+                = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values);
         assertEquals(1.1, item.getMean().doubleValue(), EPSILON);
         assertEquals(1.1, item.getMedian().doubleValue(), EPSILON);
         assertEquals(1.1, item.getQ1().doubleValue(), EPSILON);
@@ -84,14 +41,7 @@ public class BoxAndWhiskerCalculatorTest {
     public void testCalculateQ1() {
 
         // try null argument
-        boolean pass = false;
-        try {
-            BoxAndWhiskerCalculator.calculateQ1(null);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> BoxAndWhiskerCalculator.calculateQ1(null));
 
         List<Double> values = new ArrayList<>();
         double q1 = BoxAndWhiskerCalculator.calculateQ1(values);
@@ -116,14 +66,7 @@ public class BoxAndWhiskerCalculatorTest {
     @Test
     public void testCalculateQ3() {
         // try null argument
-        boolean pass = false;
-        try {
-            BoxAndWhiskerCalculator.calculateQ3(null);
-        }
-        catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThrows(NullPointerException.class, () -> BoxAndWhiskerCalculator.calculateQ3(null));
 
         List<Number> values = new ArrayList<>();
         double q3 = BoxAndWhiskerCalculator.calculateQ3(values);
@@ -153,7 +96,7 @@ public class BoxAndWhiskerCalculatorTest {
         list.add(2, Double.NaN);
         list.add(3, 3.0);
         list.add(4, 4.0);
-        BoxAndWhiskerItem item 
+        BoxAndWhiskerItem item
                 = BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(list);
         assertEquals(1.0, item.getMinRegularValue().doubleValue(), EPSILON);
         assertEquals(4.0, item.getMaxRegularValue().doubleValue(), EPSILON);
