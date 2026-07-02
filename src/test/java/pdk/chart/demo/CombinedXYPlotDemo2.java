@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
@@ -50,7 +50,7 @@ public class CombinedXYPlotDemo2 extends ApplicationFrame {
         plot.add(subplot1, 1);
         plot.add(subplot2, 1);
         Chart chart = new Chart("Combined (Range) XY Plot", Chart.DEFAULT_TITLE_FONT, plot, true);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

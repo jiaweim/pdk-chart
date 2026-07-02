@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -46,7 +46,7 @@ public class StackedBarChartDemo6 extends ApplicationFrame {
         DateAxis rangeAxis = new DateAxis("Date");
         rangeAxis.setLowerMargin((double)0.0F);
         plot.setRangeAxis(rangeAxis);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

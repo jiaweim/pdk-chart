@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.AxisLocation;
@@ -68,7 +68,7 @@ public class BarChartDemo5 extends ApplicationFrame {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .upperMargin(0.1);
 
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

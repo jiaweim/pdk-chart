@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYIntervalSeries;
@@ -34,7 +34,7 @@ public class XYErrorRendererDemo1 extends ApplicationFrame {
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinePaint(Color.WHITE);
         Chart chart = new Chart("XYErrorRenderer Demo 1", plot);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

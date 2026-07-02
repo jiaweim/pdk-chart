@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.LogAxis;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
@@ -40,7 +40,7 @@ public class LogAxisDemo1 extends ApplicationFrame {
         LogAxis yAxis = new LogAxis("Y");
         plot.setDomainAxis(xAxis);
         plot.setRangeAxis(yAxis);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.Data;
@@ -51,7 +51,7 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
         plot.getRangeAxisAsDate()
                 .dateFormatOverride(rdf);
 
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

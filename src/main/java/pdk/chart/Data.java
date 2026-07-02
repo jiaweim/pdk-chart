@@ -76,6 +76,22 @@ public interface Data {
     }
 
     /**
+     * Create a {@link XYDataset}.
+     *
+     * @param series {@link XYSeries} array.
+     * @param <S>    series name type.
+     * @return {@link XYDataset}.
+     */
+    @SafeVarargs
+    static <S extends Comparable<S>> XYDataset<S> createXY(XYSeries<S>... series) {
+        XYSeriesCollection<S> dataset = new XYSeriesCollection<>();
+        for (XYSeries<S> s : series) {
+            dataset.addSeries(s);
+        }
+        return dataset;
+    }
+
+    /**
      * Create a {@link XYDataset} where the x values are of date type.
      *
      * @param seriesKey   series key

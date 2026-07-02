@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.time.Day;
@@ -56,7 +56,7 @@ public class DifferenceChartDemo1 extends ApplicationFrame {
         domainAxis.setUpperMargin((double) 0.0F);
         plot.setDomainAxis(domainAxis);
         plot.setForegroundAlpha(0.5F);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

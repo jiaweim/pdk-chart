@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.plot.XYPlot;
@@ -63,7 +63,7 @@ public class DynamicDataDemo2 extends ApplicationFrame {
             plot.setRenderer(1, new DefaultXYItemRenderer());
             plot.setRangeAxis(1, rangeAxis2);
             plot.mapDatasetToRangeAxis(1, 1);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             ChartPanel chartPanel = new ChartPanel(chart);
             this.add(chartPanel);
             JButton button1 = new JButton("Add To Series 1");

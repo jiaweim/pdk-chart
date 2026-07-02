@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.*;
 import pdk.chart.data.xy.XYDataset;
@@ -207,7 +207,7 @@ public class CrosshairDemo2 extends ApplicationFrame {
             plot.setDomainCrosshairVisible(true);
             plot.setDomainCrosshairLockedOnData(false);
             plot.setRangeCrosshairVisible(false);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             return chart;
         }
 

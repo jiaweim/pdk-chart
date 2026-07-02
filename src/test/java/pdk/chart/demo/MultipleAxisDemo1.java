@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.plot.PlotOrientation;
@@ -64,7 +64,7 @@ public class MultipleAxisDemo1 extends ApplicationFrame {
         plot.mapDatasetToRangeAxis(3, 3);
         XYItemRenderer renderer4 = new StandardXYItemRenderer();
         plot.setRenderer(3, renderer4);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         plot.getRenderer().setSeriesPaint(0, Color.black);
         renderer2.setSeriesPaint(0, Color.RED);
         axis2.setLabelPaint(Color.RED);

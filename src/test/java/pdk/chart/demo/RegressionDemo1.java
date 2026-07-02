@@ -1,12 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.function.Function2D;
 import pdk.chart.data.function.LineFunction2D;
 import pdk.chart.data.function.PowerFunction2D;
-import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.statistics.Regression;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -84,7 +83,7 @@ public class RegressionDemo1 extends ApplicationFrame {
             renderer2.setSeriesPaint(0, Color.BLUE);
             plot.setRenderer(1, renderer2);
             Chart chart = new Chart("Linear Regression", Chart.DEFAULT_TITLE_FONT, plot, true);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             this.addChart(chart);
             ChartPanel chartPanel = new ChartPanel(chart);
             return chartPanel;
@@ -105,7 +104,7 @@ public class RegressionDemo1 extends ApplicationFrame {
             plot.setDataset(1, regressionData);
             plot.setRenderer(1, renderer2);
             Chart chart = new Chart("Power Regression", Chart.DEFAULT_TITLE_FONT, plot, true);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             this.addChart(chart);
             ChartPanel chartPanel = new ChartPanel(chart);
             return chartPanel;

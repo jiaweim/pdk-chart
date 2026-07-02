@@ -1,11 +1,6 @@
 package pdk.chart.data.statistics;
 
-import pdk.chart.internal.Args;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -14,6 +9,33 @@ import java.util.stream.Collectors;
 public abstract class Statistics {
 
     private Statistics() {}
+
+    /**
+     * Computes the standard deviation of the available values.
+     *
+     * @param values the values.
+     * @return standard deviation of the sample data.
+     */
+    public static double standardDeviation(final double[] values) {
+        Objects.requireNonNull(values, "values must not be null");
+        if (values.length < 2) {
+            throw new IllegalArgumentException("Number of values must be at least 2.");
+        }
+        double sum = 0.0;
+        int n = values.length;
+        for (double value : values) {
+            sum += value;
+        }
+        double mean = sum / n;
+
+        double squaredSum = 0.0;
+        for (double value : values) {
+            double diff = value - mean;
+            squaredSum += diff * diff;
+        }
+        double variance = squaredSum / (n - 1);
+        return Math.sqrt(variance);
+    }
 
     /**
      * Returns the mean of an array of numbers.  This is equivalent to calling
@@ -39,8 +61,7 @@ public abstract class Statistics {
      */
     public static double calculateMean(Number[] values,
             boolean includeNullAndNaN) {
-
-        Args.nullNotPermitted(values, "values");
+        Objects.requireNonNull(values, "values must not be null");
         double sum = 0.0;
         double current;
         int counter = 0;
@@ -83,8 +104,7 @@ public abstract class Statistics {
      */
     public static double calculateMean(Collection<? extends Number> values,
             boolean includeNullAndNaN) {
-
-        Args.nullNotPermitted(values, "values");
+        Objects.requireNonNull(values, "values must not be null");
         int count = 0;
         double total = 0.0;
         for (Number number : values) {
@@ -184,16 +204,16 @@ public abstract class Statistics {
      *                    is copied and sorted.
      * @return The median.
      */
-    public static double calculateMedian(List<? extends Number> values,
+    public static <T extends Number> double calculateMedian(List<T> values,
             int start, int end, boolean copyAndSort) {
 
         double result = Double.NaN;
         if (copyAndSort) {
-            List working = new ArrayList(end - start + 1);
+            List<T> working = new ArrayList<>(end - start + 1);
             for (int i = start; i <= end; i++) {
                 working.add(values.get(i));
             }
-            Collections.sort(working);
+            working.sort(Comparator.comparingDouble(Number::doubleValue));
             result = calculateMedian(working, false);
         } else {
             int count = end - start + 1;
@@ -224,7 +244,7 @@ public abstract class Statistics {
      * @return The standard deviation of a set of numbers.
      */
     public static double getStdDev(Number[] data) {
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(data);
         if (data.length == 0) {
             throw new IllegalArgumentException("Zero length 'data' array.");
         }
@@ -246,9 +266,8 @@ public abstract class Statistics {
      * @return A double array with the intercept in [0] and the slope in [1].
      */
     public static double[] getLinearFit(Number[] xData, Number[] yData) {
-
-        Args.nullNotPermitted(xData, "xData");
-        Args.nullNotPermitted(yData, "yData");
+        Objects.requireNonNull(xData);
+        Objects.requireNonNull(yData);
         if (xData.length != yData.length) {
             throw new IllegalArgumentException(
                     "Statistics.getLinearFit(): array lengths must be equal.");
@@ -271,8 +290,8 @@ public abstract class Statistics {
      * @return The slope.
      */
     public static double getSlope(Number[] xData, Number[] yData) {
-        Args.nullNotPermitted(xData, "xData");
-        Args.nullNotPermitted(yData, "yData");
+        Objects.requireNonNull(xData);
+        Objects.requireNonNull(yData);
         if (xData.length != yData.length) {
             throw new IllegalArgumentException("Array lengths must be equal.");
         }
@@ -312,8 +331,8 @@ public abstract class Statistics {
      * @return The correlation.
      */
     public static double getCorrelation(Number[] data1, Number[] data2) {
-        Args.nullNotPermitted(data1, "data1");
-        Args.nullNotPermitted(data2, "data2");
+        Objects.requireNonNull(data1);
+        Objects.requireNonNull(data2);
         if (data1.length != data2.length) {
             throw new IllegalArgumentException("'data1' and 'data2' arrays must have same length.");
         }

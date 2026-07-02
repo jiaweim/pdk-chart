@@ -226,13 +226,13 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         Component c = this.chartContainer.getComponent(0);
         if (c instanceof ChartPanel) {
             ChartPanel cp = (ChartPanel) c;
-            ChartUtils.applyCurrentTheme(cp.getChart());
+            JChartUtils.applyCurrentTheme(cp.getChart());
         } else if (c instanceof DemoPanel) {
             DemoPanel dp = (DemoPanel) c;
             Chart[] charts = dp.getCharts();
 
             for (Chart chart : charts) {
-                ChartUtils.applyCurrentTheme(chart);
+                JChartUtils.applyCurrentTheme(chart);
             }
         }
 

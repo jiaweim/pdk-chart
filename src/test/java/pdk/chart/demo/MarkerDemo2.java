@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.LengthAdjustmentType;
@@ -50,7 +50,7 @@ public class MarkerDemo2 extends ApplicationFrame {
         info[1] = new PeriodAxisLabelInfo(Day.class, new SimpleDateFormat("dd-MMM"));
         domainAxis.setLabelInfo(info);
         plot.setDomainAxis(domainAxis);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         plot.setDomainGridlinePaint(Color.LIGHT_GRAY);
         plot.setDomainGridlineStroke(new BasicStroke(1.0F));
         plot.setRangeGridlinePaint(Color.LIGHT_GRAY);

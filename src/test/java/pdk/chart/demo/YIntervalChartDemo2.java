@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
@@ -69,7 +69,7 @@ public class YIntervalChartDemo2 extends ApplicationFrame {
         renderer.setUseFillPaint(true);
         renderer.setDefaultFillPaint(Color.WHITE);
         plot.setRenderer(renderer);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -30,7 +30,7 @@ public class SymbolAxisDemo1 extends ApplicationFrame {
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(false, true);
         XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
         Chart chart = new Chart("SymbolAxis Demo 1", plot);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

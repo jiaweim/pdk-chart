@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
@@ -125,7 +125,7 @@ public class CombinedTimeSeriesDemo1 extends ApplicationFrame {
         combinedPlot.add(plot1, 1);
         combinedPlot.add(plot2, 4);
         Chart chart = new Chart("Sample Combined Plot", Chart.DEFAULT_TITLE_FONT, combinedPlot, true);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));
         chartPanel.addChartMouseListener(new ChartMouseListener() {

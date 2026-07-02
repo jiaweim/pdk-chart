@@ -6,7 +6,7 @@ import java.awt.geom.Ellipse2D;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.SymbolAxis;
@@ -67,7 +67,7 @@ public class XYTaskDatasetDemo2 extends ApplicationFrame {
         plot.add(createSubplot2(createDataset2()));
         Chart chart = new Chart("XYTaskDatasetDemo2", plot);
         chart.setBackgroundPaint(Color.WHITE);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

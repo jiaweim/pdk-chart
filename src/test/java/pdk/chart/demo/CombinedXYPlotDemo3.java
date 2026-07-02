@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
@@ -54,7 +54,7 @@ public class CombinedXYPlotDemo3 extends ApplicationFrame {
         TextTitle subtitle = new TextTitle("This is a subtitle", new Font("SansSerif", 1, 12));
         chart.addSubtitle(subtitle);
         chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.WHITE, 0.0F, 1000.0F, Color.BLUE));
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

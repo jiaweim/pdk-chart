@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.annotations.XYPointerAnnotation;
@@ -112,7 +112,7 @@ public class AnnotationDemo2 extends ApplicationFrame {
         legends.setBackgroundPaint(Color.WHITE);
         legends.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legends);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

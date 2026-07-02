@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
@@ -89,7 +89,7 @@ public class OverlaidBarChartDemo1 extends ApplicationFrame {
         plot.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.UP_45);
         Chart chart = new Chart(plot);
         chart.setTitle("Overlaid Bar Chart");
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

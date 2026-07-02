@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.DateAxis;
@@ -80,7 +80,7 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         chart.addSubtitle(source);
         LegendTitle legend = new LegendTitle(cplot);
         chart.addSubtitle(legend);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         renderer2.setBarPainter(new StandardXYBarPainter());
         renderer2.setShadowVisible(false);
         return chart;

@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.time.Day;
@@ -59,7 +59,7 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
             axis.setAutoRange(true);
             NumberAxis rangeAxis2 = new NumberAxis("Range Axis 2");
             rangeAxis2.setAutoRangeIncludesZero(false);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             JPanel content = new JPanel(new BorderLayout());
             ChartPanel chartPanel = new ChartPanel(chart);
             content.add(chartPanel);

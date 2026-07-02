@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
@@ -109,7 +109,7 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
         plot.add(subplot1, 2);
         plot.add(subplot2, 1);
         Chart chart = new Chart("Combined Domain Category Plot Demo", new Font("SansSerif", 1, 12), plot, true);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         subplot1.setAxisOffset(RectangleInsets.ZERO_INSETS);
         subplot2.setAxisOffset(RectangleInsets.ZERO_INSETS);
         return chart;

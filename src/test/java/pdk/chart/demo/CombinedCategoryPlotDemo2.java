@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
@@ -103,7 +103,7 @@ public class CombinedCategoryPlotDemo2 extends ApplicationFrame {
         plot.add(subplot2, 2);
         plot.setOrientation(PlotOrientation.HORIZONTAL);
         Chart chart = new Chart("Combined Range Category Plot Demo", new Font("SansSerif", 1, 12), plot, true);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

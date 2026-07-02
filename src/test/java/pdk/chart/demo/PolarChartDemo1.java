@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -49,7 +49,7 @@ public class PolarChartDemo1 extends ApplicationFrame {
         plot.setRadiusGridlinePaint(Color.WHITE);
         NumberAxis rangeAxis = (NumberAxis) plot.getAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

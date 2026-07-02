@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
@@ -89,7 +89,7 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         plot.setDomainAxis(domainAxis);
         plot.setRenderer(renderer);
         plot.setFixedLegendItems(createLegendItems());
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         domainAxis.setSubLabelFont(new Font("Tahoma", Font.ITALIC, 10));
         Paint p1 = new GradientPaint(0.0F, 0.0F, new Color(34, 34, 255), 0.0F, 0.0F, new Color(136, 136, 255));
         renderer.setSeriesPaint(0, p1);

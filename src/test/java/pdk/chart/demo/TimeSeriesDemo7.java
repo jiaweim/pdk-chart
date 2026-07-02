@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
@@ -47,7 +47,7 @@ public class TimeSeriesDemo7 extends ApplicationFrame {
         zigzag.lineTo(3.0F, -6.0F);
         zigzag.lineTo(6.0F, 0.0F);
         renderer.setLegendLine(zigzag);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

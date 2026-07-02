@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -76,7 +76,7 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
             plot.setAxisOffset(new RectangleInsets( 4.0F, (double) 4.0F, (double) 4.0F, (double) 4.0F));
             Chart chart = new Chart("XYSplineRenderer", Chart.DEFAULT_TITLE_FONT, plot, true);
             this.addChart(chart);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             ChartPanel chartPanel = new ChartPanel(chart);
             return chartPanel;
         }
@@ -94,7 +94,7 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
             plot.setAxisOffset(new RectangleInsets((double) 4.0F, (double) 4.0F, (double) 4.0F, (double) 4.0F));
             Chart chart = new Chart("XYLineAndShapeRenderer", Chart.DEFAULT_TITLE_FONT, plot, true);
             this.addChart(chart);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             ChartPanel chartPanel = new ChartPanel(chart);
             return chartPanel;
         }

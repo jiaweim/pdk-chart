@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
@@ -102,7 +102,7 @@ public class DualAxisDemo6 extends ApplicationFrame {
         plot.setRangeAxisLocation(1, AxisLocation.BOTTOM_OR_RIGHT);
         BarRenderer renderer2 = new BarRenderer();
         plot.setRenderer(1, renderer2);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

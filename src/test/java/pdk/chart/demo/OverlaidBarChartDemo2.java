@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -68,7 +68,7 @@ public class OverlaidBarChartDemo2 extends ApplicationFrame {
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
         Chart chart = new Chart(plot);
         chart.setTitle("OverlaidBarChartDemo2");
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         renderer2.setSeriesStroke(0, new BasicStroke(2.0F));
         renderer2.setSeriesStroke(1, new BasicStroke(2.0F));
         return chart;

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.TableXYDataset;
@@ -45,7 +45,7 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
         plot.getBarRenderer()
                 .drawBarOutline(false)
                 .margin(0.1);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

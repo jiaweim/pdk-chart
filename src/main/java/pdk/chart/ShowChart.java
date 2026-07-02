@@ -100,13 +100,13 @@ public interface ShowChart {
             }
         } else if (format == FileFormat.PNG) {
             try {
-                ChartUtils.saveChartAsPNG(file.toFile(), chart, width, height);
+                JChartUtils.saveChartAsPNG(file.toFile(), chart, width, height);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (format == FileFormat.JPEG) {
             try {
-                ChartUtils.saveChartAsJPEG(file.toFile(), chart, width, height);
+                JChartUtils.saveChartAsJPEG(file.toFile(), chart, width, height);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

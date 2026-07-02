@@ -641,11 +641,9 @@ public class DefaultStatisticalCategoryDataset<R extends Comparable<R>,
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof DefaultStatisticalCategoryDataset)) {
+        if (!(obj instanceof DefaultStatisticalCategoryDataset that)) {
             return false;
         }
-        DefaultStatisticalCategoryDataset that
-                = (DefaultStatisticalCategoryDataset) obj;
         if (!this.data.equals(that.data)) {
             return false;
         }

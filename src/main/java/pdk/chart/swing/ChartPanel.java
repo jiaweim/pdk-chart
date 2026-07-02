@@ -3,7 +3,7 @@ package pdk.chart.swing;
 import pdk.chart.Chart;
 import pdk.chart.ChartRenderingInfo;
 import pdk.chart.ChartTransferable;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.ChartChangeEvent;
@@ -2458,7 +2458,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
             if (h <= 0) {
                 h = getHeight();
             }
-            ChartUtils.saveChartAsPNG(new File(filename), this.chart, w, h);
+            JChartUtils.saveChartAsPNG(new File(filename), this.chart, w, h);
         }
     }
 
@@ -2638,7 +2638,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
      * @param h    the chart height.
      */
     private void writeAsPDF(File file, int w, int h) {
-        if (!ChartUtils.isOrsonPDFAvailable()) {
+        if (!JChartUtils.isOrsonPDFAvailable()) {
             throw new IllegalStateException(
                     "OrsonPDF is not present on the classpath.");
         }
@@ -2814,7 +2814,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
                 pngItem.addActionListener(this);
                 saveSubMenu.add(pngItem);
             }
-            if (ChartUtils.isJFreeSVGAvailable()) {
+            if (JChartUtils.isJFreeSVGAvailable()) {
                 JMenuItem svgItem = new JMenuItem(localizationResources.getString(
                         "SVG..."));
                 svgItem.setActionCommand(SAVE_AS_SVG_COMMAND);
@@ -2822,7 +2822,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
                 saveSubMenu.add(svgItem);
             }
 
-            if (ChartUtils.isOrsonPDFAvailable()) {
+            if (JChartUtils.isOrsonPDFAvailable()) {
                 JMenuItem pdfItem = new JMenuItem(
                         localizationResources.getString("PDF..."));
                 pdfItem.setActionCommand(SAVE_AS_PDF_COMMAND);

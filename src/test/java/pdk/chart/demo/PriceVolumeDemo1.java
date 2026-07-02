@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.labels.StandardXYToolTipGenerator;
@@ -51,7 +51,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
         XYBarRenderer renderer2 = new XYBarRenderer(0.2);
         renderer2.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0}: ({1}, {2})", new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0,000.00")));
         plot.setRenderer(1, renderer2);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         renderer2.setBarPainter(new StandardXYBarPainter());
         renderer2.setShadowVisible(false);
         return chart;

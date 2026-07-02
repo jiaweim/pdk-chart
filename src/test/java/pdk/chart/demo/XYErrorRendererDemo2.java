@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.Chart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.plot.XYPlot;
@@ -36,7 +36,7 @@ public class XYErrorRendererDemo2 extends ApplicationFrame {
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinePaint(Color.WHITE);
         Chart chart = new Chart("XYErrorRenderer Demo 2", plot);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

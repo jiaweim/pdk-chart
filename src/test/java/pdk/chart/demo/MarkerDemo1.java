@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYDrawableAnnotation;
 import pdk.chart.annotations.XYPointerAnnotation;
@@ -99,7 +99,7 @@ public class MarkerDemo1 extends ApplicationFrame {
         pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
         plot.addAnnotation(pointer);
 
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

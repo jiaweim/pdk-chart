@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -77,7 +77,7 @@ public class LineChartDemo1 extends ApplicationFrame {
                 .categoryLabelPositions(CategoryLabelPositions.UP_90);
         plot.getRangeAxisAsNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
 
         plot.getLineAndShapeRenderer()
                 .defaultShapesVisible(true)

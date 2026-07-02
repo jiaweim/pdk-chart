@@ -18,9 +18,9 @@ import java.util.Objects;
  *
  * @see ImageMapUtils
  */
-public abstract class ChartUtils {
+public abstract class JChartUtils {
 
-    private ChartUtils() {}
+    private JChartUtils() {}
 
     /**
      * Returns {@code true} if JFreeSVG is on the classpath, and
@@ -101,7 +101,7 @@ public abstract class ChartUtils {
             throws IOException {
 
         // defer argument checking...
-        ChartUtils.writeChartAsPNG(out, chart, width, height, null,
+        JChartUtils.writeChartAsPNG(out, chart, width, height, null,
                 encodeAlpha, compression);
 
     }
@@ -152,7 +152,7 @@ public abstract class ChartUtils {
 
         BufferedImage chartImage = chart.createBufferedImage(width, height,
                 BufferedImage.TYPE_INT_ARGB, info);
-        ChartUtils.writeBufferedImageAsPNG(out, chartImage, encodeAlpha,
+        JChartUtils.writeBufferedImageAsPNG(out, chartImage, encodeAlpha,
                 compression);
 
     }
@@ -241,7 +241,7 @@ public abstract class ChartUtils {
             throws IOException {
         Objects.requireNonNull(file, "file");
         try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
-            ChartUtils.writeChartAsPNG(out, chart, width, height, info);
+            JChartUtils.writeChartAsPNG(out, chart, width, height, info);
         }
     }
 
@@ -303,7 +303,7 @@ public abstract class ChartUtils {
             Chart chart, int width, int height) throws IOException {
 
         // defer argument checking...
-        ChartUtils.writeChartAsJPEG(out, quality, chart, width, height,
+        JChartUtils.writeChartAsJPEG(out, quality, chart, width, height,
                 null);
 
     }

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.data.Range;
 import pdk.chart.data.general.DefaultValueDataset;
 import pdk.chart.data.general.ValueDataset;
@@ -44,7 +44,7 @@ public class MeterChartDemo1 extends ApplicationFrame {
         plot.setValuePaint(Color.black);
         plot.setValueFont(new Font("Dialog", 1, 14));
         Chart chart = new Chart("Meter Chart 1", Chart.DEFAULT_TITLE_FONT, plot, true);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

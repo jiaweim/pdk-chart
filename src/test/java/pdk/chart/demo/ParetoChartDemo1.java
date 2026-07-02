@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.SortOrder;
@@ -54,7 +54,7 @@ public class ParetoChartDemo1 extends ApplicationFrame {
         plot.setRenderer(1, renderer2);
         plot.mapDatasetToRangeAxis(1, 1);
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         TextTitle source = new TextTitle("http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html", new Font("Monospaced", 0, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);

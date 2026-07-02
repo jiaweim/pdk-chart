@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -107,7 +107,7 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
 
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

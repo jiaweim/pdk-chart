@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.data.Range;
 import pdk.chart.data.general.DefaultValueDataset;
 import pdk.chart.data.general.ValueDataset;
@@ -31,7 +31,7 @@ public class MeterChartDemo2 extends ApplicationFrame {
         plot.addInterval(new MeterInterval("High", new Range((double) 80.0F, (double) 100.0F)));
         plot.setDialOutlinePaint(Color.WHITE);
         Chart chart = new Chart("Meter Chart 2", Chart.DEFAULT_TITLE_FONT, plot, false);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

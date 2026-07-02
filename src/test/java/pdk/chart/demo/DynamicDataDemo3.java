@@ -16,7 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.UnitType;
@@ -85,7 +85,7 @@ public class DynamicDataDemo3 extends ApplicationFrame {
             ValueAxis axis = plot.getDomainAxis();
             axis.setAutoRange(true);
             axis.setFixedAutoRange((double)20000.0F);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             ChartPanel chartPanel = new ChartPanel(chart);
             this.add(chartPanel);
             JPanel buttonPanel = new JPanel(new FlowLayout());

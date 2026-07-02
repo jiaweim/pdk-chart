@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.annotations.XYLineAnnotation;
 import pdk.chart.annotations.XYShapeAnnotation;
@@ -51,7 +51,7 @@ public class PlotOrientationDemo2 extends ApplicationFrame {
         domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         ValueAxis rangeAxis = plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

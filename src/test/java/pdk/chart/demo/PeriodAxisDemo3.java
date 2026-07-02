@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.PeriodAxis;
 import pdk.chart.axis.PeriodAxisLabelInfo;
@@ -45,7 +45,7 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
         info[2] = new PeriodAxisLabelInfo(Month.class, new SimpleDateFormat("MMM"));
         domainAxis.setLabelInfo(info);
         plot.setDomainAxis(domainAxis);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
@@ -60,7 +60,7 @@ public class CombinedXYPlotDemo4 extends ApplicationFrame {
         plot.add(subplot2, 1);
         plot.setOrientation(PlotOrientation.VERTICAL);
         Chart chart = new Chart("CombinedDomainXYPlot Demo", Chart.DEFAULT_TITLE_FONT, plot, true);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -51,7 +51,7 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
         axis.setLowerMargin(0.01);
         axis.setUpperMargin(0.01);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

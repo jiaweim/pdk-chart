@@ -17,7 +17,7 @@ import javax.swing.event.ChangeListener;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.CompassFormat;
 import pdk.chart.axis.ModuloAxis;
 import pdk.chart.axis.NumberAxis;
@@ -154,7 +154,7 @@ public class CompassFormatDemo2 extends ApplicationFrame {
             plot.setRenderer(1, renderer2);
             plot.setRangeAxis(1, axis2);
             plot.mapDatasetToRangeAxis(1, 1);
-            ChartUtils.applyCurrentTheme(chart);
+            JChartUtils.applyCurrentTheme(chart);
             return chart;
         }
 

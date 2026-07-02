@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.annotations.CategoryPointerAnnotation;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -58,7 +58,7 @@ public class CategoryPointerAnnotationDemo1 extends ApplicationFrame {
         CategoryPointerAnnotation cpa = new CategoryPointerAnnotation("Released 4-Dec-1998", "JDK 1.2", (double) 1530.0F, -2.356194490192345);
         cpa.setTextAnchor(TextAnchor.BOTTOM_RIGHT);
         plot.addAnnotation(cpa);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

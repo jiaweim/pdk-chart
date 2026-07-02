@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
@@ -56,7 +56,7 @@ public class ScatterRendererDemo1 extends ApplicationFrame {
         plot.setRangeGridlinePaint(Color.WHITE);
         plot.setAxisOffset(new RectangleInsets((double)4.0F, (double)4.0F, (double)4.0F, (double)4.0F));
         Chart chart = new Chart("ScatterRendererDemo1", plot);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

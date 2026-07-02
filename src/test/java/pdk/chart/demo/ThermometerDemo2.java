@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.data.general.DefaultValueDataset;
 import pdk.chart.plot.ThermometerPlot;
 import pdk.chart.swing.ApplicationFrame;
@@ -29,7 +29,7 @@ public class ThermometerDemo2 extends ApplicationFrame {
         DefaultValueDataset dataset = new DefaultValueDataset(37.2);
         ThermometerPlot plot = new ThermometerPlot(dataset);
         Chart chart = new Chart("ThermometerDemo2", plot);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

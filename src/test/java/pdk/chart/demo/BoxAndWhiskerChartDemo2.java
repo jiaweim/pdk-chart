@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.BoxAndWhiskerCalculator;
@@ -65,7 +65,7 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
 
         plot.getRangeAxisAsNumber().standardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

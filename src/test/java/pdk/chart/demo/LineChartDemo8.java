@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -50,7 +50,7 @@ public class LineChartDemo8 extends ApplicationFrame {
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         SymbolAxis rangeAxis = new SymbolAxis("Group", new String[]{"A", "B", "C", "D", "E", "F"});
         plot.setRangeAxis(rangeAxis);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
         renderer.setSeriesShapesVisible(0, true);
         renderer.setSeriesShapesVisible(1, false);

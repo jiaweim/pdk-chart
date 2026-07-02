@@ -1,7 +1,8 @@
 package pdk.chart.data.statistics;
 
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.internal.Args;
+
+import java.util.Objects;
 
 /**
  * A utility class for fitting regression curves to data.
@@ -51,7 +52,6 @@ public class Regression {
         result[0] = ybar - result[1] * xbar;
 
         return result;
-
     }
 
     /**
@@ -201,7 +201,7 @@ public class Regression {
      */
     public static double[] getPolynomialRegression(XYDataset dataset,
             int series, int order) {
-        Args.nullNotPermitted(dataset, "dataset");
+        Objects.requireNonNull(dataset);
         int itemCount = dataset.getItemCount(series);
         if (itemCount < order + 1) {
             throw new IllegalArgumentException("Not enough data.");

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -39,7 +39,7 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
         CategoryItemRenderer renderer = new LineAndShapeRenderer(false, true);
         renderer.setDefaultToolTipGenerator(toolTipGenerator);
         plot.setRenderer(renderer);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -80,7 +80,7 @@ public class HighLowChartDemo3 extends ApplicationFrame {
         plot.setDataset(1, createDataset2());
         plot.setRenderer(1, new CandlestickRenderer(10.0));
         plot.mapDatasetToRangeAxis(1, 1);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

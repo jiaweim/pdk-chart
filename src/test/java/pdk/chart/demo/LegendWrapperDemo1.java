@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.block.BlockBorder;
@@ -61,7 +61,7 @@ public class LegendWrapperDemo1 extends ApplicationFrame {
         legend.setPosition(RectangleEdge.RIGHT);
         legend.setHorizontalAlignment(HorizontalAlignment.LEFT);
         chart.addSubtitle(legend);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

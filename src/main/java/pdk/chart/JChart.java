@@ -60,7 +60,7 @@ public abstract class JChart {
      *
      * @return The chart theme.
      * @see #setChartTheme(ChartTheme)
-     * @see ChartUtils#applyCurrentTheme(Chart)
+     * @see JChartUtils#applyCurrentTheme(Chart)
      */
     public static ChartTheme getChartTheme() {
         return currentTheme;
@@ -72,7 +72,7 @@ public abstract class JChart {
      *
      * @param theme the theme ({@code null} not permitted).
      * @see #getChartTheme()
-     * @see ChartUtils#applyCurrentTheme(Chart)
+     * @see JChartUtils#applyCurrentTheme(Chart)
      */
     public static void setChartTheme(ChartTheme theme) {
         Objects.requireNonNull(theme, "theme");
@@ -1404,7 +1404,7 @@ public abstract class JChart {
         chart.removeLegend();
         chart.addSubtitle(legend);
 
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 
@@ -2359,19 +2359,18 @@ public abstract class JChart {
     }
 
     /**
-     * Creates and returns a default instance of a box and whisker chart
-     * based on data from a {@link BoxAndWhiskerCategoryDataset}.
+     * Creates and returns a default instance of a box and whisker chart.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel a label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    a label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param title             the chart title.
+     * @param categoryAxisLabel a label for the category axis.
+     * @param valueAxisLabel    a label for the value axis.
+     * @param dataset           the dataset for the chart.
      * @param legend            a flag specifying whether a legend is required.
      * @return A box and whisker chart.
      */
-    public static Chart boxAndWhisker(String title, String categoryAxisLabel, String valueAxisLabel, BoxAndWhiskerCategoryDataset dataset, boolean legend) {
+    public static Chart boxAndWhisker(@Nullable BoxAndWhiskerCategoryDataset dataset,
+            @Nullable String categoryAxisLabel,
+            @Nullable String valueAxisLabel, @Nullable String title, boolean legend) {
 
         CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
         NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
@@ -2488,7 +2487,7 @@ public abstract class JChart {
         PSMPlot plot = new PSMPlot();
         plot.setDataset(dataset);
         Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 

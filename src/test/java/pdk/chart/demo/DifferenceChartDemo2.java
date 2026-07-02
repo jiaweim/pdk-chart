@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.ChartUtils;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.DateAxis;
@@ -829,7 +829,7 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
         rangeAxis.setLowerMargin(0.15);
         rangeAxis.setUpperMargin(0.15);
         plot.setRangeAxis(rangeAxis);
-        ChartUtils.applyCurrentTheme(chart);
+        JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
 
