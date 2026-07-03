@@ -184,7 +184,7 @@ public class CrossSectionDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = JChart.scatter("CrossSectionDemo1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, false, false);
+            Chart chart = JChart.scatter(dataset, "X", "Y", "CrossSectionDemo1");
             this.dataset = CrossSectionDemo1.createMapDataset();
             PaintScale ps = new GrayPaintScale(-1.0F, 1.0F, 128);
             BufferedImage image = HeatMapUtils.createHeatMapImage(this.dataset, ps);

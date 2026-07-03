@@ -1,6 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.annotations.XYAnnotation;
@@ -14,7 +15,6 @@ import pdk.chart.data.time.Hour;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.Data;
 import pdk.chart.plot.Marker;
 import pdk.chart.plot.ValueMarker;
 import pdk.chart.plot.XYPlot;
@@ -38,7 +38,7 @@ public class MarkerDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> data) {
-        Chart chart = JChart.scatter("Marker Demo 1", "Time", "Y", data);
+        Chart chart = JChart.scatter(data, "Time", "Y", "Marker Demo 1");
         chart.getLegend(0).position(RectangleEdge.RIGHT);
 
         XYPlot plot = chart.getXYPlot();

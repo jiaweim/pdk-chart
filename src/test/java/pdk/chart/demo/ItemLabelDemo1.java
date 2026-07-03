@@ -1,23 +1,22 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.text.DecimalFormat;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.AbstractCategoryItemLabelGenerator;
 import pdk.chart.labels.CategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.CategoryItemRenderer;
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.DecimalFormat;
 
 public class ItemLabelDemo1 extends ApplicationFrame {
     public ItemLabelDemo1(String title) {
@@ -29,23 +28,24 @@ public class ItemLabelDemo1 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double)11.0F, "S1", "C1");
+        dataset.addValue((double) 11.0F, "S1", "C1");
         dataset.addValue(44.3, "S1", "C2");
-        dataset.addValue((double)93.0F, "S1", "C3");
+        dataset.addValue((double) 93.0F, "S1", "C3");
         dataset.addValue(35.6, "S1", "C4");
         dataset.addValue(75.1, "S1", "C5");
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Item Label Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Item Label Demo 1",
+                PlotOrientation.VERTICAL, false, true);
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeZeroBaselineVisible(true);
-        NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setUpperMargin(0.15);
         CategoryItemRenderer renderer = plot.getRenderer();
-        renderer.setDefaultItemLabelGenerator(new LabelGenerator((double)50.0F));
+        renderer.setDefaultItemLabelGenerator(new LabelGenerator((double) 50.0F));
         renderer.setDefaultItemLabelFont(new Font("Serif", 0, 20));
         renderer.setDefaultItemLabelsVisible(true);
         return chart;

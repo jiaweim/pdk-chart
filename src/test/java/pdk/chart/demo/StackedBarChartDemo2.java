@@ -1,14 +1,14 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.Data;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.legend.LegendTitle;
@@ -54,8 +54,9 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.barStacked("Public Opinion : Torture of Prisoners", "Country", "%",
-                dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.barStacked(dataset, "Country", "%",
+                "Public Opinion : Torture of Prisoners",
+                PlotOrientation.HORIZONTAL, false, true);
 
         chart.getTitle().setMargin(2.0, 0.0, 0.0, 0.0);
 

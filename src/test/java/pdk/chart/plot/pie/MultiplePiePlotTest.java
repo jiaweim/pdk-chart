@@ -85,10 +85,10 @@ public class MultiplePiePlotTest implements PlotChangeListener {
                 3.0f, 4.0f, Color.YELLOW));
         assertEquals(p1, p2);
 
-        p1.setPieChart(JChart.pie("Title", null, true, true,
+        p1.setPieChart(JChart.pie(null, "Title", true, true,
                 true));
         assertNotEquals(p1, p2);
-        p2.setPieChart(JChart.pie("Title", null, true, true,
+        p2.setPieChart(JChart.pie(null, "Title", true, true,
                 true));
         assertEquals(p1, p2);
 

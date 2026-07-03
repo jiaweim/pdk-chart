@@ -11,7 +11,6 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.*;
 import pdk.chart.renderer.xy.XYItemRenderer;
-import pdk.chart.renderer.xy.YIntervalRenderer;
 import pdk.chart.util.ShadowGenerator;
 
 import java.awt.*;
@@ -19,10 +18,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Plot for spectrum.
@@ -38,7 +35,7 @@ public class PSMPlot extends XYPlot<SeriesType> {
     /**
      * Default font for amino acid residues.
      */
-    public static final Font DEFAULT_RESIDUE_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 30);
+    public static final Font DEFAULT_RESIDUE_FONT = new Font(Font.SANS_SERIF, Font.BOLD, 32);
     /**
      * default font for label text.
      */
@@ -91,7 +88,8 @@ public class PSMPlot extends XYPlot<SeriesType> {
 
     private double peptideHeight = 100;
 
-    private final YIntervalRenderer renderer = new YIntervalRenderer();
+    private final PeakRenderer renderer = new PeakRenderer();
+//    private final YIntervalRenderer renderer = new YIntervalRenderer();
 
     public PSMPlot() {
         super();
@@ -411,6 +409,7 @@ public class PSMPlot extends XYPlot<SeriesType> {
                     peptideHeight
             );
             drawPeptide(g2, peptideArea);
+
             dataArea.setRect(
                     dataArea.getX(),
                     dataArea.getY() + peptideHeight,
@@ -422,10 +421,20 @@ public class PSMPlot extends XYPlot<SeriesType> {
         RectangleInsets axisOffset = getAxisOffset();
         axisOffset.trim(dataArea);
 
-        dataArea = integerise(dataArea);
+        dataArea = integerise(dataArea); // Rounding will alter Y values
         if (dataArea.isEmpty()) {
             return;
         }
+
+        // make the maxy of outline the same as data area
+        double maxDataY = dataArea.getY() + dataArea.getHeight();
+        outline.setRect(
+                outline.getX(),
+                outline.getY(),
+                outline.getWidth(),
+                maxDataY - outline.getY()
+        );
+
         createAndAddEntity((Rectangle2D) dataArea.clone(), info, null, null);
         if (info != null) {
             info.setDataArea(dataArea);
@@ -720,6 +729,7 @@ public class PSMPlot extends XYPlot<SeriesType> {
                 }
             }
 
+            HashSet<Integer> visited = new HashSet<>();
             // N 端注释残基上面
             if (!nAnnotations.isEmpty()) {
                 // 文本底部在 centerY-offset，baseline 往上 descent
@@ -732,10 +742,14 @@ public class PSMPlot extends XYPlot<SeriesType> {
                 yPoints[2] = yPoints[1];
 
                 for (PeptideAnnotation annotation : nAnnotations) {
+                    int fragSize = annotation.getSize();
+                    if (!visited.add(fragSize)) {
+                        continue;
+                    }
+
                     SeriesType seriesType = annotation.getSeriesType();
                     g2.setPaint(seriesType.getColor());
 
-                    int fragSize = annotation.getSize();
                     String label = annotation.getLabel();
                     int labelWidth = metrics.stringWidth(label);
 
@@ -750,6 +764,7 @@ public class PSMPlot extends XYPlot<SeriesType> {
                     g2.drawPolyline(xPoints, yPoints, 3);
                 }
             }
+            visited.clear();
             if (!cAnnotations.isEmpty()) {
                 // 文本顶部在 centerY+offset，文本 baseline 需要加 ascent
                 float labelY = (float) (centerY + offset + metrics.getAscent());
@@ -761,9 +776,13 @@ public class PSMPlot extends XYPlot<SeriesType> {
                 yPoints[2] = yPoints[1];
 
                 for (PeptideAnnotation annotation : cAnnotations) {
+                    int fragSize = annotation.getSize();
+                    if (!visited.add(fragSize)) {
+                        continue;
+                    }
+
                     g2.setPaint(annotation.getSeriesType().getColor());
 
-                    int fragSize = annotation.getSize();
                     String label = annotation.getLabel();
                     int labelWidth = metrics.stringWidth(label);
 

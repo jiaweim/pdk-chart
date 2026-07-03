@@ -30,15 +30,15 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Time Series Demo 9", "Date", "Price Per Unit", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit", "Time Series Demo 9");
         XYPlot plot = (XYPlot) chart.getPlot();
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
             XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
             renderer.setDefaultShapesVisible(true);
             renderer.setDefaultShapesFilled(true);
-            renderer.setSeriesShape(0, new Ellipse2D.Double((double) -3.0F, (double) -3.0F, (double) 6.0F, (double) 6.0F));
-            renderer.setSeriesShape(1, new Rectangle2D.Double((double) -3.0F, (double) -3.0F, (double) 6.0F, (double) 6.0F));
+            renderer.setSeriesShape(0, new Ellipse2D.Double(-3.0, -3.0, 6.0, 6.0));
+            renderer.setSeriesShape(1, new Rectangle2D.Double(-3.0, -3.0, 6.0, 6.0));
             GeneralPath s2 = new GeneralPath();
             s2.moveTo(0.0F, -3.0F);
             s2.lineTo(3.0F, 3.0F);
@@ -94,7 +94,7 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TimeSeriesDemo9 demo = new TimeSeriesDemo9("Time Series Demo 9");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

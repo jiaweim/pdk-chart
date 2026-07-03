@@ -1,11 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.axis.CategoryAnchor;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.plot.CategoryPlot;
@@ -47,8 +47,8 @@ public class SurveyResultsDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(null, null, null,
-                dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.bar(dataset, null, null, null,
+                PlotOrientation.HORIZONTAL, false, true);
         chart.setBackgroundPaint(Color.WHITE);
 
         TextTitle title = new TextTitle("Figure 7 | I. Resources - The site offers users relevant, informative and educational resources");

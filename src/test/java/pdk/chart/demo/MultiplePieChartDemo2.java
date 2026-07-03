@@ -27,21 +27,26 @@ public class MultiplePieChartDemo2 extends ApplicationFrame {
     }
 
     private static CategoryDataset createDataset() {
-        double[][] data = new double[][]{{(double) 3.0F, (double) 4.0F, (double) 3.0F, (double) 5.0F}, {(double) 5.0F, (double) 7.0F, (double) 6.0F, (double) 8.0F}, {(double) 5.0F, (double) 7.0F, (double) 3.0F, (double) 8.0F}, {(double) 1.0F, (double) 2.0F, (double) 3.0F, (double) 4.0F}, {(double) 2.0F, (double) 3.0F, (double) 2.0F, (double) 3.0F}};
+        double[][] data = new double[][]{{3.0, 4.0, 3.0, 5.0},
+                {5.0, 7.0, 6.0, 8.0},
+                {5.0, 7.0, 3.0, 8.0},
+                {1.0, 2.0, 3.0, 4.0},
+                {2.0, 3.0, 2.0, 3.0}};
         CategoryDataset dataset = DatasetUtils.createCategoryDataset("Region ", "Sales/Q", data);
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.pieMultiple("Multiple Pie Chart", dataset, TableOrder.BY_COLUMN, true, true, false);
+        Chart chart = JChart.pieMultiple(dataset, "Multiple Pie Chart", TableOrder.BY_COLUMN, true, true, false);
         MultiplePiePlot plot = (MultiplePiePlot) chart.getPlot();
         plot.setBackgroundPaint(Color.WHITE);
         plot.setOutlineStroke(new BasicStroke(1.0F));
         Chart subchart = plot.getPieChart();
         PiePlot p = (PiePlot) subchart.getPlot();
-        p.setBackgroundPaint((Paint) null);
-        p.setOutlineStroke((Stroke) null);
-        p.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})", NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));
+        p.setBackgroundPaint(null);
+        p.setOutlineStroke(null);
+        p.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} ({2})",
+                NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));
         p.setMaximumLabelWidth(0.2);
         return chart;
     }
@@ -51,8 +56,8 @@ public class MultiplePieChartDemo2 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    static void main(String[] args) {
-        MultiplePieChartDemo2 demo = new MultiplePieChartDemo2("JFreeChart: MultiplePieChartDemo2.java");
+    static void main() {
+        MultiplePieChartDemo2 demo = new MultiplePieChartDemo2("MultiplePieChartDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

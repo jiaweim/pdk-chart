@@ -1,7 +1,6 @@
 package pdk.chart.plot;
 
 import pdk.chart.ChartRenderingInfo;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.internal.SerialUtils;
 
@@ -149,7 +148,7 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
      * @return The subplot index (or -1 if no subplot contains {@code source}).
      */
     public int getSubplotIndex(Point2D source) {
-        Args.nullNotPermitted(source, "source");
+        Objects.requireNonNull(source, "source");
         int subplotCount = getSubplotCount();
         for (int i = 0; i < subplotCount; i++) {
             PlotRenderingInfo info = getSubplotInfo(i);
@@ -244,5 +243,4 @@ public class PlotRenderingInfo implements Cloneable, Serializable {
         this.dataArea = (Rectangle2D) SerialUtils.readShape(stream);
         this.plotArea = (Rectangle2D) SerialUtils.readShape(stream);
     }
-
 }

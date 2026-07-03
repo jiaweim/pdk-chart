@@ -30,7 +30,7 @@ public class ItemLabelDemo2 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 100.0F, "S1", "C1");
+        dataset.addValue(100.0F, "S1", "C1");
         dataset.addValue(44.3, "S1", "C2");
         dataset.addValue((double) 93.0F, "S1", "C3");
         dataset.addValue((double) 80.0F, "S2", "C1");
@@ -40,16 +40,17 @@ public class ItemLabelDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Item Label Demo 2", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Item Label Demo 2",
+                PlotOrientation.HORIZONTAL);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
         plot.setRangePannable(true);
         plot.setRangeZeroBaselineVisible(true);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setUpperMargin((double) 0.25F);
+        rangeAxis.setUpperMargin(0.25F);
         BarRenderer renderer = (BarRenderer) plot.getRenderer();
         renderer.setDefaultItemLabelsVisible(true);
-        renderer.setItemLabelInsets(new RectangleInsets(7,7,7,7));
+        renderer.setItemLabelInsets(new RectangleInsets(7, 7, 7, 7));
         renderer.setDefaultItemLabelGenerator(new LabelGenerator((Integer) null));
         return chart;
     }

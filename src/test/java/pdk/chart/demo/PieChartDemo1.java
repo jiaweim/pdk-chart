@@ -56,7 +56,7 @@ public class PieChartDemo1 extends ApplicationFrame {
      * @return a chart.
      */
     private static Chart createChart(PieDataset<String> dataset) {
-        Chart chart = JChart.pie("Cognac Exports 2019", dataset);
+        Chart chart = JChart.pie(dataset, "Cognac Exports 2019");
         PiePlot plot = chart.getPiePlot();
         plot.setBackgroundPaint(new Color(169, 191, 191));
 

@@ -185,7 +185,7 @@ public class CrosshairDemo2 extends ApplicationFrame {
         }
 
         private Chart createChart() {
-            Chart chart = JChart.timeLine("Crosshair Demo 2", "Time of Day", "Value", (XYDataset) null);
+            Chart chart = JChart.timeLine(null, "Time of Day", "Value", "Crosshair Demo 2");
             XYPlot plot = (XYPlot) chart.getPlot();
             XYDataset[] datasets = new XYDataset[4];
 

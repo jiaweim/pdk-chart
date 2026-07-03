@@ -8,7 +8,6 @@ import pdk.chart.labels.BubbleXYItemLabelGenerator;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardXYZToolTipGenerator;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBubbleRenderer;
 import pdk.chart.renderer.xy.XYItemRenderer;
@@ -30,8 +29,7 @@ public class BubbleChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        Chart chart = JChart.bubble("Bubble Chart Demo 2", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bubble(dataset, "X", "Y", "Bubble Chart Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new XYBubbleRenderer(0));
         plot.setForegroundAlpha(0.65F);

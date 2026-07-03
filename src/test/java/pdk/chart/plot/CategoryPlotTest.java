@@ -668,8 +668,8 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization3() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.bar(
-                "Test Chart", "Category Axis", "Value Axis", dataset,
+        Chart chart = JChart.bar(dataset,
+                "Category Axis", "Value Axis", "Test Chart",
                 PlotOrientation.VERTICAL, true, true, false);
         Chart chart2 = TestUtils.serialised(chart);
 
@@ -687,9 +687,9 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization4() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.bar(
-                "Test Chart", "Category Axis", "Value Axis",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar(dataset,
+                "Category Axis", "Value Axis", "Test Chart",
+                PlotOrientation.VERTICAL, true, true, false);
         @SuppressWarnings("unchecked")
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
         plot.addRangeMarker(new ValueMarker(1.1), Layer.FOREGROUND);
@@ -822,8 +822,8 @@ public class CategoryPlotTest {
     @Test
     public void test1654215() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.line("Title", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+                PlotOrientation.VERTICAL, true, false);
         @SuppressWarnings("unchecked")
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
         plot.setRenderer(1, new LineAndShapeRenderer());

@@ -24,16 +24,16 @@ public class PieChartDemo2 extends ApplicationFrame {
     private static PieDataset createDataset() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset();
         dataset.setValue("One", 43.2);
-        dataset.setValue("Two", (double) 10.0F);
-        dataset.setValue("Three", (double) 27.5F);
-        dataset.setValue("Four", (double) 17.5F);
-        dataset.setValue("Five", (double) 11.0F);
+        dataset.setValue("Two", 10.0);
+        dataset.setValue("Three", 27.5);
+        dataset.setValue("Four", 17.5);
+        dataset.setValue("Five", 11.0);
         dataset.setValue("Six", 19.4);
         return dataset;
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.pie("Pie Chart Demo 2", dataset, true, true, false);
+        Chart chart = JChart.pie(dataset, "Pie Chart Demo 2");
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setSectionPaint("One", new Color(160, 160, 255));
         plot.setSectionPaint("Two", new Color(128, 128, 223));
@@ -47,7 +47,7 @@ public class PieChartDemo2 extends ApplicationFrame {
         plot.setLabelBackgroundPaint(new Color(220, 220, 220));
         plot.setLegendLabelToolTipGenerator(new StandardPieSectionLabelGenerator("Tooltip for legend item {0}"));
         plot.setSimpleLabels(true);
-        plot.setInteriorGap((double) 0.0F);
+        plot.setInteriorGap(0.0);
         return chart;
     }
 
@@ -58,8 +58,8 @@ public class PieChartDemo2 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        PieChartDemo2 demo = new PieChartDemo2("JFreeChart: PieChartDemo2.java");
+    static void main() {
+        PieChartDemo2 demo = new PieChartDemo2("PieChartDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -546,7 +546,7 @@ public class PiePlotTest {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         dataset.setValue("L1", 12.0);
         dataset.setValue("L2", 11.0);
-        Chart chart = JChart.pie("Test", dataset, true,
+        Chart chart = JChart.pie(dataset, "Test", true,
                 false, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLegendLabelGenerator(new NullLegendLabelGenerator());

@@ -1,14 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
@@ -27,6 +18,12 @@ import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 
 public class TranslateDemo1 extends ApplicationFrame {
@@ -75,14 +72,14 @@ public class TranslateDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart() {
-            XYDataset dataset1 = this.createDataset("Random 1", (double)100.0F, new Minute(), 200);
-            Chart chart1 = JChart.timeLine("Translate Demo 1", "Time of Day", "Value", dataset1);
-            XYPlot plot = (XYPlot)chart1.getPlot();
+            XYDataset dataset1 = this.createDataset("Random 1", (double) 100.0F, new Minute(), 200);
+            Chart chart1 = JChart.timeLine(dataset1, "Time of Day", "Value", "Translate Demo 1");
+            XYPlot plot = (XYPlot) chart1.getPlot();
             plot.setOrientation(PlotOrientation.VERTICAL);
             plot.setDomainCrosshairVisible(true);
             plot.setDomainCrosshairLockedOnData(false);
             plot.setRangeCrosshairVisible(false);
-            DateAxis axis = (DateAxis)plot.getDomainAxis();
+            DateAxis axis = (DateAxis) plot.getDomainAxis();
             Range range = DatasetUtils.findDomainBounds(this.dataset);
             axis.setRange(range);
             return chart1;
@@ -93,10 +90,10 @@ public class TranslateDemo1 extends ApplicationFrame {
             RegularTimePeriod period = start;
             double value = base;
 
-            for(int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i) {
                 this.series.add(period, value);
                 period = period.next();
-                value *= (double)1.0F + (Math.random() - 0.495) / (double)10.0F;
+                value *= (double) 1.0F + (Math.random() - 0.495) / (double) 10.0F;
             }
 
             TimeSeriesCollection tsc = new TimeSeriesCollection();
@@ -107,7 +104,7 @@ public class TranslateDemo1 extends ApplicationFrame {
 
         public void stateChanged(ChangeEvent event) {
             int value = this.slider.getValue();
-            this.dataset.setTranslate((double)(value * 60) * (double)1000.0F);
+            this.dataset.setTranslate((double) (value * 60) * (double) 1000.0F);
         }
 
         static class TranslatingXYDataset extends AbstractXYDataset implements XYDataset, DatasetChangeListener {
@@ -117,7 +114,7 @@ public class TranslateDemo1 extends ApplicationFrame {
             public TranslatingXYDataset(XYDataset underlying) {
                 this.underlying = underlying;
                 this.underlying.addChangeListener(this);
-                this.translate = (double)0.0F;
+                this.translate = (double) 0.0F;
             }
 
             public double getTranslate() {

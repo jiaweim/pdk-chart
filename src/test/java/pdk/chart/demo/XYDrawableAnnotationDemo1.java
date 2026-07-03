@@ -37,8 +37,8 @@ public class XYDrawableAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("XYDrawableAnnotationDemo1", null, "$ million",
-                dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, null, "$ million",
+                "XYDrawableAnnotationDemo1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
@@ -116,8 +116,8 @@ public class XYDrawableAnnotationDemo1 extends ApplicationFrame {
         dataset.addValue(6.1, "R2", "Q2");
         dataset.addValue(8.5, "R2", "Q3");
         dataset.addValue(4.3, "R2", "Q4");
-        Chart chart = JChart.bar("Sales 2008", null, null,
-                dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.bar(dataset, null, null, "Sales 2008",
+                PlotOrientation.VERTICAL, false, false);
         chart.setBackgroundPaint(null);
         chart.getPlot().setBackgroundPaint(new Color(200, 200, 255, 60));
         return chart;

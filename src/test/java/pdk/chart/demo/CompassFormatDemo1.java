@@ -31,16 +31,16 @@ public class CompassFormatDemo1 extends ApplicationFrame {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         TimeSeries s1 = new TimeSeries("Wind Direction");
         RegularTimePeriod start = new Minute();
-        double direction = (double) 180.0F;
+        double direction = 180.0;
 
         for (int i = 0; i < count; ++i) {
             s1.add(start, direction);
             start = start.next();
-            direction += (Math.random() - (double) 0.5F) * (double) 15.0F;
-            if (direction < (double) 0.0F) {
-                direction += (double) 360.0F;
-            } else if (direction > (double) 360.0F) {
-                direction -= (double) 360.0F;
+            direction += (Math.random() - 0.5) * 15.0;
+            if (direction < 0.0) {
+                direction += 360.0;
+            } else if (direction > 360.0) {
+                direction -= 360.0;
             }
         }
 
@@ -52,12 +52,12 @@ public class CompassFormatDemo1 extends ApplicationFrame {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         TimeSeries s1 = new TimeSeries("Wind Force");
         RegularTimePeriod start = new Minute();
-        double force = (double) 3.0F;
+        double force = 3.0;
 
         for (int i = 0; i < count; ++i) {
             s1.add(start, force);
             start = start.next();
-            force = Math.max((double) 0.5F, force + (Math.random() - (double) 0.5F) * (double) 0.5F);
+            force = Math.max(0.5, force + (Math.random() - 0.5) * 0.5);
         }
 
         dataset.addSeries(s1);
@@ -66,24 +66,24 @@ public class CompassFormatDemo1 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset direction = createDirectionDataset(600);
-        Chart chart = JChart.timeLine("Time", "Date", "Direction", direction, true, true, false);
+        Chart chart = JChart.timeLine(direction, "Date", "Direction", "Time");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
-        plot.getDomainAxis().setLowerMargin((double) 0.0F);
-        plot.getDomainAxis().setUpperMargin((double) 0.0F);
+        plot.getDomainAxis().setLowerMargin(0.0);
+        plot.getDomainAxis().setUpperMargin(0.0);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setAutoRangeIncludesZero(false);
         TickUnits units = new TickUnits();
-        units.add(new NumberTickUnit((double) 180.0F, new CompassFormat()));
-        units.add(new NumberTickUnit((double) 90.0F, new CompassFormat()));
-        units.add(new NumberTickUnit((double) 45.0F, new CompassFormat()));
-        units.add(new NumberTickUnit((double) 22.5F, new CompassFormat()));
+        units.add(new NumberTickUnit(180.0, new CompassFormat()));
+        units.add(new NumberTickUnit(90.0, new CompassFormat()));
+        units.add(new NumberTickUnit(45.0, new CompassFormat()));
+        units.add(new NumberTickUnit(22.5, new CompassFormat()));
         rangeAxis.setStandardTickUnits(units);
         plot.setRangeAxis(rangeAxis);
         XYItemRenderer renderer2 = new XYAreaRenderer();
         ValueAxis axis2 = new NumberAxis("Force");
-        axis2.setRange((double) 0.0F, (double) 12.0F);
+        axis2.setRange(0.0, 12.0);
         renderer2.setSeriesPaint(0, new Color(0, 0, 255, 128));
         plot.setDataset(1, createForceDataset(600));
         plot.setRenderer(1, renderer2);
@@ -100,8 +100,8 @@ public class CompassFormatDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    static void main(String[] args) {
-        CompassFormatDemo1 demo = new CompassFormatDemo1("Chart: CompassFormatDemo1.java");
+    static void main() {
+        CompassFormatDemo1 demo = new CompassFormatDemo1("CompassFormatDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

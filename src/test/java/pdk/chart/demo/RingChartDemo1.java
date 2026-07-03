@@ -53,7 +53,7 @@ public class RingChartDemo1 extends ApplicationFrame {
      * @return a chart.
      */
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.ring(null, dataset, true, true, false);
+        Chart chart = JChart.ring(dataset, null, true, true, false);
         RingPlot plot = (RingPlot) chart.getPlot();
         plot.labelFont(new Font("SansSerif", Font.PLAIN, 12))
                 .noDataMessage("No data available")

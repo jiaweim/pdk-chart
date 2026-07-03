@@ -295,6 +295,11 @@ public class ShapeUtils {
         return new Ellipse2D.Double(-delta, -delta, size, size);
     }
 
+
+    public static Rectangle2D.Double createRectangle(double size) {
+        return new Rectangle2D.Double(-size, -size, size, size);
+    }
+
     /**
      * Creates a triangle shape that points upwards.
      *

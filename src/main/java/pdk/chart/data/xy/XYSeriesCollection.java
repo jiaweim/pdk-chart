@@ -94,7 +94,7 @@ public class XYSeriesCollection<S extends Comparable<S>>
      *                                  not unique within the dataset.
      */
     public void addSeries(XYSeries<S> series) {
-        Args.nullNotPermitted(series, "series");
+        Objects.requireNonNull(series, "series");
         if (getSeriesIndex(series.getKey()) >= 0) {
             throw new IllegalArgumentException(
                     "This dataset already contains a series with the key "
@@ -126,7 +126,7 @@ public class XYSeriesCollection<S extends Comparable<S>>
      * @param series the series ({@code null} not permitted).
      */
     public void removeSeries(XYSeries<S> series) {
-        Args.nullNotPermitted(series, "series");
+        Objects.requireNonNull(series, "series");
         if (this.data.contains(series)) {
             series.removeChangeListener(this);
             this.data.remove(series);

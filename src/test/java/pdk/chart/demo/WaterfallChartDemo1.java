@@ -1,12 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberTickUnit;
 import pdk.chart.axis.TickUnits;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.CategoryPlot;
@@ -35,8 +35,8 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.waterfall("Product Cost Breakdown", "Expense Category", "Cost Per Unit",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.waterfall(dataset, "Expense Category", "Cost Per Unit",
+                "Product Cost Breakdown", PlotOrientation.VERTICAL, false, true);
         CategoryPlot plot = chart.getCategoryPlot();
         ValueAxis rangeAxis = plot.getRangeAxis();
         DecimalFormat formatter = new DecimalFormat("##,###");

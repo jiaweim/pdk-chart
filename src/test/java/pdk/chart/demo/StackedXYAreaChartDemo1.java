@@ -41,7 +41,7 @@ public class StackedXYAreaChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = JChart.stackedAreaXY("Stacked XY Area Chart Demo 1", "X Value", "Y Value", dataset);
+        Chart chart = JChart.stackedAreaXY(dataset, "X Value", "Y Value", "Stacked XY Area Chart Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         StackedXYAreaRenderer renderer = new StackedXYAreaRenderer();
         renderer.setSeriesPaint(0, Color.LIGHT_GRAY);

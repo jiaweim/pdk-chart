@@ -59,8 +59,7 @@ public class DeviationRendererDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Projected Values - Test",
-                "Date", "Index Projection", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Index Projection", "Projected Values - Test");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(false);

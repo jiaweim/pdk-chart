@@ -255,7 +255,6 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
         if (notify) {
             notifyListeners(new AxisChangeEvent(this));
         }
-
     }
 
     /**
@@ -555,8 +554,9 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
             state = drawLabel(getLabel(), g2, plotArea, dataArea, edge, state);
         }
         createAndAddEntity(cursor, state, dataArea, edge, plotState);
+//        System.out.println("cursor: " + cursor);
+//        System.out.println("plotArea: " + dataArea.getMaxY());
         return state;
-
     }
 
     /**

@@ -7,7 +7,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.internal.ShapeUtils;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -45,7 +44,7 @@ public class LineChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line("Line Chart Demo 7", "Category", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "Category", "Count", "Line Chart Demo 7");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());

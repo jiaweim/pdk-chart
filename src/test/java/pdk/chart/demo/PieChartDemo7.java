@@ -35,10 +35,11 @@ public class PieChartDemo7 extends ApplicationFrame {
 
     public static JPanel createDemoPanel() {
         PieDataset dataset = createDataset(14);
-        Chart chart = JChart.pie("Pie Chart Demo 7", dataset, false, true, false);
+        Chart chart = JChart.pie(dataset, "Pie Chart Demo 7", false, true);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setCircular(true);
-        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {2}", NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));
+        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {2}",
+                NumberFormat.getNumberInstance(), NumberFormat.getPercentInstance()));
         plot.setNoDataMessage("No data available");
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));
@@ -47,8 +48,8 @@ public class PieChartDemo7 extends ApplicationFrame {
         return chartPanel;
     }
 
-    public static void main(String[] args) {
-        PieChartDemo7 demo = new PieChartDemo7("JFreeChart: PieChartDemo7.java");
+    static void main() {
+        PieChartDemo7 demo = new PieChartDemo7("PieChartDemo7.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -59,13 +60,13 @@ public class PieChartDemo7 extends ApplicationFrame {
         private int angle = 270;
 
         Rotator(PiePlot plot) {
-            super(50, (ActionListener) null);
+            super(50, null);
             this.plot = plot;
             this.addActionListener(this);
         }
 
         public void actionPerformed(ActionEvent event) {
-            this.plot.setStartAngle((double) this.angle);
+            this.plot.setStartAngle(this.angle);
             ++this.angle;
             if (this.angle == 360) {
                 this.angle = 0;

@@ -1,14 +1,11 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.text.NumberFormat;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.CategoryItemLabelGenerator;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
@@ -16,12 +13,14 @@ import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.CategoryItemRenderer;
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.text.TextAnchor;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.NumberFormat;
 
 public class ItemLabelDemo3 extends ApplicationFrame {
     public ItemLabelDemo3(String title) {
@@ -33,22 +32,23 @@ public class ItemLabelDemo3 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double)51.0F, "Series 1", "Apples");
+        dataset.addValue((double) 51.0F, "Series 1", "Apples");
         dataset.addValue(44.3, "Series 1", "Bananas");
-        dataset.addValue((double)93.0F, "Series 1", "Oranges");
+        dataset.addValue((double) 93.0F, "Series 1", "Oranges");
         dataset.addValue(35.6, "Series 1", "Pears");
         dataset.addValue(75.1, "Series 1", "Plums");
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Item Label Demo 3", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, true, false);
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Item Label Demo 3",
+                PlotOrientation.VERTICAL, false, true);
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeZeroBaselineVisible(true);
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setVisible(false);
-        NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setUpperMargin(0.15);
         CategoryItemRenderer renderer = plot.getRenderer();
         CategoryItemLabelGenerator generator = new StandardCategoryItemLabelGenerator("{1}", NumberFormat.getInstance());

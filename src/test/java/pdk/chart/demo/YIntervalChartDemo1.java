@@ -1,20 +1,18 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.YIntervalSeries;
 import pdk.chart.data.xy.YIntervalSeriesCollection;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.YIntervalRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 public class YIntervalChartDemo1 extends ApplicationFrame {
@@ -26,20 +24,21 @@ public class YIntervalChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.scatter("Y Interval Chart Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
+        Chart chart = JChart.scatter(dataset, "X", "Y",
+                "Y Interval Chart Demo 1");
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRenderer(new YIntervalRenderer());
         return chart;
     }
 
     private static IntervalXYDataset createDataset() {
-        double y = (double)100.0F;
+        double y = 100.0F;
         YIntervalSeries series1 = new YIntervalSeries("Series 1");
 
-        for(int i = 0; i < 100; ++i) {
+        for (int i = 0; i < 100; ++i) {
             y += Math.random() - 0.49;
-            series1.add((double)i, y, y - (double)3.0F, y + (double)3.0F);
+            series1.add(i, y, y - 3.0, y + 3.0);
         }
 
         YIntervalSeriesCollection dataset = new YIntervalSeriesCollection();

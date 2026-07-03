@@ -1,16 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.geom.Rectangle2D;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.List;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
@@ -31,6 +20,15 @@ import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.title.TextTitle;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 
 public class YieldCurveDemo1 extends ApplicationFrame {
@@ -62,26 +60,26 @@ public class YieldCurveDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("US$ Treasury Yields", "Date", "Yield", dataset);
+        Chart chart = JChart.timeLine(dataset, "Date", "Yield", "US$ Treasury Yields");
         chart.removeLegend();
-        XYPlot plot = (XYPlot)chart.getPlot();
+        XYPlot plot = (XYPlot) chart.getPlot();
         GregorianCalendar cal = new GregorianCalendar(2016, 2, 23);
         plot.setDomainAxis(new CustomDateAxis("Date", cal.getTime()));
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer)r;
+            XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) r;
             renderer.setDefaultShapesVisible(true);
             renderer.setDefaultShapesFilled(true);
         }
 
-        DateAxis axis = (DateAxis)plot.getDomainAxis();
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
         chart.addSubtitle(new TextTitle("March 2016"));
         TextTitle source = new TextTitle("Source: https://www.treasury.gov/resource-center/data-chart-center/interest-rates/");
         JChartUtils.applyCurrentTheme(chart);
-        source.setFont(new Font("Dialog", 0, 9));
+        source.setFont(new Font("Dialog", Font.PLAIN, 9));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);
@@ -120,19 +118,19 @@ public class YieldCurveDemo1 extends ApplicationFrame {
             GregorianCalendar cal = new GregorianCalendar();
             cal.setTime(this.base);
             cal.add(2, 1);
-            result.add(new DateTick(cal.getTime(), "1M", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "1M", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             cal.add(2, 11);
-            result.add(new DateTick(cal.getTime(), "1Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "1Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             cal.add(1, 1);
-            result.add(new DateTick(cal.getTime(), "2Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "2Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             cal.add(1, 1);
-            result.add(new DateTick(cal.getTime(), "3Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "3Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             cal.add(1, 2);
-            result.add(new DateTick(cal.getTime(), "5Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "5Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             cal.add(1, 5);
-            result.add(new DateTick(cal.getTime(), "10Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "10Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             cal.add(1, 10);
-            result.add(new DateTick(cal.getTime(), "20Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double)0.0F));
+            result.add(new DateTick(cal.getTime(), "20Y", TextAnchor.TOP_CENTER, TextAnchor.CENTER, (double) 0.0F));
             return result;
         }
     }

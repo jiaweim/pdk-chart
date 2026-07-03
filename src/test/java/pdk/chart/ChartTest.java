@@ -43,7 +43,7 @@ public class ChartTest implements ChartChangeListener {
         data.setValue("Java", 43.2);
         data.setValue("Visual Basic", 0.0);
         data.setValue("C/C++", 17.5);
-        this.pieChart = JChart.pie("Pie Chart", data);
+        this.pieChart = JChart.pie(data, "Pie Chart");
     }
 
     /**
@@ -171,7 +171,7 @@ public class ChartTest implements ChartChangeListener {
     @Test
     public void testGetSubtitle() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
-        Chart chart = JChart.pie("title", dataset);
+        Chart chart = JChart.pie(dataset, "title");
         Title t = chart.getSubtitle(0);
         assertTrue(t instanceof LegendTitle);
 
@@ -208,7 +208,7 @@ public class ChartTest implements ChartChangeListener {
         data.setValue("Type 2", 23.9);
         data.setValue("Type 3", 45.8);
 
-        Chart c1 = JChart.pie("Test", data);
+        Chart c1 = JChart.pie(data, "Test");
         Chart c2 = TestUtils.serialised(c1);
         assertEquals(c1, c2);
         LegendTitle lt2 = c2.getLegend();
@@ -267,8 +267,8 @@ public class ChartTest implements ChartChangeListener {
         dataset.addValue(3.0, series3, category8);
 
         // create the chart...
-        Chart c1 = JChart.bar("Vertical Bar Chart",
-                "Category", "Value", dataset);
+        Chart c1 = JChart.bar(dataset,
+                "Category", "Value", "Vertical Bar Chart");
         Chart c2 = TestUtils.serialised(c1);
         assertEquals(c1, c2);
     }
@@ -286,8 +286,8 @@ public class ChartTest implements ChartChangeListener {
         TimeSeriesCollection<String> dataset = new TimeSeriesCollection<>();
         dataset.addSeries(series);
 
-        Chart c1 = JChart.timeLine("Test", "Date",
-                "Value", dataset);
+        Chart c1 = JChart.timeLine(dataset, "Date",
+                "Value", "Test");
         Chart c2 = TestUtils.serialised(c1);
         assertEquals(c1, c2);
     }
@@ -298,7 +298,7 @@ public class ChartTest implements ChartChangeListener {
     @Test
     public void testAddSubtitle() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
-        Chart chart = JChart.pie("title", dataset);
+        Chart chart = JChart.pie(dataset, "title");
 
         TextTitle t0 = new TextTitle("T0");
         chart.addSubtitle(0, t0);
@@ -332,7 +332,7 @@ public class ChartTest implements ChartChangeListener {
     @Test
     public void testGetSubtitles() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
-        Chart chart = JChart.pie("title", dataset);
+        Chart chart = JChart.pie(dataset, "title");
         List<Title> subtitles = chart.getSubtitles();
 
         assertEquals(1, chart.getSubtitleCount());
@@ -348,7 +348,7 @@ public class ChartTest implements ChartChangeListener {
     @Test
     public void testLegendEvents() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
-        Chart chart = JChart.pie("title", dataset);
+        Chart chart = JChart.pie(dataset, "title");
         chart.addChangeListener(this);
         this.lastChartChangeEvent = null;
         LegendTitle legend = chart.getLegend();
@@ -362,7 +362,7 @@ public class ChartTest implements ChartChangeListener {
     @Test
     public void testTitleChangeEvent() {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
-        Chart chart = JChart.pie("title", dataset);
+        Chart chart = JChart.pie(dataset, "title");
         chart.addChangeListener(this);
         this.lastChartChangeEvent = null;
         TextTitle t = chart.getTitle();
@@ -398,8 +398,7 @@ public class ChartTest implements ChartChangeListener {
     @Test
     public void testBug942() throws Exception {
         final String title = "Pie Chart Demo 1\n\n\ntestnew line";
-        assertEquals(title, JChart.pie(title,
-                new DefaultPieDataset<String>()).getTitle().getText());
+        assertEquals(title, JChart.pie(new DefaultPieDataset<String>(), title).getTitle().getText());
     }
 
     /**

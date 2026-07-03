@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.BoxAndWhiskerCalculator;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
@@ -52,7 +52,7 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(BoxAndWhiskerXYDataset dataset) {
-        Chart chart = JChart.boxAndWhisker("Box-and-Whisker Chart Demo 2", "Day", "Value", dataset, false);
+        Chart chart = JChart.boxAndWhisker(dataset, "Day", "Value", "Box-and-Whisker Chart Demo 2", false);
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = chart.getXYPlot();
 

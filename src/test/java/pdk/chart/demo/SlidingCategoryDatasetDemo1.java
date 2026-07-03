@@ -73,8 +73,8 @@ public class SlidingCategoryDatasetDemo1 extends ApplicationFrame {
         }
 
         private static Chart createChart(CategoryDataset dataset) {
-            Chart chart = JChart.bar("SlidingCategoryDatasetDemo1", "Series", "Value",
-                    dataset, PlotOrientation.HORIZONTAL, true, true, false);
+            Chart chart = JChart.bar(dataset, "Series", "Value", "SlidingCategoryDatasetDemo1",
+                    PlotOrientation.HORIZONTAL);
             CategoryPlot plot = chart.getCategoryPlot();
             plot.getDomainAxis()
                     .maximumCategoryLabelWidthRatio(0.8f)

@@ -5,7 +5,6 @@ import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.swing.ApplicationFrame;
@@ -24,7 +23,7 @@ public class GradientPaintTransformerDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, CategoryDataset dataset) {
-        Chart chart = JChart.bar(title, (String) null, "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar(dataset, (String) null, "Value", title);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         BarRenderer r = (BarRenderer) plot.getRenderer();
         r.setItemMargin(0.02);

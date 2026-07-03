@@ -18,10 +18,13 @@ public class Scatter3 {
         HashMap<String, Object[]> iris = Datasets.iris();
 
         Chart chart = JChart.bubble(
-                "x", (Double[]) iris.get("Sepal Width"),
-                "y", (Double[]) iris.get("Sepal Length"),
+                (Double[]) iris.get("Sepal Width"),
+                (Double[]) iris.get("Sepal Length"),
                 (Double[]) iris.get("Petal Length"),
-                (String[]) iris.get("Class"));
+                (String[]) iris.get("Class"),
+                "x",
+                "y"
+        );
         chart.show();
     }
 }

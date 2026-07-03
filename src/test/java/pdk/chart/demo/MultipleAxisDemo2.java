@@ -29,8 +29,9 @@ public class MultipleAxisDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart() {
-        XYDataset dataset1 = createDataset("Series 1", (double) 100.0F, new Minute(), 200);
-        Chart chart = JChart.timeLine("Multiple Axis Demo 2", "Time of Day", "Primary Range Axis", dataset1, true, true, false);
+        XYDataset dataset1 = createDataset("Series 1", 100.0, new Minute(), 200);
+        Chart chart = JChart.timeLine(dataset1, "Time of Day", "Primary Range Axis",
+                "Multiple Axis Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setOrientation(PlotOrientation.VERTICAL);
@@ -70,8 +71,8 @@ public class MultipleAxisDemo2 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        MultipleAxisDemo2 demo = new MultipleAxisDemo2("Chart: MultipleAxisDemo2.java");
+    static void main() {
+        MultipleAxisDemo2 demo = new MultipleAxisDemo2("MultipleAxisDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

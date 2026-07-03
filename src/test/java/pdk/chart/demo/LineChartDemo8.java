@@ -8,7 +8,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.internal.ShapeUtils;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -46,7 +45,8 @@ public class LineChartDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line("Line Chart Demo 8", "Category", "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "Category", "Count",
+                "Line Chart Demo 8");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         SymbolAxis rangeAxis = new SymbolAxis("Group", new String[]{"A", "B", "C", "D", "E", "F"});
         plot.setRangeAxis(rangeAxis);
@@ -68,8 +68,8 @@ public class LineChartDemo8 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        LineChartDemo8 demo = new LineChartDemo8("Chart: LineChartDemo8.java");
+    static void main() {
+        LineChartDemo8 demo = new LineChartDemo8("LineChartDemo8.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

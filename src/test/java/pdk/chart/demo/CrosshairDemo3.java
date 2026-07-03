@@ -60,7 +60,8 @@ public class CrosshairDemo3 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart c = JChart.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
+            Chart c = JChart.timeLine(dataset, "Date", "Price Per Unit",
+                    "Legal & General Unit Trust Prices");
             XYPlot plot = (XYPlot) c.getPlot();
             plot.setDomainCrosshairVisible(true);
             plot.setDomainCrosshairLockedOnData(false);

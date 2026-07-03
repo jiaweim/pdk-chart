@@ -108,8 +108,8 @@ public class TimeSeriesChartTest {
         series1.add(2.0, 2.0);
         series1.add(3.0, 3.0);
         XYDataset<String> dataset = new XYSeriesCollection<>(series1);
-        return JChart.timeLine("XY Line Chart",
-                "Domain", "Range", dataset, true, true, true);
+        return JChart.timeLine(dataset,
+                "Domain", "Range", "XY Line Chart", true, true, true);
     }
 
     /**

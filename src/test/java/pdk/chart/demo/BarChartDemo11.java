@@ -51,7 +51,7 @@ public class BarChartDemo11 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar("Open Source Projects By License", "License", "Percent", dataset);
+        Chart chart = JChart.bar(dataset, "License", "Percent", "Open Source Projects By License");
         chart.removeLegend();
 
         TextTitle source = new TextTitle("Source: http://www.blackducksoftware.com/resources/data/top-20-licenses (as at 30 Aug 2013)",

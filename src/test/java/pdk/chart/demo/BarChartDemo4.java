@@ -37,7 +37,7 @@ public class BarChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar("Bar Chart Demo 4", null, "Value", dataset);
+        Chart chart = JChart.bar(dataset, null, "Value", "Bar Chart Demo 4");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getRangeAxisAsNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits());

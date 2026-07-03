@@ -11,7 +11,6 @@ import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.GroupedStackedBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -31,19 +30,20 @@ public class StackedBarChartDemo5 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset result = new DefaultCategoryDataset();
-        result.addValue((double)3396.0F, "S1", "C1");
-        result.addValue((double)1580.0F, "S2", "C1");
-        result.addValue((double)76.0F, "S3", "C1");
-        result.addValue((double)10100.0F, "S4", "C1");
-        result.addValue((double)3429.0F, "S1", "C2");
-        result.addValue((double)1562.0F, "S2", "C2");
-        result.addValue((double)61.0F, "S3", "C2");
-        result.addValue((double)-10100.0F, "S4", "C2");
+        result.addValue((double) 3396.0F, "S1", "C1");
+        result.addValue((double) 1580.0F, "S2", "C1");
+        result.addValue((double) 76.0F, "S3", "C1");
+        result.addValue((double) 10100.0F, "S4", "C1");
+        result.addValue((double) 3429.0F, "S1", "C2");
+        result.addValue((double) 1562.0F, "S2", "C2");
+        result.addValue((double) 61.0F, "S3", "C2");
+        result.addValue((double) -10100.0F, "S4", "C2");
         return result;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 5", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.barStacked(dataset, "Category", "Value",
+                "Stacked Bar Chart Demo 5");
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         KeyToGroupMap map = new KeyToGroupMap("G1");
         map.mapKeyToGroup("S1", "G1");
@@ -60,7 +60,7 @@ public class StackedBarChartDemo5 extends ApplicationFrame {
         domainAxis.addSubCategory("G1");
         domainAxis.addSubCategory("G2");
         domainAxis.addSubCategory("G3");
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainAxis(domainAxis);
         plot.setRenderer(renderer);
         JChartUtils.applyCurrentTheme(chart);

@@ -35,7 +35,7 @@ public class PieChartDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.pie("Pie Chart Demo 8", dataset, false, true, false);
+        Chart chart = JChart.pie(dataset, "Pie Chart Demo 8", false, true);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLabelGenerator(new CustomLabelGenerator());
         return chart;

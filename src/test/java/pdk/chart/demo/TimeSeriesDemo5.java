@@ -28,11 +28,11 @@ public class TimeSeriesDemo5 extends ApplicationFrame {
     private static XYDataset createDataset() {
         TimeSeries series = new TimeSeries("Random Data");
         Day current = new Day(1, 1, 1990);
-        double value = (double) 100.0F;
+        double value = 100.0;
 
         for (int i = 0; i < 100000; ++i) {
             try {
-                value = value + Math.random() - (double) 0.5F;
+                value = value + Math.random() - 0.5;
                 series.add(current, value);
                 current = (Day) current.next();
             } catch (SeriesException var6) {
@@ -44,7 +44,7 @@ public class TimeSeriesDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Test", "Day", "Value", dataset, false, false, false);
+        Chart chart = JChart.timeLine(dataset, "Day", "Value", "Test", false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         SamplingXYLineRenderer renderer = new SamplingXYLineRenderer();
@@ -59,7 +59,7 @@ public class TimeSeriesDemo5 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         String title = "₢₢₢₣₤₥₦₧₨₩₪";
         TimeSeriesDemo5 demo = new TimeSeriesDemo5(title);
         demo.pack();

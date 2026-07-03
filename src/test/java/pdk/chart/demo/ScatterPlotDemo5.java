@@ -42,7 +42,7 @@ public class ScatterPlotDemo5 extends ApplicationFrame {
     }
 
     public static JPanel createDemoPanel() {
-        Chart chart = JChart.scatter("Scatter Plot Demo 5", "X", "Y", createDataset());
+        Chart chart = JChart.scatter(createDataset(), "X", "Y", "Scatter Plot Demo 5");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setBackgroundPaint((Paint) null);
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);

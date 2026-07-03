@@ -30,7 +30,8 @@ public class EventFrequencyDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Event Frequency Demo", "Category", "Value", dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Event Frequency Demo",
+                PlotOrientation.HORIZONTAL, true, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);

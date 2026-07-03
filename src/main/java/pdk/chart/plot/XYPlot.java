@@ -379,6 +379,13 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * combined plot).
      */
     private int weight;
+    /**
+     * The prefHeight for this plot (only relevant if this is a subplot in a
+     * combined plot).
+     */
+    private double preferredHeight = -1;
+
+    private double preferredWidth = -1;
 
     /**
      * An optional collection of legend items that can be returned by the
@@ -1655,6 +1662,24 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         fireChangeEvent();
     }
 
+    public double getPreferredHeight() {
+        return preferredHeight;
+    }
+
+    public void setPreferredHeight(double preferredHeight) {
+        this.preferredHeight = preferredHeight;
+        fireChangeEvent();
+    }
+
+    public double getPreferredWidth() {
+        return preferredWidth;
+    }
+
+    public void setPreferredWidth(double preferredWidth) {
+        this.preferredWidth = preferredWidth;
+        fireChangeEvent();
+    }
+
     /**
      * Returns {@code true} if the domain gridlines are visible, and
      * {@code false} otherwise.
@@ -2893,7 +2918,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param space    a carrier for the result ({@code null} permitted).
      * @return The required space.
      */
-    protected AxisSpace calculateRangeAxisSpace(Graphics2D g2,
+    public AxisSpace calculateRangeAxisSpace(Graphics2D g2,
             Rectangle2D plotArea, AxisSpace space) {
         if (space == null) {
             space = new AxisSpace();
@@ -3006,6 +3031,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         if (dataArea.isEmpty()) {
             return;
         }
+//        System.out.println(dataArea.getMaxY() + "\t" + area.getMaxY());
+
         createAndAddEntity((Rectangle2D) dataArea.clone(), info, null, null);
         if (info != null) {
             info.setDataArea(dataArea);
@@ -4966,6 +4993,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
     @Override
     public void zoomRangeAxes(double lowerPercent, double upperPercent,
             PlotRenderingInfo info, Point2D source) {
+
         for (ValueAxis yAxis : this.rangeAxes.values()) {
             if (yAxis != null) {
                 yAxis.zoomRange(lowerPercent, upperPercent);
@@ -5091,6 +5119,12 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         @SuppressWarnings("unchecked")
         XYPlot<S> that = (XYPlot<S>) obj;
         if (this.weight != that.weight) {
+            return false;
+        }
+        if (this.preferredHeight != that.preferredHeight) {
+            return false;
+        }
+        if (this.preferredWidth != that.preferredWidth) {
             return false;
         }
         if (this.orientation != that.orientation) {
@@ -5319,6 +5353,8 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         hash = 43 * hash + Objects.hashCode(this.domainTickBandPaint);
         hash = 43 * hash + Objects.hashCode(this.rangeTickBandPaint);
         hash = 43 * hash + this.weight;
+        hash = 43 * hash + Double.hashCode(preferredHeight);
+        hash = 43 * hash + Double.hashCode(preferredWidth);
         hash = 43 * hash + Objects.hashCode(this.fixedLegendItems);
         hash = 43 * hash + Objects.hashCode(this.shadowGenerator);
         return hash;

@@ -1,10 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.text.SimpleDateFormat;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
@@ -27,6 +22,10 @@ import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.title.CompositeTitle;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 
 public class DualAxisDemo2 extends ApplicationFrame {
@@ -55,7 +54,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
         s1.add(new Month(3, 2017), 137.3);
         s1.add(new Month(4, 2017), 143.9);
         s1.add(new Month(5, 2017), 139.8);
-        s1.add(new Month(6, 2017), (double)137.0F);
+        s1.add(new Month(6, 2017), 137.0);
         s1.add(new Month(7, 2017), 132.8);
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
@@ -70,13 +69,13 @@ public class DualAxisDemo2 extends ApplicationFrame {
         s2.add(new Month(5, 2016), 624.1);
         s2.add(new Month(6, 2016), 422.6);
         s2.add(new Month(7, 2016), 619.2);
-        s2.add(new Month(8, 2016), (double)416.5F);
+        s2.add(new Month(8, 2016), 416.5);
         s2.add(new Month(9, 2016), 512.7);
-        s2.add(new Month(10, 2016), (double)501.5F);
+        s2.add(new Month(10, 2016), 501.5);
         s2.add(new Month(11, 2016), 306.1);
         s2.add(new Month(12, 2016), 410.3);
         s2.add(new Month(1, 2017), 511.7);
-        s2.add(new Month(2, 2017), (double)611.0F);
+        s2.add(new Month(2, 2017), 611.0);
         s2.add(new Month(3, 2017), 709.6);
         s2.add(new Month(4, 2017), 613.2);
         s2.add(new Month(5, 2017), 711.6);
@@ -89,8 +88,9 @@ public class DualAxisDemo2 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset dataset = createDataset1();
-        Chart chart = JChart.timeLine("Dual Axis Demo 2", "Date", "Price Per Unit", dataset, false, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
+        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit", "Dual Axis Demo 2",
+                false, true);
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
         plot.setDomainCrosshairVisible(true);
@@ -105,7 +105,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
         XYItemRenderer renderer = plot.getRenderer();
         renderer.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
         if (renderer instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer rr = (XYLineAndShapeRenderer)renderer;
+            XYLineAndShapeRenderer rr = (XYLineAndShapeRenderer) renderer;
             rr.setDefaultShapesVisible(true);
             rr.setDefaultShapesFilled(true);
         }
@@ -115,14 +115,14 @@ public class DualAxisDemo2 extends ApplicationFrame {
         renderer2.setDefaultShapesVisible(true);
         renderer2.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
         plot.setRenderer(1, renderer2);
-        DateAxis axis = (DateAxis)plot.getDomainAxis();
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
         LegendTitle legend1 = new LegendTitle(renderer);
         LegendTitle legend2 = new LegendTitle(renderer2);
         BlockContainer container = new BlockContainer(new BorderArrangement());
         container.add(legend1, RectangleEdge.LEFT);
         container.add(legend2, RectangleEdge.RIGHT);
-        container.add(new EmptyBlock((double)2000.0F, (double)0.0F));
+        container.add(new EmptyBlock(2000.0, 0.0));
         CompositeTitle legends = new CompositeTitle(container);
         legends.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legends);
@@ -137,8 +137,8 @@ public class DualAxisDemo2 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        DualAxisDemo2 demo = new DualAxisDemo2("Chart: DualAxisDemo2.java");
+    static void main() {
+        DualAxisDemo2 demo = new DualAxisDemo2("DualAxisDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

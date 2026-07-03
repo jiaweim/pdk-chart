@@ -1,12 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.Data;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.data.xy.XYSeries;
-import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
@@ -37,8 +37,8 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset<String> dataset) {
-        Chart chart = JChart.barStackedXY("Stacked XY Bar Chart Demo 1", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, true);
+        Chart chart = JChart.barStackedXY(dataset, "X", "Y", "Stacked XY Bar Chart Demo 1",
+                PlotOrientation.VERTICAL, true, true, true);
         XYPlot plot = chart.getXYPlot();
         plot.getDomainAxisAsNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits());

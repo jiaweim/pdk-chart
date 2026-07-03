@@ -27,7 +27,8 @@ public class TimeSeriesDemo15 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Bug Report Submissions for Java", "Date", "Evaluation ID", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Evaluation ID",
+                "Bug Report Submissions for Java");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
@@ -47,13 +48,13 @@ public class TimeSeriesDemo15 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         TimeSeries s1 = new TimeSeries("Bugs");
-        s1.add(new Day(27, 6, 2005), (double) 478474.0F);
-        s1.add(new Day(24, 1, 2006), (double) 633804.0F);
-        s1.add(new Day(28, 4, 2006), (double) 694096.0F);
-        s1.add(new Day(12, 5, 2006), (double) 704680.0F);
-        s1.add(new Day(16, 5, 2006), (double) 709599.0F);
-        s1.add(new Day(21, 6, 2006), (double) 734754.0F);
-        s1.add(new Day(27, 7, 2006), (double) 760008.0F);
+        s1.add(new Day(27, 6, 2005), 478474.0);
+        s1.add(new Day(24, 1, 2006), 633804.0);
+        s1.add(new Day(28, 4, 2006), 694096.0);
+        s1.add(new Day(12, 5, 2006), 704680.0);
+        s1.add(new Day(16, 5, 2006), 709599.0);
+        s1.add(new Day(21, 6, 2006), 734754.0);
+        s1.add(new Day(27, 7, 2006), 760008.0);
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         dataset.addSeries(s1);
         return dataset;
@@ -64,7 +65,7 @@ public class TimeSeriesDemo15 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TimeSeriesDemo15 demo = new TimeSeriesDemo15("Time Series Demo 15");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

@@ -1,17 +1,16 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.Data;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Plot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.GroupedStackedBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -61,8 +60,8 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 4", "Category", "Value",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.barStacked(dataset, "Category", "Value",
+                "Stacked Bar Chart Demo 4");
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         KeyToGroupMap<String, String> map = new KeyToGroupMap<>("G1");
         map.mapKeyToGroup("Product 1 (US)", "G1");

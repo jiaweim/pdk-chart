@@ -42,7 +42,7 @@ public class BarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar("Bar Chart Demo 2", "Category", "Score (%)", dataset);
+        Chart chart = JChart.bar(dataset, "Category", "Score (%)", "Bar Chart Demo 2");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.orientation(PlotOrientation.HORIZONTAL)
                 .rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);

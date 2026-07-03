@@ -29,11 +29,11 @@ public class TimeSeriesDemo14 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Browser Market Share", "Date", "Market Share", dataset);
+        Chart chart = JChart.timeLine(dataset, "Date", "Market Share", "Browser Market Share");
         chart.addSubtitle(new TextTitle("Source: http://gs.statcounter.com"));
         XYPlot plot = (XYPlot) chart.getPlot();
         DateAxis xAxis = (DateAxis) plot.getDomainAxis();
-        xAxis.setLowerMargin((double) 0.0F);
+        xAxis.setLowerMargin(0.0);
         NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
         yAxis.setNumberFormatOverride(new DecimalFormat("0.0%"));
         plot.setDomainCrosshairVisible(true);
@@ -304,8 +304,8 @@ public class TimeSeriesDemo14 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        TimeSeriesDemo14 demo = new TimeSeriesDemo14("Chart: Time Series Demo 14");
+    static void main() {
+        TimeSeriesDemo14 demo = new TimeSeriesDemo14("Time Series Demo 14");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -3,7 +3,6 @@ package pdk.chart.demo;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -22,8 +21,7 @@ public class ScatterPlotDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter("Scatter Plot Demo 1", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Scatter Plot Demo 1");
         XYPlot plot = chart.getXYPlot();
         plot.noDataMessage("NO DATA")
                 .domainPannable(true)

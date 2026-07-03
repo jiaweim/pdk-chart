@@ -30,16 +30,16 @@ public class PieChartDemo4 extends ApplicationFrame {
     private static DefaultPieDataset createDataset() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         dataset.setValue("Section A", 43.2);
-        dataset.setValue("Section B", (double) 10.0F);
-        dataset.setValue("Section C", (double) 27.5F);
-        dataset.setValue("Section D", (double) 17.5F);
-        dataset.setValue("Section E", (double) 11.0F);
+        dataset.setValue("Section B", 10.0);
+        dataset.setValue("Section C", 27.5);
+        dataset.setValue("Section D", 17.5);
+        dataset.setValue("Section E", 11.0);
         dataset.setValue("Section F", 19.4);
         return dataset;
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.pie("Pie Chart Demo 4", dataset, true, true, false);
+        Chart chart = JChart.pie(dataset, "Pie Chart Demo 4");
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setNoDataMessage("No data available");
         plot.setCircular(false);
@@ -53,8 +53,8 @@ public class PieChartDemo4 extends ApplicationFrame {
         return new MyDemoPanel(createDataset());
     }
 
-    public static void main(String[] args) {
-        PieChartDemo4 demo = new PieChartDemo4("JFreeChart: PieChartDemo4.java");
+    static void main() {
+        PieChartDemo4 demo = new PieChartDemo4("PieChartDemo4.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -7,7 +7,6 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.StatisticalLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -26,24 +25,24 @@ public class StatisticalLineChartDemo1 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultStatisticalCategoryDataset dataset = new DefaultStatisticalCategoryDataset();
-        dataset.add((double) 10.0F, 2.4, "Row 1", "Column 1");
-        dataset.add((double) 15.0F, 4.4, "Row 1", "Column 2");
-        dataset.add((double) 13.0F, 2.1, "Row 1", "Column 3");
-        dataset.add((double) 7.0F, 1.3, "Row 1", "Column 4");
-        dataset.add((double) 22.0F, 2.4, "Row 2", "Column 1");
-        dataset.add((double) 18.0F, 4.4, "Row 2", "Column 2");
-        dataset.add((double) 28.0F, 2.1, "Row 2", "Column 3");
-        dataset.add((double) 17.0F, 1.3, "Row 2", "Column 4");
+        dataset.add(10.0, 2.4, "Row 1", "Column 1");
+        dataset.add(15.0, 4.4, "Row 1", "Column 2");
+        dataset.add(13.0, 2.1, "Row 1", "Column 3");
+        dataset.add(7.0, 1.3, "Row 1", "Column 4");
+        dataset.add(22.0, 2.4, "Row 2", "Column 1");
+        dataset.add(18.0, 4.4, "Row 2", "Column 2");
+        dataset.add(28.0, 2.1, "Row 2", "Column 3");
+        dataset.add(17.0, 1.3, "Row 2", "Column 4");
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line("Statistical Line Chart Demo 1", "Type", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.line(dataset, "Type", "Value", "Statistical Line Chart Demo 1");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setUpperMargin((double) 0.0F);
-        domainAxis.setLowerMargin((double) 0.0F);
+        domainAxis.setUpperMargin(0.0);
+        domainAxis.setLowerMargin(0.0);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setAutoRangeIncludesZero(true);
@@ -60,8 +59,8 @@ public class StatisticalLineChartDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        StatisticalLineChartDemo1 demo = new StatisticalLineChartDemo1("Chart: StatisticalLineChartDemo1.java");
+    static void main() {
+        StatisticalLineChartDemo1 demo = new StatisticalLineChartDemo1("StatisticalLineChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -1,6 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleAnchor;
@@ -8,7 +9,6 @@ import pdk.chart.axis.CategoryLabelPosition;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.ExtendedCategoryAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
@@ -41,8 +41,8 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar(null, null, null,
-                dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.bar(dataset, null, null, null,
+                PlotOrientation.HORIZONTAL, false, true);
         chart.setBackgroundPaint(Color.WHITE);
 
         TextTitle title = new TextTitle("Figure 6 | Overall SEO Rating");

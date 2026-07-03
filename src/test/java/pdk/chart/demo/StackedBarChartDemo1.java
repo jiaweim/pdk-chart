@@ -63,7 +63,7 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.barStacked("Freshwater Usage By Country", "Country", "Value", dataset);
+        Chart chart = JChart.barStacked(dataset, "Country", "Value", "Freshwater Usage By Country");
         chart.addSubtitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"));
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getDomainAxis()

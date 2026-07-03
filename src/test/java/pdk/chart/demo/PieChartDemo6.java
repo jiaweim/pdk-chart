@@ -33,7 +33,7 @@ public class PieChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, PieDataset<String> dataset) {
-        Chart chart = JChart.pie(title, dataset, true, true, false);
+        Chart chart = JChart.pie(dataset, title);
         PiePlot<String> plot = (PiePlot) chart.getPlot();
         plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0} = {1}"));
         return chart;

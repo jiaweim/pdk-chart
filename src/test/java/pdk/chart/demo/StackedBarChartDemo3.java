@@ -1,11 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.Data;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.CategoryPlot;
@@ -42,8 +42,9 @@ public class StackedBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked("Stacked Bar Chart Demo 3", "Category", "Value",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.barStacked(dataset, "Category", "Value",
+                "Stacked Bar Chart Demo 3",
+                PlotOrientation.VERTICAL, true, false);
 
         CategoryPlot plot = chart.getCategoryPlot();
         ExtendedStackedBarRenderer renderer = new ExtendedStackedBarRenderer();

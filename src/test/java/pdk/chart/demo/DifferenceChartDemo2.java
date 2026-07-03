@@ -1,15 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Paint;
-import java.awt.Stroke;
-import java.text.SimpleDateFormat;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
@@ -17,6 +7,11 @@ import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
+import pdk.chart.data.time.Day;
+import pdk.chart.data.time.Minute;
+import pdk.chart.data.time.TimeSeries;
+import pdk.chart.data.time.TimeSeriesCollection;
+import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.IntervalMarker;
 import pdk.chart.plot.XYPlot;
@@ -26,13 +21,12 @@ import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.title.TextTitle;
-import pdk.chart.data.time.Day;
-import pdk.chart.data.time.Minute;
-import pdk.chart.data.time.TimeSeries;
-import pdk.chart.data.time.TimeSeriesCollection;
-import pdk.chart.data.xy.XYDataset;
 import pdk.chart.util.GradientPaintTransformType;
 import pdk.chart.util.StandardGradientPaintTransformer;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
 
 public class DifferenceChartDemo2 extends ApplicationFrame {
     public DifferenceChartDemo2(String title) {
@@ -799,7 +793,8 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Daylight Hours - London, UK", "Date", "Time", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Time",
+                "Daylight Hours - London, UK");
         chart.addSubtitle(new TextTitle("Data source: http://www.sunrisesunset.com/", new Font("SansSerif", 0, 12)));
         XYDifferenceRenderer renderer = new XYDifferenceRenderer(Color.BLUE, Color.BLUE, false);
         renderer.setRoundXCoordinates(true);
@@ -807,18 +802,18 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
         renderer.setSeriesPaint(0, Color.YELLOW);
         renderer.setSeriesPaint(1, Color.RED);
         renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0} : {1} = {2}", new SimpleDateFormat("d-MMM-yyyy"), new SimpleDateFormat("kk:mm")));
-        XYPlot plot = (XYPlot)chart.getPlot();
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(renderer);
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
         DateAxis domainAxis = new DateAxis("Time");
         domainAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
-        domainAxis.setLowerMargin((double)0.0F);
-        domainAxis.setUpperMargin((double)0.0F);
+        domainAxis.setLowerMargin((double) 0.0F);
+        domainAxis.setUpperMargin((double) 0.0F);
         plot.setDomainAxis(domainAxis);
         plot.setForegroundAlpha(0.5F);
         GradientPaint c = new GradientPaint(0.0F, 0.0F, Color.RED, 1.0F, 1.0F, Color.orange);
-        IntervalMarker bst = new IntervalMarker((double)(new Day(28, 3, 2004)).getFirstMillisecond(), (double)(new Day(30, 10, 2004)).getFirstMillisecond(), c, new BasicStroke(2.0F), (Paint)null, (Stroke)null, 1.0F);
+        IntervalMarker bst = new IntervalMarker((double) (new Day(28, 3, 2004)).getFirstMillisecond(), (double) (new Day(30, 10, 2004)).getFirstMillisecond(), c, new BasicStroke(2.0F), (Paint) null, (Stroke) null, 1.0F);
         bst.setLabel("British Summer Time");
         bst.setLabelAnchor(RectangleAnchor.BOTTOM_RIGHT);
         bst.setLabelFont(new Font("SansSerif", 3, 10));

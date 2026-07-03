@@ -5,7 +5,6 @@ import pdk.chart.JChart;
 import pdk.chart.data.xy.CategoryTableXYDataset;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.StackedXYAreaRenderer2;
 import pdk.chart.swing.ApplicationFrame;
@@ -25,22 +24,23 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
 
     private static TableXYDataset createDataset() {
         CategoryTableXYDataset dataset = new CategoryTableXYDataset();
-        dataset.add((double) 0.0F, (double) 0.0F, "Series 1");
-        dataset.add((double) 10.0F, (double) 20.0F, "Series 1");
-        dataset.add((double) 20.0F, (double) 15.0F, "Series 1");
-        dataset.add((double) 30.0F, (double) 25.0F, "Series 1");
-        dataset.add((double) 40.0F, (double) 21.0F, "Series 1");
-        dataset.add((double) 10.0F, (double) 9.0F, "Series 2");
-        dataset.add((double) 20.0F, (double) -7.0F, "Series 2");
-        dataset.add((double) 30.0F, (double) 15.0F, "Series 2");
-        dataset.add((double) 40.0F, (double) 11.0F, "Series 2");
-        dataset.add((double) 45.0F, (double) -10.0F, "Series 2");
-        dataset.add((double) 50.0F, (double) 0.0F, "Series 2");
+        dataset.add(0.0, 0.0, "Series 1");
+        dataset.add(10.0, 20.0, "Series 1");
+        dataset.add(20.0, 15.0, "Series 1");
+        dataset.add(30.0, 25.0, "Series 1");
+        dataset.add(40.0, 21.0, "Series 1");
+        dataset.add(10.0, 9.0, "Series 2");
+        dataset.add(20.0, -7.0, "Series 2");
+        dataset.add(30.0, 15.0, "Series 2");
+        dataset.add(40.0, 11.0, "Series 2");
+        dataset.add(45.0, -10.0, "Series 2");
+        dataset.add(50.0, 0.0, "Series 2");
         return dataset;
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = JChart.stackedAreaXY("Stacked XY Area Chart Demo 2", "X Value", "Y Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.stackedAreaXY(dataset, "X Value", "Y Value",
+                "Stacked XY Area Chart Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
         renderer.setRoundXCoordinates(true);

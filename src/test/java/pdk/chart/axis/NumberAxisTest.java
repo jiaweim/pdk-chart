@@ -141,8 +141,8 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = JChart.bar("Test", "Categories",
-                "Value", dataset);
+        Chart chart = JChart.bar(dataset, "Categories",
+                "Value", "Test");
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();
         assertEquals(axis.getLowerBound(), 0.0, EPSILON);
@@ -159,8 +159,8 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = JChart.line("Test", "Categories",
-                "Value", dataset, PlotOrientation.VERTICAL, false, false,
+        Chart chart = JChart.line(dataset, "Categories",
+                "Value", "Test", PlotOrientation.VERTICAL, false, false,
                 false);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();
@@ -180,8 +180,8 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = JChart.line("Test", "Categories",
-                "Value", dataset, PlotOrientation.VERTICAL, false, false,
+        Chart chart = JChart.line(dataset, "Categories",
+                "Value", "Test", PlotOrientation.VERTICAL, false, false,
                 false);
         @SuppressWarnings("unchecked")
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
@@ -208,8 +208,8 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = JChart.bar("Test", "Categories",
-                "Value", dataset, PlotOrientation.VERTICAL, false, false,
+        Chart chart = JChart.bar(dataset, "Categories",
+                "Value", "Test", PlotOrientation.VERTICAL, false, false,
                 false);
         @SuppressWarnings("unchecked")
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
@@ -261,8 +261,7 @@ public class NumberAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = JChart.scatter("Test", "X", "Y",
-                dataset);
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Test");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getDomainAxis();
         axis.setAutoRangeIncludesZero(false);
@@ -282,8 +281,7 @@ public class NumberAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = JChart.scatter("Test", "X", "Y",
-                dataset);
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Test");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();
         axis.setAutoRangeIncludesZero(false);

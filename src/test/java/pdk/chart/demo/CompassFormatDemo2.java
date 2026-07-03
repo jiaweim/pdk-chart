@@ -1,42 +1,27 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by Fernflower decompiler)
-//
-
 package pdk.chart.demo;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
-import pdk.chart.axis.CompassFormat;
-import pdk.chart.axis.ModuloAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.NumberTickUnit;
-import pdk.chart.axis.TickUnits;
-import pdk.chart.axis.ValueAxis;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYAreaRenderer;
-import pdk.chart.renderer.xy.XYItemRenderer;
-import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
+import pdk.chart.axis.*;
 import pdk.chart.data.Range;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.renderer.xy.XYAreaRenderer;
+import pdk.chart.renderer.xy.XYItemRenderer;
+import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 public class CompassFormatDemo2 extends ApplicationFrame {
     public CompassFormatDemo2(String title) {
@@ -48,8 +33,8 @@ public class CompassFormatDemo2 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        CompassFormatDemo2 demo = new CompassFormatDemo2("Chart: CompassFormatDemo2.java");
+    static void main() {
+        CompassFormatDemo2 demo = new CompassFormatDemo2("CompassFormatDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -59,8 +44,8 @@ public class CompassFormatDemo2 extends ApplicationFrame {
         private JSlider directionSlider;
         private JSlider fieldSlider;
         private ModuloAxis rangeAxis;
-        private double direction = (double)0.0F;
-        private double degrees = (double)45.0F;
+        private double direction = 0.0;
+        private double degrees = 45.0;
 
         public MyDemoPanel() {
             super(new BorderLayout());
@@ -94,16 +79,15 @@ public class CompassFormatDemo2 extends ApplicationFrame {
             TimeSeriesCollection dataset = new TimeSeriesCollection();
             TimeSeries s1 = new TimeSeries("Wind Direction");
             RegularTimePeriod start = new Minute();
-            double direction = (double)0.0F;
-
-            for(int i = 0; i < count; ++i) {
+            double direction = 0.0;
+            for (int i = 0; i < count; ++i) {
                 s1.add(start, direction);
                 start = start.next();
-                direction += (Math.random() - (double)0.5F) * (double)15.0F;
-                if (direction < (double)0.0F) {
-                    direction += (double)360.0F;
-                } else if (direction > (double)360.0F) {
-                    direction -= (double)360.0F;
+                direction += (Math.random() - 0.5) * 15.0;
+                if (direction < 0.0) {
+                    direction += 360.0;
+                } else if (direction > (double) 360.0F) {
+                    direction -= 360.0;
                 }
             }
 
@@ -115,12 +99,12 @@ public class CompassFormatDemo2 extends ApplicationFrame {
             TimeSeriesCollection dataset = new TimeSeriesCollection();
             TimeSeries s1 = new TimeSeries("Wind Force");
             RegularTimePeriod start = new Minute();
-            double force = (double)3.0F;
+            double force = 3.0;
 
-            for(int i = 0; i < count; ++i) {
+            for (int i = 0; i < count; ++i) {
                 s1.add(start, force);
                 start = start.next();
-                force = Math.max((double)0.5F, force + (Math.random() - (double)0.5F) * (double)0.5F);
+                force = Math.max(0.5, force + (Math.random() - 0.5) * 0.5);
             }
 
             dataset.addSeries(s1);
@@ -129,26 +113,26 @@ public class CompassFormatDemo2 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset direction = this.createDirectionDataset(100);
-            Chart chart = JChart.timeLine("Time", "Date", "Direction", direction, true, true, false);
-            XYPlot plot = (XYPlot)chart.getPlot();
-            plot.getDomainAxis().setLowerMargin((double)0.0F);
-            plot.getDomainAxis().setUpperMargin((double)0.0F);
-            this.rangeAxis = new ModuloAxis("Direction", new Range((double)0.0F, (double)360.0F));
+            Chart chart = JChart.timeLine(direction, "Date", "Direction", "Time");
+            XYPlot plot = (XYPlot) chart.getPlot();
+            plot.getDomainAxis().setLowerMargin(0.0);
+            plot.getDomainAxis().setUpperMargin(0.0);
+            this.rangeAxis = new ModuloAxis("Direction", new Range(0.0, 360.0));
             TickUnits units = new TickUnits();
-            units.add(new NumberTickUnit((double)180.0F, new CompassFormat()));
-            units.add(new NumberTickUnit((double)90.0F, new CompassFormat()));
-            units.add(new NumberTickUnit((double)45.0F, new CompassFormat()));
-            units.add(new NumberTickUnit((double)22.5F, new CompassFormat()));
+            units.add(new NumberTickUnit(180.0, new CompassFormat()));
+            units.add(new NumberTickUnit(90.0, new CompassFormat()));
+            units.add(new NumberTickUnit(45.0, new CompassFormat()));
+            units.add(new NumberTickUnit(22.5, new CompassFormat()));
             this.rangeAxis.setStandardTickUnits(units);
             XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
             renderer.setDefaultLinesVisible(false);
             renderer.setDefaultShapesVisible(true);
             plot.setRenderer(renderer);
             plot.setRangeAxis(this.rangeAxis);
-            this.rangeAxis.setDisplayRange((double)-45.0F, (double)45.0F);
+            this.rangeAxis.setDisplayRange(-45.0, 45.0);
             XYItemRenderer renderer2 = new XYAreaRenderer();
             ValueAxis axis2 = new NumberAxis("Force");
-            axis2.setRange((double)0.0F, (double)12.0F);
+            axis2.setRange(0.0, 12.0);
             renderer2.setSeriesPaint(0, new Color(0, 0, 255, 128));
             plot.setDataset(1, this.createForceDataset(100));
             plot.setRenderer(1, renderer2);
@@ -160,13 +144,12 @@ public class CompassFormatDemo2 extends ApplicationFrame {
 
         public void stateChanged(ChangeEvent event) {
             if (event.getSource() == this.directionSlider) {
-                this.direction = (double)this.directionSlider.getValue();
+                this.direction = this.directionSlider.getValue();
                 this.rangeAxis.setDisplayRange(this.direction - this.degrees, this.direction + this.degrees);
             } else if (event.getSource() == this.fieldSlider) {
-                this.degrees = (double)this.fieldSlider.getValue();
+                this.degrees = this.fieldSlider.getValue();
                 this.rangeAxis.setDisplayRange(this.direction - this.degrees, this.direction + this.degrees);
             }
-
         }
     }
 }

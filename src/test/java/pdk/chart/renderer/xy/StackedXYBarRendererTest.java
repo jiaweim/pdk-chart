@@ -97,8 +97,8 @@ public class StackedXYBarRendererTest {
     public void testFindDomainBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = JChart.stackedAreaXY(
-                "Test Chart", "X", "Y", dataset,
+        Chart chart = JChart.stackedAreaXY(dataset,
+                "X", "Y", "Test Chart",
                 PlotOrientation.VERTICAL, false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StackedXYBarRenderer());
@@ -118,8 +118,8 @@ public class StackedXYBarRendererTest {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = JChart.stackedAreaXY(
-                "Test Chart", "X", "Y", dataset,
+        Chart chart = JChart.stackedAreaXY(dataset,
+                "X", "Y", "Test Chart",
                 PlotOrientation.VERTICAL, false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StackedXYBarRenderer());

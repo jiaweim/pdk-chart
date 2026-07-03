@@ -1,24 +1,21 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.data.time.Millisecond;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DynamicDataDemo1 extends ApplicationFrame {
     public DynamicDataDemo1(String title) {
@@ -40,7 +37,7 @@ public class DynamicDataDemo1 extends ApplicationFrame {
 
     static class MyDemoPanel extends DemoPanel implements ActionListener {
         private TimeSeries series = new TimeSeries("Random Data");
-        private double lastValue = (double)100.0F;
+        private double lastValue = (double) 100.0F;
 
         public MyDemoPanel() {
             super(new BorderLayout());
@@ -59,13 +56,13 @@ public class DynamicDataDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart result = JChart.timeLine("Dynamic Data Demo", "Time", "Value", dataset);
-            XYPlot plot = (XYPlot)result.getPlot();
+            Chart result = JChart.timeLine(dataset, "Time", "Value", "Dynamic Data Demo");
+            XYPlot plot = (XYPlot) result.getPlot();
             ValueAxis axis = plot.getDomainAxis();
             axis.setAutoRange(true);
-            axis.setFixedAutoRange((double)60000.0F);
+            axis.setFixedAutoRange((double) 60000.0F);
             axis = plot.getRangeAxis();
-            axis.setRange((double)0.0F, (double)200.0F);
+            axis.setRange((double) 0.0F, (double) 200.0F);
             return result;
         }
 

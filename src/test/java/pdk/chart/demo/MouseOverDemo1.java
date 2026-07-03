@@ -10,7 +10,6 @@ import pdk.chart.entity.CategoryItemEntity;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.swing.*;
 
@@ -35,26 +34,26 @@ public class MouseOverDemo1 extends ApplicationFrame {
         String category4 = "Category 4";
         String category5 = "Category 5";
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, series1, category1);
-        dataset.addValue((double) 4.0F, series1, category2);
-        dataset.addValue((double) 3.0F, series1, category3);
-        dataset.addValue((double) 5.0F, series1, category4);
-        dataset.addValue((double) 5.0F, series1, category5);
-        dataset.addValue((double) 5.0F, series2, category1);
-        dataset.addValue((double) 7.0F, series2, category2);
-        dataset.addValue((double) 6.0F, series2, category3);
-        dataset.addValue((double) 8.0F, series2, category4);
-        dataset.addValue((double) 4.0F, series2, category5);
-        dataset.addValue((double) 4.0F, series3, category1);
-        dataset.addValue((double) 3.0F, series3, category2);
-        dataset.addValue((double) 2.0F, series3, category3);
-        dataset.addValue((double) 3.0F, series3, category4);
-        dataset.addValue((double) 6.0F, series3, category5);
+        dataset.addValue(1.0F, series1, category1);
+        dataset.addValue(4.0F, series1, category2);
+        dataset.addValue(3.0F, series1, category3);
+        dataset.addValue(5.0F, series1, category4);
+        dataset.addValue(5.0F, series1, category5);
+        dataset.addValue(5.0F, series2, category1);
+        dataset.addValue(7.0F, series2, category2);
+        dataset.addValue(6.0F, series2, category3);
+        dataset.addValue(8.0F, series2, category4);
+        dataset.addValue(4.0F, series2, category5);
+        dataset.addValue(4.0F, series3, category1);
+        dataset.addValue(3.0F, series3, category2);
+        dataset.addValue(2.0F, series3, category3);
+        dataset.addValue(3.0F, series3, category4);
+        dataset.addValue(6.0F, series3, category5);
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Mouseover Demo 1", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Mouseover Demo 1");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();

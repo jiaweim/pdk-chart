@@ -33,7 +33,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
         series.add(new Quarter(3, 2001), 734.4);
         series.add(new Quarter(4, 2001), 453.2);
         series.add(new Quarter(1, 2002), 500.2);
-        series.add(new Quarter(2, 2002), (Number) null);
+        series.add(new Quarter(2, 2002), null);
         series.add(new Quarter(3, 2002), 734.4);
         series.add(new Quarter(4, 2002), 453.2);
         TimeSeriesCollection dataset = new TimeSeriesCollection(series);
@@ -41,11 +41,11 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Time Series Demo 2", "Time", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Time", "Value", "Time Series Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
-        plot.addRangeMarker(new ValueMarker((double) 550.0F));
+        plot.addRangeMarker(new ValueMarker(550.0));
         Quarter q = new Quarter(2, 2002);
-        plot.addDomainMarker(new ValueMarker((double) q.getMiddleMillisecond()));
+        plot.addDomainMarker(new ValueMarker(q.getMiddleMillisecond()));
         return chart;
     }
 
@@ -54,7 +54,7 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TimeSeriesDemo2 demo = new TimeSeriesDemo2("Time Series Demo 2");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

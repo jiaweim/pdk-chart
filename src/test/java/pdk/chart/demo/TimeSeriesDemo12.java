@@ -31,7 +31,7 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Sample Chart", "Date", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Value", "Sample Chart");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(false);
@@ -53,10 +53,10 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
         TimeSeries s1 = new TimeSeries("Series 1");
         s1.add(new Minute(0, 0, 7, 12, 2003), 1.2);
-        s1.add(new Minute(30, 12, 7, 12, 2003), (double) 3.0F);
-        s1.add(new Minute(15, 14, 7, 12, 2003), (double) 8.0F);
+        s1.add(new Minute(30, 12, 7, 12, 2003), 3.0);
+        s1.add(new Minute(15, 14, 7, 12, 2003), 8.0);
         TimeSeries s2 = new TimeSeries("Series 2");
-        s2.add(new Minute(0, 3, 7, 12, 2003), (double) 0.0F);
+        s2.add(new Minute(0, 3, 7, 12, 2003), 0.0F);
         s2.add(new Minute(30, 9, 7, 12, 2003), (double) 0.0F);
         s2.add(new Minute(15, 10, 7, 12, 2003), (double) 0.0F);
         dataset.addSeries(s1);
@@ -69,7 +69,7 @@ public class TimeSeriesDemo12 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TimeSeriesDemo12 demo = new TimeSeriesDemo12("Time Series Demo 12");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

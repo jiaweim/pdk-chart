@@ -113,8 +113,8 @@ public class XYBoxAndWhiskerRendererTest {
         DefaultBoxAndWhiskerXYDataset<String> d1 = new DefaultBoxAndWhiskerXYDataset<>("Series");
         d1.add(new Date(1L), new BoxAndWhiskerItem(1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
                 null, null, null));
-        Chart chart = JChart.boxAndWhisker("Title", "X",
-                "Y", d1, true);
+        Chart chart = JChart.boxAndWhisker(d1, "X",
+                "Y", "Title", true);
         try {
             BufferedImage image = new BufferedImage(400, 200,
                     BufferedImage.TYPE_INT_RGB);

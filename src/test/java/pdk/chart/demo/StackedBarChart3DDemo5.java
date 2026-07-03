@@ -41,7 +41,8 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(int index, CategoryDataset dataset) {
-        Chart chart = JChart.barStacked("Chart " + (index + 1), "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.barStacked(dataset, "Category", "Value", "Chart " + (index + 1),
+                PlotOrientation.VERTICAL, false, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.getDomainAxis().setMaximumCategoryLabelLines(2);
         ValueAxis rangeAxis = plot.getRangeAxis();
@@ -53,8 +54,8 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        StackedBarChart3DDemo5 demo = new StackedBarChart3DDemo5("Chart - Stacked Bar Chart 3D Demo 5");
+    public static void main() {
+        StackedBarChart3DDemo5 demo = new StackedBarChart3DDemo5("Stacked Bar Chart 3D Demo 5");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

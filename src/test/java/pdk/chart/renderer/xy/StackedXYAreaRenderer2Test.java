@@ -31,8 +31,8 @@ public class StackedXYAreaRenderer2Test {
     @Test
     public void testDrawWithEmptyDataset() {
         boolean success;
-        Chart chart = JChart.stackedAreaXY("title", "x",
-                "y", new DefaultTableXYDataset<String>(), PlotOrientation.VERTICAL,
+        Chart chart = JChart.stackedAreaXY(new DefaultTableXYDataset<String>(), "x",
+                "y", "title", PlotOrientation.VERTICAL,
                 true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StackedXYAreaRenderer2());
@@ -117,7 +117,7 @@ public class StackedXYAreaRenderer2Test {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
         Chart chart = JChart.stackedAreaXY(
-                "Test Chart", "X", "Y", dataset, PlotOrientation.VERTICAL,
+                dataset, "X", "Y", "Test Chart", PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();

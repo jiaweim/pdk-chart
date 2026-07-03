@@ -1,21 +1,19 @@
 package pdk.chart.demo;
 
-import java.awt.BasicStroke;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.LogAxis;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
+import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class LogAxisDemo1 extends ApplicationFrame {
     public LogAxisDemo1(String title) {
@@ -26,8 +24,8 @@ public class LogAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter("Log Axis Demo 1", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Log Axis Demo 1");
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
         plot.setDomainGridlineStroke(new BasicStroke(1.0F));
@@ -46,15 +44,15 @@ public class LogAxisDemo1 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         XYSeries series = new XYSeries("Random Data");
-        series.add((double)1.0F, 500.2);
-        series.add((double)5.0F, 694.1);
-        series.add((double)4.0F, (double)100.0F);
-        series.add((double)12.5F, 734.4);
+        series.add((double) 1.0F, 500.2);
+        series.add((double) 5.0F, 694.1);
+        series.add((double) 4.0F, (double) 100.0F);
+        series.add((double) 12.5F, 734.4);
         series.add(17.3, 453.2);
         series.add(21.2, 500.2);
-        series.add(21.9, (double)9005.5F);
+        series.add(21.9, (double) 9005.5F);
         series.add(25.6, 734.4);
-        series.add((double)6663000.0F, 6453.2);
+        series.add((double) 6663000.0F, 6453.2);
         return new XYSeriesCollection(series);
     }
 

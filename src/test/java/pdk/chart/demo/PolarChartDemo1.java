@@ -41,7 +41,7 @@ public class PolarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.polar("Polar Chart Demo 1", dataset, true, false, false);
+        Chart chart = JChart.polar(dataset, "Polar Chart Demo 1", true);
         PolarPlot plot = (PolarPlot) chart.getPlot();
         plot.addCornerTextItem("Corner Item 1");
         plot.addCornerTextItem("Corner Item 2");

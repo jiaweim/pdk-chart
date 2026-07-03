@@ -1,11 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.Data;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -24,8 +23,7 @@ public class BubbleChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        Chart chart = JChart.bubble("Bubble Chart Demo 1", "X", "Y",
-                dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        Chart chart = JChart.bubble(dataset, "X", "Y", "Bubble Chart Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setForegroundAlpha(0.65F);
         plot.setDomainPannable(true);

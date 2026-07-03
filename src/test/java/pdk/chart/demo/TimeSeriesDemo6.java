@@ -29,7 +29,8 @@ public class TimeSeriesDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("International Coffee Organisation : Coffee Prices", (String) null, "US cents/lb", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, (String) null, "US cents/lb",
+                "International Coffee Organisation : Coffee Prices");
         String fontName = "Palatino";
         chart.getTitle().setFont(new Font(fontName, 1, 18));
         chart.addSubtitle(new TextTitle("Source: http://www.ico.org/historical/2010-19/PDF/HIST-PRICES.pdf", new Font(fontName, 0, 14)));

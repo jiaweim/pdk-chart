@@ -6,7 +6,6 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYAreaRenderer2;
 import pdk.chart.swing.ApplicationFrame;
@@ -52,7 +51,8 @@ public class XYAreaRenderer2Demo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.areaXY("XYAreaRenderer2Demo1", "Domain (X)", "Range (Y)", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.areaXY(dataset, "Domain (X)", "Range (Y)",
+                "XYAreaRenderer2Demo1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new XYAreaRenderer2());
         plot.setForegroundAlpha(0.65F);
@@ -69,7 +69,7 @@ public class XYAreaRenderer2Demo1 extends ApplicationFrame {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYAreaRenderer2Demo1 demo = new XYAreaRenderer2Demo1("XYAreaRenderer2Demo1");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

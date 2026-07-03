@@ -2,8 +2,8 @@ package pdk.chart.axis;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartRenderingInfo;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -170,8 +170,8 @@ public class ValueAxisTest {
         series.add(200.0, 2.2);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>(series);
         dataset.setIntervalWidth(0.0);
-        Chart chart = JChart.scatter("Title", "X", "Y",
-                dataset);
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Title"
+        );
         ValueAxis domainAxis = ((XYPlot) chart.getPlot()).getDomainAxis();
         Range r = domainAxis.getRange();
         assertEquals(110.0, r.getLength(), EPSILON);
@@ -188,8 +188,8 @@ public class ValueAxisTest {
     @Test
     public void test3555275() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.line("Title", "X", "Y",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+                PlotOrientation.VERTICAL, true, false, false);
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
         plot.setInsets(RectangleInsets.ZERO_INSETS);
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);

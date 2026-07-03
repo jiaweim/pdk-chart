@@ -16,8 +16,10 @@ public class Scatter2 {
     static void main() {
         HashMap<String, Object[]> iris = Datasets.iris();
         Chart chart = JChart.scatter(
-                "Sepal Width", (Double[]) iris.get("Sepal Width"),
-                "Sepal Length", (Double[]) iris.get("Sepal Length"));
+                (Double[]) iris.get("Sepal Width"),
+                (Double[]) iris.get("Sepal Length"),
+                "Sepal Width",
+                "Sepal Length");
 
         chart.show();
     }

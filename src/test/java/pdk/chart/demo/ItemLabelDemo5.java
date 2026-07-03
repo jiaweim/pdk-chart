@@ -50,7 +50,8 @@ public class ItemLabelDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked("Item Label Demo 5", (String) null, (String) null, dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.barStacked(dataset, (String) null, (String) null, "Item Label Demo 5",
+                PlotOrientation.VERTICAL, false, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         MyStackedBarRenderer renderer = new MyStackedBarRenderer();
         plot.setRenderer(renderer);
@@ -71,8 +72,8 @@ public class ItemLabelDemo5 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        ItemLabelDemo5 demo = new ItemLabelDemo5("Chart: ItemLabelDemo5.java");
+    public static void main() {
+        ItemLabelDemo5 demo = new ItemLabelDemo5("ItemLabelDemo5.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

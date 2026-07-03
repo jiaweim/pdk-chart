@@ -1,39 +1,30 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSlider;
-import javax.swing.JTable;
-import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.ValueAxis;
+import pdk.chart.data.Range;
+import pdk.chart.data.time.*;
+import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.ChartProgressEvent;
 import pdk.chart.event.ChartProgressEventType;
 import pdk.chart.event.ChartProgressListener;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
-import pdk.chart.data.Range;
-import pdk.chart.data.time.Minute;
-import pdk.chart.data.time.RegularTimePeriod;
-import pdk.chart.data.time.TimeSeries;
-import pdk.chart.data.time.TimeSeriesCollection;
-import pdk.chart.data.time.TimeSeriesDataItem;
-import pdk.chart.data.xy.XYDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.NumberCellRenderer;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class CrosshairDemo1 extends ApplicationFrame {
     public CrosshairDemo1(String title) {
@@ -101,7 +92,7 @@ public class CrosshairDemo1 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset dataset1 = this.createDataset("Random 1", (double) 100.0F, new Minute(), 200);
-            Chart chart1 = JChart.timeLine("Crosshair Demo 1", "Time of Day", "Value", dataset1);
+            Chart chart1 = JChart.timeLine(dataset1, "Time of Day", "Value", "Crosshair Demo 1");
             XYPlot plot = (XYPlot) chart1.getPlot();
             plot.setOrientation(PlotOrientation.VERTICAL);
             plot.setDomainCrosshairVisible(true);

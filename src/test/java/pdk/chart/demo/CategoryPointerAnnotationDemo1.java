@@ -40,7 +40,8 @@ public class CategoryPointerAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line("Java Standard Class Library", "Release", "Class Count", dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.line(dataset, "Release", "Class Count", "Java Standard Class Library",
+                PlotOrientation.VERTICAL, false, true);
         chart.addSubtitle(new TextTitle("Number of Classes By Release"));
         TextTitle source = new TextTitle("Source: Java In A Nutshell (4th Edition) by David Flanagan (O'Reilly)");
         source.setFont(new Font("SansSerif", 0, 10));

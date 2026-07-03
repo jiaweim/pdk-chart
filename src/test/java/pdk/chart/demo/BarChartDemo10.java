@@ -34,7 +34,7 @@ public class BarChartDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar("Bar Chart Demo 10", "Category", "Value", dataset);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 10");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.domainGridlinesVisible(true);
 

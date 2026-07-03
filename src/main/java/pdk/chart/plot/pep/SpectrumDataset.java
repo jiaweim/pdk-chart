@@ -1,7 +1,6 @@
 package pdk.chart.plot.pep;
 
-import pdk.chart.data.xy.YIntervalSeries;
-import pdk.chart.data.xy.YIntervalSeriesCollection;
+import pdk.chart.data.xy.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +16,8 @@ import java.util.Objects;
 public class SpectrumDataset extends YIntervalSeriesCollection<SeriesType> {
 
     private final Map<SeriesType, String[]> labelMap = new HashMap<>();
+    private final XYSeriesCollection<SeriesType> mzErrorDataset = new XYSeriesCollection<>();
+
 
     public SpectrumDataset() {
         super();
@@ -37,18 +38,7 @@ public class SpectrumDataset extends YIntervalSeriesCollection<SeriesType> {
      * @param y          intensity values.
      */
     public void addSeries(SeriesType seriesType, double[] x, double[] y) {
-        Objects.requireNonNull(seriesType);
-        Objects.requireNonNull(x);
-        Objects.requireNonNull(y);
-        if (x.length != y.length) {
-            throw new IllegalArgumentException("x and y arrays must have same length");
-        }
-
-        YIntervalSeries<SeriesType> series = new YIntervalSeries<>(seriesType);
-        for (int i = 0; i < x.length; i++) {
-            series.add(x[i], y[i], 0, y[i]);
-        }
-        addSeries(series);
+        addSeries(seriesType, x, y, null);
     }
 
     /**
@@ -60,11 +50,35 @@ public class SpectrumDataset extends YIntervalSeriesCollection<SeriesType> {
      * @param labels     peak annotation labels.
      */
     public void addSeries(SeriesType seriesType, double[] x, double[] y, String[] labels) {
+        addSeries(seriesType, x, y, null, labels);
+    }
+
+    /**
+     * Add a series of peaks.
+     *
+     * @param seriesType {@link SeriesType} of the peaks.
+     * @param x          mz values
+     * @param y          intensity values.
+     * @param labels     peak annotation labels.
+     */
+    public void addSeries(SeriesType seriesType, double[] x, double[] y, double[] mzError, String[] labels) {
         Objects.requireNonNull(seriesType);
         Objects.requireNonNull(x);
         Objects.requireNonNull(y);
+
         if (x.length != y.length) {
             throw new IllegalArgumentException("x and y arrays must have same length");
+        }
+
+        if (mzError != null) {
+            if (x.length != mzError.length) {
+                throw new IllegalArgumentException("x and mzError arrays must have same length");
+            }
+            XYSeries<SeriesType> series = new XYSeries<>(seriesType);
+            for (int i = 0; i < x.length; i++) {
+                series.add(x[i], mzError[i]);
+            }
+            mzErrorDataset.addSeries(series);
         }
 
         YIntervalSeries<SeriesType> series = new YIntervalSeries<>(seriesType);
@@ -73,6 +87,10 @@ public class SpectrumDataset extends YIntervalSeriesCollection<SeriesType> {
         }
         addSeries(series);
         labelMap.put(seriesType, labels);
+    }
+
+    public XYDataset<SeriesType> getMZErrorDataset() {
+        return mzErrorDataset;
     }
 
     /**

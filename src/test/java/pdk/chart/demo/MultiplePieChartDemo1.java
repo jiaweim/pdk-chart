@@ -24,13 +24,17 @@ public class MultiplePieChartDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset createDataset() {
-        double[][] data = new double[][]{{(double) 3.0F, (double) 4.0F, (double) 3.0F, (double) 5.0F}, {(double) 5.0F, (double) 7.0F, (double) 6.0F, (double) 8.0F}, {(double) 5.0F, (double) 7.0F, Double.NaN, (double) 3.0F}, {(double) 1.0F, (double) 2.0F, (double) 3.0F, (double) 4.0F}, {(double) 2.0F, (double) 3.0F, (double) 2.0F, (double) 3.0F}};
+        double[][] data = new double[][]{{3.0, 4.0, 3.0, 5.0},
+                {5.0, 7.0, 6.0, 8.0},
+                {5.0, 7.0, Double.NaN, 3.0},
+                {1.0, 2.0, 3.0, 4.0},
+                {2.0, 3.0, 2.0, 3.0}};
         CategoryDataset dataset = DatasetUtils.createCategoryDataset("Region ", "Sales/Q", data);
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.pieMultiple("Multiple Pie Chart", dataset, TableOrder.BY_ROW, true, true, false);
+        Chart chart = JChart.pieMultiple(dataset, "Multiple Pie Chart", TableOrder.BY_ROW, true, true, false);
         MultiplePiePlot plot = (MultiplePiePlot) chart.getPlot();
         Chart subchart = plot.getPieChart();
         PiePlot p = (PiePlot) subchart.getPlot();
@@ -44,8 +48,8 @@ public class MultiplePieChartDemo1 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        MultiplePieChartDemo1 demo = new MultiplePieChartDemo1("JFreeChart: MultiplePieChartDemo1.java");
+    static void main() {
+        MultiplePieChartDemo1 demo = new MultiplePieChartDemo1("MultiplePieChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

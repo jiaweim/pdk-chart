@@ -13,6 +13,7 @@ import pdk.chart.internal.SerialUtils;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;
+import pdk.chart.plot.pep.MSPlot;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PieLabelLinkStyle;
 import pdk.chart.plot.pie.PiePlot;
@@ -1247,6 +1248,13 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
         if (plot instanceof CombinedDomainXYPlot) {
             CombinedDomainXYPlot<S> cp = (CombinedDomainXYPlot) plot;
             for (XYPlot<S> subplot : cp.getSubplots()) {
+                if (subplot != null) {
+                    applyToPlot(subplot);
+                }
+            }
+        }
+        if (plot instanceof MSPlot<S> msPlot) {
+            for (XYPlot<S> subplot : msPlot.getSubplots()) {
                 if (subplot != null) {
                     applyToPlot(subplot);
                 }

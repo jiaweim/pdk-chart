@@ -1,28 +1,23 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.DefaultXYItemRenderer;
-
 import pdk.chart.data.time.Millisecond;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.renderer.xy.DefaultXYItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class DynamicDataDemo2 extends ApplicationFrame {
     public DynamicDataDemo2(String title) {
@@ -51,7 +46,7 @@ public class DynamicDataDemo2 extends ApplicationFrame {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = new TimeSeriesCollection(this.series1);
             TimeSeriesCollection dataset2 = new TimeSeriesCollection(this.series2);
-            Chart chart = JChart.timeLine("Dynamic Data Demo 2", "Time", "Value", dataset1);
+            Chart chart = JChart.timeLine(dataset1, "Time", "Value", "Dynamic Data Demo 2");
             this.addChart(chart);
             XYPlot plot = (XYPlot) chart.getPlot();
             ValueAxis axis = plot.getDomainAxis();

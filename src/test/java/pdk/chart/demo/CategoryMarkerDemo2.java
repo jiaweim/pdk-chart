@@ -1,12 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.swing.ApplicationFrame;
@@ -41,8 +41,8 @@ public class CategoryMarkerDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.line("Category Marker Demo 2",
-                "Category", "Count", dataset);
+        Chart chart = JChart.line(dataset,
+                "Category", "Count", "Category Marker Demo 2");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getRangeAxisAsNumber()
                 .standardTickUnits(NumberAxis.createIntegerTickUnits());

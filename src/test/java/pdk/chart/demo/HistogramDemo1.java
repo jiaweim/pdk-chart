@@ -1,10 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.StandardXYBarPainter;
@@ -54,8 +54,8 @@ public class HistogramDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.histogram("Histogram Demo 1", null, null,
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.histogram(dataset, null, null, "Histogram Demo 1",
+                PlotOrientation.VERTICAL, true, true, false);
 
         XYPlot plot = chart.getXYPlot();
         plot.domainPannable(true)

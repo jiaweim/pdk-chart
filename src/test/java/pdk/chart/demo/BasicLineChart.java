@@ -1,11 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.internal.ShapeUtils;
-import pdk.chart.plot.PlotOrientation;
 
 import java.awt.*;
 
@@ -28,8 +27,7 @@ public class BasicLineChart {
                 new double[]{150, 230, 224, 218, 135, 147, 260}
         );
 
-        Chart chart = JChart.line(null, null, null, dataset, PlotOrientation.VERTICAL,
-                false, true, false);
+        Chart chart = JChart.line(dataset);
 
         chart.getCategoryPlot()
                 .getLineAndShapeRenderer()

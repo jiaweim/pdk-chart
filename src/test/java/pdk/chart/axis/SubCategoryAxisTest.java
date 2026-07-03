@@ -92,8 +92,8 @@ public class SubCategoryAxisTest {
      */
     @Test
     public void test2275695() {
-        Chart chart = JChart.barStacked("Test",
-                "Category", "Value", null, PlotOrientation.VERTICAL,
+        Chart chart = JChart.barStacked(null,
+                "Category", "Value", "Test", PlotOrientation.VERTICAL,
                 true, false, false);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();
         plot.setDomainAxis(new SubCategoryAxis("SubCategoryAxis"));

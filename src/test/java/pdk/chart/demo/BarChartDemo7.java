@@ -60,7 +60,7 @@ public class BarChartDemo7 extends ApplicationFrame {
         target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
         target.setPaint(new Color(222, 222, 255, 128));
 
-        Chart chart = JChart.bar("Bar Chart Demo 7", "Category", "Value", dataset);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 7");
         chart.removeLegend();
 
         CategoryPlot plot = chart.getCategoryPlot();

@@ -1,9 +1,9 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.data.statistics.HistogramDataset;
-import pdk.chart.Data;
 
 import java.util.Random;
 
@@ -32,7 +32,7 @@ public class HistogramGaussian {
 
         HistogramDataset dataset = his.build();
 
-        Chart chart = JChart.histogram("Histogram Gaussian", null, null, dataset);
+        Chart chart = JChart.histogram(dataset, null, null, "Histogram Gaussian");
         chart.show();
     }
 }

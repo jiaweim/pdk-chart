@@ -38,8 +38,8 @@ public class SurveyResultsDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(null, null, null,
-                dataset, PlotOrientation.VERTICAL, false, true, false);
+        Chart chart = JChart.bar(dataset, null, null, null,
+                PlotOrientation.VERTICAL, false, true);
         chart.backgroundPaint(Color.WHITE);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.outlinePaint(null);

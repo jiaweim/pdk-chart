@@ -1,11 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.text.SimpleDateFormat;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
@@ -24,6 +18,10 @@ import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 
+import javax.swing.*;
+import java.awt.*;
+import java.text.SimpleDateFormat;
+
 
 public class TimeSeriesDemo13 extends ApplicationFrame {
     public TimeSeriesDemo13(String title) {
@@ -32,18 +30,18 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Weekly Data", "Date", "Value", dataset, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
+        Chart chart = JChart.timeLine(dataset, "Date", "Value", "Weekly Data");
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
         XYItemRenderer renderer = plot.getRenderer();
         if (renderer instanceof XYLineAndShapeRenderer) {
-            XYLineAndShapeRenderer rr = (XYLineAndShapeRenderer)renderer;
+            XYLineAndShapeRenderer rr = (XYLineAndShapeRenderer) renderer;
             rr.setDefaultShapesVisible(true);
             rr.setDefaultShapesFilled(true);
         }
 
-        DateAxis axis = (DateAxis)plot.getDomainAxis();
+        DateAxis axis = (DateAxis) plot.getDomainAxis();
         TickUnits standardUnits = new TickUnits();
         standardUnits.add(new DateTickUnit(DateTickUnitType.DAY, 1, new SimpleDateFormat("MMM dd ''yy")));
         standardUnits.add(new DateTickUnit(DateTickUnitType.DAY, 7, new SimpleDateFormat("MMM dd ''yy")));
@@ -55,11 +53,11 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
     private static XYDataset createDataset(int items) {
         TimeSeries s1 = new TimeSeries("Random Data");
         RegularTimePeriod t = new Week();
-        double v = (double)100.0F;
+        double v = 100.0;
 
-        for(int i = 0; i < items; ++i) {
+        for (int i = 0; i < items; ++i) {
             s1.add(t, v);
-            v *= (double)1.0F + (Math.random() - 0.499) / (double)100.0F;
+            v *= 1.0 + (Math.random() - 0.499) / 100.0;
             t = t.next();
         }
 
@@ -83,7 +81,7 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
         return content;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TimeSeriesDemo13 demo = new TimeSeriesDemo13("Time Series Demo 13");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

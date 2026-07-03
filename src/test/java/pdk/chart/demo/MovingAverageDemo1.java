@@ -56,7 +56,7 @@ public class MovingAverageDemo1 extends ApplicationFrame {
 
     public static Chart createChart(XYDataset dataset) {
         String chartTitle = "Legal & General Unit Trust Prices";
-        Chart chart = JChart.timeLine(chartTitle, "Date", "Price Per Unit", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit", chartTitle);
         XYPlot plot = (XYPlot) chart.getPlot();
         XYItemRenderer renderer = plot.getRenderer();
         if (renderer instanceof XYLineAndShapeRenderer) {

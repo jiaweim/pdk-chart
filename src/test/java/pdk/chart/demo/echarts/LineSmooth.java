@@ -1,12 +1,11 @@
 package pdk.chart.demo.echarts;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
-import pdk.chart.swing.UIUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,7 +37,7 @@ public class LineSmooth extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        return JChart.line(null, null, null, dataset);
+        return JChart.line(dataset);
     }
 
     public static JPanel createDemoPanel() {

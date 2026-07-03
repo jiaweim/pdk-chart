@@ -4,7 +4,6 @@ import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYDotRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -23,7 +22,7 @@ public class ScatterPlotDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter("Scatter Plot Demo 2", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Scatter Plot Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setDomainCrosshairLockedOnData(true);

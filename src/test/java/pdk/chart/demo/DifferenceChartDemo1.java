@@ -41,7 +41,7 @@ public class DifferenceChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Difference Chart Demo 1", "Time", "Value", dataset);
+        Chart chart = JChart.timeLine(dataset, "Time", "Value", "Difference Chart Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         XYDifferenceRenderer r = new XYDifferenceRenderer(Color.GREEN, Color.RED, false);

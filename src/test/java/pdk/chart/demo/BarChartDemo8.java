@@ -43,7 +43,7 @@ public class BarChartDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar("Bar Chart Demo 8", "Category", "Value", dataset);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 8");
         chart.removeLegend();
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getDomainAxis()

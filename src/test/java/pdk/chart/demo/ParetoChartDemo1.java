@@ -1,10 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.text.NumberFormat;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
@@ -14,6 +9,11 @@ import pdk.chart.api.SortOrder;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.DataUtils;
+import pdk.chart.data.DefaultKeyedValues;
+import pdk.chart.data.KeyedValues;
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DatasetRenderingOrder;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
@@ -21,11 +21,10 @@ import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.title.TextTitle;
-import pdk.chart.data.DataUtils;
-import pdk.chart.data.DefaultKeyedValues;
-import pdk.chart.data.KeyedValues;
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.general.DatasetUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.text.NumberFormat;
 
 public class ParetoChartDemo1 extends ApplicationFrame {
     public ParetoChartDemo1(String title) {
@@ -36,15 +35,15 @@ public class ParetoChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset[] datasets) {
-        Chart chart = JChart.bar("TIOBE Index of Programming Languages", (String)null, "Index Value", datasets[0]);
+        Chart chart = JChart.bar(datasets[0], (String) null, "Index Value", "TIOBE Index of Programming Languages");
         chart.addSubtitle(new TextTitle("As at August 2013"));
         chart.removeLegend();
-        CategoryPlot plot = (CategoryPlot)chart.getPlot();
+        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis domainAxis = plot.getDomainAxis();
         domainAxis.setLowerMargin(0.02);
         domainAxis.setUpperMargin(0.02);
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
-        NumberAxis rangeAxis = (NumberAxis)plot.getRangeAxis();
+        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         LineAndShapeRenderer renderer2 = new LineAndShapeRenderer();
         NumberAxis axis2 = new NumberAxis("Percent");

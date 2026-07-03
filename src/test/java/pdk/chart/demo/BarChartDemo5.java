@@ -1,13 +1,13 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.Data;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.CategoryPlot;
@@ -46,9 +46,9 @@ public class BarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar("Prison Population Rates - Selected Countries",
-                "Country", "Prisoners Per 100,000 National Population",
-                dataset, PlotOrientation.HORIZONTAL, false, true, false);
+        Chart chart = JChart.bar(dataset,
+                "Country", "Prisoners Per 100,000 National Population", "Prison Population Rates - Selected Countries",
+                PlotOrientation.HORIZONTAL, false, true);
 
         chart.addSubtitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf", new Font("Dialog", 2, 10)));
         CategoryPlot plot = chart.getCategoryPlot();

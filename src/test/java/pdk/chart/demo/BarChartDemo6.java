@@ -30,7 +30,7 @@ public class BarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(null, "Category", "Score (%)", dataset);
+        Chart chart = JChart.bar(dataset, "Category", "Score (%)", null);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.YELLOW);
 

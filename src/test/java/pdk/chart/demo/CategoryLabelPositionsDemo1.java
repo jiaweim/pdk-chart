@@ -35,7 +35,9 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("CategoryLabelPositionsDemo1", "Category", "Value", dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.bar(dataset, "Category", "Value",
+                "CategoryLabelPositionsDemo1",
+                PlotOrientation.VERTICAL, false, false);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         CategoryAxis axis = plot.getDomainAxis();
         axis.setMaximumCategoryLabelLines(Integer.MAX_VALUE);
@@ -45,14 +47,14 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
 
     public static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, "R1", "Category 1 (Long)");
-        dataset.addValue((double) 5.0F, "R1", "Category 2 (Long)");
-        dataset.addValue((double) 3.0F, "R1", "Category 3 (Long)");
-        dataset.addValue((double) 2.0F, "R1", "Category 4 (Long)");
-        dataset.addValue((double) 9.0F, "R1", "Category 5 (Long)");
-        dataset.addValue((double) 7.0F, "R1", "Category 6 (Long)");
-        dataset.addValue((double) 6.0F, "R1", "Category 7 (Long)");
-        dataset.addValue((double) 8.0F, "R1", "Category 8 (Long)");
+        dataset.addValue(1.0F, "R1", "Category 1 (Long)");
+        dataset.addValue(5.0F, "R1", "Category 2 (Long)");
+        dataset.addValue(3.0F, "R1", "Category 3 (Long)");
+        dataset.addValue(2.0F, "R1", "Category 4 (Long)");
+        dataset.addValue(9.0F, "R1", "Category 5 (Long)");
+        dataset.addValue(7.0F, "R1", "Category 6 (Long)");
+        dataset.addValue(6.0F, "R1", "Category 7 (Long)");
+        dataset.addValue(8.0F, "R1", "Category 8 (Long)");
         return dataset;
     }
 

@@ -1,14 +1,5 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Paint;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
@@ -18,13 +9,16 @@ import pdk.chart.data.time.Day;
 import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
-import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.StandardXYItemRenderer;
-import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class MultipleDatasetDemo1 extends ApplicationFrame {
@@ -37,8 +31,8 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        MultipleDatasetDemo1 demo = new MultipleDatasetDemo1("Chart: MultipleDatasetDemo1.java");
+    static void main() {
+        MultipleDatasetDemo1 demo = new MultipleDatasetDemo1("MultipleDatasetDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -51,10 +45,11 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
         public MyDemoPanel() {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = this.createRandomDataset("Series 1");
-            Chart chart = JChart.timeLine("Multiple Dataset Demo 1", "Time", "Value", dataset1, true, true, false);
-            chart.setBackgroundPaint((Paint)null);
+            Chart chart = JChart.timeLine(dataset1, "Time", "Value",
+                    "Multiple Dataset Demo 1");
+            chart.setBackgroundPaint((Paint) null);
             this.addChart(chart);
-            this.plot = (XYPlot)chart.getPlot();
+            this.plot = (XYPlot) chart.getPlot();
             ValueAxis axis = this.plot.getDomainAxis();
             axis.setAutoRange(true);
             NumberAxis rangeAxis2 = new NumberAxis("Range Axis 2");
@@ -79,13 +74,12 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
 
         private TimeSeriesCollection createRandomDataset(String name) {
             TimeSeries series = new TimeSeries(name);
-            double value = (double)100.0F;
+            double value = 100.0;
             RegularTimePeriod t = new Day();
-
-            for(int i = 0; i < 50; ++i) {
+            for (int i = 0; i < 50; ++i) {
                 series.add(t, value);
                 t = t.next();
-                value *= (double)1.0F + Math.random() / (double)100.0F;
+                value *= 1.0 + Math.random() / 100.0;
             }
 
             return new TimeSeriesCollection(series);
@@ -99,8 +93,8 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
                     this.plot.setRenderer(this.datasetIndex, new StandardXYItemRenderer());
                 }
             } else if (e.getActionCommand().equals("REMOVE_DATASET") && this.datasetIndex >= 1) {
-                this.plot.setDataset(this.datasetIndex, (XYDataset)null);
-                this.plot.setRenderer(this.datasetIndex, (XYItemRenderer)null);
+                this.plot.setDataset(this.datasetIndex, null);
+                this.plot.setRenderer(this.datasetIndex, null);
                 --this.datasetIndex;
             }
 

@@ -43,7 +43,7 @@ public class RingChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset<String> dataset) {
-        Chart chart = JChart.ring("Machine Capacity", dataset, true, true, false);
+        Chart chart = JChart.ring(dataset, "Machine Capacity", true, true, false);
         chart.backgroundPaint(new GradientPaint(new Point(0, 0), new Color(20, 20, 20), new Point(400, 200), Color.DARK_GRAY));
         RingPlot plot = chart.getRingPlot();
         plot.centerTextMode(CenterTextMode.VALUE)

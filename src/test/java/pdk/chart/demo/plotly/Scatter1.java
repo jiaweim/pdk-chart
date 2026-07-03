@@ -13,8 +13,10 @@ import pdk.chart.JChart;
 public class Scatter1 {
     static void main() {
         Chart chart = JChart.scatter(
-                "x", new double[]{0, 1, 2, 3, 4},
-                "y", new double[]{0, 1, 4, 9, 16});
+                new double[]{0, 1, 2, 3, 4},
+                new double[]{0, 1, 4, 9, 16},
+                "x",
+                "y");
         chart.show();
     }
 }

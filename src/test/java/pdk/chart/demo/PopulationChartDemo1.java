@@ -1,9 +1,9 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -30,9 +30,9 @@ public class PopulationChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset<String, String> dataset) {
-        return JChart.barStacked("Population Chart Demo 1",
-                "Age Group", "Population (millions)",
-                dataset, PlotOrientation.HORIZONTAL, true, true, false);
+        return JChart.barStacked(dataset,
+                "Age Group", "Population (millions)", "Population Chart Demo 1",
+                PlotOrientation.HORIZONTAL, true, true);
     }
 
     public static CategoryDataset<String, String> createDataset() {

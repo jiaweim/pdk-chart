@@ -1,4 +1,4 @@
-package pdk.chart.plot;
+package pdk.chart.plot.pep;
 
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.api.RectangleEdge;
@@ -12,9 +12,9 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.PlotChangeListener;
-import pdk.chart.internal.Args;
 import pdk.chart.internal.CloneUtils;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.plot.*;
 import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.util.ShadowGenerator;
 
@@ -32,7 +32,7 @@ import java.util.Objects;
  *
  * @param <S> the subplot key type.
  */
-public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
+public class MSPlot<S extends Comparable<S>> extends XYPlot<S>
         implements PlotChangeListener {
 
     /**
@@ -54,13 +54,11 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
      * Temporary storage for the subplot areas.
      */
     private transient Rectangle2D[] subplotAreas;
-    // TODO:  the subplot areas needs to be moved out of the plot into the plot
-    //        state
 
     /**
      * Default constructor.
      */
-    public CombinedDomainXYPlot() {
+    public MSPlot() {
         this(new NumberAxis());
     }
 
@@ -70,7 +68,7 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
      *
      * @param domainAxis the shared axis.
      */
-    public CombinedDomainXYPlot(ValueAxis domainAxis) {
+    public MSPlot(ValueAxis domainAxis) {
         super(null,        // no data in the parent plot
                 domainAxis,
                 null,        // no range axis
@@ -85,7 +83,7 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
      */
     @Override
     public String getPlotType() {
-        return "Combined_Domain_XYPlot";
+        return "MSPlot";
     }
 
     /**
@@ -220,7 +218,7 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
      * @param weight  the weight (must be &gt;= 1).
      */
     public void add(XYPlot subplot, int weight) {
-        Objects.requireNonNull(subplot, "subplot must not be null");
+        Objects.requireNonNull(subplot, "subplot is null");
         if (weight <= 0) {
             throw new IllegalArgumentException("Require weight >= 1.");
         }
@@ -241,13 +239,46 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
     }
 
     /**
+     * Adds a subplot with the specified weight and sends a
+     * {@link PlotChangeEvent} to all registered listeners.  The weight
+     * determines how much space is allocated to the subplot relative to all
+     * the other subplots.
+     * <p>
+     * The domain axis for the subplot will be set to {@code null}.  You
+     * must ensure that the subplot has a non-null range axis.
+     *
+     * @param subplot   the subplot ({@code null} not permitted).
+     * @param fixHeight the weight (must be &gt;= 1).
+     */
+    public void add(XYPlot subplot, double fixHeight) {
+        Objects.requireNonNull(subplot, "subplot is null");
+        if (fixHeight <= 0) {
+            throw new IllegalArgumentException("Require weight >= 1.");
+        }
+
+        // store the plot and its weight
+        subplot.setParent(this);
+        subplot.setPreferredHeight(fixHeight);
+        subplot.setInsets(RectangleInsets.ZERO_INSETS, false);
+        subplot.setDomainAxis(null);
+        subplot.addChangeListener(this);
+        this.subplots.add(subplot);
+
+        ValueAxis axis = getDomainAxis();
+        if (axis != null) {
+            axis.configure();
+        }
+        fireChangeEvent();
+    }
+
+    /**
      * Removes a subplot from the combined chart and sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
      * @param subplot the subplot ({@code null} not permitted).
      */
     public void remove(XYPlot subplot) {
-        Args.nullNotPermitted(subplot, "subplot");
+        Objects.requireNonNull(subplot, "subplot is null");
         int position = -1;
         int size = this.subplots.size();
         int i = 0;
@@ -317,9 +348,23 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
         // work out the maximum height or width of the non-shared axes...
         int n = this.subplots.size();
         int totalWeight = 0;
-        for (int i = 0; i < n; i++) {
-            XYPlot sub = (XYPlot) this.subplots.get(i);
-            totalWeight += sub.getWeight();
+        double fixedSize = 0;
+        for (XYPlot sub : this.subplots) {
+            if (orientation == PlotOrientation.HORIZONTAL) {
+                double preferredWidth = sub.getPreferredWidth();
+                if (preferredWidth <= 0) {
+                    totalWeight += sub.getWeight();
+                } else {
+                    fixedSize += preferredWidth;
+                }
+            } else if (orientation == PlotOrientation.VERTICAL) {
+                double preferredHeight = sub.getPreferredHeight();
+                if (preferredHeight <= 0) {
+                    totalWeight += sub.getWeight();
+                } else {
+                    fixedSize += preferredHeight;
+                }
+            }
         }
         this.subplotAreas = new Rectangle2D[n];
         double x = adjustedPlotArea.getX();
@@ -330,18 +375,31 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
         } else if (orientation == PlotOrientation.VERTICAL) {
             usableSize = adjustedPlotArea.getHeight() - this.gap * (n - 1);
         }
+        usableSize -= fixedSize;
 
         for (int i = 0; i < n; i++) {
-            XYPlot plot = (XYPlot) this.subplots.get(i);
+            XYPlot plot = this.subplots.get(i);
 
             // calculate sub-plot area
             if (orientation == PlotOrientation.HORIZONTAL) {
-                double w = usableSize * plot.getWeight() / totalWeight;
+                double preferredWidth = plot.getPreferredWidth();
+                double w;
+                if (preferredWidth > 0) {
+                    w = preferredWidth;
+                } else {
+                    w = usableSize * plot.getWeight() / totalWeight;
+                }
                 this.subplotAreas[i] = new Rectangle2D.Double(x, y, w,
                         adjustedPlotArea.getHeight());
                 x = x + w + this.gap;
             } else if (orientation == PlotOrientation.VERTICAL) {
-                double h = usableSize * plot.getWeight() / totalWeight;
+                double preferredHeight = plot.getPreferredHeight();
+                double h;
+                if (preferredHeight > 0) {
+                    h = preferredHeight;
+                } else {
+                    h = usableSize * plot.getWeight() / totalWeight;
+                }
                 this.subplotAreas[i] = new Rectangle2D.Double(x, y,
                         adjustedPlotArea.getWidth(), h);
                 y = y + h + this.gap;
@@ -350,7 +408,6 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
             AxisSpace subSpace = plot.calculateRangeAxisSpace(g2,
                     this.subplotAreas[i], null);
             space.ensureAtLeast(subSpace);
-
         }
 
         return space;
@@ -414,7 +471,7 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
 
         // draw all the subplots
         for (int i = 0; i < this.subplots.size(); i++) {
-            XYPlot plot = (XYPlot) this.subplots.get(i);
+            XYPlot plot = this.subplots.get(i);
             PlotRenderingInfo subplotInfo = null;
             if (info != null) {
                 subplotInfo = new PlotRenderingInfo(info.getOwner());
@@ -427,7 +484,6 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
         if (info != null) {
             info.setDataArea(dataArea);
         }
-
     }
 
     /**
@@ -477,12 +533,19 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
         // delegate 'state' and 'source' argument checks...
         XYPlot<S> subplot = findSubplot(state, source);
         if (subplot != null) {
-            subplot.zoomRangeAxes(factor, state, source, useAnchor);
+            // Disable zoom for mz error plot.
+            double preferredHeight = subplot.getPreferredHeight();
+            if (preferredHeight < 0) { //
+                subplot.zoomRangeAxes(factor, state, source, useAnchor);
+            }
         } else {
             // if the source point doesn't fall within a subplot, we do the
             // zoom on all subplots...
             for (XYPlot p : this.subplots) {
-                p.zoomRangeAxes(factor, state, source, useAnchor);
+                double preferredHeight = p.getPreferredHeight();
+                if (preferredHeight < 0) {
+                    p.zoomRangeAxes(factor, state, source, useAnchor);
+                }
             }
         }
     }
@@ -501,12 +564,18 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
         // delegate 'info' and 'source' argument checks...
         XYPlot subplot = findSubplot(info, source);
         if (subplot != null) {
-            subplot.zoomRangeAxes(lowerPercent, upperPercent, info, source);
+            double preferredHeight = subplot.getPreferredHeight();
+            if (preferredHeight < 0) {
+                subplot.zoomRangeAxes(lowerPercent, upperPercent, info, source);
+            }
         } else {
             // if the source point doesn't fall within a subplot, we do the
             // zoom on all subplots...
             for (XYPlot p : this.subplots) {
-                p.zoomRangeAxes(lowerPercent, upperPercent, info, source);
+                double preferredHeight = p.getPreferredHeight();
+                if (preferredHeight < 0) {
+                    p.zoomRangeAxes(lowerPercent, upperPercent, info, source);
+                }
             }
         }
     }
@@ -550,11 +619,11 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
      * @return A subplot (possibly {@code null}).
      */
     public XYPlot<S> findSubplot(PlotRenderingInfo info, Point2D source) {
-        Args.nullNotPermitted(info, "info");
-        Args.nullNotPermitted(source, "source");
+        Objects.requireNonNull(info);
+        Objects.requireNonNull(source);
         int subplotIndex = info.getSubplotIndex(source);
         if (subplotIndex >= 0) {
-            return this.subplots.get(subplotIndex);
+            return (XYPlot<S>) this.subplots.get(subplotIndex);
         }
         return null;
     }
@@ -668,10 +737,10 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof CombinedDomainXYPlot)) {
+        if (!(obj instanceof MSPlot)) {
             return false;
         }
-        CombinedDomainXYPlot that = (CombinedDomainXYPlot) obj;
+        MSPlot that = (MSPlot) obj;
         if (this.gap != that.gap) {
             return false;
         }
@@ -690,8 +759,7 @@ public class CombinedDomainXYPlot<S extends Comparable<S>> extends XYPlot<S>
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
-
-        CombinedDomainXYPlot<S> result = (CombinedDomainXYPlot) super.clone();
+        MSPlot<S> result = (MSPlot) super.clone();
         result.subplots = CloneUtils.cloneList(this.subplots);
         for (XYPlot<S> child : result.subplots) {
             child.setParent(result);

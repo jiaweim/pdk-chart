@@ -6,7 +6,6 @@ import pdk.chart.JChartUtils;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.MinMaxCategoryRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -25,35 +24,35 @@ public class MinMaxCategoryPlotDemo1 extends ApplicationFrame {
 
     public static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, "First", "C1");
-        dataset.addValue((double) 4.0F, "First", "C2");
-        dataset.addValue((double) 3.0F, "First", "C3");
-        dataset.addValue((double) 5.0F, "First", "C4");
-        dataset.addValue((double) 5.0F, "First", "C5");
-        dataset.addValue((double) 7.0F, "First", "C6");
-        dataset.addValue((double) 7.0F, "First", "C7");
-        dataset.addValue((double) 8.0F, "First", "C8");
-        dataset.addValue((double) 5.0F, "Second", "C1");
-        dataset.addValue((double) 7.0F, "Second", "C2");
-        dataset.addValue((double) 6.0F, "Second", "C3");
-        dataset.addValue((double) 8.0F, "Second", "C4");
-        dataset.addValue((double) 4.0F, "Second", "C5");
-        dataset.addValue((double) 4.0F, "Second", "C6");
-        dataset.addValue((double) 2.0F, "Second", "C7");
-        dataset.addValue((double) 1.0F, "Second", "C8");
-        dataset.addValue((double) 4.0F, "Third", "C1");
-        dataset.addValue((double) 3.0F, "Third", "C2");
-        dataset.addValue((double) 2.0F, "Third", "C3");
-        dataset.addValue((double) 3.0F, "Third", "C4");
-        dataset.addValue((double) 6.0F, "Third", "C5");
-        dataset.addValue((double) 3.0F, "Third", "C6");
-        dataset.addValue((double) 4.0F, "Third", "C7");
-        dataset.addValue((double) 3.0F, "Third", "C8");
+        dataset.addValue(1.0F, "First", "C1");
+        dataset.addValue(4.0F, "First", "C2");
+        dataset.addValue(3.0F, "First", "C3");
+        dataset.addValue(5.0F, "First", "C4");
+        dataset.addValue(5.0F, "First", "C5");
+        dataset.addValue(7.0F, "First", "C6");
+        dataset.addValue(7.0F, "First", "C7");
+        dataset.addValue(8.0F, "First", "C8");
+        dataset.addValue(5.0F, "Second", "C1");
+        dataset.addValue(7.0F, "Second", "C2");
+        dataset.addValue(6.0F, "Second", "C3");
+        dataset.addValue(8.0F, "Second", "C4");
+        dataset.addValue(4.0F, "Second", "C5");
+        dataset.addValue(4.0F, "Second", "C6");
+        dataset.addValue(2.0F, "Second", "C7");
+        dataset.addValue(1.0F, "Second", "C8");
+        dataset.addValue(4.0F, "Third", "C1");
+        dataset.addValue(3.0F, "Third", "C2");
+        dataset.addValue(2.0F, "Third", "C3");
+        dataset.addValue(3.0F, "Third", "C4");
+        dataset.addValue(6.0F, "Third", "C5");
+        dataset.addValue(3.0F, "Third", "C6");
+        dataset.addValue(4.0F, "Third", "C7");
+        dataset.addValue(3.0F, "Third", "C8");
         return dataset;
     }
 
     public static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar("Min/Max Category Plot", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar(dataset, "Category", "Value", "Min/Max Category Plot");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);
         MinMaxCategoryRenderer renderer = new MinMaxCategoryRenderer();

@@ -1,8 +1,6 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.*;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
@@ -10,8 +8,6 @@ import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.CategoryChartType;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.CategoryPlot;
@@ -71,8 +67,7 @@ public class DualAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart() {
-        Chart chart = JChart.bar("DualAxisDemo1", "Category", "Value",
-                createDataset1());
+        Chart chart = JChart.bar(createDataset1(), "Category", "Value", "DualAxisDemo1");
         chart.removeLegend();
 
         CategoryPlot plot = chart.getCategoryPlot();

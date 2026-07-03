@@ -1,9 +1,9 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
+import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.plot.CategoryPlot;
 
 /**
@@ -20,9 +20,8 @@ public class BarChartCategoryDemo {
                 .addSeries("Males", categories, new double[]{5.5, 8.4, 12.8})
                 .addSeries("Females", categories, new double[]{10.3, 20.1, 24.3}).build();
 
-        Chart chart = JChart.bar("Antidepressant Medication Usage",
-                "Age Category", "Percent",
-                dataset);
+        Chart chart = JChart.bar(dataset,
+                "Age Category", "Percent", "Antidepressant Medication Usage");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.domainGridlinesVisible(true)
                 .rangeGridlinesVisible(true);

@@ -4,7 +4,6 @@ import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.data.xy.DefaultXYZDataset;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -85,7 +84,7 @@ public class HideSeriesDemo3 extends ApplicationFrame {
         }
 
         private Chart createChart(XYZDataset dataset) {
-            Chart result = JChart.bubble("Hide Series Demo 3", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
+            Chart result = JChart.bubble(dataset, "X", "Y", "Hide Series Demo 3");
             XYPlot plot = (XYPlot) result.getPlot();
             plot.setDomainPannable(true);
             plot.setRangePannable(true);

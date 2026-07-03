@@ -115,10 +115,10 @@ public class XYStepChartTest {
 
         // create the chart...
         return JChart.stepXY(
-                "Step Chart",  // chart title
+                dataset,         // data
                 "Domain",
                 "Range",
-                dataset,         // data
+                "Step Chart",  // chart title
                 PlotOrientation.VERTICAL,
                 true,            // include legend
                 true,            // tooltips

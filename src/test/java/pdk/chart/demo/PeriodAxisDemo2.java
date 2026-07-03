@@ -32,7 +32,8 @@ public class PeriodAxisDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Legal & General Unit Trust Prices", "Date", "Price Per Unit", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit",
+                "Legal & General Unit Trust Prices");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
@@ -49,7 +50,9 @@ public class PeriodAxisDemo2 extends ApplicationFrame {
         domainAxis.setAutoRangeTimePeriodClass(Day.class);
         PeriodAxisLabelInfo[] info = new PeriodAxisLabelInfo[3];
         info[0] = new PeriodAxisLabelInfo(Day.class, new SimpleDateFormat("d"));
-        info[1] = new PeriodAxisLabelInfo(Month.class, new SimpleDateFormat("MMM"), new RectangleInsets((double) 2.0F, (double) 2.0F, (double) 2.0F, (double) 2.0F), new Font("SansSerif", 1, 10), Color.BLUE, false, new BasicStroke(0.0F), Color.LIGHT_GRAY);
+        info[1] = new PeriodAxisLabelInfo(Month.class, new SimpleDateFormat("MMM"),
+                new RectangleInsets(2.0F, 2.0F, 2.0F, 2.0F),
+                new Font("SansSerif", Font.BOLD, 10), Color.BLUE, false, new BasicStroke(0.0F), Color.LIGHT_GRAY);
         info[2] = new PeriodAxisLabelInfo(Year.class, new SimpleDateFormat("yyyy"));
         domainAxis.setLabelInfo(info);
         plot.setDomainAxis(domainAxis);
@@ -75,7 +78,7 @@ public class PeriodAxisDemo2 extends ApplicationFrame {
         s1.add(new Day(6, 2, 2004), 137.3);
         s1.add(new Day(7, 2, 2004), 143.9);
         s1.add(new Day(8, 2, 2004), 139.8);
-        s1.add(new Day(9, 2, 2004), (double) 137.0F);
+        s1.add(new Day(9, 2, 2004), 137.0);
         s1.add(new Day(10, 2, 2004), 132.8);
         TimeZone zone = TimeZone.getTimeZone("Pacific/Auckland");
         TimeSeriesCollection dataset = new TimeSeriesCollection(zone);
@@ -89,8 +92,8 @@ public class PeriodAxisDemo2 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        PeriodAxisDemo2 demo = new PeriodAxisDemo2("Chart: PeriodAxisDemo2.java");
+    static void main() {
+        PeriodAxisDemo2 demo = new PeriodAxisDemo2("PeriodAxisDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -1,23 +1,20 @@
 package pdk.chart.demo;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.CategoryItemRenderer;
 import pdk.chart.renderer.category.StatisticalLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class HideSeriesDemo2 extends ApplicationFrame {
@@ -69,24 +66,25 @@ public class HideSeriesDemo2 extends ApplicationFrame {
 
         private CategoryDataset createSampleDataset() {
             DefaultStatisticalCategoryDataset dataset = new DefaultStatisticalCategoryDataset();
-            dataset.add((double)10.0F, 2.4, "Row 1", "Column 1");
-            dataset.add((double)15.0F, 4.4, "Row 1", "Column 2");
-            dataset.add((double)13.0F, 2.1, "Row 1", "Column 3");
-            dataset.add((double)7.0F, 1.3, "Row 1", "Column 4");
-            dataset.add((double)22.0F, 2.4, "Row 2", "Column 1");
-            dataset.add((double)18.0F, 4.4, "Row 2", "Column 2");
-            dataset.add((double)28.0F, 2.1, "Row 2", "Column 3");
-            dataset.add((double)7.0F, 1.3, "Row 2", "Column 4");
-            dataset.add((double)2.0F, 2.4, "Row 3", "Column 1");
-            dataset.add((double)8.0F, 4.4, "Row 3", "Column 2");
-            dataset.add((double)8.0F, 2.1, "Row 3", "Column 3");
-            dataset.add((double)7.0F, 1.3, "Row 3", "Column 4");
+            dataset.add((double) 10.0F, 2.4, "Row 1", "Column 1");
+            dataset.add((double) 15.0F, 4.4, "Row 1", "Column 2");
+            dataset.add((double) 13.0F, 2.1, "Row 1", "Column 3");
+            dataset.add((double) 7.0F, 1.3, "Row 1", "Column 4");
+            dataset.add((double) 22.0F, 2.4, "Row 2", "Column 1");
+            dataset.add((double) 18.0F, 4.4, "Row 2", "Column 2");
+            dataset.add((double) 28.0F, 2.1, "Row 2", "Column 3");
+            dataset.add((double) 7.0F, 1.3, "Row 2", "Column 4");
+            dataset.add((double) 2.0F, 2.4, "Row 3", "Column 1");
+            dataset.add((double) 8.0F, 4.4, "Row 3", "Column 2");
+            dataset.add((double) 8.0F, 2.1, "Row 3", "Column 3");
+            dataset.add((double) 7.0F, 1.3, "Row 3", "Column 4");
             return dataset;
         }
 
         private Chart createChart(CategoryDataset dataset) {
-            Chart result = JChart.area("Hide Series Demo 2", "Category", "Value", dataset, PlotOrientation.VERTICAL, true, true, false);
-            CategoryPlot plot = (CategoryPlot)result.getPlot();
+            Chart result = JChart.area(dataset, "Category", "Value",
+                    "Hide Series Demo 2");
+            CategoryPlot plot = (CategoryPlot) result.getPlot();
             plot.setRenderer(new StatisticalLineAndShapeRenderer());
             this.renderer = plot.getRenderer(0);
             return result;

@@ -1,19 +1,17 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
-import pdk.chart.plot.PlotOrientation;
+import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYDotRenderer;
-import pdk.chart.data.xy.XYDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class ScatterPlotDemo4 extends ApplicationFrame {
     public ScatterPlotDemo4(String title) {
@@ -25,8 +23,8 @@ public class ScatterPlotDemo4 extends ApplicationFrame {
 
     public static JPanel createDemoPanel() {
         XYDataset dataset = new SampleXYDataset2();
-        Chart chart = JChart.scatter("Scatter Plot Demo 4", "X", "Y", dataset, PlotOrientation.VERTICAL, true, true, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
+        Chart chart = JChart.scatter(dataset, "X", "Y", "Scatter Plot Demo 4");
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangeTickBandPaint(new Color(200, 200, 100, 100));
         XYDotRenderer renderer = new XYDotRenderer();
         renderer.setDotWidth(4);
@@ -34,7 +32,7 @@ public class ScatterPlotDemo4 extends ApplicationFrame {
         plot.setRenderer(renderer);
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
-        NumberAxis domainAxis = (NumberAxis)plot.getDomainAxis();
+        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
         domainAxis.setAutoRangeIncludesZero(false);
         plot.getRangeAxis().setInverted(true);
         ChartPanel panel = new ChartPanel(chart);

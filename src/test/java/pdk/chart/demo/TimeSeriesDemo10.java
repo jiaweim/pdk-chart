@@ -25,7 +25,7 @@ public class TimeSeriesDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Time Series Demo 10", "Time", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Time", "Value", "Time Series Demo 10");
         return chart;
     }
 
@@ -47,7 +47,7 @@ public class TimeSeriesDemo10 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TimeSeriesDemo10 demo = new TimeSeriesDemo10("Time Series Demo 10");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

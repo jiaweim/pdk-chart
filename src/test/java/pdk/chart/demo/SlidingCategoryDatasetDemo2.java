@@ -7,7 +7,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.category.SlidingCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -72,8 +71,7 @@ public class SlidingCategoryDatasetDemo2 extends ApplicationFrame {
         }
 
         private static Chart createChart(CategoryDataset<String, String> dataset) {
-            Chart chart = JChart.bar("SlidingCategoryDatasetDemo2", "Series", "Value",
-                    dataset, PlotOrientation.VERTICAL, true, true, false);
+            Chart chart = JChart.bar(dataset, "Series", "Value", "SlidingCategoryDatasetDemo2");
             CategoryPlot plot = chart.getCategoryPlot();
             plot.getBarRenderer(0)
                     .drawBarOutline(false)

@@ -287,7 +287,7 @@ public class TimeSeriesDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine("Time Series Demo 8", "Date", "Value", dataset, true, true, false);
+        Chart chart = JChart.timeLine(dataset, "Date", "Value", "Time Series Demo 8");
         XYPlot plot = (XYPlot) chart.getPlot();
         NumberAxis yAxis2 = new NumberAxis((String) null);
         yAxis2.setAutoRangeIncludesZero(false);

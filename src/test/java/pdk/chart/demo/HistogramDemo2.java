@@ -50,8 +50,8 @@ public class HistogramDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.histogram("HistogramDemo2", null, null,
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.histogram(dataset, null, null, "HistogramDemo2",
+                PlotOrientation.VERTICAL, true, true);
 
         XYPlot plot = chart.getXYPlot();
         plot.foregroundAlpha(0.85f)
