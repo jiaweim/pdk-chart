@@ -23,8 +23,8 @@ import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pep.PSMDataset;
 import pdk.chart.plot.pep.PSMPlot;
+import pdk.chart.plot.pep.PeptideDataset;
 import pdk.chart.plot.pep.SpectrumDataset;
-import pdk.chart.plot.pep.SpectrumPlot;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.renderer.AreaRendererEndType;
@@ -2466,15 +2466,18 @@ public abstract class JChart {
     }
 
     /**
-     * Create a chart for spectrum.
+     * Create a chart to display peptide spectrum match.
      *
-     * @param dataset {@link SpectrumDataset}.
-     * @return a spectrum.
+     * @param peptideDataset {@link PSMDataset}
+     * @return a PSM chart.
      */
-    public static Chart spectrum(SpectrumDataset dataset) {
-        SpectrumPlot plot = new SpectrumPlot();
-        plot.setDataset(dataset);
-        return new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
+    public static Chart psm(PeptideDataset peptideDataset, SpectrumDataset spectrumDataset) {
+        PSMPlot plot = new PSMPlot();
+        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
+        JChartUtils.applyCurrentTheme(chart);
+        plot.setDataset(peptideDataset, spectrumDataset);
+        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
+        return chart;
     }
 
     /**
@@ -2485,9 +2488,10 @@ public abstract class JChart {
      */
     public static Chart psm(PSMDataset dataset) {
         PSMPlot plot = new PSMPlot();
-        plot.setDataset(dataset);
         Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
         JChartUtils.applyCurrentTheme(chart);
+        plot.setDataset(dataset.getPeptideDataset(), dataset.getSpectrumDataset());
+        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         return chart;
     }
 

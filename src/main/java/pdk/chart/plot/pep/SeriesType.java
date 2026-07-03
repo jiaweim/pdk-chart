@@ -3,7 +3,7 @@ package pdk.chart.plot.pep;
 import java.awt.*;
 
 /**
- * type of series in {@link SpectrumPlot}.
+ * type of series in {@link PSMPlot}.
  *
  * @author Jiawei Mao
  * @version 1.0.0

@@ -2931,7 +2931,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param rect the incoming rectangle.
      * @return A rectangle with integer coordinates.
      */
-    private Rectangle integerise(Rectangle2D rect) {
+    protected Rectangle integerise(Rectangle2D rect) {
         int x0 = (int) Math.ceil(rect.getMinX());
         int y0 = (int) Math.ceil(rect.getMinY());
         int x1 = (int) Math.floor(rect.getMaxX());
@@ -3217,7 +3217,6 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         g2.setComposite(originalComposite);
 
         drawOutline(g2, dataArea);
-
     }
 
     /**
@@ -3226,7 +3225,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      * @param order the order ({@code null} not permitted).
      * @return The list of indices.
      */
-    private List<Integer> getDatasetIndices(DatasetRenderingOrder order) {
+    protected List<Integer> getDatasetIndices(DatasetRenderingOrder order) {
         List<Integer> result = new ArrayList<>();
         for (Entry<Integer, XYDataset<S>> entry : this.datasets.entrySet()) {
             if (entry.getValue() != null) {
@@ -3240,7 +3239,7 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         return result;
     }
 
-    private List<Integer> getRendererIndices(DatasetRenderingOrder order) {
+    protected List<Integer> getRendererIndices(DatasetRenderingOrder order) {
         List<Integer> result = new ArrayList<>();
         for (Entry<Integer, XYItemRenderer> entry : this.renderers.entrySet()) {
             if (entry.getValue() != null) {

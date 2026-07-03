@@ -2,7 +2,10 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.plot.pep.*;
+import pdk.chart.plot.pep.PeptideAnnotation;
+import pdk.chart.plot.pep.PeptideDataset;
+import pdk.chart.plot.pep.SeriesType;
+import pdk.chart.plot.pep.SpectrumDataset;
 
 import java.util.Arrays;
 
@@ -96,8 +99,7 @@ public class PSMChartDemo {
             peptideDataset.addAnnotation(new PeptideAnnotation(SeriesType.y, i, "y" + i));
         }
 
-        PSMDataset psmDataset = new PSMDataset(peptideDataset, dataset);
-        Chart chart = JChart.psm(psmDataset);
+        Chart chart = JChart.psm(peptideDataset, dataset);
         chart.show();
     }
 }

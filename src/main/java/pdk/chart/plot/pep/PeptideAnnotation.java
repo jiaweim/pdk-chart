@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * An annotation for a {@link PeptidePlot} that marks an identified fragment.
+ * An annotation for a {@link PSMPlot} that marks an identified fragment.
  *
  * @author Jiawei Mao
  * @version 1.0.0

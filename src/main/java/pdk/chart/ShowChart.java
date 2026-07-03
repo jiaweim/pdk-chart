@@ -42,7 +42,6 @@ public interface ShowChart {
             panel.setMaximumDrawWidth((int) screenSize.getWidth());
 
             panel.setInitialDelay(200);
-            panel.setMouseWheelEnabled(true);
             frame.setContentPane(panel);
             frame.pack();
             UIUtils.centerFrameOnScreen(frame);
@@ -67,7 +66,6 @@ public interface ShowChart {
 
             panel.setPreferredSize(new Dimension(width, height));
             panel.setInitialDelay(200);
-            panel.setMouseWheelEnabled(true);
             frame.setContentPane(panel);
             frame.pack();
             UIUtils.centerFrameOnScreen(frame);

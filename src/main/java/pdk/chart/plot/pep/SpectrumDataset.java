@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * dataset for {@link SpectrumPlot}.
+ * dataset for {@link PSMPlot}.
  *
  * @author Jiawei Mao
  * @version 1.0.0
