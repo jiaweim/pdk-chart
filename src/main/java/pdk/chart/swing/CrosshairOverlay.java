@@ -6,7 +6,7 @@ import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.Crosshair;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;

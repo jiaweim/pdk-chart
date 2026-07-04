@@ -1,6 +1,6 @@
 package pdk.chart.text.format;
 
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.text.*;
 import java.util.Date;

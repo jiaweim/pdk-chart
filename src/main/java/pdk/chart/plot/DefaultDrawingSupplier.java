@@ -2,8 +2,8 @@ package pdk.chart.plot;
 
 import pdk.chart.ChartColor;
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.SerialUtils;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

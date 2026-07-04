@@ -4,7 +4,7 @@ package pdk.chart.renderer.xy;
 import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.util.GradientPaintTransformType;
 import pdk.chart.util.StandardGradientPaintTransformer;
 

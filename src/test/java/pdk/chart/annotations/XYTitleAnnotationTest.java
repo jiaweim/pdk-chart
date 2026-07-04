@@ -6,7 +6,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultTableXYDataset;
 import pdk.chart.data.xy.XYSeries;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.title.TextTitle;

@@ -12,7 +12,7 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.PlotChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.*;
 import pdk.chart.renderer.xy.XYItemRenderer;

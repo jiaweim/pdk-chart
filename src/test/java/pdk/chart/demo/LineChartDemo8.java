@@ -6,7 +6,7 @@ import pdk.chart.JChartUtils;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.ShapeUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;

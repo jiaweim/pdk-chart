@@ -1,9 +1,9 @@
 package pdk.chart.plot;
 
 import pdk.chart.data.Range;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.io.IOException;

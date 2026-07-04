@@ -7,7 +7,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.Rotation;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.PieSectionLabelGenerator;
 import pdk.chart.labels.StandardPieSectionLabelGenerator;
 import pdk.chart.labels.StandardPieToolTipGenerator;

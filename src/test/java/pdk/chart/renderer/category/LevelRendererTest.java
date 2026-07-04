@@ -7,7 +7,7 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;
 

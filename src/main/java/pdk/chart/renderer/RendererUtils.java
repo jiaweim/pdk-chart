@@ -2,7 +2,7 @@ package pdk.chart.renderer;
 
 import pdk.chart.data.DomainOrder;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 /**
  * Utility methods related to the rendering process.

@@ -4,7 +4,7 @@ import pdk.chart.Chart;
 import pdk.chart.Data;
 import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 

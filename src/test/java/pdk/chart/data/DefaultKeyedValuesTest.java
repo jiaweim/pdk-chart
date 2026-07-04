@@ -3,7 +3,7 @@ package pdk.chart.data;
 import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.api.SortOrder;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.util.List;
 

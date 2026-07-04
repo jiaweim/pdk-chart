@@ -3,9 +3,9 @@ package pdk.chart.entity;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.imagemap.ToolTipTagFragmentGenerator;
 import pdk.chart.imagemap.URLTagFragmentGenerator;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.HashUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.PathIterator;

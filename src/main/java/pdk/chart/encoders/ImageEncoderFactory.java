@@ -1,6 +1,6 @@
 package pdk.chart.encoders;
 
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.HashMap;
 import java.util.Map;

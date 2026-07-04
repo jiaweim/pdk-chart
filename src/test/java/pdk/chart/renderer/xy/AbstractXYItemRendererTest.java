@@ -5,7 +5,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.StandardXYItemLabelGenerator;
 import pdk.chart.labels.StandardXYSeriesLabelGenerator;
 import pdk.chart.labels.StandardXYToolTipGenerator;

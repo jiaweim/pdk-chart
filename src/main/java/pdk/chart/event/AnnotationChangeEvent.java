@@ -1,7 +1,7 @@
 package pdk.chart.event;
 
 import pdk.chart.annotations.Annotation;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 /**
  * An event that can be forwarded to any {@link AnnotationChangeListener} to

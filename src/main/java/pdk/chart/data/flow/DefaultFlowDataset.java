@@ -2,8 +2,8 @@ package pdk.chart.data.flow;
 
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.general.AbstractDataset;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.*;

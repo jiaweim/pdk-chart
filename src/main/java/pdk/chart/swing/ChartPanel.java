@@ -10,7 +10,7 @@ import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.ChartChangeListener;
 import pdk.chart.event.ChartProgressEvent;
 import pdk.chart.event.ChartProgressListener;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.plot.*;
 import pdk.chart.swing.editor.ChartEditor;
 import pdk.chart.swing.editor.ChartEditorManager;

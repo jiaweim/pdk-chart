@@ -21,38 +21,43 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
+ * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
  * Other names may be trademarks of their respective owners.]
  *
- * -------------
- * ArgsTest.java
- * -------------
- * (C) Copyright 2020-present, by David Gilbert and Contributors.
+ * ------------------
+ * HashUtilsTest.java
+ * ------------------
+ * (C) Copyright 2004-present, by David Gilbert and Contributors.
  *
  * Original Author:  David Gilbert;
  * Contributor(s):   -;
  *
  */
 
-package pdk.chart.internal;
+package pdk.chart.util;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
- * Tests for the {@link Args} class.
+ * Tests for the {@link HashUtils} class.
  */
-public class ArgsTest {
-    
+public class HashUtilsTest  {
+
+    /**
+     * Some sanity checks for the hashCodeForDoubleArray() method.
+     */
     @Test
-    public void testRequireInRange() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Args.requireInRange(-1, "A", 0, 10);
-        });
-        Args.requireInRange(0, "A", 0, 10); 
-        Args.requireInRange(10, "A", 0, 10); 
-        assertThrows(IllegalArgumentException.class, () -> {
-            Args.requireInRange(11, "A", 0, 10);
-        });
+    public void testHashCodeForDoubleArray() {
+        double[] a1 = new double[] {1.0};
+        double[] a2 = new double[] {1.0};
+        int h1 = HashUtils.hashCodeForDoubleArray(a1);
+        int h2 = HashUtils.hashCodeForDoubleArray(a2);
+        assertEquals(h1, h2);
+
+        double[] a3 = new double[] {0.5, 1.0};
+        int h3 = HashUtils.hashCodeForDoubleArray(a3);
+        assertNotEquals(h1, h3);
     }
 }

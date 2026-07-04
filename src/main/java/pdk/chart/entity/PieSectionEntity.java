@@ -1,7 +1,7 @@
 package pdk.chart.entity;
 
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import java.awt.*;
 import java.io.Serializable;

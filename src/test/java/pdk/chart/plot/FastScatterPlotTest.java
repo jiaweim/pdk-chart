@@ -5,7 +5,7 @@ import pdk.chart.Chart;
 import pdk.chart.TestUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 

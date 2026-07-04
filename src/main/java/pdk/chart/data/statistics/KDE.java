@@ -2,7 +2,7 @@ package pdk.chart.data.statistics;
 
 import pdk.chart.data.function.Function2D;
 import pdk.chart.data.function.NormalDistributionFunction2D;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 /**
  *

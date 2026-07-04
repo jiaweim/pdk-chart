@@ -15,12 +15,11 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.event.*;
-import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.category.*;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.text.TextAnchor;
-import pdk.chart.util.ShadowGenerator;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Line2D;

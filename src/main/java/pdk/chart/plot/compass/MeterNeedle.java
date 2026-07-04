@@ -1,8 +1,8 @@
 package pdk.chart.plot.compass;
 
-import pdk.chart.internal.HashUtils;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.HashUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

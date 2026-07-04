@@ -7,8 +7,8 @@ import pdk.chart.data.RangeInfo;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetChangeListener;
 import pdk.chart.data.general.DatasetUtils;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.HashUtils;
 
 import java.io.Serializable;
 

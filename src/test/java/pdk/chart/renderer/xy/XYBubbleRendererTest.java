@@ -6,7 +6,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultXYZDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.XYPlot;
 

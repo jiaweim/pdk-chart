@@ -9,7 +9,7 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.ChartChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.LineAndShapeRenderer;

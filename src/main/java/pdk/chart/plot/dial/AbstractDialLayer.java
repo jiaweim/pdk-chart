@@ -1,6 +1,6 @@
 package pdk.chart.plot.dial;
 
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import javax.swing.event.EventListenerList;
 import java.io.IOException;

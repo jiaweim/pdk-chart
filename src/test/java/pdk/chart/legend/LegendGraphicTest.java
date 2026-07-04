@@ -3,7 +3,7 @@ package pdk.chart.legend;
 import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleAnchor;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.util.GradientPaintTransformType;
 import pdk.chart.util.StandardGradientPaintTransformer;
 

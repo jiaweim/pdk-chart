@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.renderer.GrayPaintScale;
 import pdk.chart.renderer.LookupPaintScale;
 

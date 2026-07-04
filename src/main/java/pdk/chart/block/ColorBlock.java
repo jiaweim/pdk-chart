@@ -1,8 +1,8 @@
 package pdk.chart.block;
 
-import pdk.chart.internal.Args;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

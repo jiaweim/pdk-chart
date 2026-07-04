@@ -10,8 +10,8 @@ import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.statistics.MultiValueCategoryDataset;
 import pdk.chart.data.statistics.StatisticalCategoryDataset;
 import pdk.chart.data.xy.*;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.ArrayUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.ArrayUtils;
 import pdk.chart.plot.pep.PeptideDataset;
 
 import java.util.ArrayList;

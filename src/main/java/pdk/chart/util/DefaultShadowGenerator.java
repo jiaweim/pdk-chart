@@ -1,8 +1,5 @@
 package pdk.chart.util;
 
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;

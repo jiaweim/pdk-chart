@@ -6,10 +6,10 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.*;
 import pdk.chart.data.Range;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.ArrayUtils;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.ArrayUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;

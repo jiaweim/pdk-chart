@@ -5,7 +5,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.Range;
 import pdk.chart.data.statistics.DefaultMultiValueCategoryDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.util.Arrays;
 import java.util.List;

@@ -1,7 +1,6 @@
 package pdk.chart.util;
 
 import pdk.chart.Drawable;
-import pdk.chart.internal.Args;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

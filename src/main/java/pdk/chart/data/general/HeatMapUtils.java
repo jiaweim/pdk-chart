@@ -3,7 +3,7 @@ package pdk.chart.data.general;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.renderer.PaintScale;
 
 import java.awt.*;

@@ -1,7 +1,7 @@
 package pdk.chart.entity;
 
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.io.Serializable;

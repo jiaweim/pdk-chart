@@ -5,7 +5,6 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.*;
 import pdk.chart.labels.XYSeriesLabelGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.legend.LegendItem;
@@ -14,8 +13,7 @@ import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.urls.XYURLGenerator;
-import pdk.chart.util.GradientPaintTransformer;
-import pdk.chart.util.StandardGradientPaintTransformer;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Area;

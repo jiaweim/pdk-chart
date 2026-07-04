@@ -8,7 +8,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultTableXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.util.GradientPaintTransformType;

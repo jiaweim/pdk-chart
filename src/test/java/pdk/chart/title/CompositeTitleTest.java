@@ -5,7 +5,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.block.BlockContainer;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 

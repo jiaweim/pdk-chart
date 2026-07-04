@@ -2,7 +2,7 @@ package pdk.chart.demo.echarts;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 

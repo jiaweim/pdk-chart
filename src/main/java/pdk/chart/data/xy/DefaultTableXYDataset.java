@@ -6,8 +6,8 @@ import pdk.chart.data.Range;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.general.SeriesChangeEvent;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;

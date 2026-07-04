@@ -12,7 +12,7 @@ import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.XYItemEntity;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;

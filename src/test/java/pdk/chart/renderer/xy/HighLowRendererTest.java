@@ -7,7 +7,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.DefaultOHLCDataset;
 import pdk.chart.data.xy.OHLCDataItem;
 import pdk.chart.data.xy.OHLCDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.util.Date;

@@ -1,6 +1,6 @@
 package pdk.chart.encoders;
 
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import javax.imageio.IIOImage;
 import javax.imageio.ImageIO;

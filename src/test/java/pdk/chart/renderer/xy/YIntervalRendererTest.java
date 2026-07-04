@@ -9,7 +9,7 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.YIntervalSeries;
 import pdk.chart.data.xy.YIntervalSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.IntervalXYItemLabelGenerator;
 import pdk.chart.labels.StandardXYItemLabelGenerator;
 import pdk.chart.labels.StandardXYSeriesLabelGenerator;

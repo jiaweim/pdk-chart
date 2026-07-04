@@ -1,7 +1,7 @@
 package pdk.chart.axis;
 
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.ArrayList;
 import java.util.List;

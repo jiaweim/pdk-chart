@@ -14,7 +14,6 @@ import pdk.chart.data.general.PieDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.PieSectionEntity;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.*;
 import pdk.chart.labels.PieSectionLabelGenerator;
 import pdk.chart.labels.PieToolTipGenerator;
 import pdk.chart.labels.StandardPieSectionLabelGenerator;
@@ -23,7 +22,7 @@ import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.*;
 import pdk.chart.text.*;
 import pdk.chart.urls.PieURLGenerator;
-import pdk.chart.util.ShadowGenerator;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.*;

@@ -1,8 +1,8 @@
 package pdk.chart.plot;
 
 import pdk.chart.ChartRenderingInfo;
-import pdk.chart.internal.CloneUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;

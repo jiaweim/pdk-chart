@@ -7,7 +7,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.MultiValueCategoryDataset;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.ShapeUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;

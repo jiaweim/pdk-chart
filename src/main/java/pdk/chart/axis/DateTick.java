@@ -1,6 +1,6 @@
 package pdk.chart.axis;
 
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.text.TextAnchor;
 
 import java.util.Date;

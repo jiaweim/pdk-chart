@@ -17,7 +17,7 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.ShapeUtils;
 import pdk.chart.labels.*;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;

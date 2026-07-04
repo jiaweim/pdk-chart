@@ -5,7 +5,7 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.ParserConfigurationException;

@@ -5,7 +5,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.SortOrder;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.XYPlot;
 
 import java.awt.*;

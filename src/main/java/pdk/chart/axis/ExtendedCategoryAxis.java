@@ -2,8 +2,8 @@ package pdk.chart.axis;
 
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.text.TextBlock;
 import pdk.chart.text.TextFragment;
 import pdk.chart.text.TextLine;

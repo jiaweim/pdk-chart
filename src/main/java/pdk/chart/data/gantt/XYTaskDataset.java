@@ -6,7 +6,7 @@ import pdk.chart.data.general.DatasetChangeListener;
 import pdk.chart.data.time.TimePeriod;
 import pdk.chart.data.xy.AbstractXYDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.renderer.xy.XYBarRenderer;
 
 import java.util.Date;

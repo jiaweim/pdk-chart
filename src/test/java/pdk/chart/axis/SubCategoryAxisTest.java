@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.TestUtils;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 

@@ -2,7 +2,7 @@ package pdk.chart.labels;
 
 import pdk.chart.data.flow.FlowDataset;
 import pdk.chart.data.flow.FlowKey;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.util.Formatter;

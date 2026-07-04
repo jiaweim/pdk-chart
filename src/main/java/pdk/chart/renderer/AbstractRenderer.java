@@ -8,13 +8,13 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.ItemKey;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.event.RendererChangeListener;
-import pdk.chart.internal.*;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.DrawingSupplier;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.text.TextAnchor;
+import pdk.chart.util.*;
 
 import javax.swing.event.EventListenerList;
 import java.awt.*;

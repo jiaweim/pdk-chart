@@ -6,7 +6,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.Rotation;
 import pdk.chart.api.TableOrder;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendItem;

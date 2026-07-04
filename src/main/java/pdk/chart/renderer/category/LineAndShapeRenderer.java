@@ -8,7 +8,7 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.ShapeUtils;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;

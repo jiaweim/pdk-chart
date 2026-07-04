@@ -6,7 +6,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.VectorXYDataset;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;

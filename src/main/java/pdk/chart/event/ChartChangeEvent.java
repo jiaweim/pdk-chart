@@ -1,7 +1,7 @@
 package pdk.chart.event;
 
 import pdk.chart.Chart;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.EventObject;
 

@@ -6,7 +6,7 @@ import pdk.chart.data.DatasetChangeConfirmation;
 import pdk.chart.data.Range;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.util.*;
 

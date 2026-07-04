@@ -4,7 +4,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesException;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;

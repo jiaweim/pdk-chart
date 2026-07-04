@@ -2,9 +2,9 @@ package pdk.chart.axis;
 
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.Range;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.ValueAxisPlot;

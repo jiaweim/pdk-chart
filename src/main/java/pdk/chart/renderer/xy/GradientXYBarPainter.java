@@ -1,7 +1,7 @@
 package pdk.chart.renderer.xy;
 
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

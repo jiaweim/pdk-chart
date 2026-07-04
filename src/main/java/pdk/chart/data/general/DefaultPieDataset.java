@@ -5,8 +5,8 @@ import pdk.chart.api.SortOrder;
 import pdk.chart.data.DefaultKeyedValues;
 import pdk.chart.data.KeyedValues;
 import pdk.chart.data.UnknownKeyException;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.Collections;

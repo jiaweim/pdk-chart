@@ -6,9 +6,9 @@ import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.RectangleConstraint;
 import pdk.chart.block.Size2D;
 import pdk.chart.event.TitleChangeEvent;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

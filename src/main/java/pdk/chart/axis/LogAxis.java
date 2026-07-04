@@ -22,7 +22,7 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.util.AttrStringUtils;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.data.Range;
 
 /**

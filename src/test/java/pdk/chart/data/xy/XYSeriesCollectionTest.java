@@ -6,7 +6,7 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.DatasetChangeConfirmation;
 import pdk.chart.data.Range;
 import pdk.chart.data.UnknownKeyException;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

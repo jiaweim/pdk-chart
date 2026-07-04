@@ -4,7 +4,7 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;

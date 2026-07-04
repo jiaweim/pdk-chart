@@ -1,6 +1,6 @@
 package pdk.chart.data.time.ohlc;
 
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import java.io.Serializable;
 

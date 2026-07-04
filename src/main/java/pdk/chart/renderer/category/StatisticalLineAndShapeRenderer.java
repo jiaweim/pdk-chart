@@ -9,10 +9,10 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.StatisticalCategoryDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.HashUtils;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.HashUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.ShapeUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 

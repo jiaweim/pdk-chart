@@ -1,7 +1,7 @@
 package pdk.chart.data;
 
 import pdk.chart.data.general.DatasetUtils;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.Arrays;
 

@@ -1,8 +1,8 @@
 package pdk.chart.entity;
 
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.HashUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.Plot;
 
 import java.awt.*;

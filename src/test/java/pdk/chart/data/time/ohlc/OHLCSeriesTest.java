@@ -6,7 +6,7 @@ import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesChangeListener;
 import pdk.chart.data.general.SeriesException;
 import pdk.chart.data.time.Year;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

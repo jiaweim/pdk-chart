@@ -1,7 +1,7 @@
 package pdk.chart.entity;
 
 import pdk.chart.data.flow.NodeKey;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.plot.flow.FlowPlot;
 
 import java.awt.*;

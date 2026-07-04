@@ -5,7 +5,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesChangeListener;
 import pdk.chart.date.MonthConstants;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.util.Date;
 

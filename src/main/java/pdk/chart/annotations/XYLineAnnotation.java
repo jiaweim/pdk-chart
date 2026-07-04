@@ -3,11 +3,11 @@ package pdk.chart.annotations;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.internal.*;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Line2D;

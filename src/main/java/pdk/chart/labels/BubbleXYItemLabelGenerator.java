@@ -3,8 +3,8 @@ package pdk.chart.labels;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.HashUtils;
 import pdk.chart.renderer.xy.XYBubbleRenderer;
 
 import java.io.Serializable;

@@ -6,8 +6,8 @@ import pdk.chart.data.Range;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.Series;
 import pdk.chart.data.xy.*;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyVetoException;

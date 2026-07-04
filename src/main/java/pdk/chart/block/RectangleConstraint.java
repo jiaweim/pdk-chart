@@ -1,7 +1,7 @@
 package pdk.chart.block;
 
 import pdk.chart.data.Range;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 /**
  * A description of a constraint for resizing a rectangle.  Constraints are

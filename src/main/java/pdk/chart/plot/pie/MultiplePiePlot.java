@@ -11,13 +11,13 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.*;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.PlotState;
 import pdk.chart.title.TextTitle;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;

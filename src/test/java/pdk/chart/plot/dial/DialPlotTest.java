@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.PlotChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 

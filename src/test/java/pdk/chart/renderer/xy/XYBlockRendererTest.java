@@ -7,7 +7,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.DefaultXYZDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.renderer.GrayPaintScale;
 import pdk.chart.renderer.LookupPaintScale;
 

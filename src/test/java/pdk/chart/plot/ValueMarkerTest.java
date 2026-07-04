@@ -7,7 +7,7 @@ import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.event.MarkerChangeEvent;
 import pdk.chart.event.MarkerChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.text.TextAnchor;
 
 import java.awt.*;

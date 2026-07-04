@@ -5,7 +5,7 @@ import pdk.chart.ChartElementVisitor;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.ValueDataset;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.PlotState;

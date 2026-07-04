@@ -2,7 +2,7 @@ package pdk.chart.plot;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

@@ -2,8 +2,8 @@ package pdk.chart.text;
 
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.block.Size2D;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.ShapeUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

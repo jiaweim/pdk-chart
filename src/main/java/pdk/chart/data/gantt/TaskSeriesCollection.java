@@ -5,8 +5,8 @@ import pdk.chart.data.general.AbstractSeriesDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.time.TimePeriod;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

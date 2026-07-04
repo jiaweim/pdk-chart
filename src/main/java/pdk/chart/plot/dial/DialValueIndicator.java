@@ -4,10 +4,10 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.block.Size2D;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.HashUtils;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.HashUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
 

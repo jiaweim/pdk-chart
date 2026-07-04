@@ -9,13 +9,13 @@ import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.entity.CategoryItemEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.*;
 import pdk.chart.labels.CategoryItemLabelGenerator;
 import pdk.chart.labels.CategoryToolTipGenerator;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.urls.CategoryURLGenerator;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;

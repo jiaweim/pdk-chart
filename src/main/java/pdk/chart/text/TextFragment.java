@@ -1,8 +1,8 @@
 package pdk.chart.text;
 
 import pdk.chart.block.Size2D;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.font.LineMetrics;

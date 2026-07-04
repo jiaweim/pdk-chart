@@ -34,7 +34,7 @@
  *
  */
 
-package pdk.chart.internal;
+package pdk.chart.util;
 
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;

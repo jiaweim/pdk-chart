@@ -1,6 +1,6 @@
 package pdk.chart.labels;
 
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.plot.Crosshair;
 
 import java.io.Serializable;

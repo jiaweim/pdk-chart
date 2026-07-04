@@ -1,6 +1,6 @@
 package pdk.chart.legend;
 
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -3,7 +3,7 @@ package pdk.chart.data.gantt;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.time.SimpleTimePeriod;
 import pdk.chart.data.time.TimePeriod;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.util.Date;

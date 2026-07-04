@@ -1,7 +1,7 @@
 package pdk.chart.data.xy;
 
 import pdk.chart.data.ItemKey;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.util.Objects;

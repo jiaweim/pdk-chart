@@ -2,8 +2,8 @@ package pdk.chart.data.gantt;
 
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;

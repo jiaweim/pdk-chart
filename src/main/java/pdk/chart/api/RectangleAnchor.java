@@ -1,7 +1,7 @@
 package pdk.chart.api;
 
 import pdk.chart.block.Size2D;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;

@@ -3,9 +3,9 @@ package pdk.chart.block;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

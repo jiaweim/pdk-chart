@@ -4,7 +4,7 @@ import pdk.chart.ChartRenderingInfo;
 import pdk.chart.JChartUtils;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.util.StringUtils;
 
 import java.io.IOException;

@@ -3,7 +3,7 @@ package pdk.chart.labels;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.xy.OHLCDataset;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import java.io.Serializable;
 import java.text.DateFormat;

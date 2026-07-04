@@ -9,7 +9,7 @@ import pdk.chart.data.RangeType;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;

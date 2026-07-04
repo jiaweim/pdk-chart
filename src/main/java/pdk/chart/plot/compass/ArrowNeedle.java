@@ -1,6 +1,6 @@
 package pdk.chart.plot.compass;
 
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;

@@ -8,7 +8,7 @@ import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesChangeListener;
 import pdk.chart.data.general.SeriesException;
 import pdk.chart.date.MonthConstants;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

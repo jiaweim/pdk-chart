@@ -6,9 +6,9 @@ import pdk.chart.data.time.TimePeriodAnchor;
 import pdk.chart.data.xy.AbstractXYDataset;
 import pdk.chart.data.xy.OHLCDataset;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.HashUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

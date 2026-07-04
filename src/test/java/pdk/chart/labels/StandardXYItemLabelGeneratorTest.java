@@ -5,7 +5,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.text.DateFormat;
 import java.text.DecimalFormat;

@@ -3,9 +3,7 @@ package pdk.chart.legend;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.block.*;
-import pdk.chart.internal.*;
-import pdk.chart.util.GradientPaintTransformer;
-import pdk.chart.util.StandardGradientPaintTransformer;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Point2D;

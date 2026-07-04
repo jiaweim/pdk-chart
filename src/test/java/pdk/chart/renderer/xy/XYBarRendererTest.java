@@ -8,7 +8,7 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.Range;
 import pdk.chart.data.xy.*;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.PlotOrientation;

@@ -3,7 +3,7 @@ package pdk.chart;
 import org.junit.jupiter.api.Test;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.StandardEntityCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

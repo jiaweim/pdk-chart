@@ -10,7 +10,7 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.labels.CategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;

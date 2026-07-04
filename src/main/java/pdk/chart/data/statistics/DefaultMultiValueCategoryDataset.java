@@ -6,7 +6,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.RangeInfo;
 import pdk.chart.data.general.AbstractDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.ArrayList;
 import java.util.Collections;

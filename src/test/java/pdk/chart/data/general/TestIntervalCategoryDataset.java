@@ -4,7 +4,7 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.KeyedObjects2D;
 import pdk.chart.data.UnknownKeyException;
 import pdk.chart.data.category.IntervalCategoryDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.List;

@@ -1,7 +1,7 @@
 package pdk.chart.renderer;
 
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.HashUtils;
+import pdk.chart.util.HashUtils;
 
 import java.awt.*;
 import java.io.Serializable;

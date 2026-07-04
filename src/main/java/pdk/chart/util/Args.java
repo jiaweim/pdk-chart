@@ -1,4 +1,4 @@
-package pdk.chart.internal;
+package pdk.chart.util;
 
 /**
  * A utility class for checking method arguments.

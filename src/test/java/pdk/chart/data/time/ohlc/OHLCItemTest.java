@@ -3,7 +3,7 @@ package pdk.chart.data.time.ohlc;
 import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.data.time.Year;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

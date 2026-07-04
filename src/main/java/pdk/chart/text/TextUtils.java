@@ -1,6 +1,6 @@
 package pdk.chart.text;
 
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.awt.font.FontRenderContext;

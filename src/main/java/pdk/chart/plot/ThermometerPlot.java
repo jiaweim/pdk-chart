@@ -11,10 +11,10 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DefaultValueDataset;
 import pdk.chart.data.general.ValueDataset;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.legend.LegendItemCollection;
 
 import java.awt.*;

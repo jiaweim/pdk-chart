@@ -7,9 +7,9 @@ import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;
 import pdk.chart.entity.TitleEntity;
 import pdk.chart.event.TitleChangeEvent;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.title.Title;
 
 import java.awt.*;

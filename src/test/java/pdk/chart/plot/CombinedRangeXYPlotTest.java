@@ -11,7 +11,7 @@ import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.ChartChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.renderer.xy.StandardXYItemRenderer;
 import pdk.chart.renderer.xy.XYItemRenderer;
 

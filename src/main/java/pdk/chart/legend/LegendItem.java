@@ -2,10 +2,8 @@ package pdk.chart.legend;
 
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.general.Dataset;
-import pdk.chart.internal.*;
 import pdk.chart.text.AttributedStringUtils;
-import pdk.chart.util.GradientPaintTransformer;
-import pdk.chart.util.StandardGradientPaintTransformer;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Line2D;

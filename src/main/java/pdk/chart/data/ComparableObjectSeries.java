@@ -3,8 +3,8 @@ package pdk.chart.data;
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesException;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;

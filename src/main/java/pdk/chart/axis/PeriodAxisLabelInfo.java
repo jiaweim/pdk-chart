@@ -2,8 +2,8 @@ package pdk.chart.axis;
 
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.time.RegularTimePeriod;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.io.IOException;

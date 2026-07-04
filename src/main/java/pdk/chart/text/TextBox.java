@@ -3,7 +3,7 @@ package pdk.chart.text;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.block.Size2D;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

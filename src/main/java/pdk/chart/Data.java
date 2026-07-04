@@ -11,8 +11,8 @@ import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.ArrayUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;

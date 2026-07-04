@@ -17,7 +17,7 @@ import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
 import pdk.chart.date.MonthConstants;
 import pdk.chart.event.MarkerChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;

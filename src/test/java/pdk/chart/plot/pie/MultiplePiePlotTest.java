@@ -8,7 +8,7 @@ import pdk.chart.api.TableOrder;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.PlotChangeListener;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 

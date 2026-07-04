@@ -5,7 +5,7 @@ import pdk.chart.data.general.AbstractDataset;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetChangeListener;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.Collections;
 import java.util.List;

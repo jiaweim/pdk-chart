@@ -1,6 +1,6 @@
 package pdk.chart.swing;
 
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

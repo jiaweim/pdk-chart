@@ -3,7 +3,7 @@ package pdk.chart.data.category;
 import pdk.chart.data.DataUtils;
 import pdk.chart.data.UnknownKeyException;
 import pdk.chart.data.general.AbstractSeriesDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.util.*;
 

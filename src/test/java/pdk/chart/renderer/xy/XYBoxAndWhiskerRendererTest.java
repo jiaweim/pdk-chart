@@ -7,7 +7,7 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.statistics.BoxAndWhiskerItem;
 import pdk.chart.data.statistics.DefaultBoxAndWhiskerXYDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

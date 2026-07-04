@@ -6,7 +6,7 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetChangeListener;
 import pdk.chart.data.time.TimePeriodAnchor;
 import pdk.chart.data.time.Year;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

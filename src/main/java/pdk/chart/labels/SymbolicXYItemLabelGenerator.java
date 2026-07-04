@@ -6,7 +6,7 @@ import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XisSymbolic;
 import pdk.chart.data.xy.YisSymbolic;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 

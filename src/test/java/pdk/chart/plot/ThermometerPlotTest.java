@@ -3,7 +3,7 @@ package pdk.chart.plot;
 import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleInsets;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.text.DecimalFormat;

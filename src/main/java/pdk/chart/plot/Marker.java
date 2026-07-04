@@ -6,8 +6,8 @@ import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.event.MarkerChangeEvent;
 import pdk.chart.event.MarkerChangeListener;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.text.TextAnchor;
 
 import javax.swing.event.EventListenerList;

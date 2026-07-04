@@ -3,7 +3,7 @@ package pdk.chart;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.PlotRenderingInfo;
 
 import java.awt.geom.Rectangle2D;

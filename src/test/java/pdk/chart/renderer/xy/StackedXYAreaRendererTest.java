@@ -10,7 +10,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.DefaultTableXYDataset;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.data.xy.XYSeries;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 

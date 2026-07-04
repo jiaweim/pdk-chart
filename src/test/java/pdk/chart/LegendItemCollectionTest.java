@@ -1,7 +1,7 @@
 package pdk.chart;
 
 import org.junit.jupiter.api.Test;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 

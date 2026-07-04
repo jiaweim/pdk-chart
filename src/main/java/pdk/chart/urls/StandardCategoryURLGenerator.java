@@ -1,7 +1,7 @@
 package pdk.chart.urls;
 
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;

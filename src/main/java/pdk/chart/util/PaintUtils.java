@@ -33,7 +33,7 @@
  * Contributors:     -;
  */
 
-package pdk.chart.internal;
+package pdk.chart.util;
 
 import java.awt.Color;
 import java.awt.GradientPaint;

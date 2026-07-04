@@ -1,4 +1,4 @@
-package pdk.chart.internal;
+package pdk.chart.util;
 
 import pdk.chart.api.PublicCloneable;
 

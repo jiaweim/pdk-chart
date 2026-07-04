@@ -2,7 +2,7 @@ package pdk.chart.plot;
 
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.event.MarkerChangeEvent;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.io.Serializable;

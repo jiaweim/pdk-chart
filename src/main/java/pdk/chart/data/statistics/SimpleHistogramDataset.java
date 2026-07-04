@@ -5,7 +5,7 @@ import pdk.chart.data.DomainOrder;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.AbstractIntervalXYDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.io.Serializable;
 import java.util.*;

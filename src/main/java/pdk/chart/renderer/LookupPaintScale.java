@@ -2,8 +2,8 @@ package pdk.chart.renderer;
 
 import org.jspecify.annotations.NonNull;
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.PaintUtils;
-import pdk.chart.internal.SerialUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.io.IOException;

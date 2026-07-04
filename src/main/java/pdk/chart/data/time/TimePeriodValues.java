@@ -3,7 +3,7 @@ package pdk.chart.data.time;
 import pdk.chart.data.general.Series;
 import pdk.chart.data.general.SeriesChangeEvent;
 import pdk.chart.data.general.SeriesException;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.util.ArrayList;

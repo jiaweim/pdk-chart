@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.data.Range;
 import pdk.chart.data.general.DefaultValueDataset;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.text.DecimalFormat;

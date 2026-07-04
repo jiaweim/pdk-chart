@@ -1,7 +1,7 @@
 package pdk.chart.data;
 
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

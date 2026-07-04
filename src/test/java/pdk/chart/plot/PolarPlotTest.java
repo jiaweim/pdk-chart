@@ -9,7 +9,7 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.DefaultXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.DefaultPolarItemRenderer;

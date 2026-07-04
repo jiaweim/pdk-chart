@@ -10,8 +10,8 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.Range;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.PlotChangeListener;
-import pdk.chart.internal.Args;
-import pdk.chart.internal.CloneUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.util.ShadowGenerator;
 

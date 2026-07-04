@@ -7,7 +7,7 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.labels.XYItemLabelGenerator;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;

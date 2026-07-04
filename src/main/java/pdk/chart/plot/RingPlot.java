@@ -7,7 +7,6 @@ import pdk.chart.data.general.PieDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.PieSectionEntity;
 import pdk.chart.event.PlotChangeEvent;
-import pdk.chart.internal.*;
 import pdk.chart.labels.PieSectionLabelGenerator;
 import pdk.chart.labels.PieToolTipGenerator;
 import pdk.chart.plot.pie.PiePlot;
@@ -15,6 +14,7 @@ import pdk.chart.plot.pie.PiePlotState;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
 import pdk.chart.urls.PieURLGenerator;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Arc2D;

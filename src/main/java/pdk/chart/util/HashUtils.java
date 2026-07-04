@@ -34,7 +34,7 @@
  *
  */
 
-package pdk.chart.internal;
+package pdk.chart.util;
 
 import java.awt.GradientPaint;
 import java.awt.Paint;

@@ -6,7 +6,7 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.xy.AbstractIntervalXYDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.util.ArrayList;

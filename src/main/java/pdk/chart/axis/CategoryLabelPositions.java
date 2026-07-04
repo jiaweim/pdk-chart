@@ -2,7 +2,7 @@ package pdk.chart.axis;
 
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.internal.Args;
+import pdk.chart.util.Args;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextBlockAnchor;
 
