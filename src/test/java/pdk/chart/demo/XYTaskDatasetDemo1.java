@@ -1,9 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
-import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.gantt.Task;
 import pdk.chart.data.gantt.TaskSeries;
@@ -31,16 +31,23 @@ public class XYTaskDatasetDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar("XYTaskDatasetDemo1", "Resource", false, "Timing", dataset, PlotOrientation.HORIZONTAL, true, false, false);
+        Chart chart = JChart.bar(dataset, "Resource", AxisType.SYMBOL,
+                "Timing", AxisType.DATE,
+                "XYTaskDatasetDemo1",
+                PlotOrientation.HORIZONTAL, true, false);
+
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangePannable(true);
-        SymbolAxis xAxis = new SymbolAxis("Series", new String[]{"Team A", "Team B", "Team C", "Team D"});
+
+        SymbolAxis xAxis = (SymbolAxis) plot.getDomainAxis();
+        xAxis.setSymbols(new String[]{"Team A", "Team B", "Team C", "Team D"});
+        xAxis.setLabel("Series");
         xAxis.setGridBandsVisible(false);
-        plot.setDomainAxis(xAxis);
+        xAxis.configure();
+
         XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
         renderer.setUseYInterval(true);
-        plot.setRangeAxis(new DateAxis("Timing"));
         JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
@@ -79,8 +86,8 @@ public class XYTaskDatasetDemo1 extends ApplicationFrame {
         return dataset;
     }
 
-    public static void main(String[] args) {
-        XYTaskDatasetDemo1 demo = new XYTaskDatasetDemo1("Chart : XYTaskDatasetDemo1.java");
+    static void main() {
+        XYTaskDatasetDemo1 demo = new XYTaskDatasetDemo1("XYTaskDatasetDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

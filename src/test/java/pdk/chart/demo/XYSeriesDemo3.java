@@ -1,5 +1,6 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.api.Layer;
@@ -8,7 +9,6 @@ import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.plot.IntervalMarker;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -38,8 +38,9 @@ public class XYSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar("XY Series Demo 3", "X", false, "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar(dataset,
+                "X", AxisType.NUMBER, "Y", "XY Series Demo 3");
+
         XYPlot plot = (XYPlot) chart.getPlot();
         IntervalMarker target = new IntervalMarker(400.0, 700.0);
         target.setLabel("Target Range");
@@ -57,7 +58,7 @@ public class XYSeriesDemo3 extends ApplicationFrame {
     }
 
     static void main() {
-        XYSeriesDemo3 demo = new XYSeriesDemo3("Chart: XYSeriesDemo3.java");
+        XYSeriesDemo3 demo = new XYSeriesDemo3("XYSeriesDemo3.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

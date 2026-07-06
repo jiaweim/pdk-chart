@@ -26,13 +26,14 @@ public class CandlestickChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.candlestick("Candlestick Demo 1", "Time", "Value", dataset, true);
+        Chart chart = JChart.candlestick(dataset, "Time", "Value",
+                "Candlestick Demo 1", true);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();
         axis.setAutoRangeIncludesZero(false);
-        axis.setUpperMargin((double) 0.0F);
-        axis.setLowerMargin((double) 0.0F);
+        axis.setUpperMargin(0.0);
+        axis.setLowerMargin(0.0);
         return chart;
     }
 

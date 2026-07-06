@@ -1,8 +1,6 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.*;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.DateAxis;
@@ -10,7 +8,6 @@ import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
@@ -41,10 +38,11 @@ public class XYBarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.bar("US Budget Deficit", "Year", true, "$ Billion",
-                dataset, PlotOrientation.VERTICAL, false, false, false);
+        Chart chart = JChart.bar(dataset, "Year", AxisType.DATE,
+                "$ Billion", "US Budget Deficit",
+                PlotOrientation.VERTICAL, false, false);
         TextTitle source = new TextTitle("Source: http://www.cbo.gov/showdoc.cfm?index=1821&sequence=0#table12");
-        source.setFont(new Font("Dialog", 0, 8));
+        source.setFont(new Font("Dialog", Font.PLAIN, 8));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);

@@ -1,6 +1,7 @@
 package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.TestUtils;
@@ -8,11 +9,11 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.Range;
 import pdk.chart.data.xy.*;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.util.GradientPaintTransformType;
 import pdk.chart.util.StandardGradientPaintTransformer;
 
@@ -185,9 +186,8 @@ public class XYBarRendererTest {
     public void testFindDomainBounds() {
         XYSeriesCollection<String> dataset
                 = RendererXYPackageUtils.createTestXYSeriesCollection();
-        Chart chart = JChart.bar("Test Chart", "X",
-                false, "Y", dataset, PlotOrientation.VERTICAL, false, false,
-                false);
+        Chart chart = JChart.bar(dataset, "X", AxisType.NUMBER,
+                "Y", "Test Chart", PlotOrientation.VERTICAL, false, false);
         XYPlot<String> plot = (XYPlot) chart.getPlot();
         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
         domainAxis.setAutoRangeIncludesZero(false);

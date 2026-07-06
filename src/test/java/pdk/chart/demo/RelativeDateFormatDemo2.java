@@ -1,11 +1,8 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.*;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
@@ -34,10 +31,12 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.bar("RelativeDateFormat Demo 2",
-                "Date ", true,
-                "Time To Complete", true,
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.bar(
+                dataset,
+                "Date ", AxisType.DATE,
+                "Time To Complete", AxisType.DATE,
+                "RelativeDateFormat Demo 2",
+                PlotOrientation.VERTICAL);
         XYPlot plot = chart.getXYPlot();
         plot.domainCrosshairVisible(true)
                 .rangeCrosshairVisible(true);

@@ -17,7 +17,6 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
-import pdk.chart.util.ShapeUtils;
 import pdk.chart.labels.*;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;
@@ -33,6 +32,7 @@ import pdk.chart.renderer.xy.*;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.title.TextTitle;
 import pdk.chart.urls.*;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -747,6 +747,44 @@ public abstract class JChart {
     /**
      * Create a clustered bar chart, returns a default instance of XY bar chart.
      *
+     * @param title      chart title.
+     * @param xAxisLabel x-axis name.
+     * @param dateAxis   true if the x-axis is of date time.
+     * @param yAxisLabel y-axis name.
+     * @param dataset    the dataset for the chart.
+     * @return a clustered bar chart.
+     */
+    public static Chart barCluster(IntervalXYDataset dataset,
+            String xAxisLabel, String yAxisLabel,
+            @Nullable String title, boolean dateAxis) {
+        return barCluster(dataset, xAxisLabel, yAxisLabel, title,
+                dateAxis, PlotOrientation.VERTICAL, true, true, false);
+    }
+
+    /**
+     * Create a clustered bar chart, returns a default instance of XY bar chart.
+     *
+     * @param title       chart title.
+     * @param xAxisLabel  x-axis name.
+     * @param dateAxis    true if the x-axis is of date time.
+     * @param yAxisLabel  y-axis name.
+     * @param dataset     the dataset for the chart.
+     * @param orientation {@link PlotOrientation}
+     * @param legend      whether show legend.
+     * @param tooltips    whether create tool tips.
+     * @return a clustered bar chart.
+     */
+    public static Chart barCluster(IntervalXYDataset dataset,
+            String xAxisLabel, String yAxisLabel,
+            @Nullable String title, boolean dateAxis,
+            @NonNull PlotOrientation orientation, boolean legend, boolean tooltips) {
+        return barCluster(dataset, xAxisLabel, yAxisLabel, title,
+                dateAxis, orientation, legend, tooltips, false);
+    }
+
+    /**
+     * Create a clustered bar chart, returns a default instance of XY bar chart.
+     *
      * @param title       chart title.
      * @param xAxisLabel  x-axis name.
      * @param dateAxis    true if the x-axis is of date time.
@@ -758,8 +796,10 @@ public abstract class JChart {
      * @param urls        whether create urls.
      * @return a clustered bar chart.
      */
-    public static Chart barCluster(@Nullable String title, @Nullable String xAxisLabel, boolean dateAxis,
-            String yAxisLabel, @Nullable IntervalXYDataset dataset, @NonNull PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
+    public static Chart barCluster(IntervalXYDataset dataset,
+            String xAxisLabel, String yAxisLabel,
+            @Nullable String title, boolean dateAxis,
+            @NonNull PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
 
         Objects.requireNonNull(orientation, "orientation");
         ValueAxis domainAxis;
@@ -1660,15 +1700,18 @@ public abstract class JChart {
      * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
      * renderer.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param dateAxis   make the domain axis display dates?
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
      * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
+     * @param xAxisType  {@link AxisType} for x -axis.
+     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
+     * @param title      the chart title ({@code null} permitted).
      * @return An XY bar chart.
      */
-    public static Chart bar(String title, String xAxisLabel, boolean dateAxis, String yAxisLabel, IntervalXYDataset dataset) {
-        return bar(title, xAxisLabel, dateAxis, yAxisLabel, dataset, PlotOrientation.VERTICAL, true, true, false);
+    public static Chart bar(IntervalXYDataset dataset,
+            String xAxisLabel, AxisType xAxisType,
+            String yAxisLabel, String title) {
+        return bar(dataset, xAxisLabel, xAxisType, yAxisLabel, AxisType.NUMBER,
+                title, PlotOrientation.VERTICAL, true, true, false);
     }
 
     /**
@@ -1679,51 +1722,19 @@ public abstract class JChart {
      * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
      * renderer.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param dateAxis    make the domain axis display dates?
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
+     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
+     * @param xAxisType  {@link AxisType} for x -axis.
+     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
+     * @param yAxisType  {@link AxisType} for y-axis.
+     * @param title      the chart title ({@code null} permitted).
      * @return An XY bar chart.
      */
-    public static Chart bar(String title, String xAxisLabel, boolean dateAxis, String yAxisLabel,
-            IntervalXYDataset dataset, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        ValueAxis domainAxis;
-        if (dateAxis) {
-            domainAxis = new DateAxis(xAxisLabel);
-        } else {
-            NumberAxis axis = new NumberAxis(xAxisLabel);
-            axis.setAutoRangeIncludesZero(false);
-            domainAxis = axis;
-        }
-        ValueAxis valueAxis = new NumberAxis(yAxisLabel);
-
-        XYBarRenderer renderer = new XYBarRenderer();
-        if (tooltips) {
-            XYToolTipGenerator tt;
-            if (dateAxis) {
-                tt = StandardXYToolTipGenerator.getTimeSeriesInstance();
-            } else {
-                tt = new StandardXYToolTipGenerator();
-            }
-            renderer.setDefaultToolTipGenerator(tt);
-        }
-        if (urls) {
-            renderer.setURLGenerator(new StandardXYURLGenerator());
-        }
-
-        XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
-        plot.setOrientation(orientation);
-
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+    public static Chart bar(IntervalXYDataset dataset,
+            String xAxisLabel, AxisType xAxisType,
+            String yAxisLabel, AxisType yAxisType, String title) {
+        return bar(dataset, xAxisLabel, xAxisType, yAxisLabel, yAxisType,
+                title, PlotOrientation.VERTICAL, true, true, false);
     }
 
     /**
@@ -1734,12 +1745,93 @@ public abstract class JChart {
      * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
      * renderer.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param xAxisDate   make the domain axis display dates?
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param yAxisDate   make the range axis display dates
      * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param xAxisType   {@link AxisType} for x -axis.
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param yAxisType   {@link AxisType} for y-axis.
+     * @param title       the chart title ({@code null} permitted).
+     * @param orientation the orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @return An XY bar chart.
+     */
+    public static Chart bar(IntervalXYDataset dataset,
+            String xAxisLabel, AxisType xAxisType,
+            String yAxisLabel, AxisType yAxisType, String title,
+            PlotOrientation orientation) {
+        return bar(dataset, xAxisLabel, xAxisType, yAxisLabel, yAxisType,
+                title, orientation, true, true, false);
+    }
+
+    /**
+     * Creates and returns a default instance of an XY bar chart.
+     * <p>
+     * The chart object returned by this method uses an {@link XYPlot} instance
+     * as the plot, with a {@link DateAxis} for the domain axis, a
+     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
+     * renderer.
+     *
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param xAxisType   {@link AxisType} for x -axis.
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param title       the chart title ({@code null} permitted).
+     * @param orientation the orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @return An XY bar chart.
+     */
+    public static Chart bar(IntervalXYDataset dataset,
+            String xAxisLabel, AxisType xAxisType,
+            String yAxisLabel, String title,
+            PlotOrientation orientation, boolean legend, boolean tooltips) {
+        return bar(dataset, xAxisLabel, xAxisType, yAxisLabel, AxisType.NUMBER,
+                title, orientation, legend, tooltips, false);
+    }
+
+    /**
+     * Creates and returns a default instance of an XY bar chart.
+     * <p>
+     * The chart object returned by this method uses an {@link XYPlot} instance
+     * as the plot, with a {@link DateAxis} for the domain axis, a
+     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
+     * renderer.
+     *
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param xAxisType   {@link AxisType} for x -axis.
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param yAxisType   {@link AxisType} for y-axis.
+     * @param title       the chart title ({@code null} permitted).
+     * @param orientation the orientation (horizontal or vertical)
+     *                    ({@code null} NOT permitted).
+     * @param legend      a flag specifying whether a legend is required.
+     * @param tooltips    configure chart to generate tool tips?
+     * @return An XY bar chart.
+     */
+    public static Chart bar(IntervalXYDataset dataset,
+            String xAxisLabel, AxisType xAxisType,
+            String yAxisLabel, AxisType yAxisType, String title,
+            PlotOrientation orientation, boolean legend, boolean tooltips) {
+        return bar(dataset, xAxisLabel, xAxisType, yAxisLabel, yAxisType,
+                title, orientation, legend, tooltips, false);
+    }
+
+    /**
+     * Creates and returns a default instance of an XY bar chart.
+     * <p>
+     * The chart object returned by this method uses an {@link XYPlot} instance
+     * as the plot, with a {@link DateAxis} for the domain axis, a
+     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
+     * renderer.
+     *
+     * @param dataset     the dataset for the chart ({@code null} permitted).
+     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
+     * @param xAxisType   {@link AxisType} for x -axis.
+     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
+     * @param yAxisType   {@link AxisType} for y-axis.
+     * @param title       the chart title ({@code null} permitted).
      * @param orientation the orientation (horizontal or vertical)
      *                    ({@code null} NOT permitted).
      * @param legend      a flag specifying whether a legend is required.
@@ -1747,40 +1839,31 @@ public abstract class JChart {
      * @param urls        configure chart to generate URLs?
      * @return An XY bar chart.
      */
-    public static Chart bar(String title, String xAxisLabel, boolean xAxisDate, String yAxisLabel, boolean yAxisDate,
-            IntervalXYDataset dataset, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
+    public static Chart bar(IntervalXYDataset dataset,
+            String xAxisLabel, AxisType xAxisType,
+            String yAxisLabel, AxisType yAxisType, String title,
+            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
         Objects.requireNonNull(orientation, "orientation");
 
-        ValueAxis domainAxis;
-        if (xAxisDate) {
-            domainAxis = new DateAxis(xAxisLabel);
-        } else {
-            NumberAxis axis = new NumberAxis(xAxisLabel);
-            axis.setAutoRangeIncludesZero(false);
-            domainAxis = axis;
-        }
-        ValueAxis valueAxis;
-        if (yAxisDate) {
-            valueAxis = new DateAxis(yAxisLabel);
-        } else {
-            valueAxis = new NumberAxis(yAxisLabel);
-        }
+        ValueAxis domainAxis = xAxisType.createInstance();
+        domainAxis.setLabel(xAxisLabel);
+
+        ValueAxis rangeAxis = yAxisType.createInstance();
+        rangeAxis.setLabel(yAxisLabel);
 
         XYBarRenderer renderer = new XYBarRenderer();
         if (tooltips) {
-            XYToolTipGenerator tt;
-            if (xAxisDate) {
-                tt = StandardXYToolTipGenerator.getTimeSeriesInstance();
+            if (xAxisType == AxisType.DATE) {
+                renderer.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
             } else {
-                tt = new StandardXYToolTipGenerator();
+                renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
             }
-            renderer.setDefaultToolTipGenerator(tt);
         }
         if (urls) {
             renderer.setURLGenerator(new StandardXYURLGenerator());
         }
 
-        XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
+        XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
         plot.setOrientation(orientation);
 
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
@@ -2412,7 +2495,8 @@ public abstract class JChart {
      * @param legend         a flag specifying whether a legend is required.
      * @return A candlestick chart.
      */
-    public static Chart candlestick(String title, String timeAxisLabel, String valueAxisLabel, OHLCDataset dataset, boolean legend) {
+    public static Chart candlestick(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
+            String title, boolean legend) {
 
         ValueAxis timeAxis = new DateAxis(timeAxisLabel);
         NumberAxis valueAxis = new NumberAxis(valueAxisLabel);

@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.data.time.TimeSeries;
@@ -39,8 +40,10 @@ public class XYBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.bar("State Executions - USA", "Year", true, "Number of People",
-                dataset, PlotOrientation.VERTICAL, true, false, false);
+        Chart chart = JChart.bar(dataset, "Year", AxisType.DATE,
+                "Number of People",
+                "State Executions - USA",
+                PlotOrientation.VERTICAL, true, false);
         chart.addSubtitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do", new Font("Dialog", Font.ITALIC, 10)));
         XYPlot plot = chart.getXYPlot();
         XYBarRenderer renderer = plot.getBarRenderer();

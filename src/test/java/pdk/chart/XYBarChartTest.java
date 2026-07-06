@@ -108,8 +108,7 @@ public class XYBarChartTest {
         series1.add(3.0, 3.0);
         IntervalXYDataset<String> dataset = new XYBarDataset<>(
                 new XYSeriesCollection<>(series1), 1.0);
-        return JChart.bar("XY Bar Chart", "Domain", false,
-                "Range", dataset);
+        return JChart.bar(dataset, "Domain", AxisType.NUMBER, "Range", "XY Bar Chart");
 
     }
 

@@ -1,24 +1,25 @@
 package pdk.chart.demo;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JPanel;
+import pdk.chart.AxisType;
+import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
-import pdk.chart.Chart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.SymbolAxis;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYIntervalSeries;
 import pdk.chart.data.xy.XYIntervalSeriesCollection;
+import pdk.chart.plot.PlotOrientation;
+import pdk.chart.plot.XYPlot;
+import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class XYBarChartDemo7 extends ApplicationFrame {
     public XYBarChartDemo7(String title) {
@@ -29,14 +30,17 @@ public class XYBarChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar("XYBarChartDemo7", "Date", true, "Y", dataset, PlotOrientation.HORIZONTAL, true, false, false);
-        XYPlot plot = (XYPlot)chart.getPlot();
+        Chart chart = JChart.bar(dataset,
+                "Date", AxisType.DATE, "Y",
+                "XYBarChartDemo7", PlotOrientation.HORIZONTAL, true, false);
+
+        XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangePannable(true);
         plot.setRangeAxis(new DateAxis("Date"));
         SymbolAxis xAxis = new SymbolAxis("Series", new String[]{"S1", "S2", "S3"});
         xAxis.setGridBandsVisible(false);
         plot.setDomainAxis(xAxis);
-        XYBarRenderer renderer = (XYBarRenderer)plot.getRenderer();
+        XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
         renderer.setUseYInterval(true);
         plot.setRenderer(renderer);
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
@@ -68,15 +72,15 @@ public class XYBarChartDemo7 extends ApplicationFrame {
     }
 
     private static void addItem(XYIntervalSeries s, RegularTimePeriod p0, RegularTimePeriod p1, int index) {
-        s.add((double)index, (double)index - 0.45, (double)index + 0.45, (double)p0.getFirstMillisecond(), (double)p0.getFirstMillisecond(), (double)p1.getLastMillisecond());
+        s.add((double) index, (double) index - 0.45, (double) index + 0.45, (double) p0.getFirstMillisecond(), (double) p0.getFirstMillisecond(), (double) p1.getLastMillisecond());
     }
 
     public static JPanel createDemoPanel() {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main(String[] args) {
-        XYBarChartDemo7 demo = new XYBarChartDemo7("Chart : XYBarChartDemo7.java");
+    static void main() {
+        XYBarChartDemo7 demo = new XYBarChartDemo7("XYBarChartDemo7.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

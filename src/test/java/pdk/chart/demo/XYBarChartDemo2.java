@@ -6,7 +6,6 @@ import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -49,8 +48,9 @@ public class XYBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.barCluster("XY Bar Chart Demo 2", "Date", true, "Y",
-                dataset, PlotOrientation.VERTICAL, true, true, false);
+        Chart chart = JChart.barCluster(dataset,
+                "Date", "Y", "XY Bar Chart Demo 2", true);
+
         XYPlot plot = chart.getXYPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
