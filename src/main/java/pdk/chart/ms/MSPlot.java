@@ -1,4 +1,4 @@
-package pdk.chart.plot.pep;
+package pdk.chart.ms;
 
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.api.RectangleEdge;

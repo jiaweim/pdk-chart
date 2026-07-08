@@ -44,5 +44,6 @@ module pdk.chart {
     exports pdk.chart.data.time.ohlc;
     exports pdk.chart.data.xml;
     exports pdk.chart.data.xy;
-    exports pdk.chart.plot.pep;
+    exports pdk.chart.ms;
+    exports pdk.chart.ms.label;
 }

@@ -1,4 +1,4 @@
-package pdk.chart.plot.pep;
+package pdk.chart.ms;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -89,7 +89,6 @@ public class PSMPlot extends XYPlot<SeriesType> {
     private double peptideHeight = 100;
 
     private final PeakRenderer renderer = new PeakRenderer();
-//    private final YIntervalRenderer renderer = new YIntervalRenderer();
 
     public PSMPlot() {
         super();

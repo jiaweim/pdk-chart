@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.plot.pep.SeriesType;
-import pdk.chart.plot.pep.SpectrumDataset;
+import pdk.chart.ms.SeriesType;
+import pdk.chart.ms.SpectrumDataset;
 
 /**
  *

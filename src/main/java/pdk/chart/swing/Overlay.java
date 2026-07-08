@@ -7,6 +7,8 @@ import java.awt.*;
  * additional information to the chart.  This interface defines the operations
  * that must be supported for an overlay that can be added to a
  * {@link ChartPanel} in Swing.
+ * <p>
+ * Overlays are more suitable as interaction layers independent of Datasets.
  * <br><br>
  * Note: if you are using JavaFX rather than Swing, then you need to look at
  * the {@code OverlayFX} interface in the <b>JFreeChart-FX</b> project.

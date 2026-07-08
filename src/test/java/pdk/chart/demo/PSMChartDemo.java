@@ -2,10 +2,10 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.plot.pep.PeptideAnnotation;
-import pdk.chart.plot.pep.PeptideDataset;
-import pdk.chart.plot.pep.SeriesType;
-import pdk.chart.plot.pep.SpectrumDataset;
+import pdk.chart.ms.PeptideAnnotation;
+import pdk.chart.ms.PeptideDataset;
+import pdk.chart.ms.SeriesType;
+import pdk.chart.ms.SpectrumDataset;
 
 import java.util.Arrays;
 

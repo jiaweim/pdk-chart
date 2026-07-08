@@ -1,4 +1,4 @@
-package pdk.chart.plot.pep;
+package pdk.chart.ms;
 
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
@@ -7,9 +7,11 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.util.ShapeUtils;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.XYItemLabelGenerator;
+import pdk.chart.ms.label.PeakLabel;
+import pdk.chart.ms.label.PeakLabelLayout;
+import pdk.chart.ms.label.PeakRendererState;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
@@ -17,7 +19,9 @@ import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.AbstractXYItemRenderer;
 import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.renderer.xy.XYItemRendererState;
+import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -38,6 +42,10 @@ public class PeakRenderer extends AbstractXYItemRenderer
      */
     private static final long serialVersionUID = -2951586537224143260L;
 
+    private final PeakLabelLayout labelLayout = new PeakLabelLayout();
+    private Font labelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
+    private Paint labelPaint = Color.BLACK;
+
     /**
      * An additional item label generator.  If this is non-null, the item
      * label generated will be displayed near the lower y-value at the
@@ -48,11 +56,28 @@ public class PeakRenderer extends AbstractXYItemRenderer
     private XYItemLabelGenerator additionalItemLabelGenerator;
 
     /**
+     * minimum label spacing in pixels
+     */
+    private double labelGap = 40;
+    /**
+     * Auto-layout labels automatically?
+     */
+    private boolean autoPeakLabels = true;
+    /**
+     * the minimum relative intensity (0-1).
+     */
+    private double minRelativeIntensity = 0.03;
+
+    /**
      * The default constructor.
      */
     public PeakRenderer() {
         super();
         this.additionalItemLabelGenerator = null;
+    }
+
+    public PeakLabelLayout getLabelLayout() {
+        return labelLayout;
     }
 
     /**
@@ -83,6 +108,24 @@ public class PeakRenderer extends AbstractXYItemRenderer
         fireChangeEvent();
     }
 
+    public Font getLabelFont() {
+        return labelFont;
+    }
+
+    public void setLabelFont(Font labelFont) {
+        this.labelFont = labelFont;
+        fireChangeEvent();
+    }
+
+    public Paint getLabelPaint() {
+        return labelPaint;
+    }
+
+    public void setLabelPaint(Paint labelPaint) {
+        this.labelPaint = labelPaint;
+        fireChangeEvent();
+    }
+
     /**
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
@@ -93,6 +136,24 @@ public class PeakRenderer extends AbstractXYItemRenderer
     @Override
     public Range findRangeBounds(XYDataset dataset) {
         return findRangeBounds(dataset, true);
+    }
+
+    @Override
+    public XYItemRendererState initialise(Graphics2D g2, Rectangle2D dataArea,
+            XYPlot plot, XYDataset dataset, PlotRenderingInfo info) {
+        PeakRendererState state = new PeakRendererState(info);
+
+        if (dataset != null && dataset.getSeriesCount() > 0) {
+            ValueAxis domainAxis = plot.getDomainAxis();
+            ValueAxis rangeAxis = plot.getRangeAxis();
+
+            if (domainAxis != null && rangeAxis != null) {
+                state.setLabels(labelLayout.layout(g2, dataset,
+                        0, dataArea, plot, domainAxis, rangeAxis));
+            }
+        }
+
+        return state;
     }
 
     /**
@@ -140,10 +201,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
         double yyLow = rangeAxis.valueToJava2D(0, dataArea, yAxisLocation);
         double yyHigh = rangeAxis.valueToJava2D(y, dataArea, yAxisLocation);
 
-        Paint p = getItemPaint(series, item);
-        Stroke s = getItemStroke(series, item);
-
-        Line2D line = null;
+        Line2D line;
         PlotOrientation orientation = plot.getOrientation();
         if (orientation == PlotOrientation.HORIZONTAL) {
             line = new Line2D.Double(yyLow, xx, yyHigh, xx);
@@ -152,10 +210,19 @@ public class PeakRenderer extends AbstractXYItemRenderer
         } else {
             throw new IllegalStateException();
         }
-//        System.out.println(yyLow + "\t" + yyHigh + "\t" + dataArea.getMaxY());
+
+        Paint p = getItemPaint(series, item);
+        Stroke s = getItemStroke(series, item);
         g2.setPaint(p);
         g2.setStroke(s);
         g2.draw(line);
+
+        if (state instanceof PeakRendererState prs) {
+            PeakLabel label = prs.getLabel(item);
+            if (label != null) {
+                drawPeakLabel(g2, label);
+            }
+        }
 
         // for item labels, we have a special case because there is the
         // possibility to draw (a) the regular item label near to just the
@@ -168,14 +235,26 @@ public class PeakRenderer extends AbstractXYItemRenderer
                     xx, yyLow);
         }
 
-//        g2.setPaint(Color.RED);
-//        g2.fill(new Rectangle2D.Double(xx - 1, yyLow - 1, 3, 3));
-
         // add an entity for the item...
         Shape hotspot = ShapeUtils.createLineRegion(line, 4.0f);
         if (entities != null && hotspot.intersects(dataArea)) {
             addEntity(entities, hotspot, dataset, series, item, 0.0, 0.0);
         }
+    }
+
+    private void drawPeakLabel(
+            Graphics2D g2,
+            PeakLabel label) {
+
+        g2.setFont(labelFont);
+        g2.setPaint(labelPaint);
+
+        TextUtils.drawAlignedString(
+                label.getText(),
+                g2,
+                (float) label.getLabelX(),
+                (float) label.getLabelY(),
+                TextAnchor.BOTTOM_CENTER);
     }
 
     /**

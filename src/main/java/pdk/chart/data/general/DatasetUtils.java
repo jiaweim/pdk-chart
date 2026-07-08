@@ -12,7 +12,7 @@ import pdk.chart.data.statistics.StatisticalCategoryDataset;
 import pdk.chart.data.xy.*;
 import pdk.chart.util.Args;
 import pdk.chart.util.ArrayUtils;
-import pdk.chart.plot.pep.PeptideDataset;
+import pdk.chart.ms.PeptideDataset;
 
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -2,7 +2,7 @@ package pdk.chart.demo.pep;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.plot.pep.*;
+import pdk.chart.ms.*;
 
 /**
  *

@@ -1,4 +1,4 @@
-package pdk.chart.plot.pep;
+package pdk.chart.ms;
 
 import pdk.chart.data.general.AbstractDataset;
 import pdk.chart.data.general.DatasetChangeEvent;

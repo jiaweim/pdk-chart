@@ -13,7 +13,7 @@ import pdk.chart.util.SerialUtils;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.*;
-import pdk.chart.plot.pep.MSPlot;
+import pdk.chart.ms.MSPlot;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PieLabelLinkStyle;
 import pdk.chart.plot.pie.PiePlot;
