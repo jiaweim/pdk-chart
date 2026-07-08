@@ -21,7 +21,6 @@ public class PeakRendererState extends XYItemRendererState {
      * Labels generated for current visible range.
      */
     private List<PeakLabel> labels = Collections.emptyList();
-
     /**
      * Fast lookup: item index -> label.
      *
@@ -46,23 +45,19 @@ public class PeakRendererState extends XYItemRendererState {
         super(null);
     }
 
-
     /**
      * Updates labels.
      *
      * @param labels calculated labels
      */
     public void setLabels(List<PeakLabel> labels) {
-
         if (labels == null || labels.isEmpty()) {
             clear();
             return;
         }
 
         this.labels = labels;
-
         labelMap.clear();
-
         for (PeakLabel label : labels) {
             labelMap.put(label.getItem(), label);
         }
@@ -77,7 +72,6 @@ public class PeakRendererState extends XYItemRendererState {
         return labels;
     }
 
-
     /**
      * Returns label for item.
      *
@@ -87,7 +81,6 @@ public class PeakRendererState extends XYItemRendererState {
     public PeakLabel getLabel(int item) {
         return labelMap.get(item);
     }
-
 
     /**
      * Clears all labels.

@@ -148,7 +148,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
             ValueAxis rangeAxis = plot.getRangeAxis();
 
             if (domainAxis != null && rangeAxis != null) {
-                state.setLabels(labelLayout.layout(g2, dataset,
+                state.setLabels(labelLayout.layout(g2, labelFont, dataset,
                         0, dataArea, plot, domainAxis, rangeAxis));
             }
         }

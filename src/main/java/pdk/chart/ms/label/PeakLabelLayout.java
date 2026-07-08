@@ -42,15 +42,14 @@ public class PeakLabelLayout {
      */
     private int maxShiftSteps = 8;
 
-
     /**
      * Shift distance per step.
      */
     private double shiftStep = 8.0;
 
-
     public List<PeakLabel> layout(
             Graphics2D g2,
+            Font labelFont,
             XYDataset dataset,
             int series,
             Rectangle2D dataArea,
@@ -59,25 +58,17 @@ public class PeakLabelLayout {
             ValueAxis rangeAxis) {
 
         List<PeakCandidate> candidates = collectCandidates(
-                dataset,
-                series,
-                dataArea,
-                plot,
-                domainAxis,
-                rangeAxis);
-
-
+                dataset, series, dataArea,
+                plot, domainAxis, rangeAxis);
         if (candidates.isEmpty()) {
             return List.of();
         }
-
         candidates.sort(Comparator.comparingDouble(PeakCandidate::intensity).reversed());
 
         List<PeakLabel> result = new ArrayList<>();
         List<Rectangle2D> occupied = new ArrayList<>();
 
-
-        FontMetrics fm = g2.getFontMetrics();
+        FontMetrics fm = g2.getFontMetrics(labelFont);
 
         int count = 0;
         for (PeakCandidate candidate : candidates) {
@@ -167,127 +158,60 @@ public class PeakLabelLayout {
         return result;
     }
 
-
-    private List<PeakCandidate> collectCandidates(
-            XYDataset dataset,
+    /**
+     * Collect candidate peaks with intensity higher than the
+     * specified threshold in the current view
+     */
+    private List<PeakCandidate> collectCandidates(XYDataset dataset,
             int series,
             Rectangle2D dataArea,
             XYPlot plot,
             ValueAxis domainAxis,
             ValueAxis rangeAxis) {
 
+        RectangleEdge xEdge = plot.getDomainAxisEdge();
+        RectangleEdge yEdge = plot.getRangeAxisEdge();
 
-        RectangleEdge xEdge =
-                plot.getDomainAxisEdge();
-
-        RectangleEdge yEdge =
-                plot.getRangeAxisEdge();
-
-
-        int itemCount =
-                dataset.getItemCount(series);
-
+        int itemCount = dataset.getItemCount(series);
 
         double maxIntensity = 0;
-
-
-        /*
-         * First pass:
-         * calculate current visible maximum.
-         */
+        // First pass: calculate current visible maximum.
         for (int i = 0; i < itemCount; i++) {
+            double x = dataset.getXValue(series, i);
+            double y = dataset.getYValue(series, i);
 
-            double x =
-                    dataset.getXValue(series, i);
-
-            double y =
-                    dataset.getYValue(series, i);
-
-
-            double xx =
-                    domainAxis.valueToJava2D(
-                            x,
-                            dataArea,
-                            xEdge);
-
-
-            if (xx < dataArea.getMinX()
-                    ||
-                    xx > dataArea.getMaxX()) {
+            double xx = domainAxis.valueToJava2D(x, dataArea, xEdge);
+            if (xx < dataArea.getMinX() || xx > dataArea.getMaxX()) {
                 continue;
             }
 
-
-            maxIntensity =
-                    Math.max(
-                            maxIntensity,
-                            y);
+            maxIntensity = Math.max(maxIntensity, y);
         }
-
 
         if (maxIntensity <= 0) {
             return List.of();
         }
 
-
-        List<PeakCandidate> result =
-                new ArrayList<>();
-
-
-        /*
-         * Second pass:
-         * create candidates.
-         */
+        List<PeakCandidate> result = new ArrayList<>();
+        // Second pass: create candidates.
         for (int i = 0; i < itemCount; i++) {
+            double x = dataset.getXValue(series, i);
+            double y = dataset.getYValue(series, i);
 
-
-            double x =
-                    dataset.getXValue(series, i);
-
-            double y =
-                    dataset.getYValue(series, i);
-
-
-            double relative =
-                    y / maxIntensity;
-
-
-            if (relative <
-                    minimumRelativeIntensity) {
+            double relative = y / maxIntensity;
+            if (relative < minimumRelativeIntensity) {
                 continue;
             }
 
+            double xx = domainAxis.valueToJava2D(x, dataArea, xEdge);
+            double yy = rangeAxis.valueToJava2D(y, dataArea, yEdge);
 
-            double xx =
-                    domainAxis.valueToJava2D(
-                            x,
-                            dataArea,
-                            xEdge);
-
-
-            double yy =
-                    rangeAxis.valueToJava2D(
-                            y,
-                            dataArea,
-                            yEdge);
-
-
-            if (xx < dataArea.getMinX()
-                    ||
-                    xx > dataArea.getMaxX()) {
+            if (xx < dataArea.getMinX() || xx > dataArea.getMaxX()) {
                 continue;
             }
 
-
-            result.add(new PeakCandidate(
-                    i,
-                    x,
-                    y,
-                    relative,
-                    xx,
-                    yy));
+            result.add(new PeakCandidate(i, x, y, relative, xx, yy));
         }
-
 
         return result;
     }
@@ -347,6 +271,15 @@ public class PeakLabelLayout {
         this.labelOffset = value;
     }
 
+    /**
+     *
+     * @param item              item index in the dataset.
+     * @param mz                x value
+     * @param intensity         y value
+     * @param relativeIntensity relative intensity in current view.
+     * @param x                 x in Java2D coordinate.
+     * @param y                 y in Java2D coordinate.
+     */
     private record PeakCandidate(
             int item,
             double mz,
