@@ -52,6 +52,19 @@ public final class PeakLabel {
 
     private final double labelY;
 
+    /**
+     *
+     * @param series            series index
+     * @param item              item index
+     * @param mz                x value
+     * @param intensity         y values
+     * @param relativeIntensity relative intensity compare the y-range in current view
+     * @param text              label text
+     * @param anchorX           x of the peak in Java2D coordinate.
+     * @param anchorY           y of the peak in Java2D coordinate.
+     * @param labelX            x of the label in Java2D coordinate.
+     * @param labelY            y of the label in Java2D coordinate.
+     */
     public PeakLabel(
             int series,
             int item,

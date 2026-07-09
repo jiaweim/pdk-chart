@@ -6,11 +6,11 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.Plot;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.Args;
 import pdk.chart.util.AttrStringUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.font.LineMetrics;

@@ -2888,6 +2888,27 @@ public abstract class JChart {
     /**
      * Create a chart to display peptide spectrum match.
      *
+     * @param spectrumDataset {@link SpectrumDataset}
+     * @return a spectrum chart.
+     */
+    public static Chart spectrum(SpectrumDataset spectrumDataset) {
+        PSMPlot plot = new PSMPlot();
+        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
+        JChartUtils.applyCurrentTheme(chart);
+        int seriesCount = spectrumDataset.getSeriesCount();
+        if (seriesCount > 1) {
+            PeakRenderer renderer = (PeakRenderer) plot.getRenderer();
+            renderer.setShowAutoPeakLabels(false);
+        }
+        plot.setDataset(null, spectrumDataset);
+        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
+        return chart;
+    }
+
+
+    /**
+     * Create a chart to display peptide spectrum match.
+     *
      * @param peptideDataset {@link PSMDataset}
      * @return a PSM chart.
      */
@@ -2895,6 +2916,11 @@ public abstract class JChart {
         PSMPlot plot = new PSMPlot();
         Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
         JChartUtils.applyCurrentTheme(chart);
+        int seriesCount = spectrumDataset.getSeriesCount();
+        if (seriesCount > 1) {
+            PeakRenderer renderer = (PeakRenderer) plot.getRenderer();
+            renderer.setShowAutoPeakLabels(false);
+        }
         plot.setDataset(peptideDataset, spectrumDataset);
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         return chart;
@@ -2908,6 +2934,8 @@ public abstract class JChart {
      */
     public static Chart psm(PSMDataset dataset) {
         PSMPlot plot = new PSMPlot();
+        PeakRenderer renderer = (PeakRenderer) plot.getRenderer();
+        renderer.setShowAutoPeakLabels(false);
         Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
         JChartUtils.applyCurrentTheme(chart);
         plot.setDataset(dataset.getPeptideDataset(), dataset.getSpectrumDataset());
@@ -2925,6 +2953,8 @@ public abstract class JChart {
     public static Chart psm2(PSMDataset dataset, ToleranceType toleranceType) {
         PSMPlot psmPlot = new PSMPlot();
         psmPlot.setDomainAxis(null);
+        PeakRenderer peakRenderer = (PeakRenderer) psmPlot.getRenderer();
+        peakRenderer.setShowAutoPeakLabels(false);
 
         XYDataset<SeriesType> mzErrorDataset = dataset.getSpectrumDataset().getMZErrorDataset();
         NumberAxis errorYAxis = new NumberAxis(toleranceType.getUnit());

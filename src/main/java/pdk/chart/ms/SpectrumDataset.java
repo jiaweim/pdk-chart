@@ -1,6 +1,8 @@
 package pdk.chart.ms;
 
-import pdk.chart.data.xy.*;
+import pdk.chart.data.xy.XYDataset;
+import pdk.chart.data.xy.XYSeries;
+import pdk.chart.data.xy.XYSeriesCollection;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +15,7 @@ import java.util.Objects;
  * @version 1.0.0
  * @since 09 Jun 2026, 5:15 PM
  */
-public class SpectrumDataset extends YIntervalSeriesCollection<SeriesType> {
+public class SpectrumDataset extends XYSeriesCollection<SeriesType> {
 
     private final Map<SeriesType, String[]> labelMap = new HashMap<>();
     private final XYSeriesCollection<SeriesType> mzErrorDataset = new XYSeriesCollection<>();
@@ -81,9 +83,9 @@ public class SpectrumDataset extends YIntervalSeriesCollection<SeriesType> {
             mzErrorDataset.addSeries(series);
         }
 
-        YIntervalSeries<SeriesType> series = new YIntervalSeries<>(seriesType);
+        XYSeries<SeriesType> series = new XYSeries<>(seriesType);
         for (int i = 0; i < x.length; i++) {
-            series.add(x[i], y[i], 0, y[i]);
+            series.add(x[i], y[i]);
         }
         addSeries(series);
         labelMap.put(seriesType, labels);

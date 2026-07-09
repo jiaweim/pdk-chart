@@ -43,8 +43,12 @@ public class PeakRenderer extends AbstractXYItemRenderer
     private static final long serialVersionUID = -2951586537224143260L;
 
     private final PeakLabelLayout labelLayout = new PeakLabelLayout();
-    private Font labelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
-    private Paint labelPaint = Color.BLACK;
+    private Font autoLabelFont = new Font(Font.SANS_SERIF, Font.PLAIN, 10);
+    private Paint autoLabelPaint = Color.BLACK;
+    /**
+     * Auto-layout labels automatically?
+     */
+    private boolean showAutoPeakLabels = true;
 
     /**
      * An additional item label generator.  If this is non-null, the item
@@ -54,19 +58,6 @@ public class PeakRenderer extends AbstractXYItemRenderer
      * @since 1.0.10
      */
     private XYItemLabelGenerator additionalItemLabelGenerator;
-
-    /**
-     * minimum label spacing in pixels
-     */
-    private double labelGap = 40;
-    /**
-     * Auto-layout labels automatically?
-     */
-    private boolean autoPeakLabels = true;
-    /**
-     * the minimum relative intensity (0-1).
-     */
-    private double minRelativeIntensity = 0.03;
 
     /**
      * The default constructor.
@@ -108,21 +99,35 @@ public class PeakRenderer extends AbstractXYItemRenderer
         fireChangeEvent();
     }
 
-    public Font getLabelFont() {
-        return labelFont;
+    public Font getAutoLabelFont() {
+        return autoLabelFont;
     }
 
-    public void setLabelFont(Font labelFont) {
-        this.labelFont = labelFont;
+    public void setAutoLabelFont(Font autoLabelFont) {
+        this.autoLabelFont = autoLabelFont;
         fireChangeEvent();
     }
 
-    public Paint getLabelPaint() {
-        return labelPaint;
+    public Paint getAutoLabelPaint() {
+        return autoLabelPaint;
     }
 
-    public void setLabelPaint(Paint labelPaint) {
-        this.labelPaint = labelPaint;
+    public void setAutoLabelPaint(Paint autoLabelPaint) {
+        this.autoLabelPaint = autoLabelPaint;
+        fireChangeEvent();
+    }
+
+    public boolean isShowAutoPeakLabels() {
+        return showAutoPeakLabels;
+    }
+
+    /**
+     * Automatically generate labels for spectral peaks?
+     *
+     * @param showAutoPeakLabels true if generate labels.
+     */
+    public void setShowAutoPeakLabels(boolean showAutoPeakLabels) {
+        this.showAutoPeakLabels = showAutoPeakLabels;
         fireChangeEvent();
     }
 
@@ -143,13 +148,13 @@ public class PeakRenderer extends AbstractXYItemRenderer
             XYPlot plot, XYDataset dataset, PlotRenderingInfo info) {
         PeakRendererState state = new PeakRendererState(info);
 
-        if (dataset != null && dataset.getSeriesCount() > 0) {
+        // generate automatic labels.
+        if (dataset != null && dataset.getSeriesCount() > 0 && showAutoPeakLabels) {
             ValueAxis domainAxis = plot.getDomainAxis();
             ValueAxis rangeAxis = plot.getRangeAxis();
-
             if (domainAxis != null && rangeAxis != null) {
-                state.setLabels(labelLayout.layout(g2, labelFont, dataset,
-                        0, dataArea, plot, domainAxis, rangeAxis));
+                state.setLabels(labelLayout.layout(g2, autoLabelFont, dataset,
+                        0, dataArea, plot));
             }
         }
 
@@ -217,7 +222,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
         g2.setStroke(s);
         g2.draw(line);
 
-        if (state instanceof PeakRendererState prs) {
+        if (showAutoPeakLabels && state instanceof PeakRendererState prs) {
             PeakLabel label = prs.getLabel(item);
             if (label != null) {
                 drawPeakLabel(g2, label);
@@ -246,8 +251,8 @@ public class PeakRenderer extends AbstractXYItemRenderer
             Graphics2D g2,
             PeakLabel label) {
 
-        g2.setFont(labelFont);
-        g2.setPaint(labelPaint);
+        g2.setFont(autoLabelFont);
+        g2.setPaint(autoLabelPaint);
 
         TextUtils.drawAlignedString(
                 label.getText(),

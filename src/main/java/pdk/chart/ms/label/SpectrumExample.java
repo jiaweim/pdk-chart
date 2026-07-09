@@ -40,7 +40,7 @@ public class SpectrumExample {
         /*
          * 设置标签参数
          */
-        renderer.getLabelLayout().setMinimumRelativeIntensity(0.05);
+        renderer.getLabelLayout().setMinimumRelativeIntensity(0.01);
         renderer.getLabelLayout().setMaximumLabels(20);
 
         XYPlot plot = new XYPlot(dataset, mzAxis, intensityAxis, renderer);

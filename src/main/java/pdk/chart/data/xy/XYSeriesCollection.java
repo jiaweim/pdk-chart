@@ -38,7 +38,7 @@ public class XYSeriesCollection<S extends Comparable<S>>
     /**
      * The series that are included in the collection.
      */
-    private List<XYSeries<S>> data;
+    protected List<XYSeries<S>> data;
 
     /**
      * The interval delegate (used to calculate the start and end x-values).
