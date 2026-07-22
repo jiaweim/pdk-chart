@@ -8,7 +8,7 @@
 
     <groupId>io.github.jiaweim</groupId>
     <artifactId>pdk-chart</artifactId>
-    <version>2.35.0</version>
+    <version>2.36.0</version>
     <name>Chart libraray for proteomics</name>
     <url>https://github.com/jiaweim/pdk-chart</url>
 
@@ -32,10 +32,6 @@
     </scm>
 
     <developers>
-        <developer>
-            <name>David Gilbert</name>
-            <email>dave@jfree.org</email>
-        </developer>
         <developer>
             <name>Jiawei Mao</name>
             <email>jiaweiM_philo@hotmail.com</email>
@@ -64,7 +60,7 @@
         <dependency>
             <groupId>de.siegmar</groupId>
             <artifactId>fastcsv</artifactId>
-            <version>4.3.0</version>
+            <version>4.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.jspecify</groupId>
@@ -73,20 +69,14 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.12.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.12.2</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>6.1.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>nl.jqno.equalsverifier</groupId>
             <artifactId>equalsverifier</artifactId>
-            <version>4.0</version>
+            <version>4.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

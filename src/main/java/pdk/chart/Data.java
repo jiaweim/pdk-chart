@@ -1,6 +1,7 @@
 package pdk.chart;
 
 import org.jspecify.annotations.NonNull;
+import pdk.chart.data.Range;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.category.DefaultIntervalCategoryDataset;
@@ -26,6 +27,24 @@ import java.util.Objects;
  * @since 17 Jun 2026, 9:35 AM
  */
 public interface Data {
+
+    public static Range getZRange(XYZDataset dataset) {
+        double min = Double.POSITIVE_INFINITY;
+        double max = Double.NEGATIVE_INFINITY;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double zValue = dataset.getZValue(s, i);
+                if (zValue < min) {
+                    min = zValue;
+                }
+                if (zValue > max) {
+                    max = zValue;
+                }
+            }
+        }
+        return new Range(min, max);
+    }
+
 
     /**
      * Create a {@link CategoryDatasetBuilder} to build {@link pdk.chart.data.category.CategoryDataset}

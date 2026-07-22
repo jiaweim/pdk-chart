@@ -3,13 +3,13 @@ package pdk.chart.plot;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.labels.CrosshairLabelGenerator;
+import pdk.chart.labels.StandardCrosshairLabelGenerator;
+import pdk.chart.swing.CrosshairOverlay;
 import pdk.chart.util.Args;
 import pdk.chart.util.HashUtils;
 import pdk.chart.util.PaintUtils;
 import pdk.chart.util.SerialUtils;
-import pdk.chart.labels.CrosshairLabelGenerator;
-import pdk.chart.labels.StandardCrosshairLabelGenerator;
-import pdk.chart.swing.CrosshairOverlay;
 
 import java.awt.*;
 import java.beans.PropertyChangeListener;
@@ -555,10 +555,9 @@ public class Crosshair implements Cloneable, PublicCloneable, Serializable {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof Crosshair)) {
+        if (!(obj instanceof Crosshair that)) {
             return false;
         }
-        Crosshair that = (Crosshair) obj;
         if (this.visible != that.visible) {
             return false;
         }

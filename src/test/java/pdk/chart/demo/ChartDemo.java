@@ -5,6 +5,7 @@ import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
 import pdk.chart.*;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.demo.echarts.HeatmapCartesian;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
@@ -73,7 +74,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         Objects.requireNonNull(memUse);
         (new MemoryUsageDemo.DataGenerator(memUse, 1000)).start();
         this.tabs.add("Memory Usage", memUse);
-        this.tabs.add("Source Code", this.createSourceCodePanel());
+//        this.tabs.add("Source Code", this.createSourceCodePanel());
         this.tabs.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         content.add(this.tabs);
         tree.setSelectionPath(this.defaultChartPath);
@@ -131,20 +132,20 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         return menuBar;
     }
 
-    private JPanel createSourceCodePanel() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        this.editorPane = new JEditorPane();
-        this.editorPane.setEditable(false);
-        this.editorPane.setFont(new Font("Monospaced", 0, 12));
-        this.updateSourceCodePanel("source.html");
-        JScrollPane editorScrollPane = new JScrollPane(this.editorPane);
-        editorScrollPane.setVerticalScrollBarPolicy(20);
-        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-        editorScrollPane.setMinimumSize(new Dimension(10, 10));
-        panel.add(editorScrollPane);
-        return panel;
-    }
+//    private JPanel createSourceCodePanel() {
+//        JPanel panel = new JPanel(new BorderLayout());
+//        panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
+//        this.editorPane = new JEditorPane();
+//        this.editorPane.setEditable(false);
+//        this.editorPane.setFont(new Font("Monospaced", 0, 12));
+//        this.updateSourceCodePanel("source.html");
+//        JScrollPane editorScrollPane = new JScrollPane(this.editorPane);
+//        editorScrollPane.setVerticalScrollBarPolicy(20);
+//        editorScrollPane.setPreferredSize(new Dimension(250, 145));
+//        editorScrollPane.setMinimumSize(new Dimension(10, 10));
+//        panel.add(editorScrollPane);
+//        return panel;
+//    }
 
     private void updateSourceCodePanel(String sourceFilename) {
         URL sourceURL = null;
@@ -409,28 +410,24 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         this.descriptionContainer.setPreferredSize(new Dimension(600, 140));
         this.descriptionPane = new JTextPane();
         this.descriptionPane.setEditable(false);
-        JScrollPane scroller = new JScrollPane(this.descriptionPane, 20, 31);
+        JScrollPane scroller = new JScrollPane(this.descriptionPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         this.descriptionContainer.add(scroller);
-        this.displayDescription("select.html");
+//        this.displayDescription("select.html");
         final JSplitPane splitter = new JSplitPane(0);
         splitter.setTopComponent(this.chartContainer);
         splitter.setBottomComponent(this.descriptionContainer);
         this.displayPanel.add(splitter);
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                splitter.setDividerLocation(0.6);
-            }
-        });
+        SwingUtilities.invokeLater(() -> splitter.setDividerLocation(0.6));
         return this.displayPanel;
     }
 
     private TreeModel createTreeModel() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("JFreeChart");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Examples");
         MutableTreeNode showcase = this.createShowcaseNode(root);
+        root.add(createEChartsNode());
         root.add(showcase);
         root.add(this.createAreaChartsNode());
         root.add(this.createBarChartsNode());
-        root.add(this.createStackedBarChartsNode());
         root.add(this.createCombinedAxisChartsNode());
         root.add(this.createFinancialChartsNode());
         root.add(this.createGanttChartsNode());
@@ -445,6 +442,13 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createXYChartsNode());
         root.add(this.createMiscellaneousChartsNode());
         return new DefaultTreeModel(root);
+    }
+
+    private MutableTreeNode createEChartsNode() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("ECHARTS");
+        root.add(this.createNode(HeatmapCartesian.class, "Heatmap on Cartesian"));
+
+        return root;
     }
 
     private MutableTreeNode createPieChartsNode() {
@@ -478,11 +482,12 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Bar Charts");
         root.add(this.createCategoryBarChartsNode());
         root.add(this.createXYBarChartsNode());
+        root.add(this.createStackedBarChartsNode());
         return root;
     }
 
     private MutableTreeNode createStackedBarChartsNode() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Bar Charts - Stacked");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Stacked");
         root.add(this.createNode(PopulationChartDemo1.class, "PopulationChartDemo1.java"));
         root.add(this.createNode(StackedBarChartDemo1.class, "StackedBarChartDemo1.java"));
         root.add(this.createNode(StackedBarChartDemo2.class, "StackedBarChartDemo2.java"));
@@ -541,7 +546,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
     }
 
     private MutableTreeNode createLineChartsNode() {
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Line Charts");
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Line");
         root.add(this.createNode(AnnotationDemo1.class, "AnnotationDemo1.java"));
         root.add(this.createNode(LineChartDemo1.class, "LineChartDemo1.java"));
         root.add(this.createNode(LineChartDemo2.class, "LineChartDemo2.java"));
@@ -882,15 +887,15 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
             Object userObj = n.getUserObject();
             if (userObj instanceof DemoDescription) {
                 DemoDescription dd = (DemoDescription) userObj;
-                sourceFilename = dd.getDescription();
-                this.updateSourceCodePanel(sourceFilename);
+//                sourceFilename = dd.getDescription();
+//                this.updateSourceCodePanel(sourceFilename);
                 SwingUtilities.invokeLater(new DisplayDemo(this, dd));
             } else {
                 this.chartContainer.removeAll();
                 this.chartContainer.add(this.createNoDemoSelectedPanel());
                 this.displayPanel.validate();
-                this.displayDescription("select.html");
-                this.updateSourceCodePanel((String) null);
+//                this.displayDescription("select.html");
+//                this.updateSourceCodePanel((String) null);
             }
         }
 
@@ -983,8 +988,8 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
                     fileName = className.substring(i + 1);
                 }
 
-                fileName = fileName + ".html";
-                this.app.displayDescription(fileName);
+//                fileName = fileName + ".html";
+//                this.app.displayDescription(fileName);
             } catch (NoSuchMethodException e2) {
                 e2.printStackTrace();
             } catch (InvocationTargetException e3) {

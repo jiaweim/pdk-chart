@@ -7,8 +7,6 @@ import java.io.Serializable;
 
 /**
  * A default implementation of the {@link HeatMapDataset} interface.
- *
- * @since 1.0.13
  */
 public class DefaultHeatMapDataset extends AbstractDataset
         implements HeatMapDataset, Cloneable, PublicCloneable, Serializable {

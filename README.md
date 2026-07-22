@@ -55,7 +55,7 @@ chart.show();
 
 The class diagram of `Title` is shown below.
 
-<img src="./images/image-20260625114037180.png" alt="image-20260625114037180" style="zoom: 50%;" />
+<img src="./images/image-20260625114037180.png" alt="image-20260625114037180" width="600" />
 
 The main title is of the `TextTitle` type, while subtitles can be any subclass of `Title`. The chart's legend is also implemented as a subtitle.
 

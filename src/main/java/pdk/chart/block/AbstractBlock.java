@@ -3,7 +3,6 @@ package pdk.chart.block;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
-import pdk.chart.util.Args;
 import pdk.chart.util.CloneUtils;
 import pdk.chart.util.SerialUtils;
 
@@ -158,7 +157,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getMargin()
      */
     public void setMargin(RectangleInsets margin) {
-        Args.nullNotPermitted(margin, "margin");
+        Objects.requireNonNull(margin, "margin");
         this.margin = margin;
     }
 
@@ -206,7 +205,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getFrame()
      */
     public void setFrame(BlockFrame frame) {
-        Args.nullNotPermitted(frame, "frame");
+        Objects.requireNonNull(frame, "frame");
         this.frame = frame;
     }
 
@@ -310,7 +309,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getBounds()
      */
     public void setBounds(Rectangle2D bounds) {
-        Args.nullNotPermitted(bounds, "bounds");
+        Objects.requireNonNull(bounds, "bounds");
         this.bounds = bounds;
     }
 
@@ -354,7 +353,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @return The content constraint.
      */
     protected RectangleConstraint toContentConstraint(RectangleConstraint c) {
-        Args.nullNotPermitted(c, "c");
+        Objects.requireNonNull(c, "c");
         if (c.equals(RectangleConstraint.NONE)) {
             return c;
         }

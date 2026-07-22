@@ -1,51 +1,9 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * -------------------
- * HeatMapDataset.java
- * -------------------
- * (C) Copyright 2009-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- * Changes:
- * --------
- * 28-Jan-2009 : Version 1 (DG);
- *
- */
-
 package pdk.chart.data.general;
 
 /**
  * A dataset that represents a rectangular grid of (x, y, z) values.  The x
  * and y values appear at regular intervals in the dataset, while the z-values
  * can take any value (including {@code null} for unknown values).
- *
- * @since 1.0.13
  */
 public interface HeatMapDataset {
 
@@ -53,7 +11,7 @@ public interface HeatMapDataset {
      * Returns the number of x values across the width of the dataset.  The
      * values are evenly spaced between {@link #getMinimumXValue()} and
      * {@link #getMaximumXValue()}.
-     * 
+     *
      * @return The number of x-values (always &gt; 0).
      */
     int getXSampleCount();
@@ -105,18 +63,16 @@ public interface HeatMapDataset {
 
     /**
      * A convenience method that returns the x-value for the given index.
-     * 
-     * @param xIndex  the xIndex.
-     * 
+     *
+     * @param xIndex the xIndex.
      * @return The x-value.
      */
     double getXValue(int xIndex);
 
     /**
      * A convenience method that returns the y-value for the given index.
-     * 
-     * @param yIndex  the yIndex.
-     * 
+     *
+     * @param yIndex the yIndex.
      * @return The y-value.
      */
     double getYValue(int yIndex);
@@ -125,9 +81,8 @@ public interface HeatMapDataset {
      * Returns the z-value at the specified sample position in the dataset.
      * For a missing or unknown value, this method should return Double.NAN.
      *
-     * @param xIndex  the position of the x sample in the dataset.
-     * @param yIndex  the position of the y sample in the dataset.
-     *
+     * @param xIndex the position of the x sample in the dataset.
+     * @param yIndex the position of the y sample in the dataset.
      * @return The z-value.
      */
     double getZValue(int xIndex, int yIndex);
@@ -144,9 +99,8 @@ public interface HeatMapDataset {
      * {@link #getZValue(int, int)} method unless you *know* that the dataset
      * implementation stores the z-values using objects.
      *
-     * @param xIndex  the position of the x sample in the dataset.
-     * @param yIndex  the position of the y sample in the dataset.
-     *
+     * @param xIndex the position of the x sample in the dataset.
+     * @param yIndex the position of the y sample in the dataset.
      * @return The z-value (possibly {@code null}).
      */
     Number getZ(int xIndex, int yIndex);

@@ -44,8 +44,7 @@ public class StandardXYZToolTipGenerator extends StandardXYToolTipGenerator
      * x, y and z-values.
      */
     public StandardXYZToolTipGenerator() {
-        this(
-                DEFAULT_TOOL_TIP_FORMAT,
+        this(DEFAULT_TOOL_TIP_FORMAT,
                 NumberFormat.getNumberInstance(),
                 NumberFormat.getNumberInstance(),
                 NumberFormat.getNumberInstance()

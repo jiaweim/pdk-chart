@@ -10,6 +10,7 @@ import pdk.chart.axis.*;
 import pdk.chart.color.JColorSequential;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.IntervalCategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.data.general.WaferMapDataset;

@@ -3,22 +3,18 @@ package pdk.chart.data.general;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.util.Args;
 import pdk.chart.renderer.PaintScale;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
  * A utility class for the {@link HeatMapDataset}.
- *
- * @since 1.0.13
  */
 public abstract class HeatMapUtils {
 
-    private HeatMapUtils() {
-        // no requirement to instantiate
-    }
+    private HeatMapUtils() {}
 
     /**
      * Returns a dataset containing one series that holds a copy of the (x, z)

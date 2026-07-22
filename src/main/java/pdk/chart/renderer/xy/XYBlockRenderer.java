@@ -15,6 +15,7 @@ import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.LookupPaintScale;
 import pdk.chart.renderer.PaintScale;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -182,7 +183,7 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
      * @see #getPaintScale()
      */
     public void setPaintScale(PaintScale scale) {
-        Objects.requireNonNull(scale);
+        Args.nullNotPermitted(scale, "paintScale");
         this.paintScale = scale;
         fireChangeEvent();
     }
@@ -335,9 +336,9 @@ public class XYBlockRenderer extends AbstractXYItemRenderer
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-                         int series, int item, CrosshairState crosshairState, int pass) {
+            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+            int series, int item, CrosshairState crosshairState, int pass) {
 
         double x = dataset.getXValue(series, item);
         double y = dataset.getYValue(series, item);
