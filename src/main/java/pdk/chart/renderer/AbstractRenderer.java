@@ -1429,7 +1429,6 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
             result = this.defaultShape;
         }
         return result;
-
     }
 
     /**

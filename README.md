@@ -21,7 +21,7 @@ To use pdk-chart in your projects, add the following dependency to your build to
 </dependency>
 ```
 
-## Examples
+## Chart Types
 
 ### Scatter
 
@@ -36,6 +36,54 @@ chart.show();
 ### Line
 
 - Basic Line Chart
+
+#### Category Line
+
+The `pdk.chart.renderer.category.LineAndShapeRenderer` class is used to render category line charts.
+
+##### Line Properties
+
+##### Shape Properties
+
+```java
+public void setSeriesShapesVisible(int series, boolean visible)
+```
+
+Set whether to draw shapes for every data point of the designated series.
+
+```java
+public void setDefaultShapesVisible(boolean flag)
+```
+
+Use this property value to control shape visibility for series that do not have an explicit `seriesShapeVisible` configuration.
+
+```java
+public void setDrawOutlines(boolean flag)
+```
+
+Whether to render the outline stroke of data point shapes.
+
+```java
+public void setUseFillPaint(boolean flag)
+```
+
+Whether to apply an independent fill paint. When undefined, the fill color defaults to be the series paint.
+
+```java
+public void setDefaultFillPaint(Paint paint);
+```
+
+Default fill color of the shape.
+
+```java
+public void setDefaultShape(Shape shape);
+```
+
+Set the default shape. The default shape will only take effect when no series shape is specified and AutoPopulateSeriesShape is disabled.
+
+
+
+
 
 
 
@@ -116,4 +164,13 @@ public void setDomainMinorGridlinePaint(Paint paint);
 The same methods are available for range grid line; simply replace "Domain" with "Range".
 
 ### Crosshair
+
+## Axis
+
+- Remove axis titles
+
+```java
+CategoryAxis domainAxis = plot.getDomainAxis();
+domainAxis.setLabel(null);
+```
 

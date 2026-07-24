@@ -8,11 +8,11 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.util.ShapeUtils;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -451,6 +451,19 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the default 'shapes filled' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #getDefaultShapesFilled()
+     */
+    public LineAndShapeRenderer defaultShapesFilled(boolean flag) {
+        this.defaultShapesFilled = flag;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns {@code true} if the renderer should use the fill paint
      * setting to fill shapes, and {@code false} if it should just
      * use the regular paint.
@@ -855,6 +868,18 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      */
     public LineAndShapeRenderer seriesShape(int series, @Nullable Shape shape) {
         setSeriesShape(series, shape);
+        return this;
+    }
+
+    /**
+     * Sets the default shape and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param shape the shape ({@code null} not permitted).
+     * @see #getDefaultShape()
+     */
+    public LineAndShapeRenderer defaultShape(Shape shape) {
+        setDefaultShape(shape);
         return this;
     }
 

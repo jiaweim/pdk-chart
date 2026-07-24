@@ -5,6 +5,7 @@ import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
 import pdk.chart.*;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.demo.echarts.BasicLineChart;
 import pdk.chart.demo.echarts.HeatmapCartesian;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
@@ -446,6 +447,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
 
     private MutableTreeNode createEChartsNode() {
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("ECHARTS");
+        root.add(this.createNode(BasicLineChart.class, "Basic Line Chart"));
         root.add(this.createNode(HeatmapCartesian.class, "Heatmap on Cartesian"));
 
         return root;

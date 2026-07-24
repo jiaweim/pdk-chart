@@ -10,7 +10,6 @@ import pdk.chart.axis.*;
 import pdk.chart.color.JColorSequential;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.IntervalCategoryDataset;
-import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.data.general.WaferMapDataset;
@@ -1190,9 +1189,8 @@ public abstract class JChart {
      */
     public static Chart line(CategoryDataset dataset) {
         return line(dataset, null, null, null,
-                PlotOrientation.VERTICAL, true, true, false);
+                PlotOrientation.VERTICAL, dataset.getRowCount() > 1, true, false);
     }
-
 
     /**
      * Creates a line chart with default settings.  The chart object returned
@@ -1249,7 +1247,8 @@ public abstract class JChart {
      */
     public static Chart line(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation) {
-        return line(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, true, true, false);
+        int rowCount = dataset.getRowCount();
+        return line(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, rowCount > 1, true, false);
     }
 
     /**
