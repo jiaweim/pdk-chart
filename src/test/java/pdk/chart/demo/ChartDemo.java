@@ -23,7 +23,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.tree.*;
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -37,11 +36,9 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
 
     private static final long serialVersionUID = 1L;
     public static final String EXIT_COMMAND = "EXIT";
+
     private JPanel displayPanel;
     private JPanel chartContainer;
-    private JPanel descriptionContainer;
-    private JTextPane descriptionPane;
-    private JEditorPane editorPane;
     private TreePath defaultChartPath;
     JTabbedPane tabs;
     private JMenuItem exportToPDFMenuItem;
@@ -75,7 +72,6 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         Objects.requireNonNull(memUse);
         (new MemoryUsageDemo.DataGenerator(memUse, 1000)).start();
         this.tabs.add("Memory Usage", memUse);
-//        this.tabs.add("Source Code", this.createSourceCodePanel());
         this.tabs.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         content.add(this.tabs);
         tree.setSelectionPath(this.defaultChartPath);
@@ -96,7 +92,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         fileMenu.add(this.exportToSVGMenuItem);
         fileMenu.addSeparator();
         JMenuItem exitItem = new JMenuItem("Exit", 120);
-        exitItem.setActionCommand("EXIT");
+        exitItem.setActionCommand(EXIT_COMMAND);
         exitItem.addActionListener(this);
         fileMenu.add(exitItem);
         menuBar.add(fileMenu);
@@ -133,56 +129,18 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         return menuBar;
     }
 
-//    private JPanel createSourceCodePanel() {
-//        JPanel panel = new JPanel(new BorderLayout());
-//        panel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-//        this.editorPane = new JEditorPane();
-//        this.editorPane.setEditable(false);
-//        this.editorPane.setFont(new Font("Monospaced", 0, 12));
-//        this.updateSourceCodePanel("source.html");
-//        JScrollPane editorScrollPane = new JScrollPane(this.editorPane);
-//        editorScrollPane.setVerticalScrollBarPolicy(20);
-//        editorScrollPane.setPreferredSize(new Dimension(250, 145));
-//        editorScrollPane.setMinimumSize(new Dimension(10, 10));
-//        panel.add(editorScrollPane);
-//        return panel;
-//    }
-
-    private void updateSourceCodePanel(String sourceFilename) {
-        URL sourceURL = null;
-        if (sourceFilename != null) {
-            sourceURL = ChartDemo.class.getResource(sourceFilename);
-        }
-
-        if (sourceURL == null) {
-            sourceURL = ChartDemo.class.getResource("source.html");
-        }
-
-        if (sourceURL != null) {
-            try {
-                this.editorPane.setPage(sourceURL);
-            } catch (IOException var4) {
-                System.err.println("Attempted to read a bad URL: " + sourceURL);
-            }
-        } else {
-            System.err.println("Couldn't find file: source.html");
-        }
-    }
-
     private void copyToClipboard() {
         if (this.tabs.getSelectedIndex() == 0) {
             Chart chart = null;
             int w = 0;
             int h = 0;
             Component c = this.chartContainer.getComponent(0);
-            if (c instanceof ChartPanel) {
-                ChartPanel cp = (ChartPanel) c;
+            if (c instanceof ChartPanel cp) {
                 chart = cp.getChart();
                 w = cp.getWidth();
                 h = cp.getHeight();
-            } else if (c instanceof DemoPanel) {
-                DemoPanel dp = (DemoPanel) c;
-                chart = (Chart) dp.charts.get(0);
+            } else if (c instanceof DemoPanel dp) {
+                chart = dp.charts.getFirst();
                 w = dp.getWidth();
                 h = dp.getHeight();
             }
@@ -190,49 +148,44 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
             if (chart != null) {
                 Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
                 ChartTransferable selection = new ChartTransferable(chart, w, h);
-                systemClipboard.setContents(selection, (ClipboardOwner) null);
+                systemClipboard.setContents(selection, null);
             }
-        } else if (this.tabs.getSelectedIndex() == 2) {
-            this.editorPane.copy();
         }
 
     }
 
     public void actionPerformed(ActionEvent event) {
         String command = event.getActionCommand();
-        if (command.equals("EXPORT_TO_PDF")) {
-            this.exportToPDF();
-        } else if (command.equals("EXPORT_TO_SVG")) {
-            this.exportToSVG();
-        } else if (command.equals("COPY")) {
-            this.copyToClipboard();
-        } else if (command.equals("LEGACY_THEME")) {
-            JChart.setChartTheme(StandardChartTheme.createLegacyTheme());
-            this.applyThemeToChart();
-        } else if (command.equals("JFREE_THEME")) {
-            JChart.setChartTheme(StandardChartTheme.createJFreeTheme());
-            this.applyThemeToChart();
-        } else if (command.equals("JFREE_SHADOW_THEME")) {
-            JChart.setChartTheme(new StandardChartTheme("JFreeChart/Shadow", true));
-            this.applyThemeToChart();
-        } else if (command.equals("DARKNESS_THEME")) {
-            JChart.setChartTheme(StandardChartTheme.createDarknessTheme());
-            this.applyThemeToChart();
-        } else if (command.equals("EXIT")) {
-            System.exit(0);
+        switch (command) {
+            case "EXPORT_TO_PDF" -> this.exportToPDF();
+            case "EXPORT_TO_SVG" -> this.exportToSVG();
+            case "COPY" -> this.copyToClipboard();
+            case "LEGACY_THEME" -> {
+                JChart.setChartTheme(StandardChartTheme.createLegacyTheme());
+                this.applyThemeToChart();
+            }
+            case "JFREE_THEME" -> {
+                JChart.setChartTheme(StandardChartTheme.createJFreeTheme());
+                this.applyThemeToChart();
+            }
+            case "JFREE_SHADOW_THEME" -> {
+                JChart.setChartTheme(new StandardChartTheme("JFreeChart/Shadow", true));
+                this.applyThemeToChart();
+            }
+            case "DARKNESS_THEME" -> {
+                JChart.setChartTheme(StandardChartTheme.createDarknessTheme());
+                this.applyThemeToChart();
+            }
+            case "EXIT" -> System.exit(0);
         }
-
     }
 
     private void applyThemeToChart() {
         Component c = this.chartContainer.getComponent(0);
-        if (c instanceof ChartPanel) {
-            ChartPanel cp = (ChartPanel) c;
+        if (c instanceof ChartPanel cp) {
             JChartUtils.applyCurrentTheme(cp.getChart());
-        } else if (c instanceof DemoPanel) {
-            DemoPanel dp = (DemoPanel) c;
+        } else if (c instanceof DemoPanel dp) {
             Chart[] charts = dp.getCharts();
-
             for (Chart chart : charts) {
                 JChartUtils.applyCurrentTheme(chart);
             }
@@ -246,14 +199,12 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
             int w = 0;
             int h = 0;
             Component c = this.chartContainer.getComponent(0);
-            if (c instanceof ChartPanel) {
-                ChartPanel cp = (ChartPanel) c;
+            if (c instanceof ChartPanel cp) {
                 chart = cp.getChart();
                 w = cp.getWidth();
                 h = cp.getHeight();
-            } else if (c instanceof DemoPanel) {
-                DemoPanel dp = (DemoPanel) c;
-                chart = (Chart) dp.charts.get(0);
+            } else if (c instanceof DemoPanel dp) {
+                chart = dp.charts.get(0);
                 w = dp.getWidth();
                 h = dp.getHeight();
             }
@@ -270,6 +221,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
                         return "HTML (HTML)";
                     }
                 });
+
                 int result = fc.showSaveDialog(this);
                 if (result == 0) {
                     try {
@@ -290,7 +242,6 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
                 message = message + "handle these special cases).";
                 JOptionPane.showMessageDialog(this, message, "SVG Export", 1);
             }
-
         }
     }
 
@@ -300,14 +251,12 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
             int w = 0;
             int h = 0;
             Component c = this.chartContainer.getComponent(0);
-            if (c instanceof ChartPanel) {
-                ChartPanel cp = (ChartPanel) c;
+            if (c instanceof ChartPanel cp) {
                 chart = cp.getChart();
                 w = cp.getWidth();
                 h = cp.getHeight();
-            } else if (c instanceof DemoPanel) {
-                DemoPanel dp = (DemoPanel) c;
-                chart = (Chart) dp.charts.get(0);
+            } else if (c instanceof DemoPanel dp) {
+                chart = dp.charts.get(0);
                 w = dp.getWidth();
                 h = dp.getHeight();
             }
@@ -345,7 +294,6 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
                 JOptionPane.showMessageDialog(this, message, "PDF Export", 1);
             }
         }
-
     }
 
     private void disableShadowGeneration(Chart chart) {
@@ -370,8 +318,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
     }
 
     public void stateChanged(ChangeEvent e) {
-        if (e.getSource() instanceof JTabbedPane) {
-            JTabbedPane p = (JTabbedPane) e.getSource();
+        if (e.getSource() instanceof JTabbedPane p) {
             if (this.themeMenu != null) {
                 this.themeMenu.setEnabled(p.getSelectedIndex() == 0);
             }
@@ -406,19 +353,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         this.chartContainer.setPreferredSize(new Dimension(600, 500));
         this.chartContainer.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4), BorderFactory.createLineBorder(Color.BLACK)));
         this.chartContainer.add(this.createNoDemoSelectedPanel());
-        this.descriptionContainer = new JPanel(new BorderLayout());
-        this.descriptionContainer.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        this.descriptionContainer.setPreferredSize(new Dimension(600, 140));
-        this.descriptionPane = new JTextPane();
-        this.descriptionPane.setEditable(false);
-        JScrollPane scroller = new JScrollPane(this.descriptionPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        this.descriptionContainer.add(scroller);
-//        this.displayDescription("select.html");
-        final JSplitPane splitter = new JSplitPane(0);
-        splitter.setTopComponent(this.chartContainer);
-        splitter.setBottomComponent(this.descriptionContainer);
-        this.displayPanel.add(splitter);
-        SwingUtilities.invokeLater(() -> splitter.setDividerLocation(0.6));
+        this.displayPanel.add(chartContainer, BorderLayout.CENTER);
         return this.displayPanel;
     }
 
@@ -516,6 +451,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createNode(BarChartDemo9.class, "BarChartDemo9.java"));
         root.add(this.createNode(BarChartDemo10.class, "BarChartDemo10.java"));
         root.add(this.createNode(BarChartDemo11.class, "BarChartDemo11.java"));
+        root.add(this.createNode(BarChartDemo12.class, "Dynamic Bar Chart"));
         root.add(this.createNode(IntervalBarChartDemo1.class, "IntervalBarChartDemo1.java"));
         root.add(this.createNode(LayeredBarChartDemo1.class, "LayeredBarChartDemo1.java"));
         root.add(this.createNode(LayeredBarChartDemo2.class, "LayeredBarChartDemo2.java"));
@@ -866,22 +802,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         return root;
     }
 
-    private void displayDescription(String fileName) {
-        URL descriptionURL = ChartDemo.class.getResource(fileName);
-        if (descriptionURL != null) {
-            try {
-                this.descriptionPane.setPage(descriptionURL);
-            } catch (IOException var4) {
-                System.err.println("Attempted to read a bad URL: " + descriptionURL);
-            }
-        } else {
-            System.err.println("Couldn't find file: " + fileName);
-        }
-
-    }
-
     public void valueChanged(TreeSelectionEvent event) {
-        String sourceFilename = null;
         TreePath path = event.getPath();
         Object obj = path.getLastPathComponent();
         if (obj != null) {
@@ -889,18 +810,13 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
             Object userObj = n.getUserObject();
             if (userObj instanceof DemoDescription) {
                 DemoDescription dd = (DemoDescription) userObj;
-//                sourceFilename = dd.getDescription();
-//                this.updateSourceCodePanel(sourceFilename);
                 SwingUtilities.invokeLater(new DisplayDemo(this, dd));
             } else {
                 this.chartContainer.removeAll();
                 this.chartContainer.add(this.createNoDemoSelectedPanel());
                 this.displayPanel.validate();
-//                this.displayDescription("select.html");
-//                this.updateSourceCodePanel((String) null);
             }
         }
-
     }
 
     private JPanel createNoDemoSelectedPanel() {
@@ -952,7 +868,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
             this.width = width;
             this.height = height;
             chart.setBorderVisible(true);
-            chart.setPadding(new RectangleInsets((double) 2.0F, (double) 2.0F, (double) 2.0F, (double) 2.0F));
+            chart.setPadding(new RectangleInsets(2.0, 2.0, 2.0, 2.0));
         }
 
         public void run() {
@@ -967,8 +883,8 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
 
     static class DisplayDemo implements Runnable {
 
-        private ChartDemo app;
-        private DemoDescription demoDescription;
+        private final ChartDemo app;
+        private final DemoDescription demoDescription;
 
         public DisplayDemo(ChartDemo app, DemoDescription d) {
             this.app = app;
@@ -983,23 +899,9 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
                 this.app.chartContainer.removeAll();
                 this.app.chartContainer.add(panel);
                 this.app.displayPanel.validate();
-                String className = c.getName();
-                String fileName = className;
-                int i = className.lastIndexOf(46);
-                if (i > 0) {
-                    fileName = className.substring(i + 1);
-                }
-
-//                fileName = fileName + ".html";
-//                this.app.displayDescription(fileName);
-            } catch (NoSuchMethodException e2) {
+            } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e2) {
                 e2.printStackTrace();
-            } catch (InvocationTargetException e3) {
-                e3.printStackTrace();
-            } catch (IllegalAccessException e4) {
-                e4.printStackTrace();
             }
-
         }
     }
 }

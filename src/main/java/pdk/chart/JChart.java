@@ -494,6 +494,34 @@ public abstract class JChart {
      * for the domain axis, a {@link NumberAxis} as the range axis, and a
      * {@link BarRenderer} as the renderer.
      *
+     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @return A bar chart.
+     */
+    public static Chart bar(CategoryDataset dataset) {
+        return bar(dataset, null, null, null,
+                PlotOrientation.VERTICAL, true, true, false);
+    }
+
+    /**
+     * Creates a bar chart.  The chart object returned by this method uses a
+     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
+     * for the domain axis, a {@link NumberAxis} as the range axis, and a
+     * {@link BarRenderer} as the renderer.
+     *
+     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @return A bar chart.
+     */
+    public static Chart bar(CategoryDataset dataset, PlotOrientation orientation) {
+        return bar(dataset, null, null, null,
+                orientation, true, true, false);
+    }
+
+    /**
+     * Creates a bar chart.  The chart object returned by this method uses a
+     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
+     * for the domain axis, a {@link NumberAxis} as the range axis, and a
+     * {@link BarRenderer} as the renderer.
+     *
      * @param categoryAxisLabel the label for the category axis
      *                          ({@code null} permitted).
      * @param valueAxisLabel    the label for the value axis

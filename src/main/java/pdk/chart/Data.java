@@ -249,7 +249,7 @@ public interface Data {
      * @return The dataset.
      */
     static <R extends Comparable<R>, C extends Comparable<C>>
-    CategoryDataset<R, C> createCategory(@NonNull R rowKey, @NonNull C[] columnKeys,
+    DefaultCategoryDataset<R, C> createCategory(@NonNull R rowKey, @NonNull C[] columnKeys,
             double[] data) {
         Objects.requireNonNull(rowKey, "rowKeys must not be null");
         Objects.requireNonNull(columnKeys, "columnKeys must not be null");

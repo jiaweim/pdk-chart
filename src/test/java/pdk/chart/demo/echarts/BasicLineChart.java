@@ -14,7 +14,6 @@ import java.awt.*;
 /**
  * https://echarts.apache.org/examples/en/editor.html?c=line-simple
  * <p>
- * 不是完全实现，无法避免直线从圆中穿过。
  *
  * @author Jiawei Mao
  * @version 1.0.0

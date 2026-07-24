@@ -120,7 +120,6 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * @param precision the number of points between data items.
      * @param fillType  the type of fill beneath the curve ({@code null}
      *                  not permitted).
-     * @since 1.0.17
      */
     public XYSplineRenderer(int precision, FillType fillType) {
         super();
@@ -175,7 +174,6 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      *
      * @param fillType the fill type ({@code null} not permitted).
      * @see #getFillType()
-     * @since 1.0.17
      */
     public void setFillType(FillType fillType) {
         this.fillType = fillType;
@@ -186,7 +184,6 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * Returns the gradient paint transformer, or {@code null}.
      *
      * @return The gradient paint transformer (possibly {@code null}).
-     * @since 1.0.17
      */
     public GradientPaintTransformer getGradientPaintTransformer() {
         return this.gradientPaintTransformer;
@@ -197,7 +194,6 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
      * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param gpt the transformer ({@code null} permitted).
-     * @since 1.0.17
      */
     public void setGradientPaintTransformer(GradientPaintTransformer gpt) {
         this.gradientPaintTransformer = gpt;
@@ -443,10 +439,9 @@ public class XYSplineRenderer extends XYLineAndShapeRenderer {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof XYSplineRenderer)) {
+        if (!(obj instanceof XYSplineRenderer that)) {
             return false;
         }
-        XYSplineRenderer that = (XYSplineRenderer) obj;
         if (this.precision != that.precision) {
             return false;
         }

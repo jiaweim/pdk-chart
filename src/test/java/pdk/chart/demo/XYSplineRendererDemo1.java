@@ -28,8 +28,8 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        XYSplineRendererDemo1 appFrame = new XYSplineRendererDemo1("Chart: XYSplineRendererDemo1.java");
+    static void main() {
+        XYSplineRendererDemo1 appFrame = new XYSplineRendererDemo1("XYSplineRendererDemo1.java");
         appFrame.pack();
         UIUtils.centerFrameOnScreen(appFrame);
         appFrame.setVisible(true);
@@ -73,7 +73,7 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
             plot.setBackgroundPaint(Color.LIGHT_GRAY);
             plot.setDomainGridlinePaint(Color.WHITE);
             plot.setRangeGridlinePaint(Color.WHITE);
-            plot.setAxisOffset(new RectangleInsets( 4.0F, (double) 4.0F, (double) 4.0F, (double) 4.0F));
+            plot.setAxisOffset(new RectangleInsets(4.0, 4.0, 4.0, 4.0));
             Chart chart = new Chart("XYSplineRenderer", Chart.DEFAULT_TITLE_FONT, plot, true);
             this.addChart(chart);
             JChartUtils.applyCurrentTheme(chart);
@@ -91,7 +91,7 @@ public class XYSplineRendererDemo1 extends ApplicationFrame {
             plot.setBackgroundPaint(Color.LIGHT_GRAY);
             plot.setDomainGridlinePaint(Color.WHITE);
             plot.setRangeGridlinePaint(Color.WHITE);
-            plot.setAxisOffset(new RectangleInsets((double) 4.0F, (double) 4.0F, (double) 4.0F, (double) 4.0F));
+            plot.setAxisOffset(new RectangleInsets(4.0, 4.0, 4.0, 4.0));
             Chart chart = new Chart("XYLineAndShapeRenderer", Chart.DEFAULT_TITLE_FONT, plot, true);
             this.addChart(chart);
             JChartUtils.applyCurrentTheme(chart);
