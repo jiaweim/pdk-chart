@@ -91,6 +91,8 @@ Set the default shape. The default shape will only take effect when no series sh
 
 
 
+### Box Plot
+
 
 
 
@@ -173,4 +175,12 @@ The same methods are available for range grid line; simply replace "Domain" with
 CategoryAxis domainAxis = plot.getDomainAxis();
 domainAxis.setLabel(null);
 ```
+
+## ChartPanel
+
+```java
+public void setMouseWheelEnabled(boolean flag)
+```
+
+Zoom is the function that adjusts the axis range by scrolling the mouse wheel.
 

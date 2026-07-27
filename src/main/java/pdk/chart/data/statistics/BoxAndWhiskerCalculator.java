@@ -52,10 +52,9 @@ public abstract class BoxAndWhiskerCalculator {
         if (stripNullAndNaNItems) {
             vlist = new ArrayList(values.size());
             for (Number obj : values) {
-                Number n = (Number) obj;
-                double v = n.doubleValue();
+                double v = obj.doubleValue();
                 if (!Double.isNaN(v)) {
-                    vlist.add(n);
+                    vlist.add(obj);
                 }
             }
         } else {
@@ -105,7 +104,6 @@ public abstract class BoxAndWhiskerCalculator {
 
         return new BoxAndWhiskerItem(mean, median, q1, q3, minRegularValue,
                 maxRegularValue, minOutlier, maxOutlier, outliers);
-
     }
 
     /**
