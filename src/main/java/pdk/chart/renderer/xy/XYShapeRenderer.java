@@ -8,16 +8,16 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.CloneUtils;
-import pdk.chart.util.SerialUtils;
-import pdk.chart.util.ShapeUtils;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.LookupPaintScale;
 import pdk.chart.renderer.PaintScale;
+import pdk.chart.util.Args;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -27,7 +27,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * A renderer that draws shapes at (x, y) coordinates and, if the dataset
@@ -124,7 +123,7 @@ public class XYShapeRenderer extends AbstractXYItemRenderer
      * @see #getPaintScale()
      */
     public void setPaintScale(PaintScale scale) {
-        Objects.requireNonNull(scale);
+        Args.nullNotPermitted(scale, "paintScale");
         this.paintScale = scale;
         notifyListeners(new RendererChangeEvent(this));
     }
@@ -367,9 +366,9 @@ public class XYShapeRenderer extends AbstractXYItemRenderer
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-                         int series, int item, CrosshairState crosshairState, int pass) {
+            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+            int series, int item, CrosshairState crosshairState, int pass) {
 
         Shape hotspot;
         EntityCollection entities = null;

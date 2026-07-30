@@ -6,8 +6,10 @@ import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.TableOrder;
-import pdk.chart.axis.*;
-import pdk.chart.color.JColorSequential;
+import pdk.chart.axis.CategoryAxis;
+import pdk.chart.axis.DateAxis;
+import pdk.chart.axis.NumberAxis;
+import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.data.general.DefaultPieDataset;
@@ -18,14 +20,12 @@ import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
 import pdk.chart.labels.*;
-import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.ms.*;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.DefaultPolarItemRenderer;
-import pdk.chart.renderer.LookupPaintScale;
 import pdk.chart.renderer.WaferMapRenderer;
 import pdk.chart.renderer.category.*;
 import pdk.chart.renderer.xy.*;
@@ -550,7 +550,7 @@ public abstract class JChart {
      */
     public static Chart bar(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel, String title) {
         return bar(dataset, categoryAxisLabel, valueAxisLabel, title,
-                PlotOrientation.VERTICAL, true, true, false);
+                PlotOrientation.VERTICAL, dataset.getRowCount() > 1, true, false);
     }
 
     /**
@@ -1522,199 +1522,6 @@ public abstract class JChart {
         rangeAxis.setTickLabelInsets(new RectangleInsets(0.0, 0.0, 0.0, 0.0));
         plot.setAxis(rangeAxis);
         plot.setRenderer(new DefaultPolarItemRenderer());
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Create a scatter chart.
-     *
-     * @param x     x values.
-     * @param y     y values.
-     * @param color z values map to shape colors.
-     * @param xName name of x-axis.
-     * @param yName name of y-axis.
-     * @return a scatter chart.
-     */
-    public static Chart scatter(Double[] x, Double[] y, Double[] color, String xName, String yName, String zName) {
-
-        NumberAxis xAixs = new NumberAxis(xName);
-        xAixs.setAutoRangeIncludesZero(false);
-
-        NumberAxis yAixs = new NumberAxis(yName);
-        yAixs.setAutoRangeIncludesZero(false);
-
-        double min = Data.getMin(color);
-        double max = Data.getMax(color);
-
-        XYShapeRenderer renderer = new XYShapeRenderer();
-
-        LookupPaintScale ps = new LookupPaintScale(min, max, Color.GRAY);
-        Color[] colors = JColorSequential.Plasma();
-        double stepSize = (max - min) / (colors.length - 1);
-        for (int i = 0; i < colors.length; i++) {
-            ps.add(min + i * stepSize, colors[i]);
-        }
-        renderer.setPaintScale(ps);
-
-        XYZDataset<String> dataset = Data.createXYZ("", x, y, color);
-
-        XYPlot plot = new XYPlot(dataset, xAixs, yAixs, renderer);
-
-        NumberAxis zAxis = new NumberAxis(zName);
-        zAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-        PaintScaleLegend legend = new PaintScaleLegend(ps, zAxis);
-        legend.setPosition(RectangleEdge.RIGHT);
-        legend.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
-
-        Chart chart = new Chart(null, plot);
-        chart.removeLegend();
-        chart.addSubtitle(legend);
-
-        JChartUtils.applyCurrentTheme(chart);
-        return chart;
-    }
-
-    /**
-     * Create a scatter chart.
-     *
-     * @param x x values.
-     * @param y y values.
-     * @return a scatter chart.
-     */
-    public static Chart scatter(double[] x, double[] y) {
-        XYDataset<String> dataset = Data.createXY("", x, y);
-        return scatter(dataset, null, null, null,
-                PlotOrientation.VERTICAL, false, true);
-    }
-
-    /**
-     * Create a scatter chart.
-     *
-     * @param xName name of x-axis.
-     * @param x     x values.
-     * @param yName name of y-axis.
-     * @param y     y values.
-     * @return a scatter chart.
-     */
-    public static Chart scatter(Double[] x, Double[] y, String xName, String yName) {
-        XYDataset<String> dataset = Data.createXY("", x, y);
-        Chart chart = scatter(dataset, xName, yName, null, PlotOrientation.VERTICAL, false, true);
-        chart.getXYPlot().getLineAndShapeRenderer().seriesShape(0, ShapeUtils.createCircle(6));
-        return chart;
-    }
-
-    /**
-     * Create a scatter chart.
-     *
-     * @param xName name of x-axis.
-     * @param x     x values.
-     * @param yName name of y-axis.
-     * @param y     y values.
-     * @return a scatter chart.
-     */
-    public static Chart scatter(double[] x, double[] y, String xName, String yName) {
-        XYDataset<String> dataset = Data.createXY("", x, y);
-        Chart chart = scatter(dataset, xName, yName, null, PlotOrientation.VERTICAL, false, true, false);
-        chart.getXYPlot().getLineAndShapeRenderer().seriesShape(0, ShapeUtils.createCircle(6));
-        return chart;
-    }
-
-    /**
-     * Creates a scatter plot with default settings.  The chart object
-     * returned by this method uses an {@link XYPlot} instance as the plot,
-     * with a {@link NumberAxis} for the domain axis, a  {@link NumberAxis}
-     * as the range axis, and an {@link XYLineAndShapeRenderer} as the
-     * renderer.
-     *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @return A scatter plot.
-     */
-    public static Chart scatter(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
-        return scatter(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL,
-                true, true, false);
-    }
-
-    /**
-     * Creates a scatter plot with default settings.  The chart object
-     * returned by this method uses an {@link XYPlot} instance as the plot,
-     * with a {@link NumberAxis} for the domain axis, a  {@link NumberAxis}
-     * as the range axis, and an {@link XYLineAndShapeRenderer} as the
-     * renderer.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return A scatter plot.
-     */
-    public static Chart scatter(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return scatter(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a scatter plot with default settings.  The chart object
-     * returned by this method uses an {@link XYPlot} instance as the plot,
-     * with a {@link NumberAxis} for the domain axis, a  {@link NumberAxis}
-     * as the range axis, and an {@link XYLineAndShapeRenderer} as the
-     * renderer.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
-     * @return A scatter plot.
-     */
-    public static Chart scatter(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-
-        ValueAxis xAxis;
-        if (dataset instanceof TimeSeriesCollection<?>) {
-            xAxis = new DateAxis(xAxisLabel);
-        } else {
-            xAxis = new NumberAxis(xAxisLabel);
-            ((NumberAxis) xAxis).setAutoRangeIncludesZero(false);
-        }
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        yAxis.setAutoRangeIncludesZero(false);
-
-        XYURLGenerator urlGenerator = null;
-        if (urls) {
-            urlGenerator = new StandardXYURLGenerator();
-        }
-
-        XYToolTipGenerator toolTipGenerator = null;
-        if (tooltips) {
-            if (xAxis instanceof DateAxis) {
-                toolTipGenerator = StandardXYToolTipGenerator.getTimeSeriesInstance();
-            } else {
-                toolTipGenerator = new StandardXYToolTipGenerator();
-            }
-        }
-
-        XYItemRenderer renderer = new XYLineAndShapeRenderer(false, true);
-        renderer.setDefaultToolTipGenerator(toolTipGenerator);
-        renderer.setURLGenerator(urlGenerator);
-
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        plot.setOrientation(orientation);
-
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;

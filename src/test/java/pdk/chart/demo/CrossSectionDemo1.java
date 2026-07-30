@@ -2,6 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.annotations.XYDataImageAnnotation;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
@@ -184,7 +185,7 @@ public class CrossSectionDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart chart = JChart.scatter(dataset, "X", "Y", "CrossSectionDemo1");
+            Chart chart = new ScatterChart(dataset, "X", "Y", "CrossSectionDemo1");
             this.dataset = CrossSectionDemo1.createMapDataset();
             PaintScale ps = new GrayPaintScale(-1.0F, 1.0F, 128);
             BufferedImage image = HeatMapUtils.createHeatMapImage(this.dataset, ps);

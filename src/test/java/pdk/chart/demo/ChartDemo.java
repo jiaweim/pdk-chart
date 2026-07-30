@@ -6,7 +6,10 @@ import com.orsonpdf.Page;
 import pdk.chart.*;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.demo.echarts.BasicLineChart;
+import pdk.chart.demo.echarts.BasicScatterChart;
 import pdk.chart.demo.echarts.HeatmapCartesian;
+import pdk.chart.demo.plotly.Scatter1;
+import pdk.chart.demo.plotly.Scatter2;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
@@ -368,6 +371,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createFinancialChartsNode());
         root.add(this.createGanttChartsNode());
         root.add(this.createLineChartsNode());
+        root.add(createScatterChartsNode());
         root.add(this.createMeterChartsNode());
         root.add(this.createMultipleAxisChartsNode());
         root.add(this.createOverlaidChartsNode());
@@ -384,6 +388,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("ECHARTS");
         root.add(this.createNode(BasicLineChart.class, "Basic Line Chart"));
         root.add(this.createNode(HeatmapCartesian.class, "Heatmap on Cartesian"));
+        root.add(createNode(BasicScatterChart.class, "Basic Scatter Chart"));
 
         return root;
     }
@@ -494,6 +499,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createNode(LineChartDemo6.class, "LineChartDemo6.java"));
         root.add(this.createNode(LineChartDemo7.class, "LineChartDemo7.java"));
         root.add(this.createNode(LineChartDemo8.class, "LineChartDemo8.java"));
+        root.add(this.createNode(LineChartDemo9.class, "Simple Line.java"));
         root.add(this.createNode(StatisticalLineChartDemo1.class, "StatisticalLineChartDemo1.java"));
         root.add(this.createNode(XYSplineRendererDemo1.class, "XYSplineRendererDemo1.java"));
         root.add(this.createNode(XYStepRendererDemo1.class, "XYStepRendererDemo1.java"));
@@ -577,6 +583,7 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createNode(ScatterPlotDemo3.class, "ScatterPlotDemo3.java"));
         root.add(this.createNode(ScatterPlotDemo4.class, "ScatterPlotDemo4.java"));
         root.add(this.createNode(ScatterPlotDemo5.class, "ScatterPlotDemo5.java"));
+        root.add(this.createNode(ScatterPlotDemo6.class, "ScatterPlot with 2 series"));
         root.add(this.createNode(XYErrorRendererDemo1.class, "XYErrorRendererDemo1.java"));
         root.add(this.createNode(XYErrorRendererDemo2.class, "XYErrorRendererDemo2.java"));
         return root;
@@ -607,6 +614,14 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createNode(DifferenceChartDemo1.class, "DifferenceChartDemo1.java"));
         root.add(this.createNode(DifferenceChartDemo2.class, "DifferenceChartDemo2.java"));
         root.add(this.createNode(CompareToPreviousYearDemo.class, "CompareToPreviousYearDemo.java"));
+        return root;
+    }
+
+    private MutableTreeNode createScatterChartsNode() {
+        DefaultMutableTreeNode root = new DefaultMutableTreeNode("Scatter");
+        root.add(createNode(Scatter1.class, "Simple Scatter"));
+        root.add(createNode(Scatter2.class, "Iris Scatter"));
+        root.add(this.createNode(ScatterPlotDemo1.class, "ScatterPlotDemo1.java"));
         return root;
     }
 

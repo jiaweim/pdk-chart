@@ -3,6 +3,7 @@ package pdk.chart.axis;
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -171,7 +172,7 @@ public class LogAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Test");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Test");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         LogAxis axis = new LogAxis("Log(Y)");
         plot.setRangeAxis(axis);
@@ -191,7 +192,7 @@ public class LogAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Test");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Test");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         LogAxis axis = new LogAxis("Log(Y)");
         plot.setRangeAxis(axis);

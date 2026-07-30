@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -42,9 +42,9 @@ public class ScatterPlotDemo5 extends ApplicationFrame {
     }
 
     public static JPanel createDemoPanel() {
-        Chart chart = JChart.scatter(createDataset(), "X", "Y", "Scatter Plot Demo 5");
+        Chart chart = new ScatterChart(createDataset(), "X", "Y", "Scatter Plot Demo 5");
         XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setBackgroundPaint((Paint) null);
+        plot.setBackgroundPaint(null);
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         plot.setOutlineVisible(false);
         XYDotRenderer renderer = new XYDotRenderer();

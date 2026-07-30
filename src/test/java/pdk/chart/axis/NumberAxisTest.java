@@ -3,17 +3,18 @@ package pdk.chart.axis;
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.RangeType;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.category.BarRenderer;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.geom.Rectangle2D;
 import java.text.DecimalFormat;
@@ -261,7 +262,7 @@ public class NumberAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Test");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Test");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getDomainAxis();
         axis.setAutoRangeIncludesZero(false);
@@ -281,7 +282,7 @@ public class NumberAxisTest {
         series.add(3.0, 3.0);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series);
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Test");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Test");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis axis = (NumberAxis) plot.getRangeAxis();
         axis.setAutoRangeIncludesZero(false);

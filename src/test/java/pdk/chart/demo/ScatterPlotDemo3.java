@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.ChartRenderingInfo;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.XYPlot;
@@ -30,7 +30,7 @@ public class ScatterPlotDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Scatter Plot Demo 3");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Scatter Plot Demo 3");
         XYPlot plot = chart.getXYPlot();
         plot.domainCrosshairVisible(true)
                 .domainCrosshairLockedOnData(true)

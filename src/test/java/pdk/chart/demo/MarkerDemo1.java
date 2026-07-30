@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.ScatterChart;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYDrawableAnnotation;
 import pdk.chart.annotations.XYPointerAnnotation;
@@ -38,7 +38,7 @@ public class MarkerDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> data) {
-        Chart chart = JChart.scatter(data, "Time", "Y", "Marker Demo 1");
+        Chart chart = new ScatterChart(data, "Time", "Y", "Marker Demo 1");
         chart.getLegend(0).position(RectangleEdge.RIGHT);
 
         XYPlot plot = chart.getXYPlot();

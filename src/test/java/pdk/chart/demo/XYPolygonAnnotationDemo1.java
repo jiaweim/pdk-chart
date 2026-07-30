@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.annotations.XYPolygonAnnotation;
 import pdk.chart.api.Layer;
 import pdk.chart.data.xy.DefaultXYDataset;
@@ -37,7 +37,7 @@ public class XYPolygonAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter(dataset, "X", "Y",
+        Chart chart = new ScatterChart(dataset, "X", "Y",
                 "XYPolygonAnnotationDemo1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);

@@ -1,8 +1,9 @@
 package pdk.chart.demo.plotly;
 
-import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
+import pdk.chart.swing.ChartPanel;
 
+import javax.swing.*;
 import java.util.HashMap;
 
 /**
@@ -13,14 +14,22 @@ import java.util.HashMap;
  * @since 26 Jun 2026, 21:43
  */
 public class Scatter2 {
-    static void main() {
+
+    private static ScatterChart createChart() {
         HashMap<String, Object[]> iris = Datasets.iris();
-        Chart chart = JChart.scatter(
+        ScatterChart chart = new ScatterChart(
                 (Double[]) iris.get("Sepal Width"),
                 (Double[]) iris.get("Sepal Length"),
                 "Sepal Width",
                 "Sepal Length");
+        return chart;
+    }
 
-        chart.show();
+    public static JPanel createDemoPanel() {
+        return new ChartPanel(createChart());
+    }
+
+    static void main() {
+        createChart().show();
     }
 }

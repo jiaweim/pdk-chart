@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.ScatterChart;
 import pdk.chart.axis.LogAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -24,7 +24,7 @@ public class LogAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Log Axis Demo 1");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Log Axis Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
@@ -22,7 +22,7 @@ public class GridBandDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Grid Band Demo 1");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Grid Band Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setNoDataMessage("NO DATA");
         plot.setRangeZeroBaselineVisible(true);
@@ -48,8 +48,8 @@ public class GridBandDemo1 extends ApplicationFrame {
         return chartPanel;
     }
 
-    public static void main(String[] args) {
-        GridBandDemo1 demo = new GridBandDemo1("Chart: GridBandDemo1.java");
+    static void main() {
+        GridBandDemo1 demo = new GridBandDemo1("GridBandDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

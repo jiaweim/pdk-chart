@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.XYPlot;
@@ -22,7 +22,7 @@ public class ScatterPlotDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Scatter Plot Demo 2");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Scatter Plot Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setDomainCrosshairLockedOnData(true);
@@ -46,8 +46,8 @@ public class ScatterPlotDemo2 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        ScatterPlotDemo2 demo = new ScatterPlotDemo2("Chart: ScatterPlotDemo2.java");
+    static void main() {
+        ScatterPlotDemo2 demo = new ScatterPlotDemo2("ScatterPlotDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

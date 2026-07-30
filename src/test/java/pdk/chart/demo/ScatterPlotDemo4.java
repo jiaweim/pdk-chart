@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.XYPlot;
@@ -23,7 +23,7 @@ public class ScatterPlotDemo4 extends ApplicationFrame {
 
     public static JPanel createDemoPanel() {
         XYDataset dataset = new SampleXYDataset2();
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Scatter Plot Demo 4");
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Scatter Plot Demo 4");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setRangeTickBandPaint(new Color(200, 200, 100, 100));
         XYDotRenderer renderer = new XYDotRenderer();

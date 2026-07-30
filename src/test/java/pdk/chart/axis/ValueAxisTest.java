@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
 import pdk.chart.ChartRenderingInfo;
 import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -170,8 +171,7 @@ public class ValueAxisTest {
         series.add(200.0, 2.2);
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>(series);
         dataset.setIntervalWidth(0.0);
-        Chart chart = JChart.scatter(dataset, "X", "Y", "Title"
-        );
+        Chart chart = new ScatterChart(dataset, "X", "Y", "Title");
         ValueAxis domainAxis = ((XYPlot) chart.getPlot()).getDomainAxis();
         Range r = domainAxis.getRange();
         assertEquals(110.0, r.getLength(), EPSILON);

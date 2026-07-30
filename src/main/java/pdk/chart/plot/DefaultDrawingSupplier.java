@@ -131,7 +131,6 @@ public class DefaultDrawingSupplier implements DrawingSupplier, Cloneable,
      * paint, stroke and shapes.
      */
     public DefaultDrawingSupplier() {
-
         this(DEFAULT_PAINT_SEQUENCE, DEFAULT_FILL_PAINT_SEQUENCE,
                 DEFAULT_OUTLINE_PAINT_SEQUENCE,
                 DEFAULT_STROKE_SEQUENCE,
@@ -160,7 +159,6 @@ public class DefaultDrawingSupplier implements DrawingSupplier, Cloneable,
         this.strokeSequence = strokeSequence;
         this.outlineStrokeSequence = outlineStrokeSequence;
         this.shapeSequence = shapeSequence;
-
     }
 
     /**
@@ -271,7 +269,6 @@ public class DefaultDrawingSupplier implements DrawingSupplier, Cloneable,
      * @return The array of shapes.
      */
     public static Shape[] createStandardSeriesShapes() {
-
         Shape[] result = new Shape[10];
 
         double size = 6.0;

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.YIntervalSeries;
 import pdk.chart.data.xy.YIntervalSeriesCollection;
@@ -24,7 +24,7 @@ public class YIntervalChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.scatter(dataset, "X", "Y",
+        Chart chart = new ScatterChart(dataset, "X", "Y",
                 "Y Interval Chart Demo 1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
@@ -53,8 +53,8 @@ public class YIntervalChartDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        YIntervalChartDemo1 demo = new YIntervalChartDemo1("Chart: YIntervalChartDemo1.java");
+    static void main() {
+        YIntervalChartDemo1 demo = new YIntervalChartDemo1("YIntervalChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

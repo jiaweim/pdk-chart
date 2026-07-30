@@ -2,6 +2,7 @@ package pdk.chart.demo.plotly;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.ScatterChart;
 import pdk.chart.legend.PaintScaleLegend;
 
 import java.util.HashMap;
@@ -17,9 +18,10 @@ public class Scatter4 {
     static void main() {
         HashMap<String, Object[]> iris = Datasets.iris();
 
-        Chart chart = JChart.scatter((Double[]) iris.get("Sepal Width"),
+        Chart chart = new ScatterChart((Double[]) iris.get("Sepal Width"),
                 (Double[]) iris.get("Sepal Length"),
                 (Double[]) iris.get("Petal Length"),
+                null,
                 "x",
                 "y",
                 "Petal Length"

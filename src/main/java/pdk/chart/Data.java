@@ -445,6 +445,31 @@ public interface Data {
         }
 
         /**
+         * Adda new series.
+         *
+         * @param key series key.
+         * @param x   x values
+         * @param y   y values.
+         * @return this.
+         */
+        public XYDatasetBuilder<T> addSeries(@NonNull T key, List<? extends Number> x, List<? extends Number> y) {
+            Objects.requireNonNull(key);
+            Objects.requireNonNull(x);
+            Objects.requireNonNull(y);
+            if (x.size() != y.size()) {
+                throw new IllegalArgumentException("The size of x is not equal to the size of y.");
+            }
+
+            XYSeries<T> series = new XYSeries<>(key);
+            for (int i = 0; i < x.size(); i++) {
+                series.add(x.get(i), y.get(i));
+            }
+            dataset.addSeries(series);
+            return this;
+        }
+
+
+        /**
          * Add a new series.
          *
          * @param series {@link XYSeries} instance.

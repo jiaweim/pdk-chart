@@ -192,7 +192,7 @@ public class DefaultCategoryDataset<R extends Comparable<R>, C extends Comparabl
      * Adding data in bulk triggers the event only once, offering slightly
      * better performance than adding data one by one.
      *
-     * @param rowKey     the row key.
+     * @param rowKey     the row key (series key).
      * @param columnKeys the column keys.
      * @param values     the values.
      */
