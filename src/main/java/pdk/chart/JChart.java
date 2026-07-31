@@ -19,7 +19,6 @@ import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
 import pdk.chart.labels.*;
-import pdk.chart.ms.*;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
@@ -31,12 +30,9 @@ import pdk.chart.renderer.xy.*;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.title.TextTitle;
 import pdk.chart.urls.*;
-import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
@@ -2581,119 +2577,4 @@ public abstract class JChart {
         currentTheme.apply(chart);
         return chart;
     }
-
-    /**
-     * Create a chart to display peptide spectrum match.
-     *
-     * @param spectrumDataset {@link SpectrumDataset}
-     * @return a spectrum chart.
-     */
-    public static Chart spectrum(SpectrumDataset spectrumDataset) {
-        PSMPlot plot = new PSMPlot();
-        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
-        JChartUtils.applyCurrentTheme(chart);
-        int seriesCount = spectrumDataset.getSeriesCount();
-        if (seriesCount > 1) {
-            PeakRenderer renderer = (PeakRenderer) plot.getRenderer();
-            renderer.setShowAutoPeakLabels(false);
-        }
-        plot.setDataset(null, spectrumDataset);
-        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        return chart;
-    }
-
-
-    /**
-     * Create a chart to display peptide spectrum match.
-     *
-     * @param peptideDataset {@link PSMDataset}
-     * @return a PSM chart.
-     */
-    public static Chart psm(PeptideDataset peptideDataset, SpectrumDataset spectrumDataset) {
-        PSMPlot plot = new PSMPlot();
-        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
-        JChartUtils.applyCurrentTheme(chart);
-        int seriesCount = spectrumDataset.getSeriesCount();
-        if (seriesCount > 1) {
-            PeakRenderer renderer = (PeakRenderer) plot.getRenderer();
-            renderer.setShowAutoPeakLabels(false);
-        }
-        plot.setDataset(peptideDataset, spectrumDataset);
-        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        return chart;
-    }
-
-    /**
-     * Create a chart to display peptide spectrum match.
-     *
-     * @param dataset {@link PSMDataset}
-     * @return a PSM chart.
-     */
-    public static Chart psm(PSMDataset dataset) {
-        PSMPlot plot = new PSMPlot();
-        PeakRenderer renderer = (PeakRenderer) plot.getRenderer();
-        renderer.setShowAutoPeakLabels(false);
-        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, plot, false);
-        JChartUtils.applyCurrentTheme(chart);
-        plot.setDataset(dataset.getPeptideDataset(), dataset.getSpectrumDataset());
-        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        return chart;
-    }
-
-    /**
-     * Create a chart to display peptide spectrum match with an
-     * additional mass error scatter plot.
-     *
-     * @param dataset {@link PSMDataset}
-     * @return a PSM chart.
-     */
-    public static Chart psm2(PSMDataset dataset, ToleranceType toleranceType) {
-        PSMPlot psmPlot = new PSMPlot();
-        psmPlot.setDomainAxis(null);
-        PeakRenderer peakRenderer = (PeakRenderer) psmPlot.getRenderer();
-        peakRenderer.setShowAutoPeakLabels(false);
-
-        XYDataset<SeriesType> mzErrorDataset = dataset.getSpectrumDataset().getMZErrorDataset();
-        NumberAxis errorYAxis = new NumberAxis(toleranceType.getUnit());
-        errorYAxis.setRange(0 - toleranceType.getValue(), toleranceType.getValue());
-        errorYAxis.setAutoRange(false);
-
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(false, true);
-        renderer.setDefaultShapesFilled(true);
-        renderer.drawOutlines(false);
-        Rectangle2D.Double rectangle = ShapeUtils.createRectangle(4);
-        for (int i = 0; i < mzErrorDataset.getSeriesCount(); i++) {
-            SeriesType seriesKey = mzErrorDataset.getSeriesKey(i);
-            renderer.setSeriesPaint(i, seriesKey.getColor());
-            renderer.setSeriesShape(i, rectangle);
-        }
-        XYPlot mzErrorPlot = new XYPlot(mzErrorDataset, null, errorYAxis, null);
-
-        NumberAxis mzAxis = new NumberAxis("m/z");
-
-        DecimalFormat format = new DecimalFormat("0.######");
-        format.setGroupingUsed(false);   // 不使用千位分隔符
-        mzAxis.setNumberFormatOverride(format);
-
-        MSPlot msPlot = new MSPlot(mzAxis);
-        msPlot.setGap(10);
-        msPlot.add(psmPlot, 1);
-        msPlot.add(mzErrorPlot, 125.0);
-
-        Chart chart = new Chart(null, Chart.DEFAULT_TITLE_FONT, msPlot, false);
-        currentTheme.apply(chart);
-
-        NumberAxis peakYAxis = psmPlot.getRangeAxisAsNumber();
-        peakYAxis.setLowerMargin(0);
-
-        psmPlot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        psmPlot.setDataset(dataset.getPeptideDataset(), dataset.getSpectrumDataset());
-
-        errorYAxis.setLowerMargin(0);
-        mzErrorPlot.setRenderer(renderer);
-        mzErrorPlot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-
-        return chart;
-    }
-
 }

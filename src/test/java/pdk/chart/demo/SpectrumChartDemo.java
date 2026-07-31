@@ -2,6 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.PSMChart;
 import pdk.chart.ms.SeriesType;
 import pdk.chart.ms.SpectrumDataset;
 
@@ -83,7 +84,7 @@ public class SpectrumChartDemo {
                         10463.09, 10858.71, 10689.76
                 });
 
-        Chart chart = JChart.psm(null, dataset);
+        Chart chart = new PSMChart(null, dataset);
         chart.show();
     }
 }

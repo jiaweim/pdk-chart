@@ -2,6 +2,7 @@ package pdk.chart.demo.pep;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.PSMChartV2;
 import pdk.chart.ms.*;
 
 /**
@@ -372,7 +373,7 @@ public class PSMDemo {
         SpectrumDataset spectrumDataset = createDataset();
         PeptideDataset peptideDataset = createPeptideDataset();
 
-        Chart chart = JChart.psm2(new PSMDataset(peptideDataset, spectrumDataset), ToleranceType.ppm(20));
+        Chart chart = new PSMChartV2(new PSMDataset(peptideDataset, spectrumDataset), ToleranceType.ppm(20));
         chart.show();
     }
 }

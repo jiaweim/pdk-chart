@@ -2,6 +2,7 @@ package pdk.chart;
 
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.event.PlotChangeEvent;
+import pdk.chart.plot.Plot;
 import pdk.chart.plot.XYPlot;
 
 import java.awt.*;
@@ -28,6 +29,11 @@ public class XYChart extends Chart {
     public XYChart(String title, Font titleFont, boolean createLegend) {
         super(title, titleFont, new XYPlot<>(), createLegend);
         this.plot_ = getXYPlot();
+    }
+
+    public XYChart(String title, Font titleFont, Plot plot, boolean createLegend) {
+        super(title, titleFont, plot, createLegend);
+        plot_ = getXYPlot();
     }
 
     /**
