@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryAreaChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -48,7 +48,7 @@ public class AreaChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.area(dataset, "Category", "Value", "Area Chart");
+        Chart chart = new CategoryAreaChart(dataset, "Category", "Value", "Area Chart");
 
         TextTitle subtitle = new TextTitle("An area chart demonstration.  We use this subtitle as an example of what happens when you get a really long title or subtitle.");
         subtitle.setPosition(RectangleEdge.TOP);

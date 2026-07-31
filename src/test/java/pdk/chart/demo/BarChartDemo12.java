@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
@@ -38,7 +38,7 @@ public class BarChartDemo12 {
                 new Color(76, 179, 210),
                 new Color(106, 198, 255)
         };
-        Chart chart = JChart.bar(dataset, PlotOrientation.HORIZONTAL);
+        Chart chart = new CategoryBarChart(dataset, PlotOrientation.HORIZONTAL);
         chart.removeLegend();
 
         BarRenderer barRenderer = new BarRenderer() {

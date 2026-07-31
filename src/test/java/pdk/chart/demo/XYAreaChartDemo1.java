@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.AreaChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -54,7 +54,7 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.areaXY(dataset, "Domain (X)", "Range (Y)",
+        Chart chart = new AreaChart(dataset, "Domain (X)", "Range (Y)",
                 "XY Area Chart Demo");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setForegroundAlpha(0.65F);

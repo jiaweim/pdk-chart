@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryAreaChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
@@ -82,7 +82,7 @@ public class HideSeriesDemo2 extends ApplicationFrame {
         }
 
         private Chart createChart(CategoryDataset dataset) {
-            Chart result = JChart.area(dataset, "Category", "Value",
+            Chart result = new CategoryAreaChart(dataset, "Category", "Value",
                     "Hide Series Demo 2");
             CategoryPlot plot = (CategoryPlot) result.getPlot();
             plot.setRenderer(new StatisticalLineAndShapeRenderer());

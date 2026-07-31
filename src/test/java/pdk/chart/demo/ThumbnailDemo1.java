@@ -1,9 +1,6 @@
 package pdk.chart.demo;
 
-import pdk.chart.CategoryLineChart;
-import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.*;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -80,7 +77,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart1(CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 1");
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 1");
         chart.setBackgroundPaint(Color.WHITE);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();

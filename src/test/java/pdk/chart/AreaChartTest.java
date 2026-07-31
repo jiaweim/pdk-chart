@@ -120,7 +120,7 @@ public class AreaChartTest {
         Number[][] data = new Integer[][]{{-3, -2}, {-1, 1}, {2, 3}};
         CategoryDataset<String, String> dataset
                 = DatasetUtils.createCategoryDataset("S", "C", data);
-        return JChart.area(dataset, "Domain", "Range", "Area Chart",
+        return new CategoryAreaChart(dataset, "Domain", "Range", "Area Chart",
                 PlotOrientation.HORIZONTAL, true, true, true);
     }
 

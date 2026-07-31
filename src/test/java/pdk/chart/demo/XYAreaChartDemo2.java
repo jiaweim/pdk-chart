@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.AreaChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.ValueAxis;
@@ -32,7 +32,7 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         TimeSeries series1 = new TimeSeries("Random 1");
-        double value = (double) 0.0F;
+        double value = 0.0;
         Day day = new Day();
 
         for (int i = 0; i < 200; ++i) {
@@ -46,13 +46,13 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.areaXY(dataset, "Time", "Value",
+        Chart chart = new AreaChart(dataset, "Time", "Value",
                 "XY Area Chart Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         ValueAxis domainAxis = new DateAxis("Time");
-        domainAxis.setLowerMargin((double) 0.0F);
-        domainAxis.setUpperMargin((double) 0.0F);
+        domainAxis.setLowerMargin(0.0F);
+        domainAxis.setUpperMargin(0.0F);
         plot.setDomainAxis(domainAxis);
         plot.setForegroundAlpha(0.5F);
         XYItemRenderer renderer = plot.getRenderer();
@@ -65,7 +65,7 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main(String[] args) {
+    public static void main() {
         XYAreaChartDemo2 demo = new XYAreaChartDemo2("XY Area Chart Demo 2");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

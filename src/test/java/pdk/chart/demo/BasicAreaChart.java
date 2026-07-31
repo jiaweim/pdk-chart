@@ -1,13 +1,12 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryAreaChart;
 import pdk.chart.CategoryChartType;
-import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.util.ShapeUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DatasetRenderingOrder;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 
@@ -26,7 +25,7 @@ public class BasicAreaChart {
                 new double[]{820, 932, 901, 934, 1290, 1330, 1320}
         );
 
-        Chart chart = JChart.area(data);
+        CategoryAreaChart chart = new CategoryAreaChart(data);
         chart.removeLegend();
         CategoryPlot plot = chart.getCategoryPlot();
         plot.addDataset(data, CategoryChartType.LINE);
