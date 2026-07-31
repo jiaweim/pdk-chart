@@ -107,9 +107,9 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
      */
     @Override
     public void drawItem(Graphics2D g2, XYItemRendererState state,
-                         Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
-                         ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
-                         int series, int item, CrosshairState crosshairState, int pass) {
+            Rectangle2D dataArea, PlotRenderingInfo info, XYPlot plot,
+            ValueAxis domainAxis, ValueAxis rangeAxis, XYDataset dataset,
+            int series, int item, CrosshairState crosshairState, int pass) {
 
         // return straight away if the item is not visible
         if (!getItemVisible(series, item)) {
@@ -288,32 +288,6 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
-    }
-
-    /**
-     * Sets the paint used for a series outline and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
-     *
-     * @param series the series index (zero-based).
-     * @param paint  the paint ({@code null} permitted).
-     * @see #getSeriesOutlinePaint(int)
-     */
-    public XYBubbleRenderer seriesOutlinePaint(int series, Paint paint) {
-        setSeriesOutlinePaint(series, paint, true);
-        return this;
-    }
-
-    /**
-     * Sets the default outline paint and sends a {@link RendererChangeEvent} to
-     * all registered listeners.
-     *
-     * @param paint the paint ({@code null} not permitted).
-     * @see #getDefaultOutlinePaint()
-     */
-    public XYBubbleRenderer defaultOutlinePaint(Paint paint) {
-        // defer argument checking...
-        setDefaultOutlinePaint(paint, false);
-        return this;
     }
 
     /**

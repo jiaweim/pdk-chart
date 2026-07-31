@@ -13,7 +13,6 @@ import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.GradientPaintScale;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.renderer.xy.XYShapeRenderer;
@@ -32,18 +31,16 @@ import java.awt.geom.Ellipse2D;
  * @version 1.0.0
  * @since 30 Jul 2026, 9:41 AM
  */
-public class ScatterChart extends Chart {
+public class ScatterChart extends XYChart {
     /**
      * Reference to the renderer for direct manipulation.
      */
     private XYLineAndShapeRenderer renderer_;
-    private final XYPlot plot_;
 
     public ScatterChart(Double[] x, Double[] y, Double[] z, Color[] colors,
             String xAxisName, String yAxisName, String zAxisName) {
-        super(null, DEFAULT_TITLE_FONT, new XYPlot<>(), false);
+        super(null, DEFAULT_TITLE_FONT, false);
 
-        this.plot_ = getXYPlot();
         NumberAxis xAxis = new NumberAxis(xAxisName);
         xAxis.setAutoRangeIncludesZero(false);
         NumberAxis yAxis = new NumberAxis(yAxisName);
@@ -272,7 +269,7 @@ public class ScatterChart extends Chart {
     public ScatterChart(XYDataset dataset, String xAxisName, String yAxisName,
             String title, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
-        super(title, DEFAULT_TITLE_FONT, new XYPlot<>(), legend);
+        super(title, DEFAULT_TITLE_FONT, legend);
 
         ValueAxis xAxis;
         if (dataset instanceof TimeSeriesCollection<?>) {
@@ -302,7 +299,6 @@ public class ScatterChart extends Chart {
         renderer_.setDefaultToolTipGenerator(toolTipGenerator);
         renderer_.setURLGenerator(urlGenerator);
 
-        plot_ = getXYPlot();
         plot_.setDataset(dataset);
         plot_.setDomainAxis(xAxis);
         plot_.setRangeAxis(yAxis);
@@ -425,46 +421,6 @@ public class ScatterChart extends Chart {
      */
     public void setSeriesShapesVisible(int seriesIndex, boolean visible) {
         renderer_.setSeriesShapesVisible(seriesIndex, visible);
-    }
-
-    // ==================== Axis Convenience Methods ====================
-
-    /**
-     * Sets the lower and upper bounds of the X axis.
-     *
-     * @param lower the lower bound
-     * @param upper the upper bound
-     */
-    public void setXAxisRange(double lower, double upper) {
-        getXYPlot().getDomainAxis().setRange(lower, upper);
-    }
-
-    /**
-     * Sets the lower and upper bounds of the Y axis.
-     *
-     * @param lower the lower bound
-     * @param upper the upper bound
-     */
-    public void setYAxisRange(double lower, double upper) {
-        getXYPlot().getRangeAxis().setRange(lower, upper);
-    }
-
-    /**
-     * Sets the label for the X axis.
-     *
-     * @param label the axis label text
-     */
-    public void setXAxisLabel(String label) {
-        getXYPlot().getDomainAxis().setLabel(label);
-    }
-
-    /**
-     * Sets the label for the Y axis.
-     *
-     * @param label the axis label text
-     */
-    public void setYAxisLabel(String label) {
-        getXYPlot().getRangeAxis().setLabel(label);
     }
 
     /**

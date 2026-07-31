@@ -621,7 +621,9 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Scatter");
         root.add(createNode(Scatter1.class, "Simple Scatter"));
         root.add(createNode(Scatter2.class, "Iris Scatter"));
-        root.add(this.createNode(ScatterPlotDemo1.class, "ScatterPlotDemo1.java"));
+        root.add(createNode(ScatterPlotDemo1.class, "ScatterPlotDemo1.java"));
+        root.add(createNode(BubbleChartDemo1.class, "BubbleChartDemo1.java"));
+        root.add(createNode(BubbleChartDemo2.class, "BubbleChartDemo2.java"));
         return root;
     }
 
@@ -726,8 +728,6 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createMarkersNode());
         root.add(this.createOrientationNode());
         root.add(this.createNode(AxisOffsetsDemo1.class, "AxisOffsetsDemo1.java"));
-        root.add(this.createNode(BubbleChartDemo1.class, "BubbleChartDemo1.java"));
-        root.add(this.createNode(BubbleChartDemo2.class, "BubbleChartDemo2.java"));
         root.add(this.createNode(CategoryLabelPositionsDemo1.class, "CategoryLabelPositionsDemo1.java"));
         root.add(this.createNode(CategoryStepChartDemo1.class, "CategoryStepChartDemo1.java"));
         root.add(this.createNode(CompassDemo1.class, "CompassDemo1.java"));

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.data.xy.DefaultXYZDataset;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.plot.XYPlot;
@@ -25,8 +25,8 @@ public class HideSeriesDemo3 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
-        HideSeriesDemo3 demo = new HideSeriesDemo3("Chart: HideSeriesDemo3.java");
+    static void main() {
+        HideSeriesDemo3 demo = new HideSeriesDemo3("HideSeriesDemo3.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -84,29 +84,26 @@ public class HideSeriesDemo3 extends ApplicationFrame {
         }
 
         private Chart createChart(XYZDataset dataset) {
-            Chart result = JChart.bubble(dataset, "X", "Y", "Hide Series Demo 3");
+            BubbleChart result = new BubbleChart(dataset, "X", "Y", "Hide Series Demo 3");
+            result.setPannable(true, true);
             XYPlot plot = (XYPlot) result.getPlot();
-            plot.setDomainPannable(true);
-            plot.setRangePannable(true);
             this.renderer = plot.getRenderer(0);
             return result;
         }
 
         public void actionPerformed(ActionEvent e) {
             int series = -1;
-            if (e.getActionCommand().equals("S1")) {
-                series = 0;
-            } else if (e.getActionCommand().equals("S2")) {
-                series = 1;
-            } else if (e.getActionCommand().equals("S3")) {
-                series = 2;
-            }
+            series = switch (e.getActionCommand()) {
+                case "S1" -> 0;
+                case "S2" -> 1;
+                case "S3" -> 2;
+                default -> series;
+            };
 
             if (series >= 0) {
                 boolean visible = this.renderer.getItemVisible(series, 0);
                 this.renderer.setSeriesVisible(series, !visible);
             }
-
         }
     }
 }

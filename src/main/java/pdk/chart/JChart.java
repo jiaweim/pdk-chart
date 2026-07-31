@@ -3,7 +3,6 @@ package pdk.chart;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.api.Layer;
-import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.TableOrder;
 import pdk.chart.axis.CategoryAxis;
@@ -39,8 +38,9 @@ import java.awt.geom.Rectangle2D;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.*;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A collection of utility methods for creating some standard charts.
@@ -2361,144 +2361,6 @@ public abstract class JChart {
         HighLowRenderer renderer = new HighLowRenderer();
         renderer.setDefaultToolTipGenerator(new HighLowItemLabelGenerator());
         XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, renderer);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Create a bubble chart.
-     *
-     * @param x     x values.
-     * @param y     y values.
-     * @param size  data for bubble size.
-     * @param color series name for each entry.
-     * @return a bubble chart.
-     */
-    public static Chart bubble(Double[] x, Double[] y, Double[] size, @Nullable String[] color,
-            String xName, String yName) {
-        double rangeY = Data.getRange(y);
-
-        double maxZ = Data.getMax(size);
-        double scale = Math.max(maxZ, rangeY) * 4;
-
-        Double[] z = new Double[size.length];
-        for (int i = 0; i < size.length; i++) {
-            z[i] = size[i] / scale;
-        }
-
-        Data.XYZDatasetBuilder<String> xyz = Data.xyz();
-        Map<String, ArrayList<Double>[]> map = new HashMap<>();
-        if (color != null) {
-            // create multiple series
-            for (int i = 0; i < color.length; i++) {
-                ArrayList<Double>[] list = map.get(color[i]);
-                if (list == null) {
-                    list = new ArrayList[3];
-                    list[0] = new ArrayList<>();
-                    list[1] = new ArrayList<>();
-                    list[2] = new ArrayList<>();
-                    map.put(color[i], list);
-                }
-                list[0].add(x[i]);
-                list[1].add(y[i]);
-                list[2].add(z[i]);
-            }
-            for (Map.Entry<String, ArrayList<Double>[]> entry : map.entrySet()) {
-                ArrayList<Double>[] value = entry.getValue();
-                xyz.addSeries(entry.getKey(), value[0].toArray(new Double[0]), value[1].toArray(new Double[0]), value[2].toArray(new Double[0]));
-            }
-        } else {
-            // only one series
-            xyz.addSeries("", x, y, z);
-        }
-
-        XYZDataset<String> dataset = xyz.build();
-        Chart chart = bubble(dataset, xName, yName, null);
-        chart.getLegend().setPosition(RectangleEdge.RIGHT);
-        XYPlot plot = chart.getXYPlot();
-        XYBubbleRenderer renderer = (XYBubbleRenderer) plot.getRenderer();
-        for (int i = 0; i < dataset.getSeriesCount(); i++) {
-            renderer.seriesOutlinePaint(i, Color.WHITE);
-        }
-
-        return chart;
-    }
-
-    /**
-     * Creates a bubble chart with default settings.  The chart is composed of
-     * an {@link XYPlot}, with a {@link NumberAxis} for the domain axis,
-     * a {@link NumberAxis} for the range axis, and an {@link XYBubbleRenderer}
-     * to draw the data items.
-     *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @return A bubble chart.
-     */
-    public static Chart bubble(XYZDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
-        return bubble(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a bubble chart with default settings.  The chart is composed of
-     * an {@link XYPlot}, with a {@link NumberAxis} for the domain axis,
-     * a {@link NumberAxis} for the range axis, and an {@link XYBubbleRenderer}
-     * to draw the data items.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return A bubble chart.
-     */
-    public static Chart bubble(XYZDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return bubble(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a bubble chart with default settings.  The chart is composed of
-     * an {@link XYPlot}, with a {@link NumberAxis} for the domain axis,
-     * a {@link NumberAxis} for the range axis, and an {@link XYBubbleRenderer}
-     * to draw the data items.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
-     * @return A bubble chart.
-     */
-    public static Chart bubble(XYZDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        yAxis.setAutoRangeIncludesZero(false);
-
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, null);
-
-        XYItemRenderer renderer = new XYBubbleRenderer(XYBubbleRenderer.SCALE_ON_RANGE_AXIS);
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYZToolTipGenerator());
-        }
-        if (urls) {
-            renderer.setURLGenerator(new StandardXYZURLGenerator());
-        }
-        plot.setRenderer(renderer);
-        plot.setOrientation(orientation);
-
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;
