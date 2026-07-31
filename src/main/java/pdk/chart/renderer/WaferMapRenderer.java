@@ -74,7 +74,6 @@ public class WaferMapRenderer extends AbstractRenderer {
      * @param paintIndexMethod the paint index method.
      */
     public WaferMapRenderer(Integer paintLimit, Integer paintIndexMethod) {
-
         super();
         this.paintIndex = new HashMap();
 
@@ -99,14 +98,11 @@ public class WaferMapRenderer extends AbstractRenderer {
      * @return {@code true} or </code>false</code>.
      */
     private boolean isMethodValid(int method) {
-        switch (method) {
-            case POSITION_INDEX:
-                return true;
-            case VALUE_INDEX:
-                return true;
-            default:
-                return false;
-        }
+        return switch (method) {
+            case POSITION_INDEX -> true;
+            case VALUE_INDEX -> true;
+            default -> false;
+        };
     }
 
     /**

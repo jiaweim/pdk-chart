@@ -20,6 +20,8 @@ import java.util.ResourceBundle;
 
 /**
  * A wafer map plot.
+ *
+ *
  */
 public class WaferMapPlot extends Plot implements RendererChangeListener,
         Cloneable, Serializable {
@@ -64,7 +66,7 @@ public class WaferMapPlot extends Plot implements RendererChangeListener,
      * The resourceBundle for the localization.
      */
     protected static ResourceBundle localizationResources
-            = ResourceBundle.getBundle("org.jfree.chart.plot.LocalizationBundle");
+            = ResourceBundle.getBundle("pdk.chart.plot.LocalizationBundle");
 
     /**
      * The plot orientation.
@@ -107,11 +109,9 @@ public class WaferMapPlot extends Plot implements RendererChangeListener,
      * @param renderer the renderer ({@code null} permitted).
      */
     public WaferMapPlot(WaferMapDataset dataset, WaferMapRenderer renderer) {
-
         super();
 
         this.orientation = PlotOrientation.VERTICAL;
-
         this.dataset = dataset;
         if (dataset != null) {
             dataset.addChangeListener(this);
@@ -122,7 +122,6 @@ public class WaferMapPlot extends Plot implements RendererChangeListener,
             renderer.setPlot(this);
             renderer.addChangeListener(this);
         }
-
     }
 
     /**
@@ -376,7 +375,6 @@ public class WaferMapPlot extends Plot implements RendererChangeListener,
         g2.fill(notch);
         g2.setColor(Color.BLACK);
         g2.draw(notch);
-
     }
 
     /**

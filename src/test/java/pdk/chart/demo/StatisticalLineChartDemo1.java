@@ -1,13 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.StatisticalCategoryLineChart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
-import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.StatisticalLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -23,7 +20,7 @@ public class StatisticalLineChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
+    private static DefaultStatisticalCategoryDataset createDataset() {
         DefaultStatisticalCategoryDataset dataset = new DefaultStatisticalCategoryDataset();
         dataset.add(10.0, 2.4, "Row 1", "Column 1");
         dataset.add(15.0, 4.4, "Row 1", "Column 2");
@@ -36,19 +33,19 @@ public class StatisticalLineChartDemo1 extends ApplicationFrame {
         return dataset;
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line(dataset, "Type", "Value", "Statistical Line Chart Demo 1");
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setRangePannable(true);
-        CategoryAxis domainAxis = plot.getDomainAxis();
+    private static Chart createChart(DefaultStatisticalCategoryDataset dataset) {
+        StatisticalCategoryLineChart chart = new StatisticalCategoryLineChart(dataset, "Type", "Value", "Statistical Line Chart Demo 1");
+        chart.setRangePannable(true);
+        chart.setUseSeriesOffset(true);
+
+        CategoryAxis domainAxis = chart.getDomainAxis();
         domainAxis.setUpperMargin(0.0);
         domainAxis.setLowerMargin(0.0);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+
+        NumberAxis rangeAxis = chart.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setAutoRangeIncludesZero(true);
-        StatisticalLineAndShapeRenderer renderer = new StatisticalLineAndShapeRenderer(true, false);
-        renderer.setUseSeriesOffset(true);
-        plot.setRenderer(renderer);
+
         return chart;
     }
 

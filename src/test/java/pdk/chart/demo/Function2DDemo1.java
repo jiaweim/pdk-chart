@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.function.Function2D;
 import pdk.chart.data.xy.XYDataset;
@@ -22,17 +22,17 @@ public class Function2DDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y",
+        Chart chart = new LineChart(dataset, "X", "Y",
                 "Function2DDemo1 ");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
         ValueAxis xAxis = plot.getDomainAxis();
-        xAxis.setLowerMargin((double) 0.0F);
-        xAxis.setUpperMargin((double) 0.0F);
-        xAxis.setRange((double) -2.0F, (double) 2.0F);
+        xAxis.setLowerMargin(0.0F);
+        xAxis.setUpperMargin(0.0F);
+        xAxis.setRange(-2.0F, 2.0F);
         ValueAxis yAxis = plot.getRangeAxis();
-        yAxis.setRange((double) 0.0F, (double) 5.0F);
+        yAxis.setRange(0.0, 5.0F);
         return chart;
     }
 

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
@@ -56,7 +56,7 @@ public class YIntervalChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.line(dataset, "Date", "Value", "YIntervalChartDemo2");
+        Chart chart = new LineChart(dataset, "Date", "Value", "YIntervalChartDemo2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

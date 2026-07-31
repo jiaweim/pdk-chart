@@ -298,6 +298,7 @@ public class ScatterChart extends XYChart {
         renderer_ = new XYLineAndShapeRenderer(false, true);
         renderer_.setDefaultToolTipGenerator(toolTipGenerator);
         renderer_.setURLGenerator(urlGenerator);
+        setDefaultRenderer(renderer_);
 
         plot_.setDataset(dataset);
         plot_.setDomainAxis(xAxis);

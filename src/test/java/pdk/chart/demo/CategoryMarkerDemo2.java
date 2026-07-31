@@ -1,14 +1,13 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.plot.CategoryMarker;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -41,16 +40,15 @@ public class CategoryMarkerDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.line(dataset,
+        CategoryLineChart chart = new CategoryLineChart(dataset,
                 "Category", "Count", "Category Marker Demo 2");
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getLineAndShapeRenderer()
-                .seriesShapesVisible(0, true)
-                .drawOutlines(true)
-                .useFillPaint(true)
-                .defaultFillPaint(Color.WHITE);
+        NumberAxis rangeAxis = chart.getRangeAxis();
+        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.setSeriesShapesVisible(0, true);
+        chart.setDrawOutlines(true);
+        chart.setUseFillPaint(true);
+        chart.setDefaultFillPaint(Color.WHITE);
 
         CategoryMarker marker = new CategoryMarker("Category 4",
                 new Color(0, 0, 255, 25), new BasicStroke(1.0F));
@@ -61,7 +59,7 @@ public class CategoryMarkerDemo2 extends ApplicationFrame {
         marker.setLabelTextAnchor(TextAnchor.TOP_RIGHT);
         marker.setLabelOffset(new RectangleInsets(2.0, 5.0, 2.0, 5.0));
 
-        plot.addDomainMarker(marker, Layer.BACKGROUND);
+        chart.addDomainMarker(marker, Layer.BACKGROUND);
         return chart;
     }
 

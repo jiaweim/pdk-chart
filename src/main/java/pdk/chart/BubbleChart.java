@@ -51,6 +51,7 @@ public class BubbleChart extends XYChart {
     public BubbleChart(ScaleType scaleType, String title, Font titleFont, boolean createLegend) {
         super(title, titleFont, createLegend);
         renderer = new XYBubbleRenderer(scaleType.ordinal());
+        setDefaultRenderer(renderer);
     }
 
     public BubbleChart(String title, Font titleFont, boolean createLegend) {

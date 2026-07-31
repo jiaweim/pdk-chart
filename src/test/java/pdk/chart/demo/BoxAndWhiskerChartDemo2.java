@@ -1,15 +1,14 @@
 package pdk.chart.demo;
 
+import pdk.chart.BoxChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.XYChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.BoxAndWhiskerCalculator;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.statistics.DefaultBoxAndWhiskerXYDataset;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.RegularTimePeriod;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -52,20 +51,19 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(BoxAndWhiskerXYDataset dataset) {
-        Chart chart = JChart.boxAndWhisker(dataset, "Day", "Value", "Box-and-Whisker Chart Demo 2", false);
+        BoxChart chart = new BoxChart(dataset, XYChart.AxisType.DATE,
+                "Day", "Value", "Box-and-Whisker Chart Demo 2", false);
         chart.setBackgroundPaint(Color.WHITE);
-        XYPlot plot = chart.getXYPlot();
+        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
 
-        plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setDomainGridlinePaint(Color.WHITE);
-        plot.setDomainGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.WHITE);
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
+        chart.setDomainGridlinePaint(Color.WHITE);
+        chart.setDomainGridlinesVisible(true);
 
-        plot.getRangeAxisAsNumber().standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.setRangeGridlinePaint(Color.WHITE);
+        chart.setPannable(true, true);
 
-        JChartUtils.applyCurrentTheme(chart);
+        chart.getRangeAxis().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
         return chart;
     }
 

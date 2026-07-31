@@ -38,6 +38,7 @@ public class PSMChartV2 extends XYChart {
         psmPlot.setDomainAxis(null);
         peakRenderer = (PeakRenderer) psmPlot.getRenderer();
         peakRenderer.setShowAutoPeakLabels(false);
+        setDefaultRenderer(peakRenderer);
 
         NumberAxis errorYAxis = new NumberAxis(toleranceType.getUnit());
         errorYAxis.setRange(0 - toleranceType.getValue(), toleranceType.getValue());

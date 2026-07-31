@@ -28,6 +28,7 @@ public class PSMChart extends XYChart {
         plot = (PSMPlot) plot_;
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
         renderer = (PeakRenderer) plot.getRenderer();
+        setDefaultRenderer(renderer);
     }
 
     public PSMChart(PSMDataset dataset) {

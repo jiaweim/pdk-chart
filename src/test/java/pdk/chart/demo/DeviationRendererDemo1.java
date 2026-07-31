@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.YIntervalSeries;
@@ -38,7 +38,7 @@ public class DeviationRendererDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y", "DeviationRendererDemo1");
+        Chart chart = new LineChart(dataset, "X", "Y", "DeviationRendererDemo1");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         DeviationRenderer renderer = new DeviationRenderer(true, false);

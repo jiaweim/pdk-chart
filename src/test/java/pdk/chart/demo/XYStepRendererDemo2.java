@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -26,7 +26,7 @@ public class XYStepRendererDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y",
+        LineChart chart = new LineChart(dataset, "X", "Y",
                 "XYStepRendererDemo2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);

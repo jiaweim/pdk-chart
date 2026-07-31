@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
@@ -80,7 +80,7 @@ public class CrosshairOverlayDemo2 extends JFrame {
         }
 
         private Chart createChart(XYDataset<String> dataset) {
-            return JChart.line(dataset, "X", "Y", "CrosshairOverlayDemo2");
+            return new LineChart(dataset, "X", "Y", "CrosshairOverlayDemo2");
         }
 
         private XYDataset<String> createDataset() {

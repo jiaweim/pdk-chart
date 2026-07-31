@@ -1,9 +1,10 @@
 package pdk.chart.demo.echarts;
 
-import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.CategoryLineChart;
+import pdk.chart.swing.ChartPanel;
 import pdk.chart.util.ShapeUtils;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -14,21 +15,29 @@ import java.awt.*;
  * @since 25 Jun 2026, 1:58 PM
  */
 public class LineSimple {
-    static void main() {
-        Chart chart = JChart.line(new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+
+    private static CategoryLineChart createChart() {
+        CategoryLineChart chart = new CategoryLineChart(
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
                 new double[]{150, 230, 224, 218, 135, 147, 260});
-        chart.getCategoryPlot()
-                .getLineAndShapeRenderer(0)
-                .defaultShapesVisible(true)
-                .seriesShape(0, ShapeUtils.createCircle(10))
+        chart.setDefaultShapesVisible(true);
+        chart.setSeriesShape(0, ShapeUtils.createCircle(10));
+        chart.setSeriesStroke(0, new BasicStroke(3f));
 
-                .seriesStroke(0, new BasicStroke(3f))
-                .drawOutlines(true)
-                .seriesOutlineStroke(0, new BasicStroke(2f))
+        chart.setDrawOutlines(true);
+        chart.setSeriesOutlineStroke(0, new BasicStroke(2f));
 
-                .useFillPaint(true)
-                .defaultFillPaint(Color.WHITE);
+        chart.setUseFillPaint(true);
+        chart.setDefaultFillPaint(Color.WHITE);
 
-        chart.show();
+        return chart;
+    }
+
+    public static JPanel createDemoPanel() {
+        return new ChartPanel(createChart());
+    }
+
+    static void main() {
+        createChart().show();
     }
 }

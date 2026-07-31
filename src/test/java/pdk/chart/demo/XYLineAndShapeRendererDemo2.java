@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -28,7 +28,7 @@ public class XYLineAndShapeRendererDemo2 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset dataset = createDataset(1, 1.0);
-        Chart chart = JChart.line(dataset, "X", "Y", "XYLineAndShapeRenderer Demo 2");
+        Chart chart = new LineChart(dataset, "X", "Y", "XYLineAndShapeRenderer Demo 2");
         TextTitle subtitle = new TextTitle("This chart shows various combinations of the useFillPaint and useOutlinePaint flags.");
         subtitle.setFont(new Font("Dialog", 0, 10));
         chart.addSubtitle(subtitle);

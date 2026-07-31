@@ -5,7 +5,6 @@ import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
 import pdk.chart.ChartElementVisitor;
 import pdk.chart.JChart;
-import pdk.chart.XYChartType;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYAnnotationBoundsInfo;
@@ -19,15 +18,11 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.*;
-import pdk.chart.util.Args;
-import pdk.chart.util.CloneUtils;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.RendererUtils;
 import pdk.chart.renderer.xy.*;
-import pdk.chart.util.ShadowGenerator;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -1249,18 +1244,6 @@ public class XYPlot<S extends Comparable<S>> extends Plot
         // send a dataset change event to self...
         DatasetChangeEvent event = new DatasetChangeEvent(this, dataset);
         datasetChanged(event);
-    }
-
-    /**
-     * Add a new dataset for the plot.
-     *
-     * @param dataset   {@link XYDataset}.
-     * @param chartType {@link XYChartType}.
-     */
-    public void addDataset(XYDataset<S> dataset, XYChartType chartType) {
-        int datasetCount = getDatasetCount();
-        setDataset(datasetCount, dataset);
-        setRenderer(datasetCount, chartType.getRenderer());
     }
 
     /**

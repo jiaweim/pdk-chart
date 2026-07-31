@@ -2,7 +2,7 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
@@ -10,11 +10,11 @@ import pdk.chart.data.Range;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.urls.TimeSeriesURLGenerator;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -189,7 +189,7 @@ public class XYLineAndShapeRendererTest {
     public void testFindDomainBounds() {
         XYSeriesCollection<String> dataset
                 = RendererXYPackageUtils.createTestXYSeriesCollection();
-        Chart chart = JChart.line(dataset, "X", "Y", "Test Chart",
+        Chart chart = new LineChart(dataset, "X", "Y", "Test Chart",
                 PlotOrientation.VERTICAL, false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
@@ -208,7 +208,7 @@ public class XYLineAndShapeRendererTest {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = JChart.line(dataset,
+        Chart chart = new LineChart(dataset,
                 "X", "Y", "Test Chart", PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();

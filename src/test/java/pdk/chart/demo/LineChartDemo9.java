@@ -1,8 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.plot.XYPlot;
+import pdk.chart.LineChart;
 import pdk.chart.swing.ChartPanel;
 
 import javax.swing.*;
@@ -20,9 +19,8 @@ public class LineChartDemo9 {
         double[] xData = new double[]{0.0, 1.0, 2.0};
         double[] yData = new double[]{2.0, 1.0, 0.0};
 
-        Chart chart = JChart.line(xData, yData);
-        XYPlot plot = chart.getXYPlot();
-        plot.axisNames("X", "Y");
+        LineChart chart = new LineChart(xData, yData);
+        chart.setAxisLabels("x", "y");
         return chart;
     }
 

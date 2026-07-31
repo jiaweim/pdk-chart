@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.annotations.XYLineAnnotation;
 import pdk.chart.annotations.XYShapeAnnotation;
 import pdk.chart.api.Layer;
@@ -41,7 +41,7 @@ public class PlotOrientationDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(int index, XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y", "Chart " + (index + 1),
+        Chart chart = new LineChart(dataset, "X", "Y", "Chart " + (index + 1),
                 PlotOrientation.VERTICAL, false, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();

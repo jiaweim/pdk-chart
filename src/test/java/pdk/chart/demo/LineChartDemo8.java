@@ -1,17 +1,14 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.util.ShapeUtils;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
+import pdk.chart.util.ShapeUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,40 +23,39 @@ public class LineChartDemo8 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 0.0F, "Series 1", "Category 1");
-        dataset.addValue((double) 2.0F, "Series 1", "Category 2");
-        dataset.addValue((double) 1.0F, "Series 1", "Category 3");
-        dataset.addValue((double) 3.0F, "Series 1", "Category 4");
-        dataset.addValue((double) 5.0F, "Series 1", "Category 5");
-        dataset.addValue((double) 2.0F, "Series 2", "Category 1");
-        dataset.addValue((double) 4.0F, "Series 2", "Category 2");
-        dataset.addValue((double) 4.0F, "Series 2", "Category 3");
-        dataset.addValue((double) 5.0F, "Series 2", "Category 4");
-        dataset.addValue((double) 2.0F, "Series 2", "Category 5");
-        dataset.addValue((double) 1.0F, "Series 3", "Category 1");
-        dataset.addValue((double) 3.0F, "Series 3", "Category 2");
-        dataset.addValue((double) 5.0F, "Series 3", "Category 3");
-        dataset.addValue((double) 2.0F, "Series 3", "Category 4");
-        dataset.addValue((double) 0.0F, "Series 3", "Category 5");
+        dataset.addValue(0.0, "Series 1", "Category 1");
+        dataset.addValue(2.0, "Series 1", "Category 2");
+        dataset.addValue(1.0, "Series 1", "Category 3");
+        dataset.addValue(3.0, "Series 1", "Category 4");
+        dataset.addValue(5.0, "Series 1", "Category 5");
+        dataset.addValue(2.0, "Series 2", "Category 1");
+        dataset.addValue(4.0, "Series 2", "Category 2");
+        dataset.addValue(4.0, "Series 2", "Category 3");
+        dataset.addValue(5.0, "Series 2", "Category 4");
+        dataset.addValue(2.0, "Series 2", "Category 5");
+        dataset.addValue(1.0, "Series 3", "Category 1");
+        dataset.addValue(3.0, "Series 3", "Category 2");
+        dataset.addValue(5.0, "Series 3", "Category 3");
+        dataset.addValue(2.0, "Series 3", "Category 4");
+        dataset.addValue(0.0, "Series 3", "Category 5");
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line(dataset, "Category", "Count",
+        CategoryLineChart chart = new CategoryLineChart(dataset, "Category", "Count",
                 "Line Chart Demo 8");
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+
         SymbolAxis rangeAxis = new SymbolAxis("Group", new String[]{"A", "B", "C", "D", "E", "F"});
-        plot.setRangeAxis(rangeAxis);
-        JChartUtils.applyCurrentTheme(chart);
-        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setSeriesShapesVisible(0, true);
-        renderer.setSeriesShapesVisible(1, false);
-        renderer.setSeriesShapesVisible(2, true);
-        renderer.setSeriesLinesVisible(2, false);
-        renderer.setSeriesShape(2, ShapeUtils.createDiamond(4.0F));
-        renderer.setDrawOutlines(true);
-        renderer.setUseFillPaint(true);
-        renderer.setDefaultFillPaint(Color.WHITE);
+        chart.setRangeAxis(rangeAxis);
+
+        chart.setSeriesShapesVisible(0, true);
+        chart.setSeriesShapesVisible(1, false);
+        chart.setSeriesShapesVisible(2, true);
+        chart.setSeriesLinesVisible(2, false);
+        chart.setSeriesShape(2, ShapeUtils.createDiamond(4.0F));
+        chart.setDrawOutlines(true);
+        chart.setUseFillPaint(true);
+        chart.setDefaultFillPaint(Color.WHITE);
         return chart;
     }
 

@@ -1,6 +1,7 @@
 package pdk.chart.plot;
 
 import org.junit.jupiter.api.Test;
+import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.TestUtils;
@@ -14,10 +15,10 @@ import pdk.chart.data.Range;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.event.MarkerChangeListener;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.category.*;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.util.DefaultShadowGenerator;
 
 import java.awt.*;
@@ -822,7 +823,7 @@ public class CategoryPlotTest {
     @Test
     public void test1654215() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+        Chart chart = new CategoryLineChart(dataset, "X", "Y", "Title",
                 PlotOrientation.VERTICAL, true, false);
         @SuppressWarnings("unchecked")
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();

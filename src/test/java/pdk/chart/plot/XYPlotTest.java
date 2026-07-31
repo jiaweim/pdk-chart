@@ -2,7 +2,7 @@ package pdk.chart.plot;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.TestUtils;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.api.Layer;
@@ -17,11 +17,11 @@ import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
 import pdk.chart.date.MonthConstants;
 import pdk.chart.event.MarkerChangeListener;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.renderer.xy.*;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.util.DefaultShadowGenerator;
 
 import java.awt.*;
@@ -696,7 +696,7 @@ public class XYPlotTest {
     public void testSerialization3() {
 
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-        Chart chart = JChart.line(dataset, "Domain Axis", "Range Axis",
+        Chart chart = new LineChart(dataset, "Domain Axis", "Range Axis",
                 "Test Chart");
         Chart chart2 = TestUtils.serialised(chart);
         assertEquals(chart, chart2);
@@ -715,7 +715,7 @@ public class XYPlotTest {
     public void testSerialization4() {
 
         XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
-        Chart chart = JChart.line(dataset, "Domain Axis", "Range Axis", "Test Chart");
+        Chart chart = new LineChart(dataset, "Domain Axis", "Range Axis", "Test Chart");
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.addDomainMarker(new ValueMarker(1.0), Layer.FOREGROUND);
         plot.addDomainMarker(new IntervalMarker(2.0, 3.0), Layer.BACKGROUND);
@@ -941,7 +941,7 @@ public class XYPlotTest {
     @Test
     public void test1654215() {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
-        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+        Chart chart = new LineChart(dataset, "X", "Y", "Title",
                 PlotOrientation.VERTICAL, true, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(1, new XYLineAndShapeRenderer());
@@ -963,7 +963,7 @@ public class XYPlotTest {
     @Test
     public void testDrawRangeGridlines() {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
-        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+        Chart chart = new LineChart(dataset, "X", "Y", "Title",
                 PlotOrientation.VERTICAL, true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(null);
@@ -987,7 +987,7 @@ public class XYPlotTest {
         DefaultXYDataset<String> dataset = new DefaultXYDataset<>();
         dataset.addSeries("Series 1", new double[][]{{1.0, 2.0}, {3.0, 4.0}});
         dataset.addSeries("Series 2", new double[][]{{}, {}});
-        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+        Chart chart = new LineChart(dataset, "X", "Y", "Title",
                 PlotOrientation.VERTICAL, true, false, false);
         try {
             BufferedImage image = new BufferedImage(200, 100,

@@ -53,7 +53,7 @@ public class StackedXYBarChartDemo3 extends ApplicationFrame {
                 AxisType.DATE, AxisType.NUMBER, "Waste Management",
                 "Year", "Tonnes",
                 PlotOrientation.VERTICAL, true, true);
-        chart.backgroundPaint(Color.WHITE);
+        chart.setBackgroundPaint(Color.WHITE);
         chart.addSubtitle(new TextTitle("St Albans City and District Council"));
 
         XYPlot plot = chart.getXYPlot();

@@ -2,13 +2,12 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -105,7 +104,7 @@ public class AnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> dataset) {
-        Chart chart = JChart.line(dataset, "Age in Months", "Weight (kg)");
+        LineChart chart = new LineChart(dataset, "Age in Months", "Weight (kg)");
         TextTitle t1 = new TextTitle("Growth Charts: United States",
                 new Font("SansSerif", Font.BOLD, 14));
         TextTitle t2 = new TextTitle("Weight-for-age percentiles: boys, birth to 36 months",
@@ -113,14 +112,14 @@ public class AnnotationDemo1 extends ApplicationFrame {
         chart.addSubtitle(t1);
         chart.addSubtitle(t2);
 
-        XYPlot<String> plot = chart.getXYPlot();
-        plot.pannable(true, true);
+        chart.setPannable(true, true);
 
-        plot.getDomainAxisAsNumber()
-                .upperMargin(0.12)
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getRangeAxisAsNumber()
-                .autoRangeIncludesZero(false);
+        NumberAxis domainAxis = chart.getDomainAxis();
+        domainAxis.setUpperMargin(0.12);
+        domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        NumberAxis rangeAxis = chart.getRangeAxis();
+        rangeAxis.setAutoRangeIncludesZero(false);
 
         Font font = new Font("SansSerif", Font.PLAIN, 9);
         String[] annoTexts = new String[]{
@@ -133,7 +132,7 @@ public class AnnotationDemo1 extends ApplicationFrame {
             XYTextAnnotation annotation = new XYTextAnnotation(annoTexts[i], 36.5, ys[i]);
             annotation.setFont(font);
             annotation.setTextAnchor(TextAnchor.HALF_ASCENT_LEFT);
-            plot.addAnnotation(annotation);
+            chart.addAnnotation(annotation);
         }
 
         JChartUtils.applyCurrentTheme(chart);

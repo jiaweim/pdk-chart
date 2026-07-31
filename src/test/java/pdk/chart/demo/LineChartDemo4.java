@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -22,7 +22,7 @@ public class LineChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y",
+        Chart chart = new LineChart(dataset, "X", "Y",
                 "Line Chart Demo 4");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainZeroBaselineVisible(true);

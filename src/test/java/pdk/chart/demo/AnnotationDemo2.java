@@ -1,9 +1,9 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
 import pdk.chart.Data;
-import pdk.chart.JChart;
+import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
@@ -67,7 +67,7 @@ public class AnnotationDemo2 extends ApplicationFrame {
 
     public static Chart createChart() {
         XYDataset<String> dataset = createDataset1();
-        Chart chart = JChart.line(dataset, "Date", "Price Per Unit", "Annotation Demo 2");
+        Chart chart = new LineChart(dataset, "Date", "Price Per Unit", "Annotation Demo 2");
         chart.removeLegend();
         XYPlot plot = chart.getXYPlot();
         plot.pannable(true, true);

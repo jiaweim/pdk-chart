@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.data.function.NormalDistributionFunction2D;
 import pdk.chart.data.xy.XYDataset;
@@ -45,7 +45,7 @@ public class NormalDistributionDemo2 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y",
+        Chart chart = new LineChart(dataset, "X", "Y",
                 "Normal Distributions");
         XYPlot plot = chart.getXYPlot();
         plot.rangeZeroBaselineVisible(true)

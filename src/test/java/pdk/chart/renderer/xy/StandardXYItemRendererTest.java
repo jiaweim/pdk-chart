@@ -2,8 +2,8 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ChartRenderingInfo;
+import pdk.chart.LineChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.UnitType;
@@ -12,10 +12,10 @@ import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.XYItemEntity;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -194,7 +194,7 @@ public class StandardXYItemRendererTest {
         XYSeries<String> s1 = new XYSeries<>("S1");
         s1.add(10.0, 10.0);
         dataset.addSeries(s1);
-        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+        Chart chart = new LineChart(dataset, "X", "Y", "Title",
                 PlotOrientation.VERTICAL, false, true, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
         plot.setRenderer(new StandardXYItemRenderer());

@@ -1,5 +1,6 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
@@ -267,7 +268,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart6(CategoryDataset dataset) {
-        Chart chart = JChart.line(dataset, "Release", "Class Count", "Java Standard Class Library",
+        Chart chart = new CategoryLineChart(dataset, "Release", "Class Count", "Java Standard Class Library",
                 PlotOrientation.VERTICAL, false, true);
         chart.addSubtitle(new TextTitle("Number of Classes By Release"));
         TextTitle source = new TextTitle("Source: Java In A Nutshell (4th Edition) by David Flanagan (O'Reilly)");

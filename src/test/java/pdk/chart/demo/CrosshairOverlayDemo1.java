@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.general.DatasetUtils;
@@ -21,7 +21,7 @@ import java.awt.geom.Rectangle2D;
 
 public class CrosshairOverlayDemo1 extends JFrame {
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.line(dataset, "X", "Y", "CrosshairOverlayDemo1");
+        LineChart chart = new LineChart(dataset, "X", "Y", "CrosshairOverlayDemo1");
         return chart;
     }
 

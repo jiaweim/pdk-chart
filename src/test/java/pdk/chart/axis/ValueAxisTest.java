@@ -1,9 +1,9 @@
 package pdk.chart.axis;
 
 import org.junit.jupiter.api.Test;
+import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
 import pdk.chart.ChartRenderingInfo;
-import pdk.chart.JChart;
 import pdk.chart.ScatterChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;
@@ -188,7 +188,7 @@ public class ValueAxisTest {
     @Test
     public void test3555275() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.line(dataset, "X", "Y", "Title",
+        Chart chart = new CategoryLineChart(dataset, "X", "Y", "Title",
                 PlotOrientation.VERTICAL, true, false, false);
         CategoryPlot<String, String> plot = (CategoryPlot) chart.getPlot();
         plot.setInsets(RectangleInsets.ZERO_INSETS);

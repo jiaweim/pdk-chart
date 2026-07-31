@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
@@ -42,7 +42,7 @@ public class MarkerDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset data) {
-        Chart chart = JChart.line(data, "X", "Temperature", "Marker Demo 2");
+        Chart chart = new LineChart(data, "X", "Temperature", "Marker Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         PeriodAxis domainAxis = new PeriodAxis(null, new Hour(0, 30, 6, 2005), new Hour(23, 30, 6, 2005));
         PeriodAxisLabelInfo[] info = new PeriodAxisLabelInfo[2];

@@ -14,8 +14,6 @@ import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.data.general.WaferMapDataset;
-import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
-import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.*;
 import pdk.chart.labels.*;
@@ -1189,155 +1187,6 @@ public abstract class JChart {
     }
 
     /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param categories categories of the dataset
-     * @param values     values of the dataset
-     * @return A line chart.
-     */
-    public static Chart line(String[] categories, double[] values) {
-        return line(Data.createCategory("", categories, values), null, null);
-    }
-
-    /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param dataset the dataset for the chart ({@code null} permitted).
-     * @return A line chart.
-     */
-    public static Chart line(CategoryDataset dataset) {
-        return line(dataset, null, null, null,
-                PlotOrientation.VERTICAL, dataset.getRowCount() > 1, true, false);
-    }
-
-    /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @return A line chart.
-     */
-    public static Chart line(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel) {
-        return line(dataset, categoryAxisLabel, valueAxisLabel, null,
-                PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @return A line chart.
-     */
-    public static Chart line(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title) {
-        return line(dataset, categoryAxisLabel, valueAxisLabel, title, PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the chart orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @return A line chart.
-     */
-    public static Chart line(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation) {
-        int rowCount = dataset.getRowCount();
-        return line(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, rowCount > 1, true, false);
-    }
-
-    /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the chart orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @return A line chart.
-     */
-    public static Chart line(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return line(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
-     *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the chart orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @param urls              configure chart to generate URLs?
-     * @return A line chart.
-     */
-    public static Chart line(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
-        ValueAxis valueAxis = new NumberAxis(valueAxisLabel);
-
-        LineAndShapeRenderer renderer = new LineAndShapeRenderer(true, false);
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
-        }
-        if (urls) {
-            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
-        }
-        CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, renderer);
-        plot.setOrientation(orientation);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
      * Creates a Gantt chart using the supplied attributes plus default values
      * where required.  The chart object returned by this method uses a
      * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
@@ -1880,29 +1729,6 @@ public abstract class JChart {
      * Creates a line chart (based on an {@link XYDataset}) with default
      * settings.
      *
-     * @param x x values.
-     * @param y y values.
-     * @return The chart.
-     */
-    public static Chart line(double[] x, double[] y) {
-        return line(Data.createXY("", x, y));
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param dataset the dataset for the chart ({@code null} permitted).
-     * @return The chart.
-     */
-    public static Chart line(XYDataset dataset) {
-        return line(dataset, null, null, null, PlotOrientation.VERTICAL, true, true);
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
      * @param dataset the dataset for the chart ({@code null} permitted).
      * @return The chart.
      */
@@ -1961,89 +1787,6 @@ public abstract class JChart {
             renderer.setURLGenerator(new StandardXYURLGenerator());
         }
 
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @return The chart.
-     */
-    public static Chart line(XYDataset dataset, String xAxisLabel, String yAxisLabel) {
-        return line(dataset, xAxisLabel, yAxisLabel, null);
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param title      the chart title.
-     * @param xAxisLabel a label for the X-axis.
-     * @param yAxisLabel a label for the Y-axis.
-     * @param dataset    the dataset for the chart.
-     * @return The chart.
-     */
-    public static Chart line(@Nullable XYDataset dataset,
-            @Nullable String xAxisLabel, @Nullable String yAxisLabel, @Nullable String title) {
-        return line(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return The chart.
-     */
-    public static Chart line(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return line(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
-     * @return The chart.
-     */
-    public static Chart line(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        XYItemRenderer renderer = new XYLineAndShapeRenderer(true, false);
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        plot.setOrientation(orientation);
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        }
-        if (urls) {
-            renderer.setURLGenerator(new StandardXYURLGenerator());
-        }
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;
@@ -2433,58 +2176,6 @@ public abstract class JChart {
         plot.setOrientation(orientation);
         plot.setDomainZeroBaselineVisible(true);
         plot.setRangeZeroBaselineVisible(true);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates and returns a default instance of a box and whisker chart.
-     *
-     * @param title             the chart title.
-     * @param categoryAxisLabel a label for the category axis.
-     * @param valueAxisLabel    a label for the value axis.
-     * @param dataset           the dataset for the chart.
-     * @param legend            a flag specifying whether a legend is required.
-     * @return A box and whisker chart.
-     */
-    public static Chart boxAndWhisker(@Nullable BoxAndWhiskerCategoryDataset dataset,
-            @Nullable String categoryAxisLabel,
-            @Nullable String valueAxisLabel, @Nullable String title, boolean legend) {
-
-        CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
-        NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
-        valueAxis.setAutoRangeIncludesZero(false);
-
-        BoxAndWhiskerRenderer renderer = new BoxAndWhiskerRenderer();
-        renderer.setDefaultToolTipGenerator(new BoxAndWhiskerToolTipGenerator());
-
-        CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, renderer);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates and returns a default instance of a box and whisker chart.
-     *
-     * @param title          the chart title ({@code null} permitted).
-     * @param timeAxisLabel  a label for the time axis ({@code null}
-     *                       permitted).
-     * @param valueAxisLabel a label for the value axis ({@code null}
-     *                       permitted).
-     * @param dataset        the dataset for the chart ({@code null} permitted).
-     * @param legend         a flag specifying whether a legend is required.
-     * @return A box and whisker chart.
-     */
-    public static Chart boxAndWhisker(BoxAndWhiskerXYDataset dataset, String timeAxisLabel, String valueAxisLabel,
-            String title, boolean legend) {
-
-        ValueAxis timeAxis = new DateAxis(timeAxisLabel);
-        NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
-        valueAxis.setAutoRangeIncludesZero(false);
-        XYBoxAndWhiskerRenderer renderer = new XYBoxAndWhiskerRenderer();
-        XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, renderer);
         Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
         currentTheme.apply(chart);
         return chart;

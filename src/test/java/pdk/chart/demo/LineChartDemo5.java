@@ -1,16 +1,14 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DefaultDrawingSupplier;
 import pdk.chart.plot.DrawingSupplier;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -68,27 +66,38 @@ public class LineChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.line(dataset, "Type", "Value", "Line Chart Demo 5");
+        CategoryLineChart chart = new CategoryLineChart(dataset, "Type", "Value", "Line Chart Demo 5");
+        chart.setOrientation(PlotOrientation.HORIZONTAL);
+
         Shape[] shapes = new Shape[3];
         int[] xpoints = new int[]{-3, 3, -3};
         int[] ypoints = new int[]{-3, 0, 3};
         shapes[0] = new Polygon(xpoints, ypoints, 3);
-        shapes[1] = new Rectangle2D.Double((double) -2.0F, (double) -3.0F, (double) 3.0F, (double) 6.0F);
+        shapes[1] = new Rectangle2D.Double(-2.0F, -3.0F, 3.0F, 6.0F);
         xpoints = new int[]{-3, 3, 3};
         ypoints = new int[]{0, -3, 3};
         shapes[2] = new Polygon(xpoints, ypoints, 3);
-        DrawingSupplier supplier = new DefaultDrawingSupplier(DefaultDrawingSupplier.DEFAULT_PAINT_SEQUENCE, DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE, DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE, DefaultDrawingSupplier.DEFAULT_OUTLINE_STROKE_SEQUENCE, shapes);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setOrientation(PlotOrientation.HORIZONTAL);
-        plot.setDrawingSupplier(supplier);
-        plot.getRenderer().setSeriesStroke(0, new BasicStroke(2.0F, 1, 1, 1.0F, new float[]{10.0F, 6.0F}, 0.0F));
-        plot.getRenderer().setSeriesStroke(1, new BasicStroke(2.0F, 1, 1, 1.0F, new float[]{6.0F, 6.0F}, 0.0F));
-        plot.getRenderer().setSeriesStroke(2, new BasicStroke(2.0F, 1, 1, 1.0F, new float[]{2.0F, 6.0F}, 0.0F));
-        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setDefaultShapesVisible(true);
-        renderer.setDefaultItemLabelsVisible(true);
-        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        DrawingSupplier supplier = new DefaultDrawingSupplier(
+                DefaultDrawingSupplier.DEFAULT_PAINT_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_OUTLINE_STROKE_SEQUENCE,
+                shapes);
+
+        chart.setDrawingSupplier(supplier);
+
+        chart.setSeriesStroke(0, new BasicStroke(2.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                1.0F, new float[]{10.0F, 6.0F}, 0.0F));
+        chart.setSeriesStroke(1, new BasicStroke(2.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                1.0F, new float[]{6.0F, 6.0F}, 0.0F));
+        chart.setSeriesStroke(2, new BasicStroke(2.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND,
+                1.0F, new float[]{2.0F, 6.0F}, 0.0F));
+
+        chart.setDefaultShapesVisible(true);
+        chart.setDefaultItemLabelsVisible(true);
+
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>());
+        NumberAxis rangeAxis = chart.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setAutoRangeIncludesZero(false);
         rangeAxis.setUpperMargin(0.12);
@@ -100,8 +109,8 @@ public class LineChartDemo5 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        LineChartDemo5 demo = new LineChartDemo5("Chart: LineChartDemo5.java");
+    static void main() {
+        LineChartDemo5 demo = new LineChartDemo5("LineChartDemo5.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

@@ -8,15 +8,15 @@ import pdk.chart.data.general.Dataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.JFreeChartEntity;
 import pdk.chart.event.*;
-import pdk.chart.util.Args;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.title.TextTitle;
 import pdk.chart.title.Title;
+import pdk.chart.util.Args;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -857,15 +857,27 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
     }
 
     /**
-     * Sets the paint used to fill the chart background and sends a
-     * {@link ChartChangeEvent} to all registered listeners.
+     * Sets the background color of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
      *
-     * @param paint the paint.
-     * @see #getBackgroundPaint()
+     * @param paint the paint ({@code null} permitted).
      */
-    public Chart backgroundPaint(@Nullable Paint paint) {
-        setBackgroundPaint(paint);
-        return this;
+    public void setPlotBackgroundPaint(Paint paint) {
+        plot.setBackgroundPaint(paint);
+    }
+
+    /**
+     * Sets the drawing supplier for the plot.
+     * <p>
+     * The drawing supplier is responsible for supplying a limitless (possibly repeating)
+     * sequence of {@code Paint}, {@code Stroke} and
+     * {@code Shape} objects that the plot's renderer(s) can use to
+     * populate its (their) tables.
+     *
+     * @param supplier the new supplier.
+     */
+    public void setDrawingSupplier(DrawingSupplier supplier) {
+        plot.setDrawingSupplier(supplier);
     }
 
     /**
