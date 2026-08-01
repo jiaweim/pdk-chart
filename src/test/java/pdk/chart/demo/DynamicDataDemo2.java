@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.time.Millisecond;
@@ -39,19 +40,20 @@ public class DynamicDataDemo2 extends ApplicationFrame {
     static class MyDemoPanel extends DemoPanel implements ActionListener {
         private final TimeSeries series1 = new TimeSeries("Random 1");
         private final TimeSeries series2 = new TimeSeries("Random 2");
-        private double lastValue1 = (double) 100.0F;
-        private double lastValue2 = (double) 500.0F;
+        private double lastValue1 = 100.0;
+        private double lastValue2 = 500.0;
 
         public MyDemoPanel() {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = new TimeSeriesCollection(this.series1);
             TimeSeriesCollection dataset2 = new TimeSeriesCollection(this.series2);
-            Chart chart = JChart.timeLine(dataset1, "Time", "Value", "Dynamic Data Demo 2");
+            Chart chart = new LineChart(dataset1, "Time", AxisType.DATE,
+                    "Value", "Dynamic Data Demo 2");
             this.addChart(chart);
             XYPlot plot = (XYPlot) chart.getPlot();
             ValueAxis axis = plot.getDomainAxis();
             axis.setAutoRange(true);
-            axis.setFixedAutoRange((double) 10000.0F);
+            axis.setFixedAutoRange(10000.0);
             plot.setDataset(1, dataset2);
             NumberAxis rangeAxis2 = new NumberAxis("Range Axis 2");
             rangeAxis2.setAutoRangeIncludesZero(false);

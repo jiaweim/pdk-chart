@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.BoxChart;
 import pdk.chart.Chart;
-import pdk.chart.XYChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.BoxAndWhiskerCalculator;
 import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
@@ -51,7 +51,7 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(BoxAndWhiskerXYDataset dataset) {
-        BoxChart chart = new BoxChart(dataset, XYChart.AxisType.DATE,
+        BoxChart chart = new BoxChart(dataset, AxisType.DATE,
                 "Day", "Value", "Box-and-Whisker Chart Demo 2", false);
         chart.setBackgroundPaint(Color.WHITE);
         chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);

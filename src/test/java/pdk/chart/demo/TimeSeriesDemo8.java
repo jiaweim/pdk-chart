@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.MovingAverage;
@@ -287,7 +288,8 @@ public class TimeSeriesDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Value", "Time Series Demo 8");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Value", "Time Series Demo 8");
         XYPlot plot = (XYPlot) chart.getPlot();
         NumberAxis yAxis2 = new NumberAxis((String) null);
         yAxis2.setAutoRangeIncludesZero(false);

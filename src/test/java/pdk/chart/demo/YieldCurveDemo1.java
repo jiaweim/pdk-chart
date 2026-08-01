@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisState;
@@ -60,7 +61,8 @@ public class YieldCurveDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Yield", "US$ Treasury Yields");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Yield", "US$ Treasury Yields");
         chart.removeLegend();
         XYPlot plot = (XYPlot) chart.getPlot();
         GregorianCalendar cal = new GregorianCalendar(2016, 2, 23);

@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -32,7 +32,7 @@ public class XYBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        return JChart.bar(dataset, "X", AxisType.NUMBER, "Y", "Sample");
+        return new BarChart(dataset, "X", AxisType.NUMBER, "Y", "Sample");
     }
 
     public static JPanel createDemoPanel() {

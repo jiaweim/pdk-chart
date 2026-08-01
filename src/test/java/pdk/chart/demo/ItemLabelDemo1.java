@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -37,7 +37,7 @@ public class ItemLabelDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Item Label Demo 1",
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Item Label Demo 1",
                 PlotOrientation.VERTICAL, false, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangePannable(true);

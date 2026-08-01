@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -30,7 +30,7 @@ public class BarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Score (%)", null);
+        Chart chart = new CategoryBarChart(dataset, "Category", "Score (%)", null);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.YELLOW);
 

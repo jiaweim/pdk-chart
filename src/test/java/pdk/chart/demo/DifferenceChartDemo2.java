@@ -1,8 +1,6 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.*;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.DateAxis;
@@ -793,8 +791,8 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Time",
-                "Daylight Hours - London, UK");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Time", "Daylight Hours - London, UK");
         chart.addSubtitle(new TextTitle("Data source: http://www.sunrisesunset.com/", new Font("SansSerif", 0, 12)));
         XYDifferenceRenderer renderer = new XYDifferenceRenderer(Color.BLUE, Color.BLUE, false);
         renderer.setRoundXCoordinates(true);
@@ -808,8 +806,8 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
         plot.setRangeCrosshairVisible(true);
         DateAxis domainAxis = new DateAxis("Time");
         domainAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
-        domainAxis.setLowerMargin((double) 0.0F);
-        domainAxis.setUpperMargin((double) 0.0F);
+        domainAxis.setLowerMargin(0.0);
+        domainAxis.setUpperMargin(0.0);
         plot.setDomainAxis(domainAxis);
         plot.setForegroundAlpha(0.5F);
         GradientPaint c = new GradientPaint(0.0F, 0.0F, Color.RED, 1.0F, 1.0F, Color.orange);

@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
@@ -35,7 +36,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
     private static Chart createChart() {
         XYDataset priceData = createPriceDataset();
         String title = "Eurodollar Futures Contract (MAR03)";
-        Chart chart = JChart.timeLine(priceData, "Date", "Price", title);
+        Chart chart = new LineChart(priceData, "Date", AxisType.DATE, "Price", title);
         XYPlot plot = (XYPlot) chart.getPlot();
         NumberAxis rangeAxis1 = (NumberAxis) plot.getRangeAxis();
         rangeAxis1.setLowerMargin(0.4);

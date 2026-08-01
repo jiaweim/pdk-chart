@@ -1,14 +1,12 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.StackedBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -37,16 +35,15 @@ public class StackedBarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Stacked Bar Chart Demo 6", "Category", "Value",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Stacked Bar Chart Demo 6", "Category", "Value",
                 PlotOrientation.HORIZONTAL, true, true);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
+        chart.setDrawBarOutline(false);
         long millis = System.currentTimeMillis();
-        renderer.setBase((double) millis);
+        chart.setBase((double) millis);
+
         DateAxis rangeAxis = new DateAxis("Date");
-        rangeAxis.setLowerMargin((double) 0.0F);
-        plot.setRangeAxis(rangeAxis);
+        rangeAxis.setLowerMargin(0.0F);
+        chart.setRangeAxis(rangeAxis);
         JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
@@ -56,7 +53,7 @@ public class StackedBarChartDemo6 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         StackedBarChartDemo6 demo = new StackedBarChartDemo6("Stacked Bar Chart Demo 6");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.ClusteredBarChart;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
@@ -48,8 +49,8 @@ public class XYBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.barCluster(dataset,
-                "Date", "Y", "XY Bar Chart Demo 2", true);
+        Chart chart = new ClusteredBarChart(dataset, "Date", AxisType.DATE,
+                "Y", AxisType.NUMBER, "XY Bar Chart Demo 2");
 
         XYPlot plot = chart.getXYPlot();
         plot.setDomainPannable(true);

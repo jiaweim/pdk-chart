@@ -1,11 +1,11 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.Data;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
@@ -51,7 +51,7 @@ public class BarChartDemo11 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, "License", "Percent", "Open Source Projects By License");
+        Chart chart = new CategoryBarChart(dataset, "License", "Percent", "Open Source Projects By License");
         chart.removeLegend();
 
         TextTitle source = new TextTitle("Source: http://www.blackducksoftware.com/resources/data/top-20-licenses (as at 30 Aug 2013)",

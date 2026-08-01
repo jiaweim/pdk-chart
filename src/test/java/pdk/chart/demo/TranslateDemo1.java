@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.Range;
 import pdk.chart.data.general.DatasetChangeEvent;
@@ -36,7 +37,7 @@ public class TranslateDemo1 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
+    static void main() {
         TranslateDemo1 demo = new TranslateDemo1("Translate Demo 1");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
@@ -73,7 +74,7 @@ public class TranslateDemo1 extends ApplicationFrame {
 
         private Chart createChart() {
             XYDataset dataset1 = this.createDataset("Random 1", (double) 100.0F, new Minute(), 200);
-            Chart chart1 = JChart.timeLine(dataset1, "Time of Day", "Value", "Translate Demo 1");
+            Chart chart1 = new LineChart(dataset1, "Time of Day", AxisType.DATE, "Value", "Translate Demo 1");
             XYPlot plot = (XYPlot) chart1.getPlot();
             plot.setOrientation(PlotOrientation.VERTICAL);
             plot.setDomainCrosshairVisible(true);
@@ -104,7 +105,7 @@ public class TranslateDemo1 extends ApplicationFrame {
 
         public void stateChanged(ChangeEvent event) {
             int value = this.slider.getValue();
-            this.dataset.setTranslate((double) (value * 60) * (double) 1000.0F);
+            this.dataset.setTranslate((value * 60) * 1000.0);
         }
 
         static class TranslatingXYDataset extends AbstractXYDataset implements XYDataset, DatasetChangeListener {
@@ -114,7 +115,7 @@ public class TranslateDemo1 extends ApplicationFrame {
             public TranslatingXYDataset(XYDataset underlying) {
                 this.underlying = underlying;
                 this.underlying.addChangeListener(this);
-                this.translate = (double) 0.0F;
+                this.translate = 0.0;
             }
 
             public double getTranslate() {

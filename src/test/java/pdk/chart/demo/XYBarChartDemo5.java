@@ -38,7 +38,7 @@ public class XYBarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.bar(dataset, "Year", AxisType.DATE,
+        Chart chart = new BarChart(dataset, "Year", AxisType.DATE,
                 "$ Billion", "US Budget Deficit",
                 PlotOrientation.VERTICAL, false, false);
         TextTitle source = new TextTitle("Source: http://www.cbo.gov/showdoc.cfm?index=1821&sequence=0#table12");

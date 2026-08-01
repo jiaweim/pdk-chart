@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -40,7 +40,7 @@ public class XYBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.bar(dataset, "Year", AxisType.DATE,
+        Chart chart = new BarChart(dataset, "Year", AxisType.DATE,
                 "Number of People",
                 "State Executions - USA",
                 PlotOrientation.VERTICAL, true, false);

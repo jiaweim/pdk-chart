@@ -209,6 +209,28 @@ public class DefaultCategoryDataset<R extends Comparable<R>, C extends Comparabl
     }
 
     /**
+     * Add a series of values to this dataset.
+     * <p>
+     * Adding data in bulk triggers the event only once, offering slightly
+     * better performance than adding data one by one.
+     *
+     * @param rowKey     the row key (series key).
+     * @param columnKeys the column keys.
+     * @param values     the values.
+     */
+    public void addSeries(R rowKey, C[] columnKeys, Number[] values) {
+        if (columnKeys.length != values.length) {
+            throw new IllegalArgumentException("The count of keys in columns is inconsistent with the number of values");
+        }
+
+        for (int i = 0; i < columnKeys.length; i++) {
+            this.data.addValue(values[i], rowKey, columnKeys[i]);
+        }
+
+        fireDatasetChanged();
+    }
+
+    /**
      * Adds or updates a value in the table and sends a
      * {@link DatasetChangeEvent} to all registered listeners.
      *

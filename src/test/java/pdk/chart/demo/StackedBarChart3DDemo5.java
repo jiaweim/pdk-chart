@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -25,27 +25,26 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
 
     private static CategoryDataset createDataset(int index) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, "Series 1", "Category 1");
-        dataset.addValue((double) 2.0F, "Series 1", "Category 2");
-        dataset.addValue((double) 1.5F, "Series 1", "Category 3");
-        dataset.addValue((double) 1.5F, "Series 1", "Category 4");
-        dataset.addValue((double) -1.0F, "Series 2", "Category 1");
+        dataset.addValue(1.0, "Series 1", "Category 1");
+        dataset.addValue(2.0, "Series 1", "Category 2");
+        dataset.addValue(1.5, "Series 1", "Category 3");
+        dataset.addValue(1.5, "Series 1", "Category 4");
+        dataset.addValue(-1.0, "Series 2", "Category 1");
         dataset.addValue(-1.9, "Series 2", "Category 2");
-        dataset.addValue((double) -1.5F, "Series 2", "Category 3");
-        dataset.addValue((double) -1.5F, "Series 2", "Category 4");
-        dataset.addValue((double) 1.0F, "Series 3", "Category 1");
+        dataset.addValue(-1.5, "Series 2", "Category 3");
+        dataset.addValue(-1.5, "Series 2", "Category 4");
+        dataset.addValue(1.0, "Series 3", "Category 1");
         dataset.addValue(1.9, "Series 3", "Category 2");
-        dataset.addValue((double) 1.5F, "Series 3", "Category 3");
-        dataset.addValue((double) 1.5F, "Series 3", "Category 4");
+        dataset.addValue(1.5, "Series 3", "Category 3");
+        dataset.addValue(1.5, "Series 3", "Category 4");
         return dataset;
     }
 
     private static Chart createChart(int index, CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Category", "Value", "Chart " + (index + 1),
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Category", "Value", "Chart " + (index + 1),
                 PlotOrientation.VERTICAL, false, false);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.getDomainAxis().setMaximumCategoryLabelLines(2);
-        ValueAxis rangeAxis = plot.getRangeAxis();
+        chart.getDomainAxis().setMaximumCategoryLabelLines(2);
+        ValueAxis rangeAxis = chart.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         return chart;
     }
@@ -54,7 +53,7 @@ public class StackedBarChart3DDemo5 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main() {
+    static void main() {
         StackedBarChart3DDemo5 demo = new StackedBarChart3DDemo5("Stacked Bar Chart 3D Demo 5");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

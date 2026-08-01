@@ -11,6 +11,7 @@ import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.ChartChangeListener;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
+import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYItemRenderer;
 
@@ -108,8 +109,9 @@ public class TimeSeriesChartTest {
         series1.add(2.0, 2.0);
         series1.add(3.0, 3.0);
         XYDataset<String> dataset = new XYSeriesCollection<>(series1);
-        return JChart.timeLine(dataset,
-                "Domain", "Range", "XY Line Chart", true, true, true);
+        return new LineChart(dataset,
+                "Domain", AxisType.DATE, "Range", "XY Line Chart", PlotOrientation.VERTICAL,
+                true, true, true);
     }
 
     /**

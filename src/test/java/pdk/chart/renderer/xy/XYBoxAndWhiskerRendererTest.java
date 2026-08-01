@@ -1,10 +1,10 @@
 package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
+import pdk.chart.AxisType;
 import pdk.chart.BoxChart;
 import pdk.chart.Chart;
 import pdk.chart.TestUtils;
-import pdk.chart.XYChart;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.data.statistics.BoxAndWhiskerItem;
 import pdk.chart.data.statistics.DefaultBoxAndWhiskerXYDataset;
@@ -114,7 +114,7 @@ public class XYBoxAndWhiskerRendererTest {
         DefaultBoxAndWhiskerXYDataset<String> d1 = new DefaultBoxAndWhiskerXYDataset<>("Series");
         d1.add(new Date(1L), new BoxAndWhiskerItem(1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
                 null, null, null));
-        Chart chart = new BoxChart(d1, XYChart.AxisType.DATE, "X",
+        Chart chart = new BoxChart(d1, AxisType.DATE, "X",
                 "Y", "Title", true);
         try {
             BufferedImage image = new BufferedImage(400, 200,

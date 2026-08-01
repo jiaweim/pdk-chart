@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.Hour;
@@ -47,7 +48,8 @@ public class TimeSeriesDemo4 extends ApplicationFrame {
 
     private static Chart createChart(XYDataset dataset) {
         String chartTitle = "₢₢₣₤₥₦₧₨₩₪";
-        Chart chart = JChart.timeLine(dataset, "Time", "Value", chartTitle);
+        Chart chart = new LineChart(dataset, "Time", AxisType.DATE,
+                "Value", chartTitle);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setInsets(new RectangleInsets(0.0, 0.0, 0.0, 20.0));
         Marker marker = new ValueMarker(700.0F);

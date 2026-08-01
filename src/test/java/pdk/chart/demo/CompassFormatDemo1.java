@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.*;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.RegularTimePeriod;
@@ -66,7 +67,8 @@ public class CompassFormatDemo1 extends ApplicationFrame {
 
     private static Chart createChart() {
         XYDataset direction = createDirectionDataset(600);
-        Chart chart = JChart.timeLine(direction, "Date", "Direction", "Time");
+        Chart chart = new LineChart(direction, "Date", AxisType.DATE,
+                "Direction", "Time");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

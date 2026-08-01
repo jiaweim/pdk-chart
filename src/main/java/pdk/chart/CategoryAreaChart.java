@@ -10,8 +10,6 @@ import pdk.chart.renderer.category.AreaRenderer;
 import pdk.chart.urls.StandardCategoryURLGenerator;
 import pdk.chart.util.Args;
 
-import java.awt.*;
-
 /**
  * Area chart with category domain axis.
  *
@@ -24,23 +22,6 @@ public class CategoryAreaChart extends CategoryChart {
     private final AreaRenderer renderer_;
     private final CategoryAxis domainAxis_;
     private final NumberAxis rangeAxis_;
-
-    public CategoryAreaChart(String title, Font titleFont, boolean createLegend) {
-        super(title, titleFont, createLegend);
-        renderer_ = new AreaRenderer();
-        renderer_.setEndType(AreaRendererEndType.LEVEL);
-        setDefaultRenderer(renderer_);
-
-        domainAxis_ = new CategoryAxis();
-        domainAxis_.setCategoryMargin(0.0);
-
-        rangeAxis_ = new NumberAxis();
-
-        plot_.setDomainAxis(domainAxis_);
-        plot_.setRangeAxis(rangeAxis_);
-        plot_.setRenderer(renderer_);
-        JChartUtils.applyCurrentTheme(this);
-    }
 
     /**
      * Creates an area chart with default settings.
@@ -59,8 +40,12 @@ public class CategoryAreaChart extends CategoryChart {
      */
     public CategoryAreaChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        this(title, DEFAULT_TITLE_FONT, legend);
+        super(title, legend);
         Args.nullNotPermitted(orientation, "orientation");
+
+        renderer_ = new AreaRenderer();
+        renderer_.setEndType(AreaRendererEndType.LEVEL);
+        setDefaultRenderer(renderer_);
 
         if (tooltips) {
             renderer_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -68,10 +53,17 @@ public class CategoryAreaChart extends CategoryChart {
         if (urls) {
             renderer_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
-        domainAxis_.setLabel(categoryAxisLabel);
-        rangeAxis_.setLabel(valueAxisLabel);
+
+        domainAxis_ = new CategoryAxis(categoryAxisLabel);
+        domainAxis_.setCategoryMargin(0.0);
+        rangeAxis_ = new NumberAxis(valueAxisLabel);
+
+        plot_.setDomainAxis(domainAxis_);
+        plot_.setRangeAxis(rangeAxis_);
+        plot_.setRenderer(renderer_);
         plot_.setOrientation(orientation);
         plot_.setDataset(dataset);
+        JChartUtils.applyCurrentTheme(this);
     }
 
     /**

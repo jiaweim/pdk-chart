@@ -206,7 +206,7 @@ public class NumberAxisTest {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
         dataset.setValue(100.0, "Row 1", "Column 1");
         dataset.setValue(200.0, "Row 1", "Column 2");
-        Chart chart = JChart.bar(dataset, "Categories",
+        Chart chart = new CategoryBarChart(dataset, "Categories",
                 "Value", "Test", PlotOrientation.VERTICAL, false, false,
                 false);
         @SuppressWarnings("unchecked")

@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.data.xy.IntervalXYDataset;
@@ -38,8 +38,7 @@ public class XYSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar(dataset,
-                "X", AxisType.NUMBER, "Y", "XY Series Demo 3");
+        Chart chart = new BarChart(dataset, "X", AxisType.NUMBER, "Y", "XY Series Demo 3");
 
         XYPlot plot = (XYPlot) chart.getPlot();
         IntervalMarker target = new IntervalMarker(400.0, 700.0);

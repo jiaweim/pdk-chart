@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickUnit;
 import pdk.chart.axis.DateTickUnitType;
@@ -30,7 +31,8 @@ public class TimeSeriesDemo13 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Value", "Weekly Data");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Value", "Weekly Data");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

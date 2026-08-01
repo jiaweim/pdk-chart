@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.SymbolAxis;
@@ -30,7 +30,7 @@ public class XYBarChartDemo7 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar(dataset,
+        Chart chart = new BarChart(dataset,
                 "Date", AxisType.DATE, "Y",
                 "XYBarChartDemo7", PlotOrientation.HORIZONTAL, true, false);
 

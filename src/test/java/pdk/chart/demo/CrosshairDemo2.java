@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.*;
 import pdk.chart.data.xy.XYDataset;
@@ -185,7 +186,8 @@ public class CrosshairDemo2 extends ApplicationFrame {
         }
 
         private Chart createChart() {
-            Chart chart = JChart.timeLine(null, "Time of Day", "Value", "Crosshair Demo 2");
+            Chart chart = new LineChart(null, "Time of Day", AxisType.DATE,
+                    "Value", "Crosshair Demo 2");
             XYPlot plot = (XYPlot) chart.getPlot();
             XYDataset[] datasets = new XYDataset[4];
 

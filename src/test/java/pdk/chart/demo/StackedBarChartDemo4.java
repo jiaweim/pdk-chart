@@ -1,17 +1,12 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.*;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Plot;
-import pdk.chart.renderer.category.GroupedStackedBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -60,53 +55,59 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Category", "Value",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Category", "Value",
                 "Stacked Bar Chart Demo 4");
-        GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         KeyToGroupMap<String, String> map = new KeyToGroupMap<>("G1");
         map.mapKeyToGroup("Product 1 (US)", "G1");
         map.mapKeyToGroup("Product 1 (Europe)", "G1");
         map.mapKeyToGroup("Product 1 (Asia)", "G1");
         map.mapKeyToGroup("Product 1 (Middle East)", "G1");
+
         map.mapKeyToGroup("Product 2 (US)", "G2");
         map.mapKeyToGroup("Product 2 (Europe)", "G2");
         map.mapKeyToGroup("Product 2 (Asia)", "G2");
         map.mapKeyToGroup("Product 2 (Middle East)", "G2");
+
         map.mapKeyToGroup("Product 3 (US)", "G3");
         map.mapKeyToGroup("Product 3 (Europe)", "G3");
         map.mapKeyToGroup("Product 3 (Asia)", "G3");
         map.mapKeyToGroup("Product 3 (Middle East)", "G3");
-        renderer.setSeriesToGroupMap(map);
-        renderer.setItemMargin(0.1);
-        renderer.setDrawBarOutline(false);
+
+        chart.setSeriesToGroupMap(map);
+        chart.setItemMargin(0.1);
+        chart.setDrawBarOutline(false);
+
         SubCategoryAxis domainAxis = new SubCategoryAxis("Product / Month");
         domainAxis.setCategoryMargin(0.05);
         domainAxis.addSubCategory("Product 1");
         domainAxis.addSubCategory("Product 2");
         domainAxis.addSubCategory("Product 3");
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setDomainAxis(domainAxis);
-        plot.setRenderer(renderer);
-        plot.setFixedLegendItems(createLegendItems());
+
+        chart.setDomainAxis(domainAxis);
+        chart.setFixedLegendItems(createLegendItems());
+
         JChartUtils.applyCurrentTheme(chart);
         domainAxis.setSubLabelFont(new Font("Tahoma", Font.ITALIC, 10));
         Paint p1 = new GradientPaint(0.0F, 0.0F, new Color(34, 34, 255), 0.0F, 0.0F, new Color(136, 136, 255));
-        renderer.setSeriesPaint(0, p1);
-        renderer.setSeriesPaint(4, p1);
-        renderer.setSeriesPaint(8, p1);
+        chart.setSeriesPaint(0, p1);
+        chart.setSeriesPaint(4, p1);
+        chart.setSeriesPaint(8, p1);
+
         Paint p2 = new GradientPaint(0.0F, 0.0F, new Color(34, 255, 34), 0.0F, 0.0F, new Color(136, 255, 136));
-        renderer.setSeriesPaint(1, p2);
-        renderer.setSeriesPaint(5, p2);
-        renderer.setSeriesPaint(9, p2);
+        chart.setSeriesPaint(1, p2);
+        chart.setSeriesPaint(5, p2);
+        chart.setSeriesPaint(9, p2);
+
         Paint p3 = new GradientPaint(0.0F, 0.0F, new Color(255, 34, 34), 0.0F, 0.0F, new Color(255, 136, 136));
-        renderer.setSeriesPaint(2, p3);
-        renderer.setSeriesPaint(6, p3);
-        renderer.setSeriesPaint(10, p3);
+        chart.setSeriesPaint(2, p3);
+        chart.setSeriesPaint(6, p3);
+        chart.setSeriesPaint(10, p3);
         Paint p4 = new GradientPaint(0.0F, 0.0F, new Color(255, 255, 34), 0.0F, 0.0F, new Color(255, 255, 136));
-        renderer.setSeriesPaint(3, p4);
-        renderer.setSeriesPaint(7, p4);
-        renderer.setSeriesPaint(11, p4);
-        renderer.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL));
+        chart.setSeriesPaint(3, p4);
+        chart.setSeriesPaint(7, p4);
+        chart.setSeriesPaint(11, p4);
+
+        chart.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL));
         return chart;
     }
 

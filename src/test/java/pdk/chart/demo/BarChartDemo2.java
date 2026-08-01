@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -42,7 +42,7 @@ public class BarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Score (%)", "Bar Chart Demo 2");
+        Chart chart = new CategoryBarChart(dataset, "Category", "Score (%)", "Bar Chart Demo 2");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.orientation(PlotOrientation.HORIZONTAL)
                 .rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);

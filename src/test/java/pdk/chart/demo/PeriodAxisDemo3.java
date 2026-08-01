@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.PeriodAxis;
@@ -30,7 +30,7 @@ public class PeriodAxisDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Day", AxisType.DATE, "Temperature", "Maximum Temperature");
+        Chart chart = new BarChart(dataset, "Day", AxisType.DATE, "Temperature", "Maximum Temperature");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);

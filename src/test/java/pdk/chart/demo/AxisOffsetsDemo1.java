@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -33,26 +33,26 @@ public class AxisOffsetsDemo1 extends ApplicationFrame {
         String category4 = "C4";
         String category5 = "C5";
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 1.0F, series1, category1);
-        dataset.addValue((double) 4.0F, series1, category2);
-        dataset.addValue((double) 3.0F, series1, category3);
-        dataset.addValue((double) 5.0F, series1, category4);
-        dataset.addValue((double) 5.0F, series1, category5);
-        dataset.addValue((double) 5.0F, series2, category1);
-        dataset.addValue((double) 7.0F, series2, category2);
-        dataset.addValue((double) 6.0F, series2, category3);
-        dataset.addValue((double) 8.0F, series2, category4);
-        dataset.addValue((double) 4.0F, series2, category5);
-        dataset.addValue((double) 4.0F, series3, category1);
-        dataset.addValue((double) 3.0F, series3, category2);
-        dataset.addValue((double) 2.0F, series3, category3);
-        dataset.addValue((double) 3.0F, series3, category4);
-        dataset.addValue((double) 6.0F, series3, category5);
+        dataset.addValue(1.0F, series1, category1);
+        dataset.addValue(4.0F, series1, category2);
+        dataset.addValue(3.0F, series1, category3);
+        dataset.addValue(5.0F, series1, category4);
+        dataset.addValue(5.0F, series1, category5);
+        dataset.addValue(5.0F, series2, category1);
+        dataset.addValue(7.0F, series2, category2);
+        dataset.addValue(6.0F, series2, category3);
+        dataset.addValue(8.0F, series2, category4);
+        dataset.addValue(4.0F, series2, category5);
+        dataset.addValue(4.0F, series3, category1);
+        dataset.addValue(3.0F, series3, category2);
+        dataset.addValue(2.0F, series3, category3);
+        dataset.addValue(3.0F, series3, category4);
+        dataset.addValue(6.0F, series3, category5);
         return dataset;
     }
 
     private static Chart createChart(String title, CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", title);
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", title);
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
@@ -81,7 +81,7 @@ public class AxisOffsetsDemo1 extends ApplicationFrame {
         panel2.setMinimumDrawWidth(0);
         panel2.setMinimumDrawHeight(0);
         CategoryPlot plot2 = (CategoryPlot) chart2.getPlot();
-        plot2.setAxisOffset(new RectangleInsets((double) 5.0F, (double) 5.0F, (double) 5.0F, (double) 5.0F));
+        plot2.setAxisOffset(new RectangleInsets(5.0));
         DemoPanel demoPanel = new DemoPanel(new GridLayout(2, 1));
         demoPanel.add(panel1);
         demoPanel.add(panel2);
@@ -90,8 +90,8 @@ public class AxisOffsetsDemo1 extends ApplicationFrame {
         return demoPanel;
     }
 
-    public static void main(String[] args) {
-        AxisOffsetsDemo1 demo = new AxisOffsetsDemo1("Chart: AxisOffsetsDemo1.java");
+    static void main() {
+        AxisOffsetsDemo1 demo = new AxisOffsetsDemo1("AxisOffsetsDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

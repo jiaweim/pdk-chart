@@ -6,6 +6,7 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.plot.Plot;
+import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYAreaRenderer;
 import pdk.chart.renderer.xy.XYItemRenderer;
@@ -20,11 +21,6 @@ import java.awt.*;
  * @since 31 Jul 2026, 8:19 AM
  */
 public class XYChart extends Chart {
-
-    public enum AxisType {
-        NUMBER,
-        DATE
-    }
 
     public enum ChartType {
         LINE,
@@ -78,6 +74,16 @@ public class XYChart extends Chart {
         int datasetCount = plot_.getDatasetCount();
         plot_.setDataset(datasetCount, dataset);
         plot_.setRenderer(datasetCount, renderer);
+    }
+
+    /**
+     * Sets the orientation for the plot and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param orientation the orientation ({@code null} not allowed).
+     */
+    public void setOrientation(PlotOrientation orientation) {
+        plot_.setOrientation(orientation);
     }
 
     /**
@@ -225,7 +231,11 @@ public class XYChart extends Chart {
         plot_.setRangeGridlinePaint(paint);
     }
 
-    public NumberAxis getDomainAxis() {
+    public ValueAxis getDomainAxis() {
+        return plot_.getDomainAxis();
+    }
+
+    public NumberAxis getNumberDomainAxis() {
         ValueAxis domainAxis = plot_.getDomainAxis();
         if (domainAxis instanceof NumberAxis nAxis) {
             return nAxis;

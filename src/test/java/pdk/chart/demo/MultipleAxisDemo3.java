@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Minute;
@@ -29,9 +30,9 @@ public class MultipleAxisDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart() {
-        XYDataset dataset1 = createDataset("Series 1", (double) 100.0F, new Minute(), 200);
-        Chart chart = JChart.timeLine(dataset1, "Time of Day", "Primary Range Axis",
-                "Multiple Axis Demo 3");
+        XYDataset dataset1 = createDataset("Series 1", 100.0, new Minute(), 200);
+        Chart chart = new LineChart(dataset1, "Time of Day", AxisType.DATE,
+                "Primary Range Axis", "Multiple Axis Demo 3");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setOrientation(PlotOrientation.VERTICAL);
         NumberAxis xAxis2 = new NumberAxis("Domain Axis 2");
@@ -45,7 +46,7 @@ public class MultipleAxisDemo3 extends ApplicationFrame {
         NumberAxis yAxis2 = new NumberAxis("Range Axis 2");
         plot.setRangeAxis(1, yAxis2);
         plot.setRangeAxisLocation(1, AxisLocation.BOTTOM_OR_RIGHT);
-        XYDataset dataset2 = createDataset("Series 2", (double) 1000.0F, new Minute(), 170);
+        XYDataset dataset2 = createDataset("Series 2", 1000.0, new Minute(), 170);
         plot.setDataset(1, dataset2);
         plot.mapDatasetToDomainAxis(1, 1);
         plot.mapDatasetToRangeAxis(1, 1);

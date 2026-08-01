@@ -1,14 +1,13 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -42,22 +41,21 @@ public class StackedBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Category", "Value",
-                "Stacked Bar Chart Demo 3",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset,
+                "Category", "Value", "Stacked Bar Chart Demo 3",
                 PlotOrientation.VERTICAL, true, false);
 
-        CategoryPlot plot = chart.getCategoryPlot();
         ExtendedStackedBarRenderer renderer = new ExtendedStackedBarRenderer();
         renderer.defaultItemLabelsVisible(true)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
-        plot.setRenderer(renderer);
+        chart.setRenderer(renderer);
 
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .lowerMargin(0.15)
-                .upperMargin(0.15)
-                .numberFormatOverride(NumberFormat.getPercentInstance());
+        NumberAxis yAxis = (NumberAxis) chart.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        yAxis.setLowerMargin(0.15);
+        yAxis.setUpperMargin(0.15);
+        yAxis.setNumberFormatOverride(NumberFormat.getPercentInstance());
 
         JChartUtils.applyCurrentTheme(chart);
         return chart;

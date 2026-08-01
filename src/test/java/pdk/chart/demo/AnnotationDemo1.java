@@ -114,7 +114,7 @@ public class AnnotationDemo1 extends ApplicationFrame {
 
         chart.setPannable(true, true);
 
-        NumberAxis domainAxis = chart.getDomainAxis();
+        NumberAxis domainAxis = chart.getNumberDomainAxis();
         domainAxis.setUpperMargin(0.12);
         domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 

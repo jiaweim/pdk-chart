@@ -29,7 +29,6 @@ import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.renderer.xy.DeviationRenderer;
-import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.UIUtils;
 import pdk.chart.title.TextTitle;
@@ -133,7 +132,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart3(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Country", "%",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Country", "%",
                 "Public Opinion : Torture of Prisoners",
                 PlotOrientation.HORIZONTAL, false, true);
         chart.getTitle().setMargin(2.0F, 0.0F, 0.0F, 0.0F);
@@ -145,32 +144,37 @@ public class ThumbnailDemo1 extends ApplicationFrame {
         TextTitle t = new TextTitle("(*) Across 27,000 respondents in 25 countries", new Font("Dialog", 0, 11));
         t.setPosition(RectangleEdge.BOTTOM);
         t.setHorizontalAlignment(HorizontalAlignment.RIGHT);
-        t.setMargin(4.0F, 0.0F, (double) 2.0F, (double) 4.0F);
+        t.setMargin(4.0, 0.0, 2.0, 4.0);
         chart.addSubtitle(t);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
+
         LegendItemCollection items = new LegendItemCollection();
-        items.add(new LegendItem("Against all torture", (String) null, (String) null, (String) null, new Rectangle2D.Double((double) -6.0F, (double) -3.0F, (double) 12.0F, (double) 6.0F), Color.GREEN));
-        items.add(new LegendItem("Some degree permissible", (String) null, (String) null, (String) null, new Rectangle2D.Double((double) -6.0F, (double) -3.0F, (double) 12.0F, (double) 6.0F), Color.RED));
-        plot.setFixedLegendItems(items);
-        plot.setInsets(new RectangleInsets((double) 5.0F, (double) 5.0F, (double) 5.0F, (double) 20.0F));
-        LegendTitle legend = new LegendTitle(plot);
+        items.add(new LegendItem("Against all torture", null, null, null,
+                new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.GREEN));
+        items.add(new LegendItem("Some degree permissible", null, null, null,
+                new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.RED));
+        chart.setFixedLegendItems(items);
+
+        chart.setPlotInsets(new RectangleInsets(5.0, 5.0, 5.0, 20.0));
+        LegendTitle legend = new LegendTitle(chart.getPlot());
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
-        plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setDomainGridlinePaint(Color.WHITE);
-        plot.setDomainGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.WHITE);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+
+        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
+        chart.setDomainGridlinePaint(Color.WHITE);
+        chart.setDomainGridlinesVisible(true);
+        chart.setRangeGridlinePaint(Color.WHITE);
+
+        NumberAxis rangeAxis = (NumberAxis) chart.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        rangeAxis.setUpperMargin((double) 0.0F);
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
+        rangeAxis.setUpperMargin(0.0F);
+
+        chart.setDrawBarOutline(false);
         GradientPaint gp0 = new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0));
         Paint gp1 = new Color(0, 0, 0, 0);
         GradientPaint gp2 = new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0));
-        renderer.setSeriesPaint(0, gp0);
-        renderer.setSeriesPaint(1, gp1);
-        renderer.setSeriesPaint(2, gp2);
+        chart.setSeriesPaint(0, gp0);
+        chart.setSeriesPaint(1, gp1);
+        chart.setSeriesPaint(2, gp2);
         return chart;
     }
 
@@ -198,8 +202,8 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart4(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Index Projection",
-                "Projected Values - Test");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Index Projection", "Projected Values - Test");
         chart.setBackgroundPaint(Color.WHITE);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setInsets(new RectangleInsets(5.0, 5.0, 5.0, 20.0));
@@ -241,16 +245,14 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart5(IntervalXYDataset dataset) {
-        Chart chart = JChart.histogram(dataset, null, null, "Histogram Demo 1",
+        BarChart chart = new BarChart(dataset, null, null, "Histogram Demo 1",
                 PlotOrientation.VERTICAL, true, true);
         chart.setBackgroundPaint(Color.WHITE);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setDomainGridlinePaint(Color.WHITE);
-        plot.setRangeGridlinePaint(Color.WHITE);
-        plot.setForegroundAlpha(0.85F);
-        XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
+        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
+        chart.setDomainGridlinePaint(Color.WHITE);
+        chart.setRangeGridlinePaint(Color.WHITE);
+        chart.setForegroundAlpha(0.85f);
+        chart.setDrawBarOutline(false);
         return chart;
     }
 

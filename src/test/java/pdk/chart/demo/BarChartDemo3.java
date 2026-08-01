@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.api.Layer;
 import pdk.chart.api.LengthAdjustmentType;
@@ -49,7 +49,7 @@ public class BarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 3");
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 3");
         chart.removeLegend();
         CategoryPlot<String, String> plot = chart.getCategoryPlot();
         plot.setNoDataMessage("NO DATA!");

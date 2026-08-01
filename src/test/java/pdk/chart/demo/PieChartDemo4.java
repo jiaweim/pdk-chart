@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.PieChart;
 import pdk.chart.api.SortOrder;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
@@ -39,7 +39,7 @@ public class PieChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = JChart.pie(dataset, "Pie Chart Demo 4");
+        Chart chart = new PieChart(dataset, "Pie Chart Demo 4");
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setNoDataMessage("No data available");
         plot.setCircular(false);

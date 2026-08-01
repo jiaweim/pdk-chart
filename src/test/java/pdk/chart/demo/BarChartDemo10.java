@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -34,7 +34,7 @@ public class BarChartDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 10");
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 10");
         CategoryPlot plot = chart.getCategoryPlot();
         plot.domainGridlinesVisible(true);
 

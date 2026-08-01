@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -53,7 +53,7 @@ public class MouseOverDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Mouseover Demo 1");
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Mouseover Demo 1");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainGridlinesVisible(true);
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();

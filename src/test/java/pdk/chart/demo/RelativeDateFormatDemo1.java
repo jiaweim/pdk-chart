@@ -1,9 +1,6 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.*;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.Second;
 import pdk.chart.data.xy.XYDataset;
@@ -34,7 +31,8 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> dataset) {
-        Chart chart = JChart.timeLine(dataset, "Elapsed Time", "Beats Per Minute", "Exercise Chart");
+        Chart chart = new LineChart(dataset, "Elapsed Time", AxisType.DATE,
+                "Beats Per Minute", "Exercise Chart");
         XYPlot plot = chart.getXYPlot();
         plot.domainCrosshairVisible(true)
                 .rangeCrosshairVisible(true);

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
@@ -29,7 +29,7 @@ public class DualAxisDemo4 extends ApplicationFrame {
 
     private static Chart createChart() {
         CategoryDataset dataset1 = createDataset1();
-        Chart chart = JChart.bar(dataset1, "Category", "Value", "Dual Axis Chart");
+        Chart chart = new CategoryBarChart(dataset1, "Category", "Value", "Dual Axis Chart");
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setDomainAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
         plot.setRangeAxisLocation(AxisLocation.TOP_OR_LEFT);

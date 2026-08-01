@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -35,7 +35,7 @@ public class ParetoChartDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(CategoryDataset[] datasets) {
-        Chart chart = JChart.bar(datasets[0], (String) null, "Index Value", "TIOBE Index of Programming Languages");
+        Chart chart = new CategoryBarChart(datasets[0], null, "Index Value", "TIOBE Index of Programming Languages");
         chart.addSubtitle(new TextTitle("As at August 2013"));
         chart.removeLegend();
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
@@ -86,8 +86,8 @@ public class ParetoChartDemo1 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
-        ParetoChartDemo1 demo = new ParetoChartDemo1("Chart: ParetoChartDemo1.java");
+    public static void main() {
+        ParetoChartDemo1 demo = new ParetoChartDemo1("ParetoChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

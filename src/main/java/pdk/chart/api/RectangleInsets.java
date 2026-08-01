@@ -48,10 +48,17 @@ public class RectangleInsets implements Serializable {
     private double right;
 
     /**
-     * Creates a new instance with all insets initialised to {@code 1.0}.
+     * Creates a new instance with all insets initialized to {@code 1.0}.
      */
     public RectangleInsets() {
         this(1.0, 1.0, 1.0, 1.0);
+    }
+
+    /**
+     * Creates a new instance with all insets initialized to {@code inset}.
+     */
+    public RectangleInsets(double inset) {
+        this(inset, inset, inset, inset);
     }
 
     /**

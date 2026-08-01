@@ -1,13 +1,11 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.StackedBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -32,26 +30,25 @@ public class StackedBarChartDemo7 extends ApplicationFrame {
         dataset.addValue(43.2, "Series 1", "Category 2");
         dataset.addValue(15.6, "Series 2", "Category 2");
         dataset.addValue(18.3, "Series 3", "Category 2");
-        dataset.addValue((double) 23.0F, "Series 1", "Category 3");
+        dataset.addValue(23.0, "Series 1", "Category 3");
         dataset.addValue(111.3, "Series 2", "Category 3");
-        dataset.addValue((double) 25.5F, "Series 3", "Category 3");
-        dataset.addValue((double) 13.0F, "Series 1", "Category 4");
+        dataset.addValue(25.5, "Series 3", "Category 3");
+        dataset.addValue(13.0, "Series 1", "Category 4");
         dataset.addValue(11.8, "Series 2", "Category 4");
-        dataset.addValue((double) 29.5F, "Series 3", "Category 4");
+        dataset.addValue(29.5, "Series 3", "Category 4");
         return dataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Category", "Value",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Category", "Value",
                 "Stacked Bar Chart Demo 7");
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        NumberAxis rangeAxis = (NumberAxis) chart.getRangeAxis();
         rangeAxis.setNumberFormatOverride(NumberFormat.getPercentInstance());
-        StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
-        renderer.setRenderAsPercentages(true);
-        renderer.setDrawBarOutline(false);
-        renderer.setDefaultItemLabelsVisible(true);
-        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+
+        chart.setRenderAsPercentages(true);
+        chart.setDrawBarOutline(false);
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>());
         return chart;
     }
 
@@ -60,7 +57,7 @@ public class StackedBarChartDemo7 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         StackedBarChartDemo7 demo = new StackedBarChartDemo7("Stacked Bar Chart Demo 7");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

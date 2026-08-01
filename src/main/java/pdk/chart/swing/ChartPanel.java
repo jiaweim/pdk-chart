@@ -10,10 +10,10 @@ import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.ChartChangeListener;
 import pdk.chart.event.ChartProgressEvent;
 import pdk.chart.event.ChartProgressListener;
-import pdk.chart.util.Args;
 import pdk.chart.plot.*;
 import pdk.chart.swing.editor.ChartEditor;
 import pdk.chart.swing.editor.ChartEditorManager;
+import pdk.chart.util.Args;
 
 import javax.swing.*;
 import javax.swing.event.EventListenerList;
@@ -1726,15 +1726,12 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
             if (plot instanceof Pannable) {
                 Pannable pannable = (Pannable) plot;
                 if (pannable.isDomainPannable() || pannable.isRangePannable()) {
-                    Rectangle2D screenDataArea = getScreenDataArea(e.getX(),
-                            e.getY());
-                    if (screenDataArea != null && screenDataArea.contains(
-                            e.getPoint())) {
+                    Rectangle2D screenDataArea = getScreenDataArea(e.getX(), e.getY());
+                    if (screenDataArea != null && screenDataArea.contains(e.getPoint())) {
                         this.panW = screenDataArea.getWidth();
                         this.panH = screenDataArea.getHeight();
                         this.panLast = e.getPoint();
-                        setCursor(Cursor.getPredefinedCursor(
-                                Cursor.MOVE_CURSOR));
+                        setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
                     }
                 }
                 // the actual panning occurs later in the mouseDragged() 
@@ -1744,8 +1741,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
             if ((mods & MODIFIERS_EX_MASK) == zoomButtonMasks.getOrDefault(button, zoomMask)) {
                 Rectangle2D screenDataArea = getScreenDataArea(e.getX(), e.getY());
                 if (screenDataArea != null) {
-                    Point2D zoomPoint = getPointInRectangle(e.getX(), e.getY(),
-                            screenDataArea);
+                    Point2D zoomPoint = getPointInRectangle(e.getX(), e.getY(), screenDataArea);
                     selectionZoomStrategy.setZoomPoint(zoomPoint);
                 } else {
                     selectionZoomStrategy.setZoomPoint(null);
@@ -1769,8 +1765,8 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
      * @return A point within the rectangle.
      */
     protected Point2D getPointInRectangle(int x, int y, Rectangle2D area) {
-        double xx = Math.max(area.getMinX(), Math.min(x, area.getMaxX()));
-        double yy = Math.max(area.getMinY(), Math.min(y, area.getMaxY()));
+        double xx = Math.clamp(x, area.getMinX(), area.getMaxX());
+        double yy = Math.clamp(y, area.getMinY(), area.getMaxY());
         return new Point2D.Double(xx, yy);
     }
 

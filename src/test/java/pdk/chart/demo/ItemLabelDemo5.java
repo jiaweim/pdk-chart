@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -9,7 +9,6 @@ import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DefaultDrawingSupplier;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.StackedBarRenderer;
@@ -41,28 +40,27 @@ public class ItemLabelDemo5 extends ApplicationFrame {
         categoryDataset.addValue(14.28, "Greece", "Southern EU");
         categoryDataset.addValue(14.28, "Italy", "Southern EU");
         categoryDataset.addValue(14.28, "Portugal", "Southern EU");
-        categoryDataset.addValue((double) 100.0F, "Czech Republic", "Eastern EU");
+        categoryDataset.addValue(100.0, "Czech Republic", "Eastern EU");
         categoryDataset.addValue(66.66, "Denmark", "Scandinavia");
         categoryDataset.addValue(33.33, "Finland", "Scandinavia");
-        categoryDataset.addValue((double) 0.0F, "", "Africa");
-        categoryDataset.addValue((double) 100.0F, "Israel", "Asia");
+        categoryDataset.addValue(0.0, "", "Africa");
+        categoryDataset.addValue(100.0, "Israel", "Asia");
         return categoryDataset;
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, (String) null, (String) null, "Item Label Demo 5",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, null, null, "Item Label Demo 5",
                 PlotOrientation.VERTICAL, false, true);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
         MyStackedBarRenderer renderer = new MyStackedBarRenderer();
-        plot.setRenderer(renderer);
+        chart.setRenderer(renderer);
         ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, (double) 0.0F);
         renderer.setPositiveItemLabelPositionFallback(position);
         renderer.setNegativeItemLabelPositionFallback(position);
         StandardCategoryItemLabelGenerator scilg = new StandardCategoryItemLabelGenerator("{0}", NumberFormat.getInstance());
         renderer.setDefaultItemLabelGenerator(scilg);
         renderer.setDefaultItemLabelsVisible(true);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setUpperBound((double) 100.0F);
+        NumberAxis rangeAxis = (NumberAxis) chart.getRangeAxis();
+        rangeAxis.setUpperBound(100.0);
         JChartUtils.applyCurrentTheme(chart);
         return chart;
     }
@@ -72,7 +70,7 @@ public class ItemLabelDemo5 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main() {
+    static void main() {
         ItemLabelDemo5 demo = new ItemLabelDemo5("ItemLabelDemo5.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

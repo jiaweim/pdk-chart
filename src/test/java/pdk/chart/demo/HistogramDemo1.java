@@ -1,13 +1,11 @@
 package pdk.chart.demo;
 
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.StandardXYBarPainter;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -54,19 +52,16 @@ public class HistogramDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.histogram(dataset, null, null, "Histogram Demo 1",
+        BarChart chart = new BarChart(dataset, null, null, "Histogram Demo 1",
                 PlotOrientation.VERTICAL, true, true, false);
+        chart.setPannable(true, true);
+        chart.setForegroundAlpha(0.85f);
 
-        XYPlot plot = chart.getXYPlot();
-        plot.domainPannable(true)
-                .rangePannable(true)
-                .foregroundAlpha(0.85f);
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getBarRenderer()
-                .drawBarOutline(false)
-                .barPainter(new StandardXYBarPainter())
-                .shadowVisible(false);
+        NumberAxis yAxis = chart.getRangeAxis();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.setDrawBarOutline(false);
+        chart.setShadowVisible(false);
         return chart;
     }
 

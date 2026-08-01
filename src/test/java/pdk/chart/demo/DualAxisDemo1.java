@@ -67,7 +67,7 @@ public class DualAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart() {
-        Chart chart = JChart.bar(createDataset1(), "Category", "Value", "DualAxisDemo1");
+        Chart chart = new CategoryBarChart(createDataset1(), "Category", "Value", "DualAxisDemo1");
         chart.removeLegend();
 
         CategoryPlot plot = chart.getCategoryPlot();

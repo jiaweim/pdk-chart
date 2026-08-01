@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -10,7 +10,6 @@ import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.StackedBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -71,19 +70,19 @@ public class StackedBarChart3DDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.barStacked(dataset, "Category", "Value",
-                "Stacked Bar Chart 3D Demo 4",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset,
+                "Category", "Value", "Stacked Bar Chart 3D Demo 4",
                 PlotOrientation.HORIZONTAL, true, true);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        NumberAxis yAxis = (NumberAxis) chart.getRangeAxis();
         yAxis.setNumberFormatOverride(new DecimalFormat("0%"));
-        StackedBarRenderer renderer = (StackedBarRenderer) plot.getRenderer();
-        renderer.setRenderAsPercentages(true);
-        renderer.setDrawBarOutline(false);
-        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator("{3}", NumberFormat.getIntegerInstance(), new DecimalFormat("0.0%")));
-        renderer.setDefaultItemLabelsVisible(true);
-        renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
-        renderer.setDefaultNegativeItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+
+        chart.setRenderAsPercentages(true);
+        chart.setDrawBarOutline(false);
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator("{3}", NumberFormat.getIntegerInstance(), new DecimalFormat("0.0%")));
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+        chart.setDefaultNegativeItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
         return chart;
     }
 
@@ -92,7 +91,7 @@ public class StackedBarChart3DDemo4 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         StackedBarChart3DDemo4 demo = new StackedBarChart3DDemo4("Stacked Bar Chart 3D Demo 4");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

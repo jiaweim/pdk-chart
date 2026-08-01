@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -47,7 +47,7 @@ public class BarChartDemo9 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, null, "Value", "Bar Chart Demo 9",
+        Chart chart = new CategoryBarChart(dataset, null, "Value", "Bar Chart Demo 9",
                 PlotOrientation.VERTICAL, false, true);
 
         TextTitle title = chart.getTitle();

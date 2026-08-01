@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
-import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.AxisType;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.time.Day;
@@ -45,12 +45,12 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
         public MyDemoPanel() {
             super(new BorderLayout());
             TimeSeriesCollection dataset1 = this.createRandomDataset("Series 1");
-            Chart chart = JChart.timeLine(dataset1, "Time", "Value",
-                    "Multiple Dataset Demo 1");
-            chart.setBackgroundPaint((Paint) null);
+            LineChart chart = new LineChart(dataset1, "Time", AxisType.DATE,
+                    "Value", "Multiple Dataset Demo 1");
+            chart.setBackgroundPaint(null);
             this.addChart(chart);
             this.plot = (XYPlot) chart.getPlot();
-            ValueAxis axis = this.plot.getDomainAxis();
+            ValueAxis axis = chart.getDomainAxis();
             axis.setAutoRange(true);
             NumberAxis rangeAxis2 = new NumberAxis("Range Axis 2");
             rangeAxis2.setAutoRangeIncludesZero(false);

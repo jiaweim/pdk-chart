@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.time.Millisecond;
 import pdk.chart.data.time.TimeSeries;
@@ -56,7 +57,8 @@ public class DynamicDataDemo1 extends ApplicationFrame {
         }
 
         private Chart createChart(XYDataset dataset) {
-            Chart result = JChart.timeLine(dataset, "Time", "Value", "Dynamic Data Demo");
+            Chart result = new LineChart(dataset, "Time", AxisType.DATE,
+                    "Value", "Dynamic Data Demo");
             XYPlot plot = (XYPlot) result.getPlot();
             ValueAxis axis = plot.getDomainAxis();
             axis.setAutoRange(true);

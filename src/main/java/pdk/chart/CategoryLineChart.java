@@ -9,9 +9,9 @@ import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.urls.StandardCategoryURLGenerator;
-import pdk.chart.util.Args;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Line chart with category domain axis.
@@ -22,25 +22,12 @@ import java.awt.*;
  */
 public class CategoryLineChart extends CategoryChart {
 
-    protected final CategoryAxis domainAxis_;
-    protected final NumberAxis rangeAxis_;
+    protected CategoryAxis xAxis_;
+    protected NumberAxis yAxis_;
     protected LineAndShapeRenderer renderer_;
 
-    public CategoryLineChart(String title, Font titleFont, boolean createLegend) {
-        super(title, titleFont, createLegend);
-        this.domainAxis_ = new CategoryAxis();
-        this.rangeAxis_ = new NumberAxis();
-        this.renderer_ = new LineAndShapeRenderer(true, false);
-        setDefaultRenderer(renderer_);
-
-        plot_.setDomainAxis(domainAxis_);
-        plot_.setRangeAxis(rangeAxis_);
-        plot_.setRenderer(renderer_);
-        JChartUtils.applyCurrentTheme(this);
-    }
-
-    public CategoryLineChart() {
-        this(null, DEFAULT_TITLE_FONT, true);
+    protected CategoryLineChart(String title, boolean createLegend) {
+        super(title, createLegend);
     }
 
     /**
@@ -64,11 +51,13 @@ public class CategoryLineChart extends CategoryChart {
     public CategoryLineChart(CategoryDataset dataset,
             String domainAxisLabel, String rangeAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        this(title, DEFAULT_TITLE_FONT, legend);
-        Args.nullNotPermitted(orientation, "orientation");
+        super(title, legend);
+        Objects.requireNonNull(orientation);
 
-        domainAxis_.setLabel(domainAxisLabel);
-        rangeAxis_.setLabel(rangeAxisLabel);
+        this.xAxis_ = new CategoryAxis(domainAxisLabel);
+        this.yAxis_ = new NumberAxis(rangeAxisLabel);
+        this.renderer_ = new LineAndShapeRenderer(true, false);
+        setDefaultRenderer(renderer_);
 
         if (tooltips) {
             renderer_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -77,8 +66,12 @@ public class CategoryLineChart extends CategoryChart {
             renderer_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
+        plot_.setDomainAxis(xAxis_);
+        plot_.setRangeAxis(yAxis_);
+        plot_.setRenderer(renderer_);
         plot_.setOrientation(orientation);
         plot_.setDataset(dataset);
+        JChartUtils.applyCurrentTheme(this);
     }
 
     /**
@@ -170,7 +163,7 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     public NumberAxis getRangeAxis() {
-        return rangeAxis_;
+        return yAxis_;
     }
 
     /**
@@ -296,16 +289,6 @@ public class CategoryLineChart extends CategoryChart {
      */
     public void setAutoPopulateSeriesShape(boolean auto) {
         renderer_.setAutoPopulateSeriesShape(auto);
-    }
-
-    /**
-     * Sets the base flag that controls whether item labels are visible,
-     * and sends a {@link RendererChangeEvent} to all registered listeners.
-     *
-     * @param visible the flag.
-     */
-    public void setDefaultItemLabelsVisible(boolean visible) {
-        renderer_.setDefaultItemLabelsVisible(visible);
     }
 
     /**

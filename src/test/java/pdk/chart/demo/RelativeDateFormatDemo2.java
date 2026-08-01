@@ -31,7 +31,7 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = JChart.bar(
+        Chart chart = new BarChart(
                 dataset,
                 "Date ", AxisType.DATE,
                 "Time To Complete", AxisType.DATE,

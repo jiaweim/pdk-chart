@@ -6,8 +6,6 @@ import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
 import pdk.chart.labels.BoxAndWhiskerToolTipGenerator;
 import pdk.chart.renderer.category.BoxAndWhiskerRenderer;
 
-import java.awt.*;
-
 /**
  *
  *
@@ -21,23 +19,6 @@ public class CategoryBoxChart extends CategoryChart {
     private final CategoryAxis domainAxis_;
     private final NumberAxis rangeAxis_;
 
-    public CategoryBoxChart(String title, Font titleFont, boolean createLegend) {
-        super(title, titleFont, createLegend);
-        renderer_ = new BoxAndWhiskerRenderer();
-        renderer_.setDefaultToolTipGenerator(new BoxAndWhiskerToolTipGenerator());
-        setDefaultRenderer(renderer_);
-
-        domainAxis_ = new CategoryAxis();
-
-        rangeAxis_ = new NumberAxis();
-        rangeAxis_.setAutoRangeIncludesZero(false);
-
-        plot_.setDomainAxis(domainAxis_);
-        plot_.setRangeAxis(rangeAxis_);
-        plot_.setRenderer(renderer_);
-        JChartUtils.applyCurrentTheme(this);
-    }
-
     /**
      * Creates and returns a default instance of a box and whisker chart.
      *
@@ -48,11 +29,22 @@ public class CategoryBoxChart extends CategoryChart {
      */
     public CategoryBoxChart(BoxAndWhiskerCategoryDataset dataset,
             String domainAxisLabel, String rangeAxisLabel, boolean legend) {
-        this(null, DEFAULT_TITLE_FONT, legend);
+        super(null, legend);
 
-        domainAxis_.setLabel(domainAxisLabel);
-        rangeAxis_.setLabel(rangeAxisLabel);
+        renderer_ = new BoxAndWhiskerRenderer();
+        renderer_.setDefaultToolTipGenerator(new BoxAndWhiskerToolTipGenerator());
+        setDefaultRenderer(renderer_);
+
+        domainAxis_ = new CategoryAxis(domainAxisLabel);
+
+        rangeAxis_ = new NumberAxis(rangeAxisLabel);
+        rangeAxis_.setAutoRangeIncludesZero(false);
+
+        plot_.setDomainAxis(domainAxis_);
+        plot_.setRangeAxis(rangeAxis_);
+        plot_.setRenderer(renderer_);
         plot_.setDataset(dataset);
+        JChartUtils.applyCurrentTheme(this);
     }
 
 }

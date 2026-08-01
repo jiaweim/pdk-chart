@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.RegularTimePeriod;
@@ -27,7 +28,8 @@ public class TimeSeriesDemo11 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Price", title);
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Price", title);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setOrientation(PlotOrientation.VERTICAL);
         XYItemRenderer renderer = plot.getRenderer();

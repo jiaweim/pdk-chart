@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -71,7 +71,7 @@ public class SlidingCategoryDatasetDemo2 extends ApplicationFrame {
         }
 
         private static Chart createChart(CategoryDataset<String, String> dataset) {
-            Chart chart = JChart.bar(dataset, "Series", "Value", "SlidingCategoryDatasetDemo2");
+            Chart chart = new CategoryBarChart(dataset, "Series", "Value", "SlidingCategoryDatasetDemo2");
             CategoryPlot plot = chart.getCategoryPlot();
             plot.getBarRenderer(0)
                     .drawBarOutline(false)

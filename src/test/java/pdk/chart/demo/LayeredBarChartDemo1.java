@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryLayeredBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.SortOrder;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -41,7 +41,7 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.barLayered("Layered Bar Chart Demo 1", "Category", "Value", dataset,
+        Chart chart = new CategoryLayeredBarChart(dataset, "Category", "Value", "Layered Bar Chart Demo 1",
                 PlotOrientation.VERTICAL, true, true, false);
         CategoryPlot plot = chart.getCategoryPlot();
         plot.domainGridlinesVisible(true)

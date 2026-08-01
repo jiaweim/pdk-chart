@@ -1,14 +1,14 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.annotations.XYBoxAnnotation;
 import pdk.chart.axis.*;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
@@ -545,7 +545,8 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Production Date", "Hours of Operation", "Breakdowns");
+        Chart chart = new LineChart(dataset, "Production Date", AxisType.DATE,
+                "Hours of Operation", "Breakdowns");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);
@@ -555,13 +556,13 @@ public class XYBoxAnnotationDemo1 extends ApplicationFrame {
         renderer.setDefaultLinesVisible(false);
         renderer.setDefaultShapesFilled(true);
         renderer.setDefaultShapesVisible(true);
-        renderer.setDefaultToolTipGenerator((XYToolTipGenerator) null);
+        renderer.setDefaultToolTipGenerator(null);
         renderer.setSeriesPaint(0, Color.BLUE);
         renderer.setSeriesPaint(1, Color.RED);
         plot.setDomainGridlineStroke(new BasicStroke(1.0F));
         plot.setRangeGridlineStroke(new BasicStroke(1.0F));
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setTickUnit(new NumberTickUnit((double) 50000.0F));
+        rangeAxis.setTickUnit(new NumberTickUnit(50000.0));
         DateAxis domainAxis = (DateAxis) plot.getDomainAxis();
         domainAxis.setTickUnit(new DateTickUnit(DateTickUnitType.MONTH, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("MMM.yy"));

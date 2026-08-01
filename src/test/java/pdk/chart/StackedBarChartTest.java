@@ -119,7 +119,7 @@ public class StackedBarChartTest {
         Number[][] data = new Integer[][]{{-3, -2}, {-1, 1}, {2, 3}};
         CategoryDataset<String, String> dataset
                 = DatasetUtils.createCategoryDataset("S", "C", data);
-        return JChart.barStacked(dataset, "Domain", "Range", "Stacked Bar Chart");
+        return new CategoryStackedBarChart(dataset, "Domain", "Range", "Stacked Bar Chart");
     }
 
     /**

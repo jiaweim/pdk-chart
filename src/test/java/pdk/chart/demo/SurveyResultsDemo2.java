@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.axis.ExtendedCategoryAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -38,7 +38,7 @@ public class SurveyResultsDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.bar(dataset, null, null, null,
+        Chart chart = new CategoryBarChart(dataset, null, null, null,
                 PlotOrientation.VERTICAL, false, true);
         chart.setBackgroundPaint(Color.WHITE);
         CategoryPlot plot = chart.getCategoryPlot();

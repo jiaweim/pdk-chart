@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
@@ -30,7 +31,8 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit", "Time Series Demo 9");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Price Per Unit", "Time Series Demo 9");
         XYPlot plot = (XYPlot) chart.getPlot();
         XYItemRenderer r = plot.getRenderer();
         if (r instanceof XYLineAndShapeRenderer) {
@@ -69,7 +71,6 @@ public class TimeSeriesDemo9 extends ApplicationFrame {
 
     private static XYDataset createDataset() {
         TimeSeriesCollection dataset = new TimeSeriesCollection();
-
         for (int i = 0; i < 4; ++i) {
             dataset.addSeries(createTimeSeries(i, 10));
         }

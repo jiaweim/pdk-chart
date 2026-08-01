@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.data.time.Quarter;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
@@ -41,7 +42,8 @@ public class TimeSeriesDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Time", "Value", "Time Series Demo 2");
+        Chart chart = new LineChart(dataset, "Time", AxisType.DATE,
+                "Value", "Time Series Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.addRangeMarker(new ValueMarker(550.0));
         Quarter q = new Quarter(2, 2002);

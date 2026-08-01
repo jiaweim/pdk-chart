@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
+import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.gantt.Task;
@@ -31,7 +31,7 @@ public class XYTaskDatasetDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Resource", AxisType.SYMBOL,
+        Chart chart = new BarChart(dataset, "Resource", AxisType.SYMBOL,
                 "Timing", AxisType.DATE,
                 "XYTaskDatasetDemo1",
                 PlotOrientation.HORIZONTAL, true, false);

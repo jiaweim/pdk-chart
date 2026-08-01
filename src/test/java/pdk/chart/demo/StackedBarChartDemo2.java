@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -12,9 +12,7 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -54,7 +52,7 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.barStacked(dataset, "Country", "%",
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Country", "%",
                 "Public Opinion : Torture of Prisoners",
                 PlotOrientation.HORIZONTAL, false, true);
 
@@ -72,35 +70,30 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
         t.setMargin(4.0, 0.0, 2.0, 4.0);
         chart.addSubtitle(t);
 
-        CategoryPlot plot = chart.getCategoryPlot();
         LegendItemCollection items = new LegendItemCollection();
         items.add(new LegendItem("Against all torture", null, null, null,
                 new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.GREEN));
         items.add(new LegendItem("Some degree permissible", null, null, null,
                 new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.RED));
-        plot.setFixedLegendItems(items);
+        chart.setFixedLegendItems(items);
 
-        plot.setInsets(new RectangleInsets(5.0, 5.0, 5.0, 20.0));
-        LegendTitle legend = new LegendTitle(plot);
+        chart.setPlotInsets(new RectangleInsets(5.0, 5.0, 5.0, 20.0));
+        LegendTitle legend = new LegendTitle(chart.getPlot());
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
 
-        plot.setDomainGridlinesVisible(true);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        chart.setDomainGridlinesVisible(true);
+        NumberAxis rangeAxis = (NumberAxis) chart.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setUpperMargin(0.0F);
 
-        plot.getBarRenderer(0)
-                .drawBarOutline(false);
+        chart.setDrawBarOutline(false);
 
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
         JChartUtils.applyCurrentTheme(chart);
 
-        plot.getBarRenderer(0)
-                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
-                .seriesPaint(1, new Color(0, 0, 0, 0)) // 完全透明
-                .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
+        chart.setSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)));
+        chart.setSeriesPaint(1, new Color(0, 0, 0, 0)); // 完全透明
+        chart.setSeriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
         return chart;
     }
 

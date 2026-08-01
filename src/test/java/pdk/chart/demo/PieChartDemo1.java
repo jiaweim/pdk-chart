@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.PieChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
@@ -56,7 +56,7 @@ public class PieChartDemo1 extends ApplicationFrame {
      * @return a chart.
      */
     private static Chart createChart(PieDataset<String> dataset) {
-        Chart chart = JChart.pie(dataset, "Cognac Exports 2019");
+        Chart chart = new PieChart(dataset, "Cognac Exports 2019");
         PiePlot plot = chart.getPiePlot();
         plot.setBackgroundPaint(new Color(169, 191, 191));
 

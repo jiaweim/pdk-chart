@@ -2,18 +2,18 @@ package pdk.chart.plot.pie;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.PieChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.Rotation;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.labels.PieSectionLabelGenerator;
 import pdk.chart.labels.StandardPieSectionLabelGenerator;
 import pdk.chart.labels.StandardPieToolTipGenerator;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.urls.CustomPieURLGenerator;
 import pdk.chart.urls.StandardPieURLGenerator;
+import pdk.chart.util.CloneUtils;
 import pdk.chart.util.DefaultShadowGenerator;
 
 import java.awt.*;
@@ -546,7 +546,7 @@ public class PiePlotTest {
         DefaultPieDataset<String> dataset = new DefaultPieDataset<>();
         dataset.setValue("L1", 12.0);
         dataset.setValue("L2", 11.0);
-        Chart chart = JChart.pie(dataset, "Test", true,
+        Chart chart = new PieChart(dataset, "Test", true,
                 false, false);
         PiePlot plot = (PiePlot) chart.getPlot();
         plot.setLegendLabelGenerator(new NullLegendLabelGenerator());

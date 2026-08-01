@@ -1,8 +1,10 @@
 package pdk.chart;
 
+import org.jspecify.annotations.Nullable;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
@@ -12,6 +14,7 @@ import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.urls.StandardCategoryURLGenerator;
 import pdk.chart.util.Args;
+import pdk.chart.util.GradientPaintTransformer;
 
 /**
  *
@@ -22,67 +25,64 @@ import pdk.chart.util.Args;
  */
 public class CategoryBarChart extends CategoryChart {
 
-    private CategoryAxis xAxis_;
-    private NumberAxis yAxis_;
-    private BarRenderer renderer_;
+    protected CategoryAxis xAxis_;
+    protected NumberAxis yAxis_;
+    protected BarRenderer renderer1_;
 
-    public CategoryBarChart(String title, PlotOrientation orientation,
-            boolean createLegend) {
-        super(title, DEFAULT_TITLE_FONT, createLegend);
-        Args.nullNotPermitted(orientation, "orientation");
-
-        xAxis_ = new CategoryAxis();
-        yAxis_ = new NumberAxis();
-        renderer_ = new BarRenderer();
-        if (orientation == PlotOrientation.HORIZONTAL) {
-            ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
-            renderer_.setDefaultPositiveItemLabelPosition(position1);
-            ItemLabelPosition position2 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE9, TextAnchor.CENTER_RIGHT);
-            renderer_.setDefaultNegativeItemLabelPosition(position2);
-        } else if (orientation == PlotOrientation.VERTICAL) {
-            ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER);
-            renderer_.setDefaultPositiveItemLabelPosition(position1);
-            ItemLabelPosition position2 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE6, TextAnchor.TOP_CENTER);
-            renderer_.setDefaultNegativeItemLabelPosition(position2);
-        }
-
-        plot_.setDomainAxis(xAxis_);
-        plot_.setRangeAxis(yAxis_);
-        plot_.setRenderer(renderer_);
-        JChartUtils.applyCurrentTheme(this);
+    protected CategoryBarChart(String title, boolean createLegend) {
+        super(title, createLegend);
     }
 
     /**
      * Creates a bar chart.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @param urls              configure chart to generate URLs?
+     * @param title        the chart title ({@code null} permitted).
+     * @param xAxisLabel   the label for the category axis
+     *                     ({@code null} permitted).
+     * @param yAxisLabel   the label for the value axis
+     *                     ({@code null} permitted).
+     * @param dataset      the dataset for the chart ({@code null} permitted).
+     * @param orientation  the plot orientation (horizontal or vertical)
+     *                     ({@code null} not permitted).
+     * @param createLegend a flag specifying whether a legend is required.
+     * @param tooltips     configure chart to generate tool tips?
+     * @param urls         configure chart to generate URLs?
      */
-    public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        this(title, orientation, legend);
+    public CategoryBarChart(CategoryDataset dataset, String xAxisLabel, String yAxisLabel, String title, PlotOrientation orientation,
+            boolean createLegend, boolean tooltips, boolean urls) {
+        super(title, createLegend);
+        Args.nullNotPermitted(orientation, "orientation");
 
-        xAxis_.setLabel(categoryAxisLabel);
-        yAxis_.setLabel(valueAxisLabel);
+        xAxis_ = new CategoryAxis(xAxisLabel);
+        yAxis_ = new NumberAxis(yAxisLabel);
+        renderer1_ = new BarRenderer();
+        setDefaultRenderer(renderer1_);
+
+        if (orientation == PlotOrientation.HORIZONTAL) {
+            ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
+            renderer1_.setDefaultPositiveItemLabelPosition(position1);
+            ItemLabelPosition position2 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE9, TextAnchor.CENTER_RIGHT);
+            renderer1_.setDefaultNegativeItemLabelPosition(position2);
+        } else if (orientation == PlotOrientation.VERTICAL) {
+            ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER);
+            renderer1_.setDefaultPositiveItemLabelPosition(position1);
+            ItemLabelPosition position2 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE6, TextAnchor.TOP_CENTER);
+            renderer1_.setDefaultNegativeItemLabelPosition(position2);
+        }
 
         if (tooltips) {
-            renderer_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+            renderer1_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         }
         if (urls) {
-            renderer_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
+            renderer1_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
+        plot_.setDomainAxis(xAxis_);
+        plot_.setRangeAxis(yAxis_);
+        plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
         plot_.setOrientation(orientation);
+        JChartUtils.applyCurrentTheme(this);
     }
 
     /**
@@ -134,8 +134,8 @@ public class CategoryBarChart extends CategoryChart {
      *                          ({@code null} permitted).
      * @param dataset           the dataset for the chart ({@code null} permitted).
      */
-    public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title) {
+    public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel,
+            String valueAxisLabel, String title) {
         this(dataset, categoryAxisLabel, valueAxisLabel, title, PlotOrientation.VERTICAL);
     }
 
@@ -190,5 +190,59 @@ public class CategoryBarChart extends CategoryChart {
     public CategoryBarChart(String[] categories, double[] values) {
         this(Data.createCategory("", categories, values), null, null, null,
                 PlotOrientation.VERTICAL, false, false);
+    }
+
+    /**
+     * Sets the item margin of bars.
+     * <p>
+     * The value is expressed as a percentage of the
+     * available width for plotting all the bars, with the resulting amount to
+     * be distributed between all the bars evenly.
+     *
+     * @param percent the margin (where 0.10 is ten percent).
+     */
+    public void setItemMargin(double percent) {
+        this.renderer1_.setItemMargin(percent);
+    }
+
+    /**
+     * Sets the flag that controls whether bar outlines are drawn and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param draw the flag.
+     */
+    public void setDrawBarOutline(boolean draw) {
+        this.renderer1_.setDrawBarOutline(draw);
+    }
+
+    /**
+     * Sets the gradient paint transformer
+     *
+     * @param transformer the transformer.
+     */
+    public void setGradientPaintTransformer(
+            @Nullable GradientPaintTransformer transformer) {
+        this.renderer1_.setGradientPaintTransformer(transformer);
+    }
+
+    /**
+     * Sets the fallback position for positive item labels that don't fit
+     * within a bar.
+     *
+     * @param position the position ({@code null} permitted).
+     */
+    public void setPositiveItemLabelPositionFallback(ItemLabelPosition position) {
+        renderer1_.setPositiveItemLabelPositionFallback(position);
+    }
+
+
+    /**
+     * Sets the base value for the bars and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param base the new base value.
+     */
+    public void setBase(double base) {
+        renderer1_.setBase(base);
     }
 }

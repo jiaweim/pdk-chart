@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
+import pdk.chart.ClusteredBarChart;
 import pdk.chart.Data;
-import pdk.chart.JChart;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
@@ -24,8 +25,8 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, IntervalXYDataset dataset) {
-        Chart chart = JChart.barCluster(dataset, null, "Y", title, true,
-                PlotOrientation.VERTICAL, true, true);
+        Chart chart = new ClusteredBarChart(dataset, null, AxisType.DATE,
+                "Y", AxisType.NUMBER, title);
 
         XYPlot plot = chart.getXYPlot();
         plot.getClusteredXYBarRenderer(0)

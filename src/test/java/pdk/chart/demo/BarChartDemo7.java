@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.CategoryLabelPositions;
@@ -60,7 +60,7 @@ public class BarChartDemo7 extends ApplicationFrame {
         target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
         target.setPaint(new Color(222, 222, 255, 128));
 
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Bar Chart Demo 7");
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 7");
         chart.removeLegend();
 
         CategoryPlot plot = chart.getCategoryPlot();

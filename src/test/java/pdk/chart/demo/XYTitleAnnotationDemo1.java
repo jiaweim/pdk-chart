@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.annotations.XYTitleAnnotation;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
@@ -13,6 +14,7 @@ import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.legend.LegendTitle;
+import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -34,8 +36,9 @@ public class XYTitleAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit",
-                "Legal & General Unit Trust Prices", false, true);
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Price Per Unit", "Legal & General Unit Trust Prices", PlotOrientation.VERTICAL,
+                false, true);
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

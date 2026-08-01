@@ -1,9 +1,9 @@
 package pdk.chart.plot;
 
 import org.junit.jupiter.api.Test;
+import pdk.chart.CategoryBarChart;
 import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.TestUtils;
 import pdk.chart.annotations.CategoryLineAnnotation;
 import pdk.chart.annotations.CategoryTextAnnotation;
@@ -669,7 +669,7 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization3() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.bar(dataset,
+        Chart chart = new CategoryBarChart(dataset,
                 "Category Axis", "Value Axis", "Test Chart",
                 PlotOrientation.VERTICAL, true, true, false);
         Chart chart2 = TestUtils.serialised(chart);
@@ -688,7 +688,7 @@ public class CategoryPlotTest {
     @Test
     public void testSerialization4() {
         DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
-        Chart chart = JChart.bar(dataset,
+        Chart chart = new CategoryBarChart(dataset,
                 "Category Axis", "Value Axis", "Test Chart",
                 PlotOrientation.VERTICAL, true, true, false);
         @SuppressWarnings("unchecked")

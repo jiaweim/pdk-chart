@@ -1,7 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Month;
@@ -29,7 +31,7 @@ public class TimeSeriesDemo14 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Market Share", "Browser Market Share");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE, "Market Share", "Browser Market Share");
         chart.addSubtitle(new TextTitle("Source: http://gs.statcounter.com"));
         XYPlot plot = (XYPlot) chart.getPlot();
         DateAxis xAxis = (DateAxis) plot.getDomainAxis();

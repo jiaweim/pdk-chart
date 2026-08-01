@@ -11,8 +11,6 @@ import pdk.chart.renderer.category.StatisticalLineAndShapeRenderer;
 import pdk.chart.urls.StandardCategoryURLGenerator;
 import pdk.chart.util.Args;
 
-import java.awt.*;
-
 /**
  *
  *
@@ -22,13 +20,7 @@ import java.awt.*;
  */
 public class StatisticalCategoryLineChart extends CategoryLineChart {
 
-    public StatisticalCategoryLineChart(String title, Font titleFont, boolean createLegend) {
-        super(title, titleFont, createLegend);
-        this.renderer_ = new StatisticalLineAndShapeRenderer(true, false);
-        setDefaultRenderer(renderer_);
-        plot_.setRenderer(renderer_);
-        JChartUtils.applyCurrentTheme(this);
-    }
+    private StatisticalLineAndShapeRenderer localRenderer_;
 
     /**
      * Creates a line chart with default settings.  The chart object returned
@@ -51,11 +43,14 @@ public class StatisticalCategoryLineChart extends CategoryLineChart {
     public StatisticalCategoryLineChart(DefaultStatisticalCategoryDataset dataset,
             String domainAxisLabel, String rangeAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        this(title, DEFAULT_TITLE_FONT, legend);
+        super(title, legend);
         Args.nullNotPermitted(orientation, "orientation");
+        this.xAxis_ = new CategoryAxis(domainAxisLabel);
+        this.yAxis_ = new NumberAxis(rangeAxisLabel);
 
-        domainAxis_.setLabel(domainAxisLabel);
-        rangeAxis_.setLabel(rangeAxisLabel);
+        this.localRenderer_ = new StatisticalLineAndShapeRenderer(true, false);
+        this.renderer_ = localRenderer_;
+        setDefaultRenderer(renderer_);
 
         if (tooltips) {
             renderer_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -63,9 +58,12 @@ public class StatisticalCategoryLineChart extends CategoryLineChart {
         if (urls) {
             renderer_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
-
+        plot_.setDomainAxis(xAxis_);
+        plot_.setRangeAxis(yAxis_);
+        plot_.setRenderer(renderer_);
         plot_.setOrientation(orientation);
         plot_.setDataset(dataset);
+        JChartUtils.applyCurrentTheme(this);
     }
 
     public StatisticalCategoryLineChart(DefaultStatisticalCategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,

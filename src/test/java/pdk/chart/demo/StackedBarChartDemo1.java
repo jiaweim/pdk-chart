@@ -1,10 +1,10 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.Data;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.Data;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.renderer.category.StandardBarPainter;
@@ -63,8 +63,9 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.barStacked(dataset, "Country", "Value", "Freshwater Usage By Country");
+        CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Country", "Value", "Freshwater Usage By Country");
         chart.addSubtitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"));
+
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getDomainAxis()
                 .lowerMargin(0.01)

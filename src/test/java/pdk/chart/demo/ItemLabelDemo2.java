@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
@@ -40,7 +40,7 @@ public class ItemLabelDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, "Category", "Value", "Item Label Demo 2",
+        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Item Label Demo 2",
                 PlotOrientation.HORIZONTAL);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
@@ -62,8 +62,8 @@ public class ItemLabelDemo2 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        ItemLabelDemo2 demo = new ItemLabelDemo2("Chart: ItemLabelDemo2.java");
+    static void main() {
+        ItemLabelDemo2 demo = new ItemLabelDemo2("ItemLabelDemo2.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

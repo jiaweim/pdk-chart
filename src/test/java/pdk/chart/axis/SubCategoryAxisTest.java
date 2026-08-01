@@ -1,12 +1,12 @@
 package pdk.chart.axis;
 
 import org.junit.jupiter.api.Test;
+import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.TestUtils;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -92,7 +92,7 @@ public class SubCategoryAxisTest {
      */
     @Test
     public void test2275695() {
-        Chart chart = JChart.barStacked(null,
+        Chart chart = new CategoryStackedBarChart(null,
                 "Category", "Value", "Test", PlotOrientation.VERTICAL,
                 true, false, false);
         CategoryPlot<?, ?> plot = (CategoryPlot) chart.getPlot();

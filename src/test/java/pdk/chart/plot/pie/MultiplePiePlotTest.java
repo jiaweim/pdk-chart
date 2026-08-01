@@ -2,15 +2,15 @@ package pdk.chart.plot.pie;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.PieChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.TableOrder;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.PlotChangeListener;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -85,10 +85,10 @@ public class MultiplePiePlotTest implements PlotChangeListener {
                 3.0f, 4.0f, Color.YELLOW));
         assertEquals(p1, p2);
 
-        p1.setPieChart(JChart.pie(null, "Title", true, true,
+        p1.setPieChart(new PieChart(null, "Title", true, true,
                 true));
         assertNotEquals(p1, p2);
-        p2.setPieChart(JChart.pie(null, "Title", true, true,
+        p2.setPieChart(new PieChart(null, "Title", true, true,
                 true));
         assertEquals(p1, p2);
 

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.plot.CategoryPlot;
@@ -23,7 +23,7 @@ public class GradientPaintTransformerDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(String title, CategoryDataset dataset) {
-        Chart chart = JChart.bar(dataset, (String) null, "Value", title);
+        Chart chart = new CategoryBarChart(dataset, null, "Value", title);
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         BarRenderer r = (BarRenderer) plot.getRenderer();
         r.setItemMargin(0.02);
@@ -32,8 +32,8 @@ public class GradientPaintTransformerDemo1 extends ApplicationFrame {
 
     private static CategoryDataset createDataset() {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue((double) 7.0F, "Series 1", "Category 1");
-        dataset.addValue((double) 5.0F, "Series 2", "Category 1");
+        dataset.addValue(7.0, "Series 1", "Category 1");
+        dataset.addValue(5.0, "Series 2", "Category 1");
         return dataset;
     }
 
@@ -88,8 +88,8 @@ public class GradientPaintTransformerDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        GradientPaintTransformerDemo1 demo = new GradientPaintTransformerDemo1("Chart: GradientPaintTransformerDemo1.java");
+    static void main() {
+        GradientPaintTransformerDemo1 demo = new GradientPaintTransformerDemo1("GradientPaintTransformerDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

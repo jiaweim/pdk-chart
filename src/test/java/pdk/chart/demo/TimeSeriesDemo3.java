@@ -1,7 +1,8 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickUnit;
 import pdk.chart.axis.DateTickUnitType;
@@ -65,7 +66,8 @@ public class TimeSeriesDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Time", "Value", "Time Series Demo 3");
+        Chart chart = new LineChart(dataset, "Time", AxisType.DATE,
+                "Value", "Time Series Demo 3");
         XYPlot plot = (XYPlot) chart.getPlot();
         DateAxis axis = (DateAxis) plot.getDomainAxis();
         axis.setTickUnit(new DateTickUnit(DateTickUnitType.MONTH, 1, new SimpleDateFormat("MMM-yyyy")));

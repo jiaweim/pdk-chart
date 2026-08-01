@@ -1,8 +1,9 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.JChartUtils;
+import pdk.chart.LineChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.PeriodAxis;
 import pdk.chart.axis.PeriodAxisLabelInfo;
@@ -29,8 +30,8 @@ public class PeriodAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.timeLine(dataset, "Date", "Price Per Unit",
-                "Legal & General Unit Trust Prices");
+        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+                "Price Per Unit", "Legal & General Unit Trust Prices");
         XYPlot plot = (XYPlot) chart.getPlot();
         plot.setDomainCrosshairVisible(true);
         plot.setRangeCrosshairVisible(true);
