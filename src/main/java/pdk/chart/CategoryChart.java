@@ -415,7 +415,6 @@ public class CategoryChart extends Chart {
         plot_.addRangeMarker(marker, layer);
     }
 
-
     /**
      * Sets the flag indicating whether the range crosshair is visible.
      *
@@ -445,4 +444,16 @@ public class CategoryChart extends Chart {
             ItemLabelPosition position) {
         renderer0_.setDefaultNegativeItemLabelPosition(position);
     }
+
+    /**
+     * Set the paint used to color data items as they are drawn.
+     *
+     * @param row    the row (or series) index (zero-based).
+     * @param column the column (or category) index (zero-based).
+     * @param paint  the paint.
+     */
+    public void setItemPaint(int row, int column, Paint paint) {
+        renderer0_.setItemPaint(row, column, paint);
+    }
+
 }

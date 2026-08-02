@@ -1,6 +1,5 @@
 package pdk.chart.renderer.category;
 
-import pdk.chart.model.ChartElement;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.ValueAxis;
@@ -13,6 +12,7 @@ import pdk.chart.labels.CategoryToolTipGenerator;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemSource;
+import pdk.chart.model.ChartElement;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Marker;
@@ -273,6 +273,15 @@ public interface CategoryItemRenderer extends ChartElement, LegendItemSource {
      * @return The paint (never {@code null}).
      */
     Paint getItemPaint(int row, int column);
+
+    /**
+     * Set the paint used to color data items as they are drawn.
+     *
+     * @param row    the row (or series) index (zero-based).
+     * @param column the column (or category) index (zero-based).
+     * @param paint  the paint.
+     */
+    void setItemPaint(int row, int column, Paint paint);
 
     /**
      * Returns the paint used to fill an item drawn by the renderer.

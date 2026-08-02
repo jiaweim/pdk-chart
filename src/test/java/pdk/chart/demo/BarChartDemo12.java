@@ -2,11 +2,9 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.swing.ChartPanel;
 
 import javax.swing.*;
@@ -38,20 +36,13 @@ public class BarChartDemo12 {
                 new Color(76, 179, 210),
                 new Color(106, 198, 255)
         };
-        Chart chart = new CategoryBarChart(dataset, PlotOrientation.HORIZONTAL);
+        CategoryBarChart chart = new CategoryBarChart(dataset, PlotOrientation.HORIZONTAL);
         chart.removeLegend();
 
-        BarRenderer barRenderer = new BarRenderer() {
-            @Override
-            public Paint getItemPaint(int row, int column) {
-                return colors[column];
-            }
-        };
-
+        for (int i = 0; i < colors.length; i++) {
+            chart.setItemPaint(0, i, colors[i]);
+        }
         Random RND = new Random();
-
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setRenderer(barRenderer);
 
         Timer timer = new Timer(1000, e -> {
             int columnCount = dataset.getColumnCount();
