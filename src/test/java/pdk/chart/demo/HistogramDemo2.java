@@ -53,7 +53,7 @@ public class HistogramDemo2 extends ApplicationFrame {
         chart.setPannable(true, true);
         chart.setDrawBarOutline(false);
 
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         return chart;

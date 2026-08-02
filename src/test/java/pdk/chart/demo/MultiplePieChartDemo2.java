@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.MultiplePieChart;
 import pdk.chart.api.TableOrder;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetUtils;
@@ -37,7 +37,7 @@ public class MultiplePieChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = JChart.pieMultiple(dataset, "Multiple Pie Chart", TableOrder.BY_COLUMN, true, true, false);
+        MultiplePieChart chart = new MultiplePieChart(dataset, "Multiple Pie Chart", TableOrder.BY_COLUMN, true, true, false);
         MultiplePiePlot plot = (MultiplePiePlot) chart.getPlot();
         plot.setBackgroundPaint(Color.WHITE);
         plot.setOutlineStroke(new BasicStroke(1.0F));

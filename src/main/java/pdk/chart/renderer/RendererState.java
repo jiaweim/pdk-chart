@@ -1,6 +1,6 @@
 package pdk.chart.renderer;
 
-import pdk.chart.ChartRenderingInfo;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.plot.PlotRenderingInfo;
 

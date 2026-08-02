@@ -117,7 +117,7 @@ public class StackedAreaChartTest {
         Number[][] data = new Integer[][]{{-3, -2}, {-1, 1}, {2, 3}};
 
         CategoryDataset<String, String> dataset = DatasetUtils.createCategoryDataset("S", "C", data);
-        return JChart.stackedArea(dataset, "Domain", "Range", "Stacked Area Chart",
+        return new CategoryStackedAreaChart(dataset, "Domain", "Range", "Stacked Area Chart",
                 PlotOrientation.HORIZONTAL, true, true, true);
     }
 

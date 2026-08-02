@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Day;
@@ -302,7 +302,7 @@ public class TimeSeriesDemo8 extends ApplicationFrame {
         renderer.setDrawSeriesLineAsPath(true);
         StandardXYToolTipGenerator g = new StandardXYToolTipGenerator("{0}: ({1}, {2})", new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0.00"));
         renderer.setDefaultToolTipGenerator(g);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

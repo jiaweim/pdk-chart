@@ -6,7 +6,6 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYAreaRenderer2;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -24,44 +23,45 @@ public class XYAreaRenderer2Demo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static XYDataset createDataset() {
-        XYSeries series1 = new XYSeries("Random 1");
-        series1.add((double) 1.0F, 500.2);
-        series1.add((double) 2.0F, 694.1);
-        series1.add((double) 3.0F, -734.4);
-        series1.add((double) 4.0F, 453.2);
-        series1.add((double) 5.0F, 500.2);
-        series1.add((double) 6.0F, 300.7);
-        series1.add((double) 7.0F, 734.4);
-        series1.add((double) 8.0F, 453.2);
-        XYSeries series2 = new XYSeries("Random 2");
-        series2.add((double) 1.0F, 700.2);
-        series2.add((double) 2.0F, 534.1);
-        series2.add((double) 3.0F, 323.4);
-        series2.add((double) 4.0F, 125.2);
-        series2.add((double) 5.0F, 653.2);
-        series2.add((double) 6.0F, 432.7);
-        series2.add((double) 7.0F, 564.4);
-        series2.add((double) 8.0F, 322.2);
-        XYSeriesCollection dataset = new XYSeriesCollection();
+    private static XYDataset<String> createDataset() {
+        XYSeries<String> series1 = new XYSeries<>("Random 1");
+        series1.add(1.0, 500.2);
+        series1.add(2.0, 694.1);
+        series1.add(3.0, -734.4);
+        series1.add(4.0, 453.2);
+        series1.add(5.0, 500.2);
+        series1.add(6.0, 300.7);
+        series1.add(7.0, 734.4);
+        series1.add(8.0, 453.2);
+        XYSeries<String> series2 = new XYSeries<>("Random 2");
+        series2.add(1.0, 700.2);
+        series2.add(2.0, 534.1);
+        series2.add(3.0, 323.4);
+        series2.add(4.0, 125.2);
+        series2.add(5.0, 653.2);
+        series2.add(6.0, 432.7);
+        series2.add(7.0, 564.4);
+        series2.add(8.0, 322.2);
+        XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
         dataset.addSeries(series1);
         dataset.addSeries(series2);
-        dataset.setIntervalWidth((double) 0.0F);
+        dataset.setIntervalWidth(0.0F);
         return dataset;
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = new AreaChart(dataset, "Domain (X)", "Range (Y)",
+        AreaChart chart = new AreaChart(dataset, "Domain (X)", "Range (Y)",
                 "XYAreaRenderer2Demo1");
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setRenderer(new XYAreaRenderer2());
-        plot.setForegroundAlpha(0.65F);
-        ValueAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setTickMarkPaint(Color.black);
-        domainAxis.setLowerMargin((double) 0.0F);
-        domainAxis.setUpperMargin((double) 0.0F);
-        ValueAxis rangeAxis = plot.getRangeAxis();
-        rangeAxis.setTickMarkPaint(Color.black);
+        chart.setForegroundAlpha(0.65F);
+        chart.setRenderer(new XYAreaRenderer2());
+
+        ValueAxis xAxis = chart.getDomainAxis();
+        xAxis.setTickMarkPaint(Color.BLACK);
+        xAxis.setLowerMargin(0.0);
+        xAxis.setUpperMargin(0.0);
+
+        ValueAxis yAxis = chart.getRangeAxis();
+        yAxis.setTickMarkPaint(Color.BLACK);
         return chart;
     }
 

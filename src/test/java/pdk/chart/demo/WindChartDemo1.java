@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.WindChart;
 import pdk.chart.data.xy.DefaultWindDataset;
 import pdk.chart.data.xy.WindDataset;
 import pdk.chart.swing.ApplicationFrame;
@@ -53,7 +53,7 @@ public class WindChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(WindDataset dataset) {
-        Chart chart = JChart.wind(dataset, "Date", "Direction / Force", "Wind Chart Demo",
+        WindChart chart = new WindChart(dataset, "Date", "Direction / Force", "Wind Chart Demo",
                 true, false);
         return chart;
     }

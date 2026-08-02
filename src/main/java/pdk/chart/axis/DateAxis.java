@@ -9,7 +9,6 @@ import pdk.chart.data.time.Month;
 import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.Year;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.util.Args;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.ValueAxisPlot;
@@ -262,7 +261,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * @see #getTimeZone()
      */
     public void setTimeZone(TimeZone zone) {
-        Args.nullNotPermitted(zone, "zone");
+        Objects.requireNonNull(zone, "zone");
         this.timeZone = zone;
         setStandardTickUnits(createStandardDateTickUnits(zone, this.locale));
         fireChangeEvent();
@@ -284,7 +283,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * @param locale the new locale ({@code null} not permitted).
      */
     public void setLocale(Locale locale) {
-        Args.nullNotPermitted(locale, "locale");
+        Objects.requireNonNull(locale, "locale");
         this.locale = locale;
         setStandardTickUnits(createStandardDateTickUnits(this.timeZone,
                 this.locale));
@@ -353,7 +352,6 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      */
     public void setTickUnit(DateTickUnit unit, boolean notify,
             boolean turnOffAutoSelection) {
-
         this.tickUnit = unit;
         if (turnOffAutoSelection) {
             setAutoTickUnitSelection(false, false);
@@ -361,7 +359,6 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         if (notify) {
             fireChangeEvent();
         }
-
     }
 
     /**
@@ -412,7 +409,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     @Override
     public void setRange(Range range, boolean turnOffAutoRange,
             boolean notify) {
-        Args.nullNotPermitted(range, "range");
+        Objects.requireNonNull(range, "range");
         // usually the range will be a DateRange, but if it isn't do a
         // conversion...
         if (!(range instanceof DateRange)) {
@@ -481,7 +478,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * @see #setMaximumDate(Date)
      */
     public void setMinimumDate(Date date) {
-        Args.nullNotPermitted(date, "date");
+        Objects.requireNonNull(date, "date");
         // check the new minimum date relative to the current maximum date
         Date maxDate = getMaximumDate();
         long maxMillis = maxDate.getTime();
@@ -526,7 +523,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * @see #setMinimumDate(Date)
      */
     public void setMaximumDate(Date maximumDate) {
-        Args.nullNotPermitted(maximumDate, "maximumDate");
+        Objects.requireNonNull(maximumDate, "maximumDate");
         // check the new maximum date relative to the current minimum date
         Date minDate = getMinimumDate();
         long minMillis = minDate.getTime();
@@ -879,7 +876,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      */
     private Date calculateDateForPosition(RegularTimePeriod period,
             DateTickMarkPosition position) {
-        Args.nullNotPermitted(period, "period");
+        Objects.requireNonNull(period);
         Date result = null;
         if (position == DateTickMarkPosition.START) {
             result = new Date(period.getFirstMillisecond());
@@ -935,9 +932,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      */
     public static TickUnitSource createStandardDateTickUnits(TimeZone zone,
             Locale locale) {
+        Objects.requireNonNull(zone);
+        Objects.requireNonNull(locale);
 
-        Args.nullNotPermitted(zone, "zone");
-        Args.nullNotPermitted(locale, "locale");
         TickUnits units = new TickUnits();
 
         // date formatters
@@ -1051,7 +1048,6 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
                 DateTickUnitType.YEAR, 20, f7));
 
         return units;
-
     }
 
     /**
@@ -1707,40 +1703,6 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Set the axis name.
-     *
-     * @param name axis name.
-     * @return this.
-     */
-    public DateAxis name(String name) {
-        setLabel(name);
-        return this;
-    }
-
-    /**
-     * Sets the tick mark position (start, middle or end of the time period).
-     *
-     * @param position the position ({@code null} not permitted).
-     */
-    public DateAxis tickMarkPosition(@NonNull DateTickMarkPosition position) {
-        setTickMarkPosition(position);
-        return this;
-    }
-
-    /**
-     * Sets the lower margin for the axis (as a percentage of the axis range).
-     * <p>
-     * This margin is added only when the axis range is auto-calculated - if you set
-     * the axis range manually, the margin is ignored.
-     *
-     * @param margin the margin percentage (for example, 0.05 is five percent).
-     */
-    public DateAxis lowerMargin(double margin) {
-        setLowerMargin(margin);
-        return this;
-    }
-
-    /**
      * Sets the upper margin for the axis (as a percentage of the axis range).
      * <p>
      * This margin is added only when the axis range is auto-calculated - if you set
@@ -1760,19 +1722,6 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      */
     public DateAxis inverted(boolean flag) {
         setInverted(flag);
-        return this;
-    }
-
-    /**
-     * Sets the date format override.
-     * <p>
-     * If this is non-null, then it will be
-     * used to format the dates on the axis.
-     *
-     * @param formatter the date formatter ({@code null} permitted).
-     */
-    public DateAxis dateFormatOverride(DateFormat formatter) {
-        setDateFormatOverride(formatter);
         return this;
     }
 }

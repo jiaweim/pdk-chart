@@ -110,7 +110,8 @@ public class TimeSeriesChartTest {
         series1.add(3.0, 3.0);
         XYDataset<String> dataset = new XYSeriesCollection<>(series1);
         return new LineChart(dataset,
-                "Domain", AxisType.DATE, "Range", "XY Line Chart", PlotOrientation.VERTICAL,
+                "Domain", AxisType.DATE, "Range", AxisType.NUMBER,
+                "XY Line Chart", PlotOrientation.VERTICAL,
                 true, true, true);
     }
 

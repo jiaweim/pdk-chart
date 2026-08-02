@@ -1,8 +1,9 @@
 package pdk.chart.renderer;
 
+import com.google.common.collect.HashBasedTable;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import pdk.chart.*;
+import pdk.chart.Chart;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.ItemKey;
@@ -11,6 +12,10 @@ import pdk.chart.event.RendererChangeListener;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendTitle;
+import pdk.chart.model.ChartColor;
+import pdk.chart.model.ChartElement;
+import pdk.chart.model.ChartElementVisitor;
+import pdk.chart.model.ChartHints;
 import pdk.chart.plot.DrawingSupplier;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.text.TextAnchor;
@@ -121,6 +126,10 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
      * The paint for each series.
      */
     private transient Map<Integer, Paint> seriesPaintMap;
+    /**
+     * The paint for each item.
+     */
+    private transient HashBasedTable<Integer, Integer, Paint> itemPaintTable;
 
     /**
      * A flag that controls whether the paintList is autopopulated
@@ -356,6 +365,7 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
         this.defaultSeriesVisibleInLegend = true;
 
         this.seriesPaintMap = new HashMap<>();
+        this.itemPaintTable = HashBasedTable.create();
         this.defaultPaint = DEFAULT_PAINT;
         this.autoPopulateSeriesPaint = true;
 
@@ -693,7 +703,22 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
      * @return The paint (never {@code null}).
      */
     public Paint getItemPaint(int row, int column) {
+        Paint paint = itemPaintTable.get(row, column);
+        if (paint != null) {
+            return paint;
+        }
         return lookupSeriesPaint(row);
+    }
+
+    /**
+     * Set the paint used to color data items as they are drawn.
+     *
+     * @param row    the row (or series) index (zero-based).
+     * @param column the column (or category) index (zero-based).
+     * @param paint  the paint.
+     */
+    public void setItemPaint(int row, int column, Paint paint) {
+        itemPaintTable.put(row, column, paint);
     }
 
     /**

@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.Data;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
@@ -57,7 +57,7 @@ public class StackedBarChartDemo3 extends ApplicationFrame {
         yAxis.setUpperMargin(0.15);
         yAxis.setNumberFormatOverride(NumberFormat.getPercentInstance());
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

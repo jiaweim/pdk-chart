@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.data.general.DefaultValueDataset;
 import pdk.chart.data.general.ValueDataset;
 import pdk.chart.plot.compass.CompassPlot;
@@ -31,7 +31,7 @@ public class CompassDemo1 extends ApplicationFrame {
         plot.setRoseCenterPaint(Color.WHITE);
         plot.setDrawBorder(false);
         Chart chart = new Chart(plot);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

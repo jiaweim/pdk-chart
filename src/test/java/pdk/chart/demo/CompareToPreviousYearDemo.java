@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.axis.NumberAxis;
@@ -64,7 +64,7 @@ public class CompareToPreviousYearDemo extends ApplicationFrame {
         plot.setRangeCrosshairVisible(true);
         DateAxis axis = (DateAxis)plot.getDomainAxis();
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

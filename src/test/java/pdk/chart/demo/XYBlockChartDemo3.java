@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
@@ -61,7 +61,7 @@ public class XYBlockChartDemo3 extends ApplicationFrame {
         psl.setPosition(RectangleEdge.BOTTOM);
         psl.setMargin(new RectangleInsets(5.0F, 5.0F, 5.0F, 5.0F));
         chart.addSubtitle(psl);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -2,12 +2,11 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.StackedAreaChart;
 import pdk.chart.data.xy.DefaultTableXYDataset;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.StackedXYAreaRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -42,16 +41,16 @@ public class StackedXYAreaRendererDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = JChart.stackedAreaXY(dataset, "X Value", "Y Value",
+        StackedAreaChart chart = new StackedAreaChart(dataset, "X Value", "Y Value",
                 "StackedXYAreaRendererDemo1");
-        XYPlot plot = (XYPlot) chart.getPlot();
+//        XYPlot plot = (XYPlot) chart.getPlot();
         StackedXYAreaRenderer renderer = new StackedXYAreaRenderer(5);
-        renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        plot.setRenderer(0, renderer);
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
-        renderer.setShapePaint(Color.YELLOW);
-        JChartUtils.applyCurrentTheme(chart);
+        chart.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+//        plot.setRenderer(0, renderer);
+        chart.setDomainCrosshairVisible(true);
+        chart.setRangeCrosshairVisible(true);
+//        renderer.setShapePaint(Color.YELLOW);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

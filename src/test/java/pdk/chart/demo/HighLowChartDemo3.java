@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.HighLowChart;
 import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
@@ -63,7 +63,7 @@ public class HighLowChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.highLow(dataset, "Time", "Price",
+        HighLowChart chart = new HighLowChart(dataset, "Time", "Price",
                 "OHLC Demo 3", true);
         XYPlot plot = (XYPlot) chart.getPlot();
         HighLowRenderer renderer = (HighLowRenderer) plot.getRenderer();
@@ -80,7 +80,7 @@ public class HighLowChartDemo3 extends ApplicationFrame {
         plot.setDataset(1, createDataset2());
         plot.setRenderer(1, new CandlestickRenderer(10.0));
         plot.mapDatasetToRangeAxis(1, 1);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

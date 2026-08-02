@@ -1,9 +1,8 @@
 package pdk.chart;
 
-import pdk.chart.plot.Plot;
+import pdk.chart.data.general.WaferMapDataset;
 import pdk.chart.plot.WaferMapPlot;
-
-import java.awt.*;
+import pdk.chart.renderer.WaferMapRenderer;
 
 /**
  * WaferMapChart was designed for yield analysis of semiconductor wafers,
@@ -28,8 +27,24 @@ import java.awt.*;
  */
 public class WaferMapChart extends Chart {
 
-    public WaferMapChart() {
-        super(null, DEFAULT_TITLE_FONT, new WaferMapPlot(), false);
+    private WaferMapRenderer renderer_;
+    private WaferMapPlot plot_;
+
+    /**
+     * Creates a wafer map chart.
+     *
+     * @param title   the chart title ({@code null} permitted).
+     * @param dataset the dataset ({@code null} permitted).
+     * @param legend  display a legend?
+     */
+    public WaferMapChart(WaferMapDataset dataset, String title, boolean legend) {
+        super(title, DEFAULT_TITLE_FONT, new WaferMapPlot(), legend);
+        plot_ = (WaferMapPlot) getPlot();
+
+        renderer_ = new WaferMapRenderer();
+        plot_.setDataset(dataset);
+        plot_.setRenderer(renderer_);
+        JChart.applyCurrentTheme(this);
     }
 
 

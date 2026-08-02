@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.AxisType;
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;

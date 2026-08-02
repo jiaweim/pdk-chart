@@ -1,10 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.*;
+import pdk.chart.axis.DateAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -31,26 +32,23 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = new BarChart(
-                dataset,
+        BarChart chart = new BarChart(dataset,
                 "Date ", AxisType.DATE,
                 "Time To Complete", AxisType.DATE,
                 "RelativeDateFormat Demo 2",
                 PlotOrientation.VERTICAL);
-        XYPlot plot = chart.getXYPlot();
-        plot.domainCrosshairVisible(true)
-                .rangeCrosshairVisible(true);
-        plot.getBarRenderer()
-                .drawBarOutline(false);
+        chart.setDomainCrosshairVisible(true);
+        chart.setRangeCrosshairVisible(true);
+        chart.setDrawBarOutline(false);
 
         RelativeDateFormat rdf = new RelativeDateFormat();
         rdf.setShowZeroDays(false);
         rdf.setSecondFormatter(new DecimalFormat("00"));
 
-        plot.getRangeAxisAsDate()
-                .dateFormatOverride(rdf);
+        DateAxis yAxis = chart.getRangeAxisAsDate();
+        yAxis.setDateFormatOverride(rdf);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

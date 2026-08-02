@@ -122,7 +122,7 @@ public class GanttChartTest {
      * @return The chart.
      */
     private static Chart createGanttChart() {
-        return JChart.gantt(null, "Domain", "Range", "Gantt Chart", true, true, true);
+        return new GanttChart(null, "Domain", "Range", "Gantt Chart", true, true, true);
     }
 
     /**

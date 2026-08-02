@@ -1,7 +1,7 @@
 package pdk.chart.imagemap;
 
 import org.junit.jupiter.api.Test;
-import pdk.chart.ChartRenderingInfo;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;

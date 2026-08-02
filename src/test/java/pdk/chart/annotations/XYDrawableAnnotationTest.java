@@ -1,7 +1,7 @@
 package pdk.chart.annotations;
 
 import org.junit.jupiter.api.Test;
-import pdk.chart.Drawable;
+import pdk.chart.model.Drawable;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 

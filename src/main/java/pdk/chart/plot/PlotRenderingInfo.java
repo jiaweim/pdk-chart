@@ -1,6 +1,6 @@
 package pdk.chart.plot;
 
-import pdk.chart.ChartRenderingInfo;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.util.CloneUtils;
 import pdk.chart.util.SerialUtils;
 

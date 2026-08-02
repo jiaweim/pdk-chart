@@ -1,7 +1,7 @@
 package pdk.chart.swing;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartRenderingInfo;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.Zoomable;

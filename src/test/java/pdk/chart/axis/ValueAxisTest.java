@@ -3,7 +3,7 @@ package pdk.chart.axis;
 import org.junit.jupiter.api.Test;
 import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.ChartRenderingInfo;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.ScatterChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.Range;

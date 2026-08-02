@@ -1,13 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.GanttChart;
 import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.data.gantt.Task;
 import pdk.chart.data.gantt.TaskSeries;
 import pdk.chart.data.gantt.TaskSeriesCollection;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.CategoryItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -26,22 +24,20 @@ public class GanttDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalCategoryDataset dataset) {
-        Chart chart = JChart.gantt(dataset, "Task", "Date", "Gantt Chart Demo");
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setRangePannable(true);
-        plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);
-        CategoryItemRenderer renderer = plot.getRenderer();
-        renderer.setSeriesPaint(0, Color.BLUE);
+        GanttChart chart = new GanttChart(dataset, "Task", "Date", "Gantt Chart Demo");
+        chart.setRangePannable(true);
+        chart.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);
+        chart.setSeriesPaint(0, Color.BLUE);
         return chart;
     }
 
     private static IntervalCategoryDataset createDataset() {
         TaskSeries s1 = new TaskSeries("Scheduled");
         Task t1 = new Task("Write Proposal", date(1, 3, 2001), date(5, 3, 2001));
-        t1.setPercentComplete((double) 1.0F);
+        t1.setPercentComplete(1.0);
         s1.add(t1);
         Task t2 = new Task("Obtain Approval", date(9, 3, 2001), date(9, 3, 2001));
-        t2.setPercentComplete((double) 1.0F);
+        t2.setPercentComplete(1.0F);
         s1.add(t2);
         Task t3 = new Task("Requirements Analysis", date(10, 3, 2001), date(5, 4, 2001));
         Task st31 = new Task("Requirements 1", date(10, 3, 2001), date(25, 3, 2001));

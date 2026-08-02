@@ -1,7 +1,7 @@
 package pdk.chart.title;
 
-import pdk.chart.ChartElement;
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElement;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;

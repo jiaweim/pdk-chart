@@ -6,6 +6,7 @@ import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.model.Data;
 import pdk.chart.plot.Plot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -86,7 +87,7 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
         chart.setDomainAxis(domainAxis);
         chart.setFixedLegendItems(createLegendItems());
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         domainAxis.setSubLabelFont(new Font("Tahoma", Font.ITALIC, 10));
         Paint p1 = new GradientPaint(0.0F, 0.0F, new Color(34, 34, 255), 0.0F, 0.0F, new Color(136, 136, 255));
         chart.setSeriesPaint(0, p1);

@@ -1,17 +1,15 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.GanttChart;
 import pdk.chart.api.Layer;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.gantt.*;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.Hour;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.IntervalMarker;
 import pdk.chart.plot.Marker;
-import pdk.chart.renderer.category.GanttRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -33,8 +31,8 @@ public class SlidingGanttDatasetDemo1 extends ApplicationFrame {
         return new DemoPanel();
     }
 
-    public static void main(String[] args) {
-        SlidingGanttDatasetDemo1 demo = new SlidingGanttDatasetDemo1("Chart: SlidingGanttDatasetDemo1.java");
+    static void main() {
+        SlidingGanttDatasetDemo1 demo = new SlidingGanttDatasetDemo1("SlidingGanttDatasetDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
@@ -81,22 +79,21 @@ public class SlidingGanttDatasetDemo1 extends ApplicationFrame {
         }
 
         private static Chart createChart(SlidingGanttCategoryDataset dataset) {
-            Chart chart = JChart.gantt(dataset, "Task", "Date", "Gantt Chart Demo");
-            CategoryPlot plot = (CategoryPlot) chart.getPlot();
+            GanttChart chart = new GanttChart(dataset, "Task", "Date", "Gantt Chart Demo");
             Hour h = new Hour(1, 14, 5, 2008);
 
             for (int i = 0; i < 12; ++i) {
-                Marker marker = new IntervalMarker((double) h.getFirstMillisecond(),  h.getLastMillisecond(), Color.LIGHT_GRAY);
-                plot.addRangeMarker(marker, Layer.BACKGROUND);
+                Marker marker = new IntervalMarker((double) h.getFirstMillisecond(), h.getLastMillisecond(), Color.LIGHT_GRAY);
+                chart.addRangeMarker(marker, Layer.BACKGROUND);
                 h = (Hour) h.next().next();
             }
 
-            plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);
-            DateAxis rangeAxis = (DateAxis) plot.getRangeAxis();
+            chart.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);
+            DateAxis rangeAxis = (DateAxis) chart.getRangeAxis();
             rangeAxis.setRange(DatasetUtils.findRangeBounds(dataset.getUnderlyingDataset(), true));
-            GanttRenderer renderer = (GanttRenderer) plot.getRenderer();
-            renderer.setDrawBarOutline(false);
-            renderer.setShadowVisible(false);
+            chart.setDrawBarOutline(false);
+            chart.setShadowVisible(false);
+
             return chart;
         }
 

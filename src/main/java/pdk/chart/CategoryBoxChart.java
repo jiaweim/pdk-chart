@@ -15,7 +15,7 @@ import pdk.chart.renderer.category.BoxAndWhiskerRenderer;
  */
 public class CategoryBoxChart extends CategoryChart {
 
-    private final BoxAndWhiskerRenderer renderer_;
+    private final BoxAndWhiskerRenderer renderer1_;
     private final CategoryAxis domainAxis_;
     private final NumberAxis rangeAxis_;
 
@@ -31,9 +31,9 @@ public class CategoryBoxChart extends CategoryChart {
             String domainAxisLabel, String rangeAxisLabel, boolean legend) {
         super(null, legend);
 
-        renderer_ = new BoxAndWhiskerRenderer();
-        renderer_.setDefaultToolTipGenerator(new BoxAndWhiskerToolTipGenerator());
-        setDefaultRenderer(renderer_);
+        renderer1_ = new BoxAndWhiskerRenderer();
+        renderer1_.setDefaultToolTipGenerator(new BoxAndWhiskerToolTipGenerator());
+        renderer0_ = renderer1_;
 
         domainAxis_ = new CategoryAxis(domainAxisLabel);
 
@@ -42,9 +42,9 @@ public class CategoryBoxChart extends CategoryChart {
 
         plot_.setDomainAxis(domainAxis_);
         plot_.setRangeAxis(rangeAxis_);
-        plot_.setRenderer(renderer_);
+        plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
 }

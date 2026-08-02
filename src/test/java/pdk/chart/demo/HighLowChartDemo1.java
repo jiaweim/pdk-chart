@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.HighLowChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.axis.NumberAxis;
@@ -29,11 +29,10 @@ public class HighLowChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.highLow(dataset, "Time", "Price", "High-Low-Open-Close Demo", true);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
+        HighLowChart chart = new HighLowChart(dataset, "Time", "Price", "High-Low-Open-Close Demo", true);
+        DateAxis axis = (DateAxis) chart.getDomainAxis();
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
-        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        NumberAxis yAxis = (NumberAxis) chart.getRangeAxis();
         yAxis.setNumberFormatOverride(new DecimalFormat("$0.00"));
         return chart;
     }

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.*;
 import pdk.chart.data.Range;
@@ -140,7 +140,7 @@ public class CompassFormatDemo2 extends ApplicationFrame {
             plot.setRenderer(1, renderer2);
             plot.setRangeAxis(1, axis2);
             plot.mapDatasetToRangeAxis(1, 1);
-            JChartUtils.applyCurrentTheme(chart);
+            JChart.applyCurrentTheme(chart);
             return chart;
         }
 

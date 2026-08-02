@@ -8,13 +8,15 @@ import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.urls.StandardCategoryURLGenerator;
-import pdk.chart.util.Args;
 import pdk.chart.util.GradientPaintTransformer;
+
+import java.util.Objects;
 
 /**
  *
@@ -51,12 +53,12 @@ public class CategoryBarChart extends CategoryChart {
     public CategoryBarChart(CategoryDataset dataset, String xAxisLabel, String yAxisLabel, String title, PlotOrientation orientation,
             boolean createLegend, boolean tooltips, boolean urls) {
         super(title, createLegend);
-        Args.nullNotPermitted(orientation, "orientation");
+        Objects.requireNonNull(orientation);
 
         xAxis_ = new CategoryAxis(xAxisLabel);
         yAxis_ = new NumberAxis(yAxisLabel);
         renderer1_ = new BarRenderer();
-        setDefaultRenderer(renderer1_);
+        renderer0_ = renderer1_;
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
@@ -82,7 +84,7 @@ public class CategoryBarChart extends CategoryChart {
         plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
         plot_.setOrientation(orientation);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -235,6 +237,15 @@ public class CategoryBarChart extends CategoryChart {
         renderer1_.setPositiveItemLabelPositionFallback(position);
     }
 
+    /**
+     * Sets the flag that controls whether shadows are
+     * drawn by the renderer.
+     *
+     * @param visible the new flag value.
+     */
+    public void setShadowVisible(boolean visible) {
+        renderer1_.setShadowVisible(visible);
+    }
 
     /**
      * Sets the base value for the bars and sends a {@link RendererChangeEvent}
@@ -244,5 +255,17 @@ public class CategoryBarChart extends CategoryChart {
      */
     public void setBase(double base) {
         renderer1_.setBase(base);
+    }
+
+    /**
+     * Sets the flag that controls whether the base value for the bars
+     * is included in the range calculated by
+     * {@link #findRangeBounds(CategoryDataset)}.  If the flag is changed,
+     * a {@link RendererChangeEvent} is sent to all registered listeners.
+     *
+     * @param include the new value for the flag.
+     */
+    public void setIncludeBaseInRange(boolean include) {
+        renderer1_.setIncludeBaseInRange(include);
     }
 }

@@ -3,7 +3,6 @@ package pdk.chart.demo;
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
@@ -47,7 +46,7 @@ public class DualAxisDemo3 extends ApplicationFrame {
         CategoryItemRenderer renderer2 = new LineAndShapeRenderer();
         plot.setRenderer(1, renderer2);
         plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

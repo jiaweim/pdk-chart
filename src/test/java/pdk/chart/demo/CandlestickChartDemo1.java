@@ -1,11 +1,10 @@
 package pdk.chart.demo;
 
+import pdk.chart.CandleStickChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultHighLowDataset;
 import pdk.chart.data.xy.OHLCDataset;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -26,14 +25,15 @@ public class CandlestickChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(OHLCDataset dataset) {
-        Chart chart = JChart.candlestick(dataset, "Time", "Value",
+        CandleStickChart chart = new CandleStickChart(dataset, "Time", "Value",
                 "Candlestick Demo 1", true);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        NumberAxis axis = (NumberAxis) plot.getRangeAxis();
-        axis.setAutoRangeIncludesZero(false);
-        axis.setUpperMargin(0.0);
-        axis.setLowerMargin(0.0);
+        chart.setDomainPannable(true);
+
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setAutoRangeIncludesZero(false);
+        yAxis.setLowerMargin(0.0);
+        yAxis.setUpperMargin(0.0);
+
         return chart;
     }
 

@@ -1,17 +1,16 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
+import pdk.chart.StackedBarChart;
+import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.TimeTableXYDataset;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.TableXYDataset;
-import pdk.chart.AxisType;
-import pdk.chart.XYChartType;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -49,35 +48,36 @@ public class StackedXYBarChartDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset<String> dataset) {
-        Chart chart = JChart.createXY(dataset, XYChartType.BAR_STACK,
-                AxisType.DATE, AxisType.NUMBER, "Waste Management",
-                "Year", "Tonnes",
-                PlotOrientation.VERTICAL, true, true);
+        StackedBarChart chart = new StackedBarChart(dataset, "Year", AxisType.DATE,
+                "Tonnes", "Waste Management");
         chart.setBackgroundPaint(Color.WHITE);
         chart.addSubtitle(new TextTitle("St Albans City and District Council"));
 
-        XYPlot plot = chart.getXYPlot();
-        plot.backgroundPaint(Color.LIGHT_GRAY)
-                .domainGridlinePaint(Color.WHITE)
-                .rangeGridlinePaint(Color.WHITE);
+        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
+        chart.setDomainGridlinePaint(Color.WHITE);
+        chart.setRangeGridlinePaint(Color.WHITE);
 
-        plot.getDomainAxisAsDate()
-                .tickMarkPosition(DateTickMarkPosition.MIDDLE)
-                .lowerMargin(0.01)
-                .upperMargin(0.01);
-        plot.getRangeAxisAsNumber()
-                .numberFormatOverride(new DecimalFormat("0.0%"));
-        plot.getBarRenderer()
-                .margin(0.3)
-                .renderAsPercentages(true)
-                .drawBarOutline(false)
-                .defaultToolTipGenerator(new StandardXYToolTipGenerator("{0} : {1} = {2} tonnes",
-                        new SimpleDateFormat("yyyy"), new DecimalFormat("#,##0")))
-                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(64, 0, 0), 0.0F, 0.0F, Color.RED))
-                .seriesPaint(1, new GradientPaint(0.0F, 0.0F, new Color(0, 64, 0), 0.0F, 0.0F, Color.GREEN))
-                .gradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL));
+        DateAxis xAxis = chart.getDomainAxisAsDate();
+        xAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
+        xAxis.setLowerMargin(0.01);
+        xAxis.setUpperMargin(0.01);
 
-        JChartUtils.applyCurrentTheme(chart);
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setNumberFormatOverride(new DecimalFormat("0.0%"));
+
+        chart.setBarMargin(0.3);
+        chart.setRenderAsPercentages(true);
+        chart.setDrawBarOutline(false);
+
+        chart.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0} : {1} = {2} tonnes",
+                new SimpleDateFormat("yyyy"), new DecimalFormat("#,##0")));
+
+        chart.setSeriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(64, 0, 0), 0.0F, 0.0F, Color.RED));
+        chart.setSeriesPaint(1, new GradientPaint(0.0F, 0.0F, new Color(0, 64, 0), 0.0F, 0.0F, Color.GREEN));
+        chart.setGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL));
+        chart.autoAdjustRange();
+
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

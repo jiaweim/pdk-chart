@@ -15,12 +15,18 @@ import pdk.chart.renderer.xy.XYBoxAndWhiskerRenderer;
  */
 public class BoxChart extends XYChart {
 
-    private XYBoxAndWhiskerRenderer renderer;
+    private XYBoxAndWhiskerRenderer renderer1_;
     private ValueAxis domainAxis_;
     private NumberAxis rangeAxis_;
 
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new XYBoxAndWhiskerRenderer();
+        renderer0_ = renderer1_;
+    }
+
     public BoxChart(AxisType domainAxisType, String title, boolean createLegend) {
-        super(title, DEFAULT_TITLE_FONT, createLegend);
+        super(title, createLegend);
         if (domainAxisType == AxisType.NUMBER) {
             domainAxis_ = new NumberAxis();
         } else if (domainAxisType == AxisType.DATE) {
@@ -31,13 +37,10 @@ public class BoxChart extends XYChart {
         rangeAxis_ = new NumberAxis();
         rangeAxis_.setAutoRangeIncludesZero(false);
 
-        renderer = new XYBoxAndWhiskerRenderer();
-        setDefaultRenderer(renderer);
-
         plot_.setDomainAxis(domainAxis_);
         plot_.setRangeAxis(rangeAxis_);
-        plot_.setRenderer(renderer);
-        JChartUtils.applyCurrentTheme(this);
+        plot_.setRenderer(renderer1_);
+        JChart.applyCurrentTheme(this);
     }
 
     /**

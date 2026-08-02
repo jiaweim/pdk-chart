@@ -34,7 +34,7 @@
  *
  */
 
-package pdk.chart;
+package pdk.chart.model;
 
 import java.util.Map;
 

@@ -1,6 +1,6 @@
 package pdk.chart.plot;
 
-import pdk.chart.ChartColor;
+import pdk.chart.model.ChartColor;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.util.SerialUtils;
 import pdk.chart.util.ShapeUtils;

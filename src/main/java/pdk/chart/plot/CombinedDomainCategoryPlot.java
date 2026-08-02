@@ -1,6 +1,6 @@
 package pdk.chart.plot;
 
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.AxisSpace;

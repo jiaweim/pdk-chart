@@ -4,11 +4,13 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.AreaRenderer;
 import pdk.chart.urls.StandardCategoryURLGenerator;
-import pdk.chart.util.Args;
+
+import java.util.Objects;
 
 /**
  * Area chart with category domain axis.
@@ -19,9 +21,13 @@ import pdk.chart.util.Args;
  */
 public class CategoryAreaChart extends CategoryChart {
 
-    private final AreaRenderer renderer_;
-    private final CategoryAxis domainAxis_;
-    private final NumberAxis rangeAxis_;
+    protected AreaRenderer renderer1_;
+    protected CategoryAxis xAxis_;
+    protected NumberAxis yAxis_;
+
+    protected CategoryAreaChart(String title, boolean createLegend) {
+        super(title, createLegend);
+    }
 
     /**
      * Creates an area chart with default settings.
@@ -41,29 +47,29 @@ public class CategoryAreaChart extends CategoryChart {
     public CategoryAreaChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
-        Args.nullNotPermitted(orientation, "orientation");
+        Objects.requireNonNull(orientation);
 
-        renderer_ = new AreaRenderer();
-        renderer_.setEndType(AreaRendererEndType.LEVEL);
-        setDefaultRenderer(renderer_);
+        xAxis_ = new CategoryAxis(categoryAxisLabel);
+        xAxis_.setCategoryMargin(0.0);
+        yAxis_ = new NumberAxis(valueAxisLabel);
+
+        renderer1_ = new AreaRenderer();
+        renderer1_.setEndType(AreaRendererEndType.LEVEL);
+        renderer0_ = renderer1_;
 
         if (tooltips) {
-            renderer_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+            renderer1_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         }
         if (urls) {
-            renderer_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
+            renderer1_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
-        domainAxis_ = new CategoryAxis(categoryAxisLabel);
-        domainAxis_.setCategoryMargin(0.0);
-        rangeAxis_ = new NumberAxis(valueAxisLabel);
-
-        plot_.setDomainAxis(domainAxis_);
-        plot_.setRangeAxis(rangeAxis_);
-        plot_.setRenderer(renderer_);
+        plot_.setDomainAxis(xAxis_);
+        plot_.setRangeAxis(yAxis_);
         plot_.setOrientation(orientation);
+        plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -119,4 +125,14 @@ public class CategoryAreaChart extends CategoryChart {
         this(Data.createCategory("", categories, values),
                 null, null, null, PlotOrientation.VERTICAL, false, true);
     }
+
+    /**
+     * Sets a token that controls how the renderer draws the end points.
+     *
+     * @param type the end type ({@code null} not permitted).
+     */
+    public void setEndType(AreaRendererEndType type) {
+        renderer1_.setEndType(type);
+    }
+
 }

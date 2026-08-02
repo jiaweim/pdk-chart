@@ -1,8 +1,8 @@
 package pdk.chart.plot;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartElement;
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElement;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleAlignment;

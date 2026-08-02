@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JPanel;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
@@ -61,7 +61,7 @@ public class SpiderWebChartDemo1 extends ApplicationFrame {
         LegendTitle legend = new LegendTitle(plot);
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

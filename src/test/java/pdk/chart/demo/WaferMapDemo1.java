@@ -1,15 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.WaferMapChart;
 import pdk.chart.data.general.WaferMapDataset;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.WaferMapPlot;
-import pdk.chart.renderer.LookupPaintScale;
 import pdk.chart.renderer.WaferMapRenderer;
-import pdk.chart.swing.ChartPanel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
@@ -44,11 +40,7 @@ public class WaferMapDemo1 {
 
         WaferMapDataset dataset = createDataset();
 
-        Chart chart = JChart.waferMap(
-                dataset,
-                "Wafer Map",
-                PlotOrientation.VERTICAL, false);
-
+        Chart chart = new WaferMapChart(dataset, "Wafer Map", false);
         WaferMapPlot plot = (WaferMapPlot) chart.getPlot();
 
 //        LookupPaintScale scale =

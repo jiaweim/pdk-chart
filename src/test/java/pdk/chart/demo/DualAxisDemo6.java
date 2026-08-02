@@ -3,13 +3,12 @@ package pdk.chart.demo;
 import pdk.chart.CategoryChart;
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -76,7 +75,7 @@ public class DualAxisDemo6 extends ApplicationFrame {
 //        result.add(chart.getRenderer(1).getLegendItem(1, 1));
 //        chart.setFixedLegendItems(result);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

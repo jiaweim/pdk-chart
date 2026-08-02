@@ -10,6 +10,7 @@ import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DatasetRenderingOrder;
 import pdk.chart.swing.ApplicationFrame;
@@ -92,7 +93,7 @@ public class DualAxisDemo1 extends ApplicationFrame {
         CompositeTitle legends = new CompositeTitle(container);
         legends.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legends);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
@@ -54,7 +54,7 @@ public class MultipleDatasetDemo1 extends ApplicationFrame {
             axis.setAutoRange(true);
             NumberAxis rangeAxis2 = new NumberAxis("Range Axis 2");
             rangeAxis2.setAutoRangeIncludesZero(false);
-            JChartUtils.applyCurrentTheme(chart);
+            JChart.applyCurrentTheme(chart);
             JPanel content = new JPanel(new BorderLayout());
             ChartPanel chartPanel = new ChartPanel(chart);
             content.add(chartPanel);

@@ -1,4 +1,6 @@
-package pdk.chart;
+package pdk.chart.model;
+
+import pdk.chart.Chart;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;

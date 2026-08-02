@@ -2,7 +2,6 @@ package pdk.chart.demo;
 
 import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.labels.BubbleXYItemLabelGenerator;

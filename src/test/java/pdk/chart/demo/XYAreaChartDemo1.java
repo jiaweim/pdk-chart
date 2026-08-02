@@ -7,7 +7,6 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.data.xy.XYSeriesCollection;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -20,57 +19,50 @@ import java.awt.*;
 public class XYAreaChartDemo1 extends ApplicationFrame {
     public XYAreaChartDemo1(String title) {
         super(title);
-        XYDataset dataset = createDataset();
+        XYDataset<String> dataset = createDataset();
         Chart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart);
         chartPanel.setPreferredSize(new Dimension(500, 270));
         this.setContentPane(chartPanel);
     }
 
-    private static XYDataset createDataset() {
-        XYSeries series1 = new XYSeries("Random 1");
-        series1.add((double) 1.0F, 500.2);
-        series1.add((double) 2.0F, 694.1);
-        series1.add((double) 3.0F, -734.4);
-        series1.add((double) 4.0F, 453.2);
-        series1.add((double) 5.0F, 500.2);
-        series1.add((double) 6.0F, 300.7);
-        series1.add((double) 7.0F, 734.4);
-        series1.add((double) 8.0F, 453.2);
-        XYSeries series2 = new XYSeries("Random 2");
-        series2.add((double) 1.0F, 700.2);
-        series2.add((double) 2.0F, 534.1);
-        series2.add((double) 3.0F, 323.4);
-        series2.add((double) 4.0F, 125.2);
-        series2.add((double) 5.0F, 653.2);
-        series2.add((double) 6.0F, 432.7);
-        series2.add((double) 7.0F, 564.4);
-        series2.add((double) 8.0F, 322.2);
-        XYSeriesCollection dataset = new XYSeriesCollection();
+    private static XYDataset<String> createDataset() {
+        XYSeriesCollection<String> dataset = new XYSeriesCollection<>();
+        XYSeries<String> series1 = new XYSeries<>("Random 1",
+                new double[]{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0},
+                new double[]{500.2, 694.1, -734.4, 453.2, 500.2, 300.7, 734.4, 453.2}
+        );
+        XYSeries<String> series2 = new XYSeries<>("Random 2",
+                new double[]{1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0},
+                new double[]{700.2, 534.1, 323.4, 125.2, 653.2, 432.7, 564.4, 322.2}
+        );
         dataset.addSeries(series1);
         dataset.addSeries(series2);
-        dataset.setIntervalWidth((double) 0.0F);
+        dataset.setIntervalWidth(0.0);
         return dataset;
     }
 
-    private static Chart createChart(XYDataset dataset) {
-        Chart chart = new AreaChart(dataset, "Domain (X)", "Range (Y)",
+    private static Chart createChart(XYDataset<String> dataset) {
+        AreaChart chart = new AreaChart(dataset, "Domain (X)", "Range (Y)",
                 "XY Area Chart Demo");
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setForegroundAlpha(0.65F);
-        ValueAxis domainAxis = plot.getDomainAxis();
-        domainAxis.setTickMarkPaint(Color.black);
-        domainAxis.setLowerMargin((double) 0.0F);
-        domainAxis.setUpperMargin((double) 0.0F);
-        ValueAxis rangeAxis = plot.getRangeAxis();
-        rangeAxis.setTickMarkPaint(Color.black);
-        XYPointerAnnotation pointer = new XYPointerAnnotation("Test", (double) 5.0F, (double) -500.0F, 2.356194490192345);
-        pointer.setTipRadius((double) 0.0F);
-        pointer.setBaseRadius((double) 35.0F);
-        pointer.setFont(new Font("SansSerif", 0, 9));
+        chart.setForegroundAlpha(0.65f);
+
+        ValueAxis xAxis = chart.getDomainAxis();
+        xAxis.setLowerMargin(0);
+        xAxis.setUpperMargin(0);
+        xAxis.setTickMarkPaint(Color.BLACK);
+
+        ValueAxis yAxis = chart.getRangeAxis();
+        yAxis.setTickMarkPaint(Color.BLACK);
+
+        XYPointerAnnotation pointer = new XYPointerAnnotation("Test", 5.0, -500.0, Math.PI * 2 / 3);
+        pointer.setTipRadius(0.0);
+        pointer.setBaseRadius(35.0);
+        pointer.setFont(new Font("SansSerif", Font.PLAIN, 9));
         pointer.setPaint(Color.BLUE);
         pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
-        plot.addAnnotation(pointer);
+        chart.addAnnotation(pointer);
+
         return chart;
     }
 
@@ -78,7 +70,7 @@ public class XYAreaChartDemo1 extends ApplicationFrame {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         XYAreaChartDemo1 demo = new XYAreaChartDemo1("XY Area Chart Demo");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

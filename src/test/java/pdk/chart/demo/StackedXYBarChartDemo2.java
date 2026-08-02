@@ -1,24 +1,22 @@
 package pdk.chart.demo;
 
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
 import pdk.chart.JChart;
+import pdk.chart.StackedBarChart;
 import pdk.chart.api.RectangleEdge;
+import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.block.BlockBorder;
 import pdk.chart.data.time.TimeTableXYDataset;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.TableXYDataset;
-import pdk.chart.AxisType;
-import pdk.chart.XYChartType;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardXYItemLabelGenerator;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -76,38 +74,37 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset<String> dataset) {
-        Chart chart = JChart.createXY(dataset, XYChartType.BAR_STACK, AxisType.DATE, AxisType.NUMBER,
-                "Holes-In-One / Double Eagles", "Date", "Count",
-                PlotOrientation.VERTICAL, true, true);
-        XYPlot plot = chart.getXYPlot();
-        plot.getDomainAxisAsDate()
-                .tickMarkPosition(DateTickMarkPosition.MIDDLE)
-                .lowerMargin(0.01)
-                .upperMargin(0.01);
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .upperMargin(0.1);
-        plot.getBarRenderer()
-                .drawBarOutline(false)
-                .margin(0.15)
-                .defaultItemLabelsVisible(true)
-                .defaultItemLabelGenerator(new StandardXYItemLabelGenerator())
-                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER))
-                .defaultToolTipGenerator(new StandardXYToolTipGenerator("{0} : {1} = {2}",
-                        new SimpleDateFormat("yyyy"), new DecimalFormat("0")));
+        StackedBarChart chart = new StackedBarChart(dataset, "Date", AxisType.DATE, "Count",
+                "Holes-In-One / Double Eagles");
+        DateAxis xAxis = chart.getDomainAxisAsDate();
+        xAxis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
+        xAxis.setLowerMargin(0.01);
+        xAxis.setUpperMargin(0.01);
+
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        yAxis.setUpperMargin(0.1);
+
+        chart.setDrawBarOutline(false);
+        chart.setBarMargin(0.15);
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultItemLabelGenerator(new StandardXYItemLabelGenerator());
+        chart.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));
+        chart.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0} : {1} = {2}",
+                new SimpleDateFormat("yyyy"), new DecimalFormat("0")));
 
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("PGA Tour, 1983 to 2003"));
         TextTitle source = new TextTitle("http://www.golfdigest.com/majors/masters/index.ssf?/majors/masters/gw20040402albatross.html", new Font("Dialog", 0, 8));
         chart.addSubtitle(source);
         chart.setTextAntiAlias(RenderingHints.VALUE_TEXT_ANTIALIAS_DEFAULT);
-        LegendTitle legend = new LegendTitle(plot);
+        LegendTitle legend = new LegendTitle(chart.getPlot());
         legend.setBackgroundPaint(Color.WHITE);
         legend.setFrame(new BlockBorder());
         legend.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legend);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

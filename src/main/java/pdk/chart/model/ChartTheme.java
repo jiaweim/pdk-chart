@@ -1,4 +1,6 @@
-package pdk.chart;
+package pdk.chart.model;
+
+import pdk.chart.Chart;
 
 /**
  * A {@link ChartTheme} a class that can apply a style or 'theme' to a chart.

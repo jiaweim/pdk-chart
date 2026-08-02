@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -37,7 +37,7 @@ public class XYSeriesDemo1 extends ApplicationFrame {
         List<Integer> axisIndices = Arrays.asList(0, 1);
         plot.mapDatasetToDomainAxes(0, axisIndices);
         plot.mapDatasetToRangeAxes(0, axisIndices);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -27,7 +27,6 @@ import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.category.BarRenderer;
-import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.renderer.xy.DeviationRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.UIUtils;
@@ -202,15 +201,18 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart4(XYDataset dataset) {
-        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+        LineChart chart = new LineChart(dataset, "Date", AxisType.DATE,
                 "Index Projection", "Projected Values - Test");
         chart.setBackgroundPaint(Color.WHITE);
+        chart.setPlotInsets(new RectangleInsets(5.0, 5.0, 5.0, 20.0));
+        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
+        chart.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+        chart.setDomainGridlinePaint(Color.WHITE);
+        chart.setRangeGridlinePaint(Color.WHITE);
+
         XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setInsets(new RectangleInsets(5.0, 5.0, 5.0, 20.0));
-        plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
-        plot.setDomainGridlinePaint(Color.WHITE);
-        plot.setRangeGridlinePaint(Color.WHITE);
+
+
         DeviationRenderer renderer = new DeviationRenderer(true, false);
         renderer.setSeriesStroke(0, new BasicStroke(3.0F, BasicStroke.CAP_ROUND, 1));
         renderer.setSeriesStroke(0, new BasicStroke(3.0F, 1, 1));
@@ -267,35 +269,35 @@ public class ThumbnailDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart6(CategoryDataset dataset) {
-        Chart chart = new CategoryLineChart(dataset, "Release", "Class Count", "Java Standard Class Library",
+        CategoryLineChart chart = new CategoryLineChart(dataset, "Release", "Class Count", "Java Standard Class Library",
                 PlotOrientation.VERTICAL, false, true);
         chart.addSubtitle(new TextTitle("Number of Classes By Release"));
         TextTitle source = new TextTitle("Source: Java In A Nutshell (4th Edition) by David Flanagan (O'Reilly)");
-        source.setFont(new Font("SansSerif", 0, 10));
+        source.setFont(new Font("SansSerif", Font.PLAIN, 10));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);
         chart.setBackgroundPaint(Color.WHITE);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setBackgroundPaint(Color.LIGHT_GRAY);
-        plot.setRangeGridlinePaint(Color.WHITE);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
+        chart.setDomainGridlinePaint(Color.WHITE);
+
+        NumberAxis rangeAxis = chart.getRangeAxis();
         rangeAxis.setUpperMargin(0.15);
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setDefaultShapesVisible(true);
-        renderer.setDrawOutlines(true);
-        renderer.setUseFillPaint(true);
-        renderer.setDefaultFillPaint(Color.WHITE);
-        renderer.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        renderer.setDefaultItemLabelsVisible(true);
+
+        chart.setDefaultShapesVisible(true);
+        chart.setDrawOutlines(true);
+        chart.setUseFillPaint(true);
+        chart.setDefaultFillPaint(Color.WHITE);
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        chart.setDefaultItemLabelsVisible(true);
         return chart;
     }
 
     public static JPanel createDemoPanel() {
         JPanel mainPanel = new JPanel(new GridLayout(2, 3));
         Chart chart1 = createChart1(createDataset1());
-        JChartUtils.applyCurrentTheme(chart1);
+        JChart.applyCurrentTheme(chart1);
         BufferedImage thumb1 = chart1.createBufferedImage(120, 80, (double) 360.0F, (double) 240.0F, null);
         ImageIcon image1 = new ImageIcon(thumb1);
         mainPanel.add(new JButton(image1));
@@ -305,22 +307,22 @@ public class ThumbnailDemo1 extends ApplicationFrame {
 //        ImageIcon image2 = new ImageIcon(thumb2);
 //        mainPanel.add(new JButton(image2));
         Chart chart3 = createChart3(createDataset3());
-        JChartUtils.applyCurrentTheme(chart3);
+        JChart.applyCurrentTheme(chart3);
         BufferedImage thumb3 = chart3.createBufferedImage(120, 80, 360.0, (double) 240.0F, null);
         ImageIcon image3 = new ImageIcon(thumb3);
         mainPanel.add(new JButton(image3));
         Chart chart4 = createChart4(createDataset4());
-        JChartUtils.applyCurrentTheme(chart4);
+        JChart.applyCurrentTheme(chart4);
         BufferedImage thumb4 = chart4.createBufferedImage(120, 80, 360.0F, 240.0F, null);
         ImageIcon image4 = new ImageIcon(thumb4);
         mainPanel.add(new JButton(image4));
         Chart chart5 = createChart5(createDataset5());
-        JChartUtils.applyCurrentTheme(chart5);
+        JChart.applyCurrentTheme(chart5);
         BufferedImage thumb5 = chart5.createBufferedImage(120, 80, 360.0F, 240.0F, null);
         ImageIcon image5 = new ImageIcon(thumb5);
         mainPanel.add(new JButton(image5));
         Chart chart6 = createChart6(createDataset6());
-        JChartUtils.applyCurrentTheme(chart6);
+        JChart.applyCurrentTheme(chart6);
         BufferedImage thumb6 = chart6.createBufferedImage(120, 80, 360.0F, 240.0F, null);
         ImageIcon image6 = new ImageIcon(thumb6);
         mainPanel.add(new JButton(image6));

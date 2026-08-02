@@ -1,12 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.LookupPaintScale;
@@ -56,7 +56,7 @@ public class XYShapeRendererDemo1 extends ApplicationFrame {
         psl.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
 
         chart.addSubtitle(psl);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -2,7 +2,7 @@ package pdk.chart.renderer.category;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.ChartRenderingInfo;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.CategoryAxis;

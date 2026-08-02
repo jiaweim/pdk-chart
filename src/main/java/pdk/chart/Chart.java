@@ -9,6 +9,7 @@ import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.JFreeChartEntity;
 import pdk.chart.event.*;
 import pdk.chart.legend.LegendTitle;
+import pdk.chart.model.*;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.swing.ChartPanel;
@@ -45,12 +46,8 @@ import java.util.List;
  * domain axis and a range axis).
  * <p>
  * You should use a {@link ChartPanel} to display a chart in a GUI.
- * <p>
- * The {@link JChart} class contains static methods for creating
- * 'ready-made' charts.
  *
  * @see ChartPanel
- * @see JChart
  * @see Title
  * @see Plot
  */
@@ -197,10 +194,6 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * Creates a new chart based on the supplied plot.  The chart will have
      * a legend added automatically, but no title (although you can easily add
      * one later).
-     * <br><br>
-     * Note that the  {@link JChart} class contains a range
-     * of static methods that will return ready-made charts, and often this
-     * is a more convenient way to create charts than using this constructor.
      *
      * @param plot the plot ({@code null} not permitted).
      */
@@ -212,10 +205,6 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * Creates a new chart with the given title and plot.  A default font
      * ({@link #DEFAULT_TITLE_FONT}) is used for the title, and the chart will
      * have a legend added automatically.
-     * <br><br>
-     * Note that the {@link JChart} class contains a range
-     * of static methods that will return ready-made charts, and often this
-     * is a more convenient way to create charts than using this constructor.
      *
      * @param title the chart title ({@code null} permitted).
      * @param plot  the plot ({@code null} not permitted).
@@ -228,10 +217,6 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      * Creates a new chart with the given title and plot.  The
      * {@code createLegend} argument specifies whether a legend
      * should be added to the chart.
-     * <br><br>
-     * Note that the  {@link JChart} class contains a range
-     * of static methods that will return ready-made charts, and often this
-     * is a more convenient way to create charts than using this constructor.
      *
      * @param title        the chart title ({@code null} permitted).
      * @param titleFont    the font for displaying the chart title
@@ -865,6 +850,27 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
     public void setPlotBackgroundPaint(Paint paint) {
         plot.setBackgroundPaint(paint);
     }
+
+    /**
+     * Sets the flag that controls whether the plot's outline is
+     * drawn, and sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param visible the new flag value.
+     */
+    public void setPlotOutlineVisible(boolean visible) {
+        plot.setOutlineVisible(visible);
+    }
+
+    /**
+     * Sets the alpha-transparency for the plot and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param alpha the new alpha transparency.
+     */
+    public void setForegroundAlpha(float alpha) {
+        plot.setForegroundAlpha(alpha);
+    }
+
 
     /**
      * Sets the drawing supplier for the plot.
@@ -1516,6 +1522,18 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
     }
 
     /**
+     * Sets the message that is displayed when the dataset is empty or
+     * {@code null}, and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param message the message ({@code null} permitted).
+     */
+    public void setNoDataMessage(String message) {
+        plot.setNoDataMessage(message);
+    }
+
+
+    /**
      * Tests this chart for equality with another object.
      *
      * @param obj the object ({@code null} permitted).
@@ -1674,6 +1692,16 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
         chart.progressListeners = new EventListenerList();
         chart.changeListeners = new EventListenerList();
         return chart;
+    }
+
+    /**
+     * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param insets the new insets ({@code null} not permitted).
+     */
+    public void setPlotInsets(RectangleInsets insets) {
+        plot.setInsets(insets, true);
     }
 
 }

@@ -1,7 +1,6 @@
 package pdk.chart.demo.pep;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.PSMChartV2;
 import pdk.chart.ms.*;
 

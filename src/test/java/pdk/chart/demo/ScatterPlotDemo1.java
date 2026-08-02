@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.ScatterChart;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -21,36 +21,38 @@ public class ScatterPlotDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = new ScatterChart(dataset, "X", "Y", "Scatter Plot Demo 1");
-        XYPlot plot = chart.getXYPlot();
-        plot.noDataMessage("NO DATA")
-                .domainPannable(true)
-                .rangePannable(true)
-                .domainZeroBaselineVisible(true)
-                .rangeZeroBaselineVisible(true)
-                .domainGridlineStroke(new BasicStroke(0f))
-                .domainMinorGridlineStroke(new BasicStroke(0f))
-                .domainGridlinePaint(Color.BLUE)
-                .rangeGridlineStroke(new BasicStroke(0f))
-                .rangeMinorGridlineStroke(new BasicStroke(0f))
-                .rangeGridlinePaint(Color.BLUE)
-                .domainMinorGridlinesVisible(true)
-                .rangeMinorGridlinesVisible(true);
+        ScatterChart chart = new ScatterChart(dataset, "X", "Y", "Scatter Plot Demo 1");
+        chart.setNoDataMessage("No data");
+        chart.setPannable(true, true);
+        chart.setDomainZeroBaselineVisible(true);
+        chart.setRangeZeroBaselineVisible(true);
 
-        plot.getLineAndShapeRenderer()
-                .seriesOutlinePaint(0, Color.BLACK)
-                .useOutlinePaint(true);
-        plot.getDomainAxisAsNumber()
-                .autoRangeIncludesZero(false)
-                .tickMarkInsideLength(2.0f)
-                .tickMarkOutsideLength(2.0f)
-                .minorTickCount(2)
-                .minorTickMarksVisible(true);
-        plot.getRangeAxisAsNumber()
-                .tickMarkInsideLength(2.0f)
-                .tickMarkOutsideLength(2.0f)
-                .minorTickCount(2)
-                .minorTickMarksVisible(true);
+        chart.setDomainGridlineStroke(new BasicStroke(0f));
+        chart.setDomainMinorGridlineStroke(new BasicStroke(0f));
+        chart.setDomainGridlinePaint(Color.BLUE);
+
+        chart.setRangeGridlineStroke(new BasicStroke(0f));
+        chart.setRangeMinorGridlineStroke(new BasicStroke(0f));
+        chart.setRangeGridlinePaint(Color.BLUE);
+
+        chart.setDomainMinorGridlinesVisible(true);
+        chart.setRangeMinorGridlinesVisible(true);
+
+        chart.setSeriesOutlinePaint(0, Color.BLACK);
+        chart.setUseOutlinePaint(true);
+
+        NumberAxis domainAxis = chart.getDomainAxisAsNumber();
+        domainAxis.setAutoRangeIncludesZero(false);
+        domainAxis.setTickMarkInsideLength(2f);
+        domainAxis.setTickMarkOutsideLength(2f);
+        domainAxis.setMinorTickCount(2);
+        domainAxis.setMinorTickMarksVisible(true);
+
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
+        rangeAxis.setTickMarkInsideLength(2f);
+        rangeAxis.setTickMarkOutsideLength(2f);
+        rangeAxis.setMinorTickCount(2);
+        rangeAxis.setMinorTickMarksVisible(true);
         return chart;
     }
 

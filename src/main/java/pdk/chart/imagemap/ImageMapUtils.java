@@ -1,7 +1,7 @@
 package pdk.chart.imagemap;
 
-import pdk.chart.ChartRenderingInfo;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.ChartRenderingInfo;
+import pdk.chart.JChart;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.util.Args;
@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 
 /**
  * Collection of utility methods related to producing image maps.
- * Functionality was originally in {@link JChartUtils}.
+ * Functionality was originally in {@link JChart}.
  */
 public class ImageMapUtils {
 

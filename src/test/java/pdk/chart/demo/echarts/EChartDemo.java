@@ -3,11 +3,14 @@ package pdk.chart.demo.echarts;
 import com.orsonpdf.PDFDocument;
 import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
-import pdk.chart.*;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.demo.DemoDescription;
 import pdk.chart.demo.DemoPanel;
 import pdk.chart.demo.SVGExportTask;
+import pdk.chart.model.ChartTransferable;
+import pdk.chart.model.StandardChartTheme;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
@@ -186,13 +189,13 @@ public class EChartDemo extends ApplicationFrame implements ActionListener, Tree
         Component c = this.chartContainer.getComponent(0);
         if (c instanceof ChartPanel) {
             ChartPanel cp = (ChartPanel) c;
-            JChartUtils.applyCurrentTheme(cp.getChart());
+            JChart.applyCurrentTheme(cp.getChart());
         } else if (c instanceof DemoPanel) {
             DemoPanel dp = (DemoPanel) c;
             Chart[] charts = dp.getCharts();
 
             for (Chart chart : charts) {
-                JChartUtils.applyCurrentTheme(chart);
+                JChart.applyCurrentTheme(chart);
             }
         }
 

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryAreaChart;
 import pdk.chart.CategoryChartType;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DatasetRenderingOrder;

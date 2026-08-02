@@ -3,8 +3,6 @@ package pdk.chart.plot;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.Chart;
-import pdk.chart.ChartElementVisitor;
-import pdk.chart.JChart;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYAnnotationBoundsInfo;
@@ -20,6 +18,7 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.*;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.renderer.RendererUtils;
 import pdk.chart.renderer.xy.*;
 import pdk.chart.util.*;
@@ -44,9 +43,6 @@ import java.util.Map.Entry;
  * {@code XYPlot} makes use of an {@link XYItemRenderer} to draw each point
  * on the plot.  By using different renderers, various chart types can be
  * produced.
- * <p>
- * The {@link JChart} class contains static methods for
- * creating pre-configured charts.
  *
  * @param <S>The type for the series keys.
  */
@@ -4780,19 +4776,6 @@ public class XYPlot<S extends Comparable<S>> extends Plot
      */
     public XYPlot<S> rangePannable(boolean pannable) {
         this.rangePannable = pannable;
-        return this;
-    }
-
-    /**
-     * Sets the flag that enables or disables panning of the plot along
-     * the range axis/axes.
-     *
-     * @param domainPannable the new flag value for domain pannable.
-     * @param rangePannable  the new flag for range pannable.
-     */
-    public XYPlot<S> pannable(boolean domainPannable, boolean rangePannable) {
-        setDomainPannable(domainPannable);
-        setRangePannable(rangePannable);
         return this;
     }
 

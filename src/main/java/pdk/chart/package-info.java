@@ -1,4 +1,4 @@
 /**
- * Core classes for pdk-chart including {@link pdk.chart.Chart} and {@link pdk.chart.JChart}.
+ * This package contains a variety of chart types.
  */
 package pdk.chart;

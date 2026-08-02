@@ -1,6 +1,6 @@
 package pdk.chart.renderer.xy;
 
-import pdk.chart.ChartElement;
+import pdk.chart.model.ChartElement;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.api.Layer;
 import pdk.chart.axis.ValueAxis;
@@ -256,6 +256,15 @@ public interface XYItemRenderer extends ChartElement, LegendItemSource {
      * @return The paint (never {@code null}).
      */
     Paint getItemPaint(int row, int column);
+
+    /**
+     * Set the paint used to color data items as they are drawn.
+     *
+     * @param row    the row (or series) index (zero-based).
+     * @param column the column (or category) index (zero-based).
+     * @param paint  the paint.
+     */
+    void setItemPaint(int row, int column, Paint paint);
 
     /**
      * Returns the paint used to color an item drawn by the renderer.

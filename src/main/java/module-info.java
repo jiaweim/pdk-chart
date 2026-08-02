@@ -4,6 +4,7 @@ module pdk.chart {
     requires org.jspecify;
     requires org.jfree.svg;
     requires com.orsonpdf.orsonpdf;
+    requires com.google.common;
 
     exports pdk.chart;
     exports pdk.chart.annotations;
@@ -17,6 +18,7 @@ module pdk.chart {
     exports pdk.chart.imagemap;
     exports pdk.chart.labels;
     exports pdk.chart.legend;
+    exports pdk.chart.model;
     exports pdk.chart.plot.compass;
     exports pdk.chart.plot;
     exports pdk.chart.plot.dial;
@@ -46,4 +48,5 @@ module pdk.chart {
     exports pdk.chart.data.xy;
     exports pdk.chart.ms;
     exports pdk.chart.ms.label;
+    exports pdk.chart.api.factory;
 }

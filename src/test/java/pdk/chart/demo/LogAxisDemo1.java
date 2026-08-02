@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.ScatterChart;
 import pdk.chart.axis.LogAxis;
 import pdk.chart.data.xy.XYDataset;
@@ -38,7 +38,7 @@ public class LogAxisDemo1 extends ApplicationFrame {
         LogAxis yAxis = new LogAxis("Y");
         plot.setDomainAxis(xAxis);
         plot.setRangeAxis(yAxis);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

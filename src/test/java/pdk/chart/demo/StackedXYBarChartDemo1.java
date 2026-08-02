@@ -1,14 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.Data;
+import pdk.chart.StackedBarChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.data.xy.XYSeries;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -37,15 +34,14 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset<String> dataset) {
-        Chart chart = JChart.barStackedXY(dataset, "X", "Y", "Stacked XY Bar Chart Demo 1",
-                PlotOrientation.VERTICAL, true, true, true);
-        XYPlot plot = chart.getXYPlot();
-        plot.getDomainAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getBarRenderer()
-                .drawBarOutline(false)
-                .margin(0.1);
-        JChartUtils.applyCurrentTheme(chart);
+        StackedBarChart chart = new StackedBarChart(dataset, "X", "Y", "Stacked XY Bar Chart Demo 1");
+
+        NumberAxis xAxis = chart.getDomainAxisAsNumber();
+        xAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.setDrawBarOutline(false);
+        chart.setBarMargin(0.1);
+
         return chart;
     }
 

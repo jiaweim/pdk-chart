@@ -1,6 +1,6 @@
 package pdk.chart.plot.compass;
 
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.data.general.DefaultValueDataset;
 import pdk.chart.data.general.ValueDataset;

@@ -1,9 +1,9 @@
 package pdk.chart.swing;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartRenderingInfo;
-import pdk.chart.ChartTransferable;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.ChartRenderingInfo;
+import pdk.chart.model.ChartTransferable;
+import pdk.chart.JChart;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.ChartChangeEvent;
@@ -2454,7 +2454,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
             if (h <= 0) {
                 h = getHeight();
             }
-            JChartUtils.saveChartAsPNG(new File(filename), this.chart, w, h);
+            JChart.saveChartAsPNG(new File(filename), this.chart, w, h);
         }
     }
 
@@ -2634,7 +2634,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
      * @param h    the chart height.
      */
     private void writeAsPDF(File file, int w, int h) {
-        if (!JChartUtils.isOrsonPDFAvailable()) {
+        if (!JChart.isOrsonPDFAvailable()) {
             throw new IllegalStateException(
                     "OrsonPDF is not present on the classpath.");
         }
@@ -2810,7 +2810,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
                 pngItem.addActionListener(this);
                 saveSubMenu.add(pngItem);
             }
-            if (JChartUtils.isJFreeSVGAvailable()) {
+            if (JChart.isJFreeSVGAvailable()) {
                 JMenuItem svgItem = new JMenuItem(localizationResources.getString(
                         "SVG..."));
                 svgItem.setActionCommand(SAVE_AS_SVG_COMMAND);
@@ -2818,7 +2818,7 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
                 saveSubMenu.add(svgItem);
             }
 
-            if (JChartUtils.isOrsonPDFAvailable()) {
+            if (JChart.isOrsonPDFAvailable()) {
                 JMenuItem pdfItem = new JMenuItem(
                         localizationResources.getString("PDF..."));
                 pdfItem.setActionCommand(SAVE_AS_PDF_COMMAND);

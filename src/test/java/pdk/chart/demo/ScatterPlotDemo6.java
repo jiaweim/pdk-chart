@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.ScatterChart;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.swing.ChartPanel;

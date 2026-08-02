@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.PeriodAxis;
@@ -57,7 +57,7 @@ public class PeriodAxisDemo2 extends ApplicationFrame {
         info[2] = new PeriodAxisLabelInfo(Year.class, new SimpleDateFormat("yyyy"));
         domainAxis.setLabelInfo(info);
         plot.setDomainAxis(domainAxis);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

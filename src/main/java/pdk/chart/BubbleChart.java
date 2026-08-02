@@ -4,6 +4,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYZToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBubbleRenderer;
@@ -46,16 +47,16 @@ public class BubbleChart extends XYChart {
         SCALE_ON_RANGE_AXIS
     }
 
-    private final XYBubbleRenderer renderer;
+    private final XYBubbleRenderer renderer1_;
 
-    public BubbleChart(ScaleType scaleType, String title, Font titleFont, boolean createLegend) {
-        super(title, titleFont, createLegend);
-        renderer = new XYBubbleRenderer(scaleType.ordinal());
-        setDefaultRenderer(renderer);
+    public BubbleChart(ScaleType scaleType, String title, boolean createLegend) {
+        super(title, createLegend);
+        renderer1_ = new XYBubbleRenderer(scaleType.ordinal());
+        renderer0_ = renderer1_;
     }
 
-    public BubbleChart(String title, Font titleFont, boolean createLegend) {
-        this(ScaleType.SCALE_ON_RANGE_AXIS, title, titleFont, createLegend);
+    public BubbleChart(String title, boolean createLegend) {
+        this(ScaleType.SCALE_ON_RANGE_AXIS, title, createLegend);
     }
 
     public BubbleChart(double[] x, double[] y, double[] size) {
@@ -107,9 +108,9 @@ public class BubbleChart extends XYChart {
         XYZDataset<String> dataset = xyz.build();
         plot_.setDataset(dataset);
         for (int i = 0; i < dataset.getSeriesCount(); i++) {
-            renderer.setSeriesOutlinePaint(i, Color.WHITE);
+            renderer1_.setSeriesOutlinePaint(i, Color.WHITE);
         }
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -166,7 +167,7 @@ public class BubbleChart extends XYChart {
      */
     public BubbleChart(ScaleType scaleType, XYZDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        this(scaleType, title, DEFAULT_TITLE_FONT, legend);
+        this(scaleType, title, legend);
         nullNotPermitted(orientation, "plotOrientation");
 
         NumberAxis xAxis = new NumberAxis(xAxisLabel);
@@ -176,17 +177,17 @@ public class BubbleChart extends XYChart {
 
         plot_.setDomainAxis(xAxis);
         plot_.setRangeAxis(yAxis);
-        plot_.setRenderer(renderer);
+        plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
         plot_.setOrientation(orientation);
 
         if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYZToolTipGenerator());
+            renderer1_.setDefaultToolTipGenerator(new StandardXYZToolTipGenerator());
         }
         if (urls) {
-            renderer.setURLGenerator(new StandardXYZURLGenerator());
+            renderer1_.setURLGenerator(new StandardXYZURLGenerator());
         }
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -198,18 +199,7 @@ public class BubbleChart extends XYChart {
      * @param notify notify listeners?
      */
     public void setSeriesOutlinePaint(int series, Paint paint, boolean notify) {
-        renderer.setSeriesOutlinePaint(series, paint, notify);
-    }
-
-    /**
-     * Sets the paint used for a series and sends a {@link RendererChangeEvent}
-     * to all registered listeners.
-     *
-     * @param series the series index (zero-based).
-     * @param paint  the paint ({@code null} permitted).
-     */
-    public void setSeriesPaint(int series, Paint paint) {
-        renderer.setSeriesPaint(series, paint);
+        renderer1_.setSeriesOutlinePaint(series, paint, notify);
     }
 
     /**
@@ -220,7 +210,7 @@ public class BubbleChart extends XYChart {
      * @param visible the flag ({@code null} permitted).
      */
     public void setSeriesVisible(int series, Boolean visible) {
-        renderer.setSeriesVisible(series, visible);
+        renderer1_.setSeriesVisible(series, visible);
     }
 
     /**
@@ -231,6 +221,6 @@ public class BubbleChart extends XYChart {
      * @return A boolean.
      */
     public boolean isSeriesVisible(int series) {
-        return renderer.isSeriesVisible(series);
+        return renderer1_.isSeriesVisible(series);
     }
 }

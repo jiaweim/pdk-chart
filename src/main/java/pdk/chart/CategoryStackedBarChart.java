@@ -47,9 +47,9 @@ public class CategoryStackedBarChart extends CategoryBarChart {
 
         xAxis_ = new CategoryAxis(xAxisLabel);
         yAxis_ = new NumberAxis(yAxisLabel);
-        this.renderer2_ = new StackedBarRenderer();
-        this.renderer1_ = renderer2_;
-        setDefaultRenderer(renderer1_);
+        renderer2_ = new StackedBarRenderer();
+        renderer1_ = renderer2_;
+        renderer0_ = renderer2_;
 
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -63,7 +63,7 @@ public class CategoryStackedBarChart extends CategoryBarChart {
         plot_.setRenderer(renderer2_);
         plot_.setDataset(dataset);
         plot_.setOrientation(orientation);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**

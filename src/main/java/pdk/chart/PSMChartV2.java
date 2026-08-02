@@ -31,21 +31,21 @@ public class PSMChartV2 extends XYChart {
     private final XYLineAndShapeRenderer errorRenderer;
 
     public PSMChartV2(ToleranceType toleranceType) {
-        super(null, DEFAULT_TITLE_FONT, new MSPlot<>(), false);
+        super(null, new MSPlot<>(), false);
         this.msPlot = (MSPlot) getPlot();
 
         psmPlot = new PSMPlot();
         psmPlot.setDomainAxis(null);
         peakRenderer = (PeakRenderer) psmPlot.getRenderer();
         peakRenderer.setShowAutoPeakLabels(false);
-        setDefaultRenderer(peakRenderer);
+        renderer0_ = peakRenderer;
 
         NumberAxis errorYAxis = new NumberAxis(toleranceType.getUnit());
         errorYAxis.setRange(0 - toleranceType.getValue(), toleranceType.getValue());
 
         errorRenderer = new XYLineAndShapeRenderer(false, true);
         errorRenderer.setDefaultShapesFilled(true);
-        errorRenderer.drawOutlines(false);
+        errorRenderer.setDrawOutlines(false);
 
         errorPlot = new XYPlot(null, null, errorYAxis, errorRenderer);
 
@@ -59,7 +59,7 @@ public class PSMChartV2 extends XYChart {
         msPlot.add(psmPlot, 1);
         msPlot.add(errorPlot, 125.0);
 
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
 
         psmPlot.setAxisOffset(RectangleInsets.ZERO_INSETS);
 

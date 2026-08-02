@@ -2,6 +2,7 @@ package pdk.chart;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.model.StandardChartTheme;
 import pdk.chart.plot.DefaultDrawingSupplier;
 import pdk.chart.plot.pie.PieLabelLinkStyle;
 import pdk.chart.renderer.category.GradientBarPainter;

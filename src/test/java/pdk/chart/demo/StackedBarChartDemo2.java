@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.Data;
+import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -89,7 +89,7 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
 
         chart.setDrawBarOutline(false);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
 
         chart.setSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)));
         chart.setSeriesPaint(1, new Color(0, 0, 0, 0)); // 完全透明

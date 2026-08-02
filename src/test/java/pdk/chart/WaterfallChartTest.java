@@ -94,8 +94,8 @@ public class WaterfallChartTest {
         Number[][] data = new Integer[][]{{-3, -2}, {-1, 1}, {2, 3}};
         CategoryDataset<String, String> dataset
                 = DatasetUtils.createCategoryDataset("S", "C", data);
-        return JChart.waterfall(dataset,
-                "Domain", "Range",  "Waterfall Chart",PlotOrientation.HORIZONTAL,
+        return new CategoryWaterfallChart(dataset,
+                "Domain", "Range", "Waterfall Chart", PlotOrientation.HORIZONTAL,
                 true,     // include legend
                 true, true);
     }

@@ -1,12 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.StackedAreaChart;
 import pdk.chart.data.xy.CategoryTableXYDataset;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.StackedXYAreaRenderer2;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -39,13 +37,10 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(TableXYDataset dataset) {
-        Chart chart = JChart.stackedAreaXY(dataset, "X Value", "Y Value",
+        StackedAreaChart chart = new StackedAreaChart(dataset, "X Value", "Y Value",
                 "Stacked XY Area Chart Demo 2");
-        XYPlot plot = (XYPlot) chart.getPlot();
-        StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2();
-        renderer.setRoundXCoordinates(true);
-        renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        plot.setRenderer(0, renderer);
+        chart.setRoundXCoordinates(true);
+        chart.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
         return chart;
     }
 
@@ -54,7 +49,7 @@ public class StackedXYAreaChartDemo2 extends ApplicationFrame {
         return new ChartPanel(chart);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         StackedXYAreaChartDemo2 demo = new StackedXYAreaChartDemo2("Stacked XY Area Chart Demo 2");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

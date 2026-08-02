@@ -1,7 +1,6 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.PSMChart;
 import pdk.chart.ms.SeriesType;
 import pdk.chart.ms.SpectrumDataset;

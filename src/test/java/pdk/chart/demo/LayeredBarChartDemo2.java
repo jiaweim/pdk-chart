@@ -1,13 +1,11 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryLayeredBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.model.Data;
 import pdk.chart.api.SortOrder;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.CategoryChartType;
-import pdk.chart.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -41,26 +39,26 @@ public class LayeredBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.create(dataset, CategoryChartType.BAR_LAYER, "Layered Bar Chart Demo 2", "Category", "Value",
-                PlotOrientation.HORIZONTAL, true, true);
+        CategoryLayeredBarChart chart = new CategoryLayeredBarChart(dataset, "Category", "Value",
+                "Layered Bar Chart Demo 2", PlotOrientation.HORIZONTAL);
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.domainGridlinesVisible(true)
-                .rangePannable(true)
-                .rangeZeroBaselineVisible(true);
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.setDomainGridlinesVisible(true);
+        chart.setRangePannable(true);
+        chart.setRangeZeroBaselineVisible(true);
+
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         GradientPaint gp0 = new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64));
         GradientPaint gp1 = new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0));
         GradientPaint gp2 = new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0));
 
-        plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .seriesPaint(0, gp0)
-                .seriesPaint(1, gp1)
-                .seriesPaint(2, gp2);
-        plot.setRowRenderingOrder(SortOrder.DESCENDING);
+        chart.setDrawBarOutline(false);
+        chart.setSeriesPaint(0, gp0);
+        chart.setSeriesPaint(1, gp1);
+        chart.setSeriesPaint(2, gp2);
+
+        chart.setRowRenderingOrder(SortOrder.DESCENDING);
 
         return chart;
     }

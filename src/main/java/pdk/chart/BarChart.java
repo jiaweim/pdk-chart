@@ -1,20 +1,30 @@
 package pdk.chart;
 
 import org.jspecify.annotations.NonNull;
-import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.statistics.HistogramDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBarPainter;
 import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.urls.StandardXYURLGenerator;
+import pdk.chart.util.GradientPaintTransformer;
 
 /**
- * Bar chart with both X-axis and Y-axis as ValueAxis (numeric axes), implemented on XYPlot.
+ * A bar chart implementation that uses an {@link XYPlot} with an
+ * {@link XYBarRenderer}.  Both the domain and range axes are
+ * {@link ValueAxis} instances, whose concrete types are determined by
+ * the supplied {@link AxisType} parameters.
+ * <p>
+ * <b>Important:</b> The renderer requires that the dataset implements
+ * {@link IntervalXYDataset} (e.g. {@link HistogramDataset}) in order to
+ * determine the width of each bar.  Passing a plain {@link XYDataset}
+ * that does not provide interval information may result in runtime
+ * errors or invisible bars.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -22,87 +32,84 @@ import pdk.chart.urls.StandardXYURLGenerator;
  */
 public class BarChart extends XYChart {
 
-    protected XYBarRenderer renderer_;
-    private final ValueAxis yAxis_;
-    private final ValueAxis xAxis_;
+    protected XYBarRenderer renderer1_;
+    protected ValueAxis yAxis_;
+    protected ValueAxis xAxis_;
 
-    public BarChart(AxisType xAxisType, AxisType yAxisType,
-            String title, boolean createLegend) {
-        super(title, DEFAULT_TITLE_FONT, createLegend);
-        renderer_ = new XYBarRenderer();
-        setDefaultRenderer(renderer_);
+    /**
+     * Constructor for subclass use.  Does not attach any dataset or axes;
+     * these must be configured separately.
+     *
+     * @param title        the chart title ({@code null} permitted)
+     * @param createLegend whether a legend should be displayed
+     */
+    protected BarChart(String title, boolean createLegend) {
+        super(title, createLegend);
+    }
 
-        this.xAxis_ = xAxisType.createInstance();
-        if (xAxis_ instanceof NumberAxis nAxis) {
-            nAxis.setAutoRangeIncludesZero(false);
-        }
-        this.yAxis_ = yAxisType.createInstance();
-
-        plot_.setDomainAxis(xAxis_);
-        plot_.setRangeAxis(yAxis_);
-        plot_.setRenderer(renderer_);
-
-        JChartUtils.applyCurrentTheme(this);
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new XYBarRenderer();
+        renderer0_ = renderer1_;
     }
 
     /**
-     * Creates and returns a default instance of an XY bar chart.
-     * <p>
-     * The chart object returned by this method uses an {@link XYPlot} instance
-     * as the plot, with a {@link DateAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
-     * renderer.
+     * Fully parameterised constructor.
      *
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param xAxisType   {@link pdk.chart.AxisType} for x -axis.
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param title       the chart title ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset}
+     *                    for correct bar widths; {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of the domain axis ({@code null} not permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param yAxisType   the type of the range axis ({@code null} not permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tooltips
+     * @param urls        {@code true} to generate URLs for data points
      */
-    public BarChart(IntervalXYDataset dataset,
+    public BarChart(XYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
             String yAxisLabel, AxisType yAxisType, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        this(xAxisType, yAxisType, title, legend);
-        xAxis_.setLabel(xAxisLabel);
-        yAxis_.setLabel(yAxisLabel);
+        super(title, legend);
+        this.xAxis_ = xAxisType.createInstance(xAxisLabel);
+        this.yAxis_ = yAxisType.createInstance(yAxisLabel);
+
+        if (xAxis_ instanceof NumberAxis nAxis) {
+            nAxis.setAutoRangeIncludesZero(false);
+        }
         if (tooltips) {
             if (xAxisType == AxisType.DATE) {
-                renderer_.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
+                renderer1_.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
             } else {
-                renderer_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+                renderer1_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
             }
         }
         if (urls) {
-            renderer_.setURLGenerator(new StandardXYURLGenerator());
+            renderer1_.setURLGenerator(new StandardXYURLGenerator());
         }
-        plot_.setDataset(dataset);
+        plot_.setDomainAxis(xAxis_);
+        plot_.setRangeAxis(yAxis_);
+        plot_.setRenderer(renderer1_);
         plot_.setOrientation(orientation);
+        plot_.setDataset(dataset);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
-     * Creates and returns a default instance of an XY bar chart.
-     * <p>
-     * The chart object returned by this method uses an {@link XYPlot} instance
-     * as the plot, with a {@link DateAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
-     * renderer.
+     * Creates a bar chart with the given parameters and no URLs.
      *
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param xAxisType   {@link AxisType} for x -axis.
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param yAxisType   {@link AxisType} for y-axis.
-     * @param title       the chart title ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of the domain axis
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param yAxisType   the type of the range axis ({@code null} not permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tooltips
      */
     public BarChart(IntervalXYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
@@ -112,63 +119,60 @@ public class BarChart extends XYChart {
                 orientation, legend, tooltips, false);
     }
 
+
     /**
-     * Creates and returns a default instance of an XY bar chart.
-     * <p>
-     * The chart object returned by this method uses an {@link XYPlot} instance
-     * as the plot, with a {@link DateAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
-     * renderer.
+     * Creates a bar chart with the given parameters, using the default
+     * Y‑axis type ({@link AxisType#NUMBER}) and no URLs.
      *
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param xAxisType   {@link AxisType} for x -axis.
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param title       the chart title ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of the domain axis
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tooltips
      */
     public BarChart(IntervalXYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
             String yAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips) {
-        this(dataset, xAxisLabel, xAxisType, yAxisLabel, AxisType.NUMBER, title, orientation, legend, tooltips);
+        this(dataset, xAxisLabel, xAxisType, yAxisLabel, AxisType.NUMBER,
+                title, orientation, legend, tooltips);
     }
 
     /**
-     * Creates and returns a default instance of an XY bar chart.
+     * Creates a bar chart with the given parameters, legend and tooltips
+     * enabled, no URLs.
      *
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param xAxisType   {@link AxisType} for x -axis.
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param yAxisType   {@link AxisType} for y-axis.
-     * @param title       the chart title ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of the domain axis
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param yAxisType   the type of the range axis ({@code null} not permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
      */
     public BarChart(IntervalXYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
             String yAxisLabel, AxisType yAxisType, String title,
             PlotOrientation orientation) {
-        this(dataset, xAxisLabel, xAxisType, yAxisLabel, yAxisType, title, orientation, true, true);
+        this(dataset, xAxisLabel, xAxisType, yAxisLabel, yAxisType,
+                title, orientation, true, true);
     }
 
     /**
-     * Creates and returns a default instance of an XY bar chart.
-     * <p>
-     * The chart object returned by this method uses an {@link XYPlot} instance
-     * as the plot, with a {@link DateAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link XYBarRenderer} as the
-     * renderer.
+     * Creates a bar chart with the given parameters, vertical orientation,
+     * legend and tooltips enabled, no URLs.
      *
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param xAxisType  {@link pdk.chart.AxisType} for x -axis.
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param title      the chart title ({@code null} permitted).
+     * @param dataset    the dataset (should implement {@link IntervalXYDataset};
+     *                   {@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param xAxisType  the type of the domain axis
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
      */
     public BarChart(IntervalXYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
@@ -178,17 +182,18 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Creates a histogram chart.
+     * Convenience constructor that assumes both axes are
+     * {@link NumberAxis} instances.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  the x axis label ({@code null} permitted).
-     * @param yAxisLabel  the y axis label ({@code null} permitted).
-     * @param dataset     the dataset ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      create a legend?
-     * @param tooltips    display tooltips?
-     * @param urls        generate URLs?
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tooltips
+     * @param urls        {@code true} to generate URLs
      */
     public BarChart(IntervalXYDataset dataset, String xAxisLabel, String yAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
@@ -197,16 +202,17 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Creates a histogram chart.
+     * Convenience constructor that assumes both axes are
+     * {@link NumberAxis} instances, no URLs.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  the x axis label ({@code null} permitted).
-     * @param yAxisLabel  the y axis label ({@code null} permitted).
-     * @param dataset     the dataset ({@code null} permitted).
-     * @param orientation the orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      create a legend?
-     * @param tooltips    display tooltips?
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tooltips
      */
     public BarChart(IntervalXYDataset dataset, String xAxisLabel, String yAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
@@ -214,69 +220,92 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Creates a histogram chart.  This chart is constructed with an
-     * {@link XYPlot} using an {@link XYBarRenderer}.  The domain and range
-     * axes are {@link NumberAxis} instances.
+     * Creates a bar chart with vertical orientation, numeric axes,
+     * legend, and tooltips enabled, no URLs.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel the x axis label ({@code null} permitted).
-     * @param yAxisLabel the y axis label ({@code null} permitted).
-     * @param dataset    the dataset ({@code null} permitted).
+     * @param dataset    the dataset (should implement {@link IntervalXYDataset};
+     *                   {@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
      */
-    public BarChart(IntervalXYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
+    public BarChart(IntervalXYDataset dataset,
+            String xAxisLabel, String yAxisLabel,
+            String title) {
         this(dataset, xAxisLabel, AxisType.NUMBER, yAxisLabel, AxisType.NUMBER,
                 title, PlotOrientation.VERTICAL, true, false, false);
     }
 
     /**
-     * Creates a histogram chart.
+     * Creates a bar chart specifically for a {@link HistogramDataset}.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel the x axis label ({@code null} permitted).
-     * @param yAxisLabel the y axis label ({@code null} permitted).
-     * @param dataset    the dataset ({@code null} permitted).
+     * @param dataset    the histogram dataset ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
      */
-    public BarChart(HistogramDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
+    public BarChart(HistogramDataset dataset,
+            String xAxisLabel, String yAxisLabel,
+            String title) {
         this(dataset, xAxisLabel, AxisType.NUMBER, yAxisLabel, AxisType.NUMBER,
                 title, PlotOrientation.VERTICAL, true, false, false);
     }
 
     /**
-     * Creates a histogram chart.
+     * Creates a histogram bar chart with no title.
      *
-     * @param xAxisLabel the x axis label ({@code null} permitted).
-     * @param yAxisLabel the y axis label ({@code null} permitted).
-     * @param dataset    the dataset ({@code null} permitted).
+     * @param dataset    the histogram dataset ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
      */
     public BarChart(HistogramDataset dataset, String xAxisLabel, String yAxisLabel) {
         this(dataset, xAxisLabel, yAxisLabel, null);
     }
 
     /**
-     * Sets the flag that controls whether bar outlines are drawn.
+     * Sets whether bar outlines are drawn.
      *
-     * @param draw the flag.
+     * @param draw {@code true} to draw outlines, {@code false} otherwise
      */
     public void setDrawBarOutline(boolean draw) {
-        renderer_.setDrawBarOutline(draw);
+        renderer1_.setDrawBarOutline(draw);
     }
 
     /**
-     * Sets the bar painter.
+     * Sets the bar painter, which controls the fill appearance of bars.
      *
-     * @param painter the painter.
+     * @param painter the painter (not {@code null})
      */
     public void setBarPainter(@NonNull XYBarPainter painter) {
-        renderer_.setBarPainter(painter);
+        renderer1_.setBarPainter(painter);
     }
 
     /**
-     * Sets the flag that controls whether the renderer
-     * draws shadows for the bars.
+     * Controls whether shadows are drawn under the bars.
      *
-     * @param visible the new flag value.
+     * @param visible {@code true} to display shadows
      */
     public void setShadowVisible(boolean visible) {
-        renderer_.setShadowVisible(visible);
+        renderer1_.setShadowVisible(visible);
+    }
+
+    /**
+     * Sets the margin between bars as a percentage of the axis range.
+     *
+     * @param margin the margin (typically between 0.0 and 1.0)
+     */
+    public void setBarMargin(double margin) {
+        renderer1_.setMargin(margin);
+    }
+
+    /**
+     * Sets the gradient paint transformer, allowing bars to be filled
+     * with gradient paints that adapt to the bar’s orientation.
+     *
+     * @param transformer the transformer ({@code null} permitted)
+     */
+    public void setGradientPaintTransformer(
+            GradientPaintTransformer transformer) {
+        renderer1_.setGradientPaintTransformer(transformer);
     }
 }

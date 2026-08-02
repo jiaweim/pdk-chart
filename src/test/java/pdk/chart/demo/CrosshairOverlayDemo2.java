@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.LineChart;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;

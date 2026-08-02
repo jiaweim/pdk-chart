@@ -1,13 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.LineChart;
+import pdk.chart.DeviationChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.YIntervalSeries;
 import pdk.chart.data.xy.YIntervalSeriesCollection;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.DeviationRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -19,16 +17,16 @@ public class DeviationRendererDemo1 extends ApplicationFrame {
     public static XYDataset createDataset() {
         YIntervalSeries series1 = new YIntervalSeries("Series 1");
         YIntervalSeries series2 = new YIntervalSeries("Series 2");
-        double y1 = (double) 100.0F;
-        double y2 = (double) 100.0F;
+        double y1 = 100.0;
+        double y2 = 100.0;
 
         for (int i = 0; i <= 100; ++i) {
             y1 = y1 + Math.random() - 0.48;
-            double dev1 = 0.05 * (double) i;
-            series1.add((double) i, y1, y1 - dev1, y1 + dev1);
-            y2 = y2 + Math.random() - (double) 0.5F;
-            double dev2 = 0.07 * (double) i;
-            series2.add((double) i, y2, y2 - dev2, y2 + dev2);
+            double dev1 = 0.05 * i;
+            series1.add(i, y1, y1 - dev1, y1 + dev1);
+            y2 = y2 + Math.random() - 0.5;
+            double dev2 = 0.07 * i;
+            series2.add(i, y2, y2 - dev2, y2 + dev2);
         }
 
         YIntervalSeriesCollection dataset = new YIntervalSeriesCollection();
@@ -38,17 +36,14 @@ public class DeviationRendererDemo1 extends ApplicationFrame {
     }
 
     public static Chart createChart(XYDataset dataset) {
-        Chart chart = new LineChart(dataset, "X", "Y", "DeviationRendererDemo1");
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        DeviationRenderer renderer = new DeviationRenderer(true, false);
-        renderer.setSeriesStroke(0, new BasicStroke(3.0F, 1, 1));
-        renderer.setSeriesStroke(0, new BasicStroke(3.0F, 1, 1));
-        renderer.setSeriesStroke(1, new BasicStroke(3.0F, 1, 1));
-        renderer.setSeriesFillPaint(0, new Color(255, 200, 200));
-        renderer.setSeriesFillPaint(1, new Color(200, 200, 255));
-        plot.setRenderer(renderer);
-        NumberAxis yAxis = (NumberAxis) plot.getRangeAxis();
+        DeviationChart chart = new DeviationChart(dataset, "X", "Y", "DeviationRendererDemo1");
+        chart.setDomainPannable(true);
+        chart.setSeriesStroke(0, new BasicStroke(3.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        chart.setSeriesStroke(0, new BasicStroke(3.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        chart.setSeriesStroke(1, new BasicStroke(3.0F, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+        chart.setSeriesFillPaint(0, new Color(255, 200, 200));
+        chart.setSeriesFillPaint(1, new Color(200, 200, 255));
+        NumberAxis yAxis = (NumberAxis) chart.getRangeAxis();
         yAxis.setAutoRangeIncludesZero(false);
         yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         return chart;
@@ -69,8 +64,8 @@ public class DeviationRendererDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        DeviationRendererDemo1 demo = new DeviationRendererDemo1("Chart : DeviationRendererDemo1.java");
+    static void main() {
+        DeviationRendererDemo1 demo = new DeviationRendererDemo1("DeviationRendererDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

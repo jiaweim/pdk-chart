@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
@@ -61,7 +61,7 @@ public class StackedBarChartDemo5 extends ApplicationFrame {
         domainAxis.addSubCategory("G3");
         chart.setDomainAxis(domainAxis);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

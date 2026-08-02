@@ -1,7 +1,6 @@
 package pdk.chart.data.xy;
 
 import org.jspecify.annotations.NonNull;
-import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -34,7 +33,7 @@ public class XYDataItem implements Cloneable, Comparable<XYDataItem>, Serializab
      * @param y the y-value ({@code null} permitted).
      */
     public XYDataItem(@NonNull Number x, Number y) {
-        Args.nullNotPermitted(x, "x");
+        Objects.requireNonNull(x);
         this.x = x;
         this.y = y;
     }

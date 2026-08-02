@@ -2,7 +2,6 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.data.time.Minute;

@@ -114,7 +114,7 @@ public class XYStepChartTest {
         XYDataset<String> dataset = new XYSeriesCollection<>(series1);
 
         // create the chart...
-        return JChart.stepXY(
+        return new StepChart(
                 dataset,         // data
                 "Domain",
                 "Range",

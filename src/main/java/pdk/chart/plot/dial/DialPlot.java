@@ -1,7 +1,7 @@
 package pdk.chart.plot.dial;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.ValueDataset;
 import pdk.chart.event.PlotChangeEvent;

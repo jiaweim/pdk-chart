@@ -1,4 +1,4 @@
-package pdk.chart;
+package pdk.chart.model;
 
 import org.jspecify.annotations.NonNull;
 

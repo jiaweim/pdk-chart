@@ -2,7 +2,6 @@ package pdk.chart.demo.plotly;
 
 import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 
 import java.util.HashMap;
 

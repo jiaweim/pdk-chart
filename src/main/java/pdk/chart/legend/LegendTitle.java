@@ -1,6 +1,6 @@
 package pdk.chart.legend;
 
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.api.*;
 import pdk.chart.block.*;
 import pdk.chart.entity.EntityCollection;

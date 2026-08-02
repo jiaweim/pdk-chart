@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;

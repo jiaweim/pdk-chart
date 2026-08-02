@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -61,7 +61,7 @@ public class ItemLabelDemo5 extends ApplicationFrame {
         renderer.setDefaultItemLabelsVisible(true);
         NumberAxis rangeAxis = (NumberAxis) chart.getRangeAxis();
         rangeAxis.setUpperBound(100.0);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

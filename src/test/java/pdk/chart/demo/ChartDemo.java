@@ -3,7 +3,8 @@ package pdk.chart.demo;
 import com.orsonpdf.PDFDocument;
 import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
-import pdk.chart.*;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.demo.echarts.BasicLineChart;
 import pdk.chart.demo.echarts.BasicScatterChart;
@@ -11,6 +12,8 @@ import pdk.chart.demo.echarts.HeatmapCartesian;
 import pdk.chart.demo.echarts.LineSimple;
 import pdk.chart.demo.plotly.Scatter1;
 import pdk.chart.demo.plotly.Scatter2;
+import pdk.chart.model.ChartTransferable;
+import pdk.chart.model.StandardChartTheme;
 import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PiePlot;
@@ -187,11 +190,11 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
     private void applyThemeToChart() {
         Component c = this.chartContainer.getComponent(0);
         if (c instanceof ChartPanel cp) {
-            JChartUtils.applyCurrentTheme(cp.getChart());
+            JChart.applyCurrentTheme(cp.getChart());
         } else if (c instanceof DemoPanel dp) {
             Chart[] charts = dp.getCharts();
             for (Chart chart : charts) {
-                JChartUtils.applyCurrentTheme(chart);
+                JChart.applyCurrentTheme(chart);
             }
         }
 

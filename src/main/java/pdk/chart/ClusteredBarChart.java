@@ -3,6 +3,7 @@ package pdk.chart;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.data.xy.IntervalXYDataset;
+import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.xy.ClusteredXYBarRenderer;
@@ -17,17 +18,15 @@ import pdk.chart.urls.StandardXYURLGenerator;
  */
 public class ClusteredBarChart extends BarChart {
 
-    private ClusteredXYBarRenderer localRenderer_;
+    private ClusteredXYBarRenderer renderer2_;
 
-    public ClusteredBarChart(AxisType xAxisType, AxisType yAxisType, String title, boolean createLegend) {
-        super(xAxisType, yAxisType, title, createLegend);
-        this.localRenderer_ = new ClusteredXYBarRenderer();
-        localRenderer_.setShadowVisible(false);
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new ClusteredXYBarRenderer();
+        renderer2_.setShadowVisible(false);
 
-        renderer_ = localRenderer_;
-        setDefaultRenderer(renderer_);
-        plot_.setRenderer(renderer_);
-        JChartUtils.applyCurrentTheme(this);
+        this.renderer0_ = renderer2_;
+        this.renderer1_ = renderer2_;
     }
 
     /**
@@ -42,26 +41,32 @@ public class ClusteredBarChart extends BarChart {
      * @param tooltips    whether create tool tips.
      * @param urls        whether create urls.
      */
-    public ClusteredBarChart(IntervalXYDataset dataset,
+    public ClusteredBarChart(XYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
             String yAxisLabel, AxisType yAxisType,
             @Nullable String title, @NonNull PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
-        this(xAxisType, yAxisType, title, legend);
+        super(title, legend);
+        this.xAxis_ = xAxisType.createInstance(xAxisLabel);
+        this.yAxis_ = yAxisType.createInstance(yAxisLabel);
 
-        setAxisLabels(xAxisLabel, yAxisLabel);
-        plot_.setDataset(dataset);
-        plot_.setOrientation(orientation);
         if (tooltips) {
             if (xAxisType == AxisType.DATE) {
-                renderer_.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
+                renderer2_.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
             } else {
-                renderer_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+                renderer2_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
             }
         }
         if (urls) {
-            renderer_.setURLGenerator(new StandardXYURLGenerator());
+            renderer2_.setURLGenerator(new StandardXYURLGenerator());
         }
+
+        plot_.setDomainAxis(xAxis_);
+        plot_.setRangeAxis(yAxis_);
+        plot_.setOrientation(orientation);
+        plot_.setRenderer(renderer2_);
+        plot_.setDataset(dataset);
+        JChart.applyCurrentTheme(this);
     }
 
     /**

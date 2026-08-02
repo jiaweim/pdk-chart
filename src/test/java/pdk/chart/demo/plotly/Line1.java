@@ -2,7 +2,7 @@ package pdk.chart.demo.plotly;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.LineChart;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;

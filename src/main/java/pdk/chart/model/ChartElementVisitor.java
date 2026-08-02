@@ -34,7 +34,7 @@
  *
  */
 
-package pdk.chart;
+package pdk.chart.model;
 
 /**
  * A visitor for a {@link ChartElement}.

@@ -1,13 +1,10 @@
 package pdk.chart.demo.echarts;
 
-import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChart;
+import pdk.chart.CategoryStackedAreaChart;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.PlotOrientation;
+import pdk.chart.model.Data;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.StackedAreaRenderer;
-import pdk.chart.renderer.xy.XYStepAreaRenderer;
 
 /**
  * https://echarts.apache.org/examples/en/editor.html?c=area-stack
@@ -28,7 +25,7 @@ public class AreaStack {
                 .addSeries("Direct", categories, new double[]{320, 332, 301, 334, 390, 330, 320})
                 .addSeries("Search Engine", categories, new double[]{820, 932, 901, 934, 1290, 1330, 1320})
                 .build();
-        Chart chart = JChart.stackedArea(dataset, null, null, "Stacked Area Chart", PlotOrientation.VERTICAL, true, true);
+        CategoryStackedAreaChart chart = new CategoryStackedAreaChart(dataset, null, null, "Stacked Area Chart");
         StackedAreaRenderer renderer = (StackedAreaRenderer) chart.getCategoryPlot()
                 .getRenderer();
         renderer.setEndType(AreaRendererEndType.LEVEL);

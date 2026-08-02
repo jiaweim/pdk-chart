@@ -1,5 +1,6 @@
-package pdk.chart;
+package pdk.chart.model;
 
+import pdk.chart.Chart;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.api.PublicCloneable;

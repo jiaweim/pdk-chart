@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.CategoryLabelPosition;

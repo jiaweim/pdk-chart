@@ -5,6 +5,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
@@ -24,7 +25,7 @@ public class CategoryLineChart extends CategoryChart {
 
     protected CategoryAxis xAxis_;
     protected NumberAxis yAxis_;
-    protected LineAndShapeRenderer renderer_;
+    protected LineAndShapeRenderer renderer1_;
 
     protected CategoryLineChart(String title, boolean createLegend) {
         super(title, createLegend);
@@ -56,22 +57,22 @@ public class CategoryLineChart extends CategoryChart {
 
         this.xAxis_ = new CategoryAxis(domainAxisLabel);
         this.yAxis_ = new NumberAxis(rangeAxisLabel);
-        this.renderer_ = new LineAndShapeRenderer(true, false);
-        setDefaultRenderer(renderer_);
+        this.renderer1_ = new LineAndShapeRenderer(true, false);
+        renderer0_ = renderer1_;
 
         if (tooltips) {
-            renderer_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+            renderer1_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         }
         if (urls) {
-            renderer_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
+            renderer1_.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
         }
 
         plot_.setDomainAxis(xAxis_);
         plot_.setRangeAxis(yAxis_);
-        plot_.setRenderer(renderer_);
+        plot_.setRenderer(renderer1_);
         plot_.setOrientation(orientation);
         plot_.setDataset(dataset);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -173,7 +174,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param flag the flag.
      */
     public void setDefaultShapesVisible(boolean flag) {
-        renderer_.setDefaultShapesVisible(flag);
+        renderer1_.setDefaultShapesVisible(flag);
     }
 
     /**
@@ -183,7 +184,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param flag the flag.
      */
     public void setDefaultShapesFilled(boolean flag) {
-        renderer_.setDefaultShapesFilled(flag);
+        renderer1_.setDefaultShapesFilled(flag);
     }
 
     /**
@@ -194,7 +195,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param shape  the shape ({@code null} permitted).
      */
     public void setSeriesShape(int series, Shape shape) {
-        renderer_.setSeriesShape(series, shape);
+        renderer1_.setSeriesShape(series, shape);
     }
 
     /**
@@ -204,7 +205,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param flag   the flag.
      */
     public void setSeriesShapesVisible(int series, Boolean flag) {
-        renderer_.setSeriesShapesVisible(series, flag);
+        renderer1_.setSeriesShapesVisible(series, flag);
     }
 
     /**
@@ -214,7 +215,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param visible the flag.
      */
     public void setSeriesLinesVisible(int series, boolean visible) {
-        renderer_.setSeriesLinesVisible(series, visible);
+        renderer1_.setSeriesLinesVisible(series, visible);
     }
 
     /**
@@ -224,7 +225,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param stroke the stroke ({@code null} permitted).
      */
     public void setSeriesStroke(int series, Stroke stroke) {
-        renderer_.setSeriesStroke(series, stroke);
+        renderer1_.setSeriesStroke(series, stroke);
     }
 
     /**
@@ -234,7 +235,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param width  line width
      */
     public void setSeriesLinesWidth(int series, float width) {
-        Stroke seriesStroke = renderer_.getSeriesStroke(series);
+        Stroke seriesStroke = renderer1_.getSeriesStroke(series);
         if (seriesStroke == null) {
             setSeriesStroke(series, new BasicStroke(width));
         } else {
@@ -257,7 +258,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param flag the flag.
      */
     public void setDrawOutlines(boolean flag) {
-        renderer_.setDrawOutlines(flag);
+        renderer1_.setDrawOutlines(flag);
     }
 
     /**
@@ -268,7 +269,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param stroke the stroke ({@code null} permitted).
      */
     public void setSeriesOutlineStroke(int series, Stroke stroke) {
-        renderer_.setSeriesOutlineStroke(series, stroke);
+        renderer1_.setSeriesOutlineStroke(series, stroke);
     }
 
     /**
@@ -278,7 +279,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param flag the flag.
      */
     public void setUseFillPaint(boolean flag) {
-        renderer_.setUseFillPaint(flag);
+        renderer1_.setUseFillPaint(flag);
     }
 
     /**
@@ -288,7 +289,7 @@ public class CategoryLineChart extends CategoryChart {
      * @param auto the new flag value.
      */
     public void setAutoPopulateSeriesShape(boolean auto) {
-        renderer_.setAutoPopulateSeriesShape(auto);
+        renderer1_.setAutoPopulateSeriesShape(auto);
     }
 
     /**
@@ -299,6 +300,6 @@ public class CategoryLineChart extends CategoryChart {
      * @param offset the offset.
      */
     public void setUseSeriesOffset(boolean offset) {
-        renderer_.setUseSeriesOffset(offset);
+        renderer1_.setUseSeriesOffset(offset);
     }
 }

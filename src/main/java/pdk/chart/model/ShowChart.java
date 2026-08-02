@@ -1,10 +1,12 @@
-package pdk.chart;
+package pdk.chart.model;
 
 import com.orsonpdf.PDFDocument;
 import com.orsonpdf.PDFGraphics2D;
 import com.orsonpdf.Page;
 import org.jfree.svg.SVGGraphics2D;
 import org.jfree.svg.SVGUtils;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -23,8 +25,6 @@ import java.nio.file.Path;
  * @since 03 Jun 2026, 9:05 AM
  */
 public interface ShowChart {
-
-    ChartTheme DEFAULT_THEME = new StandardChartTheme("PDK");
 
     /**
      * Display the specified chart.
@@ -98,13 +98,13 @@ public interface ShowChart {
             }
         } else if (format == FileFormat.PNG) {
             try {
-                JChartUtils.saveChartAsPNG(file.toFile(), chart, width, height);
+                JChart.saveChartAsPNG(file.toFile(), chart, width, height);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else if (format == FileFormat.JPEG) {
             try {
-                JChartUtils.saveChartAsJPEG(file.toFile(), chart, width, height);
+                JChart.saveChartAsJPEG(file.toFile(), chart, width, height);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

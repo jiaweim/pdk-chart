@@ -1,17 +1,13 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStatisticsBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
-import pdk.chart.CategoryChartType;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -23,25 +19,23 @@ import java.awt.*;
 public class StatisticalBarChartDemo1 extends ApplicationFrame {
 
     public static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = JChart.create(dataset, CategoryChartType.BAR_STATISTICS,
-                "Statistical Bar Chart Demo 1", "Type", "Value",
-                PlotOrientation.VERTICAL, true, true);
+        CategoryStatisticsBarChart chart = new CategoryStatisticsBarChart(dataset,
+                "Type", "Value", "Statistical Bar Chart Demo 1");
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        yAxis.setAutoRangeIncludesZero(false);
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .autoRangeIncludesZero(false);
-        JChartUtils.applyCurrentTheme(chart);
-        plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .errorIndicatorPaint(Color.BLACK)
-                .includeBaseInRange(false)
-                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
-                .defaultItemLabelsVisible(true)
-                .defaultItemLabelPaint(Color.YELLOW)
-                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE6, TextAnchor.BOTTOM_CENTER))
-                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
-                .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)));
+        chart.setDrawBarOutline(false);
+        chart.setErrorIndicatorPaint(Color.BLACK);
+        chart.setIncludeBaseInRange(false);
+
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>());
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultItemLabelPaint(Color.YELLOW);
+
+        chart.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE6, TextAnchor.BOTTOM_CENTER));
+        chart.setSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)));
+        chart.setSeriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)));
 
         return chart;
     }

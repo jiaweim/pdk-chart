@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.time.Day;
@@ -53,7 +53,7 @@ public class PriceVolumeDemo1 extends ApplicationFrame {
         XYBarRenderer renderer2 = new XYBarRenderer(0.2);
         renderer2.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0}: ({1}, {2})", new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("0,000.00")));
         plot.setRenderer(1, renderer2);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         renderer2.setBarPainter(new StandardXYBarPainter());
         renderer2.setShadowVisible(false);
         return chart;

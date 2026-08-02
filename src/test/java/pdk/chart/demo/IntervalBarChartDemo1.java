@@ -1,12 +1,10 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryIntervalBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
-import pdk.chart.JChart;
+import pdk.chart.model.Data;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.IntervalCategoryDataset;
-import pdk.chart.CategoryChartType;
-import pdk.chart.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -42,16 +40,13 @@ public class IntervalBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalCategoryDataset<String, String> dataset) {
-        Chart chart = JChart.create(dataset, CategoryChartType.BAR_INTERVAL, "IntervalBarChartDemo1",
-                "Category", "Percentage", PlotOrientation.VERTICAL,
-                true, true);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getRangeAxisAsNumber()
-                .numberFormatOverride(new DecimalFormat("0.00%"));
-        plot.domainGridlinesVisible(true)
-                .rangePannable(true);
+        CategoryIntervalBarChart chart = new CategoryIntervalBarChart(dataset, "Category", "Percentage",
+                "IntervalBarChartDemo1", PlotOrientation.VERTICAL, true, true);
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setNumberFormatOverride(new DecimalFormat("0.00%"));
 
-        JChartUtils.applyCurrentTheme(chart);
+        chart.setDomainGridlinesVisible(true);
+        chart.setRangePannable(true);
         return chart;
     }
 

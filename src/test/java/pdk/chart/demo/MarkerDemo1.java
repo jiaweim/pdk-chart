@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.Data;
+import pdk.chart.JChart;
 import pdk.chart.ScatterChart;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.annotations.XYDrawableAnnotation;
@@ -99,7 +99,7 @@ public class MarkerDemo1 extends ApplicationFrame {
         pointer.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
         plot.addAnnotation(pointer);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

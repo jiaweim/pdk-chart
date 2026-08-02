@@ -2,16 +2,16 @@ package pdk.chart.renderer.xy;
 
 import org.junit.jupiter.api.Test;
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.StackedAreaChart;
 import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.Range;
 import pdk.chart.data.xy.DefaultTableXYDataset;
 import pdk.chart.data.xy.TableXYDataset;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.CloneUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -31,7 +31,7 @@ public class StackedXYAreaRenderer2Test {
     @Test
     public void testDrawWithEmptyDataset() {
         boolean success;
-        Chart chart = JChart.stackedAreaXY(new DefaultTableXYDataset<String>(), "x",
+        Chart chart = new StackedAreaChart(new DefaultTableXYDataset<String>(), "x",
                 "y", "title", PlotOrientation.VERTICAL,
                 true, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();
@@ -116,7 +116,7 @@ public class StackedXYAreaRenderer2Test {
     public void testFindRangeBounds() {
         TableXYDataset<String> dataset
                 = RendererXYPackageUtils.createTestTableXYDataset();
-        Chart chart = JChart.stackedAreaXY(
+        Chart chart = new StackedAreaChart(
                 dataset, "X", "Y", "Test Chart", PlotOrientation.VERTICAL,
                 false, false, false);
         XYPlot<?> plot = (XYPlot) chart.getPlot();

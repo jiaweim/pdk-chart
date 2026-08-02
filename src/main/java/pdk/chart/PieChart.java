@@ -34,7 +34,7 @@ public class PieChart extends Chart {
         plot_.setLabelGenerator(new StandardPieSectionLabelGenerator<>(locale));
         plot_.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
 
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**

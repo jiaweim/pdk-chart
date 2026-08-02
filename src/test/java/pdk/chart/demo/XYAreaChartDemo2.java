@@ -1,17 +1,14 @@
 package pdk.chart.demo;
 
 import pdk.chart.AreaChart;
+import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
-import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -30,8 +27,8 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static XYDataset createDataset() {
-        TimeSeries series1 = new TimeSeries("Random 1");
+    private static XYDataset<String> createDataset() {
+        TimeSeries<String> series1 = new TimeSeries<>("Random 1");
         double value = 0.0;
         Day day = new Day();
 
@@ -41,23 +38,21 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
             day = (Day) day.next();
         }
 
-        TimeSeriesCollection dataset = new TimeSeriesCollection(series1);
+        TimeSeriesCollection<String> dataset = new TimeSeriesCollection<>(series1);
         return dataset;
     }
 
-    private static Chart createChart(XYDataset dataset) {
-        Chart chart = new AreaChart(dataset, "Time", "Value",
-                "XY Area Chart Demo 2");
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        ValueAxis domainAxis = new DateAxis("Time");
-        domainAxis.setLowerMargin(0.0F);
-        domainAxis.setUpperMargin(0.0F);
-        plot.setDomainAxis(domainAxis);
-        plot.setForegroundAlpha(0.5F);
-        XYItemRenderer renderer = plot.getRenderer();
-        renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0}: ({1}, {2})", new SimpleDateFormat("d-MMM-yyyy"), new DecimalFormat("#,##0.00")));
-        JChartUtils.applyCurrentTheme(chart);
+    private static Chart createChart(XYDataset<String> dataset) {
+        AreaChart chart = new AreaChart(dataset, "Time", AxisType.DATE,
+                "Value", "XY Area Chart Demo 2");
+        chart.setDomainPannable(true);
+        ValueAxis xAxis = chart.getDomainAxis();
+        xAxis.setLowerMargin(0);
+        xAxis.setUpperMargin(0);
+        chart.setForegroundAlpha(0.5f);
+        chart.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0}: ({1}, {2})",
+                new SimpleDateFormat("d-MMM-yyyy"),
+                new DecimalFormat("#,##0.00")));
         return chart;
     }
 
@@ -65,7 +60,7 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
         return new ChartPanel(createChart(createDataset()), false);
     }
 
-    public static void main() {
+    static void main() {
         XYAreaChartDemo2 demo = new XYAreaChartDemo2("XY Area Chart Demo 2");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

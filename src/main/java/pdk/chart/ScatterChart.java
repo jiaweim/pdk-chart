@@ -9,9 +9,11 @@ import pdk.chart.color.JColorSequential;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYZDataset;
+import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.legend.PaintScaleLegend;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.GradientPaintScale;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
@@ -35,11 +37,11 @@ public class ScatterChart extends XYChart {
     /**
      * Reference to the renderer for direct manipulation.
      */
-    private XYLineAndShapeRenderer renderer_;
+    private XYLineAndShapeRenderer renderer1_;
 
     public ScatterChart(Double[] x, Double[] y, Double[] z, Color[] colors,
             String xAxisName, String yAxisName, String zAxisName) {
-        super(null, DEFAULT_TITLE_FONT, false);
+        super(null, false);
 
         NumberAxis xAxis = new NumberAxis(xAxisName);
         xAxis.setAutoRangeIncludesZero(false);
@@ -75,7 +77,7 @@ public class ScatterChart extends XYChart {
         legend.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
 
         addSubtitle(legend);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -269,7 +271,7 @@ public class ScatterChart extends XYChart {
     public ScatterChart(XYDataset dataset, String xAxisName, String yAxisName,
             String title, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
-        super(title, DEFAULT_TITLE_FONT, legend);
+        super(title,  legend);
 
         ValueAxis xAxis;
         if (dataset instanceof TimeSeriesCollection<?>) {
@@ -295,18 +297,18 @@ public class ScatterChart extends XYChart {
             }
         }
 
-        renderer_ = new XYLineAndShapeRenderer(false, true);
-        renderer_.setDefaultToolTipGenerator(toolTipGenerator);
-        renderer_.setURLGenerator(urlGenerator);
-        setDefaultRenderer(renderer_);
+        renderer1_ = new XYLineAndShapeRenderer(false, true);
+        renderer1_.setDefaultToolTipGenerator(toolTipGenerator);
+        renderer1_.setURLGenerator(urlGenerator);
+        renderer0_ = renderer1_;
 
         plot_.setDataset(dataset);
         plot_.setDomainAxis(xAxis);
         plot_.setRangeAxis(yAxis);
         plot_.setOrientation(orientation);
-        plot_.setRenderer(renderer_);
+        plot_.setRenderer(renderer1_);
 
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
     /**
@@ -315,8 +317,8 @@ public class ScatterChart extends XYChart {
      * @param shape the {@link Shape} to use (centered on (0,0))
      */
     public void setShape(Shape shape) {
-        renderer_.setDefaultShape(shape);
-        renderer_.setAutoPopulateSeriesShape(false);
+        renderer1_.setDefaultShape(shape);
+        renderer1_.setAutoPopulateSeriesShape(false);
     }
 
     /**
@@ -326,7 +328,7 @@ public class ScatterChart extends XYChart {
      * @param shape       the shape to use for that series
      */
     public void setSeriesShape(int seriesIndex, Shape shape) {
-        renderer_.setSeriesShape(seriesIndex, shape);
+        renderer1_.setSeriesShape(seriesIndex, shape);
     }
 
     /**
@@ -345,8 +347,8 @@ public class ScatterChart extends XYChart {
      * @param color the color to apply
      */
     public void setColor(Color color) {
-        renderer_.setDefaultPaint(color);
-        renderer_.setAutoPopulateSeriesPaint(false);
+        renderer1_.setDefaultPaint(color);
+        renderer1_.setAutoPopulateSeriesPaint(false);
     }
 
     /**
@@ -356,7 +358,7 @@ public class ScatterChart extends XYChart {
      * @param color       the color for that series
      */
     public void setSeriesColor(int seriesIndex, Color color) {
-        renderer_.setSeriesPaint(seriesIndex, color);
+        renderer1_.setSeriesPaint(seriesIndex, color);
     }
 
     /**
@@ -365,10 +367,10 @@ public class ScatterChart extends XYChart {
      * @param alpha transparency value between 0.0 (fully transparent) and 1.0 (opaque)
      */
     public void setSeriesAlpha(int seriesIndex, float alpha) {
-        Color color = (Color) renderer_.getSeriesPaint(seriesIndex);
+        Color color = (Color) renderer1_.getSeriesPaint(seriesIndex);
         if (color != null) {
             int a = Math.round(alpha * 255);
-            renderer_.setSeriesPaint(seriesIndex,
+            renderer1_.setSeriesPaint(seriesIndex,
                     new Color(color.getRed(), color.getGreen(), color.getBlue(), a));
         }
     }
@@ -379,10 +381,10 @@ public class ScatterChart extends XYChart {
      * @param alpha transparency value between 0.0 (fully transparent) and 1.0 (opaque)
      */
     public void setTransparency(float alpha) {
-        Color base = (Color) renderer_.getDefaultPaint();
+        Color base = (Color) renderer1_.getDefaultPaint();
         if (base != null) {
             int a = Math.round(alpha * 255);
-            renderer_.setDefaultPaint(new Color(base.getRed(), base.getGreen(), base.getBlue(), a));
+            renderer1_.setDefaultPaint(new Color(base.getRed(), base.getGreen(), base.getBlue(), a));
         }
     }
 
@@ -392,7 +394,7 @@ public class ScatterChart extends XYChart {
      * @param visible {@code true} to show lines, {@code false} to hide them
      */
     public void setLinesVisible(boolean visible) {
-        renderer_.setDefaultLinesVisible(visible);
+        renderer1_.setDefaultLinesVisible(visible);
     }
 
     /**
@@ -402,7 +404,7 @@ public class ScatterChart extends XYChart {
      * @param visible     {@code true} to show lines for that series
      */
     public void setSeriesLinesVisible(int seriesIndex, boolean visible) {
-        renderer_.setSeriesLinesVisible(seriesIndex, visible);
+        renderer1_.setSeriesLinesVisible(seriesIndex, visible);
     }
 
     /**
@@ -411,7 +413,7 @@ public class ScatterChart extends XYChart {
      * @param visible {@code true} to show shapes, {@code false} to hide them
      */
     public void setShapesVisible(boolean visible) {
-        renderer_.setDefaultShapesVisible(visible);
+        renderer1_.setDefaultShapesVisible(visible);
     }
 
     /**
@@ -421,7 +423,18 @@ public class ScatterChart extends XYChart {
      * @param visible     {@code true} to show shapes for that series
      */
     public void setSeriesShapesVisible(int seriesIndex, boolean visible) {
-        renderer_.setSeriesShapesVisible(seriesIndex, visible);
+        renderer1_.setSeriesShapesVisible(seriesIndex, visible);
+    }
+
+    /**
+     * Sets the flag that controls whether the outline paint is used to draw
+     * shape outlines, and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param flag the flag.
+     */
+    public void setUseOutlinePaint(boolean flag) {
+        renderer1_.setUseOutlinePaint(flag);
     }
 
     /**
@@ -430,6 +443,6 @@ public class ScatterChart extends XYChart {
      * @return the renderer
      */
     public XYLineAndShapeRenderer getRenderer() {
-        return renderer_;
+        return renderer1_;
     }
 }

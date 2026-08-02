@@ -20,7 +20,7 @@ import pdk.chart.urls.StandardCategoryURLGenerator;
  */
 public class CategoryLayeredBarChart extends CategoryBarChart {
 
-    private final LayeredBarRenderer localRenderer_;
+    private final LayeredBarRenderer renderer2_;
 
     /**
      * Creates a bar chart.
@@ -42,20 +42,20 @@ public class CategoryLayeredBarChart extends CategoryBarChart {
         super(title, legend);
         xAxis_ = new CategoryAxis(categoryAxisLabel);
         yAxis_ = new NumberAxis(valueAxisLabel);
-        localRenderer_ = new LayeredBarRenderer();
-        this.renderer1_ = localRenderer_;
-        setDefaultRenderer(localRenderer_);
+        renderer2_ = new LayeredBarRenderer();
+        renderer0_ = renderer2_;
+        renderer1_ = renderer2_;
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
-            localRenderer_.setDefaultPositiveItemLabelPosition(position1);
+            renderer2_.setDefaultPositiveItemLabelPosition(position1);
             ItemLabelPosition position2 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE9, TextAnchor.CENTER_RIGHT);
-            localRenderer_.setDefaultNegativeItemLabelPosition(position2);
+            renderer2_.setDefaultNegativeItemLabelPosition(position2);
         } else if (orientation == PlotOrientation.VERTICAL) {
             ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER);
-            localRenderer_.setDefaultPositiveItemLabelPosition(position1);
+            renderer2_.setDefaultPositiveItemLabelPosition(position1);
             ItemLabelPosition position2 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE6, TextAnchor.TOP_CENTER);
-            localRenderer_.setDefaultNegativeItemLabelPosition(position2);
+            renderer2_.setDefaultNegativeItemLabelPosition(position2);
         }
 
         if (tooltips) {
@@ -69,8 +69,43 @@ public class CategoryLayeredBarChart extends CategoryBarChart {
         plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
         plot_.setOrientation(orientation);
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
     }
 
+    /**
+     * Creates a bar chart.
+     *
+     * @param title             the chart title ({@code null} permitted).
+     * @param categoryAxisLabel the label for the category axis
+     *                          ({@code null} permitted).
+     * @param valueAxisLabel    the label for the value axis
+     *                          ({@code null} permitted).
+     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param orientation       the plot orientation (horizontal or vertical)
+     *                          ({@code null} not permitted).
+     * @param legend            a flag specifying whether a legend is required.
+     * @param tooltips          configure chart to generate tool tips?
+     */
+    public CategoryLayeredBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
+            String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
+        this(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, legend, tooltips, false);
+    }
+
+    /**
+     * Creates a bar chart.
+     *
+     * @param title             the chart title ({@code null} permitted).
+     * @param categoryAxisLabel the label for the category axis
+     *                          ({@code null} permitted).
+     * @param valueAxisLabel    the label for the value axis
+     *                          ({@code null} permitted).
+     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param orientation       the plot orientation (horizontal or vertical)
+     *                          ({@code null} not permitted).
+     */
+    public CategoryLayeredBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
+            String title, PlotOrientation orientation) {
+        this(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, true, true, false);
+    }
 
 }

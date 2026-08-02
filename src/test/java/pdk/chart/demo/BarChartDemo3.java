@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.api.Layer;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
@@ -94,7 +94,7 @@ public class BarChartDemo3 extends ApplicationFrame {
         plot.mapDatasetToDomainAxes(0, axisIndices);
         plot.mapDatasetToRangeAxes(0, axisIndices);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

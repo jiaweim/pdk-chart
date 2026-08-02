@@ -8,13 +8,13 @@ import pdk.chart.data.time.Month;
 import pdk.chart.data.time.RegularTimePeriod;
 import pdk.chart.data.time.Year;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.ValueAxisPlot;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -31,9 +31,13 @@ import java.util.List;
 
 /**
  * An axis that displays a date scale based on a
- * {@link RegularTimePeriod}.  This axis works when
- * displayed across the bottom or top of a plot, but is broken for display at
+ * {@link RegularTimePeriod}.
+ * This axis works when displayed across the bottom or top of a plot, but is broken for display at
  * the left or right of charts.
+ * <p>
+ * 用于展示周期性时间范围的坐标轴，它并不像 DateAxis 那样显示连续的绝对时间，
+ * 而是将数据绘制在一个周期循环的上下文中（例如一天中的小时、一周中的星期几、一年中的月份等）。
+ * 这使得 PeriodAxis 非常适合于展示具有周期模式的数据（如日内用电量曲线、一周客流量分布、季节性温度变化）。
  */
 public class PeriodAxis extends ValueAxis
         implements Cloneable, PublicCloneable, Serializable {

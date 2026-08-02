@@ -1,9 +1,6 @@
 package pdk.chart;
 
-import pdk.chart.axis.DateAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.SymbolAxis;
-import pdk.chart.axis.ValueAxis;
+import pdk.chart.axis.*;
 
 /**
  * Y-axis type.
@@ -22,13 +19,24 @@ public enum AxisType {
      */
     SYMBOL,
 
-    DATE;
+    DATE,
+    /**
+     * 基于规则时间周期生成日期刻度的坐标轴，仅支持水平放置于图表顶部/底部，垂直左右放置会显示异常。
+     */
+    PERIOD;
 
-    public ValueAxis createInstance() {
+    public ValueAxis createInstance(String label) {
         return switch (this) {
-            case NUMBER -> new NumberAxis();
-            case SYMBOL -> new SymbolAxis(null, new String[0]);
-            case DATE -> new DateAxis();
+            case NUMBER -> new NumberAxis(label);
+            case SYMBOL -> new SymbolAxis(label, new String[0]);
+            case DATE -> new DateAxis(label);
+            case PERIOD -> new PeriodAxis(label);
         };
     }
+
+    public ValueAxis createInstance() {
+        return createInstance(null);
+    }
+
+
 }

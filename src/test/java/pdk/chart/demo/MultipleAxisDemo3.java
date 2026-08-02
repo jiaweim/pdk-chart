@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
@@ -51,7 +51,7 @@ public class MultipleAxisDemo3 extends ApplicationFrame {
         plot.mapDatasetToDomainAxis(1, 1);
         plot.mapDatasetToRangeAxis(1, 1);
         plot.setRenderer(1, new XYLineAndShapeRenderer(true, false));
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

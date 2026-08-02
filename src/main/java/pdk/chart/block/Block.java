@@ -1,6 +1,6 @@
 package pdk.chart.block;
 
-import pdk.chart.Drawable;
+import pdk.chart.model.Drawable;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

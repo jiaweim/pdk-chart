@@ -4,9 +4,10 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.annotations.CategoryAnnotation;
 import pdk.chart.api.Layer;
-import pdk.chart.api.RectangleInsets;
+import pdk.chart.api.SortOrder;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.CategoryAxis;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
@@ -16,6 +17,7 @@ import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.plot.CategoryPlot;
+import pdk.chart.plot.Marker;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.CategoryItemRenderer;
@@ -48,6 +50,18 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Sets the row order in which the items in each dataset should be
+     * rendered and sends a {@link PlotChangeEvent} to all registered
+     * listeners.  Note that this affects the order in which items are drawn,
+     * NOT their position in the chart.
+     *
+     * @param order the order ({@code null} not permitted).
+     */
+    public void setRowRenderingOrder(SortOrder order) {
+        plot_.setRowRenderingOrder(order);
+    }
+
+    /**
      * Returns the domain axis for the plot.  If the domain axis for this plot
      * is {@code null}, then the method will return the parent plot's
      * domain axis (if there is a parent plot).
@@ -57,7 +71,6 @@ public class CategoryChart extends Chart {
     public CategoryAxis getDomainAxis() {
         return this.plot_.getDomainAxis();
     }
-
 
     /**
      * Sets the domain axis for the plot and sends a {@link PlotChangeEvent} to
@@ -79,6 +92,14 @@ public class CategoryChart extends Chart {
      */
     public ValueAxis getRangeAxis() {
         return plot_.getRangeAxis(0);
+    }
+
+    public NumberAxis getRangeAxisAsNumber() {
+        ValueAxis yAxis = plot_.getRangeAxis();
+        if (yAxis instanceof NumberAxis nAxis) {
+            return nAxis;
+        }
+        return null;
     }
 
     /**
@@ -119,11 +140,6 @@ public class CategoryChart extends Chart {
      */
     public void setFixedLegendItems(@Nullable LegendItemCollection items) {
         plot_.setFixedLegendItems(items);
-    }
-
-
-    public void setDefaultRenderer(CategoryItemRenderer renderer) {
-        this.renderer0_ = renderer;
     }
 
     /**
@@ -170,9 +186,22 @@ public class CategoryChart extends Chart {
      * @param paint  the paint ({@code null} permitted).
      */
     public void setSeriesPaint(int series, Paint paint) {
-        renderer0_.setSeriesPaint(series, paint);
+        if (renderer0_ != null) {
+            renderer0_.setSeriesPaint(series, paint);
+        }
     }
 
+    /**
+     * Sets the default item label paint and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public void setDefaultItemLabelPaint(Paint paint) {
+        if (renderer0_ != null) {
+            renderer0_.setDefaultItemLabelPaint(paint);
+        }
+    }
 
     /**
      * Adds a marker for display against the domain axis and sends a
@@ -329,16 +358,6 @@ public class CategoryChart extends Chart {
     }
 
     /**
-     * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
-     * all registered listeners.
-     *
-     * @param insets the new insets ({@code null} not permitted).
-     */
-    public void setPlotInsets(RectangleInsets insets) {
-        plot_.setInsets(insets);
-    }
-
-    /**
      * Sets the paint used to draw the grid-lines (if any) against the domain
      * axis and sends a {@link PlotChangeEvent} to all registered listeners.
      *
@@ -372,6 +391,41 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Sets the flag that controls whether the zero baseline is
+     * displayed for the range axis, and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param visible the flag.
+     */
+    public void setRangeZeroBaselineVisible(boolean visible) {
+        plot_.setRangeZeroBaselineVisible(visible);
+    }
+
+    /**
+     * Adds a marker for display against the range axis and sends a
+     * {@link PlotChangeEvent} to all registered listeners.  Typically a marker
+     * will be drawn by the renderer as a line perpendicular to the range axis,
+     * however this is entirely up to the renderer.
+     *
+     * @param marker the marker ({@code null} not permitted).
+     * @param layer  the layer (foreground or background) ({@code null}
+     *               not permitted).
+     */
+    public void addRangeMarker(Marker marker, Layer layer) {
+        plot_.addRangeMarker(marker, layer);
+    }
+
+
+    /**
+     * Sets the flag indicating whether the range crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     */
+    public void setRangeCrosshairVisible(boolean flag) {
+        plot_.setRangeCrosshairVisible(flag);
+    }
+
+    /**
      * Sets the default positive item label position.
      *
      * @param position the position ({@code null} not permitted).
@@ -391,6 +445,4 @@ public class CategoryChart extends Chart {
             ItemLabelPosition position) {
         renderer0_.setDefaultNegativeItemLabelPosition(position);
     }
-
-
 }

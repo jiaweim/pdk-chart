@@ -29,9 +29,9 @@ public class XYAreaRenderer2Test {
         XYAreaRenderer2 r2 = new XYAreaRenderer2();
         assertEquals(r1, r2);
 
-        r1.setOutline(!r1.isOutline());
+        r1.setDrawOutline(!r1.isDrawOutline());
         assertNotEquals(r1, r2);
-        r2.setOutline(r1.isOutline());
+        r2.setDrawOutline(r1.isDrawOutline());
         assertEquals(r1, r2);
 
         r1.setLegendArea(new Rectangle(1, 2, 3, 4));

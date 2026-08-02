@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
@@ -57,7 +57,7 @@ public class HistogramDemo1 extends ApplicationFrame {
         chart.setPannable(true, true);
         chart.setForegroundAlpha(0.85f);
 
-        NumberAxis yAxis = chart.getRangeAxis();
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
         yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         chart.setDrawBarOutline(false);

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.JChartUtils;
+import pdk.chart.PolarChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYSeries;
@@ -41,7 +41,7 @@ public class PolarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = JChart.polar(dataset, "Polar Chart Demo 1", true);
+        Chart chart = new PolarChart(dataset, "Polar Chart Demo 1", true);
         PolarPlot plot = (PolarPlot) chart.getPlot();
         plot.addCornerTextItem("Corner Item 1");
         plot.addCornerTextItem("Corner Item 2");
@@ -49,7 +49,7 @@ public class PolarChartDemo1 extends ApplicationFrame {
         plot.setRadiusGridlinePaint(Color.WHITE);
         NumberAxis rangeAxis = (NumberAxis) plot.getAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

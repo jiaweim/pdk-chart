@@ -1,39 +1,29 @@
 package pdk.chart;
 
-import org.jspecify.annotations.Nullable;
-import pdk.chart.api.Layer;
-import pdk.chart.api.RectangleInsets;
-import pdk.chart.api.TableOrder;
-import pdk.chart.axis.CategoryAxis;
-import pdk.chart.axis.DateAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.ValueAxis;
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.IntervalCategoryDataset;
-import pdk.chart.data.general.PieDataset;
-import pdk.chart.data.general.WaferMapDataset;
-import pdk.chart.data.xy.OHLCDataset;
-import pdk.chart.data.xy.TableXYDataset;
-import pdk.chart.data.xy.WindDataset;
-import pdk.chart.data.xy.XYDataset;
-import pdk.chart.labels.*;
-import pdk.chart.plot.*;
-import pdk.chart.plot.pie.MultiplePiePlot;
-import pdk.chart.plot.pie.PiePlot;
-import pdk.chart.renderer.DefaultPolarItemRenderer;
-import pdk.chart.renderer.WaferMapRenderer;
-import pdk.chart.renderer.category.*;
-import pdk.chart.renderer.xy.*;
-import pdk.chart.text.TextAnchor;
-import pdk.chart.urls.*;
+import pdk.chart.encoders.EncoderUtil;
+import pdk.chart.encoders.ImageFormat;
+import pdk.chart.imagemap.*;
+import pdk.chart.model.ChartRenderingInfo;
+import pdk.chart.model.ChartTheme;
+import pdk.chart.model.StandardChartTheme;
+import pdk.chart.renderer.category.BarRenderer;
+import pdk.chart.renderer.category.StandardBarPainter;
+import pdk.chart.renderer.xy.StandardXYBarPainter;
+import pdk.chart.renderer.xy.XYBarRenderer;
 
 import java.awt.*;
-import java.text.DateFormat;
-import java.util.Locale;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.Objects;
 
 /**
- * A collection of utility methods for creating some standard charts.
+ * A collection of utility methods for JFreeChart.  Includes methods for
+ * converting charts to image formats (PNG and JPEG) plus creating simple HTML
+ * image maps.
+ *
+ * @see ImageMapUtils
  */
 public abstract class JChart {
 
@@ -45,11 +35,56 @@ public abstract class JChart {
     private JChart() {}
 
     /**
+     * Returns {@code true} if JFreeSVG is on the classpath, and
+     * {@code false} otherwise.  The JFreeSVG library can be found at
+     * <a href="https://www.jfree.org/jfreesvg/">https://www.jfree.org/jfreesvg/</a>
+     *
+     * @return A boolean.
+     * @since 2.0.0
+     */
+    public static boolean isJFreeSVGAvailable() {
+        Class<?> svgGraphics2DClass = null;
+        try {
+            svgGraphics2DClass = Class.forName("org.jfree.svg.SVGGraphics2D");
+        } catch (ClassNotFoundException e) {
+            // svgGraphics2DClass will be null so the function will return false
+        }
+        return svgGraphics2DClass != null;
+    }
+
+    /**
+     * Returns {@code true} if OrsonPDF is on the classpath, and
+     * {@code false} otherwise.  The OrsonPDF library can be found at
+     * http://www.object-refinery.com/orsonpdf/
+     *
+     * @return A boolean.
+     * @since 2.0.0
+     */
+    public static boolean isOrsonPDFAvailable() {
+        Class<?> pdfDocumentClass = null;
+        try {
+            pdfDocumentClass = Class.forName("com.orsonpdf.PDFDocument");
+        } catch (ClassNotFoundException e) {
+            // pdfDocument class will be null so the function will return false
+        }
+        return (pdfDocumentClass != null);
+    }
+
+    /**
+     * Applies the current theme to the specified chart.
+     *
+     * @param chart the chart ({@code null} not permitted).
+     */
+    public static void applyCurrentTheme(Chart chart) {
+        currentTheme.apply(chart);
+    }
+
+    /**
      * Returns the current chart theme used by the factory.
      *
      * @return The chart theme.
      * @see #setChartTheme(ChartTheme)
-     * @see JChartUtils#applyCurrentTheme(Chart)
+     * @see JChart#applyCurrentTheme(Chart)
      */
     public static ChartTheme getChartTheme() {
         return currentTheme;
@@ -60,8 +95,7 @@ public abstract class JChart {
      * created via methods in this class.
      *
      * @param theme the theme ({@code null} not permitted).
-     * @see #getChartTheme()
-     * @see JChartUtils#applyCurrentTheme(Chart)
+     * @see JChart#applyCurrentTheme(Chart)
      */
     public static void setChartTheme(ChartTheme theme) {
         Objects.requireNonNull(theme, "theme");
@@ -76,913 +110,549 @@ public abstract class JChart {
     }
 
     /**
-     * Creates a ring chart with default settings.
-     * <p>
-     * The chart object returned by this method uses a {@link RingPlot}
-     * instance as the plot.
+     * Writes a chart to an output stream in PNG format.
      *
-     * @param title    the chart title ({@code null} permitted).
-     * @param dataset  the dataset for the chart ({@code null} permitted).
-     * @param legend   a flag specifying whether a legend is required.
-     * @param tooltips configure chart to generate tool tips?
-     * @param locale   the locale ({@code null} not permitted).
-     * @return A ring chart.
+     * @param out    the output stream ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart ring(PieDataset dataset, String title, boolean legend, boolean tooltips, Locale locale) {
+    public static void writeChartAsPNG(OutputStream out, Chart chart,
+            int width, int height) throws IOException {
 
-        RingPlot plot = new RingPlot(dataset);
-        plot.setLabelGenerator(new StandardPieSectionLabelGenerator(locale));
-        plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
-        if (tooltips) {
-            plot.setToolTipGenerator(new StandardPieToolTipGenerator(locale));
-        }
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+        // defer argument checking...
+        writeChartAsPNG(out, chart, width, height, null);
     }
 
     /**
-     * Creates a ring chart with default settings.
-     * <p>
-     * The chart object returned by this method uses a {@link RingPlot}
-     * instance as the plot.
+     * Writes a chart to an output stream in PNG format.
      *
-     * @param title    the chart title ({@code null} permitted).
-     * @param dataset  the dataset for the chart ({@code null} permitted).
-     * @param legend   a flag specifying whether a legend is required.
-     * @param tooltips configure chart to generate tool tips?
-     * @param urls     configure chart to generate URLs?
-     * @return A ring chart.
+     * @param out         the output stream ({@code null} not permitted).
+     * @param chart       the chart ({@code null} not permitted).
+     * @param width       the image width.
+     * @param height      the image height.
+     * @param encodeAlpha encode alpha?
+     * @param compression the compression level (0-9).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart ring(PieDataset dataset, String title, boolean legend, boolean tooltips, boolean urls) {
+    public static void writeChartAsPNG(OutputStream out, Chart chart,
+            int width, int height, boolean encodeAlpha, int compression)
+            throws IOException {
 
-        RingPlot plot = new RingPlot(dataset);
-        plot.setLabelGenerator(new StandardPieSectionLabelGenerator<>());
-        plot.setInsets(new RectangleInsets(0.0, 5.0, 5.0, 5.0));
-        if (tooltips) {
-            plot.setToolTipGenerator(new StandardPieToolTipGenerator<>());
-        }
-        if (urls) {
-            plot.setURLGenerator(new StandardPieURLGenerator<>());
-        }
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+        // defer argument checking...
+        JChart.writeChartAsPNG(out, chart, width, height, null,
+                encodeAlpha, compression);
+
     }
 
     /**
-     * Creates a chart that displays multiple pie plots.  The chart object
-     * returned by this method uses a {@link MultiplePiePlot} instance as the
-     * plot.
+     * Writes a chart to an output stream in PNG format.  This method allows
+     * you to pass in a {@link ChartRenderingInfo} object, to collect
+     * information about the chart dimensions/entities.  You will need this
+     * info if you want to create an HTML image map.
      *
-     * @param title    the chart title ({@code null} permitted).
-     * @param dataset  the dataset ({@code null} permitted).
-     * @param order    the order that the data is extracted (by row or by column)
-     *                 ({@code null} not permitted).
-     * @param legend   include a legend?
-     * @param tooltips generate tooltips?
-     * @param urls     generate URLs?
-     * @return A chart.
+     * @param out    the output stream ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @param info   the chart rendering info ({@code null} permitted).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart pieMultiple(CategoryDataset dataset, String title, TableOrder order,
-            boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(order, "order");
-        MultiplePiePlot plot = new MultiplePiePlot(dataset);
-        plot.setDataExtractOrder(order);
-        plot.setBackgroundPaint(null);
-        plot.setOutlineStroke(null);
-
-        if (tooltips) {
-            PieToolTipGenerator tooltipGenerator = new StandardPieToolTipGenerator();
-            PiePlot pp = (PiePlot) plot.getPieChart().getPlot();
-            pp.setToolTipGenerator(tooltipGenerator);
-        }
-
-        if (urls) {
-            PieURLGenerator urlGenerator = new StandardPieURLGenerator();
-            PiePlot pp = (PiePlot) plot.getPieChart().getPlot();
-            pp.setURLGenerator(urlGenerator);
-        }
-
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+    public static void writeChartAsPNG(OutputStream out, Chart chart,
+            int width, int height, ChartRenderingInfo info)
+            throws IOException {
+        Objects.requireNonNull(chart, "Chart cannot be null.");
+        BufferedImage bufferedImage
+                = chart.createBufferedImage(width, height, info);
+        EncoderUtil.writeBufferedImage(bufferedImage, ImageFormat.PNG, out);
     }
 
     /**
-     * Create a category chart.
+     * Writes a chart to an output stream in PNG format.  This method allows
+     * you to pass in a {@link ChartRenderingInfo} object, to collect
+     * information about the chart dimensions/entities.  You will need this
+     * info if you want to create an HTML image map.
      *
-     * @param dataset           {@link CategoryDataset} instance.
-     * @param chartType         {@link CategoryChartType}.
-     * @param title             chart title
-     * @param categoryAxisTitle category axis title.
-     * @param valueAxisTitle    value axis title.
-     * @param orientation       {@link PlotOrientation}
-     * @param legend            whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @return a chart.
+     * @param out         the output stream ({@code null} not permitted).
+     * @param chart       the chart ({@code null} not permitted).
+     * @param width       the image width.
+     * @param height      the image height.
+     * @param info        carries back chart rendering info ({@code null}
+     *                    permitted).
+     * @param encodeAlpha encode alpha?
+     * @param compression the PNG compression level (0-9).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart create(CategoryDataset dataset, CategoryChartType chartType, String title,
-            String categoryAxisTitle, String valueAxisTitle, PlotOrientation orientation, boolean legend, boolean tooltips) {
-        CategoryAxis domainAxis = new CategoryAxis(categoryAxisTitle);
-        NumberAxis valueAxis = new NumberAxis(valueAxisTitle);
-        CategoryItemRenderer renderer = chartType.getRenderer();
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
-        }
+    public static void writeChartAsPNG(OutputStream out, Chart chart,
+            int width, int height, ChartRenderingInfo info,
+            boolean encodeAlpha, int compression) throws IOException {
+        Objects.requireNonNull(out, "out");
+        Objects.requireNonNull(chart, "Chart cannot be null.");
 
-        CategoryPlot plot = new CategoryPlot(dataset, domainAxis, valueAxis, renderer);
-        plot.setOrientation(orientation);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+        BufferedImage chartImage = chart.createBufferedImage(width, height,
+                BufferedImage.TYPE_INT_ARGB, info);
+        JChart.writeBufferedImageAsPNG(out, chartImage, encodeAlpha,
+                compression);
+
     }
 
     /**
-     * Create a chart with {@link XYPlot}
+     * Writes a scaled version of a chart to an output stream in PNG format.
      *
-     * @param dataset         {@link XYDataset}.
-     * @param chartType       {@link XYChartType}
-     * @param domainAxisType  {@link AxisType} for domain-axis.
-     * @param rangeAxisType   {@link AxisType} for range-axis.
-     * @param title           chart title.
-     * @param domainAxisTitle domain-axis name.
-     * @param rangeAxisTitle  range-axis name.
-     * @param orientation     {@link PlotOrientation}
-     * @param legend          true if create legend.
-     * @param tooltips        true if show tooltips.
-     * @return a chart.
+     * @param out               the output stream ({@code null} not permitted).
+     * @param chart             the chart ({@code null} not permitted).
+     * @param width             the unscaled chart width.
+     * @param height            the unscaled chart height.
+     * @param widthScaleFactor  the horizontal scale factor.
+     * @param heightScaleFactor the vertical scale factor.
+     * @throws IOException if there are any I/O problems.
      */
-    public static Chart createXY(@Nullable XYDataset dataset, XYChartType chartType,
-            AxisType domainAxisType, AxisType rangeAxisType, String title, String domainAxisTitle,
-            String rangeAxisTitle, PlotOrientation orientation, boolean legend, boolean tooltips) {
-        Objects.requireNonNull(orientation, "orientation");
+    public static void writeScaledChartAsPNG(OutputStream out,
+            Chart chart, int width, int height, int widthScaleFactor,
+            int heightScaleFactor) throws IOException {
+        Objects.requireNonNull(out, "out");
+        Objects.requireNonNull(chart, "Chart cannot be null.");
 
-        ValueAxis domainAxis = domainAxisType.createInstance();
-        domainAxis.setLabel(domainAxisTitle);
+        double desiredWidth = width * widthScaleFactor;
+        double desiredHeight = height * heightScaleFactor;
+        double defaultWidth = width;
+        double defaultHeight = height;
+        boolean scale = false;
 
-        ValueAxis rangeAxis = rangeAxisType.createInstance();
-        rangeAxis.setLabel(rangeAxisTitle);
-
-        XYItemRenderer renderer = chartType.getRenderer();
-
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        // get desired width and height from somewhere then...
+        if ((widthScaleFactor != 1) || (heightScaleFactor != 1)) {
+            scale = true;
         }
 
-        XYPlot plot = new XYPlot(dataset, domainAxis, rangeAxis, renderer);
-        plot.setOrientation(orientation);
+        double scaleX = desiredWidth / defaultWidth;
+        double scaleY = desiredHeight / defaultHeight;
 
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
+        BufferedImage image = new BufferedImage((int) desiredWidth,
+                (int) desiredHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = image.createGraphics();
 
-    /**
-     * Creates a stacked bar chart with default settings.  The chart object
-     * returned by this method uses a {@link XYPlot} instance as the
-     * plot, with a {@link NumberAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedXYBarRenderer}
-     * as the renderer.
-     *
-     * @param title           the chart title.
-     * @param domainAxisLabel the label for the category axis.
-     * @param rangeAxisLabel  the label for the value axis.
-     * @param dataset         the dataset for the chart.
-     * @param orientation     the orientation of the chart (horizontal or
-     *                        vertical).
-     * @param legend          a flag specifying whether a legend is required.
-     * @param tooltips        configure chart to generate tool tips?
-     * @param urls            configure chart to generate URLs?
-     * @return A stacked bar chart.
-     */
-    public static Chart barStackedXY(@Nullable XYDataset dataset, @Nullable String domainAxisLabel,
-            @Nullable String rangeAxisLabel, @Nullable String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-
-        NumberAxis domainAxis = new NumberAxis(domainAxisLabel);
-        ValueAxis valueAxis = new NumberAxis(rangeAxisLabel);
-
-        StackedXYBarRenderer renderer = new StackedXYBarRenderer();
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
+        if (scale) {
+            AffineTransform saved = g2.getTransform();
+            g2.transform(AffineTransform.getScaleInstance(scaleX, scaleY));
+            chart.draw(g2, new Rectangle2D.Double(0, 0, defaultWidth,
+                    defaultHeight), null, null);
+            g2.setTransform(saved);
+            g2.dispose();
+        } else {
+            chart.draw(g2, new Rectangle2D.Double(0, 0, defaultWidth,
+                    defaultHeight), null, null);
         }
-        if (urls) {
-            renderer.setURLGenerator(new StandardXYURLGenerator());
+        out.write(encodeAsPNG(image));
+
+    }
+
+    /**
+     * Saves a chart to the specified file in PNG format.
+     *
+     * @param file   the file name ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @throws IOException if there are any I/O errors.
+     */
+    public static void saveChartAsPNG(File file, Chart chart,
+            int width, int height) throws IOException {
+
+        // defer argument checking...
+        saveChartAsPNG(file, chart, width, height, null);
+    }
+
+    /**
+     * Saves a chart to a file in PNG format.  This method allows you to pass
+     * in a {@link ChartRenderingInfo} object, to collect information about the
+     * chart dimensions/entities.  You will need this info if you want to
+     * create an HTML image map.
+     *
+     * @param file   the file ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @param info   the chart rendering info ({@code null} permitted).
+     * @throws IOException if there are any I/O errors.
+     */
+    public static void saveChartAsPNG(File file, Chart chart,
+            int width, int height, ChartRenderingInfo info)
+            throws IOException {
+        Objects.requireNonNull(file, "file");
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+            JChart.writeChartAsPNG(out, chart, width, height, info);
         }
-
-        XYPlot plot = new XYPlot(dataset, domainAxis, valueAxis, renderer);
-        plot.setOrientation(orientation);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
     }
 
     /**
-     * Creates a stacked area chart with default settings.  The chart object
-     * returned by this method uses a {@link CategoryPlot} instance as the
-     * plot, with a {@link CategoryAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedAreaRenderer}
-     * as the renderer.
+     * Saves a chart to a file in PNG format.  This method allows you to pass
+     * in a {@link ChartRenderingInfo} object, to collect information about the
+     * chart dimensions/entities.  You will need this info if you want to
+     * create an HTML image map.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @return A stacked area chart.
+     * @param file        the file ({@code null} not permitted).
+     * @param chart       the chart ({@code null} not permitted).
+     * @param width       the image width.
+     * @param height      the image height.
+     * @param info        the chart rendering info ({@code null} permitted).
+     * @param encodeAlpha encode alpha?
+     * @param compression the PNG compression level (0-9).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart stackedArea(CategoryDataset dataset, String categoryAxisLabel,
-            String valueAxisLabel, String title) {
-        return stackedArea(dataset, categoryAxisLabel, valueAxisLabel, title,
-                PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a stacked area chart with default settings.  The chart object
-     * returned by this method uses a {@link CategoryPlot} instance as the
-     * plot, with a {@link CategoryAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedAreaRenderer}
-     * as the renderer.
-     *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @return A stacked area chart.
-     */
-    public static Chart stackedArea(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return stackedArea(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a stacked area chart with default settings.  The chart object
-     * returned by this method uses a {@link CategoryPlot} instance as the
-     * plot, with a {@link CategoryAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedAreaRenderer}
-     * as the renderer.
-     *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @param urls              configure chart to generate URLs?
-     * @return A stacked area chart.
-     */
-    public static Chart stackedArea(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
-        categoryAxis.setCategoryMargin(0.0);
-        ValueAxis valueAxis = new NumberAxis(valueAxisLabel);
-
-        StackedAreaRenderer renderer = new StackedAreaRenderer();
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator());
+    public static void saveChartAsPNG(File file, Chart chart,
+            int width, int height, ChartRenderingInfo info, boolean encodeAlpha,
+            int compression) throws IOException {
+        Objects.requireNonNull(file, "file");
+        Objects.requireNonNull(chart, "chart");
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+            writeChartAsPNG(out, chart, width, height, info, encodeAlpha, compression);
         }
-        if (urls) {
-            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
-        }
-
-        CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, renderer);
-        plot.setOrientation(orientation);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
     }
 
     /**
-     * Creates a Gantt chart using the supplied attributes plus default values
-     * where required.  The chart object returned by this method uses a
-     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
-     * for the domain axis, a {@link DateAxis} as the range axis, and a
-     * {@link GanttRenderer} as the renderer.
+     * Writes a chart to an output stream in JPEG format.  Please note that
+     * JPEG is a poor format for chart images, use PNG if possible.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param dateAxisLabel     the label for the date axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @return A Gantt chart.
+     * @param out    the output stream ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart gantt(IntervalCategoryDataset dataset, String categoryAxisLabel, String dateAxisLabel,
-            String title) {
-        return gantt(dataset, categoryAxisLabel, dateAxisLabel, title, true, true, false);
+    public static void writeChartAsJPEG(OutputStream out,
+            Chart chart, int width, int height) throws IOException {
+
+        // defer argument checking...
+        writeChartAsJPEG(out, chart, width, height, null);
+
     }
 
     /**
-     * Creates a Gantt chart using the supplied attributes plus default values
-     * where required.  The chart object returned by this method uses a
-     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
-     * for the domain axis, a {@link DateAxis} as the range axis, and a
-     * {@link GanttRenderer} as the renderer.
+     * Writes a chart to an output stream in JPEG format.  Please note that
+     * JPEG is a poor format for chart images, use PNG if possible.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param dateAxisLabel     the label for the date axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @return A Gantt chart.
+     * @param out     the output stream ({@code null} not permitted).
+     * @param quality the quality setting.
+     * @param chart   the chart ({@code null} not permitted).
+     * @param width   the image width.
+     * @param height  the image height.
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart gantt(IntervalCategoryDataset dataset, String categoryAxisLabel, String dateAxisLabel,
-            String title, boolean legend, boolean tooltips) {
-        return gantt(dataset, categoryAxisLabel, dateAxisLabel, title, legend, tooltips, false);
+    public static void writeChartAsJPEG(OutputStream out, float quality,
+            Chart chart, int width, int height) throws IOException {
+
+        // defer argument checking...
+        JChart.writeChartAsJPEG(out, quality, chart, width, height,
+                null);
+
     }
 
     /**
-     * Creates a Gantt chart using the supplied attributes plus default values
-     * where required.  The chart object returned by this method uses a
-     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
-     * for the domain axis, a {@link DateAxis} as the range axis, and a
-     * {@link GanttRenderer} as the renderer.
+     * Writes a chart to an output stream in JPEG format. This method allows
+     * you to pass in a {@link ChartRenderingInfo} object, to collect
+     * information about the chart dimensions/entities.  You will need this
+     * info if you want to create an HTML image map.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param dateAxisLabel     the label for the date axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @param urls              configure chart to generate URLs?
-     * @return A Gantt chart.
+     * @param out    the output stream ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @param info   the chart rendering info ({@code null} permitted).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart gantt(IntervalCategoryDataset dataset, String categoryAxisLabel, String dateAxisLabel,
-            String title, boolean legend, boolean tooltips, boolean urls) {
+    public static void writeChartAsJPEG(OutputStream out, Chart chart,
+            int width, int height, ChartRenderingInfo info)
+            throws IOException {
+        Objects.requireNonNull(out, "out");
+        Objects.requireNonNull(chart, "chart");
 
-        CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
-        DateAxis dateAxis = new DateAxis(dateAxisLabel);
-
-        CategoryItemRenderer renderer = new GanttRenderer();
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new IntervalCategoryToolTipGenerator("{3} - {4}", DateFormat.getDateInstance()));
-        }
-        if (urls) {
-            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
-        }
-
-        CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, dateAxis, renderer);
-        plot.setOrientation(PlotOrientation.HORIZONTAL);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+        BufferedImage image = chart.createBufferedImage(width, height,
+                BufferedImage.TYPE_INT_RGB, info);
+        EncoderUtil.writeBufferedImage(image, ImageFormat.JPEG, out);
     }
 
     /**
-     * Creates a waterfall chart.  The chart object returned by this method
-     * uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link WaterfallBarRenderer} as the renderer.
+     * Writes a chart to an output stream in JPEG format.  This method allows
+     * you to pass in a {@link ChartRenderingInfo} object, to collect
+     * information about the chart dimensions/entities.  You will need this
+     * info if you want to create an HTML image map.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} NOT permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @return A waterfall chart.
+     * @param out     the output stream ({@code null} not permitted).
+     * @param quality the output quality (0.0f to 1.0f).
+     * @param chart   the chart ({@code null} not permitted).
+     * @param width   the image width.
+     * @param height  the image height.
+     * @param info    the chart rendering info ({@code null} permitted).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart waterfall(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return waterfall(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, legend, tooltips, false);
+    public static void writeChartAsJPEG(OutputStream out, float quality,
+            Chart chart, int width, int height, ChartRenderingInfo info)
+            throws IOException {
+        Objects.requireNonNull(out, "out");
+        Objects.requireNonNull(chart, "chart");
+        BufferedImage image = chart.createBufferedImage(width, height,
+                BufferedImage.TYPE_INT_RGB, info);
+        EncoderUtil.writeBufferedImage(image, ImageFormat.JPEG, out, quality);
     }
 
     /**
-     * Creates a waterfall chart.  The chart object returned by this method
-     * uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link WaterfallBarRenderer} as the renderer.
+     * Saves a chart to a file in JPEG format.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} NOT permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @param urls              configure chart to generate URLs?
-     * @return A waterfall chart.
+     * @param file   the file ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart waterfall(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
-            String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        CategoryAxis categoryAxis = new CategoryAxis(categoryAxisLabel);
-        categoryAxis.setCategoryMargin(0.0);
+    public static void saveChartAsJPEG(File file, Chart chart,
+            int width, int height) throws IOException {
 
-        ValueAxis valueAxis = new NumberAxis(valueAxisLabel);
+        // defer argument checking...
+        saveChartAsJPEG(file, chart, width, height, null);
+    }
 
-        WaterfallBarRenderer renderer = new WaterfallBarRenderer();
-        if (orientation == PlotOrientation.HORIZONTAL) {
-            ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, Math.PI / 2.0);
-            renderer.setDefaultPositiveItemLabelPosition(position);
-            renderer.setDefaultNegativeItemLabelPosition(position);
-        } else if (orientation == PlotOrientation.VERTICAL) {
-            ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, 0.0);
-            renderer.setDefaultPositiveItemLabelPosition(position);
-            renderer.setDefaultNegativeItemLabelPosition(position);
+    /**
+     * Saves a chart to a file in JPEG format.
+     *
+     * @param file    the file ({@code null} not permitted).
+     * @param quality the JPEG quality setting.
+     * @param chart   the chart ({@code null} not permitted).
+     * @param width   the image width.
+     * @param height  the image height.
+     * @throws IOException if there are any I/O errors.
+     */
+    public static void saveChartAsJPEG(File file, float quality,
+            Chart chart, int width, int height) throws IOException {
+
+        // defer argument checking...
+        saveChartAsJPEG(file, quality, chart, width, height, null);
+    }
+
+    /**
+     * Saves a chart to a file in JPEG format.  This method allows you to pass
+     * in a {@link ChartRenderingInfo} object, to collect information about the
+     * chart dimensions/entities.  You will need this info if you want to
+     * create an HTML image map.
+     *
+     * @param file   the file name ({@code null} not permitted).
+     * @param chart  the chart ({@code null} not permitted).
+     * @param width  the image width.
+     * @param height the image height.
+     * @param info   the chart rendering info ({@code null} permitted).
+     * @throws IOException if there are any I/O errors.
+     */
+    public static void saveChartAsJPEG(File file, Chart chart,
+            int width, int height, ChartRenderingInfo info) throws IOException {
+        Objects.requireNonNull(file, "file");
+        Objects.requireNonNull(chart, "chart");
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+            writeChartAsJPEG(out, chart, width, height, info);
         }
-        if (tooltips) {
-            StandardCategoryToolTipGenerator generator = new StandardCategoryToolTipGenerator();
-            renderer.setDefaultToolTipGenerator(generator);
-        }
-        if (urls) {
-            renderer.setDefaultItemURLGenerator(new StandardCategoryURLGenerator());
+    }
+
+    /**
+     * Saves a chart to a file in JPEG format.  This method allows you to pass
+     * in a {@link ChartRenderingInfo} object, to collect information about the
+     * chart dimensions/entities.  You will need this info if you want to
+     * create an HTML image map.
+     *
+     * @param file    the file name ({@code null} not permitted).
+     * @param quality the quality setting.
+     * @param chart   the chart ({@code null} not permitted).
+     * @param width   the image width.
+     * @param height  the image height.
+     * @param info    the chart rendering info ({@code null} permitted).
+     * @throws IOException if there are any I/O errors.
+     */
+    public static void saveChartAsJPEG(File file, float quality,
+            Chart chart, int width, int height,
+            ChartRenderingInfo info) throws IOException {
+        Objects.requireNonNull(file, "file");
+        Objects.requireNonNull(chart, "chart");
+        try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
+            writeChartAsJPEG(out, quality, chart, width, height, info);
         }
 
-        CategoryPlot plot = new CategoryPlot(dataset, categoryAxis, valueAxis, renderer);
-        plot.clearRangeMarkers();
-        Marker baseline = new ValueMarker(0.0);
-        baseline.setPaint(Color.BLACK);
-        plot.addRangeMarker(baseline, Layer.FOREGROUND);
-        plot.setOrientation(orientation);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
     }
 
     /**
-     * Creates a polar plot for the specified dataset (x-values interpreted as
-     * angles in degrees).  The chart object returned by this method uses a
-     * {@link PolarPlot} instance as the plot, with a {@link NumberAxis} for
-     * the radial axis.
+     * Writes a {@link BufferedImage} to an output stream in JPEG format.
      *
-     * @param title   the chart title ({@code null} permitted).
-     * @param dataset the dataset ({@code null} permitted).
-     * @param legend  legend required?
-     * @return A chart.
+     * @param out   the output stream ({@code null} not permitted).
+     * @param image the image ({@code null} not permitted).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart polar(XYDataset dataset, String title, boolean legend) {
+    public static void writeBufferedImageAsJPEG(OutputStream out,
+            BufferedImage image) throws IOException {
 
-        PolarPlot plot = new PolarPlot();
-        plot.setDataset(dataset);
-        NumberAxis rangeAxis = new NumberAxis();
-        rangeAxis.setAxisLineVisible(false);
-        rangeAxis.setTickMarksVisible(false);
-        rangeAxis.setTickLabelInsets(new RectangleInsets(0.0, 0.0, 0.0, 0.0));
-        plot.setAxis(rangeAxis);
-        plot.setRenderer(new DefaultPolarItemRenderer());
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
+        // defer argument checking...
+        writeBufferedImageAsJPEG(out, 0.75f, image);
+
     }
 
     /**
-     * Creates a stacked XY area plot.  The chart object returned by this
-     * method uses an {@link XYPlot} instance as the plot, with a
-     * {@link NumberAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link StackedXYAreaRenderer2} as the renderer.
+     * Writes a {@link BufferedImage} to an output stream in JPEG format.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @return A stacked XY area chart.
+     * @param out     the output stream ({@code null} not permitted).
+     * @param quality the image quality (0.0f to 1.0f).
+     * @param image   the image ({@code null} not permitted).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart stackedAreaXY(TableXYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
-        return stackedAreaXY(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL, true, true, false);
+    public static void writeBufferedImageAsJPEG(OutputStream out, float quality,
+            BufferedImage image) throws IOException {
+
+        EncoderUtil.writeBufferedImage(image, ImageFormat.JPEG, out, quality);
+
     }
 
     /**
-     * Creates a stacked XY area plot.  The chart object returned by this
-     * method uses an {@link XYPlot} instance as the plot, with a
-     * {@link NumberAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link StackedXYAreaRenderer2} as the renderer.
+     * Writes a {@link BufferedImage} to an output stream in PNG format.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return A stacked XY area chart.
+     * @param out   the output stream ({@code null} not permitted).
+     * @param image the image ({@code null} not permitted).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart stackedAreaXY(TableXYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return stackedAreaXY(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
+    public static void writeBufferedImageAsPNG(OutputStream out,
+            BufferedImage image) throws IOException {
+
+        EncoderUtil.writeBufferedImage(image, ImageFormat.PNG, out);
+
     }
 
     /**
-     * Creates a stacked XY area plot.  The chart object returned by this
-     * method uses an {@link XYPlot} instance as the plot, with a
-     * {@link NumberAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link StackedXYAreaRenderer2} as the renderer.
+     * Writes a {@link BufferedImage} to an output stream in PNG format.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
-     * @return A stacked XY area chart.
+     * @param out         the output stream ({@code null} not permitted).
+     * @param image       the image ({@code null} not permitted).
+     * @param encodeAlpha encode alpha?
+     * @param compression the compression level (0-9).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart stackedAreaXY(TableXYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
-        xAxis.setLowerMargin(0.0);
-        xAxis.setUpperMargin(0.0);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        XYToolTipGenerator toolTipGenerator = null;
-        if (tooltips) {
-            toolTipGenerator = new StandardXYToolTipGenerator();
+    public static void writeBufferedImageAsPNG(OutputStream out,
+            BufferedImage image, boolean encodeAlpha, int compression)
+            throws IOException {
+
+        EncoderUtil.writeBufferedImage(image, ImageFormat.PNG, out,
+                compression, encodeAlpha);
+    }
+
+    /**
+     * Encodes a {@link BufferedImage} to PNG format.
+     *
+     * @param image the image ({@code null} not permitted).
+     * @return A byte array in PNG format.
+     * @throws IOException if there is an I/O problem.
+     */
+    public static byte[] encodeAsPNG(BufferedImage image) throws IOException {
+        return EncoderUtil.encode(image, ImageFormat.PNG);
+    }
+
+    /**
+     * Encodes a {@link BufferedImage} to PNG format.
+     *
+     * @param image       the image ({@code null} not permitted).
+     * @param encodeAlpha encode alpha?
+     * @param compression the PNG compression level (0-9).
+     * @return The byte array in PNG format.
+     * @throws IOException if there is an I/O problem.
+     */
+    public static byte[] encodeAsPNG(BufferedImage image, boolean encodeAlpha,
+            int compression) throws IOException {
+        return EncoderUtil.encode(image, ImageFormat.PNG, compression,
+                encodeAlpha);
+    }
+
+    /**
+     * Writes an image map to an output stream.
+     *
+     * @param writer                the writer ({@code null} not permitted).
+     * @param name                  the map name ({@code null} not permitted).
+     * @param info                  the chart rendering info ({@code null} not permitted).
+     * @param useOverLibForToolTips whether to use OverLIB for tooltips
+     *                              (http://www.bosrup.com/web/overlib/).
+     * @throws IOException if there are any I/O errors.
+     */
+    public static void writeImageMap(PrintWriter writer, String name,
+            ChartRenderingInfo info, boolean useOverLibForToolTips)
+            throws IOException {
+
+        ToolTipTagFragmentGenerator toolTipTagFragmentGenerator;
+        if (useOverLibForToolTips) {
+            toolTipTagFragmentGenerator
+                    = new OverLIBToolTipTagFragmentGenerator();
+        } else {
+            toolTipTagFragmentGenerator
+                    = new StandardToolTipTagFragmentGenerator();
         }
+        ImageMapUtils.writeImageMap(writer, name, info,
+                toolTipTagFragmentGenerator,
+                new StandardURLTagFragmentGenerator());
 
-        XYURLGenerator urlGenerator = null;
-        if (urls) {
-            urlGenerator = new StandardXYURLGenerator();
-        }
-        StackedXYAreaRenderer2 renderer = new StackedXYAreaRenderer2(toolTipGenerator, urlGenerator);
-        renderer.setOutline(true);
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        plot.setOrientation(orientation);
-
-        plot.setRangeAxis(yAxis);  // forces recalculation of the axis range
-
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Writes an image map to the specified writer.
      *
-     * @param dataset the dataset for the chart ({@code null} permitted).
-     * @return The chart.
+     * @param writer                      the writer ({@code null} not permitted).
+     * @param name                        the map name ({@code null} not permitted).
+     * @param info                        the chart rendering info ({@code null} not permitted).
+     * @param toolTipTagFragmentGenerator a generator for the HTML fragment
+     *                                    that will contain the tooltip text ({@code null} not permitted
+     *                                    if {@code info} contains tooltip information).
+     * @param urlTagFragmentGenerator     a generator for the HTML fragment that
+     *                                    will contain the URL reference ({@code null} not permitted if
+     *                                    {@code info} contains URLs).
+     * @throws IOException if there are any I/O errors.
      */
-    public static Chart lineSmooth(XYDataset dataset) {
-        return lineSmooth(dataset, null, null, null, PlotOrientation.VERTICAL,
-                true, true, false);
+    public static void writeImageMap(PrintWriter writer, String name,
+            ChartRenderingInfo info,
+            ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
+            URLTagFragmentGenerator urlTagFragmentGenerator)
+            throws IOException {
+
+        writer.println(ImageMapUtils.getImageMap(name, info,
+                toolTipTagFragmentGenerator, urlTagFragmentGenerator));
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates an HTML image map.  This method maps to
+     * {@link ImageMapUtils#getImageMap(String, ChartRenderingInfo,
+     * ToolTipTagFragmentGenerator, URLTagFragmentGenerator)}, using default
+     * generators.
      *
-     * @param title       the chart title.
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return The chart.
+     * @param name the map name ({@code null} not permitted).
+     * @param info the chart rendering info ({@code null} not permitted).
+     * @return The map tag.
      */
-    public static Chart lineSmooth(XYDataset dataset, String xAxisLabel, String yAxisLabel, @Nullable String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return lineSmooth(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
+    public static String getImageMap(String name, ChartRenderingInfo info) {
+        return ImageMapUtils.getImageMap(name, info,
+                new StandardToolTipTagFragmentGenerator(),
+                new StandardURLTagFragmentGenerator());
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates an HTML image map.  This method maps directly to
+     * {@link ImageMapUtils#getImageMap(String, ChartRenderingInfo,
+     * ToolTipTagFragmentGenerator, URLTagFragmentGenerator)}.
      *
-     * @param title       the chart title.
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return The chart.
+     * @param name                        the map name ({@code null} not permitted).
+     * @param info                        the chart rendering info ({@code null} not permitted).
+     * @param toolTipTagFragmentGenerator a generator for the HTML fragment
+     *                                    that will contain the tooltip text ({@code null} not permitted
+     *                                    if {@code info} contains tooltip information).
+     * @param urlTagFragmentGenerator     a generator for the HTML fragment that
+     *                                    will contain the URL reference ({@code null} not permitted if
+     *                                    {@code info} contains URLs).
+     * @return The map tag.
      */
-    public static Chart lineSmooth(XYDataset dataset, String xAxisLabel, String yAxisLabel, @Nullable String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
+    public static String getImageMap(String name, ChartRenderingInfo info,
+            ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
+            URLTagFragmentGenerator urlTagFragmentGenerator) {
 
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        XYItemRenderer renderer = new XYSplineRenderer();
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        plot.setOrientation(orientation);
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        }
-        if (urls) {
-            renderer.setURLGenerator(new StandardXYURLGenerator());
-        }
+        return ImageMapUtils.getImageMap(name, info,
+                toolTipTagFragmentGenerator, urlTagFragmentGenerator);
 
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
     }
 
-    /**
-     * Creates a stepped XY plot with default settings.
-     *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @return A chart.
-     */
-    public static Chart stepXY(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
-        return stepXY(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a stepped XY plot with default settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return A chart.
-     */
-    public static Chart stepXY(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return stepXY(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a stepped XY plot with default settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
-     * @return A chart.
-     */
-    public static Chart stepXY(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-        DateAxis xAxis = new DateAxis(xAxisLabel);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-        XYToolTipGenerator toolTipGenerator = null;
-        if (tooltips) {
-            toolTipGenerator = new StandardXYToolTipGenerator();
-        }
-
-        XYURLGenerator urlGenerator = null;
-        if (urls) {
-            urlGenerator = new StandardXYURLGenerator();
-        }
-        XYItemRenderer renderer = new XYStepRenderer(toolTipGenerator, urlGenerator);
-
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, null);
-        plot.setRenderer(renderer);
-        plot.setOrientation(orientation);
-        plot.setDomainCrosshairVisible(false);
-        plot.setRangeCrosshairVisible(false);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-
-    /**
-     * Creates a filled stepped XY plot with default settings.
-     *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @return A chart.
-     */
-    public static Chart stepAreaXY(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
-        return stepAreaXY(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL, true, true, false);
-    }
-
-    /**
-     * Creates a filled stepped XY plot with default settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @return A chart.
-     */
-    public static Chart stepAreaXY(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips) {
-        return stepAreaXY(dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a filled stepped XY plot with default settings.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
-     * @return A chart.
-     */
-    public static Chart stepAreaXY(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-
-        NumberAxis xAxis = new NumberAxis(xAxisLabel);
-        xAxis.setAutoRangeIncludesZero(false);
-        NumberAxis yAxis = new NumberAxis(yAxisLabel);
-
-        XYToolTipGenerator toolTipGenerator = null;
-        if (tooltips) {
-            toolTipGenerator = new StandardXYToolTipGenerator();
-        }
-
-        XYURLGenerator urlGenerator = null;
-        if (urls) {
-            urlGenerator = new StandardXYURLGenerator();
-        }
-        XYItemRenderer renderer = new XYStepAreaRenderer(XYStepAreaRenderer.AREA_AND_SHAPES, toolTipGenerator, urlGenerator);
-
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, null);
-        plot.setRenderer(renderer);
-        plot.setOrientation(orientation);
-        plot.setDomainCrosshairVisible(false);
-        plot.setRangeCrosshairVisible(false);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates and returns a default instance of a candlesticks chart.
-     *
-     * @param title          the chart title ({@code null} permitted).
-     * @param timeAxisLabel  a label for the time axis ({@code null}
-     *                       permitted).
-     * @param valueAxisLabel a label for the value axis ({@code null}
-     *                       permitted).
-     * @param dataset        the dataset for the chart ({@code null} permitted).
-     * @param legend         a flag specifying whether a legend is required.
-     * @return A candlestick chart.
-     */
-    public static Chart candlestick(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
-            String title, boolean legend) {
-
-        ValueAxis timeAxis = new DateAxis(timeAxisLabel);
-        NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
-        XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, null);
-        plot.setRenderer(new CandlestickRenderer());
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates and returns a default instance of a high-low-open-close chart.
-     *
-     * @param title          the chart title ({@code null} permitted).
-     * @param timeAxisLabel  a label for the time axis ({@code null}
-     *                       permitted).
-     * @param valueAxisLabel a label for the value axis ({@code null}
-     *                       permitted).
-     * @param dataset        the dataset for the chart ({@code null} permitted).
-     * @param legend         a flag specifying whether a legend is required.
-     * @return A high-low-open-close chart.
-     */
-    public static Chart highLow(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
-            String title, boolean legend) {
-        DateAxis timeAxis = new DateAxis(timeAxisLabel);
-        NumberAxis valueAxis = new NumberAxis(valueAxisLabel);
-        HighLowRenderer renderer = new HighLowRenderer();
-        renderer.setDefaultToolTipGenerator(new HighLowItemLabelGenerator());
-        XYPlot plot = new XYPlot(dataset, timeAxis, valueAxis, renderer);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates a wind plot with default settings.
-     *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the x-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @param legend     a flag that controls whether a legend is created.
-     * @param tooltips   configure chart to generate tool tips?
-     * @return A wind plot.
-     */
-    public static Chart wind(WindDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            boolean legend, boolean tooltips) {
-        return wind(dataset, xAxisLabel, yAxisLabel, title, legend, tooltips, false);
-    }
-
-    /**
-     * Creates a wind plot with default settings.
-     *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the x-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @param legend     a flag that controls whether a legend is created.
-     * @param tooltips   configure chart to generate tool tips?
-     * @param urls       configure chart to generate URLs?
-     * @return A wind plot.
-     */
-    public static Chart wind(WindDataset dataset, String xAxisLabel, String yAxisLabel, String title,
-            boolean legend, boolean tooltips, boolean urls) {
-
-        ValueAxis xAxis = new DateAxis(xAxisLabel);
-        ValueAxis yAxis = new NumberAxis(yAxisLabel);
-        yAxis.setRange(-12.0, 12.0);
-
-        WindItemRenderer renderer = new WindItemRenderer();
-        if (tooltips) {
-            renderer.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        }
-        if (urls) {
-            renderer.setURLGenerator(new StandardXYURLGenerator());
-        }
-        XYPlot plot = new XYPlot(dataset, xAxis, yAxis, renderer);
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
-
-    /**
-     * Creates a wafer map chart.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param dataset     the dataset ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted.
-     * @param legend      display a legend?
-     * @return A wafer map chart.
-     */
-    public static Chart waferMap(WaferMapDataset dataset, String title, PlotOrientation orientation,
-            boolean legend) {
-        return waferMap(dataset, title, orientation, legend, false, false);
-    }
-
-    /**
-     * Creates a wafer map chart.
-     *
-     * @param title       the chart title ({@code null} permitted).
-     * @param dataset     the dataset ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted.
-     * @param legend      display a legend?
-     * @param tooltips    generate tooltips?
-     * @param urls        generate URLs?
-     * @return A wafer map chart.
-     */
-    public static Chart waferMap(WaferMapDataset dataset, String title, PlotOrientation orientation,
-            boolean legend, boolean tooltips, boolean urls) {
-        Objects.requireNonNull(orientation, "orientation");
-
-        WaferMapPlot plot = new WaferMapPlot(dataset);
-        WaferMapRenderer renderer = new WaferMapRenderer();
-        plot.setRenderer(renderer);
-
-        Chart chart = new Chart(title, Chart.DEFAULT_TITLE_FONT, plot, legend);
-        currentTheme.apply(chart);
-        return chart;
-    }
 }

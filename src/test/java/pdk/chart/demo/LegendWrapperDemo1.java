@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.PieChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -60,7 +60,7 @@ public class LegendWrapperDemo1 extends ApplicationFrame {
         legend.setPosition(RectangleEdge.RIGHT);
         legend.setHorizontalAlignment(HorizontalAlignment.LEFT);
         chart.addSubtitle(legend);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

@@ -1,14 +1,11 @@
 package pdk.chart.renderer.xy;
 
-import org.jspecify.annotations.Nullable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
@@ -379,7 +376,6 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
             return flag;
         }
         return this.defaultShapesFilled;
-
     }
 
     /**
@@ -781,7 +777,6 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
         g2.draw(shape);
     }
 
-
     /**
      * Draws the item (first pass). This method draws the lines
      * connecting the items. Instead of drawing separate lines,
@@ -1107,224 +1102,5 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtils.writeShape(this.legendLine, stream);
-    }
-
-    /**
-     * Sets the default tool tip generator and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
-     *
-     * @param generator the generator ({@code null} permitted).
-     * @return this
-     */
-    public XYLineAndShapeRenderer defaultToolTipGenerator(@Nullable XYToolTipGenerator generator) {
-        setDefaultToolTipGenerator(generator);
-        return this;
-    }
-
-    /**
-     * Configure chart to generate tool tips
-     *
-     * @param show true if generate tool tips
-     * @return this
-     */
-    public XYLineAndShapeRenderer showTooltips(boolean show) {
-        if (show) {
-            setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
-        }
-        return this;
-    }
-
-    /**
-     * Sets the default 'lines visible' flag.
-     *
-     * @param showLine whether show lines between data points.
-     * @return this
-     */
-    public XYLineAndShapeRenderer defaultLinesVisible(boolean showLine) {
-        setDefaultLinesVisible(showLine);
-        return this;
-    }
-
-    /**
-     * Set true to create scatter chart.
-     *
-     * @param showShape whether show shapes of data points
-     * @return this
-     */
-    public XYLineAndShapeRenderer defaultShapesVisible(boolean showShape) {
-        setDefaultShapesVisible(showShape);
-        return this;
-    }
-
-    /**
-     * Sets the default 'shapes filled' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
-     *
-     * @param flag the flag.
-     */
-    public XYLineAndShapeRenderer defaultShapesFilled(boolean flag) {
-        setDefaultShapesFilled(flag);
-        return this;
-    }
-
-    /**
-     * Set whether lines and shapes of the specified series are visible.
-     *
-     * @param showLine  whether line is visible.
-     * @param showShape whether shape is visible.
-     * @return this.
-     */
-    public XYLineAndShapeRenderer defaultVisible(boolean showLine, boolean showShape) {
-        setDefaultLinesVisible(showLine);
-        setDefaultShapesVisible(showShape);
-        return this;
-    }
-
-    /**
-     * Sets the 'lines visible' flag for a series.
-     *
-     * @param series  the series index (zero-based).
-     * @param visible the flag.
-     */
-    public XYLineAndShapeRenderer seriesLinesVisible(int series, boolean visible) {
-        setSeriesLinesVisible(series, visible);
-        return this;
-    }
-
-    /**
-     * Sets the 'shapes visible' flag for a series.
-     *
-     * @param series  the series index (zero-based).
-     * @param visible the flag.
-     */
-    public XYLineAndShapeRenderer seriesShapesVisible(int series, boolean visible) {
-        setSeriesShapesVisible(series, visible);
-        return this;
-    }
-
-    /**
-     * Sets the 'shapes visible' flag for a series.
-     *
-     * @param series        the series index (zero-based).
-     * @param linesVisible  the flag.
-     * @param shapesVisible the flag.
-     */
-    public XYLineAndShapeRenderer seriesVisible(int series, boolean linesVisible, boolean shapesVisible) {
-        setSeriesLinesVisible(series, linesVisible);
-        setSeriesShapesVisible(series, shapesVisible);
-        return this;
-    }
-
-    /**
-     * Sets the shape used for a series.
-     *
-     * @param series the series index (zero-based).
-     * @param shape  the shape.
-     */
-    public XYLineAndShapeRenderer seriesShape(int series, @Nullable Shape shape) {
-        setSeriesShape(series, shape);
-        return this;
-    }
-
-    /**
-     * Sets the paint used for a series.
-     *
-     * @param series the series index (zero-based).
-     * @param paint  the paint.
-     */
-    public XYLineAndShapeRenderer seriesPaint(int series, @Nullable Paint paint) {
-        setSeriesPaint(series, paint);
-        return this;
-    }
-
-    /**
-     * Sets the stroke used for a series.
-     *
-     * @param series series index
-     * @param stroke {@link Stroke}
-     * @return this
-     */
-    public XYLineAndShapeRenderer seriesStroke(int series, @Nullable Stroke stroke) {
-        setSeriesStroke(series, stroke);
-        return this;
-    }
-
-    /**
-     * Set the line width of a given series
-     *
-     * @param series series index
-     * @param width  line width
-     * @return this
-     */
-    public XYLineAndShapeRenderer seriesLineWidth(int series, float width) {
-        setSeriesStroke(series, new BasicStroke(width));
-        return this;
-    }
-
-    /**
-     * Sets the paint used for a series fill.
-     *
-     * @param series the series index (zero-based).
-     * @param paint  the paint.
-     */
-    public XYLineAndShapeRenderer seriesFillPaint(int series, @Nullable Paint paint) {
-        setSeriesFillPaint(series, paint);
-        return this;
-    }
-
-    /**
-     * Whether the fill paint is used to fill shapes.
-     *
-     * @param flag the flag.
-     */
-    public XYLineAndShapeRenderer useFillPaint(boolean flag) {
-        setUseFillPaint(flag);
-        return this;
-    }
-
-    /**
-     * Sets the paint used for a series outline.
-     *
-     * @param series the series index (zero-based).
-     * @param paint  the paint.
-     */
-    public XYLineAndShapeRenderer seriesOutlinePaint(int series, @Nullable Paint paint) {
-        setSeriesOutlinePaint(series, paint, false);
-        return this;
-    }
-
-    /**
-     * Whether the outline paint is used to draw shape outlines.
-     *
-     * @param flag the flag.
-     */
-    public XYLineAndShapeRenderer useOutlinePaint(boolean flag) {
-        setUseOutlinePaint(flag);
-        return this;
-    }
-
-    /**
-     * Sets the flag that controls whether outlines are drawn for shapes.
-     * <p>
-     * In some cases, shapes look better if they do NOT have an outline, but
-     * this flag allows you to set your own preference.
-     *
-     * @param flag the flag.
-     */
-    public XYLineAndShapeRenderer drawOutlines(boolean flag) {
-        setDrawOutlines(flag);
-        return this;
-    }
-
-    /**
-     * Sets the flag that controls whether each series is drawn as a
-     * single path and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
-     *
-     * @param flag the flag.
-     */
-    public XYLineAndShapeRenderer drawSeriesLineAsPath(boolean flag) {
-        setDrawSeriesLineAsPath(flag);
-        return this;
     }
 }

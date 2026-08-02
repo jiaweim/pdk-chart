@@ -1,7 +1,6 @@
 package pdk.chart.demo.plotly;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
 import pdk.chart.ScatterChart;
 import pdk.chart.legend.PaintScaleLegend;
 

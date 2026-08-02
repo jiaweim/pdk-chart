@@ -2,7 +2,7 @@ package pdk.chart.demo.echarts;
 
 import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.util.ShapeUtils;

@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
@@ -80,7 +80,7 @@ public class YieldCurveDemo1 extends ApplicationFrame {
         axis.setDateFormatOverride(new SimpleDateFormat("MMM-yyyy"));
         chart.addSubtitle(new TextTitle("March 2016"));
         TextTitle source = new TextTitle("Source: https://www.treasury.gov/resource-center/data-chart-center/interest-rates/");
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         source.setFont(new Font("Dialog", Font.PLAIN, 9));
         source.setPosition(RectangleEdge.BOTTOM);
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);

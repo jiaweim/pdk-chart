@@ -630,7 +630,6 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
         setCircular(flag, true);
     }
 
-
     /**
      * A flag indicating whether the pie chart is circular, or stretched into
      * an elliptical shape.

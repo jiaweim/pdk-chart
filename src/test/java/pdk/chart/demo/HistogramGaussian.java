@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.BarChart;
-import pdk.chart.Data;
+import pdk.chart.model.Data;
 import pdk.chart.data.statistics.HistogramDataset;
 
 import java.util.Random;

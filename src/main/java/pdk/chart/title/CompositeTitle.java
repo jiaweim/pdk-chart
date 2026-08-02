@@ -1,6 +1,6 @@
 package pdk.chart.title;
 
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.RectangleConstraint;

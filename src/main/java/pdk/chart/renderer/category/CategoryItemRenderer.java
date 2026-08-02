@@ -1,6 +1,6 @@
 package pdk.chart.renderer.category;
 
-import pdk.chart.ChartElement;
+import pdk.chart.model.ChartElement;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.ValueAxis;

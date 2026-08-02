@@ -1,14 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChart;
+import pdk.chart.GanttChart;
 import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.data.gantt.Task;
 import pdk.chart.data.gantt.TaskSeries;
 import pdk.chart.data.gantt.TaskSeriesCollection;
 import pdk.chart.data.time.SimpleTimePeriod;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.GanttRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -67,14 +65,12 @@ public class GanttDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalCategoryDataset dataset) {
-        Chart chart = JChart.gantt(dataset, "Task", "Date", "Gantt Chart Demo",
-                true, true);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setRangePannable(true);
-        plot.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);
-        plot.setRangeCrosshairVisible(true);
-        GanttRenderer renderer = (GanttRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
+        GanttChart chart = new GanttChart(dataset, "Task", "Date", "Gantt Chart Demo");
+        chart.setRangePannable(true);
+        chart.setRangeCrosshairVisible(true);
+
+        chart.getDomainAxis().setMaximumCategoryLabelWidthRatio(10.0F);
+        chart.setDrawBarOutline(false);
         return chart;
     }
 
@@ -85,8 +81,8 @@ public class GanttDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        GanttDemo1 demo = new GanttDemo1("Chart: GanttDemo1.java");
+    static void main() {
+        GanttDemo1 demo = new GanttDemo1("GanttDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

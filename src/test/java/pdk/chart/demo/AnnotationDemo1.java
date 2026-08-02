@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.annotations.XYTextAnnotation;
 import pdk.chart.axis.NumberAxis;
@@ -114,11 +114,11 @@ public class AnnotationDemo1 extends ApplicationFrame {
 
         chart.setPannable(true, true);
 
-        NumberAxis domainAxis = chart.getNumberDomainAxis();
+        NumberAxis domainAxis = chart.getDomainAxisAsNumber();
         domainAxis.setUpperMargin(0.12);
         domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setAutoRangeIncludesZero(false);
 
         Font font = new Font("SansSerif", Font.PLAIN, 9);
@@ -135,7 +135,7 @@ public class AnnotationDemo1 extends ApplicationFrame {
             chart.addAnnotation(annotation);
         }
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

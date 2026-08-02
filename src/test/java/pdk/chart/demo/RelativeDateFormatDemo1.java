@@ -1,10 +1,11 @@
 package pdk.chart.demo;
 
 import pdk.chart.*;
+import pdk.chart.axis.DateAxis;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.Second;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.plot.XYPlot;
+import pdk.chart.model.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -31,23 +32,21 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset<String> dataset) {
-        Chart chart = new LineChart(dataset, "Elapsed Time", AxisType.DATE,
+        LineChart chart = new LineChart(dataset, "Elapsed Time", AxisType.DATE,
                 "Beats Per Minute", "Exercise Chart");
-        XYPlot plot = chart.getXYPlot();
-        plot.domainCrosshairVisible(true)
-                .rangeCrosshairVisible(true);
 
-        plot.getLineAndShapeRenderer()
-                .defaultVisible(true, true);
+        chart.setDomainCrosshairVisible(true);
+        chart.setRangeCrosshairVisible(true);
+        chart.setDefaultShapesVisible(true);
 
         Minute base = new Minute(0, 9, 1, 10, 2006);
         RelativeDateFormat rdf = new RelativeDateFormat(base.getFirstMillisecond());
         rdf.setSecondFormatter(new DecimalFormat("00"));
 
-        plot.getDomainAxisAsDate()
-                .dateFormatOverride(rdf);
+        DateAxis xAxis = chart.getDomainAxisAsDate();
+        xAxis.setDateFormatOverride(rdf);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

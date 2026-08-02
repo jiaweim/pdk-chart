@@ -4,7 +4,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.CategoryChartType;
 import pdk.chart.Chart;
-import pdk.chart.ChartElementVisitor;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.CategoryAnnotation;
 import pdk.chart.annotations.CategoryTextAnnotation;

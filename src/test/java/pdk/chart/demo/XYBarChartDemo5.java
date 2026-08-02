@@ -9,6 +9,7 @@ import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBarRenderer;
@@ -56,7 +57,7 @@ public class XYBarChartDemo5 extends ApplicationFrame {
         axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
         axis.setLowerMargin(0.01);
         axis.setUpperMargin(0.01);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

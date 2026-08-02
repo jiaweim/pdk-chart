@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.AxisType;
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.gantt.Task;
 import pdk.chart.data.gantt.TaskSeries;
@@ -48,7 +48,7 @@ public class XYTaskDatasetDemo1 extends ApplicationFrame {
 
         XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
         renderer.setUseYInterval(true);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

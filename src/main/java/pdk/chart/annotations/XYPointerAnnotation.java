@@ -4,14 +4,14 @@ import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.event.AnnotationChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.HashUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.Args;
+import pdk.chart.util.HashUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
@@ -159,6 +159,8 @@ public class XYPointerAnnotation extends XYTextAnnotation
 
     /**
      * Returns the tip radius.
+     * <p>
+     * Tip radius represents the offset distance from the arrow to the data point.
      *
      * @return The tip radius (in Java2D units).
      * @see #setTipRadius(double)
@@ -170,6 +172,8 @@ public class XYPointerAnnotation extends XYTextAnnotation
     /**
      * Sets the tip radius and sends an
      * {@link AnnotationChangeEvent} to all registered listeners.
+     * <p>
+     * Tip radius represents the offset distance from the arrow to the data point.
      *
      * @param radius the radius (in Java2D units).
      * @see #getTipRadius()

@@ -21,14 +21,14 @@ import java.awt.geom.Rectangle2D;
 public class PSMChart extends XYChart {
 
     private final PSMPlot plot;
-    private final PeakRenderer renderer;
+    private final PeakRenderer renderer1_;
 
     public PSMChart() {
-        super(null, DEFAULT_TITLE_FONT, new PSMPlot(), false);
+        super(null, new PSMPlot(), false);
         plot = (PSMPlot) plot_;
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        renderer = (PeakRenderer) plot.getRenderer();
-        setDefaultRenderer(renderer);
+        renderer1_ = (PeakRenderer) plot.getRenderer();
+        renderer0_ = renderer1_;
     }
 
     public PSMChart(PSMDataset dataset) {
@@ -37,10 +37,10 @@ public class PSMChart extends XYChart {
 
     public PSMChart(PeptideDataset peptideDataset, SpectrumDataset spectrumDataset) {
         this();
-        JChartUtils.applyCurrentTheme(this);
+        JChart.applyCurrentTheme(this);
         int seriesCount = spectrumDataset.getSeriesCount();
         if (seriesCount > 1) {
-            renderer.setShowAutoPeakLabels(false);
+            renderer1_.setShowAutoPeakLabels(false);
         }
         plot.setDataset(peptideDataset, spectrumDataset);
     }
@@ -63,7 +63,7 @@ public class PSMChart extends XYChart {
         XYDataset<SeriesType> mzErrorDataset = dataset.getSpectrumDataset().getMZErrorDataset();
         XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(false, true);
         renderer.setDefaultShapesFilled(true);
-        renderer.drawOutlines(false);
+        renderer.setDrawOutlines(false);
         Rectangle2D.Double rectangle = ShapeUtils.createRectangle(4);
         for (int i = 0; i < mzErrorDataset.getSeriesCount(); i++) {
             SeriesType seriesKey = mzErrorDataset.getSeriesKey(i);
@@ -80,7 +80,7 @@ public class PSMChart extends XYChart {
      * @param showAutoPeakLabels true if generate labels.
      */
     public void setShowAutoPeakLabels(boolean showAutoPeakLabels) {
-        renderer.setShowAutoPeakLabels(showAutoPeakLabels);
+        renderer1_.setShowAutoPeakLabels(showAutoPeakLabels);
     }
 
 }

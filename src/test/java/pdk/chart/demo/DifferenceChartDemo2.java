@@ -822,7 +822,7 @@ public class DifferenceChartDemo2 extends ApplicationFrame {
         rangeAxis.setLowerMargin(0.15);
         rangeAxis.setUpperMargin(0.15);
         plot.setRangeAxis(rangeAxis);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

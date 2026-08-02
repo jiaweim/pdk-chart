@@ -1,7 +1,6 @@
 package pdk.chart.plot.pie;
 
 import pdk.chart.Chart;
-import pdk.chart.ChartRenderingInfo;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.TableOrder;
@@ -13,6 +12,7 @@ import pdk.chart.data.general.PieDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.PlotState;
@@ -166,7 +166,7 @@ public class MultiplePiePlot extends Plot implements Cloneable, Serializable {
      * @see #getPieChart()
      */
     public void setPieChart(Chart pieChart) {
-        Args.nullNotPermitted(pieChart, "pieChart");
+        Objects.requireNonNull(pieChart);
         if (!(pieChart.getPlot() instanceof PiePlot)) {
             throw new IllegalArgumentException("The 'pieChart' argument must "
                     + "be a chart based on a PiePlot.");

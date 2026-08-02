@@ -62,7 +62,7 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
         chart.setRangeGridlinePaint(Color.WHITE);
         chart.setPannable(true, true);
 
-        chart.getRangeAxis().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getRangeAxisAsNumber().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         return chart;
     }

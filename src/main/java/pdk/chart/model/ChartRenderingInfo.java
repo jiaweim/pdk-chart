@@ -1,5 +1,6 @@
-package pdk.chart;
+package pdk.chart.model;
 
+import pdk.chart.Chart;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;

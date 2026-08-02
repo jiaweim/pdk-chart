@@ -125,7 +125,7 @@ public class DualAxisDemo2 extends ApplicationFrame {
         CompositeTitle legends = new CompositeTitle(container);
         legends.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(legends);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

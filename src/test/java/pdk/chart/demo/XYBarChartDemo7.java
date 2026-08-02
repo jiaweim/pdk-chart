@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.AxisType;
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.JChartUtils;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.SymbolAxis;
 import pdk.chart.data.time.Day;
@@ -46,7 +46,7 @@ public class XYBarChartDemo7 extends ApplicationFrame {
         plot.setBackgroundPaint(Color.LIGHT_GRAY);
         plot.setDomainGridlinePaint(Color.WHITE);
         plot.setRangeGridlinePaint(Color.WHITE);
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 

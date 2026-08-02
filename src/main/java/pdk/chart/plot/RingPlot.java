@@ -153,7 +153,6 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
         fireChangeEvent();
     }
 
-
     /**
      * Sets the mode for displaying text in the center of the plot and sends
      * a change event to all registered listeners.  For

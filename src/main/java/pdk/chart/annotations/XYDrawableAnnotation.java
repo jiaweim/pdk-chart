@@ -1,6 +1,6 @@
 package pdk.chart.annotations;
 
-import pdk.chart.Drawable;
+import pdk.chart.model.Drawable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;

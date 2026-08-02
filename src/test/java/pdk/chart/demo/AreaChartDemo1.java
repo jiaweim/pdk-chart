@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryAreaChart;
 import pdk.chart.Chart;
-import pdk.chart.Data;
-import pdk.chart.JChartUtils;
+import pdk.chart.model.Data;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.UnitType;
@@ -75,7 +75,7 @@ public class AreaChartDemo1 extends ApplicationFrame {
                 .standardTickUnits(NumberAxis.createIntegerTickUnits())
                 .labelAngle(0.0);
 
-        JChartUtils.applyCurrentTheme(chart);
+        JChart.applyCurrentTheme(chart);
         return chart;
     }
 
