@@ -2,7 +2,6 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryAreaChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -12,7 +11,7 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -48,7 +47,7 @@ public class AreaChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryAreaChart(dataset, "Category", "Value", "Area Chart");
+        CategoryAreaChart chart = new CategoryAreaChart(dataset, "Category", "Value", "Area Chart");
 
         TextTitle subtitle = new TextTitle("An area chart demonstration.  We use this subtitle as an example of what happens when you get a really long title or subtitle.");
         subtitle.setPosition(RectangleEdge.TOP);
@@ -56,24 +55,21 @@ public class AreaChartDemo1 extends ApplicationFrame {
         subtitle.setVerticalAlignment(VerticalAlignment.BOTTOM);
         chart.addSubtitle(subtitle);
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.setForegroundAlpha(0.5F);
-        plot.setDomainGridlinesVisible(true);
+        chart.setForegroundAlpha(0.5f);
+        chart.setDomainGridlinesVisible(true);
+        chart.setEndType(AreaRendererEndType.LEVEL);
 
-        plot.getAreaRenderer(0)
-                .endType(AreaRendererEndType.LEVEL);
-
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        domainAxis.categoryLabelPositions(CategoryLabelPositions.UP_45)
-                .lowerMargin(0.0)
-                .upperMargin(0.0);
+        CategoryAxis domainAxis = chart.getDomainAxis();
+        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
+        domainAxis.setLowerMargin(0.0);
+        domainAxis.setUpperMargin(0.0);
         domainAxis.addCategoryLabelToolTip("Type 1", "The first type.");
         domainAxis.addCategoryLabelToolTip("Type 2", "The second type.");
         domainAxis.addCategoryLabelToolTip("Type 3", "The third type.");
 
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .labelAngle(0.0);
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        yAxis.setLabelAngle(0.0);
 
         JChart.applyCurrentTheme(chart);
         return chart;

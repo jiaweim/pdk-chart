@@ -1,6 +1,8 @@
 package pdk.chart;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
@@ -11,6 +13,7 @@ import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
+import pdk.chart.renderer.category.BarPainter;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.urls.StandardCategoryURLGenerator;
@@ -30,6 +33,12 @@ public class CategoryBarChart extends CategoryChart {
     protected CategoryAxis xAxis_;
     protected NumberAxis yAxis_;
     protected BarRenderer renderer1_;
+
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new BarRenderer();
+        renderer0_ = renderer1_;
+    }
 
     protected CategoryBarChart(String title, boolean createLegend) {
         super(title, createLegend);
@@ -57,8 +66,6 @@ public class CategoryBarChart extends CategoryChart {
 
         xAxis_ = new CategoryAxis(xAxisLabel);
         yAxis_ = new NumberAxis(yAxisLabel);
-        renderer1_ = new BarRenderer();
-        renderer0_ = renderer1_;
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
@@ -267,5 +274,35 @@ public class CategoryBarChart extends CategoryChart {
      */
     public void setIncludeBaseInRange(boolean include) {
         renderer1_.setIncludeBaseInRange(include);
+    }
+
+    /**
+     * Sets the bar painter for this renderer and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param painter the painter ({@code null} not permitted).
+     */
+    public void setBarPainter(BarPainter painter) {
+        renderer1_.setBarPainter(painter);
+    }
+
+    /**
+     * Sets the item label insets.
+     *
+     * @param itemLabelInsets the insets
+     */
+    public void setItemLabelInsets(@NonNull RectangleInsets itemLabelInsets) {
+        renderer1_.setItemLabelInsets(itemLabelInsets);
+    }
+
+    /**
+     * Sets the maximum bar width, which is specified as a percentage of the
+     * available space for all bars, and sends a {@link RendererChangeEvent} to
+     * all registered listeners.
+     *
+     * @param percent the percent (where 0.05 is five percent).
+     */
+    public void setMaximumBarWidth(double percent) {
+        renderer1_.setMaximumBarWidth(percent);
     }
 }

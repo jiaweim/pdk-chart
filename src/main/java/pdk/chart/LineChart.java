@@ -325,4 +325,13 @@ public class LineChart extends XYChart {
         renderer1_.setUseOutlinePaint(flag);
     }
 
+    /**
+     * Sets the default 'shapes filled' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     */
+    public void setDefaultShapesFilled(boolean flag) {
+        renderer1_.setDefaultShapesFilled(flag);
+    }
 }

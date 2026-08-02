@@ -1,5 +1,6 @@
 package pdk.chart;
 
+import org.jspecify.annotations.NonNull;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.DateAxis;
@@ -80,7 +81,9 @@ public class XYChart extends Chart {
                     return new XYBubbleRenderer(XYBubbleRenderer.SCALE_ON_RANGE_AXIS);
                 }
                 case BAR -> {
-                    return new XYBarRenderer();
+                    XYBarRenderer renderer = new XYBarRenderer();
+                    renderer.setShadowVisible(false);
+                    return renderer;
                 }
 
                 default -> throw new UnsupportedOperationException("Not supported yet " + this);
@@ -169,6 +172,28 @@ public class XYChart extends Chart {
         int datasetCount = plot_.getDatasetCount();
         plot_.setDataset(datasetCount, dataset);
         plot_.setRenderer(datasetCount, chartType.getRenderer());
+    }
+
+    /**
+     * Sets a dataset for the plot and sends a change event to all registered
+     * listeners.
+     *
+     * @param index   the dataset index (must be &gt;= 0).
+     * @param dataset the dataset ({@code null} permitted).
+     */
+    public void setDataset(int index, XYDataset dataset) {
+        plot_.setDataset(index, dataset);
+    }
+
+    /**
+     * Maps a dataset to a particular range axis.  All data will be plotted
+     * against axis zero by default, no mapping is required for this case.
+     *
+     * @param index     the dataset index (zero-based).
+     * @param axisIndex the axis index.
+     */
+    public void mapDatasetToRangeAxis(int index, int axisIndex) {
+        plot_.mapDatasetToRangeAxis(index, axisIndex);
     }
 
     /**
@@ -565,6 +590,22 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Set the stroke width for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param width  stroke width.
+     */
+    public void setSeriesStrokeWidth(int series, float width) {
+        BasicStroke stroke = (BasicStroke) renderer0_.getSeriesStroke(series);
+        if (stroke == null) {
+            renderer0_.setSeriesStroke(series, new BasicStroke(width));
+        } else {
+            renderer0_.setSeriesStroke(series, new BasicStroke(width, stroke.getEndCap(),
+                    stroke.getLineJoin(), stroke.getMiterLimit(), stroke.getDashArray(), stroke.getDashPhase()));
+        }
+    }
+
+    /**
      * Sets the outline paint for a series.
      *
      * @param series the series index (zero-based)
@@ -643,4 +684,55 @@ public class XYChart extends Chart {
     public void setRenderer(XYItemRenderer renderer) {
         plot_.setRenderer(renderer);
     }
+
+    /**
+     * Sets the renderer for the dataset with the specified index and sends a
+     * change event to all registered listeners.  Note that each dataset should
+     * have its own renderer, you should not use one renderer for multiple
+     * datasets.
+     *
+     * @param index    the index (must be &gt;= 0).
+     * @param renderer the renderer.
+     */
+    public void setRenderer(int index, XYItemRenderer renderer) {
+        plot_.setRenderer(index, renderer);
+    }
+
+    /**
+     * Returns the renderer with the specified index, or {@code null}.
+     *
+     * @param index the renderer index (must be &gt;= 0).
+     * @return The renderer (possibly {@code null}).
+     * @see #setRenderer(int, XYItemRenderer)
+     */
+    public XYItemRenderer getRenderer(int index) {
+        return plot_.getRenderer(index);
+    }
+
+    /**
+     * Sets a range axis and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param axis the axis ({@code null} permitted).
+     */
+    public void addRangeAxis(ValueAxis axis) {
+        plot_.addRangeAxis(axis);
+    }
+
+
+    /**
+     * Adds an annotation and sends a {@link RendererChangeEvent} to all
+     * registered listeners.  The annotation is added to the foreground
+     * layer.
+     *
+     * <p>Annotations added directly to an {@link XYPlot} are drawn once for the entire plot,
+     * while annotations added to an {@link XYItemRenderer} are drawn only when that renderer
+     * is painted, and support {@link Layer} (background / foreground) placement.
+     *
+     * @param annotation the annotation.
+     */
+    public void addRendererAnnotation(@NonNull XYAnnotation annotation) {
+        renderer0_.addAnnotation(annotation);
+    }
+
 }

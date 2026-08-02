@@ -21,7 +21,14 @@ public class GanttChart extends CategoryBarChart {
 
     private final CategoryAxis xAxis_;
     private final DateAxis yAxis_;
-    private final GanttRenderer renderer2_;
+    private GanttRenderer renderer2_;
+
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new GanttRenderer();
+        renderer1_ = renderer2_;
+        renderer0_ = renderer2_;
+    }
 
     /**
      * Creates a Gantt chart using the supplied attributes plus default values
@@ -42,9 +49,6 @@ public class GanttChart extends CategoryBarChart {
         super(title, legend);
         xAxis_ = new CategoryAxis(xAxisLabel);
         yAxis_ = new DateAxis(yAxisLabel);
-        renderer2_ = new GanttRenderer();
-        renderer1_ = renderer2_;
-        renderer0_ = renderer2_;
 
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(

@@ -3,9 +3,10 @@ package pdk.chart.demo;
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.api.RectangleInsets;
+import pdk.chart.axis.CategoryAxis;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -30,22 +31,23 @@ public class BarChartDemo6 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Score (%)", null);
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Score (%)", null);
         chart.removeLegend();
         chart.setBackgroundPaint(Color.YELLOW);
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.orientation(PlotOrientation.HORIZONTAL)
-                .insets(RectangleInsets.ZERO_INSETS)
-                .axisOffset(RectangleInsets.ZERO_INSETS)
-                .rangeGridlinesVisible(false);
-        plot.getDomainAxis()
-                .lowerMargin(0.2)
-                .upperMargin(0.2)
-                .visible(false);
-        plot.getRangeAxisAsNumber()
-                .range(0, 100)
-                .visible(false);
+        chart.setOrientation(PlotOrientation.HORIZONTAL);
+        chart.setPlotInsets(RectangleInsets.ZERO_INSETS);
+        chart.setAxisOffset(RectangleInsets.ZERO_INSETS);
+        chart.setRangeGridlinesVisible(false);
+
+        CategoryAxis xAxis = chart.getDomainAxis();
+        xAxis.setLowerMargin(0.2);
+        xAxis.setUpperMargin(0.2);
+        xAxis.setVisible(false);
+
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setRange(0, 100);
+        yAxis.setVisible(false);
         return chart;
     }
 

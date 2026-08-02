@@ -12,17 +12,13 @@ import pdk.chart.data.Range;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.labels.*;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.text.TextUtils;
-import pdk.chart.util.GradientPaintTransformer;
-import pdk.chart.util.StandardGradientPaintTransformer;
+import pdk.chart.util.*;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -1427,44 +1423,6 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     public BarRenderer legendItemLabelGenerator(
             @NonNull CategorySeriesLabelGenerator generator) {
         setLegendItemLabelGenerator(generator);
-        return this;
-    }
-
-    /**
-     * Sets the paint used for the error indicators (if {@code null},
-     * the item outline paint is used instead).
-     *
-     * @param paint the paint.
-     */
-    public BarRenderer errorIndicatorPaint(@Nullable Paint paint) {
-        if (this instanceof StatisticalBarRenderer barRenderer) {
-            barRenderer.setErrorIndicatorPaint(paint);
-        }
-        return this;
-    }
-
-    /**
-     * Sets the flag that controls whether the base value for the bars
-     * is included in the range calculated by {@link BarRenderer#findRangeBounds(CategoryDataset)}.
-     *
-     * @param include the new value for the flag.
-     */
-    public BarRenderer includeBaseInRange(boolean include) {
-        if (this instanceof StatisticalBarRenderer barRenderer) {
-            barRenderer.setIncludeBaseInRange(include);
-        }
-        return this;
-    }
-
-    /**
-     * Sets the default item label font and sends a {@link RendererChangeEvent}
-     * to all registered listeners.
-     *
-     * @param font the font.
-     * @see #getDefaultItemLabelFont()
-     */
-    public BarRenderer defaultItemLabelFont(@NonNull Font font) {
-        setDefaultItemLabelFont(font);
         return this;
     }
 }

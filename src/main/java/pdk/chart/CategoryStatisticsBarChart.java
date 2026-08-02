@@ -21,6 +21,13 @@ public class CategoryStatisticsBarChart extends CategoryBarChart {
 
     private StatisticalBarRenderer renderer2_;
 
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new StatisticalBarRenderer();
+        renderer0_ = renderer2_;
+        renderer1_ = renderer2_;
+    }
+
     /**
      * Create a bar chart with statistical error bar.
      *
@@ -38,9 +45,7 @@ public class CategoryStatisticsBarChart extends CategoryBarChart {
         super(title, legend);
         xAxis_ = new CategoryAxis(categoryAxisTitle);
         yAxis_ = new NumberAxis(valueAxisTitle);
-        renderer2_ = new StatisticalBarRenderer();
-        renderer0_ = renderer2_;
-        renderer1_ = renderer2_;
+
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         }

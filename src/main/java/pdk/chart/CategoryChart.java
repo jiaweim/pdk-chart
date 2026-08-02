@@ -4,23 +4,19 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import pdk.chart.annotations.CategoryAnnotation;
 import pdk.chart.api.Layer;
+import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.SortOrder;
-import pdk.chart.axis.AxisLocation;
-import pdk.chart.axis.CategoryAxis;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.axis.ValueAxis;
+import pdk.chart.axis.*;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.CategoryItemLabelGenerator;
+import pdk.chart.labels.CategoryToolTipGenerator;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItemCollection;
-import pdk.chart.plot.CategoryMarker;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.plot.Marker;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.category.BarRenderer;
-import pdk.chart.renderer.category.CategoryItemRenderer;
+import pdk.chart.plot.*;
+import pdk.chart.renderer.category.*;
+import pdk.chart.text.TextAnchor;
 
 import java.awt.*;
 import java.util.Objects;
@@ -38,15 +34,43 @@ public class CategoryChart extends Chart {
         LINE,
         AREA,
         BAR,
-        BOX,
+        BOX;
+
+        public CategoryItemRenderer createRenderer() {
+            switch (this) {
+                case LINE -> {
+                    return new LineAndShapeRenderer(true, false);
+                }
+                case AREA -> {
+                    return new AreaRenderer();
+                }
+                case BAR -> {
+                    return new BarRenderer();
+                }
+                case BOX -> {
+                    return new BoxAndWhiskerRenderer();
+                }
+                default -> {
+                    throw new IllegalStateException("Unexpected value: " + this);
+                }
+            }
+        }
     }
 
     protected final CategoryPlot plot_;
     protected CategoryItemRenderer renderer0_;
 
+    /**
+     * Initial the default renderer.
+     */
+    protected void initRenderer() {
+        renderer0_ = new LineAndShapeRenderer(true, false);
+    }
+
     public CategoryChart(String title, boolean createLegend) {
         super(title, DEFAULT_TITLE_FONT, new CategoryPlot<>(), createLegend);
         this.plot_ = getCategoryPlot();
+        initRenderer();
     }
 
     /**
@@ -228,6 +252,21 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Add a new annotation to the plot.
+     *
+     * @param text           annotation text.
+     * @param category       category to annotate
+     * @param value          value to annotate
+     * @param font           {@link Font} for annotation
+     * @param anchor         {@link TextAnchor}
+     * @param categoryAnchor {@link CategoryAnchor}
+     */
+    public void addAnnotation(String text, Comparable category, double value,
+            Font font, TextAnchor anchor, CategoryAnchor categoryAnchor) {
+        plot_.addAnnotation(text, category, value, font, anchor, categoryAnchor);
+    }
+
+    /**
      * Sets the location of the domain axis and sends a {@link PlotChangeEvent}
      * to all registered listeners.
      *
@@ -262,9 +301,8 @@ public class CategoryChart extends Chart {
     public void setDataset(int index, CategoryDataset dataset, ChartType chartType) {
         Objects.requireNonNull(chartType);
         plot_.setDataset(index, dataset);
-        if (chartType == ChartType.BAR) {
-            plot_.setRenderer(index, new BarRenderer());
-        }
+        CategoryItemRenderer renderer = chartType.createRenderer();
+        plot_.setRenderer(index, renderer);
     }
 
     /**
@@ -289,7 +327,7 @@ public class CategoryChart extends Chart {
      * @param renderer the renderer ({@code null} permitted).
      */
     public void setRenderer(int index, CategoryItemRenderer renderer) {
-        plot_.setRenderer(index, renderer, true);
+        plot_.setRenderer(index, renderer);
     }
 
     /**
@@ -391,6 +429,17 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Sets the flag that controls whether grid-lines are drawn against
+     * the range axis.  If the flag changes value, a {@link PlotChangeEvent} is
+     * sent to all registered listeners.
+     *
+     * @param visible the new value of the flag.
+     */
+    public void setRangeGridlinesVisible(boolean visible) {
+        plot_.setRangeGridlinesVisible(visible);
+    }
+
+    /**
      * Sets the flag that controls whether the zero baseline is
      * displayed for the range axis, and sends a {@link PlotChangeEvent} to
      * all registered listeners.
@@ -416,6 +465,14 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Clears all the range markers for the plot and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     */
+    public void clearRangeMarkers() {
+        plot_.clearRangeMarkers();
+    }
+
+    /**
      * Sets the flag indicating whether the range crosshair is visible.
      *
      * @param flag the new value of the flag.
@@ -423,6 +480,62 @@ public class CategoryChart extends Chart {
     public void setRangeCrosshairVisible(boolean flag) {
         plot_.setRangeCrosshairVisible(flag);
     }
+
+
+    /**
+     * Sets the position used for the domain gridlines and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param position the position ({@code null} not permitted).
+     */
+    public void setDomainGridlinePosition(CategoryAnchor position) {
+        plot_.setDomainGridlinePosition(position);
+    }
+
+    /**
+     * Sets the stroke used to draw grid-lines against the domain axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     */
+    public void setDomainGridlineStroke(Stroke stroke) {
+        plot_.setDomainGridlineStroke(stroke);
+    }
+
+    /**
+     * Sets the axis offsets (gap between the data area and the axes) and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param offset the offset ({@code null} not permitted).
+     */
+    public void setAxisOffset(RectangleInsets offset) {
+        plot_.setAxisOffset(offset);
+    }
+
+    /**
+     * Sets the rendering order and sends a {@link PlotChangeEvent} to all
+     * registered listeners.  By default, the plot renders the primary dataset
+     * last (so that the primary dataset overlays the secondary datasets).  You
+     * can reverse this if you want to.
+     *
+     * @param order the rendering order ({@code null} not permitted).
+     */
+    public void setDatasetRenderingOrder(DatasetRenderingOrder order) {
+        plot_.setDatasetRenderingOrder(order);
+    }
+
+    /**
+     * Sets the location of the range axis and sends a {@link PlotChangeEvent}
+     * to all registered listeners.
+     *
+     * @param location the location ({@code null} not permitted).
+     * @see #setDomainAxisLocation(AxisLocation)
+     */
+    public void setRangeAxisLocation(AxisLocation location) {
+        // defer argument checking...
+        plot_.setRangeAxisLocation(location, true);
+    }
+
 
     /**
      * Sets the default positive item label position.
@@ -454,6 +567,27 @@ public class CategoryChart extends Chart {
      */
     public void setItemPaint(int row, int column, Paint paint) {
         renderer0_.setItemPaint(row, column, paint);
+    }
+
+
+    /**
+     * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param generator the generator.
+     */
+    public void setDefaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator) {
+        renderer0_.setDefaultToolTipGenerator(generator);
+    }
+
+    /**
+     * Sets the default item label font and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param font the font.
+     */
+    public void setDefaultItemLabelFont(@NonNull Font font) {
+        renderer0_.setDefaultItemLabelFont(font);
     }
 
 }

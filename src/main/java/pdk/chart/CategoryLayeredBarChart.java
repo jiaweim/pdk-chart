@@ -20,7 +20,14 @@ import pdk.chart.urls.StandardCategoryURLGenerator;
  */
 public class CategoryLayeredBarChart extends CategoryBarChart {
 
-    private final LayeredBarRenderer renderer2_;
+    private LayeredBarRenderer renderer2_;
+
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new LayeredBarRenderer();
+        renderer0_ = renderer2_;
+        renderer1_ = renderer2_;
+    }
 
     /**
      * Creates a bar chart.
@@ -42,9 +49,6 @@ public class CategoryLayeredBarChart extends CategoryBarChart {
         super(title, legend);
         xAxis_ = new CategoryAxis(categoryAxisLabel);
         yAxis_ = new NumberAxis(valueAxisLabel);
-        renderer2_ = new LayeredBarRenderer();
-        renderer0_ = renderer2_;
-        renderer1_ = renderer2_;
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);

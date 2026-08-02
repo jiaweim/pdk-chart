@@ -21,6 +21,13 @@ public class CategoryStackedAreaChart extends CategoryAreaChart {
 
     private StackedAreaRenderer renderer2_;
 
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new StackedAreaRenderer();
+        renderer1_ = renderer2_;
+        renderer0_ = renderer2_;
+    }
+
     /**
      * Creates a stacked area chart with default settings.
      *
@@ -45,10 +52,6 @@ public class CategoryStackedAreaChart extends CategoryAreaChart {
         xAxis_ = new CategoryAxis(categoryAxisLabel);
         xAxis_.setCategoryMargin(0.0);
         yAxis_ = new NumberAxis(valueAxisLabel);
-
-        renderer2_ = new StackedAreaRenderer();
-        renderer1_ = renderer2_;
-        renderer0_ = renderer2_;
 
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());

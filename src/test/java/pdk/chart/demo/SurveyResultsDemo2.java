@@ -4,6 +4,7 @@ import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.axis.ExtendedCategoryAxis;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.ItemLabelAnchor;
@@ -38,15 +39,14 @@ public class SurveyResultsDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, null, null, null,
+        CategoryBarChart chart = new CategoryBarChart(dataset, null, null, null,
                 PlotOrientation.VERTICAL, false, true);
         chart.setBackgroundPaint(Color.WHITE);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.outlinePaint(null);
+        chart.setPlotOutlinePaint(null);
 
-        plot.getRangeAxisAsNumber()
-                .range(0, 5)
-                .visible(false);
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setRange(0, 5);
+        yAxis.setVisible(false);
 
         TextTitle title = new TextTitle("Figure 8.5 - Case studies are available");
         title.setHorizontalAlignment(HorizontalAlignment.LEFT);
@@ -61,15 +61,14 @@ public class SurveyResultsDemo2 extends ApplicationFrame {
         domainAxis.addSubLabel("Med.", "(10)");
         domainAxis.addSubLabel("Lg.", "(10)");
         domainAxis.addSubLabel("All", "(10)");
-        plot.setDomainAxis(domainAxis);
+        chart.setDomainAxis(domainAxis);
 
-        plot.getBarRenderer(0)
-                .seriesPaint(0, new Color(156, 164, 74))
-                .drawBarOutline(false)
-                .defaultItemLabelsVisible(true)
-                .defaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 18))
-                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE12, TextAnchor.TOP_CENTER))
-                .positiveItemLabelPositionFallback(new ItemLabelPosition());
+        chart.setSeriesPaint(0, new Color(156, 164, 74));
+        chart.setDrawBarOutline(false);
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 18));
+        chart.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE12, TextAnchor.TOP_CENTER));
+        chart.setPositiveItemLabelPositionFallback(new ItemLabelPosition());
 
         return chart;
     }

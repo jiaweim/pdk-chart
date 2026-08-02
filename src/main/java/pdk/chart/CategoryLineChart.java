@@ -27,6 +27,12 @@ public class CategoryLineChart extends CategoryChart {
     protected NumberAxis yAxis_;
     protected LineAndShapeRenderer renderer1_;
 
+    @Override
+    protected void initRenderer() {
+        this.renderer1_ = new LineAndShapeRenderer(true, false);
+        renderer0_ = renderer1_;
+    }
+
     protected CategoryLineChart(String title, boolean createLegend) {
         super(title, createLegend);
     }
@@ -57,8 +63,6 @@ public class CategoryLineChart extends CategoryChart {
 
         this.xAxis_ = new CategoryAxis(domainAxisLabel);
         this.yAxis_ = new NumberAxis(rangeAxisLabel);
-        this.renderer1_ = new LineAndShapeRenderer(true, false);
-        renderer0_ = renderer1_;
 
         if (tooltips) {
             renderer1_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());

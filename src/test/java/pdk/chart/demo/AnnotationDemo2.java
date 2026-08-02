@@ -1,7 +1,6 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.LineChart;
 import pdk.chart.annotations.XYPointerAnnotation;
@@ -13,7 +12,7 @@ import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.XYPlot;
+import pdk.chart.model.Data;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -72,39 +71,37 @@ public class AnnotationDemo2 extends ApplicationFrame {
 
         chart.setPannable(true, true);
 
-        XYPlot plot = chart.getXYPlot();
-
-        NumberAxis axis1 = (NumberAxis) plot.getRangeAxis();
+        NumberAxis axis1 = (NumberAxis) chart.getRangeAxis();
         axis1.setAutoRangeIncludesZero(false);
 
         NumberAxis axis2 = new NumberAxis("Secondary");
         axis2.setAutoRangeIncludesZero(false);
-        plot.addRangeAxis(axis2);
-        plot.setDataset(1, createDataset2());
-        plot.mapDatasetToRangeAxis(1, 1);
 
-        XYLineAndShapeRenderer renderer = (XYLineAndShapeRenderer) plot.getRenderer();
-        renderer.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
-        renderer.setDefaultShapesVisible(true);
-        renderer.setDefaultShapesFilled(true);
+        chart.addRangeAxis(axis2);
+        chart.setDataset(1, createDataset2());
+        chart.mapDatasetToRangeAxis(1, 1);
+
+        chart.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
+        chart.setDefaultShapesVisible(true);
+        chart.setDefaultShapesFilled(true);
 
         XYPointerAnnotation annotation1 = new XYPointerAnnotation("Annotation 1 (2.0, 167.3)",
                 2.0, 167.3, (-Math.PI / 4));
         annotation1.setTextAnchor(TextAnchor.BOTTOM_LEFT);
         annotation1.setPaint(Color.RED);
         annotation1.setArrowPaint(Color.RED);
-        renderer.addAnnotation(annotation1);
+        chart.addRendererAnnotation(annotation1);
+        chart.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
 
         XYLineAndShapeRenderer renderer2 = new XYLineAndShapeRenderer(true, true);
-        renderer2.setSeriesPaint(0, Color.black);
-        renderer.setDefaultToolTipGenerator(StandardXYToolTipGenerator.getTimeSeriesInstance());
+        renderer2.setSeriesPaint(0, Color.BLACK);
         XYPointerAnnotation annotation2 = new XYPointerAnnotation("Annotation 2 (15.0, 613.2)",
                 15.0, 613.2, (Math.PI / 2D));
         annotation2.setTextAnchor(TextAnchor.TOP_CENTER);
         renderer2.addAnnotation(annotation2);
 
-        plot.setRenderer(1, renderer2);
-        LegendTitle legend1 = new LegendTitle(renderer);
+        chart.setRenderer(1, renderer2);
+        LegendTitle legend1 = new LegendTitle(chart.getRenderer(0));
         LegendTitle legend2 = new LegendTitle(renderer2);
         BlockContainer container = new BlockContainer(new BorderArrangement());
         container.add(legend1, RectangleEdge.LEFT);

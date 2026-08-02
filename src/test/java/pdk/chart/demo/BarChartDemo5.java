@@ -2,7 +2,6 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.AxisLocation;
@@ -10,6 +9,7 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
@@ -46,15 +46,19 @@ public class BarChartDemo5 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Country", "Prisoners Per 100,000 National Population",
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Country", "Prisoners Per 100,000 National Population",
                 "Prison Population Rates - Selected Countries", PlotOrientation.HORIZONTAL, false, true);
 
         chart.addSubtitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf", new Font("Dialog", 2, 10)));
+        chart.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
+        chart.setRangePannable(true);
+
+        chart.setItemLabelInsets(new RectangleInsets(9, 9, 9, 9));
+        chart.setDefaultItemLabelsVisible(true);
+
+
         CategoryPlot plot = chart.getCategoryPlot();
-        plot.rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT)
-                .rangePannable(true);
         plot.getBarRenderer(0)
-                .itemLabelInsets(new RectangleInsets(9, 9, 9, 9))
                 .defaultItemLabelsVisible(true)
                 .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{0}, {1}) = {2} per 100,000",

@@ -2,12 +2,13 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
+import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
+import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -66,27 +67,27 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
         CategoryStackedBarChart chart = new CategoryStackedBarChart(dataset, "Country", "Value", "Freshwater Usage By Country");
         chart.addSubtitle(new TextTitle("Source: http://en.wikipedia.org/wiki/Peak_water#Water_supply"));
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getDomainAxis()
-                .lowerMargin(0.01)
-                .upperMargin(0.01)
-                .categoryLabelPositions(CategoryLabelPositions.UP_90);
+        CategoryAxis xAxis = chart.getDomainAxis();
+        xAxis.setLowerMargin(0.01);
+        xAxis.setUpperMargin(0.01);
+        xAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
 
         AttributedString yLabel = new AttributedString("m3/person/year");
         yLabel.addAttribute(TextAttribute.WEIGHT, TextAttribute.WEIGHT_ULTRABOLD);
         yLabel.addAttribute(TextAttribute.SIZE, 14);
         yLabel.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUPER, 1, 2);
-        plot.getRangeAxisAsNumber().attributedLabel(yLabel);
 
-        plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .barPainter(new StandardBarPainter())
-                .defaultItemLabelsVisible(true)
-                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
-                .defaultItemLabelPaint(Color.WHITE)
-                .seriesPaint(0, new Color(0, 55, 122))
-                .seriesPaint(1, new Color(24, 123, 58))
-                .seriesPaint(2, Color.RED);
+        ValueAxis yAxis = chart.getRangeAxis();
+        yAxis.setAttributedLabel(yLabel);
+
+        chart.setDrawBarOutline(false);
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>());
+        chart.setDefaultItemLabelPaint(Color.WHITE);
+
+        chart.setSeriesPaint(0, new Color(0, 55, 122));
+        chart.setSeriesPaint(1, new Color(24, 123, 58));
+        chart.setSeriesPaint(2, Color.RED);
 
         return chart;
     }

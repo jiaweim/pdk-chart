@@ -37,10 +37,13 @@ public class BarChartDemo4 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, null, "Value", "Bar Chart Demo 4");
+        CategoryBarChart chart = new CategoryBarChart(dataset, null, "Value", "Bar Chart Demo 4");
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.setDrawBarOutline(false);
+
         CategoryPlot plot = chart.getCategoryPlot();
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
         plot.getBarRenderer(0)
                 .drawBarOutline(false)
                 .maximumBarWidth(0.1)

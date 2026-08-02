@@ -2,16 +2,17 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.axis.CategoryLabelPosition;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.ExtendedCategoryAxis;
+import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
@@ -41,7 +42,7 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = new CategoryBarChart(dataset, null, null, null,
+        CategoryBarChart chart = new CategoryBarChart(dataset, null, null, null,
                 PlotOrientation.HORIZONTAL, false, true);
         chart.setBackgroundPaint(Color.WHITE);
 
@@ -51,12 +52,11 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
         title.setPaint(Color.WHITE);
         chart.setTitle(title);
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.outlinePaint(null);
+        chart.setPlotOutlinePaint(null);
 
-        plot.getRangeAxisAsNumber()
-                .range(0, 4)
-                .visible(false);
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setRange(0, 4);
+        yAxis.setVisible(false);
 
         ExtendedCategoryAxis domainAxis = new ExtendedCategoryAxis(null);
         domainAxis.setTickLabelFont(new Font("SansSerif", Font.BOLD, 12));
@@ -68,16 +68,16 @@ public class SurveyResultsDemo3 extends ApplicationFrame {
         CategoryLabelPositions p = domainAxis.getCategoryLabelPositions();
         CategoryLabelPosition left = new CategoryLabelPosition(RectangleAnchor.LEFT, TextBlockAnchor.CENTER_LEFT);
         domainAxis.setCategoryLabelPositions(CategoryLabelPositions.replaceLeftPosition(p, left));
-        plot.setDomainAxis(domainAxis);
+        chart.setDomainAxis(domainAxis);
 
-        plot.getBarRenderer(0)
-                .seriesPaint(0, new Color(156, 164, 74))
-                .drawBarOutline(false)
-                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>("{2}", new DecimalFormat("0.00")))
-                .defaultItemLabelsVisible(true)
-                .defaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 18))
-                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE3, TextAnchor.CENTER_RIGHT))
-                .positiveItemLabelPositionFallback(new ItemLabelPosition());
+        chart.setSeriesPaint(0, new Color(156, 164, 74));
+        chart.setDrawBarOutline(false);
+        chart.setDefaultItemLabelsVisible(true);
+        chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>("{2}", new DecimalFormat("0.00")));
+        chart.setDefaultItemLabelFont(new Font("SansSerif", Font.PLAIN, 18));
+        chart.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE3, TextAnchor.CENTER_RIGHT));
+        chart.setPositiveItemLabelPositionFallback(new ItemLabelPosition());
+
         return chart;
     }
 

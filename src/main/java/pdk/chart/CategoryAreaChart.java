@@ -25,6 +25,13 @@ public class CategoryAreaChart extends CategoryChart {
     protected CategoryAxis xAxis_;
     protected NumberAxis yAxis_;
 
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new AreaRenderer();
+        renderer1_.setEndType(AreaRendererEndType.LEVEL);
+        renderer0_ = renderer1_;
+    }
+
     protected CategoryAreaChart(String title, boolean createLegend) {
         super(title, createLegend);
     }
@@ -52,10 +59,6 @@ public class CategoryAreaChart extends CategoryChart {
         xAxis_ = new CategoryAxis(categoryAxisLabel);
         xAxis_.setCategoryMargin(0.0);
         yAxis_ = new NumberAxis(valueAxisLabel);
-
-        renderer1_ = new AreaRenderer();
-        renderer1_.setEndType(AreaRendererEndType.LEVEL);
-        renderer0_ = renderer1_;
 
         if (tooltips) {
             renderer1_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());

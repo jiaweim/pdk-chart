@@ -22,6 +22,13 @@ public class CategoryStackedBarChart extends CategoryBarChart {
 
     protected StackedBarRenderer renderer2_;
 
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new StackedBarRenderer();
+        renderer1_ = renderer2_;
+        renderer0_ = renderer2_;
+    }
+
     /**
      * Creates a stacked bar chart with default settings.  The chart object
      * returned by this method uses a {@link CategoryPlot} instance as the
@@ -47,9 +54,6 @@ public class CategoryStackedBarChart extends CategoryBarChart {
 
         xAxis_ = new CategoryAxis(xAxisLabel);
         yAxis_ = new NumberAxis(yAxisLabel);
-        renderer2_ = new StackedBarRenderer();
-        renderer1_ = renderer2_;
-        renderer0_ = renderer2_;
 
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());

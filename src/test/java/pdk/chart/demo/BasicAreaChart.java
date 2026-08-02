@@ -1,11 +1,12 @@
 package pdk.chart.demo;
 
 import pdk.chart.CategoryAreaChart;
-import pdk.chart.CategoryChartType;
-import pdk.chart.model.Data;
+import pdk.chart.CategoryChart;
+import pdk.chart.axis.CategoryAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 import pdk.chart.plot.DatasetRenderingOrder;
+import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
@@ -27,17 +28,19 @@ public class BasicAreaChart {
 
         CategoryAreaChart chart = new CategoryAreaChart(data);
         chart.removeLegend();
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.addDataset(data, CategoryChartType.LINE);
-        plot.getDomainAxis()
-                .lowerMargin(0)
-                .upperMargin(0);
-        plot.getLineAndShapeRenderer(1)
-                .useFillPaint(true)
-                .seriesOutlineStroke(0, new BasicStroke(2f))
-                .defaultFillPaint(Color.WHITE)
-                .seriesShape(0, ShapeUtils.createCircle(6));
-        plot.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
+        chart.setDataset(1, data, CategoryChart.ChartType.LINE);
+
+        CategoryAxis xAxis = chart.getDomainAxis();
+        xAxis.setLowerMargin(0);
+        xAxis.setUpperMargin(0);
+
+        LineAndShapeRenderer renderer = (LineAndShapeRenderer) chart.getRenderer(1);
+        renderer.setUseFillPaint(true);
+        renderer.setSeriesOutlineStroke(0, new BasicStroke(2f));
+        renderer.setDefaultFillPaint(Color.WHITE);
+        renderer.setSeriesShape(0, ShapeUtils.createCircle(6));
+
+        chart.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
 
         chart.show();
     }

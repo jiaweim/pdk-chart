@@ -19,6 +19,13 @@ public class CategoryIntervalBarChart extends CategoryBarChart {
 
     private IntervalBarRenderer renderer2_;
 
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new IntervalBarRenderer();
+        renderer0_ = renderer2_;
+        renderer1_ = renderer2_;
+    }
+
     /**
      * Creates a bar chart.
      *
@@ -37,9 +44,6 @@ public class CategoryIntervalBarChart extends CategoryBarChart {
     public CategoryIntervalBarChart(CategoryDataset dataset, String xAxisLabel, String yAxisLabel,
             String title, PlotOrientation orientation, boolean createLegend, boolean tooltips, boolean urls) {
         super(title, createLegend);
-        renderer2_ = new IntervalBarRenderer();
-        renderer0_ = renderer2_;
-        renderer1_ = renderer2_;
 
         xAxis_ = new CategoryAxis(xAxisLabel);
         yAxis_ = new NumberAxis(yAxisLabel);

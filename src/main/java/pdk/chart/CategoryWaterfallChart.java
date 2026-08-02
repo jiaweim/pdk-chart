@@ -28,6 +28,13 @@ public class CategoryWaterfallChart extends CategoryBarChart {
 
     private WaterfallBarRenderer renderer2_;
 
+    @Override
+    protected void initRenderer() {
+        renderer2_ = new WaterfallBarRenderer();
+        renderer0_ = renderer2_;
+        renderer1_ = renderer2_;
+    }
+
     /**
      * Creates a waterfall chart.  The chart object returned by this method
      * uses a {@link CategoryPlot} instance as the plot, with a
@@ -52,10 +59,6 @@ public class CategoryWaterfallChart extends CategoryBarChart {
         xAxis_ = new CategoryAxis(categoryAxisLabel);
         xAxis_.setCategoryMargin(0.0);
         yAxis_ = new NumberAxis(valueAxisLabel);
-
-        renderer2_ = new WaterfallBarRenderer();
-        renderer0_ = renderer2_;
-        renderer1_ = renderer2_;
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, Math.PI / 2.0);

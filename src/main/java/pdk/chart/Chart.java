@@ -852,6 +852,17 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
     }
 
     /**
+     * Sets the paint used to draw the outline of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.  If you set this
+     * attribute to {@code null}, no outline will be drawn.
+     *
+     * @param paint the paint ({@code null} permitted).
+     */
+    public void setPlotOutlinePaint(Paint paint) {
+        plot.setOutlinePaint(paint);
+    }
+
+    /**
      * Sets the flag that controls whether the plot's outline is
      * drawn, and sends a {@link PlotChangeEvent} to all registered listeners.
      *

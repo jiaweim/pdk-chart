@@ -7,15 +7,15 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.entity.CategoryLabelEntity;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
-import pdk.chart.util.ShapeUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.text.G2TextMeasurer;
 import pdk.chart.text.TextBlock;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -1347,26 +1347,6 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
      */
     public CategoryAxis upperMargin(double margin) {
         setUpperMargin(margin);
-        return this;
-    }
-
-    /**
-     * Sets  whether the axis is visible.
-     *
-     * @param flag the flag.
-     */
-    public CategoryAxis visible(boolean flag) {
-        setVisible(flag);
-        return this;
-    }
-
-    /**
-     * Sets the maximum category label width ratio.
-     *
-     * @param ratio the ratio.
-     */
-    public CategoryAxis maximumCategoryLabelWidthRatio(float ratio) {
-        setMaximumCategoryLabelWidthRatio(ratio);
         return this;
     }
 }

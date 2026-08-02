@@ -2,11 +2,12 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.api.RectangleEdge;
+import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
@@ -51,7 +52,7 @@ public class BarChartDemo11 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "License", "Percent", "Open Source Projects By License");
+        CategoryBarChart chart = new CategoryBarChart(dataset, "License", "Percent", "Open Source Projects By License");
         chart.removeLegend();
 
         TextTitle source = new TextTitle("Source: http://www.blackducksoftware.com/resources/data/top-20-licenses (as at 30 Aug 2013)",
@@ -59,14 +60,18 @@ public class BarChartDemo11 extends ApplicationFrame {
         source.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(source);
 
+        chart.setOrientation(PlotOrientation.HORIZONTAL);
+        chart.setDomainGridlinesVisible(true);
         CategoryPlot plot = chart.getCategoryPlot();
-        plot.orientation(PlotOrientation.HORIZONTAL)
-                .domainGridlinesVisible(true);
 
-        plot.getDomainAxis()
-                .maximumCategoryLabelWidthRatio(0.8f);
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        CategoryAxis xAxis = chart.getDomainAxis();
+        xAxis.setMaximumCategoryLabelWidthRatio(0.8f);
+
+        NumberAxis yAxis = chart.getRangeAxisAsNumber();
+        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.setDrawBarOutline(false);
+
         plot.getBarRenderer(0)
                 .drawBarOutline(false)
                 .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{1}: {2} percent",

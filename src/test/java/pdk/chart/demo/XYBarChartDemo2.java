@@ -7,7 +7,6 @@ import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -49,16 +48,12 @@ public class XYBarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = new ClusteredBarChart(dataset, "Date", AxisType.DATE,
+        ClusteredBarChart chart = new ClusteredBarChart(dataset, "Date", AxisType.DATE,
                 "Y", AxisType.NUMBER, "XY Bar Chart Demo 2");
-
-        XYPlot plot = chart.getXYPlot();
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-
-        plot.getBarRenderer()
-                .margin(0)
-                .drawBarOutline(false);
+        chart.setDomainPannable(true);
+        chart.setRangePannable(true);
+        chart.setBarMargin(0);
+        chart.setDrawBarOutline(false);
         return chart;
     }
 
