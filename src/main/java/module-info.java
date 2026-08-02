@@ -48,5 +48,4 @@ module pdk.chart {
     exports pdk.chart.data.xy;
     exports pdk.chart.ms;
     exports pdk.chart.ms.label;
-    exports pdk.chart.api.factory;
 }
