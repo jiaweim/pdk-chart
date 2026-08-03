@@ -8,6 +8,7 @@ import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.ItemLabelPosition;
@@ -15,9 +16,7 @@ import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYItemLabelGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.ms.PeakRenderer;
-import pdk.chart.plot.Plot;
-import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
+import pdk.chart.plot.*;
 import pdk.chart.renderer.xy.*;
 
 import java.awt.*;
@@ -209,6 +208,85 @@ public class XYChart extends Chart {
         this(title, new XYPlot<>(), createLegend);
     }
 
+
+    /**
+     * Sets the paint used to fill the chart background and sends a
+     * {@link ChartChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getBackgroundPaint()
+     */
+    public XYChart withBackgroundPaint(Paint paint) {
+        setBackgroundPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the background color of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} permitted).
+     */
+    public XYChart withPlotBackgroundPaint(Paint paint) {
+        plot_.setBackgroundPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param insets the new insets ({@code null} not permitted).
+     */
+    public XYChart withPlotInsets(RectangleInsets insets) {
+        plot_.setInsets(insets, true);
+        return this;
+    }
+
+    /**
+     * Adds a marker for the domain axis in the specified layer and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     * <p>
+     * Typically a marker will be drawn by the renderer as a line perpendicular
+     * to the domain axis, however this is entirely up to the renderer.
+     *
+     * @param marker the marker ({@code null} not permitted).
+     * @param layer  the layer (foreground or background).
+     */
+    public void addDomainMarker(Marker marker, Layer layer) {
+        plot_.addDomainMarker(marker, layer);
+    }
+
+    /**
+     * Adds a marker for a specific dataset/renderer and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     * <p>
+     * Typically a marker will be drawn by the renderer as a line perpendicular
+     * to the domain axis (that the renderer is mapped to), however this is
+     * entirely up to the renderer.
+     *
+     * @param index  the dataset/renderer index.
+     * @param marker the marker.
+     * @param layer  the layer (foreground or background).
+     */
+    public void addDomainMarker(int index, Marker marker, Layer layer) {
+        plot_.addDomainMarker(index, marker, layer);
+    }
+
+    /**
+     * Adds a marker for the domain axis and sends a {@link PlotChangeEvent}
+     * to all registered listeners.
+     * <p>
+     * Typically a marker will be drawn by the renderer as a line perpendicular
+     * to the domain axis, however this is entirely up to the renderer.
+     *
+     * @param marker the marker ({@code null} not permitted).
+     * @see #addDomainMarker(Marker, Layer)
+     */
+    public void addDomainMarker(Marker marker) {
+        plot_.addDomainMarker(marker, Layer.FOREGROUND);
+    }
+
     /**
      * Initializes the default renderer.
      * <p>
@@ -283,6 +361,31 @@ public class XYChart extends Chart {
      */
     public void setDataset(int index, XYDataset dataset) {
         plot_.setDataset(index, dataset);
+    }
+
+    /**
+     * Sets the rendering order and sends a {@link PlotChangeEvent} to all
+     * registered listeners.  By default, the plot renders the primary dataset
+     * last (so that the primary dataset overlays the secondary datasets).
+     * You can reverse this if you want to.
+     *
+     * @param order the rendering order ({@code null} not permitted).
+     */
+    public void setDatasetRenderingOrder(DatasetRenderingOrder order) {
+        plot_.setDatasetRenderingOrder(order);
+    }
+
+    /**
+     * Sets the rendering order and sends a {@link PlotChangeEvent} to all
+     * registered listeners.  By default, the plot renders the primary dataset
+     * last (so that the primary dataset overlays the secondary datasets).
+     * You can reverse this if you want to.
+     *
+     * @param order the rendering order ({@code null} not permitted).
+     */
+    public XYChart withDatasetRenderingOrder(DatasetRenderingOrder order) {
+        plot_.setDatasetRenderingOrder(order);
+        return this;
     }
 
     /**
@@ -450,6 +553,16 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Controls whether the domain grid-lines are visible.
+     *
+     * @param visible the new value of the flag.
+     */
+    public XYChart withDomainGridlinesVisible(boolean visible) {
+        plot_.setDomainGridlinesVisible(visible);
+        return this;
+    }
+
+    /**
      * Sets whether the range axis grid lines are visible.
      *
      * @param visible the new value of the flag.
@@ -457,6 +570,17 @@ public class XYChart extends Chart {
     public void setRangeGridlinesVisible(boolean visible) {
         plot_.setRangeGridlinesVisible(visible);
     }
+
+    /**
+     * Sets whether the range axis grid lines are visible.
+     *
+     * @param visible the new value of the flag.
+     */
+    public XYChart withRangeGridlinesVisible(boolean visible) {
+        plot_.setRangeGridlinesVisible(visible);
+        return this;
+    }
+
 
     /**
      * Sets whether the domain minor grid-lines are visible.
@@ -594,6 +718,17 @@ public class XYChart extends Chart {
         plot_.setRangeZeroBaselineVisible(visible);
     }
 
+
+    /**
+     * Controls whether the zero baseline is drawn for the range axis.
+     *
+     * @param visible {@code true} to make the baseline visible
+     */
+    public XYChart withRangeZeroBaselineVisible(boolean visible) {
+        plot_.setRangeZeroBaselineVisible(visible);
+        return this;
+    }
+
     /**
      * Sets the stroke for the domain gridlines.
      *
@@ -656,6 +791,16 @@ public class XYChart extends Chart {
      */
     public void setAxisOffset(RectangleInsets offset) {
         plot_.setAxisOffset(offset);
+    }
+
+    /**
+     * Sets the axis offsets (gap between the data area and the axes).
+     *
+     * @param offset the offset ({@code null} not permitted).
+     */
+    public XYChart withAxisOffset(RectangleInsets offset) {
+        plot_.setAxisOffset(offset);
+        return this;
     }
 
     /**

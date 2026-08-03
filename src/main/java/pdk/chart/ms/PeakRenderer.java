@@ -319,10 +319,9 @@ public class PeakRenderer extends AbstractXYItemRenderer
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof PeakRenderer)) {
+        if (!(obj instanceof PeakRenderer that)) {
             return false;
         }
-        PeakRenderer that = (PeakRenderer) obj;
         if (!Objects.equals(this.additionalItemLabelGenerator, that.additionalItemLabelGenerator)) {
             return false;
         }
@@ -347,7 +346,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
      * @param series the series index (zero-based).
      * @param paint  the paint ({@code null} permitted).
      */
-    public PeakRenderer seriesFillPaint(int series, Paint paint) {
+    public PeakRenderer withSeriesFillPaint(int series, Paint paint) {
         setSeriesFillPaint(series, paint);
         return this;
     }
@@ -359,7 +358,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
      * @param series the series index (zero-based).
      * @param stroke the stroke ({@code null} permitted).
      */
-    public PeakRenderer seriesStroke(int series, Stroke stroke) {
+    public PeakRenderer withSeriesStroke(int series, Stroke stroke) {
         setSeriesStroke(series, stroke);
         return this;
     }
@@ -370,7 +369,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
      *
      * @param visible the flag.
      */
-    public PeakRenderer defaultItemLabelsVisible(boolean visible) {
+    public PeakRenderer withDefaultItemLabelsVisible(boolean visible) {
         setDefaultItemLabelsVisible(visible);
         return this;
     }
@@ -381,7 +380,7 @@ public class PeakRenderer extends AbstractXYItemRenderer
      *
      * @param generator the generator ({@code null} permitted).
      */
-    public PeakRenderer defaultItemLabelGenerator(XYItemLabelGenerator generator) {
+    public PeakRenderer withDefaultItemLabelGenerator(XYItemLabelGenerator generator) {
         setDefaultItemLabelGenerator(generator);
         return this;
     }

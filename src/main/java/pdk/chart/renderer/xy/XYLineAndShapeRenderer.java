@@ -1246,4 +1246,51 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
         setSeriesPaint(series, paint, true);
         return this;
     }
+
+    /**
+     * Sets the stroke used for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param stroke the stroke ({@code null} permitted).
+     */
+    public XYLineAndShapeRenderer withSeriesStroke(int series, Stroke stroke) {
+        setSeriesStroke(series, stroke);
+        return this;
+    }
+
+    /**
+     * Set the stroke width for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param width  stroke width.
+     */
+    public XYLineAndShapeRenderer withSeriesStrokeWidth(int series, float width) {
+        setSeriesStrokeWidth(series, width);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether the series stroke list is
+     * automatically populated when {@link #lookupSeriesStroke(int)} is called.
+     *
+     * @param auto the new flag value.
+     * @see #getAutoPopulateSeriesStroke()
+     */
+    public XYLineAndShapeRenderer withAutoPopulateSeriesStroke(boolean auto) {
+        setAutoPopulateSeriesStroke(auto);
+        return this;
+    }
+
+    /**
+     * Sets the base stroke and, if requested, sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke ({@code null} not permitted).
+     * @see #getDefaultStroke()
+     */
+    public XYLineAndShapeRenderer withDefaultStroke(Stroke stroke) {
+        setDefaultStroke(stroke);
+        return this;
+    }
+
 }

@@ -10,10 +10,7 @@ import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.labels.ItemLabelAnchor;
-import pdk.chart.labels.ItemLabelPosition;
-import pdk.chart.labels.XYItemLabelGenerator;
-import pdk.chart.labels.XYSeriesLabelGenerator;
+import pdk.chart.labels.*;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
@@ -1227,4 +1224,48 @@ public class XYBarRenderer extends AbstractXYItemRenderer
         stream.defaultWriteObject();
         SerialUtils.writeShape(this.legendBar, stream);
     }
+
+    /**
+     * Sets the paint used for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     * @see #getSeriesPaint(int)
+     */
+    public XYBarRenderer withSeriesPaint(int series, Paint paint) {
+        setSeriesPaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Sets the default flag that controls whether item labels are visible.
+     *
+     * @param visible the flag.
+     * @see #getDefaultItemLabelsVisible()
+     */
+    public XYBarRenderer withDefaultItemLabelsVisible(boolean visible) {
+        setDefaultItemLabelsVisible(visible);
+        return this;
+    }
+
+    /**
+     * Sets the default item label generator.
+     *
+     * @param generator the generator ({@code null} permitted)
+     */
+    public XYBarRenderer withDefaultItemLabelGenerator(XYItemLabelGenerator generator) {
+        setDefaultItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the default tool tip generator.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public XYBarRenderer withDefaultToolTipGenerator(XYToolTipGenerator generator) {
+        setDefaultToolTipGenerator(generator);
+        return this;
+    }
+
 }

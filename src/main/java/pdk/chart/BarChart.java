@@ -267,6 +267,15 @@ public class BarChart extends XYChart {
     }
 
     /**
+     * Creates a histogram bar chart with no title.
+     *
+     * @param dataset the histogram dataset ({@code null} permitted)
+     */
+    public BarChart(HistogramDataset dataset) {
+        this(dataset, null, null);
+    }
+
+    /**
      * Sets whether bar outlines are drawn.
      *
      * @param draw {@code true} to draw outlines, {@code false} otherwise

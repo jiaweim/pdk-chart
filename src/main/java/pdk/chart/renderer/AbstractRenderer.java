@@ -1193,6 +1193,22 @@ public abstract class AbstractRenderer implements ChartElement, Cloneable, Seria
     }
 
     /**
+     * Set the stroke width for a series.
+     *
+     * @param series the series index (zero-based).
+     * @param width  stroke width.
+     */
+    public void setSeriesStrokeWidth(int series, float width) {
+        BasicStroke stroke = (BasicStroke) getSeriesStroke(series);
+        if (stroke == null) {
+            setSeriesStroke(series, new BasicStroke(width));
+        } else {
+            setSeriesStroke(series, new BasicStroke(width, stroke.getEndCap(),
+                    stroke.getLineJoin(), stroke.getMiterLimit(), stroke.getDashArray(), stroke.getDashPhase()));
+        }
+    }
+
+    /**
      * Sets the stroke for a series and, if requested, sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *

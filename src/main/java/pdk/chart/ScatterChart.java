@@ -246,6 +246,15 @@ public class ScatterChart extends XYChart {
     }
 
     /**
+     * Constructs a new scatter chart with the specified dataset.
+     *
+     * @param dataset the dataset containing the data points (must not be {@code null})
+     */
+    public ScatterChart(XYDataset dataset) {
+        this(dataset, null, null);
+    }
+
+    /**
      * Constructs a new scatter chart with the specified dataset, axis labels, title,
      * orientation, and optional legend, tooltips, and URLs.
      * <p>
