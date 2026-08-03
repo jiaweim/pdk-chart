@@ -60,19 +60,18 @@ public class BarChartDemo7 extends ApplicationFrame {
         target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
         target.setPaint(new Color(222, 222, 255, 128));
 
-        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 7");
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 7");
         chart.removeLegend();
 
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.rangePannable(true);
-        plot.addRangeMarker(target, Layer.BACKGROUND);
+        chart.setRangePannable(true);
+        chart.addRangeMarker(target, Layer.BACKGROUND);
 
-        plot.getRangeAxisAsNumber()
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getDomainAxis()
+        chart.getDomainAxis()
                 .withCategoryLabelPositions(CategoryLabelPositions.UP_90);
 
-        plot.getBarRenderer(0)
+        chart.getRenderer()
                 .withDrawBarOutline(false)
                 .withItemMargin(0.1)
                 .withDefaultItemLabelGenerator(new LabelGenerator())

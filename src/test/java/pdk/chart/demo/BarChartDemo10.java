@@ -6,7 +6,6 @@ import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -34,16 +33,14 @@ public class BarChartDemo10 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 10");
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.domainGridlinesVisible(true);
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 10");
+        chart.setDomainGridlinesVisible(true);
 
-        plot.getDomainAxis()
+        chart.getDomainAxis()
                 .withCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions((Math.PI / 6)));
-        plot.getRangeAxisAsNumber()
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-        plot.getBarRenderer(0)
+        chart.getRenderer()
                 .withDrawBarOutline(false)
                 .withSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
                 .withSeriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))

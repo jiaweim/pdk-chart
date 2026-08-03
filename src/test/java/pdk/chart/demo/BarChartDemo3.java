@@ -14,7 +14,6 @@ import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryMarker;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -48,24 +47,26 @@ public class BarChartDemo3 extends ApplicationFrame {
         return DatasetUtils.createCategoryDataset("Series ", "Category ", data);
     }
 
-    private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 3");
+    private static CategoryBarChart createChart(CategoryDataset<String, String> dataset) {
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 3");
         chart.removeLegend();
-        CategoryPlot<String, String> plot = chart.getCategoryPlot();
-        plot.setNoDataMessage("NO DATA!");
-        plot.setRangePannable(true);
+        chart.withNoDataMessage("NO DATA!")
+                .withRangePannable(true);
+
         Paint[] customColours = new Paint[]{
                 new Color(196, 215, 216),
                 new Color(78, 137, 139),
                 new Color(138, 177, 178),
                 new Color(19, 97, 100)
         };
-        CustomRenderer renderer = new CustomRenderer(customColours);
+        BarRenderer renderer = chart.getRenderer();
+        for (int i = 0; i < dataset.getColumnCount(); i++) {
+            renderer.setItemPaint(0, i, customColours[i % customColours.length]);
+        }
         renderer.withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .withDefaultItemLabelsVisible(true)
                 .withDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER,
                         TextAnchor.CENTER, TextAnchor.CENTER, 0.0));
-        plot.setRenderer(renderer);
 
         CategoryMarker marker = new CategoryMarker("Category 3");
         marker.setLabel("Special");
@@ -74,25 +75,25 @@ public class BarChartDemo3 extends ApplicationFrame {
         marker.setLabelAnchor(RectangleAnchor.TOP_LEFT);
         marker.setLabelTextAnchor(TextAnchor.TOP_LEFT);
         marker.setLabelOffsetType(LengthAdjustmentType.CONTRACT);
-        plot.addDomainMarker(marker, Layer.BACKGROUND);
+        chart.addDomainMarker(marker, Layer.BACKGROUND);
 
-        plot.getRangeAxisAsNumber()
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
                 .withLowerMargin(0.15)
                 .withUpperMargin(0.15);
 
         NumberAxis rangeAxis2 = new NumberAxis(null);
-        rangeAxis2.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        rangeAxis2.setLowerMargin(0.15);
-        rangeAxis2.setUpperMargin(0.15);
-        plot.setRangeAxis(1, rangeAxis2);
+        rangeAxis2.withStandardTickUnits(NumberAxis.createIntegerTickUnits())
+                .withLowerMargin(0.15)
+                .withUpperMargin(0.15);
+        chart.setRangeAxis(1, rangeAxis2);
 
         CategoryAxis domainAxis2 = new CategoryAxis(null);
-        plot.setDomainAxis(1, domainAxis2);
+        chart.setDomainAxis(1, domainAxis2);
 
         List<Integer> axisIndices = Arrays.asList(0, 1);
-        plot.mapDatasetToDomainAxes(0, axisIndices);
-        plot.mapDatasetToRangeAxes(0, axisIndices);
+        chart.mapDatasetToDomainAxes(0, axisIndices);
+        chart.mapDatasetToRangeAxes(0, axisIndices);
 
         JChart.applyCurrentTheme(chart);
         return chart;
@@ -108,17 +109,5 @@ public class BarChartDemo3 extends ApplicationFrame {
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);
-    }
-
-    static class CustomRenderer extends BarRenderer {
-        private final Paint[] colors;
-
-        public CustomRenderer(Paint[] colors) {
-            this.colors = colors;
-        }
-
-        public Paint getItemPaint(int row, int column) {
-            return this.colors[column % this.colors.length];
-        }
     }
 }

@@ -985,4 +985,18 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         setAutoPopulateSeriesShape(auto);
         return this;
     }
+
+    /**
+     * Sets the default fill paint and sends a {@link RendererChangeEvent} to
+     * all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     * @see #getDefaultFillPaint()
+     */
+    public LineAndShapeRenderer withDefaultFillPaint(Paint paint) {
+        // defer argument checking...
+        setDefaultFillPaint(paint, true);
+        return this;
+    }
+
 }

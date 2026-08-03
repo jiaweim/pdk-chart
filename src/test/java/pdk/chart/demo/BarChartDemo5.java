@@ -10,7 +10,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.model.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -49,25 +48,24 @@ public class BarChartDemo5 extends ApplicationFrame {
         CategoryBarChart chart = new CategoryBarChart(dataset, "Country", "Prisoners Per 100,000 National Population",
                 "Prison Population Rates - Selected Countries", PlotOrientation.HORIZONTAL, false, true);
 
-        chart.addSubtitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf", new Font("Dialog", 2, 10)));
-        chart.setRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
-        chart.setRangePannable(true);
+        chart.addSubtitle(new TextTitle("Source: http://www.homeoffice.gov.uk/rds/pdfs2/r188.pdf",
+                new Font("Dialog", Font.ITALIC, 10)));
 
-        chart.setItemLabelInsets(new RectangleInsets(9, 9, 9, 9));
-        chart.setDefaultItemLabelsVisible(true);
+        chart.withRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT)
+                .withRangePannable(true);
 
-
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getBarRenderer(0)
+        chart.getRenderer()
+                .withItemLabelInsets(new RectangleInsets(9))
                 .withDefaultItemLabelsVisible(true)
                 .withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .withDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{0}, {1}) = {2} per 100,000",
                         new DecimalFormat("0")));
-        plot.getDomainAxis()
+
+        chart.getDomainAxis()
                 .withCategoryMargin(0.25)
                 .withLowerMargin(0.02)
                 .withUpperMargin(0.02);
-        plot.getRangeAxisAsNumber()
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
                 .withUpperMargin(0.1);
 

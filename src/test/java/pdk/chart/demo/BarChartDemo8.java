@@ -43,15 +43,14 @@ public class BarChartDemo8 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 8");
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 8");
         chart.removeLegend();
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getDomainAxis()
+        chart.getDomainAxis()
                 .withCategoryLabelPositions(CategoryLabelPositions.UP_45);
-        plot.getRangeAxisAsNumber()
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
                 .withUpperMargin(0.15);
-        plot.getBarRenderer(0)
+        chart.getRenderer()
                 .withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .withSeriesItemLabelsVisible(0, true);
 

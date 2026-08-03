@@ -21,6 +21,7 @@ import pdk.chart.renderer.category.*;
 import pdk.chart.text.TextAnchor;
 
 import java.awt.*;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -169,6 +170,41 @@ public class CategoryChart extends Chart {
      */
     public void setDomainAxis(CategoryAxis axis) {
         plot_.setDomainAxis(axis);
+    }
+
+    /**
+     * Sets a domain axis and sends a {@link PlotChangeEvent} to all
+     * registered listeners.
+     *
+     * @param index the axis index.
+     * @param axis  the axis ({@code null} permitted).
+     */
+    public void setDomainAxis(int index, CategoryAxis axis) {
+        plot_.setDomainAxis(index, axis);
+    }
+
+    /**
+     * Maps the specified dataset to the axes in the list.  Note that the
+     * conversion of data values into Java2D space is always performed using
+     * the first axis in the list.
+     *
+     * @param index       the dataset index (zero-based).
+     * @param axisIndices the axis indices ({@code null} permitted).
+     */
+    public void mapDatasetToDomainAxes(int index, List<Integer> axisIndices) {
+        plot_.mapDatasetToDomainAxes(index, axisIndices);
+    }
+
+    /**
+     * Maps the specified dataset to the axes in the list.  Note that the
+     * conversion of data values into Java2D space is always performed using
+     * the first axis in the list.
+     *
+     * @param index       the dataset index (zero-based).
+     * @param axisIndices the axis indices ({@code null} permitted).
+     */
+    public void mapDatasetToRangeAxes(int index, List<Integer> axisIndices) {
+        plot_.mapDatasetToRangeAxes(index, axisIndices);
     }
 
     /**
@@ -647,6 +683,36 @@ public class CategoryChart extends Chart {
         plot_.setRangeCrosshairVisible(flag);
     }
 
+    /**
+     * Sets the flag indicating whether the range crosshair is visible.
+     *
+     * @param flag the new value of the flag.
+     */
+    public CategoryChart withRangeCrosshairVisible(boolean flag) {
+        plot_.setRangeCrosshairVisible(flag);
+        return this;
+    }
+
+    /**
+     * Sets the paint used to draw the range crosshair (if visible) and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public void setRangeCrosshairPaint(Paint paint) {
+        plot_.setRangeCrosshairPaint(paint);
+    }
+
+    /**
+     * Sets the paint used to draw the range crosshair (if visible) and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public CategoryChart withRangeCrosshairPaint(Paint paint) {
+        plot_.setRangeCrosshairPaint(paint);
+        return this;
+    }
 
     /**
      * Sets the position used for the domain gridlines and sends a

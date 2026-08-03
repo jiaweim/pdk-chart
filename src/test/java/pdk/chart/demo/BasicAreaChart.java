@@ -35,10 +35,10 @@ public class BasicAreaChart {
         xAxis.setUpperMargin(0);
 
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) chart.getRenderer(1);
-        renderer.setUseFillPaint(true);
-        renderer.setSeriesOutlineStroke(0, new BasicStroke(2f));
-        renderer.setDefaultFillPaint(Color.WHITE);
-        renderer.setSeriesShape(0, ShapeUtils.createCircle(6));
+        renderer.withUseFillPaint(true)
+                .withSeriesOutlineStroke(0, new BasicStroke(2f))
+                .withDefaultFillPaint(Color.WHITE)
+                .withSeriesShape(0, ShapeUtils.createCircle(6));
 
         chart.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
 

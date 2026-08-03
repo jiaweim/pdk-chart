@@ -6,7 +6,6 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -38,13 +37,10 @@ public class BarChartDemo4 extends ApplicationFrame {
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
         CategoryBarChart chart = new CategoryBarChart(dataset, null, "Value", "Bar Chart Demo 4");
-        NumberAxis yAxis = chart.getRangeAxisAsNumber();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getRangeAxisAsNumber()
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        chart.setDrawBarOutline(false);
-
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.getBarRenderer(0)
+        chart.getRenderer()
                 .withDrawBarOutline(false)
                 .withMaximumBarWidth(0.1)
                 .withLegendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));

@@ -2,14 +2,13 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.title.TextTitle;
@@ -38,15 +37,16 @@ public class BarChartDemo1 {
         chart.addSubtitle(source);
 
         chart.addSubtitle(legend);
-        CategoryPlot<String, String> plot = chart.getCategoryPlot();
-        plot.domainGridlinesVisible(true)
-                .rangeCrosshairVisible(true)
-                .rangeCrosshairPaint(Color.BLUE);
-        plot.getDomainAxis()
+
+        chart.withDomainGridlinesVisible(true)
+                .withRangeCrosshairVisible(true)
+                .withRangeCrosshairPaint(Color.BLACK);
+
+        chart.getDomainAxis()
                 .withCategoryMargin(0.2);
-        plot.getRangeAxisAsNumber()
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getBarRenderer(0)
+        chart.getRenderer()
                 .withDrawBarOutline(false)
                 .withBarPainter(new StandardBarPainter())
                 .withItemMargin(0.06)

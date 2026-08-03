@@ -3,12 +3,10 @@ package pdk.chart.demo;
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.model.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -62,23 +60,18 @@ public class BarChartDemo11 extends ApplicationFrame {
 
         chart.setOrientation(PlotOrientation.HORIZONTAL);
         chart.setDomainGridlinesVisible(true);
-        CategoryPlot plot = chart.getCategoryPlot();
 
-        CategoryAxis xAxis = chart.getDomainAxis();
-        xAxis.setMaximumCategoryLabelWidthRatio(0.8f);
+        chart.getDomainAxis()
+                .setMaximumCategoryLabelWidthRatio(0.8f);
+        chart.getRangeAxisAsNumber()
+                .setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        NumberAxis yAxis = chart.getRangeAxisAsNumber();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-        chart.setDrawBarOutline(false);
-
-        plot.getBarRenderer(0)
+        chart.getRenderer()
                 .withDrawBarOutline(false)
                 .withDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{1}: {2} percent",
                         new DecimalFormat("0")))
-                .withSeriesPaint(0,
-                        new GradientPaint(0.0F, 0.0F, Color.BLUE,
-                                0.0F, 0.0F, new Color(0, 0, 64)));
+                .withSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE,
+                        0.0F, 0.0F, new Color(0, 0, 64)));
 
         return chart;
     }

@@ -2,10 +2,9 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBoxChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -54,11 +53,10 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(BoxAndWhiskerCategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBoxChart(dataset, "Category", "Value", true);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.domainGridlinesVisible(true)
-                .rangePannable(true);
-        plot.getRangeAxisAsNumber()
+        CategoryBoxChart chart = new CategoryBoxChart(dataset, "Category", "Value", true);
+        chart.withDomainGridlinesVisible(true)
+                .withRangePannable(true);
+        chart.getRangeAxisAsNumber()
                 .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
         return chart;
     }
