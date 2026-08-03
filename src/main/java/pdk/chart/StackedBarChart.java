@@ -1,5 +1,6 @@
 package pdk.chart;
 
+import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.RendererChangeEvent;
@@ -26,6 +27,11 @@ public class StackedBarChart extends BarChart {
         renderer1_ = renderer2_;
     }
 
+    @Override
+    public StackedXYBarRenderer getRenderer() {
+        return renderer2_;
+    }
+
     /**
      * Create a stacked bar chart.
      *
@@ -45,8 +51,8 @@ public class StackedBarChart extends BarChart {
             String title, PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
-        this.xAxis_ = xAxisType.createInstance(xAxisLabel);
-        this.yAxis_ = yAxisType.createInstance(yAxisLabel);
+        ValueAxis xAxis_ = xAxisType.createInstance(xAxisLabel);
+        ValueAxis yAxis_ = yAxisType.createInstance(yAxisLabel);
 
         if (tooltips) {
             if (xAxisType == AxisType.DATE) {

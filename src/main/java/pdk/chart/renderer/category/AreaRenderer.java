@@ -76,6 +76,21 @@ public class AreaRenderer extends AbstractCategoryItemRenderer
         fireChangeEvent();
     }
 
+
+    /**
+     * Sets a token that controls how the renderer draws the end points, and
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param type the end type ({@code null} not permitted).
+     * @see #getEndType()
+     */
+    public AreaRenderer withEndType(AreaRendererEndType type) {
+        Objects.requireNonNull(type, "type");
+        this.endType = type;
+        fireChangeEvent();
+        return this;
+    }
+
     /**
      * Returns a legend item for a series.
      *

@@ -73,10 +73,10 @@ public class BarChartDemo11 extends ApplicationFrame {
         chart.setDrawBarOutline(false);
 
         plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{1}: {2} percent",
+                .withDrawBarOutline(false)
+                .withDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{1}: {2} percent",
                         new DecimalFormat("0")))
-                .seriesPaint(0,
+                .withSeriesPaint(0,
                         new GradientPaint(0.0F, 0.0F, Color.BLUE,
                                 0.0F, 0.0F, new Color(0, 0, 64)));
 

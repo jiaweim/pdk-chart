@@ -74,19 +74,19 @@ public class LineChartDemo1 extends ApplicationFrame {
         }
 
         plot.getDomainAxis()
-                .categoryLabelPositions(CategoryLabelPositions.UP_90);
+                .withCategoryLabelPositions(CategoryLabelPositions.UP_90);
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
         JChart.applyCurrentTheme(chart);
 
         plot.getLineAndShapeRenderer()
-                .defaultShapesVisible(true)
-                .drawOutlines(true)
-                .useFillPaint(true)
+                .withDefaultShapesVisible(true)
+                .withDrawOutlines(true)
+                .withUseFillPaint(true)
                 .defaultFillPaint(Color.WHITE)
-                .seriesStroke(0, new BasicStroke(3.0F))
-                .seriesOutlineStroke(0, new BasicStroke(2.0F))
-                .seriesShape(0, new Ellipse2D.Double(-5.0, -5.0, 10.0, 10.0));
+                .withSeriesStroke(0, new BasicStroke(3.0F))
+                .withSeriesOutlineStroke(0, new BasicStroke(2.0F))
+                .withSeriesShape(0, new Ellipse2D.Double(-5.0, -5.0, 10.0, 10.0));
 
         return chart;
     }

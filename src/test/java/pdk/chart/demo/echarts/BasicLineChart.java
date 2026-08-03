@@ -44,7 +44,7 @@ public class BasicLineChart {
         chart.setDefaultShapesFilled(true);
 
         // set line
-        chart.setSeriesLinesWidth(0, 2f);
+        chart.setSeriesStrokeWidth(0, 2f);
 
         return chart;
     }

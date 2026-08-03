@@ -86,6 +86,20 @@ public class StackedXYAreaRenderer2 extends XYAreaRenderer2
     }
 
     /**
+     * Sets whether the x-coordinates (in Java2D space) are rounded to integer values.
+     * <p>
+     * This may improve rendering performance or crispness in some cases.
+     *
+     * @param round the new flag value.
+     * @see #getRoundXCoordinates()
+     */
+    public StackedXYAreaRenderer2 withRoundXCoordinates(boolean round) {
+        this.roundXCoordinates = round;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
      *

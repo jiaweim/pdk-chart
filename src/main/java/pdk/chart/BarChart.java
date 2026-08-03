@@ -33,8 +33,6 @@ import pdk.chart.util.GradientPaintTransformer;
 public class BarChart extends XYChart {
 
     protected XYBarRenderer renderer1_;
-    protected ValueAxis yAxis_;
-    protected ValueAxis xAxis_;
 
     /**
      * Constructor for subclass use.  Does not attach any dataset or axes;
@@ -50,11 +48,17 @@ public class BarChart extends XYChart {
     @Override
     protected void initRenderer() {
         renderer1_ = new XYBarRenderer();
+        renderer1_.setShadowVisible(false);
         renderer0_ = renderer1_;
     }
 
+    @Override
+    public XYBarRenderer getRenderer() {
+        return renderer1_;
+    }
+
     /**
-     * Fully parameterised constructor.
+     * Fully parameterized constructor.
      *
      * @param dataset     the dataset (should implement {@link IntervalXYDataset}
      *                    for correct bar widths; {@code null} permitted)
@@ -73,10 +77,10 @@ public class BarChart extends XYChart {
             String yAxisLabel, AxisType yAxisType, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
-        this.xAxis_ = xAxisType.createInstance(xAxisLabel);
-        this.yAxis_ = yAxisType.createInstance(yAxisLabel);
+        ValueAxis xAxis = xAxisType.createInstance(xAxisLabel);
+        ValueAxis yAxis = yAxisType.createInstance(yAxisLabel);
 
-        if (xAxis_ instanceof NumberAxis nAxis) {
+        if (xAxis instanceof NumberAxis nAxis) {
             nAxis.setAutoRangeIncludesZero(false);
         }
         if (tooltips) {
@@ -89,8 +93,8 @@ public class BarChart extends XYChart {
         if (urls) {
             renderer1_.setURLGenerator(new StandardXYURLGenerator());
         }
-        plot_.setDomainAxis(xAxis_);
-        plot_.setRangeAxis(yAxis_);
+        plot_.setDomainAxis(xAxis);
+        plot_.setRangeAxis(yAxis);
         plot_.setRenderer(renderer1_);
         plot_.setOrientation(orientation);
         plot_.setDataset(dataset);

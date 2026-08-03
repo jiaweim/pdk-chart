@@ -1,18 +1,22 @@
 package pdk.chart;
 
 import pdk.chart.api.RectangleInsets;
-import pdk.chart.axis.NumberAxis;
-import pdk.chart.data.xy.XYDataset;
 import pdk.chart.ms.*;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
-import pdk.chart.util.Args;
-import pdk.chart.util.ShapeUtils;
-
-import java.awt.geom.Rectangle2D;
 
 /**
- *
+ * A specialised chart for visualising peptide‑spectrum matches (PSMs) in
+ * mass spectrometry data.
+ * <p>
+ * The chart uses a {@link PSMPlot} as the underlying plot and a
+ * {@link PeakRenderer} to draw spectral peaks and optionally their labels.
+ * The plot layout is controlled by the {@link PSMPlot}, which handles both
+ * a {@link PeptideDataset} (peptide sequence coverage) and a
+ * {@link SpectrumDataset} (fragment ion peaks).
+ * <p>
+ * Typical usage:
+ * <pre>{@code
+ * PSMChart chart = new PSMChart(psmDataset);
+ * }</pre>
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -20,23 +24,59 @@ import java.awt.geom.Rectangle2D;
  */
 public class PSMChart extends XYChart {
 
-    private final PSMPlot plot;
-    private final PeakRenderer renderer1_;
+    /**
+     * The PSM plot (specialised XYPlot).
+     */
+    private PSMPlot plot;
+    private PeakRenderer renderer1_;
 
+    /**
+     * Initializes the renderer by retrieving it from the {@link PSMPlot}.
+     * The plot must already have been configured with a
+     * {@link PeakRenderer}.
+     */
+    @Override
+    protected void initRenderer() {
+        renderer1_ = (PeakRenderer) plot_.getRenderer();
+        renderer0_ = renderer1_;
+    }
+
+    /**
+     * Returns the peak renderer used by this chart.
+     *
+     * @return the renderer (never {@code null})
+     */
+    @Override
+    public PeakRenderer getRenderer() {
+        return renderer1_;
+    }
+
+    /**
+     * Creates an empty PSM chart.  Datasets must be added later via
+     * {@link PSMPlot#setDataset(PeptideDataset, SpectrumDataset)}.
+     */
     public PSMChart() {
         super(null, new PSMPlot(), false);
         plot = (PSMPlot) plot_;
         plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
-        renderer1_ = (PeakRenderer) plot.getRenderer();
-        renderer0_ = renderer1_;
     }
 
-    public PSMChart(PSMDataset dataset) {
-        this(dataset.getPeptideDataset(), dataset.getSpectrumDataset());
-    }
-
+    /**
+     * Creates a PSM chart with both peptide and spectrum data.
+     * <p>
+     * If the spectrum dataset contains more than one series, automatic
+     * peak labels are disabled to avoid visual clutter.
+     *
+     * @param peptideDataset  the peptide coverage data ({@code null}
+     *                        permitted if only spectrum data is shown)
+     * @param spectrumDataset the fragment ion spectrum data (must not be
+     *                        {@code null})
+     */
     public PSMChart(PeptideDataset peptideDataset, SpectrumDataset spectrumDataset) {
-        this();
+        super(null, new PSMPlot(), false);
+        plot = (PSMPlot) plot_;
+        plot.setAxisOffset(RectangleInsets.ZERO_INSETS);
+
         JChart.applyCurrentTheme(this);
         int seriesCount = spectrumDataset.getSeriesCount();
         if (seriesCount > 1) {
@@ -45,39 +85,31 @@ public class PSMChart extends XYChart {
         plot.setDataset(peptideDataset, spectrumDataset);
     }
 
+    /**
+     * Creates a PSM chart from a combined {@link PSMDataset}.
+     *
+     * @param dataset the PSM dataset (must not be {@code null})
+     */
+    public PSMChart(PSMDataset dataset) {
+        this(dataset.getPeptideDataset(), dataset.getSpectrumDataset());
+    }
+
+    /**
+     * Creates a PSM chart that displays only spectrum data without
+     * peptide coverage information.
+     *
+     * @param spectrumDataset the fragment ion spectrum data (must not be
+     *                        {@code null})
+     */
     public PSMChart(SpectrumDataset spectrumDataset) {
         this(null, spectrumDataset);
     }
 
-    public PSMChart(PSMDataset dataset, ToleranceType toleranceType) {
-        this();
-        Args.nullNotPermitted(toleranceType, "toleranceType");
-
-        plot_.setDomainAxis(null);
-        setShowAutoPeakLabels(false);
-
-        NumberAxis errorYAxis = new NumberAxis(toleranceType.getUnit());
-        errorYAxis.setRange(0 - toleranceType.getValue(), toleranceType.getValue());
-        errorYAxis.setAutoRange(false);
-
-        XYDataset<SeriesType> mzErrorDataset = dataset.getSpectrumDataset().getMZErrorDataset();
-        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer(false, true);
-        renderer.setDefaultShapesFilled(true);
-        renderer.setDrawOutlines(false);
-        Rectangle2D.Double rectangle = ShapeUtils.createRectangle(4);
-        for (int i = 0; i < mzErrorDataset.getSeriesCount(); i++) {
-            SeriesType seriesKey = mzErrorDataset.getSeriesKey(i);
-            renderer.setSeriesPaint(i, seriesKey.getColor());
-            renderer.setSeriesShape(i, rectangle);
-        }
-        XYPlot mzErrorPlot = new XYPlot(mzErrorDataset, null, errorYAxis, null);
-
-    }
-
     /**
-     * Automatically generate labels for spectral peaks?
+     * Controls whether peak labels are automatically generated and
+     * displayed for spectral peaks.
      *
-     * @param showAutoPeakLabels true if generate labels.
+     * @param showAutoPeakLabels {@code true} to show auto‑generated labels
      */
     public void setShowAutoPeakLabels(boolean showAutoPeakLabels) {
         renderer1_.setShowAutoPeakLabels(showAutoPeakLabels);

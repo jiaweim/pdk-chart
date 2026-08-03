@@ -55,7 +55,7 @@ public class HistogramDemo1 extends ApplicationFrame {
         BarChart chart = new BarChart(dataset, null, null, "Histogram Demo 1",
                 PlotOrientation.VERTICAL, true, true, false);
         chart.setPannable(true, true);
-        chart.setForegroundAlpha(0.85f);
+        chart.setPlotForegroundAlpha(0.85f);
 
         NumberAxis yAxis = chart.getRangeAxisAsNumber();
         yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());

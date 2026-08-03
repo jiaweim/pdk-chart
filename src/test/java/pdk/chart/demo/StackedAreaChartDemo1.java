@@ -53,7 +53,7 @@ public class StackedAreaChartDemo1 extends ApplicationFrame {
     public static Chart createChart(CategoryDataset dataset) {
         CategoryStackedAreaChart chart = new CategoryStackedAreaChart(dataset,
                 "Category", "Value", "Stacked Area Chart");
-        chart.setForegroundAlpha(0.85F);
+        chart.setPlotForegroundAlpha(0.85F);
         CategoryAxis domainAxis = chart.getDomainAxis();
         domainAxis.setLowerMargin(0.0);
         domainAxis.setUpperMargin(0.0);

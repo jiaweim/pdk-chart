@@ -48,8 +48,8 @@ public class MarkerDemo1 extends ApplicationFrame {
         plot.getDomainAxisAsDate()
                 .upperMargin(0.5);
         plot.getRangeAxisAsNumber()
-                .lowerMargin(0.5)
-                .upperMargin(0.3);
+                .withLowerMargin(0.5)
+                .withUpperMargin(0.3);
 
         Marker start = new ValueMarker(200.0);
         start.setLabelOffsetType(LengthAdjustmentType.EXPAND);

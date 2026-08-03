@@ -321,7 +321,7 @@ public class PSMPlot extends XYPlot<SeriesType> {
      * @param spectrumDataset {@link SpectrumDataset}.
      */
     public void setDataset(@Nullable PeptideDataset peptideDataset,
-            SpectrumDataset spectrumDataset) {
+            @Nullable SpectrumDataset spectrumDataset) {
         PeptideDataset existing = this.peptideDataset;
         if (existing != null) {
             existing.removeChangeListener(this);
@@ -334,6 +334,10 @@ public class PSMPlot extends XYPlot<SeriesType> {
         DatasetChangeEvent event = new DatasetChangeEvent(this, peptideDataset);
         datasetChanged(event);
 
+        if (spectrumDataset == null) {
+            setDataset(0, null);
+            return;
+        }
         spectrumDataset.sort();
         setDataset(0, spectrumDataset);
 

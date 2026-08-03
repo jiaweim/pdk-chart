@@ -32,47 +32,52 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
     public static final long serialVersionUID = -5221991598674249125L;
 
     /**
-     * A constant to specify that the bubbles drawn by this renderer should be
-     * scaled on both axes (see {@link #XYBubbleRenderer(int)}).
+     * Controls how the Z value is converted to bubble size (pixel
+     * diameter / area).
      */
-    public static final int SCALE_ON_BOTH_AXES = 0;
-
-    /**
-     * A constant to specify that the bubbles drawn by this renderer should be
-     * scaled on the domain axis (see {@link #XYBubbleRenderer(int)}).
-     */
-    public static final int SCALE_ON_DOMAIN_AXIS = 1;
-
-    /**
-     * A constant to specify that the bubbles drawn by this renderer should be
-     * scaled on the range axis (see {@link #XYBubbleRenderer(int)}).
-     */
-    public static final int SCALE_ON_RANGE_AXIS = 2;
+    public enum ScaleType {
+        /**
+         * Convert Z separately via X-axis and Y-axis unit-to-pixel ratios.
+         * <p>
+         * Horizontal width and vertical height of the bubble may differ, resulting in an oval (ellipse) shape.
+         * Adjusting either X or Y axis bounds will change bubble appearance.
+         */
+        SCALE_ON_BOTH_AXES,
+        /**
+         * Convert Z value to pixel size using domain (X) axis scale only.
+         * <p>
+         * The vertical pixel size equals horizontal pixel size, bubble always renders as a perfect circle.
+         * Resizing Y axis has no impact on bubble dimension.
+         */
+        SCALE_ON_DOMAIN_AXIS,
+        /**
+         * Convert Z value to pixel size using range (Y) axis scale only.
+         * <p>
+         * The horizontal pixel size equals vertical pixel size, bubble always renders as a perfect circle.
+         * Resizing X axis has no impact on bubble dimension.
+         */
+        SCALE_ON_RANGE_AXIS
+    }
 
     /**
      * Controls how the width and height of the bubble are scaled.
      */
-    private int scaleType;
+    private ScaleType scaleType;
 
     /**
      * Constructs a new renderer.
      */
     public XYBubbleRenderer() {
-        this(SCALE_ON_BOTH_AXES);
+        this(ScaleType.SCALE_ON_BOTH_AXES);
     }
 
     /**
      * Constructs a new renderer with the specified type of scaling.
      *
-     * @param scaleType the type of scaling (must be one of:
-     *                  {@link #SCALE_ON_BOTH_AXES}, {@link #SCALE_ON_DOMAIN_AXIS},
-     *                  {@link #SCALE_ON_RANGE_AXIS}).
+     * @param scaleType the type of scaling.
      */
-    public XYBubbleRenderer(int scaleType) {
+    public XYBubbleRenderer(ScaleType scaleType) {
         super();
-        if (scaleType < 0 || scaleType > 2) {
-            throw new IllegalArgumentException("Invalid 'scaleType'.");
-        }
         this.scaleType = scaleType;
         setDefaultLegendShape(new Ellipse2D.Double(-4.0, -4.0, 8.0, 8.0));
     }
@@ -80,10 +85,9 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
     /**
      * Returns the scale type that was set when the renderer was constructed.
      *
-     * @return The scale type (one of: {@link #SCALE_ON_BOTH_AXES},
-     * {@link #SCALE_ON_DOMAIN_AXIS}, {@link #SCALE_ON_RANGE_AXIS}).
+     * @return The scale type.
      */
-    public int getScaleType() {
+    public ScaleType getScaleType() {
         return this.scaleType;
     }
 
@@ -297,8 +301,35 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
      * @param generator the generator ({@code null} permitted).
      * @see #getDefaultToolTipGenerator()
      */
-    public XYBubbleRenderer defaultToolTipGenerator(XYToolTipGenerator generator) {
+    public XYBubbleRenderer withDefaultToolTipGenerator(XYToolTipGenerator generator) {
         setDefaultToolTipGenerator(generator);
         return this;
     }
+
+    /**
+     * Sets the paint used to draw the outline for a series and, if requested,
+     * sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     * @see #getSeriesOutlinePaint(int)
+     */
+    public XYBubbleRenderer withSeriesOutlinePaint(int series, Paint paint) {
+        setSeriesOutlinePaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Sets the flag that controls whether a series is visible and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series  the series index (zero-based).
+     * @param visible the flag ({@code null} permitted).
+     * @see #getSeriesVisible(int)
+     */
+    public XYBubbleRenderer withSeriesVisible(int series, Boolean visible) {
+        setSeriesVisible(series, visible);
+        return this;
+    }
+
 }

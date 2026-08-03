@@ -59,17 +59,17 @@ public class BarChartDemo5 extends ApplicationFrame {
 
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getBarRenderer(0)
-                .defaultItemLabelsVisible(true)
-                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
-                .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{0}, {1}) = {2} per 100,000",
+                .withDefaultItemLabelsVisible(true)
+                .withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
+                .withDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{0}, {1}) = {2} per 100,000",
                         new DecimalFormat("0")));
         plot.getDomainAxis()
-                .categoryMargin(0.25)
-                .lowerMargin(0.02)
-                .upperMargin(0.02);
+                .withCategoryMargin(0.25)
+                .withLowerMargin(0.02)
+                .withUpperMargin(0.02);
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .upperMargin(0.1);
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
+                .withUpperMargin(0.1);
 
         JChart.applyCurrentTheme(chart);
         return chart;

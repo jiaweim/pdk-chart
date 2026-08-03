@@ -31,7 +31,7 @@ public class BubbleChartDemo2 extends ApplicationFrame {
     private static Chart createChart(XYZDataset dataset) {
         BubbleChart chart = new BubbleChart(dataset, "X", "Y", "Bubble Chart Demo 2");
         XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setRenderer(new XYBubbleRenderer(0));
+        plot.setRenderer(new XYBubbleRenderer(XYBubbleRenderer.ScaleType.SCALE_ON_BOTH_AXES));
         plot.setForegroundAlpha(0.65F);
         plot.setDomainPannable(true);
         plot.setRangePannable(true);

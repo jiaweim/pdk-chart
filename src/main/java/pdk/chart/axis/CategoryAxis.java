@@ -306,7 +306,7 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
      * @param positions the positions ({@code null} not permitted).
      * @see #getCategoryLabelPositions()
      */
-    public CategoryAxis categoryLabelPositions(CategoryLabelPositions positions) {
+    public CategoryAxis withCategoryLabelPositions(CategoryLabelPositions positions) {
         setCategoryLabelPositions(positions);
         return this;
     }
@@ -393,6 +393,21 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
         Objects.requireNonNull(category, "category");
         this.categoryLabelToolTips.put(category, tooltip);
         fireChangeEvent();
+    }
+
+    /**
+     * Adds a tooltip to the specified category and sends an
+     * {@link AxisChangeEvent} to all registered listeners.
+     *
+     * @param category the category ({@code null} not permitted).
+     * @param tooltip  the tooltip text ({@code null} permitted).
+     * @see #removeCategoryLabelToolTip(Comparable)
+     */
+    public CategoryAxis withCategoryLabelToolTip(Comparable category, String tooltip) {
+        Objects.requireNonNull(category, "category");
+        this.categoryLabelToolTips.put(category, tooltip);
+        fireChangeEvent();
+        return this;
     }
 
     /**
@@ -1309,7 +1324,7 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
      * @param axisTitle axis title.
      * @return this.
      */
-    public CategoryAxis name(String axisTitle) {
+    public CategoryAxis withLabel(String axisTitle) {
         setLabel(axisTitle);
         return this;
     }
@@ -1317,13 +1332,16 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
     /**
      * Sets the category margin.
      * <p>
+     * Category margin defines the percentage gap between two adjacent category blocks on the category axis.
+     * The total margin is evenly distributed among all gaps between categories.
+     * <p>
      * The overall category margin is distributed over
      * N-1 gaps, where N is the number of categories on the axis.
      *
      * @param margin the margin as a percentage of the axis length (for
      *               example, 0.05 is five percent).
      */
-    public CategoryAxis categoryMargin(double margin) {
+    public CategoryAxis withCategoryMargin(double margin) {
         setCategoryMargin(margin);
         return this;
     }
@@ -1334,7 +1352,7 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
      * @param margin the margin as a percentage of the axis length (for
      *               example, 0.05 is five percent).
      */
-    public CategoryAxis lowerMargin(double margin) {
+    public CategoryAxis withLowerMargin(double margin) {
         setLowerMargin(margin);
         return this;
     }
@@ -1345,7 +1363,7 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
      * @param margin the margin as a percentage of the axis length (for
      *               example, 0.05 is five percent).
      */
-    public CategoryAxis upperMargin(double margin) {
+    public CategoryAxis withUpperMargin(double margin) {
         setUpperMargin(margin);
         return this;
     }

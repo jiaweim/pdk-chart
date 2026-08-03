@@ -1052,7 +1052,6 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
         return super.hashCode();
     }
 
-
     /**
      * Sets the flag that indicates whether the axis range, if
      * automatically calculated, is forced to include zero.
@@ -1065,7 +1064,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param flag the new value of the flag.
      * @see #getAutoRangeIncludesZero()
      */
-    public NumberAxis autoRangeIncludesZero(boolean flag) {
+    public NumberAxis withAutoRangeIncludesZero(boolean flag) {
         setAutoRangeIncludesZero(flag);
         return this;
     }
@@ -1079,7 +1078,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @see #setLabelFont(Font)
      * @see #setLabelPaint(Paint)
      */
-    public NumberAxis label(String label) {
+    public NumberAxis withLabel(String label) {
         setLabel(label);
         return this;
     }
@@ -1094,7 +1093,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param source the source for standard tick units.
      * @see #getStandardTickUnits()
      */
-    public NumberAxis standardTickUnits(@Nullable TickUnitSource source) {
+    public NumberAxis withStandardTickUnits(@Nullable TickUnitSource source) {
         setStandardTickUnits(source);
         return this;
     }
@@ -1107,7 +1106,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param lower the lower axis limit.
      * @param upper the upper axis limit.
      */
-    public NumberAxis range(double lower, double upper) {
+    public NumberAxis withRange(double lower, double upper) {
         setRange(lower, upper);
         return this;
     }
@@ -1118,7 +1117,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param flag the flag.
      */
-    public NumberAxis minorTickMarksVisible(boolean flag) {
+    public NumberAxis withMinorTickMarksVisible(boolean flag) {
         setMinorTickMarksVisible(flag);
         return this;
     }
@@ -1130,7 +1129,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param count the count.
      */
-    public NumberAxis minorTickCount(int count) {
+    public NumberAxis withMinorTickCount(int count) {
         setMinorTickCount(count);
         return this;
     }
@@ -1140,7 +1139,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param length the new length.
      */
-    public NumberAxis tickMarkInsideLength(float length) {
+    public NumberAxis withTickMarkInsideLength(float length) {
         setTickMarkInsideLength(length);
         return this;
     }
@@ -1150,7 +1149,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param length the new length.
      */
-    public NumberAxis tickMarkOutsideLength(float length) {
+    public NumberAxis withTickMarkOutsideLength(float length) {
         setTickMarkOutsideLength(length);
         return this;
     }
@@ -1162,7 +1161,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param size the size.
      */
-    public NumberAxis autoRangeMinimumSize(double size) {
+    public NumberAxis withAutoRangeMinimumSize(double size) {
         setAutoRangeMinimumSize(size);
         return this;
     }
@@ -1172,10 +1171,12 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * and sends an {@link AxisChangeEvent} to all registered listeners.  This
      * margin is added only when the axis range is auto-calculated - if you set
      * the axis range manually, the margin is ignored.
+     * <p>
+     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
      *
      * @param margin the margin percentage (for example, 0.05 is five percent).
      */
-    public NumberAxis lowerMargin(double margin) {
+    public NumberAxis withLowerMargin(double margin) {
         setLowerMargin(margin);
         return this;
     }
@@ -1186,10 +1187,12 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * <p>
      * This margin is added only when the axis range is auto-calculated - if you set
      * the axis range manually, the margin is ignored.
+     * <p>
+     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
      *
      * @param margin the margin percentage (for example, 0.05 is five percent).
      */
-    public NumberAxis upperMargin(double margin) {
+    public NumberAxis withUpperMargin(double margin) {
         setUpperMargin(margin);
         return this;
     }
@@ -1199,7 +1202,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param flag the flag.
      */
-    public NumberAxis visible(boolean flag) {
+    public NumberAxis withVisible(boolean flag) {
         setVisible(flag);
         return this;
     }
@@ -1209,7 +1212,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param paint the paint ({@code null} not permitted).
      */
-    public NumberAxis tickMarkPaint(Paint paint) {
+    public NumberAxis withTickMarkPaint(Paint paint) {
         setTickMarkPaint(paint);
         return this;
     }
@@ -1220,7 +1223,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param formatter the number formatter.
      */
-    public NumberAxis numberFormatOverride(@Nullable NumberFormat formatter) {
+    public NumberAxis withNumberFormatOverride(@Nullable NumberFormat formatter) {
         setNumberFormatOverride(formatter);
         return this;
     }
@@ -1230,7 +1233,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param flag the flag.
      */
-    public NumberAxis inverted(boolean flag) {
+    public NumberAxis withInverted(boolean flag) {
         setInverted(flag);
         return this;
     }
@@ -1240,7 +1243,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param label the label ({@code null} permitted).
      */
-    public NumberAxis attributedLabel(AttributedString label) {
+    public NumberAxis withAttributedLabel(AttributedString label) {
         setAttributedLabel(label);
         return this;
     }
@@ -1251,7 +1254,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param symbols symbols List of symbols.
      * @return this.
      */
-    public NumberAxis symbols(String[] symbols) {
+    public NumberAxis withSymbols(String[] symbols) {
         if (this instanceof SymbolAxis symbolAxis) {
             symbolAxis.setSymbols(symbols);
         }
@@ -1265,7 +1268,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      *
      * @param flag the new setting.
      */
-    public NumberAxis gridBandsVisible(boolean flag) {
+    public NumberAxis withGridBandsVisible(boolean flag) {
         if (this instanceof SymbolAxis symbolAxis) {
             symbolAxis.setGridBandsVisible(flag);
         }
@@ -1279,7 +1282,7 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
      * @param angle the angle (in radians).
      * @see #getLabelAngle()
      */
-    public NumberAxis labelAngle(double angle) {
+    public NumberAxis withLabelAngle(double angle) {
         setLabelAngle(angle);
         return this;
     }

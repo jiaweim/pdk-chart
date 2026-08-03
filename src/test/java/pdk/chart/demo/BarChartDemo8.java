@@ -47,13 +47,13 @@ public class BarChartDemo8 extends ApplicationFrame {
         chart.removeLegend();
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getDomainAxis()
-                .categoryLabelPositions(CategoryLabelPositions.UP_45);
+                .withCategoryLabelPositions(CategoryLabelPositions.UP_45);
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .upperMargin(0.15);
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
+                .withUpperMargin(0.15);
         plot.getBarRenderer(0)
-                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
-                .seriesItemLabelsVisible(0, true);
+                .withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
+                .withSeriesItemLabelsVisible(0, true);
 
         return chart;
     }

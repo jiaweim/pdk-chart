@@ -62,7 +62,7 @@ public class DualAxisDemo6 extends ApplicationFrame {
         chart.setSeriesToGroupMap(map);
         chart.setDomainAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
 
-        chart.setDataset(1, dataset2, CategoryChart.ChartType.BAR);
+        chart.setDataset(1, dataset2, CategoryChart.Type.BAR);
         chart.setRangeAxis(1, new NumberAxis("Secondary"), AxisLocation.BOTTOM_OR_RIGHT);
         chart.mapDatasetToRangeAxis(1, 1);
 

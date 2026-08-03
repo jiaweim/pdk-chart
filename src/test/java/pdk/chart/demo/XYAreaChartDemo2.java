@@ -49,7 +49,7 @@ public class XYAreaChartDemo2 extends ApplicationFrame {
         ValueAxis xAxis = chart.getDomainAxis();
         xAxis.setLowerMargin(0);
         xAxis.setUpperMargin(0);
-        chart.setForegroundAlpha(0.5f);
+        chart.setPlotForegroundAlpha(0.5f);
         chart.setDefaultToolTipGenerator(new StandardXYToolTipGenerator("{0}: ({1}, {2})",
                 new SimpleDateFormat("d-MMM-yyyy"),
                 new DecimalFormat("#,##0.00")));

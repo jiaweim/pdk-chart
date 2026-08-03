@@ -28,7 +28,7 @@ public class BasicAreaChart {
 
         CategoryAreaChart chart = new CategoryAreaChart(data);
         chart.removeLegend();
-        chart.setDataset(1, data, CategoryChart.ChartType.LINE);
+        chart.setDataset(1, data, CategoryChart.Type.LINE);
 
         CategoryAxis xAxis = chart.getDomainAxis();
         xAxis.setLowerMargin(0);

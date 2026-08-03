@@ -1,42 +1,6 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ----------------------
- * CenterArrangement.java
- * ----------------------
- * (C) Copyright 2005-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.block;
 
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import java.util.List;
@@ -46,22 +10,23 @@ import java.util.List;
  */
 public class CenterArrangement implements Arrangement, Serializable {
 
-    /** For serialization. */
+    /**
+     * For serialization.
+     */
     private static final long serialVersionUID = -353308149220382047L;
 
     /**
      * Creates a new instance.
      */
-    public CenterArrangement() {
-    }
+    public CenterArrangement() {}
 
     /**
      * Adds a block to be managed by this instance.  This method is usually
      * called by the {@link BlockContainer}, you shouldn't need to call it
      * directly.
      *
-     * @param block  the block.
-     * @param key  a key that controls the position of the block.
+     * @param block the block.
+     * @param key   a key that controls the position of the block.
      */
     @Override
     public void add(Block block, Object key) {
@@ -76,47 +41,38 @@ public class CenterArrangement implements Arrangement, Serializable {
      * calculate sizing parameters.
      *
      * @param container  the container whose items are being arranged.
-     * @param g2  the graphics device.
-     * @param constraint  the size constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the size constraint.
      * @return The size of the container after arrangement of the contents.
      */
     @Override
     public Size2D arrange(BlockContainer container, Graphics2D g2,
-                          RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
 
         LengthConstraintType w = constraint.getWidthConstraintType();
         LengthConstraintType h = constraint.getHeightConstraintType();
         if (w == LengthConstraintType.NONE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeNN(container, g2);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
+                throw new RuntimeException("Not implemented.");
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not implemented.");
             }
-            else if (h == LengthConstraintType.RANGE) {
-                throw new RuntimeException("Not implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.FIXED) {
+        } else if (w == LengthConstraintType.FIXED) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeFN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
+                throw new RuntimeException("Not implemented.");
+            } else if (h == LengthConstraintType.RANGE) {
                 throw new RuntimeException("Not implemented.");
             }
-            else if (h == LengthConstraintType.RANGE) {
-                throw new RuntimeException("Not implemented.");
-            }
-        }
-        else if (w == LengthConstraintType.RANGE) {
+        } else if (w == LengthConstraintType.RANGE) {
             if (h == LengthConstraintType.NONE) {
                 return arrangeRN(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.FIXED) {
+            } else if (h == LengthConstraintType.FIXED) {
                 return arrangeRF(container, g2, constraint);
-            }
-            else if (h == LengthConstraintType.RANGE) {
+            } else if (h == LengthConstraintType.RANGE) {
                 return arrangeRR(container, g2, constraint);
             }
         }
@@ -129,13 +85,12 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size.
      */
     protected Size2D arrangeFN(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
 
         List<Block> blocks = container.getBlocks();
         Block b = blocks.get(0);
@@ -152,19 +107,17 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint on the height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFR(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
 
         Size2D s = arrangeFN(container, g2, constraint);
         if (constraint.getHeightRange().contains(s.height)) {
             return s;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedHeight(
                     constraint.getHeightRange().constrain(s.getHeight()));
             return arrangeFF(container, g2, c);
@@ -176,13 +129,12 @@ public class CenterArrangement implements Arrangement, Serializable {
      * specified as fixed constraints.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeFF(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
 
         // TODO: implement this properly
         return arrangeFN(container, g2, constraint);
@@ -193,21 +145,19 @@ public class CenterArrangement implements Arrangement, Serializable {
      * specified ranges.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeRR(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
 
         // first arrange without constraints, and see if this fits within
         // the required ranges...
         Size2D s1 = arrangeNN(container, g2);
         if (constraint.getWidthRange().contains(s1.width)) {
             return s1;  // TODO: we didn't check the height yet
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
                     constraint.getWidthRange().getUpperBound());
             return arrangeFR(container, g2, c);
@@ -219,19 +169,17 @@ public class CenterArrangement implements Arrangement, Serializable {
      * width and a fixed height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeRF(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
 
         Size2D s = arrangeNF(container, g2, constraint);
         if (constraint.getWidthRange().contains(s.width)) {
             return s;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
                     constraint.getWidthRange().constrain(s.getWidth()));
             return arrangeFF(container, g2, c);
@@ -243,20 +191,18 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint on the height.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size following the arrangement.
      */
     protected Size2D arrangeRN(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
         // first arrange without constraints, then see if the width fits
         // within the required range...if not, call arrangeFN() at max width
         Size2D s1 = arrangeNN(container, g2);
         if (constraint.getWidthRange().contains(s1.width)) {
             return s1;
-        }
-        else {
+        } else {
             RectangleConstraint c = constraint.toFixedWidth(
                     constraint.getWidthRange().getUpperBound());
             return arrangeFN(container, g2, c);
@@ -267,9 +213,8 @@ public class CenterArrangement implements Arrangement, Serializable {
      * Arranges the blocks without any constraints.  This puts all blocks
      * into a single row.
      *
-     * @param container  the container.
-     * @param g2  the graphics device.
-     *
+     * @param container the container.
+     * @param g2        the graphics device.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeNN(BlockContainer container, Graphics2D g2) {
@@ -285,13 +230,12 @@ public class CenterArrangement implements Arrangement, Serializable {
      * constraint.  This puts all blocks into a single row.
      *
      * @param container  the container.
-     * @param g2  the graphics device.
-     * @param constraint  the constraint.
-     *
+     * @param g2         the graphics device.
+     * @param constraint the constraint.
      * @return The size after the arrangement.
      */
     protected Size2D arrangeNF(BlockContainer container, Graphics2D g2,
-                               RectangleConstraint constraint) {
+            RectangleConstraint constraint) {
         // TODO: for now we are ignoring the height constraint
         return arrangeNN(container, g2);
     }
@@ -307,8 +251,7 @@ public class CenterArrangement implements Arrangement, Serializable {
     /**
      * Tests this instance for equality with an arbitrary object.
      *
-     * @param obj  the object ({@code null} permitted).
-     *
+     * @param obj the object ({@code null} permitted).
      * @return A boolean.
      */
     @Override

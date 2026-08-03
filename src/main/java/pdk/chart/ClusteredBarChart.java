@@ -2,6 +2,7 @@ package pdk.chart;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
@@ -10,7 +11,17 @@ import pdk.chart.renderer.xy.ClusteredXYBarRenderer;
 import pdk.chart.urls.StandardXYURLGenerator;
 
 /**
- *
+ * A clustered bar chart, where multiple series are displayed side‑by‑side
+ * for each category.
+ * <p>
+ * This chart uses a {@link ClusteredXYBarRenderer} with shadows disabled
+ * by default. The domain and range axes are created from the supplied
+ * {@link AxisType} values, allowing numeric or date axes.
+ * <p>
+ * <b>Note:</b> For proper bar widths the dataset should implement
+ * {@link IntervalXYDataset}.  Using a plain {@link XYDataset} will work,
+ * but the renderer may fall back to default bar widths if interval
+ * information is missing.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -20,6 +31,11 @@ public class ClusteredBarChart extends BarChart {
 
     private ClusteredXYBarRenderer renderer2_;
 
+    /**
+     * Initializes the renderer to a {@link ClusteredXYBarRenderer} with
+     * shadows disabled.  Both the {@code renderer0_} and {@code renderer1_}
+     * fields inherited from the parent are updated to point to this renderer.
+     */
     @Override
     protected void initRenderer() {
         renderer2_ = new ClusteredXYBarRenderer();
@@ -29,17 +45,25 @@ public class ClusteredBarChart extends BarChart {
         this.renderer1_ = renderer2_;
     }
 
+    @Override
+    public ClusteredXYBarRenderer getRenderer() {
+        return renderer2_;
+    }
+
     /**
-     * Create a clustered bar chart, returns a default instance of XY bar chart.
+     * Full constructor – all options are exposed.
      *
-     * @param title       chart title.
-     * @param xAxisLabel  x-axis name.
-     * @param yAxisLabel  y-axis name.
-     * @param dataset     the dataset for the chart.
-     * @param orientation {@link PlotOrientation}
-     * @param legend      whether show legend.
-     * @param tooltips    whether create tool tips.
-     * @param urls        whether create urls.
+     * @param dataset     the dataset (preferably an {@link IntervalXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of the domain axis ({@code null} not permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param yAxisType   the type of the range axis ({@code null} not permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
+     * @param urls        {@code true} to generate URLs for data points
      */
     public ClusteredBarChart(XYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
@@ -47,8 +71,8 @@ public class ClusteredBarChart extends BarChart {
             @Nullable String title, @NonNull PlotOrientation orientation,
             boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
-        this.xAxis_ = xAxisType.createInstance(xAxisLabel);
-        this.yAxis_ = yAxisType.createInstance(yAxisLabel);
+        ValueAxis xAxis_ = xAxisType.createInstance(xAxisLabel);
+        ValueAxis yAxis_ = yAxisType.createInstance(yAxisLabel);
 
         if (tooltips) {
             if (xAxisType == AxisType.DATE) {
@@ -70,15 +94,17 @@ public class ClusteredBarChart extends BarChart {
     }
 
     /**
-     * Create a clustered bar chart, returns a default instance of XY bar chart.
+     * Creates a clustered bar chart with the given flags; URLs are disabled.
      *
-     * @param title       chart title.
-     * @param xAxisLabel  x-axis name.
-     * @param yAxisLabel  y-axis name.
-     * @param dataset     the dataset for the chart.
-     * @param orientation {@link PlotOrientation}
-     * @param legend      whether show legend.
-     * @param tooltips    whether create tool tips.
+     * @param dataset     the dataset (preferably an {@link IntervalXYDataset})
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of the domain axis
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param yAxisType   the type of the range axis
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
      */
     public ClusteredBarChart(IntervalXYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
@@ -90,12 +116,15 @@ public class ClusteredBarChart extends BarChart {
     }
 
     /**
-     * Create a clustered bar chart, returns a default instance of XY bar chart.
+     * Convenience constructor with vertical orientation, legend and tooltips
+     * enabled, no URLs.
      *
-     * @param title      chart title.
-     * @param xAxisLabel x-axis name.
-     * @param yAxisLabel y-axis name.
-     * @param dataset    the dataset for the chart.
+     * @param dataset    the dataset (preferably an {@link IntervalXYDataset})
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param xAxisType  the type of the domain axis
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param yAxisType  the type of the range axis
+     * @param title      the chart title ({@code null} permitted)
      */
     public ClusteredBarChart(IntervalXYDataset dataset,
             String xAxisLabel, AxisType xAxisType,

@@ -111,15 +111,14 @@ public class AnnotationDemo1 extends ApplicationFrame {
                 new Font("SansSerif", Font.PLAIN, 11));
         chart.addSubtitle(t1);
         chart.addSubtitle(t2);
-
         chart.setPannable(true, true);
 
-        NumberAxis domainAxis = chart.getDomainAxisAsNumber();
-        domainAxis.setUpperMargin(0.12);
-        domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getDomainAxisAsNumber()
+                .withUpperMargin(0.12)
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
-        rangeAxis.setAutoRangeIncludesZero(false);
+        chart.getRangeAxisAsNumber()
+                .withAutoRangeIncludesZero(false);
 
         Font font = new Font("SansSerif", Font.PLAIN, 9);
         String[] annoTexts = new String[]{

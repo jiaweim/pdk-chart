@@ -181,6 +181,19 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the 'lines visible' flag for a series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series  the series index (zero-based).
+     * @param visible the flag.
+     * @see #getSeriesLinesVisible(int)
+     */
+    public LineAndShapeRenderer withSeriesLinesVisible(int series, boolean visible) {
+        setSeriesLinesVisible(series, Boolean.valueOf(visible));
+        return this;
+    }
+
+    /**
      * Returns the default 'lines visible' attribute.
      *
      * @return The default flag.
@@ -252,7 +265,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * @param visible the flag.
      * @see #getSeriesShapesVisible(int)
      */
-    public LineAndShapeRenderer seriesShapesVisible(int series, boolean visible) {
+    public LineAndShapeRenderer withSeriesShapesVisible(int series, boolean visible) {
         setSeriesShapesVisible(series, Boolean.valueOf(visible));
         return this;
     }
@@ -299,7 +312,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * @param flag the flag.
      * @see #getDefaultShapesVisible()
      */
-    public LineAndShapeRenderer defaultShapesVisible(boolean flag) {
+    public LineAndShapeRenderer withDefaultShapesVisible(boolean flag) {
         setDefaultShapesVisible(flag);
         return this;
     }
@@ -342,7 +355,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * @param flag the flag.
      * @see #getDrawOutlines()
      */
-    public LineAndShapeRenderer drawOutlines(boolean flag) {
+    public LineAndShapeRenderer withDrawOutlines(boolean flag) {
         setDrawOutlines(flag);
         return this;
     }
@@ -451,13 +464,12 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the default 'shapes filled' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default shapes filled flag.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to fill shapes by default
      * @see #getDefaultShapesFilled()
      */
-    public LineAndShapeRenderer defaultShapesFilled(boolean flag) {
+    public LineAndShapeRenderer withDefaultShapesFilled(boolean flag) {
         this.defaultShapesFilled = flag;
         fireChangeEvent();
         return this;
@@ -489,14 +501,12 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the flag that controls whether the fill paint is used to fill
-     * shapes, and sends a {@link RendererChangeEvent} to all
-     * registered listeners.
+     * Sets whether the fill paint is used to fill shapes.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to use the fill paint.
      * @see #getUseFillPaint()
      */
-    public LineAndShapeRenderer useFillPaint(boolean flag) {
+    public LineAndShapeRenderer withUseFillPaint(boolean flag) {
         setUseFillPaint(flag);
         return this;
     }
@@ -526,14 +536,13 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the flag that controls whether the x-position for each
-     * data item is offset within its category according to the series, and
-     * sends a {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether the x-position for each data item is offset
+     * within its category according to the series.
      *
      * @param offset the offset.
      * @see #getUseSeriesOffset()
      */
-    public LineAndShapeRenderer useSeriesOffset(boolean offset) {
+    public LineAndShapeRenderer withUseSeriesOffset(boolean offset) {
         setUseSeriesOffset(offset);
         return this;
     }
@@ -862,11 +871,12 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the shape of a given series.
+     * Sets the shape for a specific series.
      *
-     * @param shape the shape.
+     * @param series the series index (zero‑based)
+     * @param shape  the shape ({@code null} permitted)
      */
-    public LineAndShapeRenderer seriesShape(int series, @Nullable Shape shape) {
+    public LineAndShapeRenderer withSeriesShape(int series, @Nullable Shape shape) {
         setSeriesShape(series, shape);
         return this;
     }
@@ -914,7 +924,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * @param series the series index (zero-based).
      * @param stroke the stroke.
      */
-    public LineAndShapeRenderer seriesOutlineStroke(int series, @Nullable Stroke stroke) {
+    public LineAndShapeRenderer withSeriesOutlineStroke(int series, @Nullable Stroke stroke) {
         setSeriesOutlineStroke(series, stroke);
         return this;
     }
@@ -939,8 +949,40 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
      * @param stroke the stroke ({@code null} permitted).
      * @see #getSeriesStroke(int)
      */
-    public LineAndShapeRenderer seriesStroke(int series, Stroke stroke) {
+    public LineAndShapeRenderer withSeriesStroke(int series, Stroke stroke) {
         setSeriesStroke(series, stroke);
+        return this;
+    }
+
+    /**
+     * Sets the line width for a series, preserving the existing stroke’s
+     * other attributes (cap, join, dash pattern, etc.).
+     *
+     * @param series the series index (zero‑based)
+     * @param width  the new line width
+     */
+    public LineAndShapeRenderer withSeriesStrokeWidth(int series, float width) {
+        Stroke seriesStroke = getSeriesStroke(series);
+        if (seriesStroke == null) {
+            setSeriesStroke(series, new BasicStroke(width));
+        } else {
+            BasicStroke stroke = (BasicStroke) seriesStroke;
+            setSeriesStroke(series, new BasicStroke(width, stroke.getEndCap(),
+                    stroke.getLineJoin(), stroke.getMiterLimit(),
+                    stroke.getDashArray(), stroke.getDashPhase()));
+        }
+        return this;
+    }
+
+    /**
+     * Sets whether the series shape list is automatically populated
+     * when {@link #lookupSeriesShape(int)} is called.
+     *
+     * @param auto the new flag value.
+     * @see #getAutoPopulateSeriesShape()
+     */
+    public LineAndShapeRenderer withAutoPopulateSeriesShape(boolean auto) {
+        setAutoPopulateSeriesShape(auto);
         return this;
     }
 }

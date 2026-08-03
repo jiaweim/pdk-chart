@@ -1,13 +1,10 @@
 package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
-import pdk.chart.Chart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
-import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -23,65 +20,44 @@ public class AxisOffsetsDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static CategoryDataset createDataset() {
-        String series1 = "S1";
-        String series2 = "S2";
-        String series3 = "S3";
-        String category1 = "C1";
-        String category2 = "C2";
-        String category3 = "C3";
-        String category4 = "C4";
-        String category5 = "C5";
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(1.0F, series1, category1);
-        dataset.addValue(4.0F, series1, category2);
-        dataset.addValue(3.0F, series1, category3);
-        dataset.addValue(5.0F, series1, category4);
-        dataset.addValue(5.0F, series1, category5);
-        dataset.addValue(5.0F, series2, category1);
-        dataset.addValue(7.0F, series2, category2);
-        dataset.addValue(6.0F, series2, category3);
-        dataset.addValue(8.0F, series2, category4);
-        dataset.addValue(4.0F, series2, category5);
-        dataset.addValue(4.0F, series3, category1);
-        dataset.addValue(3.0F, series3, category2);
-        dataset.addValue(2.0F, series3, category3);
-        dataset.addValue(3.0F, series3, category4);
-        dataset.addValue(6.0F, series3, category5);
+    private static CategoryDataset<String, String> createDataset() {
+        String[] categories = new String[]{"C1", "C2", "C3", "C4", "C5"};
+        DefaultCategoryDataset<String, String> dataset = new DefaultCategoryDataset<>();
+        dataset.addSeries("S1", categories, new double[]{1.0, 4.0, 3.0, 5.0, 5.0});
+        dataset.addSeries("S2", categories, new double[]{5.0, 7.0, 6.0, 8.0, 4.0});
+        dataset.addSeries("S3", categories, new double[]{4.0, 3.0, 2.0, 3.0, 6.0});
+
         return dataset;
     }
 
-    private static Chart createChart(String title, CategoryDataset dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Value", title);
+    private static CategoryBarChart createChart(String title, CategoryDataset dataset) {
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value", title);
         chart.removeLegend();
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        plot.setDomainGridlinesVisible(true);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setDrawBarOutline(false);
-        GradientPaint gp0 = new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64));
-        GradientPaint gp1 = new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0));
-        GradientPaint gp2 = new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0));
-        renderer.setSeriesPaint(0, gp0);
-        renderer.setSeriesPaint(1, gp1);
-        renderer.setSeriesPaint(2, gp2);
+        chart.setDomainGridlinesVisible(true);
+
+        chart.getRangeAxisAsNumber()
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getRenderer().withDrawBarOutline(false)
+                .withSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
+                .withSeriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
+                .withSeriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
+
         return chart;
     }
 
     public static JPanel createDemoPanel() {
-        Chart chart1 = createChart("Axis Offsets: 0", createDataset());
-        CategoryPlot plot1 = (CategoryPlot) chart1.getPlot();
-        plot1.setAxisOffset(RectangleInsets.ZERO_INSETS);
+        CategoryBarChart chart1 = createChart("Axis Offsets: 0", createDataset());
+        chart1.setAxisOffset(RectangleInsets.ZERO_INSETS);
         ChartPanel panel1 = new ChartPanel(chart1);
         panel1.setMinimumDrawWidth(0);
         panel1.setMinimumDrawHeight(0);
-        Chart chart2 = createChart("Axis Offsets: 5", createDataset());
+
+        CategoryBarChart chart2 = createChart("Axis Offsets: 5", createDataset());
         ChartPanel panel2 = new ChartPanel(chart2);
         panel2.setMinimumDrawWidth(0);
         panel2.setMinimumDrawHeight(0);
-        CategoryPlot plot2 = (CategoryPlot) chart2.getPlot();
-        plot2.setAxisOffset(new RectangleInsets(5.0));
+        chart2.setAxisOffset(new RectangleInsets(5.0));
+
         DemoPanel demoPanel = new DemoPanel(new GridLayout(2, 1));
         demoPanel.add(panel1);
         demoPanel.add(panel2);

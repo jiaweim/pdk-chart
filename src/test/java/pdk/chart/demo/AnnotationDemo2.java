@@ -71,11 +71,11 @@ public class AnnotationDemo2 extends ApplicationFrame {
 
         chart.setPannable(true, true);
 
-        NumberAxis axis1 = (NumberAxis) chart.getRangeAxis();
-        axis1.setAutoRangeIncludesZero(false);
+        chart.getRangeAxisAsNumber()
+                .withAutoRangeIncludesZero(false);
 
-        NumberAxis axis2 = new NumberAxis("Secondary");
-        axis2.setAutoRangeIncludesZero(false);
+        NumberAxis axis2 = new NumberAxis("Secondary")
+                .withAutoRangeIncludesZero(false);
 
         chart.addRangeAxis(axis2);
         chart.setDataset(1, createDataset2());

@@ -4,7 +4,6 @@ import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
@@ -14,17 +13,22 @@ import pdk.chart.urls.StandardXYURLGenerator;
 import java.util.Objects;
 
 /**
- * XY line chart implementation.
- *
+ * An XY line chart implementation.
  * <p>
  * By default:
  * <ul>
- *     <li>lines are visible</li>
- *     <li>shapes are hidden</li>
+ *   <li>lines are visible</li>
+ *   <li>shapes are hidden</li>
  * </ul>
+ * <p>
+ * The domain and range axes can be configured via {@link AxisType}
+ * to support numeric, date, or other value axes.
+ * Tool‑tips and URL generation are optional.
  *
  * @author Jiawei Mao
  * @version 1.0.0
+ * @see XYLineAndShapeRenderer
+ * @see XYChart
  * @since 31 Jul 2026, 2:23 PM
  */
 public class LineChart extends XYChart {
@@ -33,6 +37,13 @@ public class LineChart extends XYChart {
     protected ValueAxis xAxis_;
     protected ValueAxis yAxis_;
 
+    /**
+     * Creates a new empty line chart with the given title and legend flag.
+     * No dataset or axes are attached initially.
+     *
+     * @param title        the chart title ({@code null} permitted)
+     * @param createLegend whether to display a legend
+     */
     public LineChart(String title, boolean createLegend) {
         super(title, createLegend);
     }
@@ -43,24 +54,24 @@ public class LineChart extends XYChart {
         renderer0_ = renderer1_;
     }
 
+    @Override
+    public XYLineAndShapeRenderer getRenderer() {
+        return renderer1_;
+    }
+
     /**
-     * Creates a line chart for displaying an {@link XYDataset}.
-     *
-     * <p>
-     * Lines are enabled by default and point shapes are disabled.
-     * The domain and range axes are automatically configured according
-     * to the supplied {@link AxisType}.
+     * Fully parameterised constructor.
      *
      * @param dataset     the data source ({@code null} permitted)
-     * @param xAxisLabel  the label for the domain axis
-     * @param xAxisType   the domain axis type ({@code null} not permitted)
-     * @param yAxisLabel  the label for the range axis
-     * @param yAxisType   the range axis type ({@code null} not permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the type of domain axis (must not be {@code null})
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param yAxisType   the type of range axis (must not be {@code null})
      * @param title       the chart title ({@code null} permitted)
-     * @param orientation the plot orientation ({@code null} not permitted)
-     * @param legend      whether to display a legend
-     * @param tooltips    whether to enable item tooltips
-     * @param urls        whether to enable item URLs
+     * @param orientation the plot orientation (must not be {@code null})
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
+     * @param urls        {@code true} to generate URLs for data points
      */
     public LineChart(XYDataset dataset,
             String xAxisLabel, AxisType xAxisType,
@@ -99,17 +110,18 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with the given axis types, but uses the
+     * default {@link AxisType#NUMBER} for the range axis.  URLs are
+     * disabled.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
+     * @param dataset     the data source ({@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param xAxisType   the domain axis type (must not be {@code null})
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation (must not be {@code null})
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
      */
     public LineChart(XYDataset dataset, String xAxisLabel, AxisType xAxisType,
             String yAxisLabel, String title,
@@ -119,13 +131,14 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with vertical orientation, legend enabled,
+     * tool‑tips disabled, and numeric range axis.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param dataset    the data source ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param xAxisType  the domain axis type (must not be {@code null})
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
      */
     public LineChart(XYDataset dataset, String xAxisLabel, AxisType xAxisType,
             String yAxisLabel, String title) {
@@ -134,12 +147,13 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with the given axis type, no title, and
+     * default settings (vertical orientation, legend on, tool‑tips off).
      *
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param dataset    the data source ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param xAxisType  the domain axis type (must not be {@code null})
+     * @param yAxisLabel the range axis label ({@code null} permitted)
      */
     public LineChart(XYDataset dataset, String xAxisLabel, AxisType xAxisType,
             String yAxisLabel) {
@@ -147,18 +161,16 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with numeric axes.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
+     * @param dataset     the data source ({@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation (must not be {@code null})
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
+     * @param urls        {@code true} to generate URLs for data points
      */
     public LineChart(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
@@ -167,17 +179,15 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with numeric axes, tool‑tips, and no URLs.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
+     * @param dataset     the data source ({@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation (must not be {@code null})
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
      */
     public LineChart(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips) {
@@ -186,13 +196,13 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with numeric axes, vertical orientation,
+     * legend and tool‑tips enabled, no URLs.
      *
-     * @param title      the chart title.
-     * @param xAxisLabel a label for the X-axis.
-     * @param yAxisLabel a label for the Y-axis.
-     * @param dataset    the dataset for the chart.
+     * @param dataset    the data source ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
      */
     public LineChart(XYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
         this(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL,
@@ -200,33 +210,37 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart with numeric axes, vertical orientation,
+     * legend and tool‑tips enabled, no title.
      *
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param dataset    the data source ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
      */
     public LineChart(XYDataset dataset, String xAxisLabel, String yAxisLabel) {
         this(dataset, xAxisLabel, yAxisLabel, null);
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart from an {@link XYDataset} with no axis
+     * labels and no title.  Vertical orientation, legend and tool‑tips
+     * are enabled.
      *
-     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @param dataset the data source ({@code null} permitted)
      */
     public LineChart(XYDataset dataset) {
         this(dataset, null, null);
     }
 
     /**
-     * Creates a line chart (based on an {@link XYDataset}) with default
-     * settings.
+     * Creates a line chart from two arrays of {@code double} values,
+     * with no axis labels or title.  Vertical orientation, legend off,
+     * tool‑tips on.
      *
-     * @param x x values.
-     * @param y y values.
+     * @param x the x-coordinates
+     * @param y the y-coordinates (must have the same length as {@code x})
+     * @throws IllegalArgumentException if {@code x} and {@code y} have
+     *                                  different lengths
      */
     public LineChart(double[] x, double[] y) {
         this(Data.createXY("", x, y), null, null, null,
@@ -234,102 +248,88 @@ public class LineChart extends XYChart {
     }
 
     /**
-     * Sets the flag that controls whether each series is drawn as a
-     * single path and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
+     * Sets whether each series is drawn as a single continuous path.
+     * When enabled, line rendering may be faster and smoother.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to draw as a single path
      */
     public void setDrawSeriesLineAsPath(boolean flag) {
         renderer1_.setDrawSeriesLineAsPath(flag);
     }
 
     /**
-     * Sets the flag that controls whether outlines are drawn for
-     * shapes, and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
+     * Sets whether shape outlines are drawn.
      * <p>
-     * In some cases, shapes look better if they do NOT have an outline, but
-     * this flag allows you to set your own preference.
+     * In many cases shapes look better without an outline; this flag
+     * allows you to override the default.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to draw outlines
      */
     public void setDrawOutlines(boolean flag) {
         renderer1_.setDrawOutlines(flag);
     }
 
     /**
-     * Sets the default 'lines visible' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default visibility for lines.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to show lines by default
      */
     public void setDefaultLinesVisible(boolean flag) {
         renderer1_.setDefaultLinesVisible(flag);
     }
 
     /**
-     * Sets the default 'shapes visible' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default visibility for point shapes.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to show shapes by default
      */
     public void setDefaultShapesVisible(boolean flag) {
         renderer1_.setDefaultShapesVisible(flag);
     }
 
     /**
-     * Sets the 'shapes visible' flag for a series and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the shapes visibility for a specific series.
      *
-     * @param series  the series index (zero-based).
-     * @param visible the flag.
+     * @param series  the series index (zero‑based)
+     * @param visible {@code true} to show shapes for the series
      */
     public void setSeriesShapesVisible(int series, boolean visible) {
         renderer1_.setSeriesShapesVisible(series, visible);
     }
 
     /**
-     * Sets the 'shapes filled' flag for a series and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether shapes for a series are filled.
      *
-     * @param series the series index (zero-based).
-     * @param flag   the flag.
+     * @param series the series index (zero‑based)
+     * @param flag   {@code true} to fill shapes, {@code false} for outline
+     *               only, or {@code null} to use the default
      */
     public void setSeriesShapesFilled(int series, Boolean flag) {
         renderer1_.setSeriesShapesFilled(series, flag);
     }
 
     /**
-     * Sets the flag that controls whether the fill paint is used to fill
-     * shapes, and sends a {@link RendererChangeEvent} to all
-     * registered listeners.
+     * Sets whether the fill paint is used to fill shapes.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to use the fill paint
      */
     public void setUseFillPaint(boolean flag) {
         renderer1_.setUseFillPaint(flag);
     }
 
     /**
-     * Sets the flag that controls whether the outline paint is used to draw
-     * shape outlines, and sends a {@link RendererChangeEvent} to all
-     * registered listeners.
-     * <p>
-     * Refer to {@code XYLineAndShapeRendererDemo2.java} to see the
-     * effect of this flag.
+     * Sets whether the outline paint is used to draw shape outlines.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to use the outline paint
      */
     public void setUseOutlinePaint(boolean flag) {
         renderer1_.setUseOutlinePaint(flag);
     }
 
     /**
-     * Sets the default 'shapes filled' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default shapes‑filled flag.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to fill shapes by default
      */
     public void setDefaultShapesFilled(boolean flag) {
         renderer1_.setDefaultShapesFilled(flag);

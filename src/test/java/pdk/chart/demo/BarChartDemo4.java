@@ -45,9 +45,9 @@ public class BarChartDemo4 extends ApplicationFrame {
 
         CategoryPlot plot = chart.getCategoryPlot();
         plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .maximumBarWidth(0.1)
-                .legendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));
+                .withDrawBarOutline(false)
+                .withMaximumBarWidth(0.1)
+                .withLegendItemLabelGenerator(new StandardCategorySeriesLabelGenerator("{0} series"));
         return chart;
     }
 

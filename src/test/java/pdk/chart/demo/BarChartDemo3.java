@@ -61,9 +61,9 @@ public class BarChartDemo3 extends ApplicationFrame {
                 new Color(19, 97, 100)
         };
         CustomRenderer renderer = new CustomRenderer(customColours);
-        renderer.defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
-                .defaultItemLabelsVisible(true)
-                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER,
+        renderer.withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
+                .withDefaultItemLabelsVisible(true)
+                .withDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER,
                         TextAnchor.CENTER, TextAnchor.CENTER, 0.0));
         plot.setRenderer(renderer);
 
@@ -77,9 +77,9 @@ public class BarChartDemo3 extends ApplicationFrame {
         plot.addDomainMarker(marker, Layer.BACKGROUND);
 
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .lowerMargin(0.15)
-                .upperMargin(0.15);
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
+                .withLowerMargin(0.15)
+                .withUpperMargin(0.15);
 
         NumberAxis rangeAxis2 = new NumberAxis(null);
         rangeAxis2.setStandardTickUnits(NumberAxis.createIntegerTickUnits());

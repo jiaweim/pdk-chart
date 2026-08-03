@@ -52,7 +52,7 @@ public class XYAreaRenderer2Demo1 extends ApplicationFrame {
     private static Chart createChart(XYDataset dataset) {
         AreaChart chart = new AreaChart(dataset, "Domain (X)", "Range (Y)",
                 "XYAreaRenderer2Demo1");
-        chart.setForegroundAlpha(0.65F);
+        chart.setPlotForegroundAlpha(0.65F);
         chart.setRenderer(new XYAreaRenderer2());
 
         ValueAxis xAxis = chart.getDomainAxis();

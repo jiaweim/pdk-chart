@@ -8,6 +8,7 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.api.SortOrder;
 import pdk.chart.axis.*;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.CategoryItemLabelGenerator;
@@ -15,6 +16,7 @@ import pdk.chart.labels.CategoryToolTipGenerator;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.plot.*;
+import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.*;
 import pdk.chart.text.TextAnchor;
 
@@ -30,25 +32,61 @@ import java.util.Objects;
  */
 public class CategoryChart extends Chart {
 
-    public enum ChartType {
+    public enum Type {
         LINE,
+        STAT_LINE,
         AREA,
+        STACKED_AREA,
         BAR,
-        BOX;
+        STACKED_BAR,
+        INTERVAL_BAR,
+        LAYERED_BAR,
+        STAT_BAR,
+        WATERFALL_BAR,
+        BOX,
+        GANTT;
 
-        public CategoryItemRenderer createRenderer() {
+        public CategoryItemRenderer getRenderer() {
             switch (this) {
                 case LINE -> {
                     return new LineAndShapeRenderer(true, false);
                 }
+                case STAT_LINE -> {
+                    return new StatisticalLineAndShapeRenderer(true, false);
+                }
                 case AREA -> {
-                    return new AreaRenderer();
+                    AreaRenderer renderer = new AreaRenderer();
+                    renderer.setEndType(AreaRendererEndType.LEVEL);
+                    return renderer;
+                }
+                case STACKED_AREA -> {
+                    return new StackedAreaRenderer();
                 }
                 case BAR -> {
-                    return new BarRenderer();
+                    BarRenderer barRenderer = new BarRenderer();
+                    barRenderer.setShadowVisible(false);
+                    return barRenderer;
+                }
+                case INTERVAL_BAR -> {
+                    return new IntervalBarRenderer();
+                }
+                case LAYERED_BAR -> {
+                    return new LayeredBarRenderer();
+                }
+                case STACKED_BAR -> {
+                    return new StackedBarRenderer();
+                }
+                case STAT_BAR -> {
+                    return new StatisticalBarRenderer();
+                }
+                case WATERFALL_BAR -> {
+                    return new WaterfallBarRenderer();
                 }
                 case BOX -> {
                     return new BoxAndWhiskerRenderer();
+                }
+                case GANTT -> {
+                    return new GanttRenderer();
                 }
                 default -> {
                     throw new IllegalStateException("Unexpected value: " + this);
@@ -73,6 +111,19 @@ public class CategoryChart extends Chart {
         initRenderer();
     }
 
+
+    /**
+     * Sets the paint used to fill the chart background and sends a
+     * {@link ChartChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getBackgroundPaint()
+     */
+    public CategoryChart withBackgroundPaint(Paint paint) {
+        setBackgroundPaint(paint);
+        return this;
+    }
+
     /**
      * Sets the row order in which the items in each dataset should be
      * rendered and sends a {@link PlotChangeEvent} to all registered
@@ -83,6 +134,19 @@ public class CategoryChart extends Chart {
      */
     public void setRowRenderingOrder(SortOrder order) {
         plot_.setRowRenderingOrder(order);
+    }
+
+    /**
+     * Sets the row order in which the items in each dataset should be
+     * rendered and sends a {@link PlotChangeEvent} to all registered
+     * listeners.  Note that this affects the order in which items are drawn,
+     * NOT their position in the chart.
+     *
+     * @param order the order ({@code null} not permitted).
+     */
+    public CategoryChart withRowRenderingOrder(SortOrder order) {
+        plot_.setRowRenderingOrder(order);
+        return this;
     }
 
     /**
@@ -105,6 +169,18 @@ public class CategoryChart extends Chart {
      */
     public void setDomainAxis(CategoryAxis axis) {
         plot_.setDomainAxis(axis);
+    }
+
+    /**
+     * Sets the domain axis for the plot and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param axis the axis ({@code null} permitted).
+     * @see #getDomainAxis()
+     */
+    public CategoryChart withDomainAxis(CategoryAxis axis) {
+        plot_.setDomainAxis(axis);
+        return this;
     }
 
     /**
@@ -147,12 +223,33 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Sets the flag that enables or disables panning of the plot along
+     * the range axes.
+     *
+     * @param pannable the new flag value.
+     */
+    public CategoryChart withRangePannable(boolean pannable) {
+        plot_.setRangePannable(pannable);
+        return this;
+    }
+
+    /**
      * Sets the orientation for the plot.
      *
      * @param orientation the orientation ({@code null} not permitted).
      */
     public void setOrientation(PlotOrientation orientation) {
         plot_.setOrientation(orientation);
+    }
+
+    /**
+     * Sets the orientation for the plot.
+     *
+     * @param orientation the orientation ({@code null} not permitted).
+     */
+    public CategoryChart withOrientation(PlotOrientation orientation) {
+        plot_.setOrientation(orientation);
+        return this;
     }
 
     /**
@@ -298,10 +395,10 @@ public class CategoryChart extends Chart {
         plot_.setDataset(index, dataset);
     }
 
-    public void setDataset(int index, CategoryDataset dataset, ChartType chartType) {
-        Objects.requireNonNull(chartType);
+    public void setDataset(int index, CategoryDataset dataset, Type type) {
+        Objects.requireNonNull(type);
         plot_.setDataset(index, dataset);
-        CategoryItemRenderer renderer = chartType.createRenderer();
+        CategoryItemRenderer renderer = type.getRenderer();
         plot_.setRenderer(index, renderer);
     }
 
@@ -315,7 +412,6 @@ public class CategoryChart extends Chart {
     public void setRenderer(CategoryItemRenderer renderer) {
         plot_.setRenderer(renderer);
     }
-
 
     /**
      * Sets the renderer to use for the dataset with the specified index and
@@ -419,6 +515,20 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Sets the flag that controls whether grid-lines are drawn against
+     * the domain axis. That is, whether to draw grid lines perpendicular to the domain axis.
+     * <p>
+     * If the flag value changes, a {@link PlotChangeEvent} is sent to all
+     * registered listeners.
+     *
+     * @param visible the new value of the flag.
+     */
+    public CategoryChart withDomainGridlinesVisible(boolean visible) {
+        plot_.setDomainGridlinesVisible(visible);
+        return this;
+    }
+
+    /**
      * Sets the paint used to draw the grid lines against the range axis and
      * sends a {@link PlotChangeEvent} to all registered listeners.
      *
@@ -426,6 +536,38 @@ public class CategoryChart extends Chart {
      */
     public void setRangeGridlinePaint(@NonNull Paint paint) {
         plot_.setRangeGridlinePaint(paint);
+    }
+
+    /**
+     * Sets the paint used to draw the grid lines against the range axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint.
+     */
+    public CategoryChart withRangeGridlinePaint(@NonNull Paint paint) {
+        plot_.setRangeGridlinePaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the stroke used to draw the grid-lines against the range axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke.
+     */
+    public void setRangeGridlineStroke(@NonNull Stroke stroke) {
+        plot_.setRangeGridlineStroke(stroke);
+    }
+
+    /**
+     * Sets the stroke used to draw the grid-lines against the range axis and
+     * sends a {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param stroke the stroke.
+     */
+    public CategoryChart withRangeGridlineStroke(@NonNull Stroke stroke) {
+        plot_.setRangeGridlineStroke(stroke);
+        return this;
     }
 
     /**
@@ -440,6 +582,18 @@ public class CategoryChart extends Chart {
     }
 
     /**
+     * Sets the flag that controls whether grid-lines are drawn against
+     * the range axis.  If the flag changes value, a {@link PlotChangeEvent} is
+     * sent to all registered listeners.
+     *
+     * @param visible the new value of the flag.
+     */
+    public CategoryChart withRangeGridlinesVisible(boolean visible) {
+        plot_.setRangeGridlinesVisible(visible);
+        return this;
+    }
+
+    /**
      * Sets the flag that controls whether the zero baseline is
      * displayed for the range axis, and sends a {@link PlotChangeEvent} to
      * all registered listeners.
@@ -448,6 +602,18 @@ public class CategoryChart extends Chart {
      */
     public void setRangeZeroBaselineVisible(boolean visible) {
         plot_.setRangeZeroBaselineVisible(visible);
+    }
+
+    /**
+     * Sets the flag that controls whether the zero baseline is
+     * displayed for the range axis, and sends a {@link PlotChangeEvent} to
+     * all registered listeners.
+     *
+     * @param visible the flag.
+     */
+    public CategoryChart withRangeZeroBaselineVisible(boolean visible) {
+        plot_.setRangeZeroBaselineVisible(visible);
+        return this;
     }
 
     /**
@@ -503,13 +669,22 @@ public class CategoryChart extends Chart {
     }
 
     /**
-     * Sets the axis offsets (gap between the data area and the axes) and
-     * sends a {@link PlotChangeEvent} to all registered listeners.
+     * Sets the axis offsets (gap between the data area and the axes).
      *
      * @param offset the offset ({@code null} not permitted).
      */
     public void setAxisOffset(RectangleInsets offset) {
         plot_.setAxisOffset(offset);
+    }
+
+    /**
+     * Sets the axis offsets (gap between the data area and the axes).
+     *
+     * @param offset the offset ({@code null} not permitted).
+     */
+    public CategoryChart withAxisOffset(RectangleInsets offset) {
+        plot_.setAxisOffset(offset);
+        return this;
     }
 
     /**
@@ -532,10 +707,94 @@ public class CategoryChart extends Chart {
      * @see #setDomainAxisLocation(AxisLocation)
      */
     public void setRangeAxisLocation(AxisLocation location) {
-        // defer argument checking...
-        plot_.setRangeAxisLocation(location, true);
+        plot_.setRangeAxisLocation(location);
     }
 
+
+    /**
+     * Sets the location of the range axis and sends a {@link PlotChangeEvent}
+     * to all registered listeners.
+     *
+     * @param location the location ({@code null} not permitted).
+     * @see #setDomainAxisLocation(AxisLocation)
+     */
+    public CategoryChart withRangeAxisLocation(AxisLocation location) {
+        plot_.setRangeAxisLocation(location);
+        return this;
+    }
+
+    /**
+     * Sets the background color of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getBackgroundPaint()
+     */
+    public CategoryChart withPlotBackgroundPaint(Paint paint) {
+        setPlotBackgroundPaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the insets for the plot and, if requested,  and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     * <p>
+     * Used to control the padding between the chart's plot area and its outer border,
+     * i.e., to add or remove blank space around the plot area.
+     *
+     * @param insets the new insets ({@code null} not permitted).
+     */
+    public CategoryChart withPlotInsets(RectangleInsets insets) {
+        plot_.setInsets(insets);
+        return this;
+    }
+
+    /**
+     * Sets the paint used to draw the outline of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.  If you set this
+     * attribute to {@code null}, no outline will be drawn.
+     *
+     * @param paint the paint ({@code null} permitted).
+     */
+    public CategoryChart withPlotOutlinePaint(Paint paint) {
+        plot_.setOutlinePaint(paint);
+        return this;
+    }
+
+    /**
+     * Sets the message that is displayed when the dataset is empty or
+     * {@code null}, and sends a {@link PlotChangeEvent} to all registered
+     * listeners.
+     *
+     * @param message the message ({@code null} permitted).
+     */
+    public CategoryChart withNoDataMessage(String message) {
+        setNoDataMessage(message);
+        return this;
+    }
+
+    /**
+     * Sets the alpha-transparency for the plot and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param alpha the new alpha transparency.
+     */
+    public CategoryChart withPlotForegroundAlpha(float alpha) {
+        plot_.setForegroundAlpha(alpha);
+        return this;
+    }
+
+    /**
+     * Sets the paint used to draw the outline of the plot area and sends a
+     * {@link PlotChangeEvent} to all registered listeners.  If you set this
+     * attribute to {@code null}, no outline will be drawn.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getOutlinePaint()
+     */
+    public void setPlotOutlinePaint(Paint paint) {
+        plot_.setOutlinePaint(paint);
+    }
 
     /**
      * Sets the default positive item label position.
@@ -568,7 +827,6 @@ public class CategoryChart extends Chart {
     public void setItemPaint(int row, int column, Paint paint) {
         renderer0_.setItemPaint(row, column, paint);
     }
-
 
     /**
      * Sets the default tool tip generator and sends a {@link RendererChangeEvent}

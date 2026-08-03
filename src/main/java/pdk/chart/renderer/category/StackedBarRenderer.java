@@ -103,6 +103,20 @@ public class StackedBarRenderer extends BarRenderer
     }
 
     /**
+     * Sets the flag that controls whether the renderer displays each item
+     * value as a percentage (so that the stacked bars add to 100%), and sends
+     * a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param asPercentages the flag.
+     * @see #getRenderAsPercentages()
+     */
+    public StackedBarRenderer withRenderAsPercentages(boolean asPercentages) {
+        this.renderAsPercentages = asPercentages;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Updates the map used to assign each series to a group, and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
@@ -111,6 +125,18 @@ public class StackedBarRenderer extends BarRenderer
     public void setSeriesToGroupMap(KeyToGroupMap map) {
         this.seriesToGroupMap = map;
         fireChangeEvent();
+    }
+
+    /**
+     * Updates the map used to assign each series to a group, and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param map the map ({@code null} not permitted).
+     */
+    public StackedBarRenderer withSeriesToGroupMap(KeyToGroupMap map) {
+        this.seriesToGroupMap = map;
+        fireChangeEvent();
+        return this;
     }
 
     /**

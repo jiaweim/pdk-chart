@@ -7,7 +7,6 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Marker;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.ValueMarker;
@@ -18,7 +17,14 @@ import pdk.chart.urls.StandardCategoryURLGenerator;
 import java.awt.*;
 
 /**
- *
+ * A waterfall chart, useful for showing the cumulative effect of
+ * sequentially introduced positive or negative values.
+ * <p>
+ * The chart uses a {@link WaterfallBarRenderer} and automatically adds a
+ * baseline marker at zero.  Item label positions are centred and rotated
+ * for horizontal orientation.
+ * <p>
+ * Tool‑tips and URLs can be enabled via constructor flags.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -35,30 +41,29 @@ public class CategoryWaterfallChart extends CategoryBarChart {
         renderer1_ = renderer2_;
     }
 
+    @Override
+    public WaterfallBarRenderer getRenderer() {
+        return renderer2_;
+    }
+
     /**
-     * Creates a waterfall chart.  The chart object returned by this method
-     * uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link WaterfallBarRenderer} as the renderer.
+     * Full constructor.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} NOT permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
-     * @param urls              configure chart to generate URLs?
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the label for the category axis ({@code null} permitted)
+     * @param valueAxisLabel    the label for the value axis ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not permitted)
+     * @param legend            {@code true} to include a legend
+     * @param tooltips          {@code true} to enable standard tool‑tips
+     * @param urls              {@code true} to generate URLs for data points
      */
     public CategoryWaterfallChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
-        xAxis_ = new CategoryAxis(categoryAxisLabel);
+        CategoryAxis xAxis_ = new CategoryAxis(categoryAxisLabel);
         xAxis_.setCategoryMargin(0.0);
-        yAxis_ = new NumberAxis(valueAxisLabel);
+        NumberAxis yAxis_ = new NumberAxis(valueAxisLabel);
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position = new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER, TextAnchor.CENTER, Math.PI / 2.0);
@@ -79,7 +84,7 @@ public class CategoryWaterfallChart extends CategoryBarChart {
 
         plot_.setDomainAxis(xAxis_);
         plot_.setRangeAxis(yAxis_);
-        plot_.setRenderer(renderer1_);
+        plot_.setRenderer(renderer2_);
         plot_.setDataset(dataset);
         plot_.clearRangeMarkers();
         Marker baseline = new ValueMarker(0.0);
@@ -91,21 +96,16 @@ public class CategoryWaterfallChart extends CategoryBarChart {
     }
 
     /**
-     * Creates a waterfall chart.  The chart object returned by this method
-     * uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link WaterfallBarRenderer} as the renderer.
+     * Creates a waterfall chart with the given parameters; URLs are
+     * disabled.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} NOT permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the label for the category axis ({@code null} permitted)
+     * @param valueAxisLabel    the label for the value axis ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not permitted)
+     * @param legend            {@code true} to include a legend
+     * @param tooltips          {@code true} to enable standard tool‑tips
      */
     public CategoryWaterfallChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips) {

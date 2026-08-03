@@ -1261,7 +1261,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
         this.backgroundPaint = SerialUtils.readPaint(stream);
 
         this.listenerList = new EventListenerList();
-
     }
 
     /**
@@ -1368,7 +1367,6 @@ public abstract class Plot implements ChartElement, AxisChangeListener,
             throw new IllegalStateException("resolveRangeAxisLocation()");
         }
         return result;
-
     }
 
 }

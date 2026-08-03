@@ -41,7 +41,7 @@ public class ScatterPlotDemo3 extends ApplicationFrame {
                 .domainPannable(true)
                 .rangePannable(true);
         plot.getDomainAxisAsNumber()
-                .autoRangeIncludesZero(false);
+                .withAutoRangeIncludesZero(false);
 
         return chart;
     }

@@ -2,18 +2,25 @@ package pdk.chart;
 
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.TableXYDataset;
-import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.StackedXYAreaRenderer2;
 import pdk.chart.urls.StandardXYURLGenerator;
 
 import java.util.Objects;
 
 /**
- *
+ * A stacked area chart backed by a {@link TableXYDataset}.
+ * <p>
+ * Each series is drawn as a filled area, stacked on top of the previous
+ * series, using a {@link StackedXYAreaRenderer2} with outlines enabled.
+ * The domain and range axes are {@link NumberAxis} instances; the domain
+ * axis margins are set to zero so that the area fills the entire width of
+ * the data.
+ * <p>
+ * <b>Note:</b> The renderer requires a {@link TableXYDataset} because it
+ * needs access to the series items in table format to compute the stacking.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -25,21 +32,30 @@ public class StackedAreaChart extends XYChart {
     private NumberAxis yAxis_;
     private StackedXYAreaRenderer2 renderer1_;
 
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new StackedXYAreaRenderer2();
+        renderer1_.setDrawOutline(true);
+        renderer0_ = renderer1_;
+    }
+
+    @Override
+    public StackedXYAreaRenderer2 getRenderer() {
+        return renderer1_;
+    }
+
     /**
-     * Creates a stacked XY area plot.  The chart object returned by this
-     * method uses an {@link XYPlot} instance as the plot, with a
-     * {@link NumberAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link StackedXYAreaRenderer2} as the renderer.
+     * Full constructor.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
+     * @param dataset     the dataset (must be a {@link TableXYDataset};
+     *                    {@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
+     * @param urls        {@code true} to generate URLs for data points
      */
     public StackedAreaChart(TableXYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
@@ -50,10 +66,6 @@ public class StackedAreaChart extends XYChart {
         xAxis_.setLowerMargin(0.0);
         xAxis_.setUpperMargin(0.0);
         yAxis_ = new NumberAxis(yAxisLabel);
-
-        renderer1_ = new StackedXYAreaRenderer2();
-        renderer1_.setDrawOutline(true);
-        renderer0_ = renderer1_;
 
         if (tooltips) {
             XYToolTipGenerator toolTipGenerator = new StandardXYToolTipGenerator();
@@ -73,19 +85,16 @@ public class StackedAreaChart extends XYChart {
     }
 
     /**
-     * Creates a stacked XY area plot.  The chart object returned by this
-     * method uses an {@link XYPlot} instance as the plot, with a
-     * {@link NumberAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link StackedXYAreaRenderer2} as the renderer.
+     * Creates a stacked area chart with the given parameters; URLs are
+     * disabled.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel  a label for the Y-axis ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the plot orientation (horizontal or vertical)
-     *                    ({@code null} NOT permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
+     * @param dataset     the dataset ({@code null} permitted)
+     * @param xAxisLabel  the domain axis label ({@code null} permitted)
+     * @param yAxisLabel  the range axis label ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
      */
     public StackedAreaChart(TableXYDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             PlotOrientation orientation, boolean legend, boolean tooltips) {
@@ -93,15 +102,13 @@ public class StackedAreaChart extends XYChart {
     }
 
     /**
-     * Creates a stacked XY area plot.  The chart object returned by this
-     * method uses an {@link XYPlot} instance as the plot, with a
-     * {@link NumberAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link StackedXYAreaRenderer2} as the renderer.
+     * Convenience constructor with vertical orientation, legend and
+     * tooltips enabled, and no URLs.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the X-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the Y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
+     * @param dataset    the dataset ({@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
      */
     public StackedAreaChart(TableXYDataset dataset, String xAxisLabel, String yAxisLabel, String title) {
         this(dataset, xAxisLabel, yAxisLabel, title,
@@ -109,13 +116,13 @@ public class StackedAreaChart extends XYChart {
     }
 
 
-
     /**
-     * Sets the flag that controls whether the x-coordinates (in
-     * Java2D space) are rounded to integer values, and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether the x‑coordinates (in Java2D space) are rounded to
+     * integer values.
+     * <p>
+     * This may improve rendering performance or crispness in some cases.
      *
-     * @param round the new flag value.
+     * @param round {@code true} to round x‑coordinates
      */
     public void setRoundXCoordinates(boolean round) {
         renderer1_.setRoundXCoordinates(round);

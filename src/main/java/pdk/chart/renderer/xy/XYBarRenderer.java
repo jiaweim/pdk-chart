@@ -311,6 +311,25 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the percentage amount by which the bars are trimmed and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     * <p>
+     * The margin of XYBarRenderer is a percentage value acting on the X-axis data range.
+     * It deducts the same proportion of space from both left and right sides of the theoretical bar width,
+     * reducing the actual drawn bar width and generating gaps between adjacent bars.
+     * The formula: actualBarWidth = totalIntervalWidth * (1 - 2 * margin).
+     * Range: 0.0 ~ 0.5.
+     *
+     * @param margin the new margin.
+     * @see #getMargin()
+     */
+    public XYBarRenderer margin(double margin) {
+        this.margin = margin;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns a flag that controls whether bar outlines are drawn.
      *
      * @return A boolean.

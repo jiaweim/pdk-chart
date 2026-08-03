@@ -39,15 +39,15 @@ public class BarChartDemo10 extends ApplicationFrame {
         plot.domainGridlinesVisible(true);
 
         plot.getDomainAxis()
-                .categoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions((Math.PI / 6)));
+                .withCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions((Math.PI / 6)));
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
-                .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
-                .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
+                .withDrawBarOutline(false)
+                .withSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
+                .withSeriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
+                .withSeriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
 
         return chart;
     }

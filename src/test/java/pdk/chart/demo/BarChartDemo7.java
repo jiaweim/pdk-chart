@@ -68,17 +68,17 @@ public class BarChartDemo7 extends ApplicationFrame {
         plot.addRangeMarker(target, Layer.BACKGROUND);
 
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
         plot.getDomainAxis()
-                .categoryLabelPositions(CategoryLabelPositions.UP_90);
+                .withCategoryLabelPositions(CategoryLabelPositions.UP_90);
 
         plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .itemMargin(0.1)
-                .defaultItemLabelGenerator(new LabelGenerator())
-                .defaultItemLabelsVisible(true)
-                .defaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE12, TextAnchor.CENTER_RIGHT, TextAnchor.CENTER_RIGHT, (-Math.PI / 2)))
-                .positiveItemLabelPositionFallback(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.CENTER_LEFT, TextAnchor.CENTER_LEFT, (-Math.PI / 2)));
+                .withDrawBarOutline(false)
+                .withItemMargin(0.1)
+                .withDefaultItemLabelGenerator(new LabelGenerator())
+                .withDefaultItemLabelsVisible(true)
+                .withDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE12, TextAnchor.CENTER_RIGHT, TextAnchor.CENTER_RIGHT, (-Math.PI / 2)))
+                .withPositiveItemLabelPositionFallback(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.CENTER_LEFT, TextAnchor.CENTER_LEFT, (-Math.PI / 2)));
 
         return chart;
     }

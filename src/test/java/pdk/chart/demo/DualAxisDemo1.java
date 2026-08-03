@@ -1,6 +1,9 @@
 package pdk.chart.demo;
 
-import pdk.chart.*;
+import pdk.chart.CategoryBarChart;
+import pdk.chart.CategoryChart;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
@@ -68,16 +71,16 @@ public class DualAxisDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart() {
-        Chart chart = new CategoryBarChart(createDataset1(), "Category", "Value", "DualAxisDemo1");
+        CategoryBarChart chart = new CategoryBarChart(createDataset1(), "Category", "Value", "DualAxisDemo1");
         chart.removeLegend();
 
         CategoryPlot plot = chart.getCategoryPlot();
 
-        plot.setDataset(1, createDataset2(), CategoryChartType.LINE);
+        chart.setDataset(1, createDataset2(), CategoryChart.Type.LINE);
         plot.setRangeAxis(1, new NumberAxis("Secondary"));
 
         plot.mapDatasetToRangeAxis(1, 1);
-        plot.getDomainAxis().categoryLabelPositions(CategoryLabelPositions.DOWN_45);
+        plot.getDomainAxis().withCategoryLabelPositions(CategoryLabelPositions.DOWN_45);
 
         plot.getLineAndShapeRenderer(1)
                 .setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());

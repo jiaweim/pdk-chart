@@ -39,6 +39,23 @@ public class ScatterChart extends XYChart {
      */
     private XYLineAndShapeRenderer renderer1_;
 
+    @Override
+    protected void initRenderer() {
+        super.initRenderer();
+        renderer1_ = new XYLineAndShapeRenderer(false, true);
+        renderer0_ = renderer1_;
+    }
+
+    /**
+     * Returns the internal {@link XYLineAndShapeRenderer} for advanced customization.
+     *
+     * @return the renderer
+     */
+    @Override
+    public XYLineAndShapeRenderer getRenderer() {
+        return renderer1_;
+    }
+
     public ScatterChart(Double[] x, Double[] y, Double[] z, Color[] colors,
             String xAxisName, String yAxisName, String zAxisName) {
         super(null, false);
@@ -77,6 +94,72 @@ public class ScatterChart extends XYChart {
         legend.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
 
         addSubtitle(legend);
+        JChart.applyCurrentTheme(this);
+    }
+
+    /**
+     * Constructs a new scatter chart with the specified dataset, axis labels, title,
+     * orientation, and optional legend, tooltips, and URLs.
+     * <p>
+     * The X-axis is automatically adapted to the dataset type: if a
+     * {@link TimeSeriesCollection} is supplied, a
+     * {@link DateAxis} is used; otherwise a
+     * {@link NumberAxis} is created with
+     * <code>setAutoRangeIncludesZero(false)</code>.
+     * The Y-axis is always a {@link NumberAxis} with
+     * auto-range-includes-zero disabled.
+     * <p>
+     * The default renderer draws data point shapes but does not draw connecting
+     * lines. Tooltip and URL generators are installed according to the
+     * {@code tooltips} and {@code urls} flags.
+     *
+     * @param dataset     the dataset containing the data points (must not be {@code null})
+     * @param xAxisName   the label for the X (domain) axis
+     * @param yAxisName   the label for the Y (range) axis
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation (horizontal or vertical)
+     * @param legend      if {@code true}, a legend will be included
+     * @param tooltips    if {@code true}, standard tooltips will be generated for data points
+     * @param urls        if {@code true}, URLs will be generated for data points
+     */
+    public ScatterChart(XYDataset dataset, String xAxisName, String yAxisName,
+            String title, PlotOrientation orientation,
+            boolean legend, boolean tooltips, boolean urls) {
+        super(title, legend);
+
+        ValueAxis xAxis;
+        if (dataset instanceof TimeSeriesCollection<?>) {
+            xAxis = new DateAxis(xAxisName);
+        } else {
+            xAxis = new NumberAxis(xAxisName);
+            ((NumberAxis) xAxis).setAutoRangeIncludesZero(false);
+        }
+        NumberAxis yAxis = new NumberAxis(yAxisName);
+        yAxis.setAutoRangeIncludesZero(false);
+
+        XYURLGenerator urlGenerator = null;
+        if (urls) {
+            urlGenerator = new StandardXYURLGenerator();
+        }
+
+        XYToolTipGenerator toolTipGenerator = null;
+        if (tooltips) {
+            if (xAxis instanceof DateAxis) {
+                toolTipGenerator = StandardXYToolTipGenerator.getTimeSeriesInstance();
+            } else {
+                toolTipGenerator = new StandardXYToolTipGenerator();
+            }
+        }
+
+        renderer1_.setDefaultToolTipGenerator(toolTipGenerator);
+        renderer1_.setURLGenerator(urlGenerator);
+
+        plot_.setDataset(dataset);
+        plot_.setDomainAxis(xAxis);
+        plot_.setRangeAxis(yAxis);
+        plot_.setOrientation(orientation);
+        plot_.setRenderer(renderer1_);
+
         JChart.applyCurrentTheme(this);
     }
 
@@ -243,73 +326,6 @@ public class ScatterChart extends XYChart {
         this(dataset, xAxisName, yAxisName, title, orientation, legend, tooltips, false);
     }
 
-    /**
-     * Constructs a new scatter chart with the specified dataset, axis labels, title,
-     * orientation, and optional legend, tooltips, and URLs.
-     * <p>
-     * The X-axis is automatically adapted to the dataset type: if a
-     * {@link TimeSeriesCollection} is supplied, a
-     * {@link DateAxis} is used; otherwise a
-     * {@link NumberAxis} is created with
-     * <code>setAutoRangeIncludesZero(false)</code>.
-     * The Y-axis is always a {@link NumberAxis} with
-     * auto-range-includes-zero disabled.
-     * <p>
-     * The default renderer draws data point shapes but does not draw connecting
-     * lines. Tooltip and URL generators are installed according to the
-     * {@code tooltips} and {@code urls} flags.
-     *
-     * @param dataset     the dataset containing the data points (must not be {@code null})
-     * @param xAxisName   the label for the X (domain) axis
-     * @param yAxisName   the label for the Y (range) axis
-     * @param title       the chart title ({@code null} permitted)
-     * @param orientation the plot orientation (horizontal or vertical)
-     * @param legend      if {@code true}, a legend will be included
-     * @param tooltips    if {@code true}, standard tooltips will be generated for data points
-     * @param urls        if {@code true}, URLs will be generated for data points
-     */
-    public ScatterChart(XYDataset dataset, String xAxisName, String yAxisName,
-            String title, PlotOrientation orientation,
-            boolean legend, boolean tooltips, boolean urls) {
-        super(title,  legend);
-
-        ValueAxis xAxis;
-        if (dataset instanceof TimeSeriesCollection<?>) {
-            xAxis = new DateAxis(xAxisName);
-        } else {
-            xAxis = new NumberAxis(xAxisName);
-            ((NumberAxis) xAxis).setAutoRangeIncludesZero(false);
-        }
-        NumberAxis yAxis = new NumberAxis(yAxisName);
-        yAxis.setAutoRangeIncludesZero(false);
-
-        XYURLGenerator urlGenerator = null;
-        if (urls) {
-            urlGenerator = new StandardXYURLGenerator();
-        }
-
-        XYToolTipGenerator toolTipGenerator = null;
-        if (tooltips) {
-            if (xAxis instanceof DateAxis) {
-                toolTipGenerator = StandardXYToolTipGenerator.getTimeSeriesInstance();
-            } else {
-                toolTipGenerator = new StandardXYToolTipGenerator();
-            }
-        }
-
-        renderer1_ = new XYLineAndShapeRenderer(false, true);
-        renderer1_.setDefaultToolTipGenerator(toolTipGenerator);
-        renderer1_.setURLGenerator(urlGenerator);
-        renderer0_ = renderer1_;
-
-        plot_.setDataset(dataset);
-        plot_.setDomainAxis(xAxis);
-        plot_.setRangeAxis(yAxis);
-        plot_.setOrientation(orientation);
-        plot_.setRenderer(renderer1_);
-
-        JChart.applyCurrentTheme(this);
-    }
 
     /**
      * Sets the default shape for all data points.
@@ -438,11 +454,17 @@ public class ScatterChart extends XYChart {
     }
 
     /**
-     * Returns the internal {@link XYLineAndShapeRenderer} for advanced customization.
+     * Sets the flag that controls whether outlines are drawn for
+     * shapes, and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     * <p>
+     * In some cases, shapes look better if they do NOT have an outline, but
+     * this flag allows you to set your own preference.
      *
-     * @return the renderer
+     * @param flag the flag.
      */
-    public XYLineAndShapeRenderer getRenderer() {
-        return renderer1_;
+    public void setDrawOutlines(boolean flag) {
+        renderer1_.setDrawOutlines(flag);
     }
+
 }

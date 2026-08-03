@@ -8,7 +8,16 @@ import pdk.chart.renderer.xy.WindItemRenderer;
 import pdk.chart.urls.StandardXYURLGenerator;
 
 /**
- *
+ * A wind chart that displays wind direction and speed over time.
+ * <p>
+ * Each data point is rendered as a wind barb (or arrow) using a
+ * {@link WindItemRenderer}.  The domain axis is a {@link DateAxis}
+ * representing time, and the range axis is a {@link NumberAxis}
+ * with a fixed range of {@code [-12.0, 12.0]} (suitable for wind
+ * speed in knots or m/s).
+ * <p>
+ * The dataset must be a {@link WindDataset} which provides wind
+ * direction and speed for each time period.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -16,30 +25,37 @@ import pdk.chart.urls.StandardXYURLGenerator;
  */
 public class WindChart extends XYChart {
 
-    private DateAxis xAxis_;
-    private NumberAxis yAxis_;
     private WindItemRenderer renderer1_;
 
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new WindItemRenderer();
+        renderer0_ = renderer1_;
+    }
+
+    @Override
+    public WindItemRenderer getRenderer() {
+        return renderer1_;
+    }
+
     /**
-     * Creates a wind plot with default settings.
+     * Creates a wind chart with the specified dataset, axis labels,
+     * title, legend, tooltip and URL flags.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the x-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @param legend     a flag that controls whether a legend is created.
-     * @param tooltips   configure chart to generate tool tips?
-     * @param urls       configure chart to generate URLs?
+     * @param dataset    the wind dataset ({@code null} permitted)
+     * @param xAxisLabel the label for the time axis ({@code null} permitted)
+     * @param yAxisLabel the label for the wind speed axis ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
+     * @param legend     {@code true} to include a legend
+     * @param tooltips   {@code true} to enable standard tool‑tips
+     * @param urls       {@code true} to generate URLs for data points
      */
     public WindChart(WindDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
-        xAxis_ = new DateAxis(xAxisLabel);
-        yAxis_ = new NumberAxis(yAxisLabel);
+        DateAxis xAxis_ = new DateAxis(xAxisLabel);
+        NumberAxis yAxis_ = new NumberAxis(yAxisLabel);
         yAxis_.setRange(-12.0, 12.0);
-
-        renderer1_ = new WindItemRenderer();
-        renderer0_ = renderer1_;
 
         if (tooltips) {
             renderer1_.setDefaultToolTipGenerator(new StandardXYToolTipGenerator());
@@ -58,14 +74,14 @@ public class WindChart extends XYChart {
     }
 
     /**
-     * Creates a wind plot with default settings.
+     * Creates a wind chart with the given parameters; URLs are disabled.
      *
-     * @param title      the chart title ({@code null} permitted).
-     * @param xAxisLabel a label for the x-axis ({@code null} permitted).
-     * @param yAxisLabel a label for the y-axis ({@code null} permitted).
-     * @param dataset    the dataset for the chart ({@code null} permitted).
-     * @param legend     a flag that controls whether a legend is created.
-     * @param tooltips   configure chart to generate tool tips?
+     * @param dataset    the wind dataset ({@code null} permitted)
+     * @param xAxisLabel the label for the time axis ({@code null} permitted)
+     * @param yAxisLabel the label for the wind speed axis ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
+     * @param legend     {@code true} to include a legend
+     * @param tooltips   {@code true} to enable standard tool‑tips
      */
     public WindChart(WindDataset dataset, String xAxisLabel, String yAxisLabel, String title,
             boolean legend, boolean tooltips) {

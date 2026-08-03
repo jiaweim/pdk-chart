@@ -55,21 +55,21 @@ public class AreaChartDemo1 extends ApplicationFrame {
         subtitle.setVerticalAlignment(VerticalAlignment.BOTTOM);
         chart.addSubtitle(subtitle);
 
-        chart.setForegroundAlpha(0.5f);
+        chart.setPlotForegroundAlpha(0.5f);
         chart.setDomainGridlinesVisible(true);
         chart.setEndType(AreaRendererEndType.LEVEL);
 
         CategoryAxis domainAxis = chart.getDomainAxis();
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_45);
-        domainAxis.setLowerMargin(0.0);
-        domainAxis.setUpperMargin(0.0);
-        domainAxis.addCategoryLabelToolTip("Type 1", "The first type.");
-        domainAxis.addCategoryLabelToolTip("Type 2", "The second type.");
-        domainAxis.addCategoryLabelToolTip("Type 3", "The third type.");
+        domainAxis.withCategoryLabelPositions(CategoryLabelPositions.UP_45)
+                .withLowerMargin(0.0)
+                .withUpperMargin(0.0)
+                .withCategoryLabelToolTip("Type 1", "The first type.")
+                .withCategoryLabelToolTip("Type 2", "The second type.")
+                .withCategoryLabelToolTip("Type 3", "The third type.");
 
         NumberAxis yAxis = chart.getRangeAxisAsNumber();
-        yAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        yAxis.setLabelAngle(0.0);
+        yAxis.withStandardTickUnits(NumberAxis.createIntegerTickUnits())
+                .withLabelAngle(0.0);
 
         JChart.applyCurrentTheme(chart);
         return chart;

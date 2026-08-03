@@ -222,8 +222,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the base value for the bars and sends a {@link RendererChangeEvent}
-     * to all registered listeners.
+     * Sets the base value for the bars (the baseline for bar lengths).
      *
      * @param base the new base value.
      * @see #getBase()
@@ -234,12 +233,13 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the base value for the bars.
+     * Sets the base value for the bars (the baseline for bar lengths).
      *
      * @param base the new base value.
      */
-    public BarRenderer base(double base) {
-        setBase(base);
+    public BarRenderer withBase(double base) {
+        this.base = base;
+        fireChangeEvent();
         return this;
     }
 
@@ -269,6 +269,22 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Set the margin between items (bars) within a category.
+     * <p>
+     * Item margin controls the gap percentage between multiple series bars inside the same category group.
+     * It is calculated as a proportion of the total available width of one category.
+     * Positive value creates gaps between bars; negative value causes bars overlapping.
+     *
+     * @param itemMargin a percentage of the available space for all bars (where 0.10 is ten percent).
+     * @return this
+     */
+    public BarRenderer withItemMargin(double itemMargin) {
+        this.itemMargin = itemMargin;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns a flag that controls whether bar outlines are drawn.
      *
      * @return A boolean.
@@ -291,13 +307,11 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the flag that controls whether bar outlines are drawn and
-     * sends a {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether bar outlines are drawn.
      *
-     * @param draw the flag.
-     * @see #isDrawBarOutline()
+     * @param draw {@code true} to draw outlines, {@code false} otherwise
      */
-    public BarRenderer drawBarOutline(boolean draw) {
+    public BarRenderer withDrawBarOutline(boolean draw) {
         setDrawBarOutline(draw);
         return this;
     }
@@ -334,8 +348,9 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param percent the percent (where 0.05 is five percent).
      * @see #getMaximumBarWidth()
      */
-    public BarRenderer maximumBarWidth(double percent) {
-        setMaximumBarWidth(percent);
+    public BarRenderer withMaximumBarWidth(double percent) {
+        this.maximumBarWidth = percent;
+        fireChangeEvent();
         return this;
     }
 
@@ -372,6 +387,28 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the minimum bar length and sends a {@link RendererChangeEvent} to
+     * all registered listeners.  The minimum bar length is specified in Java2D
+     * units, and can be used to prevent bars that represent very small data
+     * values from disappearing when drawn on the screen.  Typically you would
+     * set this to (say) 0.5 or 1.0 Java 2D units.  Use this attribute with
+     * caution, however, because setting it to a non-zero value will
+     * artificially increase the length of bars representing small values,
+     * which may misrepresent your data.
+     *
+     * @param min the minimum bar length (in Java2D units, must be &gt;= 0.0).
+     * @see #getMinimumBarLength()
+     */
+    public BarRenderer withMinimumBarLength(double min) {
+        if (min < 0.0) {
+            throw new IllegalArgumentException("Requires 'min' >= 0.0");
+        }
+        this.minimumBarLength = min;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the gradient paint transformer (an object used to transform
      * gradient paint objects to fit each bar).
      *
@@ -396,15 +433,13 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the gradient paint transformer and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the gradient paint transformer.
      *
      * @param transformer the transformer.
-     * @see #getGradientPaintTransformer()
      */
-    public BarRenderer gradientPaintTransformer(
-            @Nullable GradientPaintTransformer transformer) {
-        setGradientPaintTransformer(transformer);
+    public BarRenderer withGradientPaintTransformer(GradientPaintTransformer transformer) {
+        this.gradientPaintTransformer = transformer;
+        fireChangeEvent();
         return this;
     }
 
@@ -435,14 +470,12 @@ public class BarRenderer extends AbstractCategoryItemRenderer
 
     /**
      * Sets the fallback position for positive item labels that don't fit
-     * within a bar, and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
+     * within a bar.
      *
-     * @param position the position.
-     * @see #getPositiveItemLabelPositionFallback()
+     * @param position the position ({@code null} permitted).
+     * @return this.
      */
-    public BarRenderer positiveItemLabelPositionFallback(
-            @Nullable ItemLabelPosition position) {
+    public BarRenderer withPositiveItemLabelPositionFallback(ItemLabelPosition position) {
         setPositiveItemLabelPositionFallback(position);
         return this;
     }
@@ -473,6 +506,21 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the fallback position for negative item labels that don't fit
+     * within a bar, and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     *
+     * @param position the position ({@code null} permitted).
+     * @see #getNegativeItemLabelPositionFallback()
+     */
+    public BarRenderer withNegativeItemLabelPositionFallback(
+            ItemLabelPosition position) {
+        this.negativeItemLabelPositionFallback = position;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the flag that controls whether the base value for the
      * bars is included in the range calculated by
      * {@link #findRangeBounds(CategoryDataset)}.
@@ -486,6 +534,19 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Controls whether the base value is included in the auto‑calculated
+     * axis range.
+     *
+     * @param include {@code true} to include the base value in the range
+     */
+    public void setIncludeBaseInRange(boolean include) {
+        if (this.includeBaseInRange != include) {
+            this.includeBaseInRange = include;
+            fireChangeEvent();
+        }
+    }
+
+    /**
      * Sets the flag that controls whether the base value for the bars
      * is included in the range calculated by
      * {@link #findRangeBounds(CategoryDataset)}.  If the flag is changed,
@@ -494,11 +555,12 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param include the new value for the flag.
      * @see #getIncludeBaseInRange()
      */
-    public void setIncludeBaseInRange(boolean include) {
+    public BarRenderer withIncludeBaseInRange(boolean include) {
         if (this.includeBaseInRange != include) {
             this.includeBaseInRange = include;
             fireChangeEvent();
         }
+        return this;
     }
 
     /**
@@ -525,15 +587,14 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the bar painter for this renderer and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the bar painter used to fill the bars..
      * <p>
      * {@link GradientBarPainter} or {@link StandardBarPainter}.
      *
      * @param painter the painter ({@code null} not permitted).
      * @see #getBarPainter()
      */
-    public BarRenderer barPainter(BarPainter painter) {
+    public BarRenderer withBarPainter(BarPainter painter) {
         setBarPainter(painter);
         return this;
     }
@@ -560,6 +621,17 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Controls whether shadows are drawn under the bars.
+     *
+     * @param visible {@code true} to display shadows
+     */
+    public BarRenderer withShadowVisible(boolean visible) {
+        this.shadowsVisible = visible;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the shadow paint.
      *
      * @return The shadow paint.
@@ -577,9 +649,23 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @see #getShadowPaint()
      */
     public void setShadowPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.shadowPaint = paint;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the shadow paint and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     * @see #getShadowPaint()
+     */
+    public BarRenderer withShadowPaint(Paint paint) {
+        Objects.requireNonNull(paint, "paint");
+        this.shadowPaint = paint;
+        fireChangeEvent();
+        return this;
     }
 
     /**
@@ -603,6 +689,18 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the x-offset for the bar shadow and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param offset the offset.
+     */
+    public BarRenderer withShadowXOffset(double offset) {
+        this.shadowXOffset = offset;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the shadow y-offset.
      *
      * @return The shadow y-offset.
@@ -620,6 +718,18 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     public void setShadowYOffset(double offset) {
         this.shadowYOffset = offset;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the y-offset for the bar shadow and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param offset the offset.
+     */
+    public BarRenderer withShadowYOffset(double offset) {
+        this.shadowYOffset = offset;
+        fireChangeEvent();
+        return this;
     }
 
     /**
@@ -975,8 +1085,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
             endElementGroup(g2);
         }
 
-        CategoryItemLabelGenerator generator = getItemLabelGenerator(row,
-                column);
+        CategoryItemLabelGenerator generator = getItemLabelGenerator(row, column);
         if (generator != null && isItemLabelVisible(row, column)) {
             drawItemLabel(g2, dataset, row, column, plot, generator, bar,
                     (value < 0.0));
@@ -993,7 +1102,6 @@ public class BarRenderer extends AbstractCategoryItemRenderer
         if (entities != null) {
             addItemEntity(entities, dataset, row, column, bar);
         }
-
     }
 
     /**
@@ -1210,10 +1318,9 @@ public class BarRenderer extends AbstractCategoryItemRenderer
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof BarRenderer)) {
+        if (!(obj instanceof BarRenderer that)) {
             return false;
         }
-        BarRenderer that = (BarRenderer) obj;
         if (this.base != that.base) {
             return false;
         }
@@ -1286,7 +1393,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      *
      * @param visible the flag.
      */
-    public BarRenderer defaultItemLabelsVisible(boolean visible) {
+    public BarRenderer withDefaultItemLabelsVisible(boolean visible) {
         setDefaultItemLabelsVisible(visible);
         return this;
     }
@@ -1297,7 +1404,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      *
      * @param generator the generator.
      */
-    public BarRenderer defaultItemLabelGenerator(@Nullable CategoryItemLabelGenerator generator) {
+    public BarRenderer withDefaultItemLabelGenerator(@Nullable CategoryItemLabelGenerator generator) {
         setDefaultItemLabelGenerator(generator);
         return this;
     }
@@ -1308,21 +1415,8 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      *
      * @param generator the generator.
      */
-    public BarRenderer defaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator) {
+    public BarRenderer withDefaultToolTipGenerator(@Nullable CategoryToolTipGenerator generator) {
         setDefaultToolTipGenerator(generator, true);
-        return this;
-    }
-
-    /**
-     * configure chart to generate tool tips
-     *
-     * @param addTooltip true if generate tool tips
-     * @return this
-     */
-    public BarRenderer showTooltips(boolean addTooltip) {
-        if (addTooltip) {
-            setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
-        }
         return this;
     }
 
@@ -1333,7 +1427,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param paint the paint ({@code null} not permitted).
      * @see #getDefaultItemLabelPaint()
      */
-    public BarRenderer defaultItemLabelPaint(Paint paint) {
+    public BarRenderer withDefaultItemLabelPaint(Paint paint) {
         // defer argument checking...
         setDefaultItemLabelPaint(paint, true);
         return this;
@@ -1345,19 +1439,8 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      *
      * @param itemLabelInsets the insets
      */
-    public BarRenderer itemLabelInsets(RectangleInsets itemLabelInsets) {
+    public BarRenderer withItemLabelInsets(RectangleInsets itemLabelInsets) {
         setItemLabelInsets(itemLabelInsets);
-        return this;
-    }
-
-    /**
-     * Set the margin between items (bars) within a category.
-     *
-     * @param itemMargin a percentage of the available space for all bars.
-     * @return this
-     */
-    public BarRenderer itemMargin(double itemMargin) {
-        setItemMargin(itemMargin);
         return this;
     }
 
@@ -1369,7 +1452,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param paint  the paint.
      * @see #getSeriesPaint(int)
      */
-    public BarRenderer seriesPaint(int series, @Nullable Paint paint) {
+    public BarRenderer withSeriesPaint(int series, @Nullable Paint paint) {
         setSeriesPaint(series, paint);
         return this;
     }
@@ -1379,7 +1462,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      *
      * @param visible the flag.
      */
-    public BarRenderer seriesItemLabelsVisible(int series, @Nullable Boolean visible) {
+    public BarRenderer withSeriesItemLabelsVisible(int series, @Nullable Boolean visible) {
         setSeriesItemLabelsVisible(series, visible);
         return this;
     }
@@ -1395,7 +1478,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param generator the generator.
      * @see #setLegendItemToolTipGenerator(CategorySeriesLabelGenerator)
      */
-    public BarRenderer legendItemToolTipGenerator(
+    public BarRenderer withLegendItemToolTipGenerator(
             @Nullable CategorySeriesLabelGenerator generator) {
         setLegendItemToolTipGenerator(generator);
         return this;
@@ -1407,7 +1490,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param position the position.
      * @see #getDefaultPositiveItemLabelPosition()
      */
-    public BarRenderer defaultPositiveItemLabelPosition(
+    public BarRenderer withDefaultPositiveItemLabelPosition(
             @NonNull ItemLabelPosition position) {
         setDefaultPositiveItemLabelPosition(position);
         return this;
@@ -1420,7 +1503,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param generator the generator.
      * @see #getLegendItemLabelGenerator()
      */
-    public BarRenderer legendItemLabelGenerator(
+    public BarRenderer withLegendItemLabelGenerator(
             @NonNull CategorySeriesLabelGenerator generator) {
         setLegendItemLabelGenerator(generator);
         return this;

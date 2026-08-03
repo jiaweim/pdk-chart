@@ -878,10 +878,9 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
      *
      * @param alpha the new alpha transparency.
      */
-    public void setForegroundAlpha(float alpha) {
+    public void setPlotForegroundAlpha(float alpha) {
         plot.setForegroundAlpha(alpha);
     }
-
 
     /**
      * Sets the drawing supplier for the plot.
@@ -1543,7 +1542,6 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
         plot.setNoDataMessage(message);
     }
 
-
     /**
      * Tests this chart for equality with another object.
      *
@@ -1714,5 +1712,4 @@ public class Chart implements ShowChart, Drawable, TitleChangeListener,
     public void setPlotInsets(RectangleInsets insets) {
         plot.setInsets(insets, true);
     }
-
 }

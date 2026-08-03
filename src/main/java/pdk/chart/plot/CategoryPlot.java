@@ -2,9 +2,7 @@ package pdk.chart.plot;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import pdk.chart.CategoryChartType;
 import pdk.chart.Chart;
-import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.annotations.Annotation;
 import pdk.chart.annotations.CategoryAnnotation;
 import pdk.chart.annotations.CategoryTextAnnotation;
@@ -16,6 +14,7 @@ import pdk.chart.data.general.DatasetChangeEvent;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.event.*;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.renderer.category.*;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.text.TextAnchor;
@@ -513,18 +512,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
-     * Sets the orientation for the plot and sends a {@link PlotChangeEvent} to
-     * all registered listeners.
-     *
-     * @param orientation the orientation ({@code null} not permitted).
-     * @see #getOrientation()
-     */
-    public CategoryPlot<R, C> orientation(PlotOrientation orientation) {
-        setOrientation(orientation);
-        return this;
-    }
-
-    /**
      * Returns the axis offset.
      *
      * @return The axis offset (never {@code null}).
@@ -545,18 +532,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         Objects.requireNonNull(offset, "offset");
         this.axisOffset = offset;
         fireChangeEvent();
-    }
-
-    /**
-     * Sets the axis offsets (gap between the data area and the axes) and
-     * sends a {@link PlotChangeEvent} to all registered listeners.
-     *
-     * @param offset the offset ({@code null} not permitted).
-     * @see #getAxisOffset()
-     */
-    public CategoryPlot<R, C> axisOffset(RectangleInsets offset) {
-        setAxisOffset(offset);
-        return this;
     }
 
     /**
@@ -1016,17 +991,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
-     * Sets the location of the range axis and sends a {@link PlotChangeEvent}
-     * to all registered listeners.
-     *
-     * @param location the location ({@code null} not permitted).
-     */
-    public CategoryPlot<R, C> rangeAxisLocation(AxisLocation location) {
-        setRangeAxisLocation(location);
-        return this;
-    }
-
-    /**
      * Sets the location of the range axis and, if requested, sends a
      * {@link PlotChangeEvent} to all registered listeners.
      *
@@ -1195,32 +1159,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         // send a dataset change event to self...
         DatasetChangeEvent event = new DatasetChangeEvent(this, dataset);
         datasetChanged(event);
-    }
-
-    /**
-     * Sets a dataset for the plot and sends a change notification to all
-     * registered listeners.
-     *
-     * @param index   the dataset index (must be &gt;= 0).
-     * @param dataset the dataset ({@code null} permitted).
-     * @see #getDataset(int)
-     */
-    public void setDataset(int index, CategoryDataset<R, C> dataset, CategoryChartType chartType) {
-        setDataset(index, dataset);
-        setRenderer(index, chartType.getRenderer());
-    }
-
-    /**
-     * Sets a dataset for the plot and sends a change notification to all
-     * registered listeners.
-     *
-     * @param dataset the dataset ({@code null} permitted).
-     * @see #getDataset(int)
-     */
-    public void addDataset(CategoryDataset<R, C> dataset, CategoryChartType chartType) {
-        int datasetCount = getDatasetCount();
-        setDataset(datasetCount, dataset);
-        setRenderer(datasetCount, chartType.getRenderer());
     }
 
     /**
@@ -1977,18 +1915,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
     }
 
     /**
-     * Sets the stroke used to draw the grid-lines against the range axis and
-     * sends a {@link PlotChangeEvent} to all registered listeners.
-     *
-     * @param stroke the stroke.
-     * @see #getRangeGridlineStroke()
-     */
-    public CategoryPlot<R, C> rangeGridlineStroke(@NonNull Stroke stroke) {
-        setRangeGridlineStroke(stroke);
-        return this;
-    }
-
-    /**
      * Returns the paint used to draw the grid-lines against the range axis.
      *
      * @return The paint (never {@code null}).
@@ -2009,18 +1935,6 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         Objects.requireNonNull(paint, "paint");
         this.rangeGridlinePaint = paint;
         fireChangeEvent();
-    }
-
-    /**
-     * Sets the paint used to draw the grid lines against the range axis and
-     * sends a {@link PlotChangeEvent} to all registered listeners.
-     *
-     * @param paint the paint.
-     * @see #getRangeGridlinePaint()
-     */
-    public CategoryPlot<R, C> rangeGridlinePaint(@NonNull Paint paint) {
-        setRangeGridlinePaint(paint);
-        return this;
     }
 
     /**
@@ -4925,80 +4839,5 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
             }
         }
 
-    }
-
-    /**
-     * Sets the flag that controls whether the zero baseline is
-     * displayed for the range axis, and sends a {@link PlotChangeEvent} to
-     * all registered listeners.
-     *
-     * @param visible the flag.
-     * @see #isRangeZeroBaselineVisible()
-     */
-    public CategoryPlot<R, C> rangeZeroBaselineVisible(boolean visible) {
-        setRangeZeroBaselineVisible(visible);
-        return this;
-    }
-
-    /**
-     * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
-     * all registered listeners.
-     *
-     * @param insets the new insets ({@code null} not permitted).
-     * @see #getInsets()
-     * @see #setInsets(RectangleInsets, boolean)
-     */
-    public CategoryPlot<R, C> insets(RectangleInsets insets) {
-        setInsets(insets, true);
-        return this;
-    }
-
-    /**
-     * Sets the alpha-transparency for the plot and sends a
-     * {@link PlotChangeEvent} to all registered listeners.
-     *
-     * @param alpha the new alpha transparency.
-     * @see #getForegroundAlpha()
-     */
-    public CategoryPlot<R, C> foregroundAlpha(float alpha) {
-        setForegroundAlpha(alpha);
-        return this;
-    }
-
-    /**
-     * Sets the message that is displayed when the dataset is empty or
-     * {@code null}, and sends a {@link PlotChangeEvent} to all registered
-     * listeners.
-     *
-     * @param message the message ({@code null} permitted).
-     * @see #getNoDataMessage()
-     */
-    public CategoryPlot<R, C> noDataMessage(String message) {
-        setNoDataMessage(message);
-        return this;
-    }
-
-    /**
-     * Sets the background color of the plot area and sends a
-     * {@link PlotChangeEvent} to all registered listeners.
-     *
-     * @param paint the paint, null means no background is set.
-     * @see #getBackgroundPaint()
-     */
-    public CategoryPlot<R, C> backgroundPaint(@Nullable Paint paint) {
-        setBackgroundPaint(paint);
-        return this;
-    }
-
-    /**
-     * Sets the paint used to draw the outline of the plot area.
-     * <p>
-     * If set this attribute to {@code null}, no outline will be drawn.
-     *
-     * @param paint the paint.
-     */
-    public CategoryPlot<R, C> outlinePaint(@Nullable Paint paint) {
-        setOutlinePaint(paint);
-        return this;
     }
 }

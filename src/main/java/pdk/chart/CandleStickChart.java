@@ -6,7 +6,15 @@ import pdk.chart.data.xy.OHLCDataset;
 import pdk.chart.renderer.xy.CandlestickRenderer;
 
 /**
- *
+ * A candlestick chart for financial data.
+ * <p>
+ * Displays open, high, low, and close values using a
+ * {@link CandlestickRenderer}.
+ * <p>
+ * The domain axis is a {@link DateAxis} representing the time periods,
+ * while the range axis is a {@link NumberAxis} representing price.
+ * The dataset must implement {@link OHLCDataset}, which provides the
+ * four price components for each time period.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -14,33 +22,48 @@ import pdk.chart.renderer.xy.CandlestickRenderer;
  */
 public class CandleStickChart extends XYChart {
 
-    private DateAxis xAxis_;
-    private NumberAxis yAxis_;
     private CandlestickRenderer renderer1_;
 
     /**
-     * Creates and returns a default instance of a candlesticks chart.
+     * Initializes the renderer to a {@link CandlestickRenderer}.
+     */
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new CandlestickRenderer();
+        renderer0_ = renderer1_;
+    }
+
+    /**
+     * Returns the candlestick renderer used by this chart.
      *
-     * @param title          the chart title ({@code null} permitted).
-     * @param timeAxisLabel  a label for the time axis ({@code null}
-     *                       permitted).
-     * @param valueAxisLabel a label for the value axis ({@code null}
-     *                       permitted).
-     * @param dataset        the dataset for the chart ({@code null} permitted).
-     * @param legend         a flag specifying whether a legend is required.
+     * @return the renderer (never {@code null})
+     */
+    @Override
+    public CandlestickRenderer getRenderer() {
+        return renderer1_;
+    }
+
+    /**
+     * Creates a new candlestick chart.
+     *
+     * @param dataset        the dataset containing OHLC data (must not be
+     *                       {@code null})
+     * @param timeAxisLabel  the label for the time axis ({@code null}
+     *                       permitted)
+     * @param valueAxisLabel the label for the price/value axis
+     *                       ({@code null} permitted)
+     * @param title          the chart title ({@code null} permitted)
+     * @param legend         {@code true} to include a legend
      */
     public CandleStickChart(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
             String title, boolean legend) {
         super(title, legend);
 
-        xAxis_ = new DateAxis(timeAxisLabel);
-        yAxis_ = new NumberAxis(valueAxisLabel);
+        DateAxis xAxis = new DateAxis(timeAxisLabel);
+        NumberAxis yAxis = new NumberAxis(valueAxisLabel);
 
-        renderer1_ = new CandlestickRenderer();
-        renderer0_ = renderer1_;
-
-        plot_.setDomainAxis(xAxis_);
-        plot_.setRangeAxis(yAxis_);
+        plot_.setDomainAxis(xAxis);
+        plot_.setRangeAxis(yAxis);
         plot_.setRenderer(renderer1_);
         plot_.setDataset(dataset);
 

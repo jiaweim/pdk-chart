@@ -1,7 +1,6 @@
 package pdk.chart;
 
 import org.jspecify.annotations.NonNull;
-import org.jspecify.annotations.Nullable;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
@@ -11,7 +10,6 @@ import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.model.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarPainter;
 import pdk.chart.renderer.category.BarRenderer;
@@ -22,7 +20,15 @@ import pdk.chart.util.GradientPaintTransformer;
 import java.util.Objects;
 
 /**
- *
+ * A bar chart with a {@link CategoryAxis} as the domain axis.
+ * <p>
+ * Uses a {@link BarRenderer} to draw the bars.  The item label positions
+ * are automatically adjusted based on the plot orientation.  Tool‑tips
+ * and URLs can be enabled via constructor flags.
+ * <p>
+ * For customization beyond the defaults, use the setter methods inherited
+ * from {@link CategoryChart} or directly access the renderer through
+ * {@link #getRenderer()}.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -30,42 +36,58 @@ import java.util.Objects;
  */
 public class CategoryBarChart extends CategoryChart {
 
-    protected CategoryAxis xAxis_;
-    protected NumberAxis yAxis_;
     protected BarRenderer renderer1_;
 
+    /**
+     * Initializes the renderer to a {@link BarRenderer} and assigns it
+     * to the parent’s renderer reference.
+     */
     @Override
     protected void initRenderer() {
         renderer1_ = new BarRenderer();
         renderer0_ = renderer1_;
     }
 
+    /**
+     * Returns the bar renderer used by this chart.
+     *
+     * @return the renderer (never {@code null})
+     */
+    @Override
+    public BarRenderer getRenderer() {
+        return renderer1_;
+    }
+
+    /**
+     * Constructor for subclass use.  Does not attach any dataset or axes;
+     * these must be configured separately.
+     *
+     * @param title        the chart title ({@code null} permitted)
+     * @param createLegend whether a legend should be created
+     */
     protected CategoryBarChart(String title, boolean createLegend) {
         super(title, createLegend);
     }
 
     /**
-     * Creates a bar chart.
+     * Full constructor – every option is exposed.
      *
-     * @param title        the chart title ({@code null} permitted).
-     * @param xAxisLabel   the label for the category axis
-     *                     ({@code null} permitted).
-     * @param yAxisLabel   the label for the value axis
-     *                     ({@code null} permitted).
-     * @param dataset      the dataset for the chart ({@code null} permitted).
-     * @param orientation  the plot orientation (horizontal or vertical)
-     *                     ({@code null} not permitted).
-     * @param createLegend a flag specifying whether a legend is required.
-     * @param tooltips     configure chart to generate tool tips?
-     * @param urls         configure chart to generate URLs?
+     * @param dataset      the dataset ({@code null} permitted)
+     * @param xAxisLabel   the label for the category axis ({@code null} permitted)
+     * @param yAxisLabel   the label for the value axis ({@code null} permitted)
+     * @param title        the chart title ({@code null} permitted)
+     * @param orientation  the plot orientation ({@code null} not permitted)
+     * @param createLegend {@code true} to include a legend
+     * @param tooltips     {@code true} to enable standard tool‑tips
+     * @param urls         {@code true} to generate URLs for data points
      */
     public CategoryBarChart(CategoryDataset dataset, String xAxisLabel, String yAxisLabel, String title, PlotOrientation orientation,
             boolean createLegend, boolean tooltips, boolean urls) {
         super(title, createLegend);
         Objects.requireNonNull(orientation);
 
-        xAxis_ = new CategoryAxis(xAxisLabel);
-        yAxis_ = new NumberAxis(yAxisLabel);
+        CategoryAxis xAxis_ = new CategoryAxis(xAxisLabel);
+        NumberAxis yAxis_ = new NumberAxis(yAxisLabel);
 
         if (orientation == PlotOrientation.HORIZONTAL) {
             ItemLabelPosition position1 = new ItemLabelPosition(ItemLabelAnchor.OUTSIDE3, TextAnchor.CENTER_LEFT);
@@ -95,21 +117,15 @@ public class CategoryBarChart extends CategoryChart {
     }
 
     /**
-     * Creates a bar chart.  The chart object returned by this method uses a
-     * {@link CategoryPlot} instance as the plot, with a {@link CategoryAxis}
-     * for the domain axis, a {@link NumberAxis} as the range axis, and a
-     * {@link BarRenderer} as the renderer.
+     * Creates a bar chart with the given parameters; URLs are disabled.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the label for the category axis ({@code null} permitted)
+     * @param valueAxisLabel    the label for the value axis ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not permitted)
+     * @param legend            {@code true} to include a legend
+     * @param tooltips          {@code true} to enable standard tool‑tips
      */
     public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
@@ -117,31 +133,27 @@ public class CategoryBarChart extends CategoryChart {
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a bar chart with legend and tooltips enabled, no URLs.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the plot orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the label for the category axis ({@code null} permitted)
+     * @param valueAxisLabel    the label for the value axis ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not permitted)
      */
     public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation) {
-        this(dataset, categoryAxisLabel, valueAxisLabel, title, orientation, true, true);
+        this(dataset, categoryAxisLabel, valueAxisLabel, title,
+                orientation, true, true);
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a vertical bar chart with legend and tooltips enabled.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the label for the category axis ({@code null} permitted)
+     * @param valueAxisLabel    the label for the value axis ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
      */
     public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel,
             String valueAxisLabel, String title) {
@@ -149,52 +161,57 @@ public class CategoryBarChart extends CategoryChart {
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a vertical bar chart with no title, legend and tooltips enabled.
      *
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis
-     *                          ({@code null} permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the label for the category axis ({@code null} permitted)
+     * @param valueAxisLabel    the label for the value axis ({@code null} permitted)
      */
     public CategoryBarChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel) {
         this(dataset, categoryAxisLabel, valueAxisLabel, null);
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a bar chart with the given orientation, no axis labels, no title,
+     * legend and tooltips enabled.
      *
-     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @param dataset     the dataset ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
      */
     public CategoryBarChart(CategoryDataset dataset, PlotOrientation orientation) {
         this(dataset, null, null, null, orientation);
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a vertical bar chart with no axis labels, no title,
+     * legend and tooltips enabled.
      *
-     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @param dataset the dataset ({@code null} permitted)
      */
     public CategoryBarChart(CategoryDataset dataset) {
         this(dataset, PlotOrientation.VERTICAL);
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a bar chart from two arrays with the given orientation,
+     * no axis labels, no title, legend and tooltips enabled.
      *
-     * @param categories  category values.
-     * @param values      values
-     * @param orientation {@link PlotOrientation}
+     * @param categories  the category names (must not be {@code null})
+     * @param values      the values (must not be {@code null} and same length
+     *                    as {@code categories})
+     * @param orientation the plot orientation ({@code null} not permitted)
      */
     public CategoryBarChart(String[] categories, double[] values, PlotOrientation orientation) {
         this(Data.createCategory("", categories, values), orientation);
     }
 
     /**
-     * Creates a bar chart.
+     * Creates a vertical bar chart from two arrays, no axis labels, no title,
+     * no legend, tooltips disabled.
      *
-     * @param categories category values.
-     * @param values     values
+     * @param categories the category names (must not be {@code null})
+     * @param values     the values (must not be {@code null} and same length
+     *                   as {@code categories})
      */
     public CategoryBarChart(String[] categories, double[] values) {
         this(Data.createCategory("", categories, values), null, null, null,
@@ -202,35 +219,32 @@ public class CategoryBarChart extends CategoryChart {
     }
 
     /**
-     * Sets the item margin of bars.
+     * Sets the item margin for the bars.
      * <p>
-     * The value is expressed as a percentage of the
-     * available width for plotting all the bars, with the resulting amount to
-     * be distributed between all the bars evenly.
+     * The margin is expressed as a percentage of the available width for
+     * all bars and is distributed evenly between them.
      *
-     * @param percent the margin (where 0.10 is ten percent).
+     * @param percent the margin (e.g. 0.10 = 10%)
      */
     public void setItemMargin(double percent) {
         this.renderer1_.setItemMargin(percent);
     }
 
     /**
-     * Sets the flag that controls whether bar outlines are drawn and
-     * sends a {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether bar outlines are drawn.
      *
-     * @param draw the flag.
+     * @param draw {@code true} to draw outlines, {@code false} otherwise
      */
     public void setDrawBarOutline(boolean draw) {
         this.renderer1_.setDrawBarOutline(draw);
     }
 
     /**
-     * Sets the gradient paint transformer
+     * Sets the gradient paint transformer.
      *
-     * @param transformer the transformer.
+     * @param transformer the transformer ({@code null} permitted)
      */
-    public void setGradientPaintTransformer(
-            @Nullable GradientPaintTransformer transformer) {
+    public void setGradientPaintTransformer(GradientPaintTransformer transformer) {
         this.renderer1_.setGradientPaintTransformer(transformer);
     }
 
@@ -245,18 +259,16 @@ public class CategoryBarChart extends CategoryChart {
     }
 
     /**
-     * Sets the flag that controls whether shadows are
-     * drawn by the renderer.
+     * Controls whether shadows are drawn under the bars.
      *
-     * @param visible the new flag value.
+     * @param visible {@code true} to display shadows
      */
     public void setShadowVisible(boolean visible) {
         renderer1_.setShadowVisible(visible);
     }
 
     /**
-     * Sets the base value for the bars and sends a {@link RendererChangeEvent}
-     * to all registered listeners.
+     * Sets the base value for the bars (the baseline for bar lengths).
      *
      * @param base the new base value.
      */
@@ -265,31 +277,28 @@ public class CategoryBarChart extends CategoryChart {
     }
 
     /**
-     * Sets the flag that controls whether the base value for the bars
-     * is included in the range calculated by
-     * {@link #findRangeBounds(CategoryDataset)}.  If the flag is changed,
-     * a {@link RendererChangeEvent} is sent to all registered listeners.
+     * Controls whether the base value is included in the auto‑calculated
+     * axis range.
      *
-     * @param include the new value for the flag.
+     * @param include {@code true} to include the base value in the range
      */
     public void setIncludeBaseInRange(boolean include) {
         renderer1_.setIncludeBaseInRange(include);
     }
 
     /**
-     * Sets the bar painter for this renderer and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the bar painter used to fill the bars.
      *
-     * @param painter the painter ({@code null} not permitted).
+     * @param painter the painter ({@code null} not permitted)
      */
     public void setBarPainter(BarPainter painter) {
         renderer1_.setBarPainter(painter);
     }
 
     /**
-     * Sets the item label insets.
+     * Sets the insets for item labels.
      *
-     * @param itemLabelInsets the insets
+     * @param itemLabelInsets the insets (not {@code null})
      */
     public void setItemLabelInsets(@NonNull RectangleInsets itemLabelInsets) {
         renderer1_.setItemLabelInsets(itemLabelInsets);

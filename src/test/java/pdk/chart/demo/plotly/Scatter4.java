@@ -1,6 +1,5 @@
 package pdk.chart.demo.plotly;
 
-import pdk.chart.Chart;
 import pdk.chart.ScatterChart;
 import pdk.chart.legend.PaintScaleLegend;
 
@@ -17,7 +16,7 @@ public class Scatter4 {
     static void main() {
         HashMap<String, Object[]> iris = Datasets.iris();
 
-        Chart chart = new ScatterChart((Double[]) iris.get("Sepal Width"),
+        ScatterChart chart = new ScatterChart((Double[]) iris.get("Sepal Width"),
                 (Double[]) iris.get("Sepal Length"),
                 (Double[]) iris.get("Petal Length"),
                 null,
@@ -26,7 +25,7 @@ public class Scatter4 {
                 "Petal Length"
         );
         PaintScaleLegend subtitle = (PaintScaleLegend) chart.getSubtitle(0);
-        subtitle.setPadding(10,0,50,0);
+        subtitle.setPadding(10, 0, 50, 0);
         chart.show();
     }
 }

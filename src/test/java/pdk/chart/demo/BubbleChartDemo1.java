@@ -21,7 +21,7 @@ public class BubbleChartDemo1 extends ApplicationFrame {
 
     private static Chart createChart(XYZDataset dataset) {
         BubbleChart chart = new BubbleChart(dataset, "X", "Y", "Bubble Chart Demo 1");
-        chart.setForegroundAlpha(0.65f);
+        chart.setPlotForegroundAlpha(0.65f);
         chart.setPannable(true, true);
         chart.setSeriesPaint(0, Color.BLUE);
         chart.setDomainAxisMargin(0.15, 0.15);

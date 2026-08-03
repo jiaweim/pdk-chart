@@ -7,7 +7,14 @@ import pdk.chart.labels.HighLowItemLabelGenerator;
 import pdk.chart.renderer.xy.HighLowRenderer;
 
 /**
- * High low open close chart.
+ * A high‑low‑open‑close (HLOC) chart, commonly used in financial data
+ * visualization.
+ * <p>
+ * Each data point is drawn as a vertical line from the low to the high
+ * price, with small ticks marking the open and close prices. The chart uses
+ * a {@link HighLowRenderer} and the dataset must implement
+ * {@link OHLCDataset} (which provides the required open, high, low, and
+ * close values).
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -15,28 +22,46 @@ import pdk.chart.renderer.xy.HighLowRenderer;
  */
 public class HighLowChart extends XYChart {
 
-    private DateAxis xAxis_;
-    private NumberAxis yAxis_;
     private HighLowRenderer renderer1_;
 
     /**
-     * Creates and returns a default instance of a high-low-open-close chart.
+     * Initializes the renderer to a {@link HighLowRenderer}.
+     */
+    @Override
+    protected void initRenderer() {
+        renderer1_ = new HighLowRenderer();
+        renderer0_ = renderer1_;
+    }
+
+    /**
+     * Returns the high‑low renderer used by this chart.
      *
-     * @param title          the chart title ({@code null} permitted).
-     * @param timeAxisLabel  a label for the time axis ({@code null}
-     *                       permitted).
-     * @param valueAxisLabel a label for the value axis ({@code null}
-     *                       permitted).
-     * @param dataset        the dataset for the chart ({@code null} permitted).
-     * @param legend         a flag specifying whether a legend is required.
+     * @return the renderer (never {@code null})
+     */
+    @Override
+    public HighLowRenderer getRenderer() {
+        return renderer1_;
+    }
+
+    /**
+     * Creates a new high‑low‑open‑close chart.
+     *
+     * @param dataset        the dataset containing OHLC data ({@code null}
+     *                       permitted)
+     * @param timeAxisLabel  the label for the time axis ({@code null}
+     *                       permitted)
+     * @param valueAxisLabel the label for the value axis ({@code null}
+     *                       permitted)
+     * @param title          the chart title ({@code null} permitted)
+     * @param legend         {@code true} to include a legend
+     * @param tooltips       {@code true} to enable tool‑tips (using a
+     *                       {@link HighLowItemLabelGenerator})
      */
     public HighLowChart(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
             String title, boolean legend, boolean tooltips) {
         super(title, legend);
-        xAxis_ = new DateAxis(timeAxisLabel);
-        yAxis_ = new NumberAxis(valueAxisLabel);
-        renderer1_ = new HighLowRenderer();
-        renderer0_ = renderer1_;
+        DateAxis xAxis_ = new DateAxis(timeAxisLabel);
+        NumberAxis yAxis_ = new NumberAxis(valueAxisLabel);
 
         if (tooltips) {
             renderer1_.setDefaultToolTipGenerator(new HighLowItemLabelGenerator());
@@ -51,18 +76,19 @@ public class HighLowChart extends XYChart {
     }
 
     /**
-     * Creates and returns a default instance of a high-low-open-close chart.
+     * Creates a new high‑low‑open‑close chart with tool‑tips enabled.
      *
-     * @param title          the chart title ({@code null} permitted).
-     * @param timeAxisLabel  a label for the time axis ({@code null}
-     *                       permitted).
-     * @param valueAxisLabel a label for the value axis ({@code null}
-     *                       permitted).
-     * @param dataset        the dataset for the chart ({@code null} permitted).
-     * @param legend         a flag specifying whether a legend is required.
+     * @param dataset        the dataset containing OHLC data ({@code null}
+     *                       permitted)
+     * @param timeAxisLabel  the label for the time axis ({@code null}
+     *                       permitted)
+     * @param valueAxisLabel the label for the value axis ({@code null}
+     *                       permitted)
+     * @param title          the chart title ({@code null} permitted)
+     * @param legend         {@code true} to include a legend
      */
     public HighLowChart(OHLCDataset dataset, String timeAxisLabel, String valueAxisLabel,
             String title, boolean legend) {
-        this(dataset, timeAxisLabel, valueAxisLabel, title, legend, false);
+        this(dataset, timeAxisLabel, valueAxisLabel, title, legend, true);
     }
 }

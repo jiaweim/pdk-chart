@@ -6,9 +6,9 @@ import pdk.chart.TestUtils;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultXYZDataset;
-import pdk.chart.util.CloneUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.CloneUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,9 +26,9 @@ public class XYBubbleRendererTest {
         XYBubbleRenderer r2 = new XYBubbleRenderer();
         assertEquals(r1, r2);
 
-        r1 = new XYBubbleRenderer(XYBubbleRenderer.SCALE_ON_RANGE_AXIS);
+        r1 = new XYBubbleRenderer(XYBubbleRenderer.ScaleType.SCALE_ON_RANGE_AXIS);
         assertNotEquals(r1, r2);
-        r2 = new XYBubbleRenderer(XYBubbleRenderer.SCALE_ON_RANGE_AXIS);
+        r2 = new XYBubbleRenderer(XYBubbleRenderer.ScaleType.SCALE_ON_RANGE_AXIS);
         assertEquals(r1, r2);
     }
 

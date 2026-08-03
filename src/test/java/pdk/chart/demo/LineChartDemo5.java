@@ -97,7 +97,7 @@ public class LineChartDemo5 extends ApplicationFrame {
         chart.setDefaultItemLabelsVisible(true);
 
         chart.setDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>());
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setAutoRangeIncludesZero(false);
         rangeAxis.setUpperMargin(0.12);

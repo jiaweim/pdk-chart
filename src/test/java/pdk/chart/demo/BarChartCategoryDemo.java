@@ -1,10 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
-import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 
 /**
  *
@@ -20,15 +18,15 @@ public class BarChartCategoryDemo {
                 .addSeries("Males", categories, new double[]{5.5, 8.4, 12.8})
                 .addSeries("Females", categories, new double[]{10.3, 20.1, 24.3}).build();
 
-        Chart chart = new CategoryBarChart(dataset,
+        CategoryBarChart chart = new CategoryBarChart(dataset,
                 "Age Category", "Percent", "Antidepressant Medication Usage");
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.domainGridlinesVisible(true)
-                .rangeGridlinesVisible(true);
-        plot.getBarRenderer(0)
-                .itemMargin(0.0);
-        plot.getDomainAxis()
-                .categoryMargin(0.5);
+        chart.withDomainGridlinesVisible(true)
+                .withRangeGridlinesVisible(true);
+
+        chart.getRenderer()
+                .withItemMargin(0.0);
+        chart.getDomainAxis()
+                .withCategoryMargin(0.5);
 
         chart.show();
     }

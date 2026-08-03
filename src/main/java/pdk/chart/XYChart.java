@@ -2,6 +2,7 @@ package pdk.chart;
 
 import org.jspecify.annotations.NonNull;
 import pdk.chart.annotations.XYAnnotation;
+import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
@@ -13,12 +14,14 @@ import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYItemLabelGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
+import pdk.chart.ms.PeakRenderer;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.*;
 
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * Base class for charts that use an {@link XYPlot}.
@@ -37,27 +40,71 @@ public class XYChart extends Chart {
      * Enumeration of supported chart types for which a default
      * {@link XYItemRenderer} can be created automatically.
      */
-    public enum ChartType {
+    public enum Type {
         /**
-         * Line chart
+         * Line chart with straight segments.
          */
         LINE,
         /**
-         * Area chart.
+         * Line chart with spline interpolation.
+         */
+        SMOOTH_LINE,
+        /**
+         * Area chart with solid fill.
          */
         AREA,
         /**
-         * Scatter chart.
+         * Stacked area chart.
+         */
+        STACKED_AREA,
+        /**
+         * Step area chart.
+         */
+        STEP_AREA,
+        /**
+         * Scatter chart (points only, no lines).
          */
         SCATTER,
         /**
-         * Bubble chart.
+         * Bubble chart (points with size proportional to Z value).
          */
         BUBBLE,
         /**
-         * Bar chart
+         * Box-and-whisker chart.
          */
-        BAR;
+        BOX,
+        /**
+         * Bar chart with a single series.
+         */
+        BAR,
+        /**
+         * Clustered bar chart (multiple series side by side).
+         */
+        CLUSTERED_BAR,
+        /**
+         * Stacked bar chart.
+         */
+        STACKED_BAR,
+        /**
+         * Candlestick chart (financial data).
+         */
+        CANDLE_STICK,
+        /**
+         * High‑low chart (range data).
+         */
+        HIGH_LOW,
+        /**
+         * Peak chart (spectrum data).
+         */
+        PEAK,
+        /**
+         * Step chart (horizontal and vertical lines).
+         */
+        STEP,
+        /**
+         * Wind chart (vector data).
+         */
+        WIND;
 
         /**
          * Returns a renderer instance for the chart type.
@@ -71,21 +118,59 @@ public class XYChart extends Chart {
                 case LINE -> {
                     return new XYLineAndShapeRenderer(true, false);
                 }
+                case SMOOTH_LINE -> {
+                    return new XYSplineRenderer();
+                }
                 case AREA -> {
-                    return new XYAreaRenderer(XYAreaRenderer.AREA);
+                    return new XYAreaRenderer();
+                }
+                case STACKED_AREA -> {
+                    StackedXYAreaRenderer2 renderer2 = new StackedXYAreaRenderer2();
+                    renderer2.setDrawOutline(true);
+                    return renderer2;
+                }
+                case STEP_AREA -> {
+                    return new XYStepAreaRenderer(XYStepAreaRenderer.AREA_AND_SHAPES);
                 }
                 case SCATTER -> {
                     return new XYLineAndShapeRenderer(false, true);
                 }
                 case BUBBLE -> {
-                    return new XYBubbleRenderer(XYBubbleRenderer.SCALE_ON_RANGE_AXIS);
+                    return new XYBubbleRenderer(XYBubbleRenderer.ScaleType.SCALE_ON_RANGE_AXIS);
                 }
                 case BAR -> {
                     XYBarRenderer renderer = new XYBarRenderer();
                     renderer.setShadowVisible(false);
                     return renderer;
                 }
-
+                case STACKED_BAR -> {
+                    StackedXYBarRenderer renderer = new StackedXYBarRenderer();
+                    renderer.setShadowVisible(false);
+                    return renderer;
+                }
+                case CLUSTERED_BAR -> {
+                    ClusteredXYBarRenderer renderer = new ClusteredXYBarRenderer();
+                    renderer.setShadowVisible(false);
+                    return renderer;
+                }
+                case BOX -> {
+                    return new XYBoxAndWhiskerRenderer();
+                }
+                case CANDLE_STICK -> {
+                    return new CandlestickRenderer();
+                }
+                case HIGH_LOW -> {
+                    return new HighLowRenderer();
+                }
+                case PEAK -> {
+                    return new PeakRenderer();
+                }
+                case STEP -> {
+                    return new XYStepRenderer();
+                }
+                case WIND -> {
+                    return new WindItemRenderer();
+                }
                 default -> throw new UnsupportedOperationException("Not supported yet " + this);
             }
         }
@@ -125,7 +210,7 @@ public class XYChart extends Chart {
     }
 
     /**
-     * Initialises the default renderer.
+     * Initializes the default renderer.
      * <p>
      * Subclasses must override this to set up {@link #renderer0_}
      * (and any other renderer references) appropriately.
@@ -145,6 +230,7 @@ public class XYChart extends Chart {
 
     /**
      * Configures whether the chart displays tool tips.
+     * <p>
      * When enabled and no generator is set, a default
      * {@link StandardXYToolTipGenerator} is installed.
      * When disabled, the current generator is removed.
@@ -163,20 +249,34 @@ public class XYChart extends Chart {
 
     /**
      * Appends a dataset to the plot using a renderer created from the
-     * given {@link ChartType}.
+     * given {@link Type}.
      *
-     * @param dataset   the dataset to add
-     * @param chartType the chart type specifying which renderer to use
+     * @param dataset the dataset to add
+     * @param type    the chart type specifying which renderer to use
      */
-    public void addDataset(XYDataset dataset, ChartType chartType) {
+    public void addDataset(XYDataset dataset, Type type) {
         int datasetCount = plot_.getDatasetCount();
         plot_.setDataset(datasetCount, dataset);
-        plot_.setRenderer(datasetCount, chartType.getRenderer());
+        plot_.setRenderer(datasetCount, type.getRenderer());
     }
 
     /**
-     * Sets a dataset for the plot and sends a change event to all registered
-     * listeners.
+     * Replaces the dataset and renderer at the given index with those
+     * determined by the specified {@link Type}.
+     *
+     * @param index   the dataset index (zero‑based)
+     * @param dataset the dataset ({@code null} permitted)
+     * @param type    the chart type (must not be {@code null})
+     * @throws NullPointerException if {@code chartType} is {@code null}
+     */
+    public void setDataset(int index, XYDataset dataset, Type type) {
+        Objects.requireNonNull(type);
+        plot_.setDataset(index, dataset);
+        plot_.setRenderer(index, type.getRenderer());
+    }
+
+    /**
+     * Sets a dataset for the plot.
      *
      * @param index   the dataset index (must be &gt;= 0).
      * @param dataset the dataset ({@code null} permitted).
@@ -194,18 +294,6 @@ public class XYChart extends Chart {
      */
     public void mapDatasetToRangeAxis(int index, int axisIndex) {
         plot_.mapDatasetToRangeAxis(index, axisIndex);
-    }
-
-    /**
-     * Appends a dataset to the plot with the specified renderer.
-     *
-     * @param dataset  the dataset to add
-     * @param renderer the renderer to use for the dataset
-     */
-    public void addDataset(XYDataset dataset, XYItemRenderer renderer) {
-        int datasetCount = plot_.getDatasetCount();
-        plot_.setDataset(datasetCount, dataset);
-        plot_.setRenderer(datasetCount, renderer);
     }
 
     /**
@@ -248,6 +336,9 @@ public class XYChart extends Chart {
 
     /**
      * Sets the lower and upper margin for the domain axis.
+     * <p>
+     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
+     * <p>
      * Margins are expressed as a fraction of the axis range and
      * are applied only when the axis range is auto‑calculated.
      *
@@ -264,6 +355,9 @@ public class XYChart extends Chart {
 
     /**
      * Sets the lower and upper margin for the range axis.
+     * <p>
+     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
+     * <p>
      * Margins are expressed as a fraction of the axis range and
      * are applied only when the axis range is auto‑calculated.
      *
@@ -303,7 +397,7 @@ public class XYChart extends Chart {
     }
 
     /**
-     * Sets the lower and upper bounds of the domain (X) axis.
+     * Sets the lower and upper bounds of the domain (X) axis (displayed data value range).
      *
      * @param lower the lower bound
      * @param upper the upper bound
@@ -316,7 +410,7 @@ public class XYChart extends Chart {
     }
 
     /**
-     * Sets the lower and upper bounds of the range (Y) axis.
+     * Sets the lower and upper bounds of the range (Y) axis (displayed data value range).
      *
      * @param lower the lower bound
      * @param upper the upper bound
@@ -710,6 +804,16 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Returns the renderer for the primary dataset.
+     *
+     * @return The item renderer.
+     * @see #setRenderer(XYItemRenderer)
+     */
+    public XYItemRenderer getRenderer() {
+        return plot_.getRenderer();
+    }
+
+    /**
      * Sets a range axis and sends a {@link PlotChangeEvent} to all registered
      * listeners.
      *
@@ -718,7 +822,6 @@ public class XYChart extends Chart {
     public void addRangeAxis(ValueAxis axis) {
         plot_.addRangeAxis(axis);
     }
-
 
     /**
      * Adds an annotation and sends a {@link RendererChangeEvent} to all

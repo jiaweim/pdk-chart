@@ -132,6 +132,17 @@ public class PeakRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Automatically generate labels for spectral peaks?
+     *
+     * @param showAutoPeakLabels true if generate labels.
+     */
+    public PeakRenderer withShowAutoPeakLabels(boolean showAutoPeakLabels) {
+        this.showAutoPeakLabels = showAutoPeakLabels;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the range of values the renderer requires to display all the
      * items from the specified dataset.
      *

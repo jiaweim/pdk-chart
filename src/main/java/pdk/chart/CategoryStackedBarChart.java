@@ -4,15 +4,21 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.StackedBarRenderer;
 import pdk.chart.urls.StandardCategoryURLGenerator;
 
 /**
- *
+ * A stacked bar chart with a {@link CategoryAxis} as the domain axis.
+ * <p>
+ * Uses a {@link StackedBarRenderer} to draw the bars, stacking series on top
+ * of each other.  The category axis margins are inherited from the parent
+ * {@link CategoryBarChart} and can be adjusted with its setter methods.
+ * <p>
+ * Tool‑tips and URLs can be enabled via constructor flags.  For finer
+ * control (e.g. rendering as percentages, grouping series), use the
+ * provided setter methods.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -22,6 +28,10 @@ public class CategoryStackedBarChart extends CategoryBarChart {
 
     protected StackedBarRenderer renderer2_;
 
+    /**
+     * Initializes the renderer to a {@link StackedBarRenderer} and
+     * updates the parent renderer references.
+     */
     @Override
     protected void initRenderer() {
         renderer2_ = new StackedBarRenderer();
@@ -30,30 +40,33 @@ public class CategoryStackedBarChart extends CategoryBarChart {
     }
 
     /**
-     * Creates a stacked bar chart with default settings.  The chart object
-     * returned by this method uses a {@link CategoryPlot} instance as the
-     * plot, with a {@link CategoryAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedBarRenderer}
-     * as the renderer.
+     * Returns the stacked bar renderer used by this chart.
      *
-     * @param title       the chart title ({@code null} permitted).
-     * @param xAxisLabel  the label for the category axis
-     *                    ({@code null} permitted).
-     * @param yAxisLabel  the label for the value axis
-     *                    ({@code null} permitted).
-     * @param dataset     the dataset for the chart ({@code null} permitted).
-     * @param orientation the orientation of the chart (horizontal or
-     *                    vertical) ({@code null} not permitted).
-     * @param legend      a flag specifying whether a legend is required.
-     * @param tooltips    configure chart to generate tool tips?
-     * @param urls        configure chart to generate URLs?
+     * @return the renderer (never {@code null})
+     */
+    @Override
+    public StackedBarRenderer getRenderer() {
+        return renderer2_;
+    }
+
+    /**
+     * Full constructor – every option is exposed.
+     *
+     * @param dataset     the dataset ({@code null} permitted)
+     * @param xAxisLabel  the label for the category axis ({@code null} permitted)
+     * @param yAxisLabel  the label for the value axis ({@code null} permitted)
+     * @param title       the chart title ({@code null} permitted)
+     * @param orientation the plot orientation ({@code null} not permitted)
+     * @param legend      {@code true} to include a legend
+     * @param tooltips    {@code true} to enable standard tool‑tips
+     * @param urls        {@code true} to generate URLs for data points
      */
     public CategoryStackedBarChart(CategoryDataset dataset, String xAxisLabel, String yAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips, boolean urls) {
         super(title, legend);
 
-        xAxis_ = new CategoryAxis(xAxisLabel);
-        yAxis_ = new NumberAxis(yAxisLabel);
+        CategoryAxis xAxis_ = new CategoryAxis(xAxisLabel);
+        NumberAxis yAxis_ = new NumberAxis(yAxisLabel);
 
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -71,22 +84,16 @@ public class CategoryStackedBarChart extends CategoryBarChart {
     }
 
     /**
-     * Creates a stacked bar chart with default settings.  The chart object
-     * returned by this method uses a {@link CategoryPlot} instance as the
-     * plot, with a {@link CategoryAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedBarRenderer}
-     * as the renderer.
+     * Creates a stacked bar chart with the given parameters; URLs are
+     * disabled.
      *
-     * @param title           the chart title ({@code null} permitted).
-     * @param domainAxisLabel the label for the category axis
-     *                        ({@code null} permitted).
-     * @param rangeAxisLabel  the label for the value axis
-     *                        ({@code null} permitted).
-     * @param dataset         the dataset for the chart ({@code null} permitted).
-     * @param orientation     the orientation of the chart (horizontal or
-     *                        vertical) ({@code null} not permitted).
-     * @param legend          a flag specifying whether a legend is required.
-     * @param tooltips        configure chart to generate tool tips?
+     * @param dataset         the dataset ({@code null} permitted)
+     * @param domainAxisLabel the label for the category axis ({@code null} permitted)
+     * @param rangeAxisLabel  the label for the value axis ({@code null} permitted)
+     * @param title           the chart title ({@code null} permitted)
+     * @param orientation     the plot orientation ({@code null} not permitted)
+     * @param legend          {@code true} to include a legend
+     * @param tooltips        {@code true} to enable standard tool‑tips
      */
     public CategoryStackedBarChart(CategoryDataset dataset, String domainAxisLabel, String rangeAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
@@ -94,18 +101,13 @@ public class CategoryStackedBarChart extends CategoryBarChart {
     }
 
     /**
-     * Creates a stacked bar chart with default settings.  The chart object
-     * returned by this method uses a {@link CategoryPlot} instance as the
-     * plot, with a {@link CategoryAxis} for the domain axis, a
-     * {@link NumberAxis} as the range axis, and a {@link StackedBarRenderer}
-     * as the renderer.
+     * Convenience constructor with vertical orientation, legend and tooltips
+     * enabled, no URLs.
      *
-     * @param title           the chart title ({@code null} permitted).
-     * @param domainAxisLabel the label for the category axis
-     *                        ({@code null} permitted).
-     * @param rangeAxisLabel  the label for the value axis
-     *                        ({@code null} permitted).
-     * @param dataset         the dataset for the chart ({@code null} permitted).
+     * @param dataset         the dataset ({@code null} permitted)
+     * @param domainAxisLabel the label for the category axis ({@code null} permitted)
+     * @param rangeAxisLabel  the label for the value axis ({@code null} permitted)
+     * @param title           the chart title ({@code null} permitted)
      */
     public CategoryStackedBarChart(CategoryDataset dataset, String domainAxisLabel, String rangeAxisLabel,
             String title) {
@@ -113,21 +115,20 @@ public class CategoryStackedBarChart extends CategoryBarChart {
     }
 
     /**
-     * Updates the map used to assign each series to a group, and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the map used to assign each series to a group, allowing stacked
+     * bars to be grouped independently of the series structure.
      *
-     * @param map the map ({@code null} not permitted).
+     * @param map the key‑to‑group map ({@code null} not permitted)
      */
     public void setSeriesToGroupMap(KeyToGroupMap map) {
         renderer2_.setSeriesToGroupMap(map);
     }
 
     /**
-     * Sets the flag that controls whether the renderer displays each item
-     * value as a percentage (so that the stacked bars add to 100%), and sends
-     * a {@link RendererChangeEvent} to all registered listeners.
+     * Controls whether the stacked bars are rendered as percentages,
+     * i.e. the bars for each category add up to 100%.
      *
-     * @param asPercentages the flag.
+     * @param asPercentages {@code true} to render as percentages
      */
     public void setRenderAsPercentages(boolean asPercentages) {
         renderer2_.setRenderAsPercentages(asPercentages);

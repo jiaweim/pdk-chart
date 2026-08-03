@@ -47,7 +47,7 @@ public class CategoryPointerAnnotationDemo1 extends ApplicationFrame {
         source.setHorizontalAlignment(HorizontalAlignment.RIGHT);
         chart.addSubtitle(source);
 
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         chart.setDefaultShapesVisible(true);

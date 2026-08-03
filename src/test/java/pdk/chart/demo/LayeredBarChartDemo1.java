@@ -6,7 +6,6 @@ import pdk.chart.api.SortOrder;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -41,20 +40,20 @@ public class LayeredBarChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryLayeredBarChart(dataset, "Category", "Value", "Layered Bar Chart Demo 1",
+        CategoryLayeredBarChart chart = new CategoryLayeredBarChart(dataset, "Category", "Value", "Layered Bar Chart Demo 1",
                 PlotOrientation.VERTICAL, true, true, false);
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.domainGridlinesVisible(true)
-                .rangePannable(true)
-                .rangeZeroBaselineVisible(true)
-                .rowRenderingOrder(SortOrder.DESCENDING);
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
-        plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
-                .seriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
-                .seriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
+        chart.withDomainGridlinesVisible(true)
+                .withRangePannable(true)
+                .withRangeZeroBaselineVisible(true)
+                .withRowRenderingOrder(SortOrder.DESCENDING);
+
+        chart.getRangeAxisAsNumber()
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getRenderer()
+                .withDrawBarOutline(false)
+                .withSeriesPaint(0, new GradientPaint(0.0F, 0.0F, Color.BLUE, 0.0F, 0.0F, new Color(0, 0, 64)))
+                .withSeriesPaint(1, new GradientPaint(0.0F, 0.0F, Color.GREEN, 0.0F, 0.0F, new Color(0, 64, 0)))
+                .withSeriesPaint(2, new GradientPaint(0.0F, 0.0F, Color.RED, 0.0F, 0.0F, new Color(64, 0, 0)));
 
         return chart;
     }

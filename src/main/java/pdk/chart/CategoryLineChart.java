@@ -3,10 +3,8 @@ package pdk.chart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.model.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.urls.StandardCategoryURLGenerator;
@@ -15,7 +13,13 @@ import java.awt.*;
 import java.util.Objects;
 
 /**
- * Line chart with category domain axis.
+ * A line chart with a {@link CategoryAxis} as the domain axis.
+ * <p>
+ * The default renderer is a {@link LineAndShapeRenderer} with lines visible
+ * and shapes hidden.  Lines, shapes, strokes, tool‑tips and URLs can be
+ * configured through the provided setter methods.
+ * <p>
+ * For a value‑axis‑based line chart, see {@link LineChart}.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -23,8 +27,6 @@ import java.util.Objects;
  */
 public class CategoryLineChart extends CategoryChart {
 
-    protected CategoryAxis xAxis_;
-    protected NumberAxis yAxis_;
     protected LineAndShapeRenderer renderer1_;
 
     @Override
@@ -33,27 +35,33 @@ public class CategoryLineChart extends CategoryChart {
         renderer0_ = renderer1_;
     }
 
+    @Override
+    public LineAndShapeRenderer getRenderer() {
+        return renderer1_;
+    }
+
+    /**
+     * Creates a new empty line chart with the given title and legend flag.
+     * No dataset or axes are attached initially.
+     *
+     * @param title        the chart title ({@code null} permitted)
+     * @param createLegend whether to include a legend
+     */
     protected CategoryLineChart(String title, boolean createLegend) {
         super(title, createLegend);
     }
 
     /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
+     * Full constructor – every option is exposed.
      *
-     * @param title           the chart title ({@code null} permitted).
-     * @param domainAxisLabel the label for the category axis
-     *                        ({@code null} permitted).
-     * @param rangeAxisLabel  the label for the value axis ({@code null}
-     *                        permitted).
-     * @param dataset         the dataset for the chart ({@code null} permitted).
-     * @param orientation     the chart orientation (horizontal or vertical)
-     *                        ({@code null} not permitted).
-     * @param legend          a flag specifying whether a legend is required.
-     * @param tooltips        configure chart to generate tool tips?
-     * @param urls            configure chart to generate URLs?
+     * @param dataset         the dataset ({@code null} permitted)
+     * @param domainAxisLabel the category axis label ({@code null} permitted)
+     * @param rangeAxisLabel  the value axis label ({@code null} permitted)
+     * @param title           the chart title ({@code null} permitted)
+     * @param orientation     the plot orientation ({@code null} not permitted)
+     * @param legend          {@code true} to include a legend
+     * @param tooltips        {@code true} to enable standard tool‑tips
+     * @param urls            {@code true} to generate URLs for data points
      */
     public CategoryLineChart(CategoryDataset dataset,
             String domainAxisLabel, String rangeAxisLabel, String title,
@@ -61,8 +69,8 @@ public class CategoryLineChart extends CategoryChart {
         super(title, legend);
         Objects.requireNonNull(orientation);
 
-        this.xAxis_ = new CategoryAxis(domainAxisLabel);
-        this.yAxis_ = new NumberAxis(rangeAxisLabel);
+        CategoryAxis xAxis_ = new CategoryAxis(domainAxisLabel);
+        NumberAxis yAxis_ = new NumberAxis(rangeAxisLabel);
 
         if (tooltips) {
             renderer1_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -80,18 +88,15 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     /**
-     * Creates a line chart with default settings.
+     * Creates a line chart with the given parameters; URLs are disabled.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the chart orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
-     * @param legend            a flag specifying whether a legend is required.
-     * @param tooltips          configure chart to generate tool tips?
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the category axis label ({@code null} permitted)
+     * @param valueAxisLabel    the value axis label ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not permitted)
+     * @param legend            {@code true} to include a legend
+     * @param tooltips          {@code true} to enable standard tool‑tips
      */
     public CategoryLineChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
@@ -99,16 +104,13 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     /**
-     * Creates a line chart with default settings.
+     * Convenience constructor with legend and tooltips enabled, no URLs.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
-     * @param orientation       the chart orientation (horizontal or vertical)
-     *                          ({@code null} not permitted).
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the category axis label ({@code null} permitted)
+     * @param valueAxisLabel    the value axis label ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not permitted)
      */
     public CategoryLineChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title, PlotOrientation orientation) {
@@ -116,17 +118,12 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     /**
-     * Creates a line chart with default settings.  The chart object returned
-     * by this method uses a {@link CategoryPlot} instance as the plot, with a
-     * {@link CategoryAxis} for the domain axis, a {@link NumberAxis} as the
-     * range axis, and a {@link LineAndShapeRenderer} as the renderer.
+     * Creates a vertical line chart with legend and tooltips enabled, no URLs.
      *
-     * @param title             the chart title ({@code null} permitted).
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the category axis label ({@code null} permitted)
+     * @param valueAxisLabel    the value axis label ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
      */
     public CategoryLineChart(CategoryDataset dataset, String categoryAxisLabel, String valueAxisLabel,
             String title) {
@@ -134,13 +131,11 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     /**
-     * Creates a line chart with default settings.
+     * Creates a vertical line chart with no title, legend and tooltips enabled.
      *
-     * @param categoryAxisLabel the label for the category axis
-     *                          ({@code null} permitted).
-     * @param valueAxisLabel    the label for the value axis ({@code null}
-     *                          permitted).
-     * @param dataset           the dataset for the chart ({@code null} permitted).
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisLabel the category axis label ({@code null} permitted)
+     * @param valueAxisLabel    the value axis label ({@code null} permitted)
      */
     public CategoryLineChart(CategoryDataset dataset,
             String categoryAxisLabel, String valueAxisLabel) {
@@ -148,75 +143,72 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     /**
-     * Creates a line chart with default settings.
+     * Creates a vertical line chart with no axis labels, no title,
+     * legend and tooltips enabled.
      *
-     * @param dataset the dataset for the chart ({@code null} permitted).
+     * @param dataset the dataset ({@code null} permitted)
      */
     public CategoryLineChart(CategoryDataset dataset) {
         this(dataset, null, null);
     }
 
     /**
-     * Creates a line chart with default settings.
+     * Creates a line chart from two arrays representing categories and
+     * values.  Vertical orientation, no legend, tooltips enabled.
      *
-     * @param categories categories of the dataset
-     * @param values     values of the dataset
+     * @param categories the category names (must not be {@code null})
+     * @param values     the values for each category (must not be {@code null}
+     *                   and same length as {@code categories})
      */
     public CategoryLineChart(String[] categories, double[] values) {
         this(Data.createCategory("", categories, values), null, null, null,
                 PlotOrientation.VERTICAL, false, true);
     }
 
-    public NumberAxis getRangeAxis() {
-        return yAxis_;
-    }
-
     /**
-     * Sets the default 'shapes visible' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default shapes visible flag.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to show shapes by default
      */
     public void setDefaultShapesVisible(boolean flag) {
         renderer1_.setDefaultShapesVisible(flag);
     }
 
     /**
-     * Sets the default 'shapes filled' flag and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default shapes filled flag.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to fill shapes by default
      */
     public void setDefaultShapesFilled(boolean flag) {
         renderer1_.setDefaultShapesFilled(flag);
     }
 
     /**
-     * Sets the shape used for a series and sends a {@link RendererChangeEvent}
-     * to all registered listeners.
+     * Sets the shape for a specific series.
      *
-     * @param series the series index (zero-based).
-     * @param shape  the shape ({@code null} permitted).
+     * @param series the series index (zero‑based)
+     * @param shape  the shape ({@code null} permitted)
      */
     public void setSeriesShape(int series, Shape shape) {
         renderer1_.setSeriesShape(series, shape);
     }
 
     /**
-     * Sets the 'shapes visible' flag for a series.
+     * Sets the shapes visible flag for a series.
      *
-     * @param series the series index (zero-based).
-     * @param flag   the flag.
+     * @param series the series index (zero‑based)
+     * @param flag   {@code true} to show shapes for the series,
+     *               {@code null} to use the default
      */
     public void setSeriesShapesVisible(int series, Boolean flag) {
         renderer1_.setSeriesShapesVisible(series, flag);
     }
 
     /**
-     * Sets the 'lines visible' flag for a series.
+     * Sets the lines visible flag for a series.
      *
-     * @param series  the series index (zero-based).
-     * @param visible the flag.
+     * @param series  the series index (zero‑based)
+     * @param visible {@code true} to show lines for the series
      */
     public void setSeriesLinesVisible(int series, boolean visible) {
         renderer1_.setSeriesLinesVisible(series, visible);
@@ -233,75 +225,62 @@ public class CategoryLineChart extends CategoryChart {
     }
 
     /**
-     * Set the line width of a given series
+     * Sets the line width for a series, preserving the existing stroke’s
+     * other attributes (cap, join, dash pattern, etc.).
      *
-     * @param series series index
-     * @param width  line width
+     * @param series the series index (zero‑based)
+     * @param width  the new line width
      */
-    public void setSeriesLinesWidth(int series, float width) {
-        Stroke seriesStroke = renderer1_.getSeriesStroke(series);
-        if (seriesStroke == null) {
-            setSeriesStroke(series, new BasicStroke(width));
-        } else {
-            BasicStroke stroke = (BasicStroke) seriesStroke;
-            setSeriesStroke(series,
-                    new BasicStroke(width, stroke.getEndCap(),
-                            stroke.getLineJoin(), stroke.getMiterLimit(),
-                            stroke.getDashArray(), stroke.getDashPhase()));
-        }
+    public void setSeriesStrokeWidth(int series, float width) {
+        renderer1_.withSeriesStrokeWidth(series, width);
     }
 
-
     /**
-     * Sets the flag that controls whether outlines are drawn for
-     * shapes.
+     * Sets whether shape outlines are drawn.
      * <p>
-     * In some cases, shapes look better if they do NOT have an outline, but
-     * this flag allows you to set your own preference.
+     * In many cases shapes look better without an outline; this flag
+     * allows you to override the default.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to draw outlines
      */
     public void setDrawOutlines(boolean flag) {
         renderer1_.setDrawOutlines(flag);
     }
 
     /**
-     * Sets the outline stroke used for a series and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the outline stroke for a series.
      *
-     * @param series the series index (zero-based).
-     * @param stroke the stroke ({@code null} permitted).
+     * @param series the series index (zero‑based)
+     * @param stroke the stroke ({@code null} permitted)
      */
     public void setSeriesOutlineStroke(int series, Stroke stroke) {
         renderer1_.setSeriesOutlineStroke(series, stroke);
     }
 
     /**
-     * Sets the flag that controls whether the fill paint is used to fill
-     * shapes.
+     * Sets whether the fill paint is used to fill shapes.
      *
-     * @param flag the flag.
+     * @param flag {@code true} to use the fill paint
      */
     public void setUseFillPaint(boolean flag) {
         renderer1_.setUseFillPaint(flag);
     }
 
     /**
-     * Sets the flag that controls whether the series shape list is
-     * automatically populated when {@link #lookupSeriesShape(int)} is called.
+     * Sets whether the series shape list is automatically populated when
+     * {@link #lookupSeriesShape(int)} is called.
      *
-     * @param auto the new flag value.
+     * @param auto {@code true} to auto‑populate
      */
     public void setAutoPopulateSeriesShape(boolean auto) {
         renderer1_.setAutoPopulateSeriesShape(auto);
     }
 
     /**
-     * Sets the flag that controls whether the x-position for each
-     * data item is offset within its category according to the series, and
-     * sends a {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether each series is offset within its category (to avoid
+     * overlapping lines).
      *
-     * @param offset the offset.
+     * @param offset {@code true} to use series offset
      */
     public void setUseSeriesOffset(boolean offset) {
         renderer1_.setUseSeriesOffset(offset);

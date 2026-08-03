@@ -9,12 +9,12 @@ import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.statistics.StatisticalCategoryDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.labels.CategoryItemLabelGenerator;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.util.GradientPaintTransformer;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -84,6 +84,20 @@ public class StatisticalBarRenderer extends BarRenderer
     public void setErrorIndicatorPaint(Paint paint) {
         this.errorIndicatorPaint = paint;
         fireChangeEvent();
+    }
+
+
+    /**
+     * Sets the paint used for the error indicators (if {@code null},
+     * the item outline paint is used instead.
+     *
+     * @param paint the paint ({@code null} permitted).
+     * @see #getErrorIndicatorPaint()
+     */
+    public StatisticalBarRenderer withErrorIndicatorPaint(Paint paint) {
+        this.errorIndicatorPaint = paint;
+        fireChangeEvent();
+        return this;
     }
 
     /**

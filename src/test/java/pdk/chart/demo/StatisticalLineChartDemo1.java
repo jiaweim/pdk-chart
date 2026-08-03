@@ -1,8 +1,7 @@
 package pdk.chart.demo;
 
+import pdk.chart.CategoryStatisticalLineChart;
 import pdk.chart.Chart;
-import pdk.chart.StatisticalCategoryLineChart;
-import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.statistics.DefaultStatisticalCategoryDataset;
 import pdk.chart.swing.ApplicationFrame;
@@ -34,15 +33,15 @@ public class StatisticalLineChartDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(DefaultStatisticalCategoryDataset dataset) {
-        StatisticalCategoryLineChart chart = new StatisticalCategoryLineChart(dataset, "Type", "Value", "Statistical Line Chart Demo 1");
+        CategoryStatisticalLineChart chart = new CategoryStatisticalLineChart(dataset, "Type", "Value", "Statistical Line Chart Demo 1");
         chart.setRangePannable(true);
         chart.setUseSeriesOffset(true);
 
-        CategoryAxis domainAxis = chart.getDomainAxis();
-        domainAxis.setUpperMargin(0.0);
-        domainAxis.setLowerMargin(0.0);
+        chart.getDomainAxis()
+                .withLowerMargin(0.0)
+                .withUpperMargin(0.0);
 
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
         rangeAxis.setAutoRangeIncludesZero(true);
 

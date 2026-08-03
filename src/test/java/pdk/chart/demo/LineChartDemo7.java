@@ -43,7 +43,7 @@ public class LineChartDemo7 extends ApplicationFrame {
 
     private static Chart createChart(CategoryDataset dataset) {
         CategoryLineChart chart = new CategoryLineChart(dataset, "Category", "Count", "Line Chart Demo 7");
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         chart.setSeriesShapesVisible(0, true);

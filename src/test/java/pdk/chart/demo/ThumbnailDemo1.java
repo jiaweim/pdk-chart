@@ -253,7 +253,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
         chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
         chart.setDomainGridlinePaint(Color.WHITE);
         chart.setRangeGridlinePaint(Color.WHITE);
-        chart.setForegroundAlpha(0.85f);
+        chart.setPlotForegroundAlpha(0.85f);
         chart.setDrawBarOutline(false);
         return chart;
     }
@@ -281,7 +281,7 @@ public class ThumbnailDemo1 extends ApplicationFrame {
         chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
         chart.setDomainGridlinePaint(Color.WHITE);
 
-        NumberAxis rangeAxis = chart.getRangeAxis();
+        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
         rangeAxis.setUpperMargin(0.15);
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 

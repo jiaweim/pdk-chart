@@ -33,8 +33,6 @@ import java.util.Objects;
  */
 public class AreaChart extends XYChart {
 
-    private ValueAxis xAxis_;
-    private ValueAxis yAxis_;
     private XYAreaRenderer renderer_;
 
     /**
@@ -45,6 +43,11 @@ public class AreaChart extends XYChart {
     protected void initRenderer() {
         renderer_ = new XYAreaRenderer();
         renderer0_ = renderer_;
+    }
+
+    @Override
+    public XYAreaRenderer getRenderer() {
+        return renderer_;
     }
 
     /**
@@ -69,11 +72,11 @@ public class AreaChart extends XYChart {
         Objects.requireNonNull(xAxisType);
         Objects.requireNonNull(yAxisType);
 
-        xAxis_ = xAxisType.createInstance(xAxisLabel);
+        ValueAxis xAxis_ = xAxisType.createInstance(xAxisLabel);
         if (xAxis_ instanceof NumberAxis nAxis) {
             nAxis.setAutoRangeIncludesZero(false);
         }
-        yAxis_ = yAxisType.createInstance(yAxisLabel);
+        ValueAxis yAxis_ = yAxisType.createInstance(yAxisLabel);
 
         if (tooltips) {
             XYToolTipGenerator tipGenerator = new StandardXYToolTipGenerator();
@@ -164,4 +167,5 @@ public class AreaChart extends XYChart {
         this(dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL,
                 true, true);
     }
+
 }

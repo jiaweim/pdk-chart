@@ -43,14 +43,14 @@ public class BarChartDemo1 {
                 .rangeCrosshairVisible(true)
                 .rangeCrosshairPaint(Color.BLUE);
         plot.getDomainAxis()
-                .categoryMargin(0.2);
+                .withCategoryMargin(0.2);
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
         plot.getBarRenderer(0)
-                .drawBarOutline(false)
-                .barPainter(new StandardBarPainter())
-                .itemMargin(0.06)
-                .legendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
+                .withDrawBarOutline(false)
+                .withBarPainter(new StandardBarPainter())
+                .withItemMargin(0.06)
+                .withLegendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
 
         return chart;
     }

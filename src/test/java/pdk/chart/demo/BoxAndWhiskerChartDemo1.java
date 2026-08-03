@@ -59,7 +59,7 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
         plot.domainGridlinesVisible(true)
                 .rangePannable(true);
         plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
         return chart;
     }
 

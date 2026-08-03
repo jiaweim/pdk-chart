@@ -32,7 +32,7 @@ public class HistogramGaussian {
         HistogramDataset dataset = his.build();
 
         BarChart chart = new BarChart(dataset, null, null, "Histogram Gaussian");
-        chart.setForegroundAlpha(0.85f);
+        chart.setPlotForegroundAlpha(0.85f);
         chart.show();
     }
 }

@@ -46,9 +46,9 @@ public class StackedBarChartDemo3 extends ApplicationFrame {
                 PlotOrientation.VERTICAL, true, false);
 
         ExtendedStackedBarRenderer renderer = new ExtendedStackedBarRenderer();
-        renderer.defaultItemLabelsVisible(true)
-                .defaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
-                .defaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
+        renderer.withDefaultItemLabelsVisible(true)
+                .withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
+                .withDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
         chart.setRenderer(renderer);
 
         NumberAxis yAxis = (NumberAxis) chart.getRangeAxis();

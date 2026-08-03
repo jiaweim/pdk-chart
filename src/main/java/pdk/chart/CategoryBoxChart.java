@@ -7,7 +7,16 @@ import pdk.chart.labels.BoxAndWhiskerToolTipGenerator;
 import pdk.chart.renderer.category.BoxAndWhiskerRenderer;
 
 /**
- *
+ * A box‑and‑whisker chart with a {@link CategoryAxis} as the domain axis.
+ * <p>
+ * This chart displays the distribution of a dataset via its minimum, first
+ * quartile, median, third quartile, and maximum values.  The renderer is a
+ * {@link BoxAndWhiskerRenderer}, which is automatically configured with a
+ * {@link BoxAndWhiskerToolTipGenerator}.  The domain axis is a
+ * {@link CategoryAxis} and the range axis is a {@link NumberAxis} with
+ * {@code autoRangeIncludesZero} set to {@code false}.
+ * <p>
+ * The dataset must implement {@link BoxAndWhiskerCategoryDataset}.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -16,8 +25,6 @@ import pdk.chart.renderer.category.BoxAndWhiskerRenderer;
 public class CategoryBoxChart extends CategoryChart {
 
     private BoxAndWhiskerRenderer renderer1_;
-    private CategoryAxis domainAxis_;
-    private NumberAxis rangeAxis_;
 
     @Override
     protected void initRenderer() {
@@ -26,21 +33,28 @@ public class CategoryBoxChart extends CategoryChart {
         renderer0_ = renderer1_;
     }
 
+    @Override
+    public BoxAndWhiskerRenderer getRenderer() {
+        return renderer1_;
+    }
+
     /**
-     * Creates and returns a default instance of a box and whisker chart.
+     * Creates a box‑and‑whisker chart.
      *
-     * @param domainAxisLabel a label for the category axis.
-     * @param rangeAxisLabel  a label for the value axis.
-     * @param dataset         the dataset for the chart.
-     * @param legend          a flag specifying whether a legend is required.
+     * @param dataset         the dataset ({@code null} permitted)
+     * @param domainAxisLabel the label for the category axis ({@code null}
+     *                        permitted)
+     * @param rangeAxisLabel  the label for the value axis ({@code null}
+     *                        permitted)
+     * @param legend          {@code true} to include a legend
      */
     public CategoryBoxChart(BoxAndWhiskerCategoryDataset dataset,
             String domainAxisLabel, String rangeAxisLabel, boolean legend) {
         super(null, legend);
 
-        domainAxis_ = new CategoryAxis(domainAxisLabel);
+        CategoryAxis domainAxis_ = new CategoryAxis(domainAxisLabel);
 
-        rangeAxis_ = new NumberAxis(rangeAxisLabel);
+        NumberAxis rangeAxis_ = new NumberAxis(rangeAxisLabel);
         rangeAxis_.setAutoRangeIncludesZero(false);
 
         plot_.setDomainAxis(domainAxis_);

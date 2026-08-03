@@ -7,7 +7,6 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -42,21 +41,22 @@ public class BarChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Score (%)", "Bar Chart Demo 2");
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.orientation(PlotOrientation.HORIZONTAL)
-                .rangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
-        plot.getRangeAxisAsNumber()
-                .range(0, 100)
-                .standardTickUnits(NumberAxis.createIntegerTickUnits());
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Score (%)",
+                "Bar Chart Demo 2");
+        chart.withOrientation(PlotOrientation.HORIZONTAL)
+                .withRangeAxisLocation(AxisLocation.BOTTOM_OR_LEFT);
 
-        plot.getBarRenderer(0)
-                .seriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(0, 0, 128), 0.0F, 0.0F, Color.BLUE))
-                .seriesPaint(1, new GradientPaint(0.0F, 0.0F, new Color(0, 128, 0), 0.0F, 0.0F, Color.GREEN))
-                .seriesPaint(2, new GradientPaint(0.0F, 0.0F, new Color(128, 0, 0), 0.0F, 0.0F, Color.RED))
-                .gradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL))
-                .drawBarOutline(false)
-                .legendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
+        chart.getRangeAxisAsNumber()
+                .withRange(0, 100)
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
+
+        chart.getRenderer()
+                .withSeriesPaint(0, new GradientPaint(0.0F, 0.0F, new Color(0, 0, 128), 0.0F, 0.0F, Color.BLUE))
+                .withSeriesPaint(1, new GradientPaint(0.0F, 0.0F, new Color(0, 128, 0), 0.0F, 0.0F, Color.GREEN))
+                .withSeriesPaint(2, new GradientPaint(0.0F, 0.0F, new Color(128, 0, 0), 0.0F, 0.0F, Color.RED))
+                .withGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.HORIZONTAL))
+                .withDrawBarOutline(false)
+                .withLegendItemToolTipGenerator(new StandardCategorySeriesLabelGenerator("Tooltip: {0}"));
 
         return chart;
     }

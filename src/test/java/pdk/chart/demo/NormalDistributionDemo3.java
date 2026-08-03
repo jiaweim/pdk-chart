@@ -39,7 +39,7 @@ public class NormalDistributionDemo3 extends ApplicationFrame {
         XYDataset<String> areaDataset = func.sample(10.6, 18, 100, "Area");
 
         LineChart chart = new LineChart(lineDataset, "X", "Probability Density");
-        chart.addDataset(areaDataset, XYChart.ChartType.AREA);
+        chart.addDataset(areaDataset, XYChart.Type.AREA);
 
         return chart;
     }

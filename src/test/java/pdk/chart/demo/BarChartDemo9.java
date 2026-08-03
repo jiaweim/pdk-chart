@@ -2,11 +2,10 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.plot.CategoryPlot;
+import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.StandardBarPainter;
@@ -47,7 +46,7 @@ public class BarChartDemo9 extends ApplicationFrame {
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {
-        Chart chart = new CategoryBarChart(dataset, null, "Value", "Bar Chart Demo 9",
+        CategoryBarChart chart = new CategoryBarChart(dataset, null, "Value", "Bar Chart Demo 9",
                 PlotOrientation.VERTICAL, false, true);
 
         TextTitle title = chart.getTitle();
@@ -56,25 +55,27 @@ public class BarChartDemo9 extends ApplicationFrame {
         title.setExpandToFitSpace(true);
 
         chart.setBackgroundPaint(new GradientPaint(0.0F, 0.0F, Color.YELLOW, 350.0F, 0.0F, Color.WHITE, true));
-        CategoryPlot plot = chart.getCategoryPlot();
-        plot.noDataMessage("NO DATA!")
-                .backgroundPaint(null)
-                .insets(new RectangleInsets(10.0, 5.0, 5.0, 5.0))
-                .outlinePaint(Color.BLACK)
-                .rangeGridlinePaint(Color.GRAY)
-                .rangeGridlineStroke(new BasicStroke(1.0f));
+        chart.withNoDataMessage("NO DATA!")
+                .withPlotBackgroundPaint(null)
+                .withPlotInsets(new RectangleInsets(10.0, 5.0, 5.0, 5.0))
+                .withPlotOutlinePaint(Color.BLACK)
+                .withRangeGridlinePaint(Color.GRAY)
+                .withRangeGridlineStroke(new BasicStroke(1f));
 
         Paint[] colors = createPaint();
-        CustomBarRenderer renderer = new CustomBarRenderer(colors);
-        renderer.barPainter(new StandardBarPainter())
-                .drawBarOutline(true)
-                .gradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.CENTER_HORIZONTAL));
-        plot.setRenderer(renderer);
+        BarRenderer renderer = chart.getRenderer();
+        for (int i = 0; i < dataset.getColumnCount(); i++) {
+            renderer.setItemPaint(0, i, colors[i % colors.length]);
+        }
 
-        plot.getRangeAxisAsNumber()
-                .standardTickUnits(NumberAxis.createIntegerTickUnits())
-                .range(0, 800)
-                .tickMarkPaint(Color.BLACK);
+        renderer.withBarPainter(new StandardBarPainter())
+                .withDrawBarOutline(true)
+                .withGradientPaintTransformer(new StandardGradientPaintTransformer(GradientPaintTransformType.CENTER_HORIZONTAL));
+
+        chart.getRangeAxisAsNumber()
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits())
+                .withRange(0, 800)
+                .withTickMarkPaint(Color.BLACK);
 
         return chart;
     }
@@ -92,15 +93,4 @@ public class BarChartDemo9 extends ApplicationFrame {
         demo.setVisible(true);
     }
 
-    static class CustomBarRenderer extends BarRenderer {
-        private final Paint[] colors;
-
-        public CustomBarRenderer(Paint[] colors) {
-            this.colors = colors;
-        }
-
-        public Paint getItemPaint(int row, int column) {
-            return this.colors[column % this.colors.length];
-        }
-    }
 }

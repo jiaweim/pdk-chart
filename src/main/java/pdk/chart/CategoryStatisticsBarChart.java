@@ -3,7 +3,6 @@ package pdk.chart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.StatisticalBarRenderer;
@@ -11,7 +10,15 @@ import pdk.chart.renderer.category.StatisticalBarRenderer;
 import java.awt.*;
 
 /**
- *
+ * A bar chart that displays statistical data with error indicators.
+ * <p>
+ * Uses a {@link StatisticalBarRenderer} to draw bars together with
+ * error bars representing standard deviation or confidence intervals.
+ * The domain axis is a {@link CategoryAxis} and the range axis is a
+ * {@link NumberAxis}.
+ * <p>
+ * Tool‑tips are enabled by default and can be disabled via the
+ * constructor.  URLs are not supported in this implementation.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -21,6 +28,10 @@ public class CategoryStatisticsBarChart extends CategoryBarChart {
 
     private StatisticalBarRenderer renderer2_;
 
+    /**
+     * Initializes the renderer to a {@link StatisticalBarRenderer}
+     * and updates the parent renderer references.
+     */
     @Override
     protected void initRenderer() {
         renderer2_ = new StatisticalBarRenderer();
@@ -29,22 +40,35 @@ public class CategoryStatisticsBarChart extends CategoryBarChart {
     }
 
     /**
-     * Create a bar chart with statistical error bar.
+     * Returns the statistical bar renderer used by this chart.
      *
-     * @param dataset           {@link CategoryDataset}
-     * @param title             chart title
-     * @param categoryAxisTitle x axis name
-     * @param valueAxisTitle    y axis name
-     * @param orientation       {@link PlotOrientation}
-     * @param legend            true if create legend
-     * @param tooltips          true if generate tooltips.
+     * @return the renderer (never {@code null})
+     */
+    @Override
+    public StatisticalBarRenderer getRenderer() {
+        return renderer2_;
+    }
+
+    /**
+     * Creates a statistics bar chart with error indicators.
+     *
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisTitle the label for the category axis
+     *                          ({@code null} permitted)
+     * @param valueAxisTitle    the label for the value axis
+     *                          ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
+     * @param orientation       the plot orientation ({@code null} not
+     *                          permitted)
+     * @param legend            {@code true} to include a legend
+     * @param tooltips          {@code true} to enable standard tool‑tips
      */
     public CategoryStatisticsBarChart(CategoryDataset dataset,
             String categoryAxisTitle, String valueAxisTitle, String title, PlotOrientation orientation,
             boolean legend, boolean tooltips) {
         super(title, legend);
-        xAxis_ = new CategoryAxis(categoryAxisTitle);
-        yAxis_ = new NumberAxis(valueAxisTitle);
+        CategoryAxis xAxis_ = new CategoryAxis(categoryAxisTitle);
+        NumberAxis yAxis_ = new NumberAxis(valueAxisTitle);
 
         if (tooltips) {
             renderer2_.setDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>());
@@ -59,12 +83,15 @@ public class CategoryStatisticsBarChart extends CategoryBarChart {
     }
 
     /**
-     * Create a bar chart with statistical error bar.
+     * Convenience constructor with vertical orientation, legend and
+     * tooltips enabled.
      *
-     * @param dataset           {@link CategoryDataset}
-     * @param title             chart title
-     * @param categoryAxisTitle x axis name
-     * @param valueAxisTitle    y axis name
+     * @param dataset           the dataset ({@code null} permitted)
+     * @param categoryAxisTitle the label for the category axis
+     *                          ({@code null} permitted)
+     * @param valueAxisTitle    the label for the value axis
+     *                          ({@code null} permitted)
+     * @param title             the chart title ({@code null} permitted)
      */
     public CategoryStatisticsBarChart(CategoryDataset dataset,
             String categoryAxisTitle, String valueAxisTitle, String title) {
@@ -73,11 +100,12 @@ public class CategoryStatisticsBarChart extends CategoryBarChart {
     }
 
     /**
-     * Sets the paint used for the error indicators (if {@code null},
-     * the item outline paint is used instead) and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the paint used for the error indicators (the lines showing
+     * standard deviation or confidence intervals).
+     * <p>
+     * If set to {@code null}, the item outline paint is used instead.
      *
-     * @param paint the paint ({@code null} permitted).
+     * @param paint the paint ({@code null} permitted)
      */
     public void setErrorIndicatorPaint(Paint paint) {
         renderer2_.setErrorIndicatorPaint(paint);

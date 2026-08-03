@@ -11,7 +11,10 @@ import pdk.chart.plot.CrosshairState;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
-import pdk.chart.util.*;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.LineUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.GeneralPath;
@@ -164,6 +167,23 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the flag that controls whether each series is drawn as a
+     * single path and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     *
+     * @param flag the flag.
+     * @see #getDrawSeriesLineAsPath()
+     */
+    public XYLineAndShapeRenderer withDrawSeriesLineAsPath(boolean flag) {
+        if (this.drawSeriesLineAsPath != flag) {
+            this.drawSeriesLineAsPath = flag;
+            fireChangeEvent();
+        }
+        return this;
+    }
+
+
+    /**
      * Returns the number of passes through the data that the renderer requires
      * in order to draw the chart.  Most charts will require a single pass, but
      * some require two passes.
@@ -253,6 +273,19 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the default 'lines visible' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #getDefaultLinesVisible()
+     */
+    public XYLineAndShapeRenderer withDefaultLinesVisible(boolean flag) {
+        this.defaultLinesVisible = flag;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the shape used to represent a line in the legend.
      *
      * @return The legend line (never {@code null}).
@@ -270,7 +303,7 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @see #getLegendLine()
      */
     public void setLegendLine(Shape line) {
-        Args.nullNotPermitted(line, "line");
+        Objects.requireNonNull(line, "line");
         this.legendLine = line;
         fireChangeEvent();
     }
@@ -325,6 +358,19 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * Sets the 'shapes visible' flag for a series and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
+     * @param series  the series index (zero-based).
+     * @param visible the flag.
+     * @see #getSeriesShapesVisible(int)
+     */
+    public XYLineAndShapeRenderer withSeriesShapesVisible(int series, boolean visible) {
+        setSeriesShapesVisible(series, Boolean.valueOf(visible));
+        return this;
+    }
+
+    /**
+     * Sets the 'shapes visible' flag for a series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
      * @param series the series index (zero-based).
      * @param flag   the flag.
      * @see #getSeriesShapesVisible(int)
@@ -354,6 +400,19 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     public void setDefaultShapesVisible(boolean flag) {
         this.defaultShapesVisible = flag;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the default 'shapes visible' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #getDefaultShapesVisible()
+     */
+    public XYLineAndShapeRenderer withDefaultShapesVisible(boolean flag) {
+        this.defaultShapesVisible = flag;
+        fireChangeEvent();
+        return this;
     }
 
     // SHAPES FILLED
@@ -410,6 +469,19 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
      * @param flag   the flag.
      * @see #getSeriesShapesFilled(int)
      */
+    public XYLineAndShapeRenderer withSeriesShapesFilled(int series, boolean flag) {
+        setSeriesShapesFilled(series, Boolean.valueOf(flag));
+        return this;
+    }
+
+    /**
+     * Sets the 'shapes filled' flag for a series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param flag   the flag.
+     * @see #getSeriesShapesFilled(int)
+     */
     public void setSeriesShapesFilled(int series, Boolean flag) {
         this.seriesShapesFilledMap.put(series, flag);
         fireChangeEvent();
@@ -438,6 +510,19 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the default 'shapes filled' flag and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #getDefaultShapesFilled()
+     */
+    public XYLineAndShapeRenderer withDefaultShapesFilled(boolean flag) {
+        this.defaultShapesFilled = flag;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns {@code true} if outlines should be drawn for shapes, and
      * {@code false} otherwise.
      *
@@ -462,6 +547,23 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     public void setDrawOutlines(boolean flag) {
         this.drawOutlines = flag;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the flag that controls whether outlines are drawn for
+     * shapes, and sends a {@link RendererChangeEvent} to all registered
+     * listeners.
+     * <p>
+     * In some cases, shapes look better if they do NOT have an outline, but
+     * this flag allows you to set your own preference.
+     *
+     * @param flag the flag.
+     * @see #getDrawOutlines()
+     */
+    public XYLineAndShapeRenderer withDrawOutlines(boolean flag) {
+        this.drawOutlines = flag;
+        fireChangeEvent();
+        return this;
     }
 
     /**
@@ -494,6 +596,20 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     }
 
     /**
+     * Sets the flag that controls whether the fill paint is used to fill
+     * shapes, and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param flag the flag.
+     * @see #getUseFillPaint()
+     */
+    public XYLineAndShapeRenderer withUseFillPaint(boolean flag) {
+        this.useFillPaint = flag;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns {@code true} if the renderer should use the outline paint
      * setting to draw shape outlines, and {@code false} if it should just
      * use the regular paint.
@@ -520,6 +636,20 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     public void setUseOutlinePaint(boolean flag) {
         this.useOutlinePaint = flag;
         fireChangeEvent();
+    }
+
+    /**
+     * Sets the flag that controls whether the outline paint is used to draw
+     * shape outlines, and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
+     *
+     * @param flag the flag.
+     * @see #getUseOutlinePaint()
+     */
+    public XYLineAndShapeRenderer withUseOutlinePaint(boolean flag) {
+        this.useOutlinePaint = flag;
+        fireChangeEvent();
+        return this;
     }
 
     /**
@@ -1102,5 +1232,18 @@ public class XYLineAndShapeRenderer extends AbstractXYItemRenderer
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
         SerialUtils.writeShape(this.legendLine, stream);
+    }
+
+    /**
+     * Sets the paint used for a series and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     * @see #getSeriesPaint(int)
+     */
+    public XYLineAndShapeRenderer withSeriesPaint(int series, Paint paint) {
+        setSeriesPaint(series, paint, true);
+        return this;
     }
 }

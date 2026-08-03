@@ -49,7 +49,7 @@ public class HistogramDemo2 extends ApplicationFrame {
 
     private static Chart createChart(IntervalXYDataset<String> dataset) {
         BarChart chart = new BarChart(dataset, null, null, "HistogramDemo2");
-        chart.setForegroundAlpha(0.85f);
+        chart.setPlotForegroundAlpha(0.85f);
         chart.setPannable(true, true);
         chart.setDrawBarOutline(false);
 

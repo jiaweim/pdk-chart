@@ -49,7 +49,7 @@ public class BlockContainer extends AbstractBlock
      *                    permitted).
      */
     public BlockContainer(Arrangement arrangement) {
-        Args.nullNotPermitted(arrangement, "arrangement");
+        Objects.requireNonNull(arrangement, "arrangement");
         this.arrangement = arrangement;
         this.blocks = new ArrayList<>();
     }
