@@ -1330,16 +1330,14 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the category margin.
+     * Sets the margin between categories.
      * <p>
-     * Category margin defines the percentage gap between two adjacent category blocks on the category axis.
-     * The total margin is evenly distributed among all gaps between categories.
-     * <p>
-     * The overall category margin is distributed over
-     * N-1 gaps, where N is the number of categories on the axis.
+     * This value is specified as a fraction of
+     * the total axis length. For example, a value of 0.25 reserves 25% of the axis
+     * length as margin space, which will be distributed evenly across the N-1 gaps
+     * between adjacent categories, where N is the number of categories on the axis.
      *
-     * @param margin the margin as a percentage of the axis length (for
-     *               example, 0.05 is five percent).
+     * @param margin the margin as a percentage of the axis length (0.0 to 1.0).
      */
     public CategoryAxis withCategoryMargin(double margin) {
         setCategoryMargin(margin);
@@ -1347,10 +1345,13 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the lower margin for the axis.
+     * Sets the lower margin for this category axis.
+     * <p>
+     * The margin defines the proportional blank space between the start of the axis
+     * drawing area and the first category. The value is specified as a fraction of
+     * the total axis length.
      *
-     * @param margin the margin as a percentage of the axis length (for
-     *               example, 0.05 is five percent).
+     * @param margin the margin (a value between 0.0 and 1.0)
      */
     public CategoryAxis withLowerMargin(double margin) {
         setLowerMargin(margin);
@@ -1358,13 +1359,29 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the upper margin for the axis.
+     * Sets the upper margin for this category axis.
+     * <p>
+     * The margin defines the proportional blank space between the last category
+     * and the end of the axis drawing area. The value is specified as a fraction of
+     * the total axis length.
      *
-     * @param margin the margin as a percentage of the axis length (for
-     *               example, 0.05 is five percent).
+     * @param margin the margin as a fraction of the axis length (a value between 0.0 and 1.0)
      */
     public CategoryAxis withUpperMargin(double margin) {
         setUpperMargin(margin);
         return this;
     }
+
+    /**
+     * Sets a flag that controls whether the axis is visible and sends
+     * an {@link AxisChangeEvent} to all registered listeners.
+     *
+     * @param flag the flag.
+     * @see #isVisible()
+     */
+    public CategoryAxis withVisible(boolean flag) {
+        setVisible(flag);
+        return this;
+    }
+
 }

@@ -1182,15 +1182,15 @@ public class NumberAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the upper margin for the axis (as a percentage of the axis range)
-     * and sends an {@link AxisChangeEvent} to all registered listeners.
+     * Sets the upper margin for the number axis (as a percentage of the axis range).
      * <p>
      * This margin is added only when the axis range is auto-calculated - if you set
      * the axis range manually, the margin is ignored.
      * <p>
-     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
+     * The margin is specified as a fraction of the axis range length.
+     * This value extends the upper bound of the axis, creating blank space above the maximum data value.
      *
-     * @param margin the margin percentage (for example, 0.05 is five percent).
+     * @param margin the margin percentage (a value between 0.0 and 1.0).
      */
     public NumberAxis withUpperMargin(double margin) {
         setUpperMargin(margin);

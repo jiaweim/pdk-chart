@@ -55,7 +55,7 @@ public class BarChartDemo5 extends ApplicationFrame {
                 .withRangePannable(true);
 
         chart.getRenderer()
-                .withItemLabelInsets(new RectangleInsets(9))
+                .withItemLabelInsets(new RectangleInsets(100, 9, 9, 100))
                 .withDefaultItemLabelsVisible(true)
                 .withDefaultItemLabelGenerator(new StandardCategoryItemLabelGenerator<>())
                 .withDefaultToolTipGenerator(new StandardCategoryToolTipGenerator<>("{0}, {1}) = {2} per 100,000",

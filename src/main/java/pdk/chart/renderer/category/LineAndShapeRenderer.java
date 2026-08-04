@@ -707,6 +707,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         double y1 = rangeAxis.valueToJava2D(value, dataArea,
                 plot.getRangeAxisEdge());
 
+        // draw line
         if (pass == 0 && getItemLineVisible(row, column)) {
             if (column != 0) {
                 Number previousValue = dataset.getValue(row, column - 1);
@@ -741,6 +742,7 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
             }
         }
 
+        //  draw shape
         if (pass == 1) {
             Shape shape = getItemShape(row, column);
             if (orientation == PlotOrientation.HORIZONTAL) {
@@ -975,6 +977,22 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
+     * Sets the default line width, preserving the existing stroke’s
+     * other attributes (cap, join, dash pattern, etc.).
+     *
+     * @param width the new line width
+     */
+    public LineAndShapeRenderer withDefaultStrokeWidth(float width) {
+        BasicStroke stroke = (BasicStroke) getDefaultStroke();
+        if (stroke.getLineWidth() != width) {
+            setDefaultStroke(new BasicStroke(width, stroke.getEndCap(),
+                    stroke.getLineJoin(), stroke.getMiterLimit(),
+                    stroke.getDashArray(), stroke.getDashPhase()));
+        }
+        return this;
+    }
+
+    /**
      * Sets whether the series shape list is automatically populated
      * when {@link #lookupSeriesShape(int)} is called.
      *
@@ -985,6 +1003,19 @@ public class LineAndShapeRenderer extends AbstractCategoryItemRenderer
         setAutoPopulateSeriesShape(auto);
         return this;
     }
+
+    /**
+     * Sets whether the series stroke list is
+     * automatically populated when {@link #lookupSeriesStroke(int)} is called.
+     *
+     * @param auto the new flag value.
+     * @see #getAutoPopulateSeriesStroke()
+     */
+    public LineAndShapeRenderer withAutoPopulateSeriesStroke(boolean auto) {
+        setAutoPopulateSeriesStroke(auto);
+        return this;
+    }
+
 
     /**
      * Sets the default fill paint and sends a {@link RendererChangeEvent} to

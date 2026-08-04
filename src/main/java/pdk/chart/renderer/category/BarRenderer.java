@@ -1388,10 +1388,12 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the default flag that controls whether item labels are visible
-     * and sends a {@link RendererChangeEvent} to all registered listeners.
+     * Sets whether item labels are visible.
+     * <p>
+     * This value takes effect if visibility is not explicitly configured
+     * for a series via {@link #withSeriesItemLabelsVisible(int, Boolean)}.
      *
-     * @param visible the flag.
+     * @param visible {@code true} to show item labels by default, {@code false} to hide them
      */
     public BarRenderer withDefaultItemLabelsVisible(boolean visible) {
         setDefaultItemLabelsVisible(visible);
@@ -1399,15 +1401,32 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the default item label generator and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the default item label generator.
+     * <p>
+     * This default item label generator used when no series-specific generator has been assigned via
+     * {@link #withSeriesItemLabelGenerator(int, CategoryItemLabelGenerator)}.
      *
-     * @param generator the generator.
+     * @param generator the generator ({@code null} permitted).
      */
-    public BarRenderer withDefaultItemLabelGenerator(@Nullable CategoryItemLabelGenerator generator) {
+    public BarRenderer withDefaultItemLabelGenerator(CategoryItemLabelGenerator generator) {
         setDefaultItemLabelGenerator(generator);
         return this;
     }
+
+    /**
+     * Sets the item label generator for a series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series    the series index (zero based).
+     * @param generator the generator ({@code null} permitted).
+     * @see #getSeriesItemLabelGenerator(int)
+     */
+    public BarRenderer withSeriesItemLabelGenerator(int series,
+            CategoryItemLabelGenerator generator) {
+        setSeriesItemLabelGenerator(series, generator, true);
+        return this;
+    }
+
 
     /**
      * Sets the default tool tip generator and sends a {@link RendererChangeEvent}
@@ -1434,13 +1453,41 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     }
 
     /**
-     * Sets the item label insets, which is the distance
-     * of the itemLabel relative to the bar.
+     * Sets the insets (padding) between the bar and its item label.
+     * <p>
+     * Which side of the insets actually shifts the label depends on the bar
+     * orientation and the current {@code ItemLabelPosition}.  For example, with
+     * a horizontal bar chart and the default positive label position
+     * ({@code OUTSIDE3}, right side of the bar), only {@code left} produces a
+     * visible offset.  The other sides take effect when the label anchor or
+     * text alignment is changed appropriately.
      *
-     * @param itemLabelInsets the insets
+     * @param itemLabelInsets the padding between the bar and the label
+     *                        ({@code null} not permitted).
      */
     public BarRenderer withItemLabelInsets(RectangleInsets itemLabelInsets) {
         setItemLabelInsets(itemLabelInsets);
+        return this;
+    }
+
+    /**
+     * Sets the insets (padding) between the bar and its item label.
+     * <p>
+     * Which side of the insets actually shifts the label depends on the bar
+     * orientation and the current {@code ItemLabelPosition}.  For example, with
+     * a horizontal bar chart and the default positive label position
+     * ({@code OUTSIDE3}, right side of the bar), only {@code left} produces a
+     * visible offset.  The other sides take effect when the label anchor or
+     * text alignment is changed appropriately.
+     *
+     * @param top    top padding
+     * @param left   left padding
+     * @param bottom bottom padding
+     * @param right  right padding
+     */
+    public BarRenderer withItemLabelInsets(double top, double left,
+            double bottom, double right) {
+        setItemLabelInsets(new RectangleInsets(top, left, bottom, right));
         return this;
     }
 

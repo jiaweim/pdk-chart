@@ -11,7 +11,6 @@ import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.IntervalMarker;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -60,7 +59,8 @@ public class BarChartDemo7 extends ApplicationFrame {
         target.setLabelTextAnchor(TextAnchor.CENTER_LEFT);
         target.setPaint(new Color(222, 222, 255, 128));
 
-        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value", "Bar Chart Demo 7");
+        CategoryBarChart chart = new CategoryBarChart(dataset,
+                "Category", "Value", "Bar Chart Demo 7");
         chart.removeLegend();
 
         chart.setRangePannable(true);
@@ -76,8 +76,10 @@ public class BarChartDemo7 extends ApplicationFrame {
                 .withItemMargin(0.1)
                 .withDefaultItemLabelGenerator(new LabelGenerator())
                 .withDefaultItemLabelsVisible(true)
-                .withDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE12, TextAnchor.CENTER_RIGHT, TextAnchor.CENTER_RIGHT, (-Math.PI / 2)))
-                .withPositiveItemLabelPositionFallback(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.CENTER_LEFT, TextAnchor.CENTER_LEFT, (-Math.PI / 2)));
+                .withDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.INSIDE12,
+                        TextAnchor.CENTER_RIGHT, TextAnchor.CENTER_RIGHT, (-Math.PI / 2)))
+                .withPositiveItemLabelPositionFallback(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12,
+                        TextAnchor.CENTER_LEFT, TextAnchor.CENTER_LEFT, (-Math.PI / 2)));
 
         return chart;
     }

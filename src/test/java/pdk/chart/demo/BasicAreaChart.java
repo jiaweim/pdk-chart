@@ -2,7 +2,6 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryAreaChart;
 import pdk.chart.CategoryChart;
-import pdk.chart.axis.CategoryAxis;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.model.Data;
 import pdk.chart.plot.DatasetRenderingOrder;
@@ -30,15 +29,17 @@ public class BasicAreaChart {
         chart.removeLegend();
         chart.setDataset(1, data, CategoryChart.Type.LINE);
 
-        CategoryAxis xAxis = chart.getDomainAxis();
-        xAxis.setLowerMargin(0);
-        xAxis.setUpperMargin(0);
+        chart.getDomainAxis()
+                .withLowerMargin(0)
+                .withUpperMargin(0);
 
         LineAndShapeRenderer renderer = (LineAndShapeRenderer) chart.getRenderer(1);
         renderer.withUseFillPaint(true)
-                .withSeriesOutlineStroke(0, new BasicStroke(2f))
+                .withDefaultShapesVisible(true)
+                .withSeriesStrokeWidth(0, 3f)
                 .withDefaultFillPaint(Color.WHITE)
-                .withSeriesShape(0, ShapeUtils.createCircle(6));
+                .withSeriesShape(0, ShapeUtils.createCircle(8))
+                .withSeriesOutlineStroke(0, new BasicStroke(2f));
 
         chart.setDatasetRenderingOrder(DatasetRenderingOrder.FORWARD);
 

@@ -58,8 +58,8 @@ public class BarChartDemo11 extends ApplicationFrame {
         source.setPosition(RectangleEdge.BOTTOM);
         chart.addSubtitle(source);
 
-        chart.setOrientation(PlotOrientation.HORIZONTAL);
-        chart.setDomainGridlinesVisible(true);
+        chart.withOrientation(PlotOrientation.HORIZONTAL)
+                .withDomainGridlinesVisible(true);
 
         chart.getDomainAxis()
                 .setMaximumCategoryLabelWidthRatio(0.8f);

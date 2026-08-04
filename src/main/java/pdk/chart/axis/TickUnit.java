@@ -14,7 +14,7 @@ import java.io.Serializable;
  *
  * @see ValueAxis
  */
-public abstract class TickUnit implements Comparable, Serializable {
+public abstract class TickUnit implements Comparable<TickUnit>, Serializable {
 
     /**
      * For serialization.
@@ -90,21 +90,12 @@ public abstract class TickUnit implements Comparable, Serializable {
      * size is less than the others.
      */
     @Override
-    public int compareTo(Object object) {
-
-        if (object instanceof TickUnit) {
-            TickUnit other = (TickUnit) object;
-            if (this.size > other.getSize()) {
-                return 1;
-            } else if (this.size < other.getSize()) {
-                return -1;
-            } else {
-                return 0;
-            }
+    public int compareTo(TickUnit object) {
+        if (object instanceof TickUnit other) {
+            return Double.compare(this.size, other.getSize());
         } else {
             return -1;
         }
-
     }
 
     /**

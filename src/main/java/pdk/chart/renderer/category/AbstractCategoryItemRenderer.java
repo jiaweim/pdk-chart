@@ -187,10 +187,8 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      */
     @Override
     public CategoryItemLabelGenerator getSeriesItemLabelGenerator(int series) {
-
         // otherwise look up the generator table
-        CategoryItemLabelGenerator generator = this.itemLabelGeneratorMap.get(
-                series);
+        CategoryItemLabelGenerator generator = this.itemLabelGeneratorMap.get(series);
         if (generator == null) {
             generator = this.defaultItemLabelGenerator;
         }
@@ -248,8 +246,7 @@ public abstract class AbstractCategoryItemRenderer extends AbstractRenderer
      * @see #getDefaultItemLabelGenerator()
      */
     @Override
-    public void setDefaultItemLabelGenerator(
-            CategoryItemLabelGenerator generator) {
+    public void setDefaultItemLabelGenerator(CategoryItemLabelGenerator generator) {
         setDefaultItemLabelGenerator(generator, true);
     }
 

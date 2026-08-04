@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A collection of tick units, used by the {@link DateAxis} and
@@ -20,13 +21,13 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
     /**
      * Storage for the tick units.
      */
-    private List tickUnits;
+    private List<TickUnit> tickUnits;
 
     /**
      * Constructs a new collection of tick units.
      */
     public TickUnits() {
-        this.tickUnits = new ArrayList();
+        this.tickUnits = new ArrayList<>();
     }
 
     /**
@@ -36,9 +37,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
      * @param unit the tick unit to add ({@code null} not permitted).
      */
     public void add(TickUnit unit) {
-        if (unit == null) {
-            throw new NullPointerException("Null 'unit' argument.");
-        }
+        Objects.requireNonNull(unit);
         this.tickUnits.add(unit);
         Collections.sort(this.tickUnits);
     }
@@ -63,7 +62,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
      * @return The tickunit.
      */
     public TickUnit get(int pos) {
-        return (TickUnit) this.tickUnits.get(pos);
+        return this.tickUnits.get(pos);
     }
 
     /**
@@ -81,8 +80,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
             index = -index;
         }
 
-        return (TickUnit) this.tickUnits.get(Math.min(index,
-                this.tickUnits.size() - 1));
+        return this.tickUnits.get(Math.min(index, this.tickUnits.size() - 1));
     }
 
     /**
@@ -96,11 +94,10 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
     public TickUnit getCeilingTickUnit(TickUnit unit) {
         int index = Collections.binarySearch(this.tickUnits, unit);
         if (index >= 0) {
-            return (TickUnit) this.tickUnits.get(index);
+            return this.tickUnits.get(index);
         } else {
             index = -(index + 1);
-            return (TickUnit) this.tickUnits.get(Math.min(index,
-                    this.tickUnits.size() - 1));
+            return this.tickUnits.get(Math.min(index, this.tickUnits.size() - 1));
         }
     }
 
@@ -127,7 +124,7 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         TickUnits clone = (TickUnits) super.clone();
-        clone.tickUnits = new java.util.ArrayList(this.tickUnits);
+        clone.tickUnits = new ArrayList<>(this.tickUnits);
         return clone;
     }
 
@@ -142,10 +139,9 @@ public class TickUnits implements TickUnitSource, Cloneable, Serializable {
         if (obj == this) {
             return true;
         }
-        if (!(obj instanceof TickUnits)) {
+        if (!(obj instanceof TickUnits that)) {
             return false;
         }
-        TickUnits that = (TickUnits) obj;
         return that.tickUnits.equals(this.tickUnits);
     }
 

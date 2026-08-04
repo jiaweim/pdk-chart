@@ -802,8 +802,7 @@ public class CategoryChart extends Chart {
     }
 
     /**
-     * Sets the insets for the plot and, if requested,  and sends a
-     * {@link PlotChangeEvent} to all registered listeners.
+     * Sets the insets for the plot.
      * <p>
      * Used to control the padding between the chart's plot area and its outer border,
      * i.e., to add or remove blank space around the plot area.
