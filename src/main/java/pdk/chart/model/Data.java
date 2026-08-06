@@ -184,6 +184,19 @@ public interface Data {
     }
 
     /**
+     * Create a {@link XYDataset}.
+     *
+     * @param x x values.
+     * @param y y values.
+     * @param z z values.
+     * @return {@link XYDataset}.
+     */
+    static XYZDataset<String> createXYZ(
+            Double[] x, Double[] y, Double[] z) {
+        return createXYZ("", x, y, z);
+    }
+
+    /**
      * Creates a {@link CategoryDataset} that contains a copy of the data in
      * an array (instances of {@code double} are created to represent the
      * data items).
@@ -346,6 +359,34 @@ public interface Data {
         return dataset;
     }
 
+
+    static double getMinZ(XYZDataset dataset) {
+        double min = Double.MAX_VALUE;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            dataset.getItemCount(s);
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double zValue = dataset.getZValue(s, i);
+                if (zValue < min) {
+                    min = zValue;
+                }
+            }
+        }
+        return min;
+    }
+
+    static double getMaxZ(XYZDataset dataset) {
+        double max = -Double.MAX_VALUE;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            dataset.getItemCount(s);
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double zValue = dataset.getZValue(s, i);
+                if (zValue > max) {
+                    max = zValue;
+                }
+            }
+        }
+        return max;
+    }
 
     static double getMin(Double[] values) {
         double min = Double.MAX_VALUE;

@@ -2,11 +2,11 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -43,10 +43,11 @@ public class CategoryMarkerDemo1 extends ApplicationFrame {
         CategoryLineChart chart = new CategoryLineChart(dataset, "Category", "Count", "Category Marker Demo 1");
         chart.getRangeAxis().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        chart.setSeriesShapesVisible(0, true);
-        chart.setDrawOutlines(true);
-        chart.setUseFillPaint(true);
-        chart.setDefaultFillPaint(Color.WHITE);
+        chart.getRenderer()
+                .withSeriesShapesVisible(0, true)
+                .withDrawOutlines(true)
+                .withUseFillPaint(true)
+                .withDefaultFillPaint(Color.WHITE);
 
         CategoryMarker marker = new CategoryMarker("Category 4", Color.BLUE, new BasicStroke(1.0F));
         marker.setDrawAsLine(true);

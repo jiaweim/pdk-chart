@@ -5,6 +5,7 @@ import pdk.chart.util.Args;
 
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Objects;
 
 /**
  * Used to indicate an anchor point for a rectangle.
@@ -63,7 +64,7 @@ public enum RectangleAnchor {
      * @return The anchor point (never <code>null</code>).
      */
     public Point2D getAnchorPoint(Rectangle2D rectangle) {
-        Args.nullNotPermitted(rectangle, "rectangle");
+        Objects.requireNonNull(rectangle, "rectangle");
         Point2D result = new Point2D.Double();
         switch (this) {
             case CENTER:

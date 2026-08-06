@@ -233,6 +233,17 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Sets the alpha-transparency for the plot and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param alpha the new alpha transparency.
+     */
+    public XYChart withPlotForegroundAlpha(float alpha) {
+        setPlotForegroundAlpha(alpha);
+        return this;
+    }
+
+    /**
      * Sets the insets for the plot and sends a {@link PlotChangeEvent} to
      * all registered listeners.
      *
@@ -438,6 +449,18 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Simultaneously sets the domain and range pannable flags.
+     *
+     * @param domainPannable the new flag for domain panning
+     * @param rangePannable  the new flag for range panning
+     */
+    public XYChart withPannable(boolean domainPannable, boolean rangePannable) {
+        plot_.setDomainPannable(domainPannable);
+        plot_.setRangePannable(rangePannable);
+        return this;
+    }
+
+    /**
      * Sets the lower and upper margin for the domain axis.
      * <p>
      * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
@@ -457,6 +480,26 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Sets the lower and upper margin for the domain axis.
+     * <p>
+     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
+     * <p>
+     * Margins are expressed as a fraction of the axis range and
+     * are applied only when the axis range is auto‑calculated.
+     *
+     * @param lowerMargin the lower margin (e.g. 0.05 = 5%)
+     * @param upperMargin the upper margin (e.g. 0.05 = 5%)
+     */
+    public XYChart withDomainAxisMargin(double lowerMargin, double upperMargin) {
+        ValueAxis domainAxis = plot_.getDomainAxis();
+        if (domainAxis != null) {
+            domainAxis.setLowerMargin(lowerMargin);
+            domainAxis.setUpperMargin(upperMargin);
+        }
+        return this;
+    }
+
+    /**
      * Sets the lower and upper margin for the range axis.
      * <p>
      * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
@@ -473,6 +516,26 @@ public class XYChart extends Chart {
             rangeAxis.setLowerMargin(lowerMargin);
             rangeAxis.setUpperMargin(upperMargin);
         }
+    }
+
+    /**
+     * Sets the lower and upper margin for the range axis.
+     * <p>
+     * Axis margin represents the percentage blank space reserved at both ends of the axis data range.
+     * <p>
+     * Margins are expressed as a fraction of the axis range and
+     * are applied only when the axis range is auto‑calculated.
+     *
+     * @param lowerMargin the lower margin (e.g. 0.05 = 5%)
+     * @param upperMargin the upper margin (e.g. 0.05 = 5%)
+     */
+    public XYChart withRangeAxisMargin(double lowerMargin, double upperMargin) {
+        ValueAxis rangeAxis = plot_.getRangeAxis();
+        if (rangeAxis != null) {
+            rangeAxis.setLowerMargin(lowerMargin);
+            rangeAxis.setUpperMargin(upperMargin);
+        }
+        return this;
     }
 
     /**
@@ -535,12 +598,32 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Sets the paint for the grid lines plotted against the domain axis.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public XYChart withDomainGridlinePaint(Paint paint) {
+        plot_.setDomainGridlinePaint(paint);
+        return this;
+    }
+
+    /**
      * Sets the paint for the grid lines plotted against the range axis.
      *
      * @param paint the paint ({@code null} not permitted).
      */
     public void setRangeGridlinePaint(Paint paint) {
         plot_.setRangeGridlinePaint(paint);
+    }
+
+    /**
+     * Sets the paint for the grid lines plotted against the range axis.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public XYChart withRangeGridlinePaint(Paint paint) {
+        plot_.setRangeGridlinePaint(paint);
+        return this;
     }
 
     /**

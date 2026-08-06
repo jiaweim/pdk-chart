@@ -230,6 +230,19 @@ public class CategoryAxis extends Axis implements Cloneable, Serializable {
     }
 
     /**
+     * Sets the maximum number of lines to use for each category label and
+     * sends an {@link AxisChangeEvent} to all registered listeners.
+     *
+     * @param lines the maximum number of lines.
+     * @see #getMaximumCategoryLabelLines()
+     */
+    public CategoryAxis withMaximumCategoryLabelLines(int lines) {
+        this.maximumCategoryLabelLines = lines;
+        fireChangeEvent();
+        return this;
+    }
+
+    /**
      * Returns the category label width ratio.
      *
      * @return The ratio.

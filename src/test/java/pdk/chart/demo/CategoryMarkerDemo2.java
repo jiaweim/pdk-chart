@@ -42,13 +42,13 @@ public class CategoryMarkerDemo2 extends ApplicationFrame {
     private static Chart createChart(CategoryDataset<String, String> dataset) {
         CategoryLineChart chart = new CategoryLineChart(dataset,
                 "Category", "Count", "Category Marker Demo 2");
-        NumberAxis rangeAxis = chart.getRangeAxisAsNumber();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getRangeAxisAsNumber().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
-        chart.setSeriesShapesVisible(0, true);
-        chart.setDrawOutlines(true);
-        chart.setUseFillPaint(true);
-        chart.setDefaultFillPaint(Color.WHITE);
+        chart.getRenderer()
+                .withSeriesShapesVisible(0, true)
+                .withDrawOutlines(true)
+                .withUseFillPaint(true)
+                .withDefaultFillPaint(Color.WHITE);
 
         CategoryMarker marker = new CategoryMarker("Category 4",
                 new Color(0, 0, 255, 25), new BasicStroke(1.0F));

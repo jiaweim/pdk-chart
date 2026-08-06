@@ -26,13 +26,13 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static BoxAndWhiskerXYDataset createDataset() {
+    private static BoxAndWhiskerXYDataset<String> createDataset() {
         int VALUE_COUNT = 20;
-        DefaultBoxAndWhiskerXYDataset result = new DefaultBoxAndWhiskerXYDataset("Series Name");
+        DefaultBoxAndWhiskerXYDataset<String> result = new DefaultBoxAndWhiskerXYDataset<>("Series Name");
         RegularTimePeriod t = new Day();
 
         for (int i = 0; i < 10; ++i) {
-            List values = createValueList(0.0, 20.0, VALUE_COUNT);
+            List<Double> values = createValueList(0.0, 20.0, VALUE_COUNT);
             result.add(t.getStart(), BoxAndWhiskerCalculator.calculateBoxAndWhiskerStatistics(values));
             t = t.next();
         }
@@ -50,19 +50,19 @@ public class BoxAndWhiskerChartDemo2 extends ApplicationFrame {
         return result;
     }
 
-    private static Chart createChart(BoxAndWhiskerXYDataset dataset) {
+    private static Chart createChart(BoxAndWhiskerXYDataset<String> dataset) {
         BoxChart chart = new BoxChart(dataset, AxisType.DATE,
                 "Day", "Value", "Box-and-Whisker Chart Demo 2", false);
-        chart.setBackgroundPaint(Color.WHITE);
-        chart.setPlotBackgroundPaint(Color.LIGHT_GRAY);
+        chart.withBackgroundPaint(Color.WHITE)
+                .withPlotBackgroundPaint(Color.LIGHT_GRAY)
+                .withDomainGridlinesVisible(true)
+                .withDomainGridlinePaint(Color.WHITE)
+                .withRangeGridlinesVisible(true)
+                .withRangeGridlinePaint(Color.WHITE)
+                .withPannable(true, true);
 
-        chart.setDomainGridlinePaint(Color.WHITE);
-        chart.setDomainGridlinesVisible(true);
-
-        chart.setRangeGridlinePaint(Color.WHITE);
-        chart.setPannable(true, true);
-
-        chart.getRangeAxisAsNumber().setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+        chart.getRangeAxisAsNumber()
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         return chart;
     }

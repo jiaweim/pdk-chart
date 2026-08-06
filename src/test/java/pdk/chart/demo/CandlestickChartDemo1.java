@@ -2,7 +2,6 @@ package pdk.chart.demo;
 
 import pdk.chart.CandleStickChart;
 import pdk.chart.Chart;
-import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.DefaultHighLowDataset;
 import pdk.chart.data.xy.OHLCDataset;
 import pdk.chart.swing.ApplicationFrame;
@@ -29,10 +28,10 @@ public class CandlestickChartDemo1 extends ApplicationFrame {
                 "Candlestick Demo 1", true);
         chart.setDomainPannable(true);
 
-        NumberAxis yAxis = chart.getRangeAxisAsNumber();
-        yAxis.setAutoRangeIncludesZero(false);
-        yAxis.setLowerMargin(0.0);
-        yAxis.setUpperMargin(0.0);
+        chart.getRangeAxisAsNumber()
+                .withAutoRangeIncludesZero(false)
+                .withLowerMargin(0.0)
+                .withUpperMargin(0.0);
 
         return chart;
     }
@@ -44,296 +43,119 @@ public class CandlestickChartDemo1 extends ApplicationFrame {
     }
 
     public static OHLCDataset createDataset() {
-        Date[] date = new Date[47];
-        double[] high = new double[47];
-        double[] low = new double[47];
-        double[] open = new double[47];
-        double[] close = new double[47];
-        double[] volume = new double[47];
         int jan = 1;
         int feb = 2;
-        date[0] = createDate(2001, jan, 4, 12, 0);
-        high[0] = (double) 47.0F;
-        low[0] = (double) 33.0F;
-        open[0] = (double) 35.0F;
-        close[0] = (double) 33.0F;
-        volume[0] = (double) 100.0F;
-        date[1] = createDate(2001, jan, 5, 12, 0);
-        high[1] = (double) 47.0F;
-        low[1] = (double) 32.0F;
-        open[1] = (double) 41.0F;
-        close[1] = (double) 37.0F;
-        volume[1] = (double) 150.0F;
-        date[2] = createDate(2001, jan, 6, 12, 0);
-        high[2] = (double) 49.0F;
-        low[2] = (double) 43.0F;
-        open[2] = (double) 46.0F;
-        close[2] = (double) 48.0F;
-        volume[2] = (double) 70.0F;
-        date[3] = createDate(2001, jan, 7, 12, 0);
-        high[3] = (double) 51.0F;
-        low[3] = (double) 39.0F;
-        open[3] = (double) 40.0F;
-        close[3] = (double) 47.0F;
-        volume[3] = (double) 200.0F;
-        date[4] = createDate(2001, jan, 8, 12, 0);
-        high[4] = (double) 60.0F;
-        low[4] = (double) 40.0F;
-        open[4] = (double) 46.0F;
-        close[4] = (double) 53.0F;
-        volume[4] = (double) 120.0F;
-        date[5] = createDate(2001, jan, 9, 12, 0);
-        high[5] = (double) 62.0F;
-        low[5] = (double) 55.0F;
-        open[5] = (double) 57.0F;
-        close[5] = (double) 61.0F;
-        volume[5] = (double) 110.0F;
-        date[6] = createDate(2001, jan, 10, 12, 0);
-        high[6] = (double) 65.0F;
-        low[6] = (double) 56.0F;
-        open[6] = (double) 62.0F;
-        close[6] = (double) 59.0F;
-        volume[6] = (double) 70.0F;
-        date[7] = createDate(2001, jan, 11, 12, 0);
-        high[7] = (double) 55.0F;
-        low[7] = (double) 43.0F;
-        open[7] = (double) 45.0F;
-        close[7] = (double) 47.0F;
-        volume[7] = (double) 20.0F;
-        date[8] = createDate(2001, jan, 12, 12, 0);
-        high[8] = (double) 54.0F;
-        low[8] = (double) 33.0F;
-        open[8] = (double) 40.0F;
-        close[8] = (double) 51.0F;
-        volume[8] = (double) 30.0F;
-        date[9] = createDate(2001, jan, 13, 12, 0);
-        high[9] = (double) 47.0F;
-        low[9] = (double) 33.0F;
-        open[9] = (double) 35.0F;
-        close[9] = (double) 33.0F;
-        volume[9] = (double) 100.0F;
-        date[10] = createDate(2001, jan, 14, 12, 0);
-        high[10] = (double) 54.0F;
-        low[10] = (double) 38.0F;
-        open[10] = (double) 43.0F;
-        close[10] = (double) 52.0F;
-        volume[10] = (double) 50.0F;
-        date[11] = createDate(2001, jan, 15, 12, 0);
-        high[11] = (double) 48.0F;
-        low[11] = (double) 41.0F;
-        open[11] = (double) 44.0F;
-        close[11] = (double) 41.0F;
-        volume[11] = (double) 80.0F;
-        date[12] = createDate(2001, jan, 17, 12, 0);
-        high[12] = (double) 60.0F;
-        low[12] = (double) 30.0F;
-        open[12] = (double) 34.0F;
-        close[12] = (double) 44.0F;
-        volume[12] = (double) 90.0F;
-        date[13] = createDate(2001, jan, 18, 12, 0);
-        high[13] = (double) 58.0F;
-        low[13] = (double) 44.0F;
-        open[13] = (double) 54.0F;
-        close[13] = (double) 56.0F;
-        volume[13] = (double) 20.0F;
-        date[14] = createDate(2001, jan, 19, 12, 0);
-        high[14] = (double) 54.0F;
-        low[14] = (double) 32.0F;
-        open[14] = (double) 42.0F;
-        close[14] = (double) 53.0F;
-        volume[14] = (double) 70.0F;
-        date[15] = createDate(2001, jan, 20, 12, 0);
-        high[15] = (double) 53.0F;
-        low[15] = (double) 39.0F;
-        open[15] = (double) 50.0F;
-        close[15] = (double) 49.0F;
-        volume[15] = (double) 60.0F;
-        date[16] = createDate(2001, jan, 21, 12, 0);
-        high[16] = (double) 47.0F;
-        low[16] = (double) 33.0F;
-        open[16] = (double) 41.0F;
-        close[16] = (double) 40.0F;
-        volume[16] = (double) 30.0F;
-        date[17] = createDate(2001, jan, 22, 12, 0);
-        high[17] = (double) 55.0F;
-        low[17] = (double) 37.0F;
-        open[17] = (double) 43.0F;
-        close[17] = (double) 45.0F;
-        volume[17] = (double) 90.0F;
-        date[18] = createDate(2001, jan, 23, 12, 0);
-        high[18] = (double) 54.0F;
-        low[18] = (double) 42.0F;
-        open[18] = (double) 50.0F;
-        close[18] = (double) 42.0F;
-        volume[18] = (double) 150.0F;
-        date[19] = createDate(2001, jan, 24, 12, 0);
-        high[19] = (double) 48.0F;
-        low[19] = (double) 37.0F;
-        open[19] = (double) 37.0F;
-        close[19] = (double) 47.0F;
-        volume[19] = (double) 120.0F;
-        date[20] = createDate(2001, jan, 25, 12, 0);
-        high[20] = (double) 58.0F;
-        low[20] = (double) 33.0F;
-        open[20] = (double) 39.0F;
-        close[20] = (double) 41.0F;
-        volume[20] = (double) 80.0F;
-        date[21] = createDate(2001, jan, 26, 12, 0);
-        high[21] = (double) 47.0F;
-        low[21] = (double) 31.0F;
-        open[21] = (double) 36.0F;
-        close[21] = (double) 41.0F;
-        volume[21] = (double) 40.0F;
-        date[22] = createDate(2001, jan, 27, 12, 0);
-        high[22] = (double) 58.0F;
-        low[22] = (double) 44.0F;
-        open[22] = (double) 49.0F;
-        close[22] = (double) 44.0F;
-        volume[22] = (double) 20.0F;
-        date[23] = createDate(2001, jan, 28, 12, 0);
-        high[23] = (double) 46.0F;
-        low[23] = (double) 41.0F;
-        open[23] = (double) 43.0F;
-        close[23] = (double) 44.0F;
-        volume[23] = (double) 60.0F;
-        date[24] = createDate(2001, jan, 29, 12, 0);
-        high[24] = (double) 56.0F;
-        low[24] = (double) 39.0F;
-        open[24] = (double) 39.0F;
-        close[24] = (double) 51.0F;
-        volume[24] = (double) 40.0F;
-        date[25] = createDate(2001, jan, 30, 12, 0);
-        high[25] = (double) 56.0F;
-        low[25] = (double) 39.0F;
-        open[25] = (double) 47.0F;
-        close[25] = (double) 49.0F;
-        volume[25] = (double) 70.0F;
-        date[26] = createDate(2001, jan, 31, 12, 0);
-        high[26] = (double) 53.0F;
-        low[26] = (double) 39.0F;
-        open[26] = (double) 52.0F;
-        close[26] = (double) 47.0F;
-        volume[26] = (double) 60.0F;
-        date[27] = createDate(2001, feb, 1, 12, 0);
-        high[27] = (double) 51.0F;
-        low[27] = (double) 30.0F;
-        open[27] = (double) 45.0F;
-        close[27] = (double) 47.0F;
-        volume[27] = (double) 90.0F;
-        date[28] = createDate(2001, feb, 2, 12, 0);
-        high[28] = (double) 47.0F;
-        low[28] = (double) 30.0F;
-        open[28] = (double) 34.0F;
-        close[28] = (double) 46.0F;
-        volume[28] = (double) 100.0F;
-        date[29] = createDate(2001, feb, 3, 12, 0);
-        high[29] = (double) 57.0F;
-        low[29] = (double) 37.0F;
-        open[29] = (double) 44.0F;
-        close[29] = (double) 56.0F;
-        volume[29] = (double) 20.0F;
-        date[30] = createDate(2001, feb, 4, 12, 0);
-        high[30] = (double) 49.0F;
-        low[30] = (double) 40.0F;
-        open[30] = (double) 47.0F;
-        close[30] = (double) 44.0F;
-        volume[30] = (double) 50.0F;
-        date[31] = createDate(2001, feb, 5, 12, 0);
-        high[31] = (double) 46.0F;
-        low[31] = (double) 38.0F;
-        open[31] = (double) 43.0F;
-        close[31] = (double) 40.0F;
-        volume[31] = (double) 70.0F;
-        date[32] = createDate(2001, feb, 6, 12, 0);
-        high[32] = (double) 55.0F;
-        low[32] = (double) 38.0F;
-        open[32] = (double) 39.0F;
-        close[32] = (double) 53.0F;
-        volume[32] = (double) 120.0F;
-        date[33] = createDate(2001, feb, 7, 12, 0);
-        high[33] = (double) 50.0F;
-        low[33] = (double) 33.0F;
-        open[33] = (double) 37.0F;
-        close[33] = (double) 37.0F;
-        volume[33] = (double) 140.0F;
-        date[34] = createDate(2001, feb, 8, 12, 0);
-        high[34] = (double) 59.0F;
-        low[34] = (double) 34.0F;
-        open[34] = (double) 57.0F;
-        close[34] = (double) 43.0F;
-        volume[34] = (double) 70.0F;
-        date[35] = createDate(2001, feb, 9, 12, 0);
-        high[35] = (double) 48.0F;
-        low[35] = (double) 39.0F;
-        open[35] = (double) 46.0F;
-        close[35] = (double) 47.0F;
-        volume[35] = (double) 70.0F;
-        date[36] = createDate(2001, feb, 10, 12, 0);
-        high[36] = (double) 55.0F;
-        low[36] = (double) 30.0F;
-        open[36] = (double) 37.0F;
-        close[36] = (double) 30.0F;
-        volume[36] = (double) 30.0F;
-        date[37] = createDate(2001, feb, 11, 12, 0);
-        high[37] = (double) 60.0F;
-        low[37] = (double) 32.0F;
-        open[37] = (double) 56.0F;
-        close[37] = (double) 36.0F;
-        volume[37] = (double) 70.0F;
-        date[38] = createDate(2001, feb, 12, 12, 0);
-        high[38] = (double) 56.0F;
-        low[38] = (double) 42.0F;
-        open[38] = (double) 53.0F;
-        close[38] = (double) 54.0F;
-        volume[38] = (double) 40.0F;
-        date[39] = createDate(2001, feb, 13, 12, 0);
-        high[39] = (double) 49.0F;
-        low[39] = (double) 42.0F;
-        open[39] = (double) 45.0F;
-        close[39] = (double) 42.0F;
-        volume[39] = (double) 90.0F;
-        date[40] = createDate(2001, feb, 14, 12, 0);
-        high[40] = (double) 55.0F;
-        low[40] = (double) 42.0F;
-        open[40] = (double) 47.0F;
-        close[40] = (double) 54.0F;
-        volume[40] = (double) 70.0F;
-        date[41] = createDate(2001, feb, 15, 12, 0);
-        high[41] = (double) 49.0F;
-        low[41] = (double) 35.0F;
-        open[41] = (double) 38.0F;
-        close[41] = (double) 35.0F;
-        volume[41] = (double) 20.0F;
-        date[42] = createDate(2001, feb, 16, 12, 0);
-        high[42] = (double) 47.0F;
-        low[42] = (double) 38.0F;
-        open[42] = (double) 43.0F;
-        close[42] = (double) 42.0F;
-        volume[42] = (double) 10.0F;
-        date[43] = createDate(2001, feb, 17, 12, 0);
-        high[43] = (double) 53.0F;
-        low[43] = (double) 42.0F;
-        open[43] = (double) 47.0F;
-        close[43] = (double) 48.0F;
-        volume[43] = (double) 20.0F;
-        date[44] = createDate(2001, feb, 18, 12, 0);
-        high[44] = (double) 47.0F;
-        low[44] = (double) 44.0F;
-        open[44] = (double) 46.0F;
-        close[44] = (double) 44.0F;
-        volume[44] = (double) 30.0F;
-        date[45] = createDate(2001, feb, 19, 12, 0);
-        high[45] = (double) 46.0F;
-        low[45] = (double) 40.0F;
-        open[45] = (double) 43.0F;
-        close[45] = (double) 44.0F;
-        volume[45] = (double) 50.0F;
-        date[46] = createDate(2001, feb, 20, 12, 0);
-        high[46] = (double) 48.0F;
-        low[46] = (double) 41.0F;
-        open[46] = (double) 46.0F;
-        close[46] = (double) 41.0F;
-        volume[46] = (double) 100.0F;
+
+        Date[] date = new Date[]{
+                createDate(2001, jan, 4, 12, 0),
+                createDate(2001, jan, 5, 12, 0),
+                createDate(2001, jan, 6, 12, 0),
+                createDate(2001, jan, 7, 12, 0),
+                createDate(2001, jan, 8, 12, 0),
+                createDate(2001, jan, 9, 12, 0),
+                createDate(2001, jan, 10, 12, 0),
+                createDate(2001, jan, 11, 12, 0),
+                createDate(2001, jan, 12, 12, 0),
+                createDate(2001, jan, 13, 12, 0),
+                createDate(2001, jan, 14, 12, 0),
+                createDate(2001, jan, 15, 12, 0),
+                createDate(2001, jan, 17, 12, 0),
+                createDate(2001, jan, 18, 12, 0),
+                createDate(2001, jan, 19, 12, 0),
+                createDate(2001, jan, 20, 12, 0),
+                createDate(2001, jan, 21, 12, 0),
+                createDate(2001, jan, 22, 12, 0),
+                createDate(2001, jan, 23, 12, 0),
+                createDate(2001, jan, 24, 12, 0),
+                createDate(2001, jan, 25, 12, 0),
+                createDate(2001, jan, 26, 12, 0),
+                createDate(2001, jan, 27, 12, 0),
+                createDate(2001, jan, 28, 12, 0),
+                createDate(2001, jan, 29, 12, 0),
+                createDate(2001, jan, 30, 12, 0),
+                createDate(2001, jan, 31, 12, 0),
+                createDate(2001, feb, 1, 12, 0),
+                createDate(2001, feb, 2, 12, 0),
+                createDate(2001, feb, 3, 12, 0),
+                createDate(2001, feb, 4, 12, 0),
+                createDate(2001, feb, 5, 12, 0),
+                createDate(2001, feb, 6, 12, 0),
+                createDate(2001, feb, 7, 12, 0),
+                createDate(2001, feb, 8, 12, 0),
+                createDate(2001, feb, 9, 12, 0),
+                createDate(2001, feb, 10, 12, 0),
+                createDate(2001, feb, 11, 12, 0),
+                createDate(2001, feb, 12, 12, 0),
+                createDate(2001, feb, 13, 12, 0),
+                createDate(2001, feb, 14, 12, 0),
+                createDate(2001, feb, 15, 12, 0),
+                createDate(2001, feb, 16, 12, 0),
+                createDate(2001, feb, 17, 12, 0),
+                createDate(2001, feb, 18, 12, 0),
+                createDate(2001, feb, 19, 12, 0),
+                createDate(2001, feb, 20, 12, 0),
+
+        };
+        double[] high = {
+                47, 47, 49, 51, 60,
+                62, 65, 55, 54, 47,
+                54, 48, 60, 58, 54,
+                53, 47, 55, 54, 48,
+                58, 47, 58, 46, 56,
+                56, 53, 51, 47, 57,
+                49, 46, 55, 50, 59,
+                48, 55, 60, 56, 49,
+                55, 49, 47, 53, 47,
+                46, 48
+        };
+        double[] low = {
+                33, 32, 43, 39, 40,
+                55, 56, 43, 33, 33,
+                38, 41, 30, 44, 32,
+                39, 33, 37, 42, 37,
+                33, 31, 44, 41, 39,
+                39, 39, 30, 30, 37,
+                40, 38, 38, 33, 34,
+                39, 30, 32, 42, 42,
+                42, 35, 38, 42, 44,
+                40, 41
+        };
+        double[] open = {
+                35, 41, 46, 40, 46,
+                57, 62, 45, 40, 35,
+                43, 44, 34, 54, 42,
+                50, 41, 43, 50, 37,
+                39, 36, 49, 43, 39,
+                47, 52, 45, 34, 44,
+                47, 43, 39, 37, 57,
+                46, 37, 56, 53, 45,
+                47, 38, 43, 47, 46,
+                43, 46
+        };
+        double[] close = {
+                33, 37, 48, 47, 53,
+                61, 59, 47, 51, 33,
+                52, 41, 44, 56, 53,
+                49, 40, 45, 42, 47,
+                41, 41, 44, 44, 51,
+                49, 47, 47, 46, 56,
+                44, 40, 53, 37, 43,
+                47, 30, 36, 54, 42,
+                54, 35, 42, 48, 30,
+                44, 41
+        };
+        double[] volume = {
+                100, 150, 70, 200, 120,
+                110, 70, 20, 30, 100,
+                50, 80, 90, 20, 70,
+                60, 30, 90, 150, 120,
+                80, 40, 20, 60, 40,
+                70, 60, 90, 100, 20,
+                50, 70, 120, 140, 70,
+                70, 30, 70, 40, 90,
+                70, 20, 10, 20, 30,
+                50, 100
+        };
         return new DefaultHighLowDataset("Series 1", date, high, low, open, close, volume);
     }
 
@@ -344,8 +166,8 @@ public class CandlestickChartDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        CandlestickChartDemo1 demo = new CandlestickChartDemo1("Chart : CandlestickChartDemo1.java");
+    static void main() {
+        CandlestickChartDemo1 demo = new CandlestickChartDemo1("CandlestickChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

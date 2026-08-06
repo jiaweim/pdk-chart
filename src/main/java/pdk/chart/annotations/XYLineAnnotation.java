@@ -89,8 +89,8 @@ public class XYLineAnnotation extends AbstractXYAnnotation
     public XYLineAnnotation(double x1, double y1, double x2, double y2,
             Stroke stroke, Paint paint) {
         super();
-        Args.nullNotPermitted(stroke, "stroke");
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(stroke, "stroke");
+        Objects.requireNonNull(paint, "paint");
         Args.requireFinite(x1, "x1");
         Args.requireFinite(y1, "y1");
         Args.requireFinite(x2, "x2");

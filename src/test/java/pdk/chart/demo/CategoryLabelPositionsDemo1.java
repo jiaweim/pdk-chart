@@ -1,12 +1,9 @@
 package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
-import pdk.chart.Chart;
-import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -14,14 +11,11 @@ import pdk.chart.swing.UIUtils;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
-    static Chart chart;
+
+    static CategoryBarChart chart;
     static JCheckBox invertCheckBox;
     static JRadioButton horizontalRadioButton;
     static JRadioButton verticalRadioButton;
@@ -34,13 +28,12 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(CategoryDataset dataset) {
-        Chart chart = new CategoryBarChart(dataset, "Category", "Value",
+    private static CategoryBarChart createChart(CategoryDataset dataset) {
+        CategoryBarChart chart = new CategoryBarChart(dataset, "Category", "Value",
                 "CategoryLabelPositionsDemo1", PlotOrientation.VERTICAL, false, false);
-        CategoryPlot plot = (CategoryPlot) chart.getPlot();
-        CategoryAxis axis = plot.getDomainAxis();
-        axis.setMaximumCategoryLabelLines(Integer.MAX_VALUE);
-        axis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions((Math.PI / 4D)));
+        chart.getDomainAxis()
+                .withMaximumCategoryLabelLines(Integer.MAX_VALUE)
+                .withCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions((Math.PI / 4)));
         return chart;
     }
 
@@ -64,33 +57,23 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
         JPanel controlPanel = new JPanel(new BorderLayout());
         JPanel orientPanel = new JPanel();
         invertCheckBox = new JCheckBox("Invert Range Axis?");
-        invertCheckBox.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CategoryPlot plot = (CategoryPlot) CategoryLabelPositionsDemo1.chart.getPlot();
-                plot.getRangeAxis().setInverted(CategoryLabelPositionsDemo1.invertCheckBox.isSelected());
-            }
+        invertCheckBox.addActionListener(e -> {
+            chart.getRangeAxis().setInverted(CategoryLabelPositionsDemo1.invertCheckBox.isSelected());
         });
         orientPanel.add(invertCheckBox);
         ButtonGroup group = new ButtonGroup();
         horizontalRadioButton = new JRadioButton("Horizontal", false);
-        horizontalRadioButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (CategoryLabelPositionsDemo1.horizontalRadioButton.isSelected()) {
-                    CategoryPlot plot = (CategoryPlot) CategoryLabelPositionsDemo1.chart.getPlot();
-                    plot.setOrientation(PlotOrientation.HORIZONTAL);
-                }
-
+        horizontalRadioButton.addActionListener(e -> {
+            if (CategoryLabelPositionsDemo1.horizontalRadioButton.isSelected()) {
+                chart.setOrientation(PlotOrientation.HORIZONTAL);
             }
+
         });
         group.add(horizontalRadioButton);
         verticalRadioButton = new JRadioButton("Vertical", true);
-        verticalRadioButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (CategoryLabelPositionsDemo1.verticalRadioButton.isSelected()) {
-                    CategoryPlot plot = (CategoryPlot) CategoryLabelPositionsDemo1.chart.getPlot();
-                    plot.setOrientation(PlotOrientation.VERTICAL);
-                }
-
+        verticalRadioButton.addActionListener(e -> {
+            if (CategoryLabelPositionsDemo1.verticalRadioButton.isSelected()) {
+                chart.setOrientation(PlotOrientation.VERTICAL);
             }
         });
         group.add(verticalRadioButton);
@@ -103,12 +86,8 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
         slider.setMinorTickSpacing(5);
         slider.setPaintLabels(true);
         slider.setPaintTicks(true);
-        slider.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e) {
-                CategoryPlot plot = (CategoryPlot) CategoryLabelPositionsDemo1.chart.getPlot();
-                CategoryAxis axis = plot.getDomainAxis();
-                axis.setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions((double) CategoryLabelPositionsDemo1.slider.getValue() * Math.PI / (double) 180.0F));
-            }
+        slider.addChangeListener(e -> {
+            chart.getDomainAxis().setCategoryLabelPositions(CategoryLabelPositions.createUpRotationLabelPositions(CategoryLabelPositionsDemo1.slider.getValue() * Math.PI / 180.0));
         });
         axisPanel.add(slider);
         axisPanel.setBorder(new TitledBorder("Axis Label Rotation Angle:"));
@@ -120,8 +99,8 @@ public class CategoryLabelPositionsDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
-        CategoryLabelPositionsDemo1 demo = new CategoryLabelPositionsDemo1("Chart: CategoryLabelPositionsDemo1.java");
+    static void main() {
+        CategoryLabelPositionsDemo1 demo = new CategoryLabelPositionsDemo1("CategoryLabelPositionsDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
         demo.setVisible(true);

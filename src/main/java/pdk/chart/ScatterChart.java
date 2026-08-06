@@ -1,23 +1,16 @@
 package pdk.chart;
 
-import pdk.chart.api.RectangleEdge;
-import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.color.JColorSequential;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
-import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.renderer.GradientPaintScale;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
-import pdk.chart.renderer.xy.XYShapeRenderer;
 import pdk.chart.urls.StandardXYURLGenerator;
 import pdk.chart.urls.XYURLGenerator;
 
@@ -54,47 +47,6 @@ public class ScatterChart extends XYChart {
     @Override
     public XYLineAndShapeRenderer getRenderer() {
         return renderer1_;
-    }
-
-    public ScatterChart(Double[] x, Double[] y, Double[] z, Color[] colors,
-            String xAxisName, String yAxisName, String zAxisName) {
-        super(null, false);
-
-        NumberAxis xAxis = new NumberAxis(xAxisName);
-        xAxis.setAutoRangeIncludesZero(false);
-        NumberAxis yAxis = new NumberAxis(yAxisName);
-        yAxis.setAutoRangeIncludesZero(false);
-
-        double zMin = Data.getMin(z);
-        double zMax = Data.getMax(z);
-
-        if (colors == null) {
-            colors = JColorSequential.Plasma();
-        }
-
-        GradientPaintScale ps = new GradientPaintScale(zMin, zMax, Color.GRAY);
-        double stepSize = (zMax - zMin) / (colors.length - 1);
-        for (int i = 0; i < colors.length; i++) {
-            ps.add(zMin + i * stepSize, colors[i]);
-        }
-        XYShapeRenderer renderer = new XYShapeRenderer();
-        renderer.setPaintScale(ps);
-
-        XYZDataset<String> dataset = Data.createXYZ("", x, y, z);
-        plot_.setDataset(dataset);
-        plot_.setDomainAxis(xAxis);
-        plot_.setRangeAxis(yAxis);
-        plot_.setRenderer(renderer);
-
-        NumberAxis zAxis = new NumberAxis(zAxisName);
-        zAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-
-        PaintScaleLegend legend = new PaintScaleLegend(ps, zAxis);
-        legend.setPosition(RectangleEdge.RIGHT);
-        legend.setAxisLocation(AxisLocation.BOTTOM_OR_RIGHT);
-
-        addSubtitle(legend);
-        JChart.applyCurrentTheme(this);
     }
 
     /**

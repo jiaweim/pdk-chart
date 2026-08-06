@@ -1,6 +1,6 @@
 package pdk.chart.demo.plotly;
 
-import pdk.chart.ScatterChart;
+import pdk.chart.ScatterChartV2;
 import pdk.chart.legend.PaintScaleLegend;
 
 import java.util.HashMap;
@@ -16,16 +16,18 @@ public class Scatter4 {
     static void main() {
         HashMap<String, Object[]> iris = Datasets.iris();
 
-        ScatterChart chart = new ScatterChart((Double[]) iris.get("Sepal Width"),
+        ScatterChartV2 chart = new ScatterChartV2(
+                (Double[]) iris.get("Sepal Width"),
                 (Double[]) iris.get("Sepal Length"),
                 (Double[]) iris.get("Petal Length"),
-                null,
                 "x",
                 "y",
                 "Petal Length"
         );
         PaintScaleLegend subtitle = (PaintScaleLegend) chart.getSubtitle(0);
         subtitle.setPadding(10, 0, 50, 0);
+        chart.getRangeAxisAsNumber()
+                .withAutoRangeIncludesZero(false);
         chart.show();
     }
 }

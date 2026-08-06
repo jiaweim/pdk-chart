@@ -5,7 +5,6 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.Range;
-import pdk.chart.util.Args;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
@@ -85,9 +84,8 @@ public class XYDataImageAnnotation extends AbstractXYAnnotation
      */
     public XYDataImageAnnotation(Image image, double x, double y, double w,
             double h, boolean includeInDataBounds) {
-
         super();
-        Args.nullNotPermitted(image, "image");
+        Objects.requireNonNull(image, "image");
         this.image = image;
         this.x = x;
         this.y = y;

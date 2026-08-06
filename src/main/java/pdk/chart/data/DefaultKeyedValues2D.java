@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A data structure that stores zero, one or many values, where each value
@@ -133,7 +134,7 @@ public class DefaultKeyedValues2D<R extends Comparable<R>, C extends Comparable<
      */
     @Override
     public int getRowIndex(R key) {
-        Args.nullNotPermitted(key, "key");
+        Objects.requireNonNull(key, "key");
         if (this.sortRowKeys) {
             return Collections.<R>binarySearch(this.rowKeys, key);
         } else {

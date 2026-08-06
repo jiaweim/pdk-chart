@@ -7,6 +7,8 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.event.RendererChangeEvent;
+import pdk.chart.labels.ItemLabelPosition;
+import pdk.chart.labels.XYItemLabelGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.plot.CrosshairState;
@@ -331,5 +333,55 @@ public class XYBubbleRenderer extends AbstractXYItemRenderer
         setSeriesVisible(series, visible);
         return this;
     }
+
+    /**
+     * Sets the paint used for a series and sends a {@link RendererChangeEvent}
+     * to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     * @see #getSeriesPaint(int)
+     */
+    public XYBubbleRenderer withSeriesPaint(int series, Paint paint) {
+        setSeriesPaint(series, paint, true);
+        return this;
+    }
+
+    /**
+     * Sets the default item label generator and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param generator the generator ({@code null} permitted).
+     */
+    public XYBubbleRenderer withDefaultItemLabelGenerator(XYItemLabelGenerator generator) {
+        setDefaultItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the base flag that controls whether item labels are visible,
+     * and sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param visible the flag.
+     * @see #getDefaultItemLabelsVisible()
+     */
+    public XYBubbleRenderer withDefaultItemLabelsVisible(boolean visible) {
+        setDefaultItemLabelsVisible(visible, true);
+        return this;
+    }
+
+    /**
+     * Sets the default positive item label position.
+     *
+     * @param position the position ({@code null} not permitted).
+     * @see #getDefaultPositiveItemLabelPosition()
+     */
+    public XYBubbleRenderer withDefaultPositiveItemLabelPosition(
+            ItemLabelPosition position) {
+        // defer argument checking...
+        setDefaultPositiveItemLabelPosition(position, true);
+        return this;
+    }
+
 
 }

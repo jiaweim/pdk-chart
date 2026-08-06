@@ -1,11 +1,10 @@
 package pdk.chart.annotations;
 
 import pdk.chart.event.AnnotationChangeEvent;
-import pdk.chart.util.Args;
+import pdk.chart.text.TextAnchor;
 import pdk.chart.util.HashUtils;
 import pdk.chart.util.PaintUtils;
 import pdk.chart.util.SerialUtils;
-import pdk.chart.text.TextAnchor;
 
 import java.awt.*;
 import java.io.IOException;
@@ -88,7 +87,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      */
     protected TextAnnotation(String text) {
         super();
-        Args.nullNotPermitted(text, "text");
+        Objects.requireNonNull(text, "text");
         this.text = text;
         this.font = DEFAULT_FONT;
         this.paint = DEFAULT_PAINT;
@@ -115,7 +114,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * @see #getText()
      */
     public void setText(String text) {
-        Args.nullNotPermitted(text, "text");
+        Objects.requireNonNull(text, "text");
         this.text = text;
         fireAnnotationChanged();
     }
@@ -138,7 +137,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * @see #getFont()
      */
     public void setFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.font = font;
         fireAnnotationChanged();
     }
@@ -161,7 +160,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.paint = paint;
         fireAnnotationChanged();
     }
@@ -185,7 +184,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * @see #getTextAnchor()
      */
     public void setTextAnchor(TextAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.textAnchor = anchor;
         fireAnnotationChanged();
     }
@@ -208,7 +207,7 @@ public class TextAnnotation extends AbstractAnnotation implements Serializable {
      * @see #getRotationAnchor()
      */
     public void setRotationAnchor(TextAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.rotationAnchor = anchor;
         fireAnnotationChanged();
     }

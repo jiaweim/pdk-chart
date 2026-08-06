@@ -2,15 +2,11 @@ package pdk.chart.demo;
 
 import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
-import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.labels.BubbleXYItemLabelGenerator;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
-import pdk.chart.labels.StandardXYZToolTipGenerator;
-import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBubbleRenderer;
-import pdk.chart.renderer.xy.XYItemRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -29,22 +25,20 @@ public class BubbleChartDemo2 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYZDataset dataset) {
-        BubbleChart chart = new BubbleChart(dataset, "X", "Y", "Bubble Chart Demo 2");
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setRenderer(new XYBubbleRenderer(XYBubbleRenderer.ScaleType.SCALE_ON_BOTH_AXES));
-        plot.setForegroundAlpha(0.65F);
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        XYItemRenderer renderer = plot.getRenderer();
-        renderer.setSeriesPaint(0, Color.BLUE);
-        renderer.setDefaultItemLabelGenerator(new BubbleXYItemLabelGenerator());
-        renderer.setDefaultToolTipGenerator(new StandardXYZToolTipGenerator());
-        renderer.setDefaultItemLabelsVisible(true);
-        renderer.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
-        NumberAxis domainAxis = (NumberAxis) plot.getDomainAxis();
-        domainAxis.setRange(0.0, 10.0);
-        NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setRange(0.0, 10.0);
+        BubbleChart chart = new BubbleChart(XYBubbleRenderer.ScaleType.SCALE_ON_BOTH_AXES, dataset,
+                "X", "Y", "Bubble Chart Demo 2");
+
+        chart.withPlotForegroundAlpha(0.65f)
+                .withPannable(true, true);
+
+        chart.getRenderer()
+                .withSeriesPaint(0, Color.BLUE)
+                .withDefaultItemLabelGenerator(new BubbleXYItemLabelGenerator())
+                .withDefaultItemLabelsVisible(true)
+                .withDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.CENTER, TextAnchor.CENTER));
+
+        chart.getDomainAxisAsNumber().withRange(0.0, 10.0);
+        chart.getRangeAxisAsNumber().withRange(0.0, 10.0);
         return chart;
     }
 

@@ -4,6 +4,7 @@ import pdk.chart.util.Args;
 
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents the insets for a rectangle, specified in absolute or relative
@@ -85,7 +86,7 @@ public class RectangleInsets implements Serializable {
      */
     public RectangleInsets(UnitType unitType, double top, double left,
             double bottom, double right) {
-        Args.nullNotPermitted(unitType, "unitType");
+        Objects.requireNonNull(unitType, "unitType");
         this.unitType = unitType;
         this.top = top;
         this.bottom = bottom;

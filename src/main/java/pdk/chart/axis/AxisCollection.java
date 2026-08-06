@@ -1,10 +1,10 @@
 package pdk.chart.axis;
 
 import pdk.chart.api.RectangleEdge;
-import pdk.chart.util.Args;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A collection of axes that have been assigned to the TOP, BOTTOM, LEFT or
@@ -91,8 +91,8 @@ public class AxisCollection {
      *             ({@code null} not permitted).
      */
     public void add(Axis axis, RectangleEdge edge) {
-        Args.nullNotPermitted(axis, "axis");
-        Args.nullNotPermitted(edge, "edge");
+        Objects.requireNonNull(axis, "axis");
+        Objects.requireNonNull(edge, "edge");
         switch (edge) {
             case TOP:
                 this.axesAtTop.add(axis);

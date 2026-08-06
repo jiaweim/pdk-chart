@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.data.xy.XYZDataset;
+import pdk.chart.model.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -21,11 +21,12 @@ public class BubbleChartDemo1 extends ApplicationFrame {
 
     private static Chart createChart(XYZDataset dataset) {
         BubbleChart chart = new BubbleChart(dataset, "X", "Y", "Bubble Chart Demo 1");
-        chart.setPlotForegroundAlpha(0.65f);
-        chart.setPannable(true, true);
+        chart.withPlotForegroundAlpha(0.65f)
+                .withPannable(true, true)
+                .withDomainAxisMargin(0.15, 0.15)
+                .withRangeAxisMargin(0.15, 0.15);
+
         chart.setSeriesPaint(0, Color.BLUE);
-        chart.setDomainAxisMargin(0.15, 0.15);
-        chart.setRangeAxisMargin(0.15, 0.15);
         return chart;
     }
 

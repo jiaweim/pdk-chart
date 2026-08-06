@@ -754,8 +754,9 @@ public class CategoryChart extends Chart {
     }
 
     /**
-     * Sets the rendering order and sends a {@link PlotChangeEvent} to all
-     * registered listeners.  By default, the plot renders the primary dataset
+     * Sets the rendering order.
+     * <p>
+     * By default, the plot renders the primary dataset
      * last (so that the primary dataset overlays the secondary datasets).  You
      * can reverse this if you want to.
      *
@@ -775,7 +776,6 @@ public class CategoryChart extends Chart {
     public void setRangeAxisLocation(AxisLocation location) {
         plot_.setRangeAxisLocation(location);
     }
-
 
     /**
      * Sets the location of the range axis and sends a {@link PlotChangeEvent}

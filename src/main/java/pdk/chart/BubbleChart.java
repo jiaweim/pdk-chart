@@ -93,6 +93,23 @@ public class BubbleChart extends XYChart {
     }
 
     /**
+     * Full constructor – every option is exposed.
+     *
+     * @param scaleType  the bubble scaling strategy (must not be
+     *                   {@code null})
+     * @param dataset    the dataset (must implement {@link XYZDataset};
+     *                   {@code null} permitted)
+     * @param xAxisLabel the domain axis label ({@code null} permitted)
+     * @param yAxisLabel the range axis label ({@code null} permitted)
+     * @param title      the chart title ({@code null} permitted)
+     */
+    public BubbleChart(XYBubbleRenderer.ScaleType scaleType, XYZDataset dataset, String xAxisLabel,
+            String yAxisLabel, String title) {
+        this(scaleType, dataset, xAxisLabel, yAxisLabel, title, PlotOrientation.VERTICAL,
+                true, true, false);
+    }
+
+    /**
      * Convenience constructor that creates a bubble chart from three
      * arrays of primitive {@code double} values.
      * <p>

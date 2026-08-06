@@ -1,10 +1,10 @@
 package pdk.chart.data.xy;
 
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.util.Args;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * A simple implementation of the {@link OHLCDataset} interface.  See also
@@ -67,9 +67,8 @@ public class DefaultHighLowDataset extends AbstractXYDataset
     public DefaultHighLowDataset(Comparable seriesKey, Date[] date,
             double[] high, double[] low, double[] open, double[] close,
             double[] volume) {
-
-        Args.nullNotPermitted(seriesKey, "seriesKey");
-        Args.nullNotPermitted(date, "date");
+        Objects.requireNonNull(seriesKey);
+        Objects.requireNonNull(date);
         this.seriesKey = seriesKey;
         this.date = date;
         this.high = createNumberArray(high);
@@ -77,7 +76,6 @@ public class DefaultHighLowDataset extends AbstractXYDataset
         this.open = createNumberArray(open);
         this.close = createNumberArray(close);
         this.volume = createNumberArray(volume);
-
     }
 
     /**

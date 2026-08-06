@@ -1,14 +1,14 @@
 package pdk.chart.annotations;
 
-import pdk.chart.model.Drawable;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.util.Args;
+import pdk.chart.model.Drawable;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -87,7 +87,7 @@ public class XYDrawableAnnotation extends AbstractXYAnnotation
     public XYDrawableAnnotation(double x, double y, double displayWidth,
             double displayHeight, double drawScaleFactor, Drawable drawable) {
         super();
-        Args.nullNotPermitted(drawable, "drawable");
+        Objects.requireNonNull(drawable, "drawable");
         Args.requireFinite(x, "x");
         Args.requireFinite(y, "y");
         Args.requireFinite(displayWidth, "displayWidth");

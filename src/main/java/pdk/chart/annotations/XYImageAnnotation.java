@@ -5,11 +5,11 @@ import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.ValueAxis;
-import pdk.chart.util.Args;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.plot.XYPlot;
+import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -78,8 +78,8 @@ public class XYImageAnnotation extends AbstractXYAnnotation
     public XYImageAnnotation(double x, double y, Image image,
             RectangleAnchor anchor) {
         super();
-        Args.nullNotPermitted(image, "image");
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(image, "image");
+        Objects.requireNonNull(anchor, "anchor");
         Args.requireFinite(x, "x");
         Args.requireFinite(y, "y");
         this.x = x;
