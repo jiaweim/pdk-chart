@@ -33,7 +33,7 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
         int SERIES_COUNT = 3;
         int CATEGORY_COUNT = 5;
         int VALUE_COUNT = 20;
-        Data.BoxAndWhiskerDatasetBuilder<String, String> bwBuilder = Data.boxAndWhisker();
+        Data.BoxAndWhiskerCategoryDatasetBuilder<String, String> bwBuilder = Data.boxAndWhisker();
         for (int s = 0; s < SERIES_COUNT; ++s) {
             for (int c = 0; c < CATEGORY_COUNT; ++c) {
                 List<Double> values = createValueList(0.0, 20.0, VALUE_COUNT);

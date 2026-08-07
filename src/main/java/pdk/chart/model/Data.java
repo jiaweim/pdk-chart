@@ -28,6 +28,7 @@ import java.util.Objects;
  */
 public interface Data {
 
+    //<editor-fold desc="Utilities">
     public static Range getZRange(XYZDataset dataset) {
         double min = Double.POSITIVE_INFINITY;
         double max = Double.NEGATIVE_INFINITY;
@@ -44,7 +45,10 @@ public interface Data {
         }
         return new Range(min, max);
     }
+    //</editor-fold>
 
+
+    //<editor-fold desc="Dataset Builder Factory">
 
     /**
      * Create a {@link CategoryDatasetBuilder} to build {@link pdk.chart.data.category.CategoryDataset}
@@ -76,6 +80,22 @@ public interface Data {
     static <S extends Comparable<S>> XYZDatasetBuilder<S> xyz() {
         return new XYZDatasetBuilder<>();
     }
+
+
+    /**
+     * Create a {@link BoxAndWhiskerCategoryDatasetBuilder} to build {@link pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset}
+     *
+     * @param <R> series key type
+     * @param <C>
+     * @return {@link BoxAndWhiskerCategoryDatasetBuilder}
+     */
+    static <R extends Comparable<R>, C extends Comparable<C>> BoxAndWhiskerCategoryDatasetBuilder<R, C> boxAndWhisker() {
+        return new BoxAndWhiskerCategoryDatasetBuilder<>();
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Factories">
 
     /**
      * Create a {@link XYDataset}.
@@ -149,6 +169,9 @@ public interface Data {
         }
         return new XYSeriesCollection<>(series);
     }
+
+    //</editor-fold>
+
 
     /**
      * Create a {@link XYDataset}.
@@ -660,15 +683,11 @@ public interface Data {
         }
     }
 
-    static <R extends Comparable<R>, C extends Comparable<C>> BoxAndWhiskerDatasetBuilder<R, C> boxAndWhisker() {
-        return new BoxAndWhiskerDatasetBuilder<>();
-    }
-
-    class BoxAndWhiskerDatasetBuilder<R extends Comparable<R>, C extends Comparable<C>> {
+    class BoxAndWhiskerCategoryDatasetBuilder<R extends Comparable<R>, C extends Comparable<C>> {
 
         private final DefaultBoxAndWhiskerCategoryDataset<R, C> dataset = new DefaultBoxAndWhiskerCategoryDataset<>();
 
-        public BoxAndWhiskerDatasetBuilder<R, C> add(List<? extends Number> list, R rowKey, C columnKey) {
+        public BoxAndWhiskerCategoryDatasetBuilder<R, C> add(List<? extends Number> list, R rowKey, C columnKey) {
             dataset.add(list, rowKey, columnKey);
             return this;
         }
@@ -677,4 +696,7 @@ public interface Data {
             return dataset;
         }
     }
+
+
+
 }

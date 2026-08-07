@@ -8,8 +8,7 @@ import java.util.Objects;
 
 /**
  * A collection of axes that have been assigned to the TOP, BOTTOM, LEFT or
- * RIGHT of a chart.  This class is used internally by JFreeChart, you won't
- * normally need to use it yourself.
+ * RIGHT of a chart.  This class is used internally by pdk-chart.
  */
 public class AxisCollection {
 

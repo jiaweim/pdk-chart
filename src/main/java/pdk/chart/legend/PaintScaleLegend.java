@@ -12,12 +12,12 @@ import pdk.chart.data.Range;
 import pdk.chart.event.AxisChangeEvent;
 import pdk.chart.event.AxisChangeListener;
 import pdk.chart.event.TitleChangeEvent;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.PaintScale;
 import pdk.chart.title.Title;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;

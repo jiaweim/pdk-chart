@@ -1,16 +1,15 @@
 package pdk.chart.axis;
 
 import pdk.chart.api.RectangleAnchor;
-import pdk.chart.util.Args;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextBlockAnchor;
+import pdk.chart.util.Args;
 
 import java.io.Serializable;
 
 /**
  * The attributes that control the position of the labels for the categories on
- * a {@link CategoryAxis}. Instances of this class are immutable and other
- * JFreeChart classes rely upon this.
+ * a {@link CategoryAxis}. Instances of this class are immutable.
  */
 public class CategoryLabelPosition implements Serializable {
 

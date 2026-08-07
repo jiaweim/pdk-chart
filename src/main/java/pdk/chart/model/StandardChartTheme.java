@@ -9,12 +9,10 @@ import pdk.chart.axis.*;
 import pdk.chart.block.Block;
 import pdk.chart.block.BlockContainer;
 import pdk.chart.block.LabelBlock;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.legend.LegendTitle;
 import pdk.chart.legend.PaintScaleLegend;
-import pdk.chart.plot.*;
 import pdk.chart.ms.MSPlot;
+import pdk.chart.plot.*;
 import pdk.chart.plot.pie.MultiplePiePlot;
 import pdk.chart.plot.pie.PieLabelLinkStyle;
 import pdk.chart.plot.pie.PiePlot;
@@ -28,6 +26,8 @@ import pdk.chart.title.CompositeTitle;
 import pdk.chart.title.TextTitle;
 import pdk.chart.title.Title;
 import pdk.chart.util.DefaultShadowGenerator;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 import pdk.chart.util.ShadowGenerator;
 
 import java.awt.*;
@@ -215,6 +215,14 @@ public class StandardChartTheme implements ChartTheme, Cloneable,
      */
     public static ChartTheme createJFreeTheme() {
         return new StandardChartTheme("JFree");
+    }
+
+    public static ChartTheme createPlotlyTheme() {
+        StandardChartTheme theme = new StandardChartTheme("Plotly");
+
+        DefaultDrawingSupplier defaultDrawingSupplier = new DefaultDrawingSupplier();
+
+        return theme;
     }
 
     /**

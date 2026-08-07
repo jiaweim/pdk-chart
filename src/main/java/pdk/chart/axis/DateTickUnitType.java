@@ -1,39 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------------
- * DateTickUnitType.java
- * ---------------------
- * (C) Copyright 2009-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- */
-
 package pdk.chart.axis;
 
 import java.util.Calendar;
@@ -43,34 +7,50 @@ import java.util.Calendar;
  */
 public enum DateTickUnitType {
 
-    /** Year. */
+    /**
+     * Year.
+     */
     YEAR(Calendar.YEAR),
 
-    /** Month. */
-    MONTH( Calendar.MONTH),
+    /**
+     * Month.
+     */
+    MONTH(Calendar.MONTH),
 
-    /** Day. */
-    DAY( Calendar.DATE),
+    /**
+     * Day.
+     */
+    DAY(Calendar.DATE),
 
-    /** Hour. */
+    /**
+     * Hour.
+     */
     HOUR(Calendar.HOUR_OF_DAY),
 
-    /** Minute. */
+    /**
+     * Minute.
+     */
     MINUTE(Calendar.MINUTE),
 
-    /** Second. */
+    /**
+     * Second.
+     */
     SECOND(Calendar.SECOND),
 
-    /** Millisecond. */
+    /**
+     * Millisecond.
+     */
     MILLISECOND(Calendar.MILLISECOND);
 
-    /** The corresponding field value in Java's Calendar class. */
+    /**
+     * The corresponding field value in Java's Calendar class.
+     */
     private int calendarField;
 
     /**
      * Private constructor.
      *
-     * @param calendarField  the calendar field.
+     * @param calendarField the calendar field.
      */
     DateTickUnitType(int calendarField) {
         this.calendarField = calendarField;

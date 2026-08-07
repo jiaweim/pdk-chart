@@ -1,52 +1,12 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * --------
- * CSV.java
- * --------
- * (C) Copyright 2003-present, by David Gilbert.
- *
- * Original Author:  David Gilbert;
- * Contributor(s):   -;
- *
- * Changes
- * -------
- * 24-Nov-2003 : Version 1 (DG);
- *
- */
-
 package pdk.chart.data.io;
+
+import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.category.DefaultCategoryDataset;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
-
-import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.data.category.DefaultCategoryDataset;
 
 /**
  * A utility class for reading {@link CategoryDataset} data from a CSV file.
@@ -55,10 +15,14 @@ import pdk.chart.data.category.DefaultCategoryDataset;
  */
 public class CSV {
 
-    /** The field delimiter. */
+    /**
+     * The field delimiter.
+     */
     private char fieldDelimiter;
 
-    /** The text delimiter. */
+    /**
+     * The text delimiter.
+     */
     private char textDelimiter;
 
     /**
@@ -72,8 +36,8 @@ public class CSV {
     /**
      * Creates a new reader with the specified field and text delimiters.
      *
-     * @param fieldDelimiter  the field delimiter (usually a comma, semi-colon,
-     *                        colon, tab or space).
+     * @param fieldDelimiter the field delimiter (usually a comma, semi-colon,
+     *                       colon, tab or space).
      * @param textDelimiter  the text delimiter (usually a single or double
      *                       quote).
      */
@@ -85,10 +49,8 @@ public class CSV {
     /**
      * Reads a {@link CategoryDataset} from a CSV file or input source.
      *
-     * @param in  the input source.
-     *
+     * @param in the input source.
      * @return A category dataset.
-     *
      * @throws IOException if there is an I/O problem.
      */
     public CategoryDataset readCategoryDataset(Reader in) throws IOException {
@@ -101,8 +63,7 @@ public class CSV {
         while (line != null) {
             if (lineIndex == 0) {  // first line contains column keys
                 columnKeys = extractColumnKeys(line);
-            }
-            else {  // remaining lines contain a row key and data values
+            } else {  // remaining lines contain a row key and data values
                 extractRowKeyAndData(line, dataset, columnKeys);
             }
             line = reader.readLine();
@@ -115,8 +76,7 @@ public class CSV {
     /**
      * Extracts the column keys from a string.
      *
-     * @param line  a line from the input file.
-     *
+     * @param line a line from the input file.
      * @return A list of column keys.
      */
     private List extractColumnKeys(String line) {
@@ -126,7 +86,7 @@ public class CSV {
         for (int i = 0; i < line.length(); i++) {
             if (line.charAt(i) == this.fieldDelimiter) {
                 if (fieldIndex > 0) {  // first field is ignored, since
-                                       // column 0 is for row keys
+                    // column 0 is for row keys
                     String key = line.substring(start, i);
                     keys.add(removeStringDelimiters(key));
                 }
@@ -142,13 +102,13 @@ public class CSV {
     /**
      * Extracts the row key and data for a single line from the input source.
      *
-     * @param line  the line from the input source.
-     * @param dataset  the dataset to be populated.
-     * @param columnKeys  the column keys.
+     * @param line       the line from the input source.
+     * @param dataset    the dataset to be populated.
+     * @param columnKeys the column keys.
      */
     private void extractRowKeyAndData(String line,
-                                      DefaultCategoryDataset dataset,
-                                      List columnKeys) {
+            DefaultCategoryDataset dataset,
+            List columnKeys) {
         Comparable rowKey = null;
         int fieldIndex = 0;
         int start = 0;
@@ -157,14 +117,13 @@ public class CSV {
                 if (fieldIndex == 0) {  // first field contains the row key
                     String key = line.substring(start, i);
                     rowKey = removeStringDelimiters(key);
-                }
-                else {  // remaining fields contain values
+                } else {  // remaining fields contain values
                     Double value = Double.valueOf(
-                        removeStringDelimiters(line.substring(start, i))
+                            removeStringDelimiters(line.substring(start, i))
                     );
                     dataset.addValue(
-                        value, rowKey,
-                        (Comparable) columnKeys.get(fieldIndex - 1)
+                            value, rowKey,
+                            (Comparable) columnKeys.get(fieldIndex - 1)
                     );
                 }
                 start = i + 1;
@@ -172,10 +131,10 @@ public class CSV {
             }
         }
         Double value = Double.valueOf(
-            removeStringDelimiters(line.substring(start, line.length()))
+                removeStringDelimiters(line.substring(start, line.length()))
         );
         dataset.addValue(
-            value, rowKey, (Comparable) columnKeys.get(fieldIndex - 1)
+                value, rowKey, (Comparable) columnKeys.get(fieldIndex - 1)
         );
     }
 
@@ -183,8 +142,7 @@ public class CSV {
      * Removes the string delimiters from a key (as well as any white space
      * outside the delimiters).
      *
-     * @param key  the key (including delimiters).
-     *
+     * @param key the key (including delimiters).
      * @return The key without delimiters.
      */
     private String removeStringDelimiters(String key) {

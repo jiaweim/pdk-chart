@@ -19,7 +19,7 @@ import java.io.*;
 import java.util.Objects;
 
 /**
- * A collection of utility methods for JFreeChart.  Includes methods for
+ * A collection of utility methods for pdk-chart.  Includes methods for
  * converting charts to image formats (PNG and JPEG) plus creating simple HTML
  * image maps.
  *
@@ -40,7 +40,6 @@ public abstract class JChart {
      * <a href="https://www.jfree.org/jfreesvg/">https://www.jfree.org/jfreesvg/</a>
      *
      * @return A boolean.
-     * @since 2.0.0
      */
     public static boolean isJFreeSVGAvailable() {
         Class<?> svgGraphics2DClass = null;
@@ -325,7 +324,6 @@ public abstract class JChart {
 
         // defer argument checking...
         writeChartAsJPEG(out, chart, width, height, null);
-
     }
 
     /**
@@ -345,7 +343,6 @@ public abstract class JChart {
         // defer argument checking...
         JChart.writeChartAsJPEG(out, quality, chart, width, height,
                 null);
-
     }
 
     /**
@@ -473,7 +470,6 @@ public abstract class JChart {
         try (OutputStream out = new BufferedOutputStream(new FileOutputStream(file))) {
             writeChartAsJPEG(out, quality, chart, width, height, info);
         }
-
     }
 
     /**
@@ -488,7 +484,6 @@ public abstract class JChart {
 
         // defer argument checking...
         writeBufferedImageAsJPEG(out, 0.75f, image);
-
     }
 
     /**
@@ -503,7 +498,6 @@ public abstract class JChart {
             BufferedImage image) throws IOException {
 
         EncoderUtil.writeBufferedImage(image, ImageFormat.JPEG, out, quality);
-
     }
 
     /**
@@ -517,7 +511,6 @@ public abstract class JChart {
             BufferedImage image) throws IOException {
 
         EncoderUtil.writeBufferedImage(image, ImageFormat.PNG, out);
-
     }
 
     /**
@@ -603,14 +596,11 @@ public abstract class JChart {
      * @param urlTagFragmentGenerator     a generator for the HTML fragment that
      *                                    will contain the URL reference ({@code null} not permitted if
      *                                    {@code info} contains URLs).
-     * @throws IOException if there are any I/O errors.
      */
     public static void writeImageMap(PrintWriter writer, String name,
             ChartRenderingInfo info,
             ToolTipTagFragmentGenerator toolTipTagFragmentGenerator,
-            URLTagFragmentGenerator urlTagFragmentGenerator)
-            throws IOException {
-
+            URLTagFragmentGenerator urlTagFragmentGenerator) {
         writer.println(ImageMapUtils.getImageMap(name, info,
                 toolTipTagFragmentGenerator, urlTagFragmentGenerator));
     }
@@ -652,7 +642,6 @@ public abstract class JChart {
 
         return ImageMapUtils.getImageMap(name, info,
                 toolTipTagFragmentGenerator, urlTagFragmentGenerator);
-
     }
 
 }

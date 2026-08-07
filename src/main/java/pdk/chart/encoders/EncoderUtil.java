@@ -1,44 +1,3 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates.
- * Other names may be trademarks of their respective owners.]
- *
- * ----------------
- * EncoderUtil.java
- * ----------------
- * (C) Copyright 2004-2016, by Richard Atkinson and Contributors.
- *
- * Original Author:  Richard Atkinson;
- * Contributor(s):   -;
- *
- * Changes
- * -------
- * 01-Aug-2004 : Initial version (RA);
- * 02-Feb-2007 : Removed author tags all over JFreeChart sources (DG);
- *
- */
-
 package pdk.chart.encoders;
 
 import java.awt.image.BufferedImage;
@@ -55,8 +14,7 @@ public class EncoderUtil {
      * Encode the image in a specific format.
      *
      * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     *
+     * @param format The {@link ImageFormat} to use.
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
@@ -69,10 +27,10 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param encodeAlpha  Whether to encode alpha transparency (not supported
-     *                     by all ImageEncoders).
+     * @param image       The image to be encoded.
+     * @param format      The {@link ImageFormat} to use.
+     * @param encodeAlpha Whether to encode alpha transparency (not supported
+     *                    by all ImageEncoders).
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
@@ -86,10 +44,10 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format.
      *
-     * @param image  The image to be encoded.
+     * @param image   The image to be encoded.
      * @param format  The {@link ImageFormat} to use.
-     * @param quality  The quality to use for the image encoding (not supported
-     *                 by all ImageEncoders).
+     * @param quality The quality to use for the image encoding (not supported
+     *                by all ImageEncoders).
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
@@ -103,28 +61,28 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param quality  The quality to use for the image encoding (not supported
-     *                 by all ImageEncoders).
-     * @param encodeAlpha  Whether to encode alpha transparency (not supported
-     *                     by all ImageEncoders).
+     * @param image       The image to be encoded.
+     * @param format      The {@link ImageFormat} to use.
+     * @param quality     The quality to use for the image encoding (not supported
+     *                    by all ImageEncoders).
+     * @param encodeAlpha Whether to encode alpha transparency (not supported
+     *                    by all ImageEncoders).
      * @return The byte[] that is the encoded image.
      * @throws IOException if there is an IO problem.
      */
     public static byte[] encode(BufferedImage image, String format,
             float quality, boolean encodeAlpha) throws IOException {
         ImageEncoder imageEncoder =
-                ImageEncoderFactory.newInstance(format,quality, encodeAlpha);
+                ImageEncoderFactory.newInstance(format, quality, encodeAlpha);
         return imageEncoder.encode(image);
     }
 
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
      * @throws IOException if there is an IO problem.
      */
     public static void writeBufferedImage(BufferedImage image, String format,
@@ -136,15 +94,15 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
-     * @param quality  The quality to use for the image encoding (not
-     *                 supported by all ImageEncoders).
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
+     * @param quality      The quality to use for the image encoding (not
+     *                     supported by all ImageEncoders).
      * @throws IOException if there is an IO problem.
      */
     public static void writeBufferedImage(BufferedImage image, String format,
-        OutputStream outputStream, float quality) throws IOException {
+            OutputStream outputStream, float quality) throws IOException {
         ImageEncoder imageEncoder = ImageEncoderFactory.newInstance(format, quality);
         imageEncoder.encode(image, outputStream);
     }
@@ -152,9 +110,9 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
      * @param encodeAlpha  Whether to encode alpha transparency (not
      *                     supported by all ImageEncoders).
      * @throws IOException if there is an IO problem.
@@ -168,11 +126,11 @@ public class EncoderUtil {
     /**
      * Encode the image in a specific format and write it to an OutputStream.
      *
-     * @param image  The image to be encoded.
-     * @param format  The {@link ImageFormat} to use.
-     * @param outputStream  The OutputStream to write the encoded image to.
-     * @param quality  The quality to use for the image encoding (not
-     *                 supported by all ImageEncoders).
+     * @param image        The image to be encoded.
+     * @param format       The {@link ImageFormat} to use.
+     * @param outputStream The OutputStream to write the encoded image to.
+     * @param quality      The quality to use for the image encoding (not
+     *                     supported by all ImageEncoders).
      * @param encodeAlpha  Whether to encode alpha transparency (not supported
      *                     by all ImageEncoders).
      * @throws IOException if there is an IO problem.

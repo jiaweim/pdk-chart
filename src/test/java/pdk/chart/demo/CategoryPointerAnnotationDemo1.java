@@ -47,7 +47,7 @@ public class CategoryPointerAnnotationDemo1 extends ApplicationFrame {
         chart.addSubtitle(source);
 
         chart.getRangeAxisAsNumber()
-                .setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+                .withStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         chart.getRenderer()
                 .withDefaultShapesVisible(true)
@@ -55,7 +55,7 @@ public class CategoryPointerAnnotationDemo1 extends ApplicationFrame {
                 .withUseFillPaint(true)
                 .withDefaultFillPaint(Color.WHITE);
 
-        CategoryPointerAnnotation cpa = new CategoryPointerAnnotation("Released 4-Dec-1998", "JDK 1.2", (double) 1530.0F, -2.356194490192345);
+        CategoryPointerAnnotation cpa = new CategoryPointerAnnotation("Released 4-Dec-1998", "JDK 1.2",  1530.0, -2.356194490192345);
         cpa.setTextAnchor(TextAnchor.BOTTOM_RIGHT);
         chart.addAnnotation(cpa);
         return chart;
