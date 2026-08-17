@@ -64,7 +64,7 @@ public class CategoryStepChartDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         CategoryStepChartDemo1 demo = new CategoryStepChartDemo1("Chart : CategoryStepChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

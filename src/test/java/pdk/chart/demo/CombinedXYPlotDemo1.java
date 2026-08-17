@@ -45,10 +45,10 @@ public class CombinedXYPlotDemo1 extends ApplicationFrame {
         renderer1.setSeriesStroke(0, new BasicStroke(4.0F, 1, 2));
         renderer1.setSeriesPaint(0, Color.BLUE);
         DateAxis domainAxis = new DateAxis("Year");
-        domainAxis.setLowerMargin((double)0.0F);
+        domainAxis.setLowerMargin(0.0F);
         domainAxis.setUpperMargin(0.02);
         ValueAxis rangeAxis = new NumberAxis("$billion");
-        XYPlot plot1 = new XYPlot(data1, (ValueAxis)null, rangeAxis, renderer1);
+        XYPlot plot1 = new XYPlot(data1, null, rangeAxis, renderer1);
         plot1.setBackgroundPaint(Color.LIGHT_GRAY);
         plot1.setDomainGridlinePaint(Color.WHITE);
         plot1.setRangeGridlinePaint(Color.WHITE);

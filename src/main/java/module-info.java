@@ -5,6 +5,7 @@ module pdk.chart {
     requires org.jfree.svg;
     requires com.orsonpdf.orsonpdf;
     requires com.google.common;
+    requires org.apache.commons.csv;
 
     exports pdk.chart;
     exports pdk.chart.annotations;

@@ -1,11 +1,13 @@
 package pdk.chart.demo.plotly;
 
-import de.siegmar.fastcsv.reader.CsvReader;
-import de.siegmar.fastcsv.reader.NamedCsvRecord;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -66,8 +68,13 @@ public class Datasets {
 
         URL url = Datasets.class.getResource("gapminder_data_graphs.csv");
         HashMap<String, Object[]> dataMap = new HashMap<>();
-        try (CsvReader<NamedCsvRecord> records = CsvReader.builder()
-                .ofNamedCsvRecord(Path.of(url.toURI()))) {
+
+        CSVFormat csvFormat = CSVFormat.Builder.create(CSVFormat.EXCEL)
+                .setHeader()
+                .setSkipHeaderRecord(true).get();
+
+        try (CSVParser records = CSVParser.parse(Path.of(url.toURI()), StandardCharsets.UTF_8, csvFormat)) {
+
             int N = 3675;
             String[] country = new String[N];
             String[] continent = new String[N];
@@ -79,31 +86,31 @@ public class Datasets {
             Double[] services = new Double[N];
 
             int i = 0;
-            for (NamedCsvRecord csvRecord : records) {
-                country[i] = csvRecord.getField("country"); // country name
-                continent[i] = csvRecord.getField("continent"); // the continent to which the country belongs
-                year[i] = Integer.parseInt(csvRecord.getField("year"));
-                life_exp[i] = Double.parseDouble(csvRecord.getField("life_exp"));
-                String hdiIndex = csvRecord.getField("hdi_index");
+            for (CSVRecord csvRecord : records) {
+                country[i] = csvRecord.get("country"); // country name
+                continent[i] = csvRecord.get("continent"); // the continent to which the country belongs
+                year[i] = Integer.parseInt(csvRecord.get("year"));
+                life_exp[i] = Double.parseDouble(csvRecord.get("life_exp"));
+                String hdiIndex = csvRecord.get("hdi_index");
                 if (hdiIndex.isEmpty()) {
                     hdi_index[i] = Double.NaN;
                 } else {
                     hdi_index[i] = Double.parseDouble(hdiIndex);
                 }
 
-                String co2Consump = csvRecord.getField("co2_consump");
+                String co2Consump = csvRecord.get("co2_consump");
                 if (co2Consump.isEmpty()) {
                     co2_consump[i] = Double.NaN;
                 } else {
                     co2_consump[i] = Double.parseDouble(co2Consump);
                 }
-                String gdp1 = csvRecord.getField("gdp");
+                String gdp1 = csvRecord.get("gdp");
                 if (gdp1.isEmpty()) {
                     gdp[i] = Double.NaN;
                 } else {
                     gdp[i] = Double.parseDouble(gdp1);
                 }
-                String services1 = csvRecord.getField("services");
+                String services1 = csvRecord.get("services");
                 if (services1.isEmpty()) {
                     services[i] = Double.NaN;
                 } else {

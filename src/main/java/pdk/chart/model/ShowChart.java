@@ -7,12 +7,11 @@ import org.jfree.svg.SVGGraphics2D;
 import org.jfree.svg.SVGUtils;
 import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.swing.ApplicationFrame;
-import pdk.chart.swing.ChartPanel;
-import pdk.chart.swing.UIUtils;
+import pdk.chart.swing.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -32,23 +31,9 @@ public interface ShowChart {
      * @param chart {@link Chart} to show.
      */
     static void show(Chart chart, String frameTitle) {
-        SwingUtilities.invokeLater(() -> {
-            ApplicationFrame frame = new ApplicationFrame(frameTitle);
-            ChartPanel panel = new ChartPanel(chart);
-
-            // Used to prevent stretching distortion
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            panel.setMaximumDrawHeight((int) screenSize.getHeight());
-            panel.setMaximumDrawWidth((int) screenSize.getWidth());
-
-            panel.setInitialDelay(200);
-            frame.setContentPane(panel);
-            frame.pack();
-            UIUtils.centerFrameOnScreen(frame);
-            frame.setVisible(true);
-        });
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        show(chart, frameTitle, screenSize.width / 2, screenSize.height / 2);
     }
-
 
     /**
      * Display the specified chart.
@@ -59,6 +44,21 @@ public interface ShowChart {
         SwingUtilities.invokeLater(() -> {
             ApplicationFrame frame = new ApplicationFrame(frameTitle);
             ChartPanel panel = new ChartPanel(chart);
+
+            panel.addChartMouseListener(new ChartMouseListener() {
+                @Override
+                public void chartMouseClicked(ChartMouseEvent event) {
+                    MouseEvent mouseEvent = event.getTrigger();
+                    int clickCount = mouseEvent.getClickCount();
+                    if (clickCount == 2) {
+                        panel.restoreAutoBounds();
+                    }
+                }
+
+                @Override
+                public void chartMouseMoved(ChartMouseEvent event) {}
+            });
+
             // Used to prevent stretching distortion
             Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
             panel.setMaximumDrawHeight((int) screenSize.getHeight());

@@ -1,8 +1,6 @@
 package pdk.chart.swing;
 
 import pdk.chart.Chart;
-import pdk.chart.model.ChartRenderingInfo;
-import pdk.chart.model.ChartTransferable;
 import pdk.chart.JChart;
 import pdk.chart.entity.ChartEntity;
 import pdk.chart.entity.EntityCollection;
@@ -10,6 +8,8 @@ import pdk.chart.event.ChartChangeEvent;
 import pdk.chart.event.ChartChangeListener;
 import pdk.chart.event.ChartProgressEvent;
 import pdk.chart.event.ChartProgressListener;
+import pdk.chart.model.ChartRenderingInfo;
+import pdk.chart.model.ChartTransferable;
 import pdk.chart.plot.*;
 import pdk.chart.swing.editor.ChartEditor;
 import pdk.chart.swing.editor.ChartEditorManager;
@@ -1950,7 +1950,6 @@ public class ChartPanel extends JPanel implements ChartChangeListener,
         for (int i = listeners.length - 1; i >= 0; i -= 1) {
             ((ChartMouseListener) listeners[i]).chartMouseClicked(chartEvent);
         }
-
     }
 
     /**

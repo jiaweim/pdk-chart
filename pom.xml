@@ -8,7 +8,7 @@
 
     <groupId>io.github.jiaweim</groupId>
     <artifactId>pdk-chart</artifactId>
-    <version>2.48.0</version>
+    <version>2.49.0</version>
     <name>Chart libraray for proteomics</name>
     <url>https://github.com/jiaweim/pdk-chart</url>
 
@@ -64,14 +64,14 @@
             <version>1.9.1</version>
         </dependency>
         <dependency>
-            <groupId>de.siegmar</groupId>
-            <artifactId>fastcsv</artifactId>
-            <version>4.3.1</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-csv</artifactId>
+            <version>1.14.1</version>
         </dependency>
         <dependency>
             <groupId>org.jspecify</groupId>
             <artifactId>jspecify</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
