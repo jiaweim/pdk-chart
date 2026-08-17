@@ -84,7 +84,7 @@ public class TextAnnotationTest implements AnnotationChangeListener {
         try {
             a.setRotationAnchor(null);
             fail("Should have thrown Exception.");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             // ok, exception is expected
         }
     }

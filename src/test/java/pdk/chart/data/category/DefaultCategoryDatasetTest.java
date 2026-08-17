@@ -180,7 +180,7 @@ public class DefaultCategoryDatasetTest {
         boolean pass = false;
         try {
             d1.addValue(1.1, null, "C2");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);
@@ -206,7 +206,7 @@ public class DefaultCategoryDatasetTest {
         boolean pass = false;
         try {
             d.removeValue(null, "C1");
-        } catch (IllegalArgumentException e) {
+        } catch (NullPointerException e) {
             pass = true;
         }
         assertTrue(pass);

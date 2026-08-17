@@ -47,11 +47,11 @@ public class XYLineAnnotationTest {
             XYLineAnnotation a1 = new XYLineAnnotation(10.0, 20.0, 100.0, Double.NaN,
                     stroke, Color.BLUE);
         });
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             XYLineAnnotation a1 = new XYLineAnnotation(10.0, 20.0, 100.0, 200.0,
                     null, Color.BLUE);
         });
-        assertThrows(IllegalArgumentException.class, () -> {
+        assertThrows(NullPointerException.class, () -> {
             XYLineAnnotation a1 = new XYLineAnnotation(10.0, 20.0, 100.0, 200.0,
                     stroke, null);
         });
