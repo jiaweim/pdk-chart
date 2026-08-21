@@ -20,6 +20,7 @@ import pdk.chart.plot.*;
 import pdk.chart.renderer.xy.*;
 
 import java.awt.*;
+import java.util.Collection;
 import java.util.Objects;
 
 /**
@@ -298,6 +299,25 @@ public class XYChart extends Chart {
         plot_.addDomainMarker(marker, Layer.FOREGROUND);
     }
 
+
+    /**
+     * Returns the list of domain markers (read only) for the specified layer.
+     *
+     * @param layer the layer (foreground or background).
+     * @return The list of domain markers.
+     */
+    public Collection<Marker> getDomainMarkers(Layer layer) {
+        return plot_.getDomainMarkers(layer);
+    }
+
+    /**
+     * Clears all the (foreground and background) domain markers.
+     */
+    public void clearDomainMarkers() {
+        plot_.clearDomainMarkers();
+    }
+
+
     /**
      * Initializes the default renderer.
      * <p>
@@ -372,6 +392,33 @@ public class XYChart extends Chart {
      */
     public void setDataset(int index, XYDataset dataset) {
         plot_.setDataset(index, dataset);
+    }
+
+    /**
+     * Sets the primary dataset for the plot, replacing the existing dataset if
+     * there is one.
+     *
+     * @param dataset the dataset ({@code null} permitted).
+     * @see #setDataset(int, XYDataset)
+     */
+    public void setDataset(XYDataset dataset) {
+        plot_.setDataset(dataset);
+    }
+
+    /**
+     * Returns the primary dataset for the plot.
+     *
+     * @return The primary dataset (possibly {@code null}).
+     * @see #setDataset(XYDataset)
+     */
+    public XYDataset getDataset() {
+        return plot_.getDataset();
+    }
+
+    public void clearDatasets() {
+        for (int i = 0; i < plot_.getDatasetCount(); i++) {
+            plot_.setDataset(i, null);
+        }
     }
 
     /**

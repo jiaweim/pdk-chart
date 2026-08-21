@@ -1,16 +1,15 @@
 package pdk.chart.legend;
 
-import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.api.*;
 import pdk.chart.block.*;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;
 import pdk.chart.entity.TitleEntity;
 import pdk.chart.event.TitleChangeEvent;
-import pdk.chart.util.Args;
+import pdk.chart.model.ChartElementVisitor;
+import pdk.chart.title.Title;
 import pdk.chart.util.PaintUtils;
 import pdk.chart.util.SerialUtils;
-import pdk.chart.title.Title;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Objects;
 
 
 /**
@@ -170,7 +170,7 @@ public class LegendTitle extends Title
      * @param sources the sources ({@code null} not permitted).
      */
     public void setSources(LegendItemSource[] sources) {
-        Args.nullNotPermitted(sources, "sources");
+        Objects.requireNonNull(this.sources, "sources");
         this.sources = sources;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -210,7 +210,7 @@ public class LegendTitle extends Title
      * @param edge the edge ({@code null} not permitted).
      */
     public void setLegendItemGraphicEdge(RectangleEdge edge) {
-        Args.nullNotPermitted(edge, "edge");
+        Objects.requireNonNull(edge, "edge");
         this.legendItemGraphicEdge = edge;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -230,7 +230,7 @@ public class LegendTitle extends Title
      * @param anchor the anchor point ({@code null} not permitted).
      */
     public void setLegendItemGraphicAnchor(RectangleAnchor anchor) {
-        Args.nullNotPermitted(anchor, "anchor");
+        Objects.requireNonNull(anchor, "anchor");
         this.legendItemGraphicAnchor = anchor;
     }
 
@@ -268,7 +268,7 @@ public class LegendTitle extends Title
      * @param padding the padding ({@code null} not permitted).
      */
     public void setLegendItemGraphicPadding(RectangleInsets padding) {
-        Args.nullNotPermitted(padding, "padding");
+        Objects.requireNonNull(padding, "padding");
         this.legendItemGraphicPadding = padding;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -289,7 +289,7 @@ public class LegendTitle extends Title
      * @param font the font ({@code null} not permitted).
      */
     public void setItemFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        Objects.requireNonNull(font, "font");
         this.itemFont = font;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -309,7 +309,7 @@ public class LegendTitle extends Title
      * @param paint the paint ({@code null} not permitted).
      */
     public void setItemPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.itemPaint = paint;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -329,7 +329,7 @@ public class LegendTitle extends Title
      * @param padding the padding ({@code null} not permitted).
      */
     public void setItemLabelPadding(RectangleInsets padding) {
-        Args.nullNotPermitted(padding, "padding");
+        Objects.requireNonNull(padding, "padding");
         this.itemLabelPadding = padding;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -350,7 +350,7 @@ public class LegendTitle extends Title
      *              not permitted).
      */
     public void setSortOrder(SortOrder order) {
-        Args.nullNotPermitted(order, "order");
+        Objects.requireNonNull(order, "order");
         this.sortOrder = order;
         notifyListeners(new TitleChangeEvent(this));
     }

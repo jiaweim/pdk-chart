@@ -1,11 +1,14 @@
 package pdk.chart;
 
+import pdk.chart.color.JColorQualitative;
 import pdk.chart.encoders.EncoderUtil;
 import pdk.chart.encoders.ImageFormat;
 import pdk.chart.imagemap.*;
 import pdk.chart.model.ChartRenderingInfo;
 import pdk.chart.model.ChartTheme;
 import pdk.chart.model.StandardChartTheme;
+import pdk.chart.plot.DefaultDrawingSupplier;
+import pdk.chart.plot.DrawingSupplier;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.renderer.xy.StandardXYBarPainter;
@@ -17,6 +20,8 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Objects;
+
+import static pdk.chart.plot.DefaultDrawingSupplier.*;
 
 /**
  * A collection of utility methods for pdk-chart.  Includes methods for
