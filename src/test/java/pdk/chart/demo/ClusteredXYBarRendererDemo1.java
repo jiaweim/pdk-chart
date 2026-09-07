@@ -26,7 +26,7 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
     private static ClusteredBarChart createChart(String title, IntervalXYDataset dataset) {
         ClusteredBarChart chart = new ClusteredBarChart(dataset, null, AxisType.DATE,
                 "Y", AxisType.NUMBER, title);
-        chart.setBarMargin(0.2);
+        chart.setMargin(0.2);
         return chart;
     }
 

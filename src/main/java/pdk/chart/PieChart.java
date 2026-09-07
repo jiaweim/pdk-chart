@@ -239,4 +239,53 @@ public class PieChart extends Chart {
     public PieChart(PieDataset dataset, String title) {
         this(dataset, title, true, false);
     }
+
+    /**
+     * Sets the section label font.
+     *
+     * @param font the font ({@code null} not permitted).
+     */
+    public void setLabelFont(Font font) {
+        plot_.setLabelFont(font);
+    }
+
+    /**
+     * Sets the section label font.
+     *
+     * @param font the font ({@code null} not permitted).
+     */
+    public PieChart withLabelFont(Font font) {
+        plot_.setLabelFont(font);
+        return this;
+    }
+
+
+    /**
+     * Sets the section label paint.
+     *
+     * @param paint the paint ({@code null} not permitted).
+     */
+    public void setLabelPaint(Paint paint) {
+        plot_.setLabelPaint(paint);
+    }
+
+    /**
+     * A flag indicating whether the pie chart is circular, or stretched into
+     * an elliptical shape.
+     *
+     * @param flag the new value.
+     */
+    public void setCircular(boolean flag) {
+        plot_.setCircular(flag);
+    }
+
+    /**
+     * Sets the gap between the edge of the pie and the labels (expressed as a
+     * percentage of the plot width).
+     *
+     * @param gap the gap (a percentage, where 0.05 = five percent).
+     */
+    public void setLabelGap(double gap) {
+        plot_.setLabelGap(gap);
+    }
 }

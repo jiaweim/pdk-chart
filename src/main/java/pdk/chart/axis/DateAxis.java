@@ -25,17 +25,13 @@ import java.util.*;
 import java.util.List;
 
 /**
- * The base class for axes that display dates.  You will find it easier to
- * understand how this axis works if you bear in mind that it really
- * displays/measures integer (or long) data, where the integers are
- * milliseconds since midnight, 1-Jan-1970.  When displaying tick labels, the
- * millisecond values are converted back to dates using a {@code DateFormat}
- * instance.
+ * The base class for axes that display dates.  You will find it easier to understand how this axis works if you bear in
+ * mind that it really displays/measures integer (or long) data, where the integers are milliseconds since midnight,
+ * 1-Jan-1970.  When displaying tick labels, the millisecond values are converted back to dates using a
+ * {@code DateFormat} instance.
  * <p>
- * You can also create a {@link pdk.chart.axis.Timeline} and supply in
- * the constructor to create an axis that only contains certain domain values.
- * For example, this allows you to create a date axis that only contains
- * working days.
+ * You can also create a {@link pdk.chart.axis.Timeline} and supply in the constructor to create an axis that only
+ * contains certain domain values. For example, this allows you to create a date axis that only contains working days.
  */
 public class DateAxis extends ValueAxis implements Cloneable, Serializable {
 
@@ -71,14 +67,12 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     private DateFormat dateFormatOverride;
 
     /**
-     * Tick marks can be displayed at the start or the middle of the time
-     * period.
+     * Tick marks can be displayed at the start or the middle of the time period.
      */
     private DateTickMarkPosition tickMarkPosition = DateTickMarkPosition.START;
 
     /**
-     * A timeline that includes all milliseconds (as defined by
-     * {@code java.util.Date}) in the real time line.
+     * A timeline that includes all milliseconds (as defined by {@code java.util.Date}) in the real time line.
      */
     private static class DefaultTimeline implements Timeline, Serializable {
 
@@ -105,8 +99,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         }
 
         /**
-         * Converts a timeline value into a millisecond (as encoded by
-         * {@code java.util.Date}).
+         * Converts a timeline value into a millisecond (as encoded by {@code java.util.Date}).
          *
          * @param value the value.
          * @return The millisecond.
@@ -117,8 +110,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         }
 
         /**
-         * Returns {@code true} if the timeline includes the specified
-         * domain value.
+         * Returns {@code true} if the timeline includes the specified domain value.
          *
          * @param millisecond the millisecond.
          * @return {@code true}.
@@ -129,8 +121,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         }
 
         /**
-         * Returns {@code true} if the timeline includes the specified
-         * domain value.
+         * Returns {@code true} if the timeline includes the specified domain value.
          *
          * @param date the date.
          * @return {@code true}.
@@ -141,8 +132,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         }
 
         /**
-         * Returns {@code true} if the timeline includes the specified
-         * domain value range.
+         * Returns {@code true} if the timeline includes the specified domain value range.
          *
          * @param from the start value.
          * @param to   the end value.
@@ -154,8 +144,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
         }
 
         /**
-         * Returns {@code true} if the timeline includes the specified
-         * domain value range.
+         * Returns {@code true} if the timeline includes the specified domain value range.
          *
          * @param from the start date.
          * @param to   the end date.
@@ -254,8 +243,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the time zone for the axis and sends an {@link AxisChangeEvent} to
-     * all registered listeners.
+     * Sets the time zone for the axis and sends an {@link AxisChangeEvent} to all registered listeners.
      *
      * @param zone the time zone ({@code null} not permitted).
      * @see #getTimeZone()
@@ -277,8 +265,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the locale for the axis and sends a change event to all registered
-     * listeners.
+     * Sets the locale for the axis and sends a change event to all registered listeners.
      *
      * @param locale the new locale ({@code null} not permitted).
      */
@@ -300,8 +287,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the underlying timeline to use for this axis.  If the timeline is
-     * changed, an {@link AxisChangeEvent} is sent to all registered listeners.
+     * Sets the underlying timeline to use for this axis.  If the timeline is changed, an {@link AxisChangeEvent} is
+     * sent to all registered listeners.
      *
      * @param timeline the timeline.
      */
@@ -315,10 +302,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     /**
      * Returns the tick unit for the axis.
      * <p>
-     * Note: if the {@code autoTickUnitSelection} flag is
-     * {@code true} the tick unit may be changed while the axis is being
-     * drawn, so in that case the return value from this method may be
-     * irrelevant if the method is called before the axis has been drawn.
+     * Note: if the {@code autoTickUnitSelection} flag is {@code true} the tick unit may be changed while the axis is
+     * being drawn, so in that case the return value from this method may be irrelevant if the method is called before
+     * the axis has been drawn.
      *
      * @return The tick unit (possibly {@code null}).
      * @see #setTickUnit(DateTickUnit)
@@ -329,9 +315,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the tick unit for the axis.  The auto-tick-unit-selection flag is
-     * set to {@code false}, and registered listeners are notified that
-     * the axis has been changed.
+     * Sets the tick unit for the axis.  The auto-tick-unit-selection flag is set to {@code false}, and registered
+     * listeners are notified that the axis has been changed.
      *
      * @param unit the tick unit.
      * @see #getTickUnit()
@@ -342,8 +327,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the tick unit attribute and, if requested, sends an
-     * {@link AxisChangeEvent} to all registered listeners.
+     * Sets the tick unit attribute and, if requested, sends an {@link AxisChangeEvent} to all registered listeners.
      *
      * @param unit                 the new tick unit.
      * @param notify               notify registered listeners?
@@ -362,8 +346,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the date format override.  If this is non-null, then it will be
-     * used to format the dates on the axis.
+     * Returns the date format override.  If this is non-null, then it will be used to format the dates on the axis.
      *
      * @return The formatter (possibly {@code null}).
      */
@@ -372,9 +355,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the date format override and sends an {@link AxisChangeEvent} to
-     * all registered listeners.  If this is non-null, then it will be
-     * used to format the dates on the axis.
+     * Sets the date format override and sends an {@link AxisChangeEvent} to all registered listeners.  If this is
+     * non-null, then it will be used to format the dates on the axis.
      *
      * @param formatter the date formatter ({@code null} permitted).
      */
@@ -384,9 +366,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the upper and lower bounds for the axis and sends an
-     * {@link AxisChangeEvent} to all registered listeners.  As a side-effect,
-     * the auto-range flag is set to false.
+     * Sets the upper and lower bounds for the axis and sends an {@link AxisChangeEvent} to all registered listeners. As
+     * a side-effect, the auto-range flag is set to false.
      *
      * @param range the new range.
      */
@@ -396,15 +377,12 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the range for the axis, if requested, sends an
-     * {@link AxisChangeEvent} to all registered listeners.  As a side-effect,
-     * the auto-range flag is set to {@code false} (optional).
+     * Sets the range for the axis, if requested, sends an {@link AxisChangeEvent} to all registered listeners.  As a
+     * side-effect, the auto-range flag is set to {@code false} (optional).
      *
      * @param range            the range ({@code null} not permitted).
-     * @param turnOffAutoRange a flag that controls whether the auto
-     *                         range is turned off.
-     * @param notify           a flag that controls whether listeners are
-     *                         notified.
+     * @param turnOffAutoRange a flag that controls whether the auto range is turned off.
+     * @param notify           a flag that controls whether listeners are notified.
      */
     @Override
     public void setRange(Range range, boolean turnOffAutoRange,
@@ -419,8 +397,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the axis range and sends an {@link AxisChangeEvent} to all
-     * registered listeners.
+     * Sets the axis range and sends an {@link AxisChangeEvent} to all registered listeners.
      *
      * @param lower the lower bound for the axis.
      * @param upper the upper bound for the axis.
@@ -433,8 +410,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the axis range and sends an {@link AxisChangeEvent} to all
-     * registered listeners.
+     * Sets the axis range and sends an {@link AxisChangeEvent} to all registered listeners.
      *
      * @param lower the lower bound for the axis.
      * @param upper the upper bound for the axis.
@@ -467,11 +443,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the minimum date visible on the axis and sends an
-     * {@link AxisChangeEvent} to all registered listeners.  If
-     * {@code date} is on or after the current maximum date for
-     * the axis, the maximum date will be shifted to preserve the current
-     * length of the axis.
+     * Sets the minimum date visible on the axis and sends an {@link AxisChangeEvent} to all registered listeners.  If
+     * {@code date} is on or after the current maximum date for the axis, the maximum date will be shifted to preserve
+     * the current length of the axis.
      *
      * @param date the date ({@code null} not permitted).
      * @see #getMinimumDate()
@@ -512,11 +486,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the maximum date visible on the axis and sends an
-     * {@link AxisChangeEvent} to all registered listeners.  If
-     * {@code maximumDate} is on or before the current minimum date for
-     * the axis, the minimum date will be shifted to preserve the current
-     * length of the axis.
+     * Sets the maximum date visible on the axis and sends an {@link AxisChangeEvent} to all registered listeners.  If
+     * {@code maximumDate} is on or before the current minimum date for the axis, the minimum date will be shifted to
+     * preserve the current length of the axis.
      *
      * @param maximumDate the date ({@code null} not permitted).
      * @see #getMinimumDate()
@@ -547,8 +519,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Sets the tick mark position (start, middle or end of the time period)
-     * and sends an {@link AxisChangeEvent} to all registered listeners.
+     * Sets the tick mark position (start, middle or end of the time period) and sends an {@link AxisChangeEvent} to all
+     * registered listeners.
      *
      * @param position the position.
      */
@@ -559,8 +531,19 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Configures the axis to work with the specified plot.  If the axis has
-     * auto-scaling, then sets the maximum and minimum values.
+     * Sets the tick mark position (start, middle or end of the time period) and sends an {@link AxisChangeEvent} to all
+     * registered listeners.
+     *
+     * @param position the position.
+     */
+    public DateAxis withTickMarkPosition(@NonNull DateTickMarkPosition position) {
+        setTickMarkPosition(position);
+        return this;
+    }
+
+    /**
+     * Configures the axis to work with the specified plot.  If the axis has auto-scaling, then sets the maximum and
+     * minimum values.
      */
     @Override
     public void configure() {
@@ -570,8 +553,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Returns {@code true} if the axis hides this value, and
-     * {@code false} otherwise.
+     * Returns {@code true} if the axis hides this value, and {@code false} otherwise.
      *
      * @param millis the data value.
      * @return A value.
@@ -581,12 +563,10 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Translates the data value to the display coordinates (Java 2D User Space)
-     * of the chart.
+     * Translates the data value to the display coordinates (Java 2D User Space) of the chart.
      *
      * @param value the date to be plotted.
-     * @param area  the rectangle (in Java2D space) where the data is to be
-     *              plotted.
+     * @param area  the rectangle (in Java2D space) where the data is to be plotted.
      * @param edge  the axis location.
      * @return The coordinate corresponding to the supplied data value.
      */
@@ -625,12 +605,10 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Translates a date to Java2D coordinates, based on the range displayed by
-     * this axis for the specified data area.
+     * Translates a date to Java2D coordinates, based on the range displayed by this axis for the specified data area.
      *
      * @param date the date.
-     * @param area the rectangle (in Java2D space) where the data is to be
-     *             plotted.
+     * @param area the rectangle (in Java2D space) where the data is to be plotted.
      * @param edge the axis location.
      * @return The coordinate corresponding to the supplied date.
      */
@@ -641,13 +619,11 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Translates a Java2D coordinate into the corresponding data value.  To
-     * perform this translation, you need to know the area used for plotting
-     * data, and which edge the axis is located on.
+     * Translates a Java2D coordinate into the corresponding data value.  To perform this translation, you need to know
+     * the area used for plotting data, and which edge the axis is located on.
      *
      * @param java2DValue the coordinate in Java2D space.
-     * @param area        the rectangle (in Java2D space) where the data is to be
-     *                    plotted.
+     * @param area        the rectangle (in Java2D space) where the data is to be plotted.
      * @param edge        the axis location.
      * @return A data value.
      */
@@ -867,8 +843,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Returns a {@link java.util.Date} corresponding to the specified position
-     * within a {@link RegularTimePeriod}.
+     * Returns a {@link java.util.Date} corresponding to the specified position within a {@link RegularTimePeriod}.
      *
      * @param period   the period.
      * @param position the position ({@code null} not permitted).
@@ -890,8 +865,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Returns the first "standard" date (based on the specified field and
-     * units).
+     * Returns the first "standard" date (based on the specified field and units).
      *
      * @param date the reference date.
      * @param unit the date tick unit.
@@ -906,11 +880,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Returns a collection of standard date tick units that uses the default
-     * time zone.  This collection will be used by default, but you are free
-     * to create your own collection if you want to (see the
-     * {@link ValueAxis#setStandardTickUnits(TickUnitSource)} method inherited
-     * from the {@link ValueAxis} class).
+     * Returns a collection of standard date tick units that uses the default time zone.  This collection will be used
+     * by default, but you are free to create your own collection if you want to (see the
+     * {@link ValueAxis#setStandardTickUnits(TickUnitSource)} method inherited from the {@link ValueAxis} class).
      *
      * @return A collection of standard date tick units.
      */
@@ -920,11 +892,9 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Returns a collection of standard date tick units.  This collection will
-     * be used by default, but you are free to create your own collection if
-     * you want to (see the
-     * {@link ValueAxis#setStandardTickUnits(TickUnitSource)} method inherited
-     * from the {@link ValueAxis} class).
+     * Returns a collection of standard date tick units.  This collection will be used by default, but you are free to
+     * create your own collection if you want to (see the {@link ValueAxis#setStandardTickUnits(TickUnitSource)} method
+     * inherited from the {@link ValueAxis} class).
      *
      * @param zone   the time zone ({@code null} not permitted).
      * @param locale the locale ({@code null} not permitted).
@@ -1098,9 +1068,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Selects an appropriate tick value for the axis.  The strategy is to
-     * display as many ticks as possible (selected from an array of 'standard'
-     * tick units) without the labels overlapping.
+     * Selects an appropriate tick value for the axis.  The strategy is to display as many ticks as possible (selected
+     * from an array of 'standard' tick units) without the labels overlapping.
      *
      * @param g2       the graphics device.
      * @param dataArea the area defined by the axes.
@@ -1118,9 +1087,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Selects an appropriate tick size for the axis.  The strategy is to
-     * display as many ticks as possible (selected from a collection of
-     * 'standard' tick units) without the labels overlapping.
+     * Selects an appropriate tick size for the axis.  The strategy is to display as many ticks as possible (selected
+     * from a collection of 'standard' tick units) without the labels overlapping.
      *
      * @param g2       the graphics device.
      * @param dataArea the area defined by the axes.
@@ -1152,9 +1120,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Selects an appropriate tick size for the axis.  The strategy is to
-     * display as many ticks as possible (selected from a collection of
-     * 'standard' tick units) without the labels overlapping.
+     * Selects an appropriate tick size for the axis.  The strategy is to display as many ticks as possible (selected
+     * from a collection of 'standard' tick units) without the labels overlapping.
      *
      * @param g2       the graphics device.
      * @param dataArea the area in which the plot should be drawn.
@@ -1196,12 +1163,10 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Estimates the maximum width of the tick labels, assuming the specified
-     * tick unit is used.
+     * Estimates the maximum width of the tick labels, assuming the specified tick unit is used.
      * <p>
-     * Rather than computing the string bounds of every tick on the axis, we
-     * just look at two values: the lower bound and the upper bound for the
-     * axis.  These two values will usually be representative.
+     * Rather than computing the string bounds of every tick on the axis, we just look at two values: the lower bound
+     * and the upper bound for the axis.  These two values will usually be representative.
      *
      * @param g2   the graphics device.
      * @param unit the tick unit to use for calculation.
@@ -1245,12 +1210,10 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Estimates the maximum width of the tick labels, assuming the specified
-     * tick unit is used.
+     * Estimates the maximum width of the tick labels, assuming the specified tick unit is used.
      * <p>
-     * Rather than computing the string bounds of every tick on the axis, we
-     * just look at two values: the lower bound and the upper bound for the
-     * axis.  These two values will usually be representative.
+     * Rather than computing the string bounds of every tick on the axis, we just look at two values: the lower bound
+     * and the upper bound for the axis.  These two values will usually be representative.
      *
      * @param g2   the graphics device.
      * @param unit the tick unit to use for calculation.
@@ -1294,8 +1257,8 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Calculates the positions of the tick labels for the axis, storing the
-     * results in the tick label list (ready for drawing).
+     * Calculates the positions of the tick labels for the axis, storing the results in the tick label list (ready for
+     * drawing).
      *
      * @param g2       the graphics device.
      * @param state    the axis state.
@@ -1556,18 +1519,14 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Draws the axis on a Java 2D graphics device (such as the screen or a
-     * printer).
+     * Draws the axis on a Java 2D graphics device (such as the screen or a printer).
      *
      * @param g2        the graphics device ({@code null} not permitted).
      * @param cursor    the cursor location.
-     * @param plotArea  the area within which the axes and data should be
-     *                  drawn ({@code null} not permitted).
-     * @param dataArea  the area within which the data should be drawn
-     *                  ({@code null} not permitted).
+     * @param plotArea  the area within which the axes and data should be drawn ({@code null} not permitted).
+     * @param dataArea  the area within which the data should be drawn ({@code null} not permitted).
      * @param edge      the location of the axis ({@code null} not permitted).
-     * @param plotState collects information about the plot
-     *                  ({@code null} permitted).
+     * @param plotState collects information about the plot ({@code null} permitted).
      * @return The axis state (never {@code null}).
      */
     @Override
@@ -1604,8 +1563,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
-     * Zooms in on the current range (zoom-in stops once the axis length
-     * reaches the equivalent of one millisecond).
+     * Zooms in on the current range (zoom-in stops once the axis length reaches the equivalent of one millisecond).
      *
      * @param lowerPercent the new lower bound.
      * @param upperPercent the new upper bound.
@@ -1687,8 +1645,7 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
      * Returns a clone of the object.
      *
      * @return A clone.
-     * @throws CloneNotSupportedException if some component of the axis does
-     *                                    not support cloning.
+     * @throws CloneNotSupportedException if some component of the axis does not support cloning.
      */
     @Override
     public Object clone() throws CloneNotSupportedException {
@@ -1703,14 +1660,28 @@ public class DateAxis extends ValueAxis implements Cloneable, Serializable {
     }
 
     /**
+     * Sets the lower margin for the axis (as a percentage of the axis range) and sends an {@link AxisChangeEvent} to
+     * all registered listeners.  This margin is added only when the axis range is auto-calculated - if you set the axis
+     * range manually, the margin is ignored.
+     *
+     * @param margin the margin percentage (for example, 0.05 is five percent).
+     * @see #getLowerMargin()
+     * @see #setUpperMargin(double)
+     */
+    public DateAxis withLowerMargin(double margin) {
+        setLowerMargin(margin);
+        return this;
+    }
+
+    /**
      * Sets the upper margin for the axis (as a percentage of the axis range).
      * <p>
-     * This margin is added only when the axis range is auto-calculated - if you set
-     * the axis range manually, the margin is ignored.
+     * This margin is added only when the axis range is auto-calculated - if you set the axis range manually, the margin
+     * is ignored.
      *
      * @param margin the margin percentage (for example, 0.05 is five percent).
      */
-    public DateAxis upperMargin(double margin) {
+    public DateAxis withUpperMargin(double margin) {
         setUpperMargin(margin);
         return this;
     }

@@ -39,22 +39,22 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
         String type6 = "Type 6";
         String type7 = "Type 7";
         String type8 = "Type 8";
-        result.addValue((double) 1.0F, series1, type1);
-        result.addValue((double) 4.0F, series1, type2);
-        result.addValue((double) 3.0F, series1, type3);
-        result.addValue((double) 5.0F, series1, type4);
-        result.addValue((double) 5.0F, series1, type5);
-        result.addValue((double) 7.0F, series1, type6);
-        result.addValue((double) 7.0F, series1, type7);
-        result.addValue((double) 8.0F, series1, type8);
-        result.addValue((double) 5.0F, series2, type1);
-        result.addValue((double) 7.0F, series2, type2);
-        result.addValue((double) 6.0F, series2, type3);
-        result.addValue((double) 8.0F, series2, type4);
-        result.addValue((double) 4.0F, series2, type5);
-        result.addValue((double) 4.0F, series2, type6);
-        result.addValue((double) 2.0F, series2, type7);
-        result.addValue((double) 1.0F, series2, type8);
+        result.addValue(1.0, series1, type1);
+        result.addValue(4.0, series1, type2);
+        result.addValue(3.0, series1, type3);
+        result.addValue(5.0, series1, type4);
+        result.addValue(5.0, series1, type5);
+        result.addValue(7.0, series1, type6);
+        result.addValue(7.0, series1, type7);
+        result.addValue(8.0, series1, type8);
+        result.addValue(5.0, series2, type1);
+        result.addValue(7.0, series2, type2);
+        result.addValue(6.0, series2, type3);
+        result.addValue(8.0, series2, type4);
+        result.addValue(4.0, series2, type5);
+        result.addValue(4.0, series2, type6);
+        result.addValue(2.0, series2, type7);
+        result.addValue(1.0, series2, type8);
         return result;
     }
 
@@ -70,22 +70,22 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
         String type6 = "Type 6";
         String type7 = "Type 7";
         String type8 = "Type 8";
-        result.addValue((double) 11.0F, series1, type1);
-        result.addValue((double) 14.0F, series1, type2);
-        result.addValue((double) 13.0F, series1, type3);
-        result.addValue((double) 15.0F, series1, type4);
-        result.addValue((double) 15.0F, series1, type5);
-        result.addValue((double) 17.0F, series1, type6);
-        result.addValue((double) 17.0F, series1, type7);
-        result.addValue((double) 18.0F, series1, type8);
-        result.addValue((double) 15.0F, series2, type1);
-        result.addValue((double) 17.0F, series2, type2);
-        result.addValue((double) 16.0F, series2, type3);
-        result.addValue((double) 18.0F, series2, type4);
-        result.addValue((double) 14.0F, series2, type5);
-        result.addValue((double) 14.0F, series2, type6);
-        result.addValue((double) 12.0F, series2, type7);
-        result.addValue((double) 11.0F, series2, type8);
+        result.addValue(11.0, series1, type1);
+        result.addValue(14.0, series1, type2);
+        result.addValue(13.0, series1, type3);
+        result.addValue(15.0, series1, type4);
+        result.addValue(15.0, series1, type5);
+        result.addValue(17.0, series1, type6);
+        result.addValue(17.0, series1, type7);
+        result.addValue(18.0, series1, type8);
+        result.addValue(15.0, series2, type1);
+        result.addValue(17.0, series2, type2);
+        result.addValue(16.0, series2, type3);
+        result.addValue(18.0, series2, type4);
+        result.addValue(14.0, series2, type5);
+        result.addValue(14.0, series2, type6);
+        result.addValue(12.0, series2, type7);
+        result.addValue(11.0, series2, type8);
         return result;
     }
 
@@ -108,6 +108,7 @@ public class CombinedCategoryPlotDemo1 extends ApplicationFrame {
         CombinedDomainCategoryPlot plot = new CombinedDomainCategoryPlot(domainAxis);
         plot.add(subplot1, 2);
         plot.add(subplot2, 1);
+
         Chart chart = new Chart("Combined Domain Category Plot Demo", new Font("SansSerif", 1, 12), plot, true);
         JChart.applyCurrentTheme(chart);
         subplot1.setAxisOffset(RectangleInsets.ZERO_INSETS);

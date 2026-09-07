@@ -65,7 +65,7 @@ public class StackedXYBarChartDemo3 extends ApplicationFrame {
         NumberAxis yAxis = chart.getRangeAxisAsNumber();
         yAxis.setNumberFormatOverride(new DecimalFormat("0.0%"));
 
-        chart.setBarMargin(0.3);
+        chart.setMargin(0.3);
         chart.setRenderAsPercentages(true);
         chart.setDrawBarOutline(false);
 

@@ -29,8 +29,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * A renderer that draws bars on an {@link XYPlot} (requires an
- * {@link IntervalXYDataset}).
+ * A renderer that draws bars on an {@link XYPlot} (requires an {@link IntervalXYDataset}).
  */
 public class XYBarRenderer extends AbstractXYItemRenderer
         implements XYItemRenderer, Cloneable, PublicCloneable, Serializable {
@@ -133,8 +132,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     private double base;
 
     /**
-     * A flag that controls whether the bars use the y-interval supplied by the
-     * dataset.
+     * A flag that controls whether the bars use the y-interval supplied by the dataset.
      */
     private boolean useYInterval;
 
@@ -149,26 +147,22 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     private boolean drawBarOutline;
 
     /**
-     * An optional class used to transform gradient paint objects to fit each
-     * bar.
+     * An optional class used to transform gradient paint objects to fit each bar.
      */
     private GradientPaintTransformer gradientPaintTransformer;
 
     /**
-     * The shape used to represent a bar in each legend item (this should never
-     * be {@code null}).
+     * The shape used to represent a bar in each legend item (this should never be {@code null}).
      */
     private transient Shape legendBar;
 
     /**
-     * The fallback position if a positive item label doesn't fit inside the
-     * bar.
+     * The fallback position if a positive item label doesn't fit inside the bar.
      */
     private ItemLabelPosition positiveItemLabelPositionFallback;
 
     /**
-     * The fallback position if a negative item label doesn't fit inside the
-     * bar.
+     * The fallback position if a negative item label doesn't fit inside the bar.
      */
     private ItemLabelPosition negativeItemLabelPositionFallback;
 
@@ -245,9 +239,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the base value for the bars and sends a {@link RendererChangeEvent}
-     * to all registered listeners.  The base value is not used if the dataset's
-     * y-interval is being used to determine the bar length.
+     * Sets the base value for the bars and sends a {@link RendererChangeEvent} to all registered listeners.  The base
+     * value is not used if the dataset's y-interval is being used to determine the bar length.
      *
      * @param base the new base value.
      * @see #getBase()
@@ -259,8 +252,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns a flag that determines whether the y-interval from the dataset is
-     * used to calculate the length of each bar.
+     * Returns a flag that determines whether the y-interval from the dataset is used to calculate the length of each
+     * bar.
      *
      * @return A boolean.
      * @see #setUseYInterval(boolean)
@@ -270,9 +263,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the flag that determines whether the y-interval from the dataset is
-     * used to calculate the length of each bar, and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the flag that determines whether the y-interval from the dataset is used to calculate the length of each
+     * bar, and sends a {@link RendererChangeEvent} to all registered listeners.
      *
      * @param use the flag.
      * @see #getUseYInterval()
@@ -285,8 +277,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the margin which is a percentage amount by which the bars are
-     * trimmed.
+     * Returns the margin which is a percentage amount by which the bars are trimmed.
      *
      * @return The margin.
      * @see #setMargin(double)
@@ -296,8 +287,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the percentage amount by which the bars are trimmed and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the percentage amount by which the bars are trimmed and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
      *
      * @param margin the new margin.
      * @see #getMargin()
@@ -308,19 +299,18 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the percentage amount by which the bars are trimmed and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the percentage amount by which the bars are trimmed and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
      * <p>
-     * The margin of XYBarRenderer is a percentage value acting on the X-axis data range.
-     * It deducts the same proportion of space from both left and right sides of the theoretical bar width,
-     * reducing the actual drawn bar width and generating gaps between adjacent bars.
-     * The formula: actualBarWidth = totalIntervalWidth * (1 - 2 * margin).
+     * The margin of XYBarRenderer is a percentage value acting on the X-axis data range. It deducts the same proportion
+     * of space from both left and right sides of the theoretical bar width, reducing the actual drawn bar width and
+     * generating gaps between adjacent bars. The formula: actualBarWidth = totalIntervalWidth * (1 - 2 * margin).
      * Range: 0.0 ~ 0.5.
      *
      * @param margin the new margin.
      * @see #getMargin()
      */
-    public XYBarRenderer margin(double margin) {
+    public XYBarRenderer withMargin(double margin) {
         this.margin = margin;
         fireChangeEvent();
         return this;
@@ -337,8 +327,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the flag that controls whether bar outlines are drawn and
-     * sends a {@link RendererChangeEvent} to all registered listeners.
+     * Sets the flag that controls whether bar outlines are drawn and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
      *
      * @param draw the flag.
      * @see #isDrawBarOutline()
@@ -349,8 +339,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the gradient paint transformer (an object used to transform
-     * gradient paint objects to fit each bar).
+     * Returns the gradient paint transformer (an object used to transform gradient paint objects to fit each bar).
      *
      * @return A transformer ({@code null} possible).
      * @see #setGradientPaintTransformer(GradientPaintTransformer)
@@ -360,8 +349,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the gradient paint transformer and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the gradient paint transformer and sends a {@link RendererChangeEvent} to all registered listeners.
      *
      * @param transformer the transformer ({@code null} permitted).
      * @see #getGradientPaintTransformer()
@@ -375,8 +363,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     /**
      * Returns the shape used to represent bars in each legend item.
      *
-     * @return The shape used to represent bars in each legend item (never
-     * {@code null}).
+     * @return The shape used to represent bars in each legend item (never {@code null}).
      * @see #setLegendBar(Shape)
      */
     public Shape getLegendBar() {
@@ -384,8 +371,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the shape used to represent bars in each legend item and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the shape used to represent bars in each legend item and sends a {@link RendererChangeEvent} to all
+     * registered listeners.
      *
      * @param bar the bar shape ({@code null} not permitted).
      * @see #getLegendBar()
@@ -397,8 +384,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the fallback position for positive item labels that don't fit
-     * within a bar.
+     * Returns the fallback position for positive item labels that don't fit within a bar.
      *
      * @return The fallback position ({@code null} possible).
      * @see #setPositiveItemLabelPositionFallback(ItemLabelPosition)
@@ -408,9 +394,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the fallback position for positive item labels that don't fit
-     * within a bar, and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
+     * Sets the fallback position for positive item labels that don't fit within a bar, and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param position the position ({@code null} permitted).
      * @see #getPositiveItemLabelPositionFallback()
@@ -422,8 +407,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the fallback position for negative item labels that don't fit
-     * within a bar.
+     * Returns the fallback position for negative item labels that don't fit within a bar.
      *
      * @return The fallback position ({@code null} possible).
      * @see #setNegativeItemLabelPositionFallback(ItemLabelPosition)
@@ -433,9 +417,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the fallback position for negative item labels that don't fit
-     * within a bar, and sends a {@link RendererChangeEvent} to all registered
-     * listeners.
+     * Sets the fallback position for negative item labels that don't fit within a bar, and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param position the position ({@code null} permitted).
      * @see #getNegativeItemLabelPositionFallback()
@@ -456,8 +439,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the bar painter and sends a {@link RendererChangeEvent} to all
-     * registered listeners.
+     * Sets the bar painter and sends a {@link RendererChangeEvent} to all registered listeners.
      *
      * @param painter the painter.
      */
@@ -468,8 +450,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the flag that controls whether shadows are drawn for
-     * the bars.
+     * Returns the flag that controls whether shadows are drawn for the bars.
      *
      * @return A boolean.
      */
@@ -478,8 +459,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the flag that controls whether the renderer
-     * draws shadows for the bars, and sends a
+     * Sets the flag that controls whether the renderer draws shadows for the bars, and sends a
      * {@link RendererChangeEvent} to all registered listeners.
      *
      * @param visible the new flag value.
@@ -499,8 +479,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the x-offset for the bar shadow and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the x-offset for the bar shadow and sends a {@link RendererChangeEvent} to all registered listeners.
      *
      * @param offset the offset.
      */
@@ -519,8 +498,7 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the y-offset for the bar shadow and sends a
-     * {@link RendererChangeEvent} to all registered listeners.
+     * Sets the y-offset for the bar shadow and sends a {@link RendererChangeEvent} to all registered listeners.
      *
      * @param offset the offset.
      */
@@ -539,9 +517,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets the bar alignment factor and sends a {@link RendererChangeEvent}
-     * to all registered listeners.  If the alignment factor is outside the
-     * range 0.0 to 1.0, no alignment will be performed by the renderer.
+     * Sets the bar alignment factor and sends a {@link RendererChangeEvent} to all registered listeners.  If the
+     * alignment factor is outside the range 0.0 to 1.0, no alignment will be performed by the renderer.
      *
      * @param factor the factor.
      */
@@ -570,11 +547,9 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns {@code true} if the label should be aligned to the visible part
-     * of the bar.
+     * Returns {@code true} if the label should be aligned to the visible part of the bar.
      *
-     * @return {@code true} if the label should be aligned to the visible part
-     * of the bar.
+     * @return {@code true} if the label should be aligned to the visible part of the bar.
      * @see #setShowLabelInsideVisibleBar(boolean)
      */
     public boolean isShowLabelInsideVisibleBar() {
@@ -582,13 +557,10 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Sets whether the label should be aligned to the visible part of the
-     * bar.<br>
-     * This setting has no effect when {@link ItemLabelAnchor#isInternal()}
-     * returns {@code false}.
+     * Sets whether the label should be aligned to the visible part of the bar.<br> This setting has no effect when
+     * {@link ItemLabelAnchor#isInternal()} returns {@code false}.
      *
-     * @param showLabelInsideVisibleBar {@code true} to align to the visible
-     *                                  part.
+     * @param showLabelInsideVisibleBar {@code true} to align to the visible part.
      */
     public void setShowLabelInsideVisibleBar(boolean showLabelInsideVisibleBar) {
         this.showLabelInsideVisibleBar = showLabelInsideVisibleBar;
@@ -596,17 +568,15 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Initialises the renderer and returns a state object that should be
-     * passed to all subsequent calls to the drawItem() method.  Here we
-     * calculate the Java2D y-coordinate for zero, since all the bars have
-     * their bases fixed at zero.
+     * Initialises the renderer and returns a state object that should be passed to all subsequent calls to the
+     * drawItem() method.  Here we calculate the Java2D y-coordinate for zero, since all the bars have their bases fixed
+     * at zero.
      *
      * @param g2       the graphics device.
      * @param dataArea the area inside the axes.
      * @param plot     the plot.
      * @param dataset  the data.
-     * @param info     an optional info collection object to return data back to
-     *                 the caller.
+     * @param info     an optional info collection object to return data back to the caller.
      * @return A state object.
      */
     @Override
@@ -623,8 +593,8 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns a default legend item for the specified series.  Subclasses
-     * should override this method to generate customised items.
+     * Returns a default legend item for the specified series.  Subclasses should override this method to generate
+     * customised items.
      *
      * @param datasetIndex the dataset index (zero-based).
      * @param series       the series index (zero-based).
@@ -687,15 +657,13 @@ public class XYBarRenderer extends AbstractXYItemRenderer
      * @param state          the renderer state.
      * @param dataArea       the area within which the plot is being drawn.
      * @param info           collects information about the drawing.
-     * @param plot           the plot (can be used to obtain standard color
-     *                       information etc.).
+     * @param plot           the plot (can be used to obtain standard color information etc.).
      * @param domainAxis     the domain axis.
      * @param rangeAxis      the range axis.
      * @param dataset        the dataset.
      * @param series         the series index (zero-based).
      * @param item           the item index (zero-based).
-     * @param crosshairState crosshair information for the plot
-     *                       ({@code null} permitted).
+     * @param crosshairState crosshair information for the plot ({@code null} permitted).
      * @param pass           the pass index.
      */
     @Override
@@ -851,17 +819,16 @@ public class XYBarRenderer extends AbstractXYItemRenderer
 
     /**
      * Draws an item label.  This method is provided as an alternative to
-     * {@link #drawItemLabel(Graphics2D, PlotOrientation, XYDataset, int, int,
-     * double, double, boolean)} so that the bar can be used to calculate the
-     * label anchor point.
+     * {@link #drawItemLabel(Graphics2D, PlotOrientation, XYDataset, int, int, double, double, boolean)} so that the bar
+     * can be used to calculate the label anchor point.
      *
      * @param g2        the graphics device.
      * @param dataset   the dataset.
      * @param series    the series index.
      * @param item      the item index.
      * @param plot      the plot.
-     * @param generator the label generator ({@code null} permitted, in
-     *                  which case the method does nothing, just returns).
+     * @param generator the label generator ({@code null} permitted, in which case the method does nothing, just
+     *                  returns).
      * @param bar       the bar.
      * @param negative  a flag indicating a negative value.
      */
@@ -1101,13 +1068,11 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the lower and upper bounds (range) of the x-values in the
-     * specified dataset.  Since this renderer uses the x-interval in the
-     * dataset, this is taken into account for the range.
+     * Returns the lower and upper bounds (range) of the x-values in the specified dataset.  Since this renderer uses
+     * the x-interval in the dataset, this is taken into account for the range.
      *
      * @param dataset the dataset ({@code null} permitted).
-     * @return The range ({@code null} if the dataset is
-     * {@code null} or empty).
+     * @return The range ({@code null} if the dataset is {@code null} or empty).
      */
     @Override
     public Range findDomainBounds(XYDataset dataset) {
@@ -1115,13 +1080,11 @@ public class XYBarRenderer extends AbstractXYItemRenderer
     }
 
     /**
-     * Returns the lower and upper bounds (range) of the y-values in the
-     * specified dataset.  If the renderer is plotting the y-interval from the
-     * dataset, this is taken into account for the range.
+     * Returns the lower and upper bounds (range) of the y-values in the specified dataset.  If the renderer is plotting
+     * the y-interval from the dataset, this is taken into account for the range.
      *
      * @param dataset the dataset ({@code null} permitted).
-     * @return The range ({@code null} if the dataset is
-     * {@code null} or empty).
+     * @return The range ({@code null} if the dataset is {@code null} or empty).
      */
     @Override
     public Range findRangeBounds(XYDataset dataset) {

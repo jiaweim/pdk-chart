@@ -15,16 +15,12 @@ import pdk.chart.urls.StandardXYURLGenerator;
 import pdk.chart.util.GradientPaintTransformer;
 
 /**
- * A bar chart implementation that uses an {@link XYPlot} with an
- * {@link XYBarRenderer}.  Both the domain and range axes are
- * {@link ValueAxis} instances, whose concrete types are determined by
- * the supplied {@link AxisType} parameters.
+ * A bar chart implementation that uses an {@link XYPlot} with an {@link XYBarRenderer}.  Both the domain and range axes
+ * are {@link ValueAxis} instances, whose concrete types are determined by the supplied {@link AxisType} parameters.
  * <p>
  * <b>Important:</b> The renderer requires that the dataset implements
- * {@link IntervalXYDataset} (e.g. {@link HistogramDataset}) in order to
- * determine the width of each bar.  Passing a plain {@link XYDataset}
- * that does not provide interval information may result in runtime
- * errors or invisible bars.
+ * {@link IntervalXYDataset} (e.g. {@link HistogramDataset}) in order to determine the width of each bar.  Passing a
+ * plain {@link XYDataset} that does not provide interval information may result in runtime errors or invisible bars.
  *
  * @author Jiawei Mao
  * @version 1.0.0
@@ -35,8 +31,7 @@ public class BarChart extends XYChart {
     protected XYBarRenderer renderer1_;
 
     /**
-     * Constructor for subclass use.  Does not attach any dataset or axes;
-     * these must be configured separately.
+     * Constructor for subclass use.  Does not attach any dataset or axes; these must be configured separately.
      *
      * @param title        the chart title ({@code null} permitted)
      * @param createLegend whether a legend should be displayed
@@ -60,8 +55,8 @@ public class BarChart extends XYChart {
     /**
      * Fully parameterized constructor.
      *
-     * @param dataset     the dataset (should implement {@link IntervalXYDataset}
-     *                    for correct bar widths; {@code null} permitted)
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset} for correct bar widths; {@code null}
+     *                    permitted)
      * @param xAxisLabel  the domain axis label ({@code null} permitted)
      * @param xAxisType   the type of the domain axis ({@code null} not permitted)
      * @param yAxisLabel  the range axis label ({@code null} permitted)
@@ -104,8 +99,7 @@ public class BarChart extends XYChart {
     /**
      * Creates a bar chart with the given parameters and no URLs.
      *
-     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
-     *                    {@code null} permitted)
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel  the domain axis label ({@code null} permitted)
      * @param xAxisType   the type of the domain axis
      * @param yAxisLabel  the range axis label ({@code null} permitted)
@@ -125,11 +119,10 @@ public class BarChart extends XYChart {
 
 
     /**
-     * Creates a bar chart with the given parameters, using the default
-     * Y‑axis type ({@link AxisType#NUMBER}) and no URLs.
+     * Creates a bar chart with the given parameters, using the default Y‑axis type ({@link AxisType#NUMBER}) and no
+     * URLs.
      *
-     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
-     *                    {@code null} permitted)
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel  the domain axis label ({@code null} permitted)
      * @param xAxisType   the type of the domain axis
      * @param yAxisLabel  the range axis label ({@code null} permitted)
@@ -147,11 +140,9 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Creates a bar chart with the given parameters, legend and tooltips
-     * enabled, no URLs.
+     * Creates a bar chart with the given parameters, legend and tooltips enabled, no URLs.
      *
-     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
-     *                    {@code null} permitted)
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel  the domain axis label ({@code null} permitted)
      * @param xAxisType   the type of the domain axis
      * @param yAxisLabel  the range axis label ({@code null} permitted)
@@ -168,11 +159,9 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Creates a bar chart with the given parameters, vertical orientation,
-     * legend and tooltips enabled, no URLs.
+     * Creates a bar chart with the given parameters, vertical orientation, legend and tooltips enabled, no URLs.
      *
-     * @param dataset    the dataset (should implement {@link IntervalXYDataset};
-     *                   {@code null} permitted)
+     * @param dataset    the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel the domain axis label ({@code null} permitted)
      * @param xAxisType  the type of the domain axis
      * @param yAxisLabel the range axis label ({@code null} permitted)
@@ -186,11 +175,9 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Convenience constructor that assumes both axes are
-     * {@link NumberAxis} instances.
+     * Convenience constructor that assumes both axes are {@link NumberAxis} instances.
      *
-     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
-     *                    {@code null} permitted)
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel  the domain axis label ({@code null} permitted)
      * @param yAxisLabel  the range axis label ({@code null} permitted)
      * @param title       the chart title ({@code null} permitted)
@@ -206,11 +193,9 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Convenience constructor that assumes both axes are
-     * {@link NumberAxis} instances, no URLs.
+     * Convenience constructor that assumes both axes are {@link NumberAxis} instances, no URLs.
      *
-     * @param dataset     the dataset (should implement {@link IntervalXYDataset};
-     *                    {@code null} permitted)
+     * @param dataset     the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel  the domain axis label ({@code null} permitted)
      * @param yAxisLabel  the range axis label ({@code null} permitted)
      * @param title       the chart title ({@code null} permitted)
@@ -224,11 +209,9 @@ public class BarChart extends XYChart {
     }
 
     /**
-     * Creates a bar chart with vertical orientation, numeric axes,
-     * legend, and tooltips enabled, no URLs.
+     * Creates a bar chart with vertical orientation, numeric axes, legend, and tooltips enabled, no URLs.
      *
-     * @param dataset    the dataset (should implement {@link IntervalXYDataset};
-     *                   {@code null} permitted)
+     * @param dataset    the dataset (should implement {@link IntervalXYDataset}; {@code null} permitted)
      * @param xAxisLabel the domain axis label ({@code null} permitted)
      * @param yAxisLabel the range axis label ({@code null} permitted)
      * @param title      the chart title ({@code null} permitted)
@@ -307,13 +290,13 @@ public class BarChart extends XYChart {
      *
      * @param margin the margin (typically between 0.0 and 1.0)
      */
-    public void setBarMargin(double margin) {
+    public void setMargin(double margin) {
         renderer1_.setMargin(margin);
     }
 
     /**
-     * Sets the gradient paint transformer, allowing bars to be filled
-     * with gradient paints that adapt to the bar’s orientation.
+     * Sets the gradient paint transformer, allowing bars to be filled with gradient paints that adapt to the bar’s
+     * orientation.
      *
      * @param transformer the transformer ({@code null} permitted)
      */

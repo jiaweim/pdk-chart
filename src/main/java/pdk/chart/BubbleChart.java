@@ -2,7 +2,6 @@ package pdk.chart;
 
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYZToolTipGenerator;
 import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
@@ -35,7 +34,7 @@ import java.util.Objects;
  */
 public class BubbleChart extends XYChart {
 
-    private XYBubbleRenderer renderer1_;
+    private final XYBubbleRenderer renderer1_;
 
     @Override
     protected void initRenderer() {}
@@ -222,40 +221,5 @@ public class BubbleChart extends XYChart {
     public BubbleChart(XYBubbleRenderer.ScaleType scaleType, XYZDataset dataset, String xAxisLabel, String yAxisLabel,
             String title, PlotOrientation orientation, boolean legend, boolean tooltips) {
         this(scaleType, dataset, xAxisLabel, yAxisLabel, title, orientation, legend, tooltips, false);
-    }
-
-
-    /**
-     * Sets the outline paint for a series.
-     *
-     * @param series the series index (zero-based)
-     * @param paint  the outline paint ({@code null} permitted)
-     * @param notify {@code true} to send a
-     *               {@link RendererChangeEvent}, {@code false} otherwise
-     */
-    public void setSeriesOutlinePaint(int series, Paint paint, boolean notify) {
-        renderer1_.setSeriesOutlinePaint(series, paint, notify);
-    }
-
-    /**
-     * Sets the visibility of a series.
-     *
-     * @param series  the series index (zero-based)
-     * @param visible {@code null} or {@code Boolean.FALSE} to hide,
-     *                {@code Boolean.TRUE} to show
-     */
-    public void setSeriesVisible(int series, Boolean visible) {
-        renderer1_.setSeriesVisible(series, visible);
-    }
-
-    /**
-     * Returns a boolean that indicates whether the specified series
-     * should be drawn (this is typically used to hide an entire series).
-     *
-     * @param series the series index.
-     * @return A boolean.
-     */
-    public boolean isSeriesVisible(int series) {
-        return renderer1_.isSeriesVisible(series);
     }
 }

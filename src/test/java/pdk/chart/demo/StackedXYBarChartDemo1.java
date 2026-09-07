@@ -40,7 +40,7 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
         xAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         chart.setDrawBarOutline(false);
-        chart.setBarMargin(0.1);
+        chart.setMargin(0.1);
 
         return chart;
     }

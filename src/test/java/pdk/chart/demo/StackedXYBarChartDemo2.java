@@ -86,7 +86,7 @@ public class StackedXYBarChartDemo2 extends ApplicationFrame {
         yAxis.setUpperMargin(0.1);
 
         chart.setDrawBarOutline(false);
-        chart.setBarMargin(0.15);
+        chart.setMargin(0.15);
         chart.setDefaultItemLabelsVisible(true);
         chart.setDefaultItemLabelGenerator(new StandardXYItemLabelGenerator());
         chart.setDefaultPositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BOTTOM_CENTER));

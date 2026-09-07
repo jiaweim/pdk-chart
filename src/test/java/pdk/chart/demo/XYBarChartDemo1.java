@@ -2,9 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.AxisType;
 import pdk.chart.BarChart;
-import pdk.chart.Chart;
 import pdk.chart.JChart;
-import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.TimeSeriesCollection;
@@ -12,8 +10,6 @@ import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -39,21 +35,20 @@ public class XYBarChartDemo1 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(IntervalXYDataset<String> dataset) {
-        Chart chart = new BarChart(dataset, "Year", AxisType.DATE,
+    private static BarChart createChart(IntervalXYDataset<String> dataset) {
+        BarChart chart = new BarChart(dataset, "Year", AxisType.DATE,
                 "Number of People",
                 "State Executions - USA",
                 PlotOrientation.VERTICAL, true, false);
         chart.addSubtitle(new TextTitle("Source: http://www.amnestyusa.org/abolish/listbyyear.do", new Font("Dialog", Font.ITALIC, 10)));
-        XYPlot plot = chart.getXYPlot();
-        XYBarRenderer renderer = plot.getBarRenderer();
-        StandardXYToolTipGenerator generator = new StandardXYToolTipGenerator("{1} = {2}", new SimpleDateFormat("yyyy"), new DecimalFormat("0"));
-        renderer.setDefaultToolTipGenerator(generator);
-        renderer.setMargin(0.1);
-        DateAxis axis = (DateAxis) plot.getDomainAxis();
-        axis.setTickMarkPosition(DateTickMarkPosition.MIDDLE);
-        axis.setLowerMargin(0.01);
-        axis.setUpperMargin(0.01);
+        chart.getRenderer()
+                .withDefaultToolTipGenerator(new StandardXYToolTipGenerator("{1} = {2}", new SimpleDateFormat("yyyy"), new DecimalFormat("0")))
+                .withMargin(0.1);
+        chart.getDomainAxisAsDate()
+                .withTickMarkPosition(DateTickMarkPosition.MIDDLE)
+                .withLowerMargin(0.01)
+                .withUpperMargin(0.01);
+
         JChart.applyCurrentTheme(chart);
         return chart;
     }

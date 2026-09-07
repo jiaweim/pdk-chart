@@ -1582,18 +1582,6 @@ public class PiePlot<K extends Comparable<K>> extends Plot implements Cloneable,
     }
 
     /**
-     * Sets the section label font and sends a {@link PlotChangeEvent} to all
-     * registered listeners.
-     *
-     * @param font the font ({@code null} not permitted).
-     * @see #getLabelFont()
-     */
-    public PiePlot<K> labelFont(Font font) {
-        setLabelFont(font);
-        return this;
-    }
-
-    /**
      * Sets the message that is displayed when the dataset is empty or
      * {@code null}, and sends a {@link PlotChangeEvent} to all registered
      * listeners.

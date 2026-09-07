@@ -26,7 +26,7 @@ public class HideSeriesDemo1 extends ApplicationFrame {
         return new MyDemoPanel();
     }
 
-    public static void main(String[] args) {
+    static void main() {
         HideSeriesDemo1 demo = new HideSeriesDemo1("Chart: HideSeriesDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);
@@ -65,14 +65,14 @@ public class HideSeriesDemo1 extends ApplicationFrame {
 
         private XYDataset createSampleDataset() {
             XYSeries series1 = new XYSeries("Series 1");
-            series1.add((double) 1.0F, 3.3);
-            series1.add((double) 2.0F, 4.4);
-            series1.add((double) 3.0F, 1.7);
+            series1.add(1.0, 3.3);
+            series1.add(2.0, 4.4);
+            series1.add(3.0, 1.7);
             XYSeries series2 = new XYSeries("Series 2");
-            series2.add((double) 1.0F, 7.3);
-            series2.add((double) 2.0F, 6.8);
-            series2.add((double) 3.0F, 9.6);
-            series2.add((double) 4.0F, 5.6);
+            series2.add(1.0, 7.3);
+            series2.add(2.0, 6.8);
+            series2.add(3.0, 9.6);
+            series2.add(4.0, 5.6);
             XYSeries series3 = new XYSeries("Series 3");
             series3.add(1.0, 17.3);
             series3.add(2.0, 16.8);

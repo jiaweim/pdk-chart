@@ -12,7 +12,6 @@ import pdk.chart.block.LabelBlock;
 import pdk.chart.data.general.DefaultPieDataset;
 import pdk.chart.data.general.PieDataset;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.plot.pie.PiePlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -38,12 +37,12 @@ public class LegendWrapperDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(PieDataset dataset) {
-        Chart chart = new PieChart(dataset, "Legend Wrapper Demo 1", false, true);
-        PiePlot plot = (PiePlot) chart.getPlot();
-        plot.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
-        plot.setNoDataMessage("No data available");
-        plot.setCircular(true);
-        plot.setLabelGap(0.02);
+        PieChart chart = new PieChart(dataset, "Legend Wrapper Demo 1", false, true);
+        chart.setLabelFont(new Font("SansSerif", Font.PLAIN, 12));
+        chart.setNoDataMessage("No data available");
+        chart.setCircular(true);
+        chart.setLabelGap(0.02);
+
         LegendTitle legend = new LegendTitle(chart.getPlot());
         BlockContainer wrapper = new BlockContainer(new BorderArrangement());
         wrapper.setFrame(new BlockBorder(1.0, 1.0, 1.0, 1.0));

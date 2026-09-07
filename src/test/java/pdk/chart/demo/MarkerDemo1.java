@@ -46,7 +46,7 @@ public class MarkerDemo1 extends ApplicationFrame {
                 .rangePannable(true);
 
         plot.getDomainAxisAsDate()
-                .upperMargin(0.5);
+                .withUpperMargin(0.5);
         plot.getRangeAxisAsNumber()
                 .withLowerMargin(0.5)
                 .withUpperMargin(0.3);

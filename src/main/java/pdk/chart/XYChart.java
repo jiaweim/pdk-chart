@@ -3,6 +3,7 @@ package pdk.chart;
 import org.jspecify.annotations.NonNull;
 import pdk.chart.annotations.XYAnnotation;
 import pdk.chart.api.Layer;
+import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
@@ -357,6 +358,27 @@ public class XYChart extends Chart {
     }
 
     /**
+     * Sets the flag that controls whether a series is visible.
+     *
+     * @param series  the series index (zero-based).
+     * @param visible the flag ({@code null} permitted).
+     */
+    public void setSeriesVisible(int series, Boolean visible) {
+        renderer0_.setSeriesVisible(series, visible);
+    }
+
+    /**
+     * Returns a boolean that indicates whether the specified series
+     * should be drawn (this is typically used to hide an entire series).
+     *
+     * @param series the series index.
+     * @return A boolean.
+     */
+    public boolean isSeriesVisible(int series) {
+        return renderer0_.isSeriesVisible(series);
+    }
+
+    /**
      * Appends a dataset to the plot using a renderer created from the
      * given {@link Type}.
      *
@@ -415,10 +437,29 @@ public class XYChart extends Chart {
         return plot_.getDataset();
     }
 
+    /**
+     * Returns the number of datasets.
+     *
+     * @return The number of datasets.
+     */
+    public int getDatasetCount() {
+        return plot_.getDatasetCount();
+    }
+
     public void clearDatasets() {
         for (int i = 0; i < plot_.getDatasetCount(); i++) {
             plot_.setDataset(i, null);
         }
+    }
+
+    /**
+     * Returns the edge for the primary domain axis (taking into account the
+     * plot's orientation).
+     *
+     * @return The edge.
+     */
+    public RectangleEdge getDomainAxisEdge() {
+        return plot_.getDomainAxisEdge();
     }
 
     /**

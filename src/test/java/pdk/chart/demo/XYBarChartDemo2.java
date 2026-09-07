@@ -1,7 +1,6 @@
 package pdk.chart.demo;
 
 import pdk.chart.AxisType;
-import pdk.chart.Chart;
 import pdk.chart.ClusteredBarChart;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.TimeSeries;
@@ -47,12 +46,15 @@ public class XYBarChartDemo2 extends ApplicationFrame {
         return dataset;
     }
 
-    private static Chart createChart(IntervalXYDataset<String> dataset) {
+    private static ClusteredBarChart createChart(IntervalXYDataset<String> dataset) {
         ClusteredBarChart chart = new ClusteredBarChart(dataset, "Date", AxisType.DATE,
                 "Y", AxisType.NUMBER, "XY Bar Chart Demo 2");
+        chart.withPannable(true, true);
+
+
         chart.setDomainPannable(true);
         chart.setRangePannable(true);
-        chart.setBarMargin(0);
+        chart.setMargin(0);
         chart.setDrawBarOutline(false);
         return chart;
     }
