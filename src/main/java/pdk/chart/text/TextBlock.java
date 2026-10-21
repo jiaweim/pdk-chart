@@ -2,7 +2,6 @@ package pdk.chart.text;
 
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.block.Size2D;
-import pdk.chart.util.Args;
 import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
@@ -11,6 +10,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A list of {@link TextLine} objects that form a block of text.
@@ -57,7 +58,7 @@ public class TextBlock implements Serializable {
      * @param alignment the alignment ({@code null} not permitted).
      */
     public void setLineAlignment(HorizontalAlignment alignment) {
-        Args.nullNotPermitted(alignment, "alignment");
+        requireNonNull(alignment, "alignment");
         this.lineAlignment = alignment;
     }
 
@@ -259,8 +260,7 @@ public class TextBlock implements Serializable {
         if (obj == this) {
             return true;
         }
-        if (obj instanceof TextBlock) {
-            TextBlock block = (TextBlock) obj;
+        if (obj instanceof TextBlock block) {
             return this.lines.equals(block.lines);
         }
         return false;

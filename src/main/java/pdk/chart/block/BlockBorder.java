@@ -1,7 +1,6 @@
 package pdk.chart.block;
 
 import pdk.chart.api.RectangleInsets;
-import pdk.chart.util.Args;
 import pdk.chart.util.PaintUtils;
 import pdk.chart.util.SerialUtils;
 
@@ -11,6 +10,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A border for a block.  This class is immutable.
@@ -87,8 +88,8 @@ public class BlockBorder implements BlockFrame, Serializable {
      * @param paint  the paint ({@code null} not permitted).
      */
     public BlockBorder(RectangleInsets insets, Paint paint) {
-        Args.nullNotPermitted(insets, "insets");
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(insets, "insets");
+        requireNonNull(paint, "paint");
         this.insets = insets;
         this.paint = paint;
     }

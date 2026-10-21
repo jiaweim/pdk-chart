@@ -14,6 +14,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A convenience class for creating new classes that implement
  * the {@link Block} interface.
@@ -157,7 +159,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getMargin()
      */
     public void setMargin(RectangleInsets margin) {
-        Objects.requireNonNull(margin, "margin");
+        requireNonNull(margin, "margin");
         this.margin = margin;
     }
 
@@ -170,21 +172,19 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @param right  the right margin.
      * @see #getMargin()
      */
-    public void setMargin(double top, double left, double bottom,
-            double right) {
+    public void setMargin(double top, double left, double bottom, double right) {
         setMargin(new RectangleInsets(top, left, bottom, right));
     }
 
     /**
      * Sets a black border with the specified line widths.
      *
-     * @param top    the top border line width.
-     * @param left   the left border line width.
-     * @param bottom the bottom border line width.
-     * @param right  the right border line width.
+     * @param top    the top borderline width.
+     * @param left   the left borderline width.
+     * @param bottom the bottom borderline width.
+     * @param right  the right borderline width.
      */
-    public void setBorder(double top, double left, double bottom,
-            double right) {
+    public void setBorder(double top, double left, double bottom, double right) {
         setFrame(new BlockBorder(top, left, bottom, right));
     }
 
@@ -205,7 +205,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getFrame()
      */
     public void setFrame(BlockFrame frame) {
-        Objects.requireNonNull(frame, "frame");
+        requireNonNull(frame, "frame");
         this.frame = frame;
     }
 
@@ -227,7 +227,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getPadding()
      */
     public void setPadding(RectangleInsets padding) {
-        Objects.requireNonNull(padding, "padding");
+        requireNonNull(padding, "padding");
         this.padding = padding;
     }
 
@@ -241,8 +241,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @param bottom the bottom padding.
      * @param right  the right padding.
      */
-    public void setPadding(double top, double left, double bottom,
-            double right) {
+    public void setPadding(double top, double left, double bottom, double right) {
         setPadding(new RectangleInsets(top, left, bottom, right));
     }
 
@@ -309,7 +308,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @see #getBounds()
      */
     public void setBounds(Rectangle2D bounds) {
-        Objects.requireNonNull(bounds, "bounds");
+        requireNonNull(bounds, "bounds");
         this.bounds = bounds;
     }
 
@@ -353,7 +352,7 @@ public class AbstractBlock implements Cloneable, Serializable {
      * @return The content constraint.
      */
     protected RectangleConstraint toContentConstraint(RectangleConstraint c) {
-        Objects.requireNonNull(c, "c");
+        requireNonNull(c, "c");
         if (c.equals(RectangleConstraint.NONE)) {
             return c;
         }
@@ -522,12 +521,8 @@ public class AbstractBlock implements Cloneable, Serializable {
         hash = 41 * hash + Objects.hashCode(this.margin);
         hash = 41 * hash + Objects.hashCode(this.frame);
         hash = 41 * hash + Objects.hashCode(this.padding);
-        hash = 41 * hash +
-                (int) (Double.doubleToLongBits(this.width) ^
-                        (Double.doubleToLongBits(this.width) >>> 32));
-        hash = 41 * hash +
-                (int) (Double.doubleToLongBits(this.height) ^
-                        (Double.doubleToLongBits(this.height) >>> 32));
+        hash = 41 * hash + Double.hashCode(this.width);
+        hash = 41 * hash + Double.hashCode(this.height);
         hash = 41 * hash + Objects.hashCode(this.bounds);
         return hash;
     }
@@ -542,9 +537,8 @@ public class AbstractBlock implements Cloneable, Serializable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         AbstractBlock clone = (AbstractBlock) super.clone();
-        clone.bounds = (Rectangle2D) CloneUtils.clone(this.bounds);
-        if (this.frame instanceof PublicCloneable) {
-            PublicCloneable pc = (PublicCloneable) this.frame;
+        clone.bounds = CloneUtils.clone(this.bounds);
+        if (this.frame instanceof PublicCloneable pc) {
             clone.frame = (BlockFrame) pc.clone();
         }
         return clone;

@@ -14,11 +14,10 @@ import pdk.chart.event.TitleChangeListener;
 import javax.swing.event.EventListenerList;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * The base class for all chart titles.  A chart can have multiple titles,
@@ -130,10 +129,10 @@ public abstract class Title extends AbstractBlock
             HorizontalAlignment horizontalAlignment,
             VerticalAlignment verticalAlignment, RectangleInsets padding) {
 
-        Objects.requireNonNull(position, "position");
-        Objects.requireNonNull(horizontalAlignment, "horizontalAlignment");
-        Objects.requireNonNull(verticalAlignment, "verticalAlignment");
-        Objects.requireNonNull(padding, "padding");
+        requireNonNull(position, "position");
+        requireNonNull(horizontalAlignment, "horizontalAlignment");
+        requireNonNull(verticalAlignment, "verticalAlignment");
+        requireNonNull(padding, "padding");
 
         this.visible = true;
         this.position = position;
@@ -183,7 +182,7 @@ public abstract class Title extends AbstractBlock
      * @param position the position ({@code null} not permitted).
      */
     public void setPosition(RectangleEdge position) {
-        Objects.requireNonNull(position, "position");
+        requireNonNull(position, "position");
         if (this.position != position) {
             this.position = position;
             notifyListeners(new TitleChangeEvent(this));
@@ -207,7 +206,7 @@ public abstract class Title extends AbstractBlock
      *                  permitted).
      */
     public void setHorizontalAlignment(HorizontalAlignment alignment) {
-        Objects.requireNonNull(alignment, "alignment");
+        requireNonNull(alignment, "alignment");
         if (this.horizontalAlignment != alignment) {
             this.horizontalAlignment = alignment;
             notifyListeners(new TitleChangeEvent(this));
@@ -231,7 +230,7 @@ public abstract class Title extends AbstractBlock
      *                  {@code null} not permitted).
      */
     public void setVerticalAlignment(VerticalAlignment alignment) {
-        Objects.requireNonNull(alignment, "alignment");
+        requireNonNull(alignment, "alignment");
         if (this.verticalAlignment != alignment) {
             this.verticalAlignment = alignment;
             notifyListeners(new TitleChangeEvent(this));
@@ -391,6 +390,7 @@ public abstract class Title extends AbstractBlock
      * @param stream the output stream.
      * @throws IOException if there is an I/O error.
      */
+    @Serial
     private void writeObject(ObjectOutputStream stream) throws IOException {
         stream.defaultWriteObject();
     }
@@ -402,10 +402,10 @@ public abstract class Title extends AbstractBlock
      * @throws IOException            if there is an I/O error.
      * @throws ClassNotFoundException if there is a classpath problem.
      */
+    @Serial
     private void readObject(ObjectInputStream stream)
             throws IOException, ClassNotFoundException {
         stream.defaultReadObject();
         this.listenerList = new EventListenerList();
     }
-
 }

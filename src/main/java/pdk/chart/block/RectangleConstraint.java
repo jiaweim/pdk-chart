@@ -1,7 +1,8 @@
 package pdk.chart.block;
 
 import pdk.chart.data.Range;
-import pdk.chart.util.Args;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A description of a constraint for resizing a rectangle.  Constraints are
@@ -103,8 +104,8 @@ public class RectangleConstraint {
             LengthConstraintType widthConstraintType,
             double h, Range heightRange,
             LengthConstraintType heightConstraintType) {
-        Args.nullNotPermitted(widthConstraintType, "widthConstraintType");
-        Args.nullNotPermitted(heightConstraintType, "heightConstraintType");
+        requireNonNull(widthConstraintType, "widthConstraintType");
+        requireNonNull(heightConstraintType, "heightConstraintType");
         this.width = w;
         this.widthRange = widthRange;
         this.widthConstraintType = widthConstraintType;
@@ -233,7 +234,7 @@ public class RectangleConstraint {
      * @return A new constraint.
      */
     public RectangleConstraint toRangeWidth(Range range) {
-        Args.nullNotPermitted(range, "range");
+        requireNonNull(range, "range");
         return new RectangleConstraint(range.getUpperBound(), range,
                 LengthConstraintType.RANGE, this.height, this.heightRange,
                 this.heightConstraintType);
@@ -247,7 +248,7 @@ public class RectangleConstraint {
      * @return A new constraint.
      */
     public RectangleConstraint toRangeHeight(Range range) {
-        Args.nullNotPermitted(range, "range");
+        requireNonNull(range, "range");
         return new RectangleConstraint(this.width, this.widthRange,
                 this.widthConstraintType, range.getUpperBound(), range,
                 LengthConstraintType.RANGE);

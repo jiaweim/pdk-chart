@@ -124,8 +124,8 @@ public class Size2D implements Cloneable, PublicCloneable, Serializable {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 17 * hash + (int) (Double.doubleToLongBits(this.width) ^ (Double.doubleToLongBits(this.width) >>> 32));
-        hash = 17 * hash + (int) (Double.doubleToLongBits(this.height) ^ (Double.doubleToLongBits(this.height) >>> 32));
+        hash = 17 * hash + Double.hashCode(this.width);
+        hash = 17 * hash + Double.hashCode(this.height);
         return hash;
     }
 
@@ -139,5 +139,4 @@ public class Size2D implements Cloneable, PublicCloneable, Serializable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-
 }

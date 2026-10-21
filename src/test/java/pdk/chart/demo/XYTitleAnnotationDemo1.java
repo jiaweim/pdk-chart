@@ -27,6 +27,7 @@ import java.awt.*;
 import java.text.SimpleDateFormat;
 
 public class XYTitleAnnotationDemo1 extends ApplicationFrame {
+
     public XYTitleAnnotationDemo1(String title) {
         super(title);
         ChartPanel chartPanel = (ChartPanel) createDemoPanel();
@@ -36,14 +37,15 @@ public class XYTitleAnnotationDemo1 extends ApplicationFrame {
     }
 
     private static Chart createChart(XYDataset dataset) {
-        Chart chart = new LineChart(dataset, "Date", AxisType.DATE,
+        LineChart chart = new LineChart(dataset, "Date", AxisType.DATE,
                 "Price Per Unit", "Legal & General Unit Trust Prices", PlotOrientation.VERTICAL,
                 false, true);
+        chart.setDomainPannable(true);
+        chart.setRangePannable(true);
+        chart.setDomainCrosshairVisible(true);
+        chart.setRangeCrosshairVisible(true);
+
         XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        plot.setDomainCrosshairVisible(true);
-        plot.setRangeCrosshairVisible(true);
         LegendTitle lt = new LegendTitle(plot);
         lt.setItemFont(new Font("Dialog", 0, 9));
         lt.setBackgroundPaint(new Color(200, 200, 255, 100));

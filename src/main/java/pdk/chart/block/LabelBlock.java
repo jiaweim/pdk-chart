@@ -377,5 +377,4 @@ public class LabelBlock extends AbstractBlock
         stream.defaultReadObject();
         this.paint = SerialUtils.readPaint(stream);
     }
-
 }

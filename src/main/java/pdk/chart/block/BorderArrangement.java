@@ -47,8 +47,7 @@ public class BorderArrangement implements Arrangement, Serializable {
     /**
      * Creates a new instance.
      */
-    public BorderArrangement() {
-    }
+    public BorderArrangement() {}
 
     /**
      * Adds a block to the arrangement manager at the specified edge.
@@ -61,7 +60,6 @@ public class BorderArrangement implements Arrangement, Serializable {
      */
     @Override
     public void add(Block block, Object key) {
-
         if (!(key instanceof RectangleEdge)) { // catches null also
             this.centerBlock = block;
         } else {

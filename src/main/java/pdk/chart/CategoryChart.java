@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
+ * A chart with category x-axis.
  *
  * @author Jiawei Mao
  * @version 1.0.0

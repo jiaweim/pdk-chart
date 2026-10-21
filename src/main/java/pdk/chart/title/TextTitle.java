@@ -8,13 +8,12 @@ import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;
 import pdk.chart.entity.TitleEntity;
 import pdk.chart.event.TitleChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.text.G2TextMeasurer;
 import pdk.chart.text.TextBlock;
 import pdk.chart.text.TextBlockAnchor;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -23,6 +22,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A chart title that displays a text string with automatic wrapping as
@@ -147,9 +148,9 @@ public class TextTitle extends Title implements Serializable, Cloneable,
             VerticalAlignment verticalAlignment,
             RectangleInsets padding) {
         super(position, horizontalAlignment, verticalAlignment, padding);
-        Objects.requireNonNull(text, "text");
-        Objects.requireNonNull(font, "font");
-        Objects.requireNonNull(paint, "paint");
+        requireNonNull(text, "text");
+        requireNonNull(font, "font");
+        requireNonNull(paint, "paint");
         this.text = text;
         this.font = font;
         this.paint = paint;
@@ -180,7 +181,7 @@ public class TextTitle extends Title implements Serializable, Cloneable,
      * @param text the text ({@code null} not permitted).
      */
     public void setText(String text) {
-        Args.nullNotPermitted(text, "text");
+        requireNonNull(text, "text");
         if (!this.text.equals(text)) {
             this.text = text;
             notifyListeners(new TitleChangeEvent(this));
@@ -206,7 +207,7 @@ public class TextTitle extends Title implements Serializable, Cloneable,
      * @param alignment the alignment ({@code null} not permitted).
      */
     public void setTextAlignment(HorizontalAlignment alignment) {
-        Args.nullNotPermitted(alignment, "alignment");
+        requireNonNull(alignment, "alignment");
         this.textAlignment = alignment;
         notifyListeners(new TitleChangeEvent(this));
     }
@@ -229,7 +230,7 @@ public class TextTitle extends Title implements Serializable, Cloneable,
      * @see #getFont()
      */
     public void setFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        requireNonNull(font, "font");
         if (!this.font.equals(font)) {
             this.font = font;
             notifyListeners(new TitleChangeEvent(this));
@@ -254,7 +255,7 @@ public class TextTitle extends Title implements Serializable, Cloneable,
      * @see #getPaint()
      */
     public void setPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(paint, "paint");
         if (!this.paint.equals(paint)) {
             this.paint = paint;
             notifyListeners(new TitleChangeEvent(this));
@@ -568,12 +569,11 @@ public class TextTitle extends Title implements Serializable, Cloneable,
         }
         area = trimMargin(area);
         drawBorder(g2, area);
-        if (this.text.equals("")) {
+        if (this.text.isEmpty()) {
             return null;
         }
         ChartEntity entity = null;
-        if (params instanceof EntityBlockParams) {
-            EntityBlockParams p = (EntityBlockParams) params;
+        if (params instanceof EntityBlockParams p) {
             if (p.getGenerateEntities()) {
                 entity = new TitleEntity(area, this, this.toolTipText,
                         this.urlText);

@@ -3,7 +3,6 @@ package pdk.chart.block;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.entity.EntityCollection;
 import pdk.chart.entity.StandardEntityCollection;
-import pdk.chart.util.Args;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -12,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A container for a collection of {@link Block} objects.  The container uses
@@ -49,7 +50,7 @@ public class BlockContainer extends AbstractBlock
      *                    permitted).
      */
     public BlockContainer(Arrangement arrangement) {
-        Objects.requireNonNull(arrangement, "arrangement");
+        requireNonNull(arrangement, "arrangement");
         this.arrangement = arrangement;
         this.blocks = new ArrayList<>();
     }
@@ -69,7 +70,7 @@ public class BlockContainer extends AbstractBlock
      * @param arrangement the arrangement ({@code null} not permitted).
      */
     public void setArrangement(Arrangement arrangement) {
-        Args.nullNotPermitted(arrangement, "arrangement");
+        requireNonNull(arrangement, "arrangement");
         this.arrangement = arrangement;
     }
 
@@ -239,5 +240,4 @@ public class BlockContainer extends AbstractBlock
         // TODO : complete this
         return clone;
     }
-
 }
