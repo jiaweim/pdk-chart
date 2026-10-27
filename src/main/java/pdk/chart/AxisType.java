@@ -38,5 +38,4 @@ public enum AxisType {
         return createInstance(null);
     }
 
-
 }

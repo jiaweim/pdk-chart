@@ -106,14 +106,6 @@ Set the default shape. The default shape will only take effect when no series sh
 
 
 
-
-
-
-
-### Bar
-
-
-
 ### Box Plot
 
 

@@ -1,45 +1,6 @@
-/* ======================================================
- * JFreeChart : a chart library for the Java(tm) platform
- * ======================================================
- *
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Project Info:  https://www.jfree.org/jfreechart/index.html
- *
- * This library is free software; you can redistribute it and/or modify it
- * under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or
- * (at your option) any later version.
- *
- * This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public
- * License for more details.
- *
- * You should have received a copy of the GNU Lesser General Public
- * License along with this library; if not, write to the Free Software
- * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
- * USA.
- *
- * [Oracle and Java are registered trademarks of Oracle and/or its affiliates. 
- * Other names may be trademarks of their respective owners.]
- *
- * ---------------
- * PaintUtils.java
- * ---------------
- * (C) Copyright 2000-present, by David Gilbert and Contributors.
- *
- * Original Author:  David Gilbert;
- * Contributors:     -;
- */
-
 package pdk.chart.util;
 
-import java.awt.Color;
-import java.awt.GradientPaint;
-import java.awt.LinearGradientPaint;
-import java.awt.Paint;
-import java.awt.RadialGradientPaint;
+import java.awt.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -53,61 +14,53 @@ public class PaintUtils {
     /**
      * Private constructor prevents object creation.
      */
-    private PaintUtils() {
-    }
+    private PaintUtils() {}
 
     /**
-     * Returns {@code true} if the two {@code Paint} objects are equal 
+     * Returns {@code true} if the two {@code Paint} objects are equal
      * OR both {@code null}.  This method handles
-     * {@code GradientPaint}, {@code LinearGradientPaint} and 
+     * {@code GradientPaint}, {@code LinearGradientPaint} and
      * {@code RadialGradientPaint} as a special cases, since those classes do
      * not override the {@code equals()} method.
      *
-     * @param p1  paint 1 ({@code null} permitted).
-     * @param p2  paint 2 ({@code null} permitted).
-     *
+     * @param p1 paint 1 ({@code null} permitted).
+     * @param p2 paint 2 ({@code null} permitted).
      * @return A boolean.
      */
     public static boolean equal(Paint p1, Paint p2) {
         if (p1 == p2) {
             return true;
         }
-            
+
         // handle cases where either or both arguments are null
         if (p1 == null) {
-            return (p2 == null);   
+            return (p2 == null);
         }
         if (p2 == null) {
-            return false;   
+            return false;
         }
 
         // handle GradientPaint as a special case...
-        if (p1 instanceof GradientPaint && p2 instanceof GradientPaint) {
-            GradientPaint gp1 = (GradientPaint) p1;
-            GradientPaint gp2 = (GradientPaint) p2;
-            return gp1.getColor1().equals(gp2.getColor1()) 
+        if (p1 instanceof GradientPaint gp1 && p2 instanceof GradientPaint gp2) {
+            return gp1.getColor1().equals(gp2.getColor1())
                     && gp1.getColor2().equals(gp2.getColor2())
-                    && gp1.getPoint1().equals(gp2.getPoint1())    
+                    && gp1.getPoint1().equals(gp2.getPoint1())
                     && gp1.getPoint2().equals(gp2.getPoint2())
                     && gp1.isCyclic() == gp2.isCyclic()
                     && gp1.getTransparency() == gp2.getTransparency();
-        } else if (p1 instanceof LinearGradientPaint 
-                && p2 instanceof LinearGradientPaint) {
-            LinearGradientPaint lgp1 = (LinearGradientPaint) p1;
-            LinearGradientPaint lgp2 = (LinearGradientPaint) p2;
+        } else if (p1 instanceof LinearGradientPaint lgp1
+                && p2 instanceof LinearGradientPaint lgp2) {
             return lgp1.getStartPoint().equals(lgp2.getStartPoint())
-                    && lgp1.getEndPoint().equals(lgp2.getEndPoint()) 
+                    && lgp1.getEndPoint().equals(lgp2.getEndPoint())
                     && Arrays.equals(lgp1.getFractions(), lgp2.getFractions())
                     && Arrays.equals(lgp1.getColors(), lgp2.getColors())
                     && lgp1.getCycleMethod() == lgp2.getCycleMethod()
                     && lgp1.getColorSpace() == lgp2.getColorSpace()
                     && lgp1.getTransform().equals(lgp2.getTransform());
-        } else if (p1 instanceof RadialGradientPaint 
-                && p2 instanceof RadialGradientPaint) {
-            RadialGradientPaint rgp1 = (RadialGradientPaint) p1;
-            RadialGradientPaint rgp2 = (RadialGradientPaint) p2;
+        } else if (p1 instanceof RadialGradientPaint rgp1
+                && p2 instanceof RadialGradientPaint rgp2) {
             return rgp1.getCenterPoint().equals(rgp2.getCenterPoint())
-                    && rgp1.getRadius() == rgp2.getRadius() 
+                    && rgp1.getRadius() == rgp2.getRadius()
                     && rgp1.getFocusPoint().equals(rgp2.getFocusPoint())
                     && Arrays.equals(rgp1.getFractions(), rgp2.getFractions())
                     && Arrays.equals(rgp1.getColors(), rgp2.getColors())
@@ -120,13 +73,12 @@ public class PaintUtils {
     }
 
     /**
-     * Returns {@code true} if the two maps contain the same set of entries and 
+     * Returns {@code true} if the two maps contain the same set of entries and
      * {@code false} otherwise.
-     * 
+     *
      * @param <K>  the key type.
-     * @param map1  the first map.
-     * @param map2  the second map.
-     * 
+     * @param map1 the first map.
+     * @param map2 the second map.
      * @return A boolean.
      */
     public static <K extends Comparable<K>> boolean equal(Map<K, Paint> map1, Map<K, Paint> map2) {
@@ -142,7 +94,7 @@ public class PaintUtils {
         }
         return true;
     }
-    
+
     /**
      * Converts a color into a string. If the color is equal to one of the
      * defined constant colors, that name is returned instead. Otherwise the
@@ -154,8 +106,7 @@ public class PaintUtils {
     public static String colorToString(Color c) {
         try {
             Field[] fields = Color.class.getFields();
-            for (int i = 0; i < fields.length; i++) {
-                Field f = fields[i];
+            for (Field f : fields) {
                 if (Modifier.isPublic(f.getModifiers())
                         && Modifier.isFinal(f.getModifiers())
                         && Modifier.isStatic(f.getModifiers())) {
@@ -178,7 +129,7 @@ public class PaintUtils {
         retval.append('#');
 
         final int fillUp = 6 - color.length();
-        retval.append("0".repeat(fillUp));
+        retval.repeat("0", fillUp);
 
         retval.append(color);
         return retval.toString();
@@ -209,5 +160,12 @@ public class PaintUtils {
             }
         }
     }
+
+    public static Color withAlpha(Color c, float alpha) {
+        float a = Math.clamp(alpha, 0.0f, 1.0f);
+        int alpha255 = Math.round(255 * a);
+        return new Color(c.getRed(), c.getGreen(), c.getBlue(), alpha255);
+    }
+
 }
 

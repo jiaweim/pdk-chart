@@ -10,14 +10,15 @@ import pdk.chart.data.statistics.BoxAndWhiskerXYDataset;
 import pdk.chart.data.statistics.MultiValueCategoryDataset;
 import pdk.chart.data.statistics.StatisticalCategoryDataset;
 import pdk.chart.data.xy.*;
+import pdk.chart.ms.PeptideDataset;
 import pdk.chart.util.Args;
 import pdk.chart.util.ArrayUtils;
-import pdk.chart.ms.PeptideDataset;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A collection of useful static methods relating to datasets.
@@ -39,7 +40,8 @@ public final class DatasetUtils {
      * @return The total.
      */
     public static <K extends Comparable<K>> double calculatePieDatasetTotal(PieDataset<K> dataset) {
-        Objects.requireNonNull(dataset, "dataset");
+        requireNonNull(dataset, "dataset");
+
         double totalValue = 0;
         for (K key : dataset.getKeys()) {
             if (key != null) {
@@ -282,9 +284,9 @@ public final class DatasetUtils {
     public static <R extends Comparable<R>, C extends Comparable<C>>
     CategoryDataset<R, C> createCategoryDataset(R[] rowKeys, C[] columnKeys,
             double[][] data) {
+        requireNonNull(rowKeys, "rowKeys");
+        requireNonNull(columnKeys, "columnKeys");
 
-        Args.nullNotPermitted(rowKeys, "rowKeys");
-        Args.nullNotPermitted(columnKeys, "columnKeys");
         if (ArrayUtils.hasDuplicateItems(rowKeys)) {
             throw new IllegalArgumentException("Duplicate items in 'rowKeys'.");
         }
@@ -298,8 +300,8 @@ public final class DatasetUtils {
                             + "the data array.");
         }
         int columnCount = 0;
-        for (int r = 0; r < data.length; r++) {
-            columnCount = Math.max(columnCount, data[r].length);
+        for (double[] datum : data) {
+            columnCount = Math.max(columnCount, datum.length);
         }
         if (columnKeys.length != columnCount) {
             throw new IllegalArgumentException(
@@ -455,11 +457,10 @@ public final class DatasetUtils {
      */
     public static <S extends Comparable<S>> Range findDomainBounds(
             XYDataset<S> dataset, boolean includeInterval) {
-        Args.nullNotPermitted(dataset, "dataset");
+        requireNonNull(dataset, "dataset");
         Range result;
         // if the dataset implements DomainInfo, life is easier
-        if (dataset instanceof DomainInfo) {
-            DomainInfo info = (DomainInfo) dataset;
+        if (dataset instanceof DomainInfo info) {
             result = info.getDomainBounds(includeInterval);
         } else {
             result = iterateDomainBounds(dataset, includeInterval);
@@ -484,7 +485,7 @@ public final class DatasetUtils {
     public static <S extends Comparable<S>> Range findDomainBounds(
             XYDataset<S> dataset, List<S> visibleSeriesKeys,
             boolean includeInterval) {
-        Args.nullNotPermitted(dataset, "dataset");
+        requireNonNull(dataset, "dataset");
         Range result;
         if (dataset instanceof XYDomainInfo) {
             @SuppressWarnings("unchecked")
@@ -525,7 +526,7 @@ public final class DatasetUtils {
      */
     public static <S extends Comparable<S>> Range iterateDomainBounds(
             XYDataset<S> dataset, boolean includeInterval) {
-        Args.nullNotPermitted(dataset, "dataset");
+        requireNonNull(dataset, "dataset");
         double minimum = Double.POSITIVE_INFINITY;
         double maximum = Double.NEGATIVE_INFINITY;
         int seriesCount = dataset.getSeriesCount();

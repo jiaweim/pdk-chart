@@ -5,15 +5,15 @@ import pdk.chart.util.Args;
 
 import java.util.Arrays;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * Utility methods for use with some of the data classes (but not the datasets,
  * see {@link DatasetUtils}).
  */
 public abstract class DataUtils {
 
-    private DataUtils() {
-        // no requirement to instantiate
-    }
+    private DataUtils() {}
 
     /**
      * Tests two arrays for equality.  To be considered equal, the arrays must
@@ -162,7 +162,7 @@ public abstract class DataUtils {
      * @return An array of {@code double}.
      */
     public static Number[] createNumberArray(double[] data) {
-        Args.nullNotPermitted(data, "data");
+        requireNonNull(data, "data");
         Number[] result = new Number[data.length];
         for (int i = 0; i < data.length; i++) {
             result[i] = data[i];
@@ -178,7 +178,7 @@ public abstract class DataUtils {
      * @return An array of {@code double}.
      */
     public static Number[][] createNumberArray2D(double[][] data) {
-        Args.nullNotPermitted(data, "data");
+        requireNonNull(data, "data");
         int l1 = data.length;
         Number[][] result = new Number[l1][];
         for (int i = 0; i < l1; i++) {
@@ -198,7 +198,7 @@ public abstract class DataUtils {
      * @return The cumulative percentages.
      */
     public static <K extends Comparable<K>> KeyedValues<K> getCumulativePercentages(KeyedValues<K> data) {
-        Args.nullNotPermitted(data, "data");
+        requireNonNull(data, "data");
         DefaultKeyedValues<K> result = new DefaultKeyedValues<>();
         double total = 0.0;
         for (int i = 0; i < data.getItemCount(); i++) {

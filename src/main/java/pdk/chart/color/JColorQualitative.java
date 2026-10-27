@@ -11,6 +11,18 @@ import java.awt.*;
  */
 public interface JColorQualitative {
 
+    static Color[] ChartJS() {
+        return new Color[]{
+                new Color(255, 99, 132), // RED
+                new Color(54, 162, 235), // BLUE
+                new Color(75, 192, 192), // GREEN
+                new Color(255, 205, 86), // YELLOW
+                new Color(255, 159, 64), // ORANGE
+                new Color(153, 102, 255), // purple
+                new Color(201, 203, 207) // grey
+        };
+    }
+
     static Color[] Plotly() {
         return new Color[]{
                 new Color(99, 110, 250),

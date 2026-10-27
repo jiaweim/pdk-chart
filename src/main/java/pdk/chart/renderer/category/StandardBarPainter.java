@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  * An implementation of the {@link BarPainter} interface that preserves the
- * behaviour of bar painting that existed prior to the introduction of the
+ * behavior of bar painting that existed prior to the introduction of the
  * {@link BarPainter} interface.
  *
  * @see GradientBarPainter
@@ -20,8 +20,7 @@ public class StandardBarPainter implements BarPainter, Serializable {
     /**
      * Creates a new instance.
      */
-    public StandardBarPainter() {
-    }
+    public StandardBarPainter() {}
 
     /**
      * Paints a single bar instance.
@@ -57,7 +56,6 @@ public class StandardBarPainter implements BarPainter, Serializable {
                 g2.draw(bar);
             }
         }
-
     }
 
     /**
@@ -80,8 +78,7 @@ public class StandardBarPainter implements BarPainter, Serializable {
         // handle a special case - if the bar colour has alpha == 0, it is
         // invisible so we shouldn't draw any shadow
         Paint itemPaint = renderer.getItemPaint(row, column);
-        if (itemPaint instanceof Color) {
-            Color c = (Color) itemPaint;
+        if (itemPaint instanceof Color c) {
             if (c.getAlpha() == 0) {
                 return;
             }
@@ -170,5 +167,4 @@ public class StandardBarPainter implements BarPainter, Serializable {
         // no fields to compute...
         return hash;
     }
-
 }

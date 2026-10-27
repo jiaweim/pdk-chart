@@ -18,7 +18,10 @@ import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.text.TextUtils;
-import pdk.chart.util.*;
+import pdk.chart.util.GradientPaintTransformer;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.StandardGradientPaintTransformer;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
@@ -29,6 +32,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A {@link CategoryItemRenderer} that draws individual data items as bars.
@@ -76,7 +81,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @param painter the painter ({@code null} not permitted).
      */
     public static void setDefaultBarPainter(BarPainter painter) {
-        Args.nullNotPermitted(painter, "painter");
+        requireNonNull(painter, "painter");
         BarRenderer.defaultBarPainter = painter;
     }
 
@@ -581,7 +586,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @see #getBarPainter()
      */
     public void setBarPainter(BarPainter painter) {
-        Objects.requireNonNull(painter, "painter");
+        requireNonNull(painter, "painter");
         this.barPainter = painter;
         fireChangeEvent();
     }
@@ -649,7 +654,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @see #getShadowPaint()
      */
     public void setShadowPaint(Paint paint) {
-        Objects.requireNonNull(paint, "paint");
+        requireNonNull(paint, "paint");
         this.shadowPaint = paint;
         fireChangeEvent();
     }
@@ -662,7 +667,7 @@ public class BarRenderer extends AbstractCategoryItemRenderer
      * @see #getShadowPaint()
      */
     public BarRenderer withShadowPaint(Paint paint) {
-        Objects.requireNonNull(paint, "paint");
+        requireNonNull(paint, "paint");
         this.shadowPaint = paint;
         fireChangeEvent();
         return this;
@@ -1553,6 +1558,43 @@ public class BarRenderer extends AbstractCategoryItemRenderer
     public BarRenderer withLegendItemLabelGenerator(
             @NonNull CategorySeriesLabelGenerator generator) {
         setLegendItemLabelGenerator(generator);
+        return this;
+    }
+
+    /**
+     * Sets the paint used for a series outline and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param paint  the paint ({@code null} permitted).
+     * @see #getSeriesOutlinePaint(int)
+     */
+    public BarRenderer withSeriesOutlinePaint(int series, Paint paint) {
+        setSeriesOutlinePaint(series, paint);
+        return this;
+    }
+
+    /**
+     * Sets the outline stroke used for a series and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param series the series index (zero-based).
+     * @param stroke the stroke ({@code null} permitted).
+     * @see #getSeriesOutlineStroke(int)
+     */
+    public BarRenderer withSeriesOutlineStroke(int series, Stroke stroke) {
+        setSeriesOutlineStroke(series, stroke, true);
+        return this;
+    }
+
+    /**
+     * Sets the default legend shape and sends a
+     * {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param shape the shape ({@code null} permitted).
+     */
+    public BarRenderer withDefaultLegendShape(Shape shape) {
+        setDefaultLegendShape(shape);
         return this;
     }
 }
