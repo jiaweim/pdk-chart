@@ -462,7 +462,8 @@ public class ChartDemo extends ApplicationFrame implements ActionListener, TreeS
         root.add(this.createNode(BarChartDemo10.class, "BarChartDemo10.java"));
         root.add(this.createNode(BarChartDemo11.class, "BarChartDemo11.java"));
         root.add(this.createNode(BarChartDemo12.class, "Dynamic Bar Chart"));
-        root.add(this.createNode(BarChartDemo13.class, "Bar Chart Border Radius"));
+        root.add(this.createNode(BarChartDemo13.class, "BarChart Border Radius"));
+        root.add(this.createNode(BarChartDemo14.class, "Floating BarChart"));
         root.add(this.createNode(IntervalBarChartDemo1.class, "IntervalBarChartDemo1.java"));
         root.add(this.createNode(LayeredBarChartDemo1.class, "LayeredBarChartDemo1.java"));
         root.add(this.createNode(LayeredBarChartDemo2.class, "LayeredBarChartDemo2.java"));

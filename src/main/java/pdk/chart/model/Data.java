@@ -1,6 +1,7 @@
 package pdk.chart.model;
 
 import org.jspecify.annotations.NonNull;
+import pdk.chart.data.DataUtils;
 import pdk.chart.data.Range;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.data.category.DefaultCategoryDataset;
@@ -17,7 +18,8 @@ import pdk.chart.util.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Utilities for build dataset.
@@ -157,8 +159,8 @@ public interface Data {
      */
     static <S extends Comparable<S>> XYDataset<S> createXY(@NonNull S seriesKey,
             Double[] x, Double[] y) {
-        Objects.requireNonNull(x);
-        Objects.requireNonNull(y);
+        requireNonNull(x);
+        requireNonNull(y);
         if (x.length != y.length) {
             throw new IllegalArgumentException("The length of x and y are not equal");
         }
@@ -236,8 +238,8 @@ public interface Data {
     static <R extends Comparable<R>, C extends Comparable<C>>
     CategoryDataset<R, C> createCategory(R[] rowKeys, C[] columnKeys,
             double[][] data) {
-        Objects.requireNonNull(rowKeys, "rowKeys must not be null");
-        Objects.requireNonNull(columnKeys, "columnKeys must not be null");
+        requireNonNull(rowKeys, "rowKeys must not be null");
+        requireNonNull(columnKeys, "columnKeys must not be null");
 
         if (ArrayUtils.hasDuplicateItems(rowKeys)) {
             throw new IllegalArgumentException("Duplicate items in 'rowKeys'.");
@@ -287,8 +289,8 @@ public interface Data {
     static <R extends Comparable<R>, C extends Comparable<C>>
     DefaultCategoryDataset<R, C> createCategory(@NonNull R rowKey, @NonNull C[] columnKeys,
             double[] data) {
-        Objects.requireNonNull(rowKey, "rowKeys must not be null");
-        Objects.requireNonNull(columnKeys, "columnKeys must not be null");
+        requireNonNull(rowKey, "rowKeys must not be null");
+        requireNonNull(columnKeys, "columnKeys must not be null");
 
         if (ArrayUtils.hasDuplicateItems(columnKeys)) {
             throw new IllegalArgumentException("Duplicate items in 'columnKeys'.");
@@ -468,10 +470,31 @@ public interface Data {
 
     class IntervalCategoryDatasetBuilder<R extends Comparable<R>, C extends Comparable<C>> {
 
+        private String[] categoryKeys;
+        private final List<String> seriesNames = new ArrayList<>();
         private final List<double[]> starts = new ArrayList<>();
         private final List<double[]> ends = new ArrayList<>();
 
+        public IntervalCategoryDatasetBuilder<R, C> categories(String[] categories) {
+            this.categoryKeys = categories;
+            return this;
+        }
+
         public IntervalCategoryDatasetBuilder<R, C> addSeries(double[] starts, double[] ends) {
+            requireNonNull(starts);
+            requireNonNull(ends);
+
+            this.starts.add(starts);
+            this.ends.add(ends);
+            return this;
+        }
+
+        public IntervalCategoryDatasetBuilder<R, C> addSeries(String seriesName, double[] starts, double[] ends) {
+            requireNonNull(seriesName);
+            requireNonNull(starts);
+            requireNonNull(ends);
+
+            this.seriesNames.add(seriesName);
             this.starts.add(starts);
             this.ends.add(ends);
             return this;
@@ -484,7 +507,15 @@ public interface Data {
                 startArray[i] = starts.get(i);
                 endArray[i] = ends.get(i);
             }
-            return new DefaultIntervalCategoryDataset(startArray, endArray);
+            String[] seriesNameArray = null;
+            if (seriesNames.size() == starts.size()) {
+                seriesNameArray = seriesNames.toArray(new String[0]);
+            }
+
+            Number[][] starts = DataUtils.createNumberArray2D(startArray);
+            Number[][] ends = DataUtils.createNumberArray2D(endArray);
+
+            return new DefaultIntervalCategoryDataset(seriesNameArray, categoryKeys, starts, ends);
         }
     }
 
@@ -517,9 +548,9 @@ public interface Data {
          * @return this.
          */
         public XYDatasetBuilder<T> addSeries(@NonNull T key, List<? extends Number> x, List<? extends Number> y) {
-            Objects.requireNonNull(key);
-            Objects.requireNonNull(x);
-            Objects.requireNonNull(y);
+            requireNonNull(key);
+            requireNonNull(x);
+            requireNonNull(y);
             if (x.size() != y.size()) {
                 throw new IllegalArgumentException("The size of x is not equal to the size of y.");
             }
@@ -576,9 +607,9 @@ public interface Data {
          * @return this.
          */
         public XYZDatasetBuilder<S> addSeries(S key, Double[] x, Double[] y, Double[] z) {
-            Objects.requireNonNull(x);
-            Objects.requireNonNull(y);
-            Objects.requireNonNull(z);
+            requireNonNull(x);
+            requireNonNull(y);
+            requireNonNull(z);
             dataset.addSeries(key, new double[][]{convert(x), convert(y), convert(z)});
             return this;
         }

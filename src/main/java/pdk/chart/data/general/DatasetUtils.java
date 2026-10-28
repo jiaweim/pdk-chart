@@ -14,9 +14,12 @@ import pdk.chart.ms.PeptideDataset;
 import pdk.chart.util.Args;
 import pdk.chart.util.ArrayUtils;
 
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import static java.util.Objects.requireNonNull;
 
@@ -25,10 +28,41 @@ import static java.util.Objects.requireNonNull;
  */
 public final class DatasetUtils {
 
-    /**
-     * Private constructor for non-instanceability.
-     */
     private DatasetUtils() {}
+
+    /**
+     * Returns the first {@code count} full English month names, mirroring
+     * Chart.js {@code Utils.months({count: 7})}.
+     *
+     * @param count the number of months, between 1 and 12
+     * @return an array such as
+     * {"January", "February", ..., "July"} when {@code count} is 7
+     */
+    public static String[] months(int count) {
+        return months(count, TextStyle.FULL, Locale.ENGLISH);
+    }
+
+    /**
+     * Returns the first {@code count} month names using the given text style
+     * (full name or short form) and locale.
+     *
+     * @param count  the number of months, between 1 and 12
+     * @param style  {@link TextStyle#FULL} for full names,
+     *               {@link TextStyle#SHORT} for abbreviations
+     * @param locale the locale
+     * @return an array of month names
+     * @throws IllegalArgumentException if {@code count} is not between 1 and 12
+     */
+    public static String[] months(int count, TextStyle style, Locale locale) {
+        if (count < 1 || count > 12) {
+            throw new IllegalArgumentException("count must be between 1 and 12, but was " + count);
+        }
+        String[] result = new String[count];
+        for (int i = 0; i < count; i++) {
+            result[i] = Month.of(i + 1).getDisplayName(style, locale);
+        }
+        return result;
+    }
 
     /**
      * Calculates the total of all the values in a {@link PieDataset}.  If

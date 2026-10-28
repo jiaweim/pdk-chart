@@ -116,7 +116,6 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
 
                 // set up the series names...
                 if (seriesKeys != null) {
-
                     if (seriesKeys.length != seriesCount) {
                         throw new IllegalArgumentException(
                                 "The number of series keys does not "
@@ -146,8 +145,7 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
                     }
                     this.categoryKeys = categoryKeys;
                 } else {
-                    String prefix = resources.getString(
-                            "categories.default-prefix") + " ";
+                    String prefix = resources.getString("categories.default-prefix") + " ";
                     this.categoryKeys = generateKeys(categoryCount, prefix);
                 }
 

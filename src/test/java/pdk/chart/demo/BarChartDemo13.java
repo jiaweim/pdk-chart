@@ -2,6 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.api.RectangleEdge;
+import pdk.chart.color.JColorQualitative;
 import pdk.chart.data.category.DefaultCategoryDataset;
 import pdk.chart.renderer.category.RoundedBarPainter;
 import pdk.chart.swing.ChartPanel;
@@ -36,8 +37,9 @@ public class BarChartDemo13 {
         chart.withDomainGridlinesVisible(true)
                 .withRangeGridlinesVisible(true);
 
-        final Color RED = new Color(255, 99, 132);
-        final Color BLUE = new Color(54, 162, 235);
+        Color[] colors = JColorQualitative.ChartJS();
+        final Color RED = colors[0];
+        final Color BLUE = colors[1];
 
         chart.getRenderer()
                 .withBarPainter(new RoundedBarPainter(true))

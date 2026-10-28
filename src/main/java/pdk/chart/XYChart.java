@@ -22,7 +22,8 @@ import pdk.chart.renderer.xy.*;
 
 import java.awt.*;
 import java.util.Collection;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Base class for charts that use an {@link XYPlot}.
@@ -401,9 +402,21 @@ public class XYChart extends Chart {
      * @throws NullPointerException if {@code chartType} is {@code null}
      */
     public void setDataset(int index, XYDataset dataset, Type type) {
-        Objects.requireNonNull(type);
+        requireNonNull(type);
         plot_.setDataset(index, dataset);
         plot_.setRenderer(index, type.getRenderer());
+    }
+
+    /**
+     *
+     * @param index
+     * @param dataset
+     * @param renderer
+     */
+    public void setDataset(int index, XYDataset dataset, XYItemRenderer renderer) {
+        requireNonNull(dataset);
+        plot_.setDataset(index, dataset);
+        plot_.setRenderer(index, renderer);
     }
 
     /**
