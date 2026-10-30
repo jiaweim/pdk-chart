@@ -3,11 +3,9 @@ package pdk.chart.demo;
 import pdk.chart.AxisType;
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
-import pdk.chart.plot.XYPlot;
-import pdk.chart.renderer.xy.XYBarRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -23,20 +21,17 @@ public class XYBarChartDemo6 extends ApplicationFrame {
         this.setContentPane(chartPanel);
     }
 
-    private static Chart createChart(IntervalXYDataset dataset) {
-        Chart chart = new BarChart(dataset, "X", AxisType.NUMBER,
+    private static BarChart createChart(IntervalXYDataset<String> dataset) {
+        BarChart chart = new BarChart(dataset, "X", AxisType.NUMBER,
                 "Y", "XYBarChartDemo6", PlotOrientation.HORIZONTAL, false, false);
-        XYPlot plot = (XYPlot) chart.getPlot();
-        plot.setDomainPannable(true);
-        plot.setRangePannable(true);
-        XYBarRenderer renderer = (XYBarRenderer) plot.getRenderer();
-        renderer.setUseYInterval(true);
-        plot.setRenderer(renderer);
+
+        chart.withPannable(true, true);
+        chart.setUseYInterval(true);
         return chart;
     }
 
-    private static IntervalXYDataset createDataset() {
-        return Data.createIntervalXY("Series 1",
+    private static IntervalXYDataset<String> createDataset() {
+        return DatasetUtils.createIntervalXY("Series 1",
                 new double[]{1.0, 2.0, 3.0, 4.0},
                 new double[]{0.9, 1.8, 2.7, 3.6},
                 new double[]{1.1, 2.2, 3.3, 4.4},

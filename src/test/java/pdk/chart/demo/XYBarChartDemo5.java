@@ -1,15 +1,18 @@
 package pdk.chart.demo;
 
-import pdk.chart.*;
+import pdk.chart.AxisType;
+import pdk.chart.BarChart;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.DateTickMarkPosition;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBarRenderer;
@@ -78,7 +81,7 @@ public class XYBarChartDemo5 extends ApplicationFrame {
                         236.0, 128.0, -158.0, -378.0, -412.0
                 }
         );
-        return Data.createTime(timeSeries);
+        return DatasetUtils.createTime(timeSeries);
     }
 
     public static JPanel createDemoPanel() {

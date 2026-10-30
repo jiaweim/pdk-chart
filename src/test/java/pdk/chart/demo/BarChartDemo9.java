@@ -5,7 +5,7 @@ import pdk.chart.Chart;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
 import pdk.chart.renderer.category.StandardBarPainter;
@@ -39,7 +39,7 @@ public class BarChartDemo9 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategory("Network Traffic",
+        return DatasetUtils.createCategory("Network Traffic",
                 new String[]{"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"},
                 new double[]{410.0, 680.0, 530.0, 570.0, 330.0}
         );

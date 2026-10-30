@@ -1,11 +1,14 @@
 package pdk.chart.demo;
 
-import pdk.chart.*;
+import pdk.chart.AxisType;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
+import pdk.chart.LineChart;
 import pdk.chart.axis.DateAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.Minute;
 import pdk.chart.data.time.Second;
 import pdk.chart.data.xy.XYDataset;
-import pdk.chart.model.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -51,7 +54,7 @@ public class RelativeDateFormatDemo1 extends ApplicationFrame {
     }
 
     private static XYDataset<String> createDataset() {
-        return Data.createTime("Heart Rate",
+        return DatasetUtils.createTime("Heart Rate",
                 new Second[]{
                         new Second(45, 6, 9, 1, 10, 2006),
                         new Second(33, 8, 9, 1, 10, 2006),

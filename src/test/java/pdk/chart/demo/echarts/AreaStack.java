@@ -3,7 +3,7 @@ package pdk.chart.demo.echarts;
 import pdk.chart.CategoryStackedAreaChart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.renderer.AreaRendererEndType;
 
 /**
@@ -18,12 +18,12 @@ public class AreaStack {
         String[] categories = new String[]{
                 "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"
         };
-        DefaultCategoryDataset<String, String> dataset = Data.<String, String>category()
-                .addSeries("Email", categories, new double[]{120, 132, 101, 134, 90, 230, 210})
-                .addSeries("Union Ads", categories, new double[]{220, 182, 191, 234, 290, 330, 310})
-                .addSeries("Video Ads", categories, new double[]{150, 232, 201, 154, 190, 330, 410})
-                .addSeries("Direct", categories, new double[]{320, 332, 301, 334, 390, 330, 320})
-                .addSeries("Search Engine", categories, new double[]{820, 932, 901, 934, 1290, 1330, 1320})
+        DefaultCategoryDataset<String, String> dataset = DatasetUtils.<String, String>category(categories)
+                .addSeries("Email", new double[]{120, 132, 101, 134, 90, 230, 210})
+                .addSeries("Union Ads", new double[]{220, 182, 191, 234, 290, 330, 310})
+                .addSeries("Video Ads", new double[]{150, 232, 201, 154, 190, 330, 410})
+                .addSeries("Direct", new double[]{320, 332, 301, 334, 390, 330, 320})
+                .addSeries("Search Engine", new double[]{820, 932, 901, 934, 1290, 1330, 1320})
                 .build();
         CategoryStackedAreaChart chart = new CategoryStackedAreaChart(dataset, null, null, "Stacked Area Chart");
         chart.setEndType(AreaRendererEndType.LEVEL);

@@ -1,7 +1,6 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.ScatterChart;
 import pdk.chart.annotations.XYAnnotation;
@@ -10,6 +9,7 @@ import pdk.chart.annotations.XYPointerAnnotation;
 import pdk.chart.api.LengthAdjustmentType;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.time.Hour;
 import pdk.chart.data.time.Minute;
@@ -104,7 +104,7 @@ public class MarkerDemo1 extends ApplicationFrame {
     }
 
     private static XYDataset<String> createDataset() {
-        return Data.<String>time()
+        return DatasetUtils.<String>time()
                 .addSeries(createSupplier1Bids())
                 .addSeries(createSupplier2Bids()).build();
     }

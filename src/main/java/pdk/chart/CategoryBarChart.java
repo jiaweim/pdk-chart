@@ -5,11 +5,11 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarPainter;
 import pdk.chart.renderer.category.BarRenderer;
@@ -202,7 +202,7 @@ public class CategoryBarChart extends CategoryChart {
      * @param orientation the plot orientation ({@code null} not permitted)
      */
     public CategoryBarChart(String[] categories, double[] values, PlotOrientation orientation) {
-        this(Data.createCategory("", categories, values), orientation);
+        this(DatasetUtils.createCategory("", categories, values), orientation);
     }
 
     /**
@@ -214,7 +214,7 @@ public class CategoryBarChart extends CategoryChart {
      *                   as {@code categories})
      */
     public CategoryBarChart(String[] categories, double[] values) {
-        this(Data.createCategory("", categories, values), null, null, null,
+        this(DatasetUtils.createCategory("", categories, values), null, null, null,
                 PlotOrientation.VERTICAL, false, false);
     }
 

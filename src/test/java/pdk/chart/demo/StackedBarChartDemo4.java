@@ -1,12 +1,14 @@
 package pdk.chart.demo;
 
-import pdk.chart.*;
+import pdk.chart.CategoryStackedBarChart;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.axis.SubCategoryAxis;
 import pdk.chart.data.KeyToGroupMap;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
-import pdk.chart.model.Data;
 import pdk.chart.plot.Plot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -27,30 +29,30 @@ public class StackedBarChartDemo4 extends ApplicationFrame {
 
     private static CategoryDataset<String, String> createDataset() {
         String[] categories = new String[]{"Jan 04", "Feb 04", "Mar 04"};
-        return Data.<String, String>category()
-                .addSeries("Product 1 (US)", categories,
+        return DatasetUtils.<String, String>category(categories)
+                .addSeries("Product 1 (US)",
                         new double[]{20.3, 27.2, 19.7})
-                .addSeries("Product 1 (Europe)", categories,
+                .addSeries("Product 1 (Europe)",
                         new double[]{19.4, 10.9, 18.4})
-                .addSeries("Product 1 (Asia)", categories,
+                .addSeries("Product 1 (Asia)",
                         new double[]{16.5, 15.9, 16.1})
-                .addSeries("Product 1 (Middle East)", categories,
+                .addSeries("Product 1 (Middle East)",
                         new double[]{13.2, 14.4, 13.7})
-                .addSeries("Product 2 (US)", categories,
+                .addSeries("Product 2 (US)",
                         new double[]{23.3, 16.2, 28.7})
-                .addSeries("Product 2 (Europe)", categories,
+                .addSeries("Product 2 (Europe)",
                         new double[]{12.7, 17.9, 12.6})
-                .addSeries("Product 2 (Asia)", categories,
+                .addSeries("Product 2 (Asia)",
                         new double[]{15.4, 21.0, 11.1})
-                .addSeries("Product 2 (Middle East)", categories,
+                .addSeries("Product 2 (Middle East)",
                         new double[]{23.8, 23.4, 19.3})
-                .addSeries("Product 3 (US)", categories,
+                .addSeries("Product 3 (US)",
                         new double[]{11.9, 31.0, 22.7})
-                .addSeries("Product 3 (Europe)", categories,
+                .addSeries("Product 3 (Europe)",
                         new double[]{15.3, 14.4, 25.3})
-                .addSeries("Product 3 (Asia)", categories,
+                .addSeries("Product 3 (Asia)",
                         new double[]{23.9, 19.0, 10.1})
-                .addSeries("Product 3 (Middle East)", categories,
+                .addSeries("Product 3 (Middle East)",
                         new double[]{13.2, 15.5, 10.1})
                 .build();
     }

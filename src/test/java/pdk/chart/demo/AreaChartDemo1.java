@@ -11,7 +11,7 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -36,12 +36,12 @@ public class AreaChartDemo1 extends ApplicationFrame {
                 "Type 5", "Type 6", "Type 7", "Type 8"
         };
 
-        return Data.<String, String>category()
-                .addSeries("Series 1", categories,
+        return DatasetUtils.<String, String>category(categories)
+                .addSeries("Series 1",
                         new double[]{1.0, 4.0, 3.0, 5.0, 5.0, 7.0, 7.0, 8.0})
-                .addSeries("Series 2", categories,
+                .addSeries("Series 2",
                         new double[]{5.0, 7.0, 6.0, 8.0, 4.0, 4.0, 2.0, 1.0})
-                .addSeries("Series 3", categories,
+                .addSeries("Series 3",
                         new double[]{4.0, 3.0, 2.0, 3.0, 6.0, 3.0, 4.0, 3.0})
                 .build();
     }

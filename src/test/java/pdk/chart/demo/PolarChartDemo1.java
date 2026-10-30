@@ -26,16 +26,16 @@ public class PolarChartDemo1 extends ApplicationFrame {
     private static XYDataset createDataset() {
         XYSeriesCollection result = new XYSeriesCollection();
         XYSeries s1 = new XYSeries("Series 1");
-        s1.add((double) 0.0F, (double) 2.0F);
-        s1.add((double) 90.0F, (double) 13.0F);
-        s1.add((double) 180.0F, (double) 9.0F);
-        s1.add((double) 270.0F, (double) 8.0F);
+        s1.add(0.0, 2.0);
+        s1.add(90.0, 13.0);
+        s1.add(180.0, 9.0);
+        s1.add(270.0, 8.0);
         result.addSeries(s1);
         XYSeries s2 = new XYSeries("Series 2");
-        s2.add((double) 90.0F, -11.2);
-        s2.add((double) 180.0F, 21.4);
-        s2.add((double) 250.0F, 17.3);
-        s2.add((double) 355.0F, 10.9);
+        s2.add(90.0F, -11.2);
+        s2.add(180.0F, 21.4);
+        s2.add(250.0F, 17.3);
+        s2.add(355.0F, 10.9);
         result.addSeries(s2);
         return result;
     }
@@ -60,7 +60,7 @@ public class PolarChartDemo1 extends ApplicationFrame {
         return panel;
     }
 
-    public static void main(String[] args) {
+    static void main() {
         PolarChartDemo1 demo = new PolarChartDemo1("Chart: PolarChartDemo1.java");
         demo.pack();
         UIUtils.centerFrameOnScreen(demo);

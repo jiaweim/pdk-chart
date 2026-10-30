@@ -2,13 +2,13 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
 import pdk.chart.legend.LegendTitle;
@@ -41,12 +41,12 @@ public class StackedBarChartDemo2 extends ApplicationFrame {
 
     private static CategoryDataset<String, String> createDataset() {
         String[] categories = {"Italy", "Great Britain", "USA", "Israel", "Russia", "India", "Average (*)"};
-        return Data.<String, String>category()
-                .addSeries("Against all torture", categories,
+        return DatasetUtils.<String, String>category(categories)
+                .addSeries("Against all torture",
                         new double[]{81.0, 72.0, 58.0, 48.0, 43.0, 23.0, 59.0})
-                .addSeries("-", categories,
+                .addSeries("-",
                         new double[]{5.0, 4.0, 6.0, 9.0, 20.0, 45.0, 12.0})
-                .addSeries("Some degree permissible", categories,
+                .addSeries("Some degree permissible",
                         new double[]{14.0, 24.0, 36.0, 43.0, 37.0, 32.0, 29.0,})
                 .build();
     }

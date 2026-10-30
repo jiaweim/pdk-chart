@@ -1,10 +1,13 @@
 package pdk.chart.demo;
 
-import pdk.chart.*;
+import pdk.chart.AxisType;
+import pdk.chart.BarChart;
+import pdk.chart.Chart;
+import pdk.chart.JChart;
 import pdk.chart.axis.DateAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -53,7 +56,7 @@ public class RelativeDateFormatDemo2 extends ApplicationFrame {
     }
 
     private static IntervalXYDataset<String> createDataset() {
-        return Data.createTime("Completion",
+        return DatasetUtils.createTime("Completion",
                 new Day[]{
                         new Day(19, 1, 2007),
                         new Day(20, 1, 2007),

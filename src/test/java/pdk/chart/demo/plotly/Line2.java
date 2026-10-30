@@ -2,8 +2,8 @@ package pdk.chart.demo.plotly;
 
 import pdk.chart.AxisType;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.LineChart;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.TimeSeries;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
@@ -41,7 +41,7 @@ public class Line2 {
             }
         }
 
-        IntervalXYDataset<String> dataset = Data.createTime(australia, newZealand);
+        IntervalXYDataset<String> dataset = DatasetUtils.createTime(australia, newZealand);
         Chart chart = new LineChart(dataset, "year", AxisType.DATE, "lifeExp");
         chart.show();
     }

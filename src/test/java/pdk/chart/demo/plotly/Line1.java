@@ -2,9 +2,9 @@ package pdk.chart.demo.plotly;
 
 import pdk.chart.AxisType;
 import pdk.chart.LineChart;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.Year;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.model.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +39,7 @@ public class Line1 {
             lifeExpArray[i] = lifeExpList.get(i);
         }
 
-        IntervalXYDataset<String> dataset = Data.createTime("", yearList.toArray(new Year[0]), lifeExpArray);
+        IntervalXYDataset<String> dataset = DatasetUtils.createTime("", yearList.toArray(new Year[0]), lifeExpArray);
 
         LineChart chart = new LineChart(dataset, "year", AxisType.DATE,
                 "lifeExp", "Life expectancy in Canada");

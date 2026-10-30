@@ -5,8 +5,8 @@ import pdk.chart.JChart;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.model.Data;
 import pdk.chart.legend.PaintScaleLegend;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.LookupPaintScale;
@@ -65,7 +65,7 @@ public class XYShapeRendererDemo1 extends ApplicationFrame {
         double[] y = new double[]{14.1, 17.1, 10.0, 8.8, 8.7, 8.4, 5.4, 4.1, 4.1, 25.0};
         double[] z = new double[]{2.4, 2.7, 1.7, 2.2, 1.3, 2.2, 2.1, 3.2, 1.6, 3.4};
 
-        return Data.createXYZ("Series 1", x, y, z);
+        return DatasetUtils.createXYZ("Series 1", x, y, z);
     }
 
     public static JPanel createDemoPanel() {

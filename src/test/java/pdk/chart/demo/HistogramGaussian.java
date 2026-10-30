@@ -1,7 +1,7 @@
 package pdk.chart.demo;
 
 import pdk.chart.BarChart;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.statistics.HistogramDataset;
 
 import java.util.Random;
@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class HistogramGaussian {
     static void main() {
-        Data.HistogramDatasetBuilder his = Data.his();
+        DatasetUtils.HistogramDatasetBuilder his = DatasetUtils.his();
         double[] values = new double[1000];
         Random random = new Random(12345678L);
         for (int i = 0; i < 1000; i++) {

@@ -4,9 +4,10 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.color.JColorSequential;
+import pdk.chart.data.DataUtils;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.legend.PaintScaleLegend;
-import pdk.chart.model.Data;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.GradientPaintScale;
 import pdk.chart.renderer.xy.XYShapeRenderer;
@@ -82,8 +83,8 @@ public class ScatterChartV2 extends XYChart {
         xAxis.setAutoRangeIncludesZero(false);
         NumberAxis yAxis = new NumberAxis(yAxisName);
 
-        double zMin = Data.getMinZ(dataset);
-        double zMax = Data.getMaxZ(dataset);
+        double zMin = DataUtils.getMinZ(dataset);
+        double zMax = DataUtils.getMaxZ(dataset);
 
         if (colors == null) {
             colors = JColorSequential.Plasma();
@@ -138,7 +139,7 @@ public class ScatterChartV2 extends XYChart {
      */
     public ScatterChartV2(Double[] x, Double[] y, Double[] z, String xAxisName, String yAxisName,
             String zAxisName, Color[] colors, String title) {
-        this(Data.createXYZ(x, y, z), xAxisName, yAxisName, zAxisName, colors, title);
+        this(DatasetUtils.createXYZ(x, y, z), xAxisName, yAxisName, zAxisName, colors, title);
     }
 
     /**
@@ -166,7 +167,7 @@ public class ScatterChartV2 extends XYChart {
      */
     public ScatterChartV2(Double[] x, Double[] y, Double[] z, String xAxisName, String yAxisName,
             String zAxisName, Color[] colors) {
-        this(Data.createXYZ(x, y, z), xAxisName, yAxisName, zAxisName, colors, null);
+        this(DatasetUtils.createXYZ(x, y, z), xAxisName, yAxisName, zAxisName, colors, null);
     }
 
     /**

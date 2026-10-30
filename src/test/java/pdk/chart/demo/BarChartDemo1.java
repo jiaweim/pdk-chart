@@ -6,9 +6,9 @@ import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.DefaultCategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategorySeriesLabelGenerator;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.model.Data;
 import pdk.chart.renderer.category.StandardBarPainter;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.title.TextTitle;
@@ -20,9 +20,9 @@ public class BarChartDemo1 {
 
     private static Chart createChart() {
         String[] categories = new String[]{"18 to 39", "40 - 59", "60 and over"};
-        DefaultCategoryDataset<String, String> dataset = Data.<String, String>category()
-                .addSeries("Males", categories, new double[]{5.5, 8.4, 12.8})
-                .addSeries("Females", categories, new double[]{10.3, 20.1, 24.3})
+        DefaultCategoryDataset<String, String> dataset = DatasetUtils.<String, String>category(categories)
+                .addSeries("Males", new double[]{5.5, 8.4, 12.8})
+                .addSeries("Females", new double[]{10.3, 20.1, 24.3})
                 .build();
 
         CategoryBarChart chart = new CategoryBarChart(dataset, "Age Category", "Percent", "Antidepressant Medication Usage");

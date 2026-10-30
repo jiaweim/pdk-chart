@@ -1,9 +1,9 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.StackedBarChart;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.TableXYDataset;
 import pdk.chart.data.xy.XYSeries;
 import pdk.chart.swing.ApplicationFrame;
@@ -30,7 +30,7 @@ public class StackedXYBarChartDemo1 extends ApplicationFrame {
         s2.add(new double[]{1.0, 2.0, 3.0, 4.0},
                 new double[]{5.0, 15.5, 9.5, 3.5});
 
-        return Data.createTableXYDataset(s1, s2);
+        return DatasetUtils.createTableXYDataset(s1, s2);
     }
 
     private static Chart createChart(TableXYDataset<String> dataset) {

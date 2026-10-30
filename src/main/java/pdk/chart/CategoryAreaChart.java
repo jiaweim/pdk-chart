@@ -3,8 +3,8 @@ package pdk.chart;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.AreaRenderer;
@@ -148,7 +148,7 @@ public class CategoryAreaChart extends CategoryChart {
      *                   and must have the same length as {@code categories})
      */
     public CategoryAreaChart(String[] categories, double[] values) {
-        this(Data.createCategory("", categories, values),
+        this(DatasetUtils.createCategory("", categories, values),
                 null, null, null, PlotOrientation.VERTICAL, false, true);
     }
 

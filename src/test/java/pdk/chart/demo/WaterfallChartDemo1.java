@@ -6,9 +6,9 @@ import pdk.chart.axis.NumberTickUnit;
 import pdk.chart.axis.TickUnits;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.category.BarRenderer;
@@ -29,7 +29,7 @@ public class WaterfallChartDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategory("Product 1",
+        return DatasetUtils.createCategory("Product 1",
                 new String[]{"Labour", "Administration", "Marketing", "Distribution", "Total Expense"},
                 new double[]{15.76, 8.66, 4.71, 3.51, 32.64});
     }

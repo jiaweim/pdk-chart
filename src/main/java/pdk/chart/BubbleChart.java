@@ -1,9 +1,10 @@
 package pdk.chart;
 
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.DataUtils;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.labels.StandardXYZToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
 import pdk.chart.renderer.xy.XYBubbleRenderer;
@@ -121,7 +122,7 @@ public class BubbleChart extends XYChart {
      * @param size the bubble sizes (Z values)
      */
     public BubbleChart(double[] x, double[] y, double[] size) {
-        this(XYBubbleRenderer.ScaleType.SCALE_ON_RANGE_AXIS, Data.createXYZ("", x, y, size),
+        this(XYBubbleRenderer.ScaleType.SCALE_ON_RANGE_AXIS, DatasetUtils.createXYZ("", x, y, size),
                 null, null, null,
                 PlotOrientation.VERTICAL, false, true, false);
     }
@@ -147,8 +148,8 @@ public class BubbleChart extends XYChart {
             String xAxisLabel, String yAxisLabel) {
         this(null, xAxisLabel, yAxisLabel, null);
 
-        double rangeY = Data.getRange(y);
-        double maxZ = Data.getMax(size);
+        double rangeY = DataUtils.getRange(y);
+        double maxZ = DataUtils.getMax(size);
         double scale = Math.max(maxZ, rangeY) * 4;
 
         Double[] z = new Double[size.length];
@@ -156,7 +157,7 @@ public class BubbleChart extends XYChart {
             z[i] = size[i] / scale;
         }
 
-        Data.XYZDatasetBuilder<String> xyz = Data.xyz();
+        DatasetUtils.XYZDatasetBuilder<String> xyz = DatasetUtils.xyz();
         Map<String, ArrayList<Double>[]> map = new HashMap<>();
         if (seriesNames != null) {
             // create multiple series

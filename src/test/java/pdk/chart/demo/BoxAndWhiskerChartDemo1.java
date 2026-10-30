@@ -3,8 +3,8 @@ package pdk.chart.demo;
 import pdk.chart.CategoryBoxChart;
 import pdk.chart.Chart;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.statistics.BoxAndWhiskerCategoryDataset;
-import pdk.chart.model.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -33,7 +33,7 @@ public class BoxAndWhiskerChartDemo1 extends ApplicationFrame {
         int SERIES_COUNT = 3;
         int CATEGORY_COUNT = 5;
         int VALUE_COUNT = 20;
-        Data.BoxAndWhiskerCategoryDatasetBuilder<String, String> bwBuilder = Data.boxAndWhisker();
+        DatasetUtils.BoxAndWhiskerCategoryDatasetBuilder<String, String> bwBuilder = DatasetUtils.boxAndWhisker();
         for (int s = 0; s < SERIES_COUNT; ++s) {
             for (int c = 0; c < CATEGORY_COUNT; ++c) {
                 List<Double> values = createValueList(0.0, 20.0, VALUE_COUNT);

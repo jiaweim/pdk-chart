@@ -1,8 +1,8 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.ScatterChart;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYSeriesCollection;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.util.ShapeUtils;
@@ -33,7 +33,7 @@ public class ScatterPlotDemo6 {
     }
 
     private static Chart createChart() {
-        XYSeriesCollection<String> dataset = Data.<String>xy()
+        XYSeriesCollection<String> dataset = DatasetUtils.<String>xy()
                 .addSeries("Gaussian Blob 1", getGaussian(1000, 1, 10),
                         getGaussian(1000, 1, 10))
                 .addSeries("Gaussian Blob 2", getGaussian(1000, 1, 10),

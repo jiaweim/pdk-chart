@@ -3,8 +3,8 @@ package pdk.chart.demo;
 import pdk.chart.AxisType;
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
@@ -44,7 +44,7 @@ public class XYBarChartDemo4 extends ApplicationFrame {
     }
 
     private static IntervalXYDataset<String> createDataset() {
-        return Data.createIntervalXY("Series 1",
+        return DatasetUtils.createIntervalXY("Series 1",
                 new double[]{1.0, 2.0, 3.0},
                 new double[]{5.0, 70.8, 48.3},
                 0.9);

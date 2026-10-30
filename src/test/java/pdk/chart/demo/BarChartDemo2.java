@@ -34,9 +34,11 @@ public class BarChartDemo2 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        double[][] data = new double[][]{{1.0, 43.0F, 35.0F, 58.0F, 54.0F, 77.0F, 71.0F, 89.0F},
-                {54.0F, 75.0F, 63.0F, 83.0F, 43.0F, 46.0F, 27.0F, 13.0F},
-                {41.0F, 33.0F, 22.0F, 34.0F, 62.0F, 32.0F, 42.0F, 34.0F}};
+        double[][] data = new double[][]{
+                {1.0, 43.0, 35.0, 58.0, 54.0, 77.0, 71.0, 89.0},
+                {54.0, 75.0, 63.0, 83.0, 43.0, 46.0, 27.0, 13.0},
+                {41.0, 33.0, 22.0, 34.0, 62.0, 32.0, 42.0, 34.0}
+        };
         return DatasetUtils.createCategoryDataset("Series ", "Factor ", data);
     }
 

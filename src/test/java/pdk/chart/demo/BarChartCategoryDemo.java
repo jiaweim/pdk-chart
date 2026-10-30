@@ -2,7 +2,7 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryBarChart;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 
 /**
  *
@@ -13,10 +13,11 @@ import pdk.chart.model.Data;
  */
 public class BarChartCategoryDemo {
     static void main() {
-        String[] categories = {"18 to 39", "40 - 59", "60 and over",};
-        DefaultCategoryDataset<String, String> dataset = Data.<String, String>category()
-                .addSeries("Males", categories, new double[]{5.5, 8.4, 12.8})
-                .addSeries("Females", categories, new double[]{10.3, 20.1, 24.3}).build();
+        DefaultCategoryDataset<String, String> dataset = DatasetUtils.<String, String>
+                        category(new String[]{"18 to 39", "40 - 59", "60 and over"})
+                .addSeries("Males", new double[]{5.5, 8.4, 12.8})
+                .addSeries("Females", new double[]{10.3, 20.1, 24.3})
+                .build();
 
         CategoryBarChart chart = new CategoryBarChart(dataset,
                 "Age Category", "Percent", "Antidepressant Medication Usage");

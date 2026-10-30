@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.BarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.axis.NumberAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
@@ -34,7 +34,7 @@ public class HistogramDemo1 extends ApplicationFrame {
     }
 
     private static IntervalXYDataset<String> createDataset() {
-        Data.HistogramDatasetBuilder his = Data.his();
+        DatasetUtils.HistogramDatasetBuilder his = DatasetUtils.his();
         double[] values = new double[1000];
         Random generator = new Random(12345678L);
         for (int i = 0; i < 1000; ++i) {

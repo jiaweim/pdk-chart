@@ -1,6 +1,7 @@
 package pdk.chart.data;
 
 import pdk.chart.data.general.DatasetUtils;
+import pdk.chart.data.xy.XYZDataset;
 import pdk.chart.util.Args;
 
 import java.util.Arrays;
@@ -218,4 +219,72 @@ public abstract class DataUtils {
         return result;
     }
 
+    public static double getMinZ(XYZDataset dataset) {
+        double min = Double.MAX_VALUE;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double zValue = dataset.getZValue(s, i);
+                if (zValue < min) {
+                    min = zValue;
+                }
+            }
+        }
+        return min;
+    }
+
+    public static double getMaxZ(XYZDataset dataset) {
+        double max = -Double.MAX_VALUE;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double zValue = dataset.getZValue(s, i);
+                if (zValue > max) {
+                    max = zValue;
+                }
+            }
+        }
+        return max;
+    }
+
+    public static Range getZRange(XYZDataset dataset) {
+        double min = Double.POSITIVE_INFINITY;
+        double max = Double.NEGATIVE_INFINITY;
+        for (int s = 0; s < dataset.getSeriesCount(); s++) {
+            for (int i = 0; i < dataset.getItemCount(s); i++) {
+                double zValue = dataset.getZValue(s, i);
+                if (zValue < min) {
+                    min = zValue;
+                }
+                if (zValue > max) {
+                    max = zValue;
+                }
+            }
+        }
+        return new Range(min, max);
+    }
+
+    public static double getMin(Double[] values) {
+        double min = Double.MAX_VALUE;
+        for (Double value : values) {
+            min = Math.min(value, min);
+        }
+        return min;
+    }
+
+    public static double getMax(Double[] values) {
+        double max = -Double.MAX_VALUE;
+        for (Double value : values) {
+            max = Math.max(value, max);
+        }
+        return max;
+    }
+
+    public static double getRange(Double[] values) {
+        double min = Double.MAX_VALUE;
+        double max = -Double.MAX_VALUE;
+        for (Double value : values) {
+            max = Math.max(value, max);
+            min = Math.min(value, min);
+        }
+        return max - min;
+    }
 }

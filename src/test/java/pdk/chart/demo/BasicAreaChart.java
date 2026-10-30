@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.CategoryAreaChart;
 import pdk.chart.CategoryChart;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.DatasetRenderingOrder;
 import pdk.chart.renderer.category.LineAndShapeRenderer;
 import pdk.chart.util.ShapeUtils;
@@ -20,7 +20,7 @@ import java.awt.*;
 public class BasicAreaChart {
     static void main() {
 
-        CategoryDataset<String, String> data = Data.createCategory("",
+        CategoryDataset<String, String> data = DatasetUtils.createCategory("",
                 new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
                 new double[]{820, 932, 901, 934, 1290, 1330, 1320}
         );

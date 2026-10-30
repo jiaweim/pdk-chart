@@ -6,7 +6,7 @@ import pdk.chart.api.Layer;
 import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.CategoryMarker;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -34,7 +34,7 @@ public class CategoryMarkerDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategory("Series 1",
+        return DatasetUtils.createCategory("Series 1",
                 new String[]{"Category 1", "Category 2", "Category 3", "Category 4", "Category 5"},
                 new double[]{21.0, 50.0, 152.0, 184.0, 299.0});
     }

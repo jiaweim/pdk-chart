@@ -1,7 +1,6 @@
 package pdk.chart.demo;
 
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.LineChart;
 import pdk.chart.api.RectangleAnchor;
 import pdk.chart.api.RectangleEdge;
@@ -84,7 +83,7 @@ public class CrosshairOverlayDemo2 extends JFrame {
         }
 
         private XYDataset<String> createDataset() {
-            Data.XYDatasetBuilder<String> xy = Data.xy();
+            DatasetUtils.XYDatasetBuilder<String> xy = DatasetUtils.xy();
             for (int i = 0; i < 4; ++i) {
                 XYSeries<String> series = new XYSeries<>("S" + i);
                 for (int x = 0; x < 10; ++x) {

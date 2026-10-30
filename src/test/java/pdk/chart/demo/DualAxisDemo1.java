@@ -11,9 +11,9 @@ import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.EmptyBlock;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.model.Data;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.DatasetRenderingOrder;
 import pdk.chart.swing.ApplicationFrame;
@@ -44,20 +44,18 @@ public class DualAxisDemo1 extends ApplicationFrame {
                 "Category 8"
         };
 
-        return Data.<String, String>category()
+        return DatasetUtils.<String, String>category(categories)
                 .addSeries("S1",
-                        categories,
                         new double[]{1.0, 4.0, 3.0, 5.0, 5.0, 7.0, 7.0, 8.0})
                 .addSeries("S2",
-                        categories,
                         new double[]{5.0, 7.0, 6.0, 8.0, 4.0, 4.0, 2.0, 1.0})
                 .addSeries("S3",
-                        categories,
-                        new double[]{4.0, 3.0, 2.0, 3.0, 6.0, 3.0, 4.0, 3.0,}).build();
+                        new double[]{4.0, 3.0, 2.0, 3.0, 6.0, 3.0, 4.0, 3.0,})
+                .build();
     }
 
     private static CategoryDataset<String, String> createDataset2() {
-        return Data.createCategory("S4",
+        return DatasetUtils.createCategory("S4",
                 new String[]{"Category 1",
                         "Category 2",
                         "Category 3",

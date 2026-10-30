@@ -3,7 +3,7 @@ package pdk.chart.demo;
 import pdk.chart.CategoryBarChart;
 import pdk.chart.Chart;
 import pdk.chart.data.category.DefaultCategoryDataset;
-import pdk.chart.model.Data;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ChartPanel;
 
@@ -21,7 +21,7 @@ import java.util.Random;
 public class BarChartDemo12 {
 
     private static Chart createChart() {
-        final DefaultCategoryDataset<String, String> dataset = Data.createCategory(
+        final DefaultCategoryDataset<String, String> dataset = DatasetUtils.createCategory(
                 "Category",
                 new String[]{"Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7"},
                 new double[]{0, 0, 0, 0, 0, 0, 0}

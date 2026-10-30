@@ -3,9 +3,9 @@ package pdk.chart.demo;
 import pdk.chart.AxisType;
 import pdk.chart.ClusteredBarChart;
 import pdk.chart.axis.ValueAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.Day;
 import pdk.chart.data.xy.IntervalXYDataset;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -31,7 +31,7 @@ public class ClusteredXYBarRendererDemo1 extends ApplicationFrame {
     }
 
     private static IntervalXYDataset<String> createDataset() {
-        return Data.<String>time()
+        return DatasetUtils.<String>time()
                 .addSeries("Series 1",
                         new Day[]{
                                 new Day(1, 1, 2003),

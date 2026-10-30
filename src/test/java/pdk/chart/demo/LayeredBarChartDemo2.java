@@ -2,10 +2,10 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryLayeredBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.api.SortOrder;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -32,10 +32,10 @@ public class LayeredBarChartDemo2 extends ApplicationFrame {
 
     private static CategoryDataset<String, String> createDataset() {
         String[] categories = {"Category 1", "Category 2", "Category 3", "Category 4", "Category 5"};
-        return Data.<String, String>category()
-                .addSeries("First", categories, new double[]{1.0, 4.0, 3.0, 5.0, 5.0})
-                .addSeries("Second", categories, new double[]{5.0, 7.0, 6.0, 8.0, 4.0})
-                .addSeries("Third", categories, new double[]{4.0, 3.0, 2.0, 3.0, 6.0}).build();
+        return DatasetUtils.<String, String>category(categories)
+                .addSeries("First", new double[]{1.0, 4.0, 3.0, 5.0, 5.0})
+                .addSeries("Second", new double[]{5.0, 7.0, 6.0, 8.0, 4.0})
+                .addSeries("Third", new double[]{4.0, 3.0, 2.0, 3.0, 6.0}).build();
     }
 
     private static Chart createChart(CategoryDataset<String, String> dataset) {

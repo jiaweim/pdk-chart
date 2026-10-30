@@ -7,9 +7,9 @@ import pdk.chart.api.RectangleInsets;
 import pdk.chart.axis.AxisLocation;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -30,7 +30,7 @@ public class BarChartDemo5 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategory("Prison Population Rates",
+        return DatasetUtils.createCategory("Prison Population Rates",
                 new String[]{
                         "Norway", "Switzerland", "France", "Syria", "Germany",
                         "China", "Australia", "Egypt", "England & Wales", "New Zealand",

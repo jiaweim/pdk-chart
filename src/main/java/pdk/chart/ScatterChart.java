@@ -3,12 +3,12 @@ package pdk.chart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.time.TimeSeriesCollection;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.labels.XYToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.urls.StandardXYURLGenerator;
@@ -128,7 +128,7 @@ public class ScatterChart extends XYChart {
      * @throws IllegalArgumentException if {@code x} and {@code y} have different lengths
      */
     public ScatterChart(double[] x, double[] y) {
-        this(Data.createXY("", x, y), null, null, null,
+        this(DatasetUtils.createXY("", x, y), null, null, null,
                 PlotOrientation.VERTICAL, false, true, false);
     }
 
@@ -148,7 +148,7 @@ public class ScatterChart extends XYChart {
      *                                  different lengths
      */
     public ScatterChart(double[] x, double[] y, String xAxisName, String yAxisName) {
-        this(Data.createXY("", x, y), xAxisName, yAxisName, null,
+        this(DatasetUtils.createXY("", x, y), xAxisName, yAxisName, null,
                 PlotOrientation.VERTICAL, false, true, false);
     }
 
@@ -169,7 +169,7 @@ public class ScatterChart extends XYChart {
      *                                  different lengths
      */
     public ScatterChart(Double[] x, Double[] y, String xAxisName, String yAxisName) {
-        this(Data.createXY("", x, y), xAxisName, yAxisName,
+        this(DatasetUtils.createXY("", x, y), xAxisName, yAxisName,
                 PlotOrientation.VERTICAL, false, true);
     }
 

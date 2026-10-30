@@ -3,9 +3,9 @@ package pdk.chart;
 import pdk.chart.axis.DateAxis;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.axis.ValueAxis;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.urls.StandardXYURLGenerator;
@@ -243,7 +243,7 @@ public class LineChart extends XYChart {
      *                                  different lengths
      */
     public LineChart(double[] x, double[] y) {
-        this(Data.createXY("", x, y), null, null, null,
+        this(DatasetUtils.createXY("", x, y), null, null, null,
                 PlotOrientation.VERTICAL, false, true);
     }
 

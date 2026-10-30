@@ -6,7 +6,6 @@ import pdk.chart.api.RectangleEdge;
 import pdk.chart.color.JColorQualitative;
 import pdk.chart.data.category.IntervalCategoryDataset;
 import pdk.chart.data.general.DatasetUtils;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ChartPanel;
 
@@ -47,7 +46,7 @@ public class BarChartDemo14 {
         }
 
         IntervalCategoryDataset<String, String> dataset =
-                Data.<String, String>intervalCategory()
+                DatasetUtils.<String, String>intervalCategory()
                         .addSeries("Dataset 1", starts1, ends1)
                         .addSeries("Dataset 2", starts2, ends2)
                         .categories(labels)

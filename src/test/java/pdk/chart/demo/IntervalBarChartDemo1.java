@@ -2,9 +2,9 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryIntervalBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.IntervalCategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -33,7 +33,7 @@ public class IntervalBarChartDemo1 extends ApplicationFrame {
     }
 
     private static IntervalCategoryDataset<String, String> createDataset() {
-        return Data.<String, String>intervalCategory()
+        return DatasetUtils.<String, String>intervalCategory()
                 .addSeries(new double[]{0.1, 0.2, 0.3}, new double[]{0.5, 0.6, 0.7})
                 .addSeries(new double[]{0.3, 0.4, 0.5}, new double[]{0.7, 0.8, 0.9})
                 .build();

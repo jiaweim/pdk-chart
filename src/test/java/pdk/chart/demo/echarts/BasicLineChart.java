@@ -2,8 +2,8 @@ package pdk.chart.demo.echarts;
 
 import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.util.ShapeUtils;
 
@@ -21,7 +21,7 @@ import java.awt.*;
 public class BasicLineChart {
 
     private static Chart createChart() {
-        CategoryDataset<String, String> dataset = Data.createCategory(
+        CategoryDataset<String, String> dataset = DatasetUtils.createCategory(
                 "Category",
                 new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
                 new double[]{150, 230, 224, 218, 135, 147, 260}

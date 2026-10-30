@@ -6,9 +6,8 @@ import pdk.chart.axis.CategoryAxis;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
-import pdk.chart.model.Data;
-import pdk.chart.plot.CategoryPlot;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -41,20 +40,20 @@ public class StackedBarChartDemo1 extends ApplicationFrame {
                 "Mexico", "Vietnam", "Egypt", "Iran", "Pakistan",
                 "Thailand", "Canada", "Iraq", "US", "Uzbekistan"
         };
-        return Data.<String, String>category()
-                .addSeries("Agricultural", categories, new double[]{
+        return DatasetUtils.<String, String>category(categories)
+                .addSeries("Agricultural", new double[]{
                         197.0, 339.0, 279.0, 92.0, 96.0,
                         403.0, 536.0, 508.0, 428.0, 325.0,
                         569.0, 576.0, 794.0, 954.0, 1029.0,
                         1236.0, 165.0, 1363.0, 656.0, 2040.0
                 })
-                .addSeries("Domestic", categories, new double[]{
+                .addSeries("Domestic", new double[]{
                         64.0, 30.0, 27.0, 55.0, 102.0,
                         82.0, 17.0, 47.0, 138.0, 130.0,
                         126.0, 68.0, 74.0, 21.0, 21.0,
                         26.0, 274.0, 44.0, 208.0, 110.0
                 })
-                .addSeries("Industrial", categories, new double[]{
+                .addSeries("Industrial", new double[]{
                         57.0, 4.0, 107.0, 313.0, 337.0,
                         60.0, 6.0, 30.0, 124.0, 268.0,
                         37.0, 203.0, 55.0, 73.0, 21.0,

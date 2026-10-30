@@ -6,9 +6,9 @@ import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.axis.CategoryAnchor;
 import pdk.chart.axis.CategoryAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.ItemLabelAnchor;
 import pdk.chart.labels.ItemLabelPosition;
-import pdk.chart.model.Data;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -35,7 +35,7 @@ public class SurveyResultsDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategory("Results",
+        return DatasetUtils.createCategory("Results",
                 new String[]{
                         "Category 1", "Category 2", "Category 3", "Category 4", "Category 5",
                         "Category 6", "Category 7", "Category 8", "Category 9", "Category 10",

@@ -112,7 +112,7 @@ Set the default shape. The default shape will only take effect when no series sh
 
 
 
-## Chart
+## Configuration
 
 ### Title
 
@@ -144,6 +144,18 @@ items.add(new LegendItem("Against all torture", null, null, null,
 items.add(new LegendItem("Some degree permissible", null, null, null,
         new Rectangle2D.Double(-6.0, -3.0, 12.0, 6.0), Color.RED));
 plot.setFixedLegendItems(items);
+```
+
+##### Legend Shape
+
+1. Set legend shape with `Renderer`
+
+```java
+// set default legend shape for all series
+public void setDefaultLegendShape(Shape shape);
+
+// set legend shape for a given series
+public void setLegendShape(int series, Shape shape)
 ```
 
 

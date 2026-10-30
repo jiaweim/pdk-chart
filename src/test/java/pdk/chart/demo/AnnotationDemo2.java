@@ -9,10 +9,10 @@ import pdk.chart.axis.NumberAxis;
 import pdk.chart.block.BlockContainer;
 import pdk.chart.block.BorderArrangement;
 import pdk.chart.block.EmptyBlock;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYDataset;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.legend.LegendTitle;
-import pdk.chart.model.Data;
 import pdk.chart.renderer.xy.XYLineAndShapeRenderer;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
@@ -37,7 +37,7 @@ public class AnnotationDemo2 extends ApplicationFrame {
     }
 
     public static XYDataset<String> createDataset1() {
-        return Data.createXY("Random Data 1",
+        return DatasetUtils.createXY("Random Data 1",
                 new double[]{
                         1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
                         7.0, 8.0, 9.0, 10.0, 11.0, 12.0,
@@ -52,7 +52,7 @@ public class AnnotationDemo2 extends ApplicationFrame {
     }
 
     public static XYDataset<String> createDataset2() {
-        return Data.createXY("Random Data 2",
+        return DatasetUtils.createXY("Random Data 2",
                 new double[]{
                         1.0, 2.0, 3.0, 4.0, 5.0, 6.0,
                         7.0, 8.0, 9.0, 10.0, 11.0, 12.0,

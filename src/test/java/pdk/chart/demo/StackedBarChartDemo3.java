@@ -2,10 +2,10 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryStackedBarChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.labels.StandardCategoryItemLabelGenerator;
 import pdk.chart.labels.StandardCategoryToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
@@ -28,14 +28,14 @@ public class StackedBarChartDemo3 extends ApplicationFrame {
 
     private static CategoryDataset<String, String> createDataset() {
         String[] categories = new String[]{"Jan", "Feb", "Mar"};
-        return Data.<String, String>category()
-                .addSeries("Series 1", categories,
+        return DatasetUtils.<String, String>category(categories)
+                .addSeries("Series 1",
                         new double[]{10.0, 12.0, 13.0})
-                .addSeries("Series 2", categories,
+                .addSeries("Series 2",
                         new double[]{4.0, 3.0, 2.0})
-                .addSeries("Series 3", categories,
+                .addSeries("Series 3",
                         new double[]{2.0, 3.0, 2.0})
-                .addSeries("Series 4", categories,
+                .addSeries("Series 4",
                         new double[]{2.0, 3.0, 4.0})
                 .build();
     }

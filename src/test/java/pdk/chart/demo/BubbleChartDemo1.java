@@ -2,8 +2,8 @@ package pdk.chart.demo;
 
 import pdk.chart.BubbleChart;
 import pdk.chart.Chart;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.model.Data;
 import pdk.chart.swing.ApplicationFrame;
 import pdk.chart.swing.ChartPanel;
 import pdk.chart.swing.UIUtils;
@@ -31,7 +31,7 @@ public class BubbleChartDemo1 extends ApplicationFrame {
     }
 
     public static XYZDataset<String> createDataset() {
-        return Data
+        return DatasetUtils
                 .<String>xyz()
                 .addSeries("Series 1",
                         new double[]{2.1, 2.3, 2.3, 2.2, 2.2, 1.8, 1.8, 1.9, 2.3, 3.8},

@@ -6,6 +6,7 @@ import pdk.chart.axis.ValueAxis;
 import pdk.chart.data.statistics.HistogramDataset;
 import pdk.chart.data.xy.IntervalXYDataset;
 import pdk.chart.data.xy.XYDataset;
+import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.labels.StandardXYToolTipGenerator;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.plot.XYPlot;
@@ -304,4 +305,15 @@ public class BarChart extends XYChart {
             GradientPaintTransformer transformer) {
         renderer1_.setGradientPaintTransformer(transformer);
     }
+
+    /**
+     * Sets the flag that determines whether the y-interval from the dataset is used to calculate the length of each
+     * bar, and sends a {@link RendererChangeEvent} to all registered listeners.
+     *
+     * @param use the flag.
+     */
+    public void setUseYInterval(boolean use) {
+        renderer1_.setUseYInterval(use);
+    }
+
 }

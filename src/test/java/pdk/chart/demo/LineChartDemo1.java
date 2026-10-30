@@ -2,13 +2,13 @@ package pdk.chart.demo;
 
 import pdk.chart.CategoryLineChart;
 import pdk.chart.Chart;
-import pdk.chart.model.Data;
 import pdk.chart.JChart;
 import pdk.chart.api.HorizontalAlignment;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.axis.CategoryLabelPositions;
 import pdk.chart.axis.NumberAxis;
 import pdk.chart.data.category.CategoryDataset;
+import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.PlotOrientation;
 import pdk.chart.swing.ApplicationFrame;
@@ -37,7 +37,7 @@ public class LineChartDemo1 extends ApplicationFrame {
     }
 
     private static CategoryDataset<String, String> createDataset() {
-        return Data.createCategory("Classes",
+        return DatasetUtils.createCategory("Classes",
                 new String[]{
                         "JDK 1.0", "JDK 1.1", "JDK 1.2", "JDK 1.3", "JDK 1.4",
                         "JDK 1.5", "JDK 1.6", "JDK 1.7", "JDK 8", "JDK 9",

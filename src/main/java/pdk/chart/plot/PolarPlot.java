@@ -1,6 +1,5 @@
 package pdk.chart.plot;
 
-import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.api.PublicCloneable;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.api.RectangleInsets;
@@ -13,15 +12,15 @@ import pdk.chart.data.xy.XYDataset;
 import pdk.chart.event.PlotChangeEvent;
 import pdk.chart.event.RendererChangeEvent;
 import pdk.chart.event.RendererChangeListener;
-import pdk.chart.util.Args;
-import pdk.chart.util.CloneUtils;
-import pdk.chart.util.PaintUtils;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.legend.LegendItem;
 import pdk.chart.legend.LegendItemCollection;
+import pdk.chart.model.ChartElementVisitor;
 import pdk.chart.renderer.PolarItemRenderer;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.CloneUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
@@ -33,6 +32,8 @@ import java.io.Serializable;
 import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * Plots data that is in (theta, radius) pairs where theta equal to zero is
@@ -412,7 +413,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      */
     public void setAxisLocation(int index, PolarAxisLocation location,
             boolean notify) {
-        Args.nullNotPermitted(location, "location");
+        requireNonNull(location, "location");
         this.axisLocations.put(index, location);
         if (notify) {
             fireChangeEvent();
@@ -597,7 +598,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * @param unit the tick unit ({@code null} not permitted).
      */
     public void setAngleTickUnit(TickUnit unit) {
-        Args.nullNotPermitted(unit, "unit");
+        requireNonNull(unit, "unit");
         this.angleTickUnit = unit;
         fireChangeEvent();
     }
@@ -689,7 +690,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * @see #getAngleLabelFont()
      */
     public void setAngleLabelFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        requireNonNull(font, "font");
         this.angleLabelFont = font;
         fireChangeEvent();
     }
@@ -711,7 +712,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * @param paint the paint ({@code null} not permitted).
      */
     public void setAngleLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(paint, "paint");
         this.angleLabelPaint = paint;
         fireChangeEvent();
     }
@@ -944,7 +945,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * @see #removeCornerTextItem(String)
      */
     public void addCornerTextItem(String text) {
-        Args.nullNotPermitted(text, "text");
+        requireNonNull(text, "text");
         this.cornerTextItems.add(text);
         fireChangeEvent();
     }
@@ -1140,7 +1141,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * @return The renderer index.
      */
     public int getIndexOf(PolarItemRenderer renderer) {
-        Args.nullNotPermitted(renderer, "renderer");
+        requireNonNull(renderer, "renderer");
         for (Entry<Integer, PolarItemRenderer> entry : this.renderers.entrySet()) {
             if (renderer.equals(entry.getValue())) {
                 return entry.getKey();
@@ -1459,7 +1460,7 @@ public class PolarPlot extends Plot implements ValueAxisPlot, Zoomable,
      * @return A list of datasets.
      */
     private List<XYDataset> getDatasetsMappedToAxis(Integer axisIndex) {
-        Args.nullNotPermitted(axisIndex, "axisIndex");
+        requireNonNull(axisIndex, "axisIndex");
         List<XYDataset> result = new ArrayList<>();
         for (Entry<Integer, XYDataset> entry : this.datasets.entrySet()) {
             List<Integer> mappedAxes = this.datasetToAxesMap.get(entry.getKey());
