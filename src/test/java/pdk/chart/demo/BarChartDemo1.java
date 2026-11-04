@@ -25,7 +25,9 @@ public class BarChartDemo1 {
                 .addSeries("Females", new double[]{10.3, 20.1, 24.3})
                 .build();
 
-        CategoryBarChart chart = new CategoryBarChart(dataset, "Age Category", "Percent", "Antidepressant Medication Usage");
+        CategoryBarChart chart = new CategoryBarChart(dataset,
+                "Age Category", "Percent",
+                "Antidepressant Medication Usage");
         LegendTitle legend = chart.getLegend();
         chart.removeLegend();
         chart.addSubtitle(new TextTitle("Percentage of adults aged 18 and over who used antidepressant medication over past 30 days, by age and sex: United States, 2015-2018"));

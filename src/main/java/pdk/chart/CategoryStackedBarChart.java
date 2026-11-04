@@ -115,6 +115,16 @@ public class CategoryStackedBarChart extends CategoryBarChart {
     }
 
     /**
+     * Convenience constructor with vertical orientation, legend and tooltips
+     * enabled, no URLs.
+     *
+     * @param dataset the dataset ({@code null} permitted)
+     */
+    public CategoryStackedBarChart(CategoryDataset dataset) {
+        this(dataset, null, null, null);
+    }
+
+    /**
      * Sets the map used to assign each series to a group, allowing stacked
      * bars to be grouped independently of the series structure.
      *

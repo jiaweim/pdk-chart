@@ -118,13 +118,27 @@ Set the default shape. The default shape will only take effect when no series sh
 
 `Chart` support setting one main title and multiple subtitles.
 
+The `Title` class serves as the abstract class for all chart titles, managing layout, alignment, and visibility. It extends `AbstractBlock` and implements `ChartElement`, providing foundational configuration options for rendering titles within a chart.
+
 The class diagram of `Title` is shown below.
 
 <img src="./images/image-20260625114037180.png" alt="image-20260625114037180" width="600" />
 
 The main title is of the `TextTitle` type, while subtitles can be any subclass of `Title`. The chart's legend is also implemented as a subtitle.
 
-#### Main title
+**Property Summary**
+
+| Property            | Type                  | Default | Description                                          |
+| ------------------- | --------------------- | ------- | ---------------------------------------------------- |
+| visible             | `boolean`             | true    | Whether the title is rendered                        |
+| position            | `RectangleEdge`       | TOP     | The edge of the chart where the title is placed      |
+| horizontalAlignment | `HorizontalAlignment` | CENTER  | Horizontal positioning within the allocated area     |
+| verticalAlignment   | `VerticalAlignment`   | CENTER  | Vertical positioning within the allocated area       |
+| notify              | `boolean`             | true    | If change listeners are notified on property updates |
+
+#### TextTitle
+
+`TextTitle` defines the main title and optional subtitle displayed on the chart.
 
 Methods provided by `Chart` for setting main title:
 
@@ -132,6 +146,18 @@ Methods provided by `Chart` for setting main title:
 public void setTitle(TextTitle title);
 public void setTitle(String text); // Convenient methods for the previous
 ```
+
+**Content Options**
+
+| Option          | Type      | Default  | Description                                                  |
+| --------------- | --------- | -------- | ------------------------------------------------------------ |
+| **`text`**      | `string`  | `''`     | The title text. Supports `\n` for line breaks.               |
+| **`subtext`**   | `string`  | `''`     | The subtitle text, displayed below the main title. Supports `\n` for line breaks. |
+| **`show`**      | `boolean` | `true`   | Whether to display the title component.                      |
+| **`link`**      | `string`  | `''`     | URL to navigate to when the main title is clicked.           |
+| **`target`**    | `string`  | `'self'` | Target window for the link. Options: `'self'` (current), `'blank'` (new tab). |
+| **`sublink`**   | `string`  | `''`     | URL to navigate to when the subtitle is clicked.             |
+| **`subtarget`** | `string`  | `'self'` | Target window for the subtitle link.                         |
 
 #### Legend
 
