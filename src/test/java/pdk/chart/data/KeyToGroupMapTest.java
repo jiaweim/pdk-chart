@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import pdk.chart.TestUtils;
 import pdk.chart.util.CloneUtils;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -31,14 +32,8 @@ public class KeyToGroupMapTest {
         assertEquals("G1", m1.getGroup("K2"));  // after clearing, reverts to
         // default group
 
-        // check handling of null key
-        boolean pass = false;
-        try {
-            m1.mapKeyToGroup(null, "G1");
-        } catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThatThrownBy(() -> m1.mapKeyToGroup(null, "G1"))
+                .isInstanceOf(NullPointerException.class);
     }
 
     /**
@@ -151,13 +146,8 @@ public class KeyToGroupMapTest {
         assertEquals("Default Group", m1.getGroup("K1"));
 
         // a null argument should throw an exception
-        boolean pass = false;
-        try {
-            String g = m1.getGroup(null);
-        } catch (IllegalArgumentException e) {
-            pass = true;
-        }
-        assertTrue(pass);
+        assertThatThrownBy(() -> m1.getGroup(null))
+                .isInstanceOf(NullPointerException.class);
     }
 
     /**
