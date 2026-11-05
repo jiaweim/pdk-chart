@@ -3,13 +3,12 @@ package pdk.chart.axis;
 import pdk.chart.api.RectangleEdge;
 import pdk.chart.data.category.CategoryDataset;
 import pdk.chart.event.AxisChangeEvent;
-import pdk.chart.util.Args;
-import pdk.chart.util.SerialUtils;
 import pdk.chart.plot.CategoryPlot;
 import pdk.chart.plot.Plot;
 import pdk.chart.plot.PlotRenderingInfo;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
+import pdk.chart.util.SerialUtils;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -18,6 +17,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A specialised category axis that can display sub-categories.
@@ -62,7 +63,7 @@ public class SubCategoryAxis extends CategoryAxis
      * @param subCategory the sub-category ({@code null} not permitted).
      */
     public void addSubCategory(Comparable subCategory) {
-        Args.nullNotPermitted(subCategory, "subCategory");
+        requireNonNull(subCategory, "subCategory");
         this.subCategories.add(subCategory);
         notifyListeners(new AxisChangeEvent(this));
     }
@@ -85,7 +86,7 @@ public class SubCategoryAxis extends CategoryAxis
      * @see #getSubLabelFont()
      */
     public void setSubLabelFont(Font font) {
-        Args.nullNotPermitted(font, "font");
+        requireNonNull(font, "font");
         this.subLabelFont = font;
         notifyListeners(new AxisChangeEvent(this));
     }
@@ -108,7 +109,7 @@ public class SubCategoryAxis extends CategoryAxis
      * @see #getSubLabelPaint()
      */
     public void setSubLabelPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(paint, "paint");
         this.subLabelPaint = paint;
         notifyListeners(new AxisChangeEvent(this));
     }
@@ -236,7 +237,7 @@ public class SubCategoryAxis extends CategoryAxis
             Rectangle2D plotArea, Rectangle2D dataArea, RectangleEdge edge,
             AxisState state, PlotRenderingInfo plotState) {
 
-        Args.nullNotPermitted(state, "state");
+        requireNonNull(state, "state");
 
         g2.setFont(this.subLabelFont);
         g2.setPaint(this.subLabelPaint);

@@ -1,12 +1,7 @@
 package pdk.chart.data.time;
 
-import pdk.chart.util.Args;
-
 import java.io.Serializable;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.*;
 
 /**
  * Represents an hour in a specific day.  This class is immutable, which is a
@@ -68,7 +63,7 @@ public class Hour extends RegularTimePeriod implements Serializable {
      */
     public Hour(int hour, Day day) {
         super();
-        Args.nullNotPermitted(day, "day");
+        Objects.requireNonNull(day, "day");
         this.hour = (byte) hour;
         this.day = day;
         peg(getCalendarInstance());
@@ -112,9 +107,9 @@ public class Hour extends RegularTimePeriod implements Serializable {
      */
     public Hour(Date time, TimeZone zone, Locale locale) {
         super();
-        Args.nullNotPermitted(time, "time");
-        Args.nullNotPermitted(zone, "zone");
-        Args.nullNotPermitted(locale, "locale");
+        Objects.requireNonNull(time, "time");
+        Objects.requireNonNull(zone, "zone");
+        Objects.requireNonNull(locale, "locale");
         Calendar calendar = Calendar.getInstance(zone, locale);
         calendar.setTime(time);
         this.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);
@@ -132,8 +127,8 @@ public class Hour extends RegularTimePeriod implements Serializable {
      */
     public Hour(Date time, Calendar calendar) {
         super();
-        Args.nullNotPermitted(time, "time");
-        Args.nullNotPermitted(calendar, "calendar");
+        Objects.requireNonNull(time, "time");
+        Objects.requireNonNull(calendar, "calendar");
         calendar.setTime(time);
         this.hour = (byte) calendar.get(Calendar.HOUR_OF_DAY);
         this.day = new Day(time, calendar);

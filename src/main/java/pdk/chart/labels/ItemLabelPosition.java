@@ -1,6 +1,5 @@
 package pdk.chart.labels;
 
-import pdk.chart.util.Args;
 import pdk.chart.text.TextAnchor;
 
 import java.io.Serializable;
@@ -124,10 +123,10 @@ public class ItemLabelPosition implements Serializable {
             TextAnchor textAnchor, TextAnchor rotationAnchor, double angle,
             ItemLabelClip itemLabelClip) {
 
-        Args.nullNotPermitted(itemLabelAnchor, "itemLabelAnchor");
-        Args.nullNotPermitted(textAnchor, "textAnchor");
-        Args.nullNotPermitted(rotationAnchor, "rotationAnchor");
-        Args.nullNotPermitted(itemLabelClip, "labelClip");
+        Objects.requireNonNull(itemLabelAnchor, "itemLabelAnchor");
+        Objects.requireNonNull(textAnchor, "textAnchor");
+        Objects.requireNonNull(rotationAnchor, "rotationAnchor");
+        Objects.requireNonNull(itemLabelClip, "labelClip");
         this.itemLabelAnchor = itemLabelAnchor;
         this.textAnchor = textAnchor;
         this.rotationAnchor = rotationAnchor;

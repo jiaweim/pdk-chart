@@ -458,15 +458,12 @@ public class StackedBarRenderer extends BarRenderer
             return true;
         }
         if (!(obj instanceof StackedBarRenderer that)) {
-            System.out.println("In instance");
             return false;
         }
         if (this.renderAsPercentages != that.renderAsPercentages) {
-            System.out.println("In percentage");
             return false;
         }
         if (!Objects.equals(seriesToGroupMap, that.seriesToGroupMap)) {
-            System.out.println("In Series map");
             return false;
         }
         return super.equals(obj);

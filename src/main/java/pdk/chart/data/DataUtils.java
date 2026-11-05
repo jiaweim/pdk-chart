@@ -2,9 +2,9 @@ package pdk.chart.data;
 
 import pdk.chart.data.general.DatasetUtils;
 import pdk.chart.data.xy.XYZDataset;
-import pdk.chart.util.Args;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import static java.util.Objects.requireNonNull;
 
@@ -51,7 +51,7 @@ public abstract class DataUtils {
      * @return A clone of the array.
      */
     public static double[][] clone(double[][] source) {
-        Args.nullNotPermitted(source, "source");
+        Objects.requireNonNull(source, "source");
         double[][] clone = new double[source.length][];
         for (int i = 0; i < source.length; i++) {
             if (source[i] != null) {
@@ -72,7 +72,7 @@ public abstract class DataUtils {
      * @return The total of the values in the specified column.
      */
     public static double calculateColumnTotal(Values2D data, int column) {
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(data, "data");
         double total = 0.0;
         int rowCount = data.getRowCount();
         for (int r = 0; r < rowCount; r++) {
@@ -95,7 +95,7 @@ public abstract class DataUtils {
      */
     public static double calculateColumnTotal(Values2D data, int column,
             int[] validRows) {
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(data, "data");
         double total = 0.0;
         int rowCount = data.getRowCount();
         for (int row : validRows) {
@@ -118,7 +118,7 @@ public abstract class DataUtils {
      * @return The total of the values in the specified row.
      */
     public static double calculateRowTotal(Values2D data, int row) {
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(data, "data");
         double total = 0.0;
         int columnCount = data.getColumnCount();
         for (int c = 0; c < columnCount; c++) {
@@ -141,7 +141,7 @@ public abstract class DataUtils {
      */
     public static double calculateRowTotal(Values2D data, int row,
             int[] validCols) {
-        Args.nullNotPermitted(data, "data");
+        Objects.requireNonNull(data, "data");
         double total = 0.0;
         int colCount = data.getColumnCount();
         for (int col : validCols) {

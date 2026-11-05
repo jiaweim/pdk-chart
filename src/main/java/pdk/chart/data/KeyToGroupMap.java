@@ -1,12 +1,13 @@
 package pdk.chart.data;
 
 import pdk.chart.api.PublicCloneable;
-import pdk.chart.util.Args;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.*;
+
+import static java.util.Objects.requireNonNull;
 
 /**
  * A class that maps keys (instances of {@code Comparable}) to groups.
@@ -50,7 +51,7 @@ public class KeyToGroupMap<K extends Comparable<K>, G extends Comparable<G>>
      * @param defaultGroup the default group ({@code null} not permitted).
      */
     public KeyToGroupMap(G defaultGroup) {
-        Args.nullNotPermitted(defaultGroup, "defaultGroup");
+        requireNonNull(defaultGroup, "defaultGroup");
         this.defaultGroup = defaultGroup;
         this.groups = new ArrayList<>();
         this.keyToGroupMap = new HashMap<>();
@@ -110,7 +111,7 @@ public class KeyToGroupMap<K extends Comparable<K>, G extends Comparable<G>>
      * there is no mapping for the specified key).
      */
     public G getGroup(K key) {
-        Args.nullNotPermitted(key, "key");
+        requireNonNull(key, "key");
         G result = this.defaultGroup;
         G group = this.keyToGroupMap.get(key);
         if (group != null) {
@@ -127,7 +128,7 @@ public class KeyToGroupMap<K extends Comparable<K>, G extends Comparable<G>>
      *              existing mapping).
      */
     public void mapKeyToGroup(K key, G group) {
-        Args.nullNotPermitted(key, "key");
+        requireNonNull(key, "key");
         G currentGroup = getGroup(key);
         if (!currentGroup.equals(this.defaultGroup)) {
             if (!currentGroup.equals(group)) {
@@ -158,7 +159,7 @@ public class KeyToGroupMap<K extends Comparable<K>, G extends Comparable<G>>
      * @return The key count.
      */
     public int getKeyCount(G group) {
-        Args.nullNotPermitted(group, "group");
+        requireNonNull(group, "group");
         int result = 0;
         for (G g : this.keyToGroupMap.values()) {
             if (group.equals(g)) {

@@ -14,7 +14,10 @@ import pdk.chart.plot.pie.PiePlotState;
 import pdk.chart.text.TextAnchor;
 import pdk.chart.text.TextUtils;
 import pdk.chart.urls.PieURLGenerator;
-import pdk.chart.util.*;
+import pdk.chart.util.LineUtils;
+import pdk.chart.util.PaintUtils;
+import pdk.chart.util.SerialUtils;
+import pdk.chart.util.ShapeUtils;
 
 import java.awt.*;
 import java.awt.geom.Arc2D;
@@ -331,7 +334,7 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
      * @see #getSeparatorStroke()
      */
     public void setSeparatorStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        Objects.requireNonNull(stroke, "stroke");
         this.separatorStroke = stroke;
         fireChangeEvent();
     }
@@ -354,7 +357,7 @@ public class RingPlot extends PiePlot implements Cloneable, Serializable {
      * @see #getSeparatorPaint()
      */
     public void setSeparatorPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        Objects.requireNonNull(paint, "paint");
         this.separatorPaint = paint;
         fireChangeEvent();
     }

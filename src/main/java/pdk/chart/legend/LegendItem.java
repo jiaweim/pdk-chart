@@ -16,6 +16,8 @@ import java.text.AttributedString;
 import java.text.CharacterIterator;
 import java.util.Objects;
 
+import static java.util.Objects.requireNonNull;
+
 /**
  * A temporary storage object for recording the properties of a legend item,
  * without any consideration for layout issues.
@@ -284,11 +286,11 @@ public class LegendItem implements Cloneable, Serializable {
             boolean lineVisible, Shape line,
             Stroke lineStroke, Paint linePaint) {
 
-        Args.nullNotPermitted(label, "label");
-        Args.nullNotPermitted(fillPaint, "fillPaint");
-        Args.nullNotPermitted(lineStroke, "lineStroke");
-        Args.nullNotPermitted(outlinePaint, "outlinePaint");
-        Args.nullNotPermitted(outlineStroke, "outlineStroke");
+        requireNonNull(label, "label");
+        requireNonNull(fillPaint, "fillPaint");
+        requireNonNull(lineStroke, "lineStroke");
+        requireNonNull(outlinePaint, "outlinePaint");
+        requireNonNull(outlineStroke, "outlineStroke");
         this.label = label;
         this.labelPaint = null;
         this.attributedLabel = null;
@@ -418,13 +420,13 @@ public class LegendItem implements Cloneable, Serializable {
             boolean lineVisible, Shape line, Stroke lineStroke,
             Paint linePaint) {
 
-        Args.nullNotPermitted(label, "label");
-        Args.nullNotPermitted(fillPaint, "fillPaint");
-        Args.nullNotPermitted(lineStroke, "lineStroke");
-        Args.nullNotPermitted(line, "line");
-        Args.nullNotPermitted(linePaint, "linePaint");
-        Args.nullNotPermitted(outlinePaint, "outlinePaint");
-        Args.nullNotPermitted(outlineStroke, "outlineStroke");
+        requireNonNull(label, "label");
+        requireNonNull(fillPaint, "fillPaint");
+        requireNonNull(lineStroke, "lineStroke");
+        requireNonNull(line, "line");
+        requireNonNull(linePaint, "linePaint");
+        requireNonNull(outlinePaint, "outlinePaint");
+        requireNonNull(outlineStroke, "outlineStroke");
         this.label = characterIteratorToString(label.getIterator());
         this.attributedLabel = label;
         this.description = description;
@@ -698,7 +700,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @see #getShape()
      */
     public void setShape(Shape shape) {
-        Args.nullNotPermitted(shape, "shape");
+        requireNonNull(shape, "shape");
         this.shape = shape;
     }
 
@@ -726,7 +728,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @param paint the paint ({@code null} not permitted).
      */
     public void setFillPaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(paint, "paint");
         this.fillPaint = paint;
     }
 
@@ -755,7 +757,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @param stroke the stroke ({@code null} not permitted).
      */
     public void setLineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        requireNonNull(stroke, "stroke");
         this.lineStroke = stroke;
     }
 
@@ -774,7 +776,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @param paint the paint ({@code null} not permitted).
      */
     public void setLinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(paint, "paint");
         this.linePaint = paint;
     }
 
@@ -793,7 +795,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @param paint the paint ({@code null} not permitted).
      */
     public void setOutlinePaint(Paint paint) {
-        Args.nullNotPermitted(paint, "paint");
+        requireNonNull(paint, "paint");
         this.outlinePaint = paint;
     }
 
@@ -814,7 +816,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @see #getOutlineStroke()
      */
     public void setOutlineStroke(Stroke stroke) {
-        Args.nullNotPermitted(stroke, "stroke");
+        requireNonNull(stroke, "stroke");
         this.outlineStroke = stroke;
     }
 
@@ -857,7 +859,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @see #getLine()
      */
     public void setLine(Shape line) {
-        Args.nullNotPermitted(line, "line");
+        requireNonNull(line, "line");
         this.line = line;
     }
 
@@ -880,7 +882,7 @@ public class LegendItem implements Cloneable, Serializable {
      * @see #getFillPaintTransformer()
      */
     public void setFillPaintTransformer(GradientPaintTransformer transformer) {
-        Args.nullNotPermitted(transformer, "transformer");
+        requireNonNull(transformer, "transformer");
         this.fillPaintTransformer = transformer;
     }
 

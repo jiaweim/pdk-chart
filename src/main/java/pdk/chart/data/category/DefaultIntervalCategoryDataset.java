@@ -3,7 +3,6 @@ package pdk.chart.data.category;
 import pdk.chart.data.DataUtils;
 import pdk.chart.data.UnknownKeyException;
 import pdk.chart.data.general.AbstractSeriesDataset;
-import pdk.chart.util.Args;
 
 import java.util.*;
 
@@ -216,7 +215,7 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
      * @see #setCategoryKeys(Comparable[])
      */
     public void setSeriesKeys(Comparable[] seriesKeys) {
-        Args.nullNotPermitted(seriesKeys, "seriesKeys");
+        Objects.requireNonNull(seriesKeys, "seriesKeys");
         if (seriesKeys.length != getSeriesCount()) {
             throw new IllegalArgumentException(
                     "The number of series keys does not match the data.");
@@ -269,7 +268,7 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
      * @see #setSeriesKeys(Comparable[])
      */
     public void setCategoryKeys(Comparable[] categoryKeys) {
-        Args.nullNotPermitted(categoryKeys, "categoryKeys");
+        Objects.requireNonNull(categoryKeys, "categoryKeys");
         if (categoryKeys.length != getCategoryCount()) {
             throw new IllegalArgumentException(
                     "The number of categories does not match the data.");
@@ -541,7 +540,7 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
      */
     @Override
     public int getColumnIndex(Comparable columnKey) {
-        Args.nullNotPermitted(columnKey, "columnKey");
+        Objects.requireNonNull(columnKey, "columnKey");
         return getCategoryIndex(columnKey);
     }
 
@@ -708,7 +707,7 @@ public class DefaultIntervalCategoryDataset extends AbstractSeriesDataset
      * @return A clone of the array.
      */
     private static Number[][] clone(Number[][] array) {
-        Args.nullNotPermitted(array, "array");
+        Objects.requireNonNull(array, "array");
         Number[][] result = new Number[array.length][];
         for (int i = 0; i < array.length; i++) {
             Number[] child = array[i];
