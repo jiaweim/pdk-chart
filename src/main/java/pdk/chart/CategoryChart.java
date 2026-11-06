@@ -19,6 +19,7 @@ import pdk.chart.plot.*;
 import pdk.chart.renderer.AreaRendererEndType;
 import pdk.chart.renderer.category.*;
 import pdk.chart.text.TextAnchor;
+import pdk.chart.title.TextTitle;
 
 import java.awt.*;
 import java.util.List;
@@ -112,6 +113,22 @@ public class CategoryChart extends Chart {
         initRenderer();
     }
 
+
+    /**
+     * Sets the chart title.
+     * <p>
+     * This is a convenience method that ends up calling
+     * the {@link #setTitle(TextTitle)} method.  If there is an existing title,
+     * its text is updated, otherwise a new title using the default font is
+     * added to the chart.  If {@code text} is {@code null} the chart
+     * title is set to {@code null}.
+     *
+     * @param title the title text.
+     */
+    public CategoryChart withTitle(@Nullable String title) {
+        setTitle(title);
+        return this;
+    }
 
     /**
      * Sets the paint used to fill the chart background and sends a
@@ -722,6 +739,17 @@ public class CategoryChart extends Chart {
      */
     public void setDomainGridlinePosition(CategoryAnchor position) {
         plot_.setDomainGridlinePosition(position);
+    }
+
+    /**
+     * Sets the position used for the domain gridlines and sends a
+     * {@link PlotChangeEvent} to all registered listeners.
+     *
+     * @param position the position ({@code null} not permitted).
+     */
+    public CategoryChart withDomainGridlinePosition(CategoryAnchor position) {
+        plot_.setDomainGridlinePosition(position);
+        return this;
     }
 
     /**

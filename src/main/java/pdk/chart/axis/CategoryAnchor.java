@@ -19,6 +19,9 @@ public enum CategoryAnchor {
     /**
      * End of period.
      */
-    END
-
+    END,
+    /**
+     * between periods.
+     */
+    BETWEEN
 }

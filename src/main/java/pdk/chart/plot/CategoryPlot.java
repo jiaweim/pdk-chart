@@ -3711,21 +3711,37 @@ public class CategoryPlot<R extends Comparable<R>, C extends Comparable<C>>
         if (!isDomainGridlinesVisible()) {
             return;
         }
-        CategoryAnchor anchor = getDomainGridlinePosition();
-        RectangleEdge domainAxisEdge = getDomainAxisEdge();
         CategoryDataset<R, C> dataset = getDataset();
         if (dataset == null) {
             return;
         }
         CategoryAxis axis = getDomainAxis();
         if (axis != null) {
+            CategoryAnchor anchor = getDomainGridlinePosition();
+            RectangleEdge domainAxisEdge = getDomainAxisEdge();
             int columnCount = dataset.getColumnCount();
-            for (int c = 0; c < columnCount; c++) {
-                double xx = axis.getCategoryJava2DCoordinate(anchor, c,
-                        columnCount, dataArea, domainAxisEdge);
-                CategoryItemRenderer renderer1 = getRenderer();
-                if (renderer1 != null) {
-                    renderer1.drawDomainGridline(g2, this, dataArea, xx);
+
+            if (anchor == CategoryAnchor.BETWEEN) {
+                if (columnCount < 2) {
+                    return;
+                }
+                for (int c = 0; c < columnCount - 1; c++) {
+                    double p1 = axis.getCategoryMiddle(c, columnCount, dataArea, domainAxisEdge);
+                    double p2 = axis.getCategoryMiddle(c + 1, columnCount, dataArea, domainAxisEdge);
+                    double middle = (p1 + p2) / 2.0;
+                    CategoryItemRenderer renderer1 = getRenderer();
+                    if (renderer1 != null) {
+                        renderer1.drawDomainGridline(g2, this, dataArea, middle);
+                    }
+                }
+            } else {
+                for (int c = 0; c < columnCount; c++) {
+                    double xx = axis.getCategoryJava2DCoordinate(anchor, c,
+                            columnCount, dataArea, domainAxisEdge);
+                    CategoryItemRenderer renderer1 = getRenderer();
+                    if (renderer1 != null) {
+                        renderer1.drawDomainGridline(g2, this, dataArea, xx);
+                    }
                 }
             }
         }
